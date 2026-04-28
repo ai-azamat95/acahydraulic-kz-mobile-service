@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@/components/Analytics";
 import { useTikTokPageView } from "@/hooks/useTikTokEvents";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Route, Switch } from "wouter";
+import { Route, Router as WouterRouter, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { lazy, Suspense } from "react";
@@ -75,7 +75,7 @@ function PageLoader() {
   );
 }
 
-function Router() {
+function AppRoutes() {
   // make sure to consider if you need authentication for certain routes
   // Fire TikTok PageView on every route change via server-side Events API
   useTikTokPageView();
@@ -142,6 +142,10 @@ function Router() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
+  const routerBase = typeof window !== "undefined" && window.location.hostname.endsWith("github.io")
+    ? "/acahydraulic-kz-mobile-service"
+    : "";
+
   return (
     <ErrorBoundary>
       <ThemeProvider
@@ -154,7 +158,9 @@ function App() {
             yandexMetricaId="XXXXXXXX" 
           />
           <Toaster />
-          <Router />
+          <WouterRouter base={routerBase}>
+            <AppRoutes />
+          </WouterRouter>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

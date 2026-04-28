@@ -151,6 +151,7 @@ function vitePluginManusDebugCollector(): Plugin {
 const plugins = [react(), tailwindcss(), vitePluginManusDebugCollector()];
 
 export default defineConfig({
+  base: process.env.GITHUB_PAGES === "true" ? "/acahydraulic-kz-mobile-service/" : "/",
   plugins,
   resolve: {
     alias: {
