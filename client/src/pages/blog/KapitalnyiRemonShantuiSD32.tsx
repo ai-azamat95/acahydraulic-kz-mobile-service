@@ -3,6 +3,7 @@ import { SEO } from "@/components/SEO";
 import { Link } from "wouter";
 import { Calendar, Clock, ArrowLeft, Phone, MessageCircle, CheckCircle } from "lucide-react";
 
+import { publicAsset } from "@/lib/assets";
 declare global {
   interface Window {
     gtag_whatsapp_conversion?: () => void;
@@ -11,27 +12,27 @@ declare global {
 
 const SHANTUI_PHOTOS = [
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-6_de0c465b.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
     alt: "Демонтаж двигателя бульдозера SHANTUI SD32 автокраном — подготовка к капитальному ремонту",
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-1_f7882481.jpeg",
+    url: publicAsset("webdev-static-assets/shantui-sd32-1.jpeg"),
     alt: "Капитальный ремонт двигателя бульдозера SHANTUI SD32 — разборка и дефектовка",
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-2_e47252bb.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-2.png"),
     alt: "Ремонт гидравлической системы бульдозера SHANTUI SD32",
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-3_a208f0e9.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-3.png"),
     alt: "Специалист ACA Hydraulic проверяет гидравлику SHANTUI SD32 после ремонта",
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-4_d2869c5e.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-4.png"),
     alt: "Бульдозер SHANTUI SD32 после капитального ремонта — вид сбоку",
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-5_01d55ddd.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-5.png"),
     alt: "Гидравлические узлы SHANTUI SD32 после восстановления",
   },
 ];
@@ -57,7 +58,7 @@ export default function KapitalnyiRemonShantuiSD32() {
       "@type": "WebPage",
       "@id": "https://acahydraulic.kz/blog/kapitalnyy-remont-shantui-sd32",
     },
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-6_de0c465b.png",
+    image: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
     articleSection: "Ремонт бульдозеров",
     keywords:
       "капитальный ремонт SHANTUI SD32, ремонт бульдозера SHANTUI, ремонт ДВС SHANTUI SD32, ремонт гидравлики SHANTUI, SHANTUI SD32 Казахстан",

@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
+import { publicAsset } from "@/lib/assets";
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -35,7 +36,7 @@ interface SEOProps {
 
 const BASE_URL = "https://acahydraulic.kz";
 const DEFAULT_OG_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/og-image-HtKuYokK2cbvFAyfLGbjLd.png";
+  publicAsset("webdev-static-assets/og-image.jpg");
 const SITE_NAME = "ACA Hydraulic";
 const PHONE = "+77714177925";
 const BUSINESS_ID = `${BASE_URL}/#business`;

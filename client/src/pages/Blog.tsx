@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, User, ArrowRight, Tag, Clock } from "lucide-react";
 import { Link } from "wouter";
 
+import { publicAsset } from "@/lib/assets";
 const articles = [
   {
     id: 1,
@@ -66,7 +67,7 @@ const articles = [
     displayDate: "18.03.2026",
     author: "Инженер ACA Hydraulic",
     category: "Ремонт Wirtgen",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-1_dea1874a.png",
+    image: publicAsset("webdev-static-assets/wirtgen-1500-1.png"),
     slug: "remont-gidravliki-frezy-wirtgen-1500",
     readTime: "6 мин",
   },
@@ -79,7 +80,7 @@ const articles = [
     displayDate: "18.03.2026",
     author: "Инженер ACA Hydraulic",
     category: "Ремонт бульдозеров",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-6_de0c465b.png",
+    image: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
     slug: "kapitalnyy-remont-shantui-sd32",
     readTime: "7 мин",
   },
@@ -92,7 +93,7 @@ const articles = [
     displayDate: "22.03.2026",
     author: "Инженер ACA Hydraulic",
     category: "Ремонт Liebherr",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-6_de0c465b.png",
+    image: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
     slug: "remont-gidravliki-liebherr-r950",
     readTime: "6 мин",
   },
@@ -105,7 +106,7 @@ const articles = [
     displayDate: "25.03.2026",
     author: "Инженер ACA Hydraulic",
     category: "Ремонт Volvo",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-6_de0c465b.png",
+    image: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
     slug: "vosstanovlenie-gidromotora-volvo-ec380",
     readTime: "6 мин",
   },

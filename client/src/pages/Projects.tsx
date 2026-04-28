@@ -4,72 +4,73 @@ import { Phone, Calendar, MapPin, Wrench, CheckCircle2, ArrowRight, ChevronLeft,
 import { useState } from "react";
 import { Link } from "wouter";
 
+import { publicAsset } from "@/lib/assets";
 const WIRTGEN_PHOTOS = [
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-1_dea1874a.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-1.png"),
     caption: "Специалисты ACA Hydraulic проводят диагностику гидравлики фрезы Wirtgen 1500 на объекте"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-2_66586f24.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-2.png"),
     caption: "Диагностика гидравлического блока с применением манометров давления"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-4_dcc024c6.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-4.png"),
     caption: "Система управления Wirtgen 1500 — панель оператора и гидравлические регуляторы"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-3_a40c3b34.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-3.png"),
     caption: "Диагностика электронного блока управления и гидравлических клапанов"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-5_fe000346.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-5.png"),
     caption: "Панель управления фрезы Wirtgen 1500 после восстановления гидравлики"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-6_017cfac9.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-6.png"),
     caption: "Инженер ACA Hydraulic диагностирует гидромотор ходовой части — причина потери хода при нагреве"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-7_7ae35a64.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-7.png"),
     caption: "Фреза Wirtgen 1500 на площадке перед выездной диагностикой — специалист готовится к работе"
   }
 ];
 
 const SHANTUI_PHOTOS = [
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-6_55ea3392.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
     caption: "Демонтаж двигателя с применением автокрана — подготовка к капитальному ремонту"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-4_4dcf52f6.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-4.png"),
     caption: "Разборка двигателя: вид сверху на гидравлическую систему управления"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-5_5a1254e8.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-5.png"),
     caption: "Установка двигателя обратно на раму бульдозера"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-1_718b9d06.jpeg",
+    url: publicAsset("webdev-static-assets/shantui-sd32-1.jpeg"),
     caption: "Ремонт трансмиссии: сборка маховика двигателя"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-7_469eb293.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-7.png"),
     caption: "Снятый гидронасос бульдозера до ремонта — видны следы износа"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-9_23985bc9.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-9.png"),
     caption: "Блок цилиндров двигателя после капитального ремонта — новые уплотнения и коленвал"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-8_eb037e9a.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-8.png"),
     caption: "Гидронасос после восстановления — замена пар трения и распределительного диска"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-3_19e192a5.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-3.png"),
     caption: "Специалист ACA Hydraulic на фоне восстановленного бульдозера SHANTUI SD32"
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/shantui-sd32-2_fee60f2a.png",
+    url: publicAsset("webdev-static-assets/shantui-sd32-2.png"),
     caption: "Бульдозер SHANTUI SD32 после полного восстановления — готов к работе"
   }
 ];

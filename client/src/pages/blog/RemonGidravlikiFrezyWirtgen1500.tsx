@@ -3,6 +3,7 @@ import { SEO } from "@/components/SEO";
 import { Link } from "wouter";
 import { Calendar, Clock, ArrowLeft, Phone, MessageCircle, CheckCircle, AlertTriangle } from "lucide-react";
 
+import { publicAsset } from "@/lib/assets";
 declare global {
   interface Window {
     gtag_whatsapp_conversion?: () => void;
@@ -11,19 +12,19 @@ declare global {
 
 const WIRTGEN_PHOTOS = [
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-1_dea1874a.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-1.png"),
     alt: "Специалисты ACA Hydraulic диагностируют гидравлику дорожной фрезы Wirtgen 1500",
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-2_66586f24.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-2.png"),
     alt: "Диагностика гидравлического блока Wirtgen 1500 с манометрами давления",
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-6_017cfac9.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-6.png"),
     alt: "Инженер ACA Hydraulic диагностирует гидромотор ходовой части Wirtgen 1500",
   },
   {
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-7_7ae35a64.png",
+    url: publicAsset("webdev-static-assets/wirtgen-1500-7.png"),
     alt: "Фреза Wirtgen 1500 на площадке перед выездной диагностикой ACA Hydraulic",
   },
 ];
@@ -49,7 +50,7 @@ export default function RemonGidravlikiFrezyWirtgen1500() {
       "@type": "WebPage",
       "@id": "https://acahydraulic.kz/blog/remont-gidravliki-frezy-wirtgen-1500",
     },
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663029800642/hjyDDA5j6m9gsXoi5NupM4/wirtgen-1500-1_dea1874a.png",
+    image: publicAsset("webdev-static-assets/wirtgen-1500-1.png"),
     articleSection: "Ремонт Wirtgen",
     keywords:
       "ремонт гидравлики Wirtgen 1500, дорожная фреза теряет ход при нагреве, ремонт гидромотора Wirtgen, ремонт дорожной фрезы Казахстан, Wirtgen потеря хода",
