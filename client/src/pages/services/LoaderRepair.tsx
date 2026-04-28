@@ -1,0 +1,199 @@
+import { Button } from "@/components/ui/button";
+import { Phone, CheckCircle2, Wrench, AlertTriangle, Settings, Gauge } from "lucide-react";
+import { Link } from "wouter";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+
+export default function LoaderRepair() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-[#111111] text-white font-roboto pt-20">
+      {/* Breadcrumbs */}
+      <div className="container mx-auto px-4 py-4 text-sm text-gray-500">
+        <Link href="/" className="hover:text-[#FFC000]">Главная</Link>
+        <span className="mx-2">/</span>
+        <Link href="/services" className="hover:text-[#FFC000]">Услуги</Link>
+        <span className="mx-2">/</span>
+        <span className="text-white">Ремонт погрузчиков</span>
+      </div>
+
+      {/* Hero Section */}
+      <section className="relative py-16 md:py-24 border-b border-white/10 overflow-hidden">
+        <div className="absolute inset-0 bg-[#1a1a1a]">
+           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent z-10"></div>
+           <div className="absolute inset-0 opacity-20 bg-[url('/images/hero-bg-v4.webp')] bg-cover bg-center"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-20">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FFC000]/10 border border-[#FFC000]/20 rounded text-[#FFC000] text-xs font-bold uppercase tracking-widest mb-6">
+              <Settings size={14} />
+              Специализированный сервис
+            </div>
+            <h1 className="font-bebas font-bold text-4xl md:text-6xl leading-[0.95] mb-6 uppercase">
+              Профессиональный ремонт <br/>
+              <span className="text-[#FFC000]">погрузчиков</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
+              Восстановление гидравлических систем фронтальных и телескопических погрузчиков. Работаем по договору с НДС. Выездной сервис на объекты.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button 
+                onClick={() => setIsFormOpen(true)}
+                className="bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold text-lg h-14 px-8 rounded uppercase tracking-wide"
+              >
+                Заказать диагностику
+              </Button>
+              <a href="tel:+77714177925">
+                <Button variant="outline" className="h-14 px-8 rounded font-bebas font-bold text-lg uppercase tracking-wide border-white/20 hover:border-[#FFC000] hover:text-[#FFC000]">
+                  <Phone className="mr-2" size={20} />
+                  +7 (771) 417-79-25
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-16 md:py-24 border-b border-white/10">
+        <div className="container mx-auto px-4">
+          <h2 className="font-bebas font-bold text-3xl md:text-5xl uppercase mb-12">
+            Что мы <span className="text-[#FFC000]">ремонтируем</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-[#1a1a1a] p-6 rounded border border-white/10 hover:border-[#FFC000]/30 transition-colors">
+              <Wrench className="text-[#FFC000] mb-4" size={32} />
+              <h3 className="font-bebas text-2xl uppercase mb-3">Гидравлическая система</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Насосы, распределители, гидроцилиндры ковша и стрелы. Устранение утечек, восстановление рабочих параметров.
+              </p>
+            </div>
+
+            <div className="bg-[#1a1a1a] p-6 rounded border border-white/10 hover:border-[#FFC000]/30 transition-colors">
+              <Gauge className="text-[#FFC000] mb-4" size={32} />
+              <h3 className="font-bebas text-2xl uppercase mb-3">Трансмиссия</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Гидротрансформаторы, коробки передач, гидромоторы хода. Диагностика и капитальный ремонт.
+              </p>
+            </div>
+
+            <div className="bg-[#1a1a1a] p-6 rounded border border-white/10 hover:border-[#FFC000]/30 transition-colors">
+              <Settings className="text-[#FFC000] mb-4" size={32} />
+              <h3 className="font-bebas text-2xl uppercase mb-3">Рулевое управление</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Гидроусилители руля, насосы ГУР, рулевые колонки. Восстановление точности управления.
+              </p>
+            </div>
+
+            <div className="bg-[#1a1a1a] p-6 rounded border border-white/10 hover:border-[#FFC000]/30 transition-colors">
+              <AlertTriangle className="text-[#FFC000] mb-4" size={32} />
+              <h3 className="font-bebas text-2xl uppercase mb-3">Срочный ремонт</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Выездная бригада на объект. Устранение критических неисправностей. Минимизация простоев техники.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-16 md:py-24 border-b border-white/10">
+        <div className="container mx-auto px-4">
+          <h2 className="font-bebas font-bold text-3xl md:text-5xl uppercase mb-12">
+            Почему <span className="text-[#FFC000]">выбирают нас</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <CheckCircle2 className="text-[#FFC000] mb-4" size={40} />
+              <h3 className="font-bebas text-2xl uppercase mb-3">Опыт с крупными парками</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Обслуживание строительных и горнодобывающих компаний. Понимание специфики работы погрузчиков в тяжёлых условиях.
+              </p>
+            </div>
+
+            <div>
+              <CheckCircle2 className="text-[#FFC000] mb-4" size={40} />
+              <h3 className="font-bebas text-2xl uppercase mb-3">Работа по договору</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Официальное оформление с НДС. Полный пакет документов. Прозрачные условия сотрудничества для юридических лиц.
+              </p>
+            </div>
+
+            <div>
+              <CheckCircle2 className="text-[#FFC000] mb-4" size={40} />
+              <h3 className="font-bebas text-2xl uppercase mb-3">Выездной сервис</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Мобильные бригады выезжают на объекты по всему Казахстану. Ремонт на месте без транспортировки техники.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="font-bebas font-bold text-3xl md:text-5xl uppercase mb-6">
+            Готовы начать <span className="text-[#FFC000]">сотрудничество?</span>
+          </h2>
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            Свяжитесь с нами для обсуждения вашего проекта
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              onClick={() => setIsFormOpen(true)}
+              className="bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold text-lg h-14 px-8 rounded uppercase tracking-wide"
+            >
+              Заказать диагностику
+            </Button>
+            <a href="tel:+77714177925">
+              <Button variant="outline" className="h-14 px-8 rounded font-bebas font-bold text-lg uppercase tracking-wide border-white/20 hover:border-[#FFC000] hover:text-[#FFC000]">
+                <Phone className="mr-2" size={20} />
+                +7 (771) 417-79-25
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form Dialog */}
+      <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+        <DialogContent className="bg-[#1a1a1a] text-white border-white/10">
+          <DialogHeader>
+            <DialogTitle className="font-bebas text-2xl uppercase">Заказать диагностику</DialogTitle>
+          </DialogHeader>
+          <form className="space-y-4">
+            <div>
+              <Label htmlFor="name">Ваше имя</Label>
+              <Input id="name" className="bg-[#111111] border-white/10" />
+            </div>
+            <div>
+              <Label htmlFor="phone">Телефон</Label>
+              <Input id="phone" type="tel" className="bg-[#111111] border-white/10" />
+            </div>
+            <div>
+              <Label htmlFor="equipment">Модель погрузчика</Label>
+              <Input id="equipment" className="bg-[#111111] border-white/10" />
+            </div>
+            <div>
+              <Label htmlFor="issue">Описание проблемы</Label>
+              <Textarea id="issue" className="bg-[#111111] border-white/10" rows={4} />
+            </div>
+            <Button type="submit" className="w-full bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold text-lg h-12 uppercase">
+              Отправить заявку
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
