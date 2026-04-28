@@ -31,8 +31,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm build
-      - name: Add SPA fallback
-        run: cp dist/public/index.html dist/public/404.html
+      - name: Create static route copies
+        run: node scripts/create-spa-route-copies.mjs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
