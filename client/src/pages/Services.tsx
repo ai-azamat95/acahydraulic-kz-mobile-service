@@ -322,10 +322,10 @@ export default function Services() {
               >
                 Оставить заявку
               </Button>
-              <a href="tel:+77771417-78-25">
+              <a href="tel:+77714177925">
                 <Button className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black font-roboto uppercase tracking-wider px-8 py-6 text-base transition-all">
                   <Phone className="w-5 h-5 mr-2" />
-                  +7 (771) 417-78-25
+                  +7 (771) 417-79-25
                 </Button>
               </a>
             </div>
@@ -372,11 +372,11 @@ export default function Services() {
             <div>
               <h3 className="font-sans font-bold text-white text-lg mb-4">Контакты</h3>
               <div className="flex flex-col gap-3">
-                <a href="tel:+77771417-78-25" className="flex items-center gap-2 text-white/60 hover:text-[#FFC000] text-sm transition-colors">
+                <a href="tel:+77714177925" className="flex items-center gap-2 text-white/60 hover:text-[#FFC000] text-sm transition-colors">
                   <Phone size={16} />
-                  +7 (771) 417-78-25
+                  +7 (771) 417-79-25
                 </a>
-                <a href="https://wa.me/77771417-78-25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/60 hover:text-[#FFC000] text-sm transition-colors">
+                <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/60 hover:text-[#FFC000] text-sm transition-colors">
                   <MessageCircle size={16} />
                   WhatsApp
                 </a>

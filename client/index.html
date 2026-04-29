@@ -82,7 +82,21 @@
         return true;
       }
 
-      // Обратная совместимость
+      // Конверсия: Клик по телефону
+      function gtag_phone_conversion(url) {
+        var callback = function() {
+          if (url) { window.location.href = url; }
+        };
+        gtag('event', 'conversion', {
+          'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C',
+          'value': 1.0,
+          'currency': 'USD',
+          'event_callback': callback
+        });
+        return true;
+      }
+
+      // Обратная совместимость: старый helper используется для WhatsApp-кнопок
       function gtag_report_conversion(url) {
         return gtag_whatsapp_conversion(url);
       }

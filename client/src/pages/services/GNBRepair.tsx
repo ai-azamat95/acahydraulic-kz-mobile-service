@@ -50,7 +50,7 @@ export default function GNBRepair() {
               >
                 Получить техническую консультацию
               </Button>
-              <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/gJzYCKDa2vgbEOyImr5C'})} className="flex items-center justify-center gap-3 px-8 h-14 border border-white/20 rounded hover:bg-white/5 transition-colors">
+              <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})} className="flex items-center justify-center gap-3 px-8 h-14 border border-white/20 rounded hover:bg-white/5 transition-colors">
                 <Phone className="text-[#FFC000]" />
                 <span className="font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
               </a>

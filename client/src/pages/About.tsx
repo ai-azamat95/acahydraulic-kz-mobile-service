@@ -274,7 +274,7 @@ export default function About() {
               </Link>
               <a 
                 href="tel:+77714177925" 
-                onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/gJzYCKDa2vgbEOyImr5C'})}
+                onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})}
                 className="flex items-center justify-center gap-3 px-12 h-16 border border-white/20 rounded hover:bg-white/5 transition-colors"
               >
                 <Phone className="text-[#FFC000]" />
