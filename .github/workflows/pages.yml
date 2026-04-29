@@ -31,8 +31,6 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm build
-        env:
-          GITHUB_PAGES: "true"
       - name: Create static route copies
         run: node scripts/create-spa-route-copies.mjs
       - name: Upload artifact
