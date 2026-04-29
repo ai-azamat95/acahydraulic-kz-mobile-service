@@ -191,6 +191,7 @@ export default function RegionPage() {
       regionSpec={regionData.regionSpec}
       seoTitle={regionData.seoTitle}
       seoDescription={regionData.seoDescription}
+      canonical={`/regions/${params.slug}`}
       heroImage={regionData.heroImage}
       industries={regionData.industries}
     />

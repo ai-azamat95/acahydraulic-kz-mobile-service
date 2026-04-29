@@ -7,12 +7,30 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { SEO } from "@/components/SEO";
 
 export default function MobileRepair() {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#111111] text-white font-roboto pt-20">
+    <>
+      <SEO
+        title="Выездной ремонт гидравлики спецтехники в Казахстане 24/7"
+        description="Выездной ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Диагностика за 2 часа, работа по договору с НДС, гарантия до 12 месяцев."
+        keywords="выездной ремонт гидравлики, мобильный сервис спецтехники, ремонт гидравлики на объекте, ремонт экскаватора на объекте, аварийный ремонт гидравлики"
+        canonical="/services/mobile-repair"
+        breadcrumbs={[
+          { name: "Услуги", url: "/services" },
+          { name: "Выездной ремонт гидравлики", url: "/services/mobile-repair" },
+        ]}
+        serviceSchema={{
+          serviceName: "Выездной ремонт гидравлики спецтехники",
+          serviceDescription: "Мобильный сервис ACA Hydraulic для диагностики и ремонта гидравлики спецтехники на объекте по Казахстану.",
+          serviceUrl: "/services/mobile-repair",
+          areaServed: ["Астана", "Алматы", "Казахстан"],
+        }}
+      />
+      <div className="min-h-screen bg-[#111111] text-white font-roboto pt-20">
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4 text-sm text-gray-500">
         <Link href="/" className="hover:text-[#FFC000]">Главная</Link>
@@ -381,6 +399,7 @@ export default function MobileRepair() {
           </form>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </>
   );
 }
