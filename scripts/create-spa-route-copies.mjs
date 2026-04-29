@@ -95,7 +95,7 @@ const serviceNames = {
   'mining-loader-repair': 'Ремонт гидравлики шахтных погрузчиков',
   'mining-truck-repair': 'Ремонт гидравлики карьерных самосвалов',
   'manipulator-repair': 'Ремонт гидравлики манипуляторов',
-  'wirtgen-repair': 'Ремонт гидравлики Wirtgen',
+  'wirtgen-repair': 'Ремонт гидравлики дорожных фрез Wirtgen',
   'drilling-repair': 'Ремонт гидравлики буровых установок',
   'piledriver-repair': 'Ремонт гидравлики сваебойных установок',
   'press-repair': 'Ремонт гидравлических прессов',
@@ -169,7 +169,7 @@ function escapeAttr(value) {
 
 function withRouteHead(html, route) {
   const routePath = route ? `/${route}` : '/';
-  const canonical = `${baseUrl}${routePath}`;
+  const canonical = routePath === '/' ? `${baseUrl}/` : `${baseUrl}${routePath}/`;
   const { title, description } = metaForRoute(route);
   const t = escapeAttr(title);
   const d = escapeAttr(description);
