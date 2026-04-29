@@ -1,5 +1,4 @@
 import { Toaster } from "@/components/ui/sonner";
-import { Analytics } from "@/components/Analytics";
 import { useTikTokPageView } from "@/hooks/useTikTokEvents";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, Router as WouterRouter, Switch } from "wouter";
@@ -153,10 +152,6 @@ function App() {
         // switchable
       >
         <TooltipProvider>
-          <Analytics 
-            googleAnalyticsId="G-XXXXXXXXXX" 
-            yandexMetricaId="XXXXXXXX" 
-          />
           <Toaster />
           <WouterRouter base={routerBase}>
             <AppRoutes />

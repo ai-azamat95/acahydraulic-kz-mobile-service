@@ -11,6 +11,8 @@ export function useTikTokPageView() {
   const pageViewMutation = trpc.tiktok.pageView.useMutation();
 
   useEffect(() => {
+    if (import.meta.env.VITE_ENABLE_TIKTOK_EVENTS_API !== 'true') return;
+
     const url = window.location.href;
     // Get ttclid from URL params if present (TikTok click ID)
     const params = new URLSearchParams(window.location.search);
@@ -28,6 +30,8 @@ export function useTikTokContact() {
   const contactMutation = trpc.tiktok.contact.useMutation();
 
   const fireContact = (contactType: "whatsapp" | "phone" | "telegram") => {
+    if (import.meta.env.VITE_ENABLE_TIKTOK_EVENTS_API !== 'true') return;
+
     contactMutation.mutate({
       pageUrl: window.location.href,
       contactType,

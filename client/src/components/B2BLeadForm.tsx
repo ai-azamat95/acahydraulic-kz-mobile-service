@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { trpc } from '@/lib/trpc';
 
 interface B2BLeadFormProps {
   onSuccess?: () => void;
@@ -26,63 +25,50 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
     problem: '',
   });
 
-  const submitLead = trpc.leads.submit.useMutation({
-    onSuccess: (data) => {
-      toast.success("Заявка успешно отправлена!", {
-        description: "Наш менеджер свяжется с вами в течение 15 минут."
-      });
-      if (onSuccess) onSuccess();
-      
-      // Fire Google Ads conversion: Регистрация (отправка формы)
-      if (typeof (window as any).gtag_registration_conversion === 'function') {
-        (window as any).gtag_registration_conversion();
-      }
-      
-      // Reset form
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        whatsapp: '',
-        company: '',
-        bin: '',
-        equipmentType: '',
-        urgency: '',
-        problem: '',
-      });
-    },
-    onError: (error) => {
-      toast.error("Ошибка отправки заявки", {
-        description: error.message || "Пожалуйста, попробуйте позже или позвоните нам."
-      });
-    }
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('[B2BLeadForm] Form submitted', formData);
-    
-    // Prepare data for API
-    const comment = [
+    setIsSubmitting(true);
+
+    const messageLines = [
+      'Здравствуйте! Нужна заявка на ремонт гидравлики с сайта acahydraulic.kz',
+      `Контактное лицо: ${formData.name}`,
+      `Телефон: ${formData.phone}`,
       formData.company ? `Компания: ${formData.company}` : '',
       formData.bin ? `БИН: ${formData.bin}` : '',
+      formData.email ? `Email: ${formData.email}` : '',
+      formData.whatsapp ? `WhatsApp: ${formData.whatsapp}` : '',
+      formData.equipmentType ? `Тип техники: ${formData.equipmentType}` : '',
       formData.urgency ? `Срочность: ${formData.urgency}` : '',
-    ].filter(Boolean).join('\n');
+      formData.problem ? `Проблема: ${formData.problem}` : '',
+      `Страница: ${window.location.href}`,
+    ].filter(Boolean);
 
-    const payload = {
-      name: formData.name,
-      phone: formData.phone,
-      email: formData.email || undefined,
-      whatsapp: formData.whatsapp || undefined,
-      equipmentType: formData.equipmentType || undefined,
-      symptoms: formData.problem || undefined,
-      comment: comment || undefined,
-      formType: 'b2b' as const,
-      sourcePage: window.location.href,
-    };
-    
-    console.log('[B2BLeadForm] Calling mutation with payload:', payload);
-    submitLead.mutate(payload);
+    const whatsappUrl = `https://wa.me/77714177925?text=${encodeURIComponent(messageLines.join('\n'))}`;
+
+    if (typeof (window as any).gtag_registration_conversion === 'function') {
+      (window as any).gtag_registration_conversion();
+    }
+
+    toast.success('Заявка подготовлена', {
+      description: 'Откроем WhatsApp — отправьте сообщение менеджеру.',
+    });
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    if (onSuccess) onSuccess();
+
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      whatsapp: '',
+      company: '',
+      bin: '',
+      equipmentType: '',
+      urgency: '',
+      problem: '',
+    });
+    setIsSubmitting(false);
   };
 
   return (
@@ -230,13 +216,9 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
           <Button 
             type="submit" 
             className="w-full bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg h-12"
-            disabled={submitLead.isPending}
-            onClick={(e) => {
-              console.log('[B2BLeadForm] Button clicked');
-              // Let form submission handle it naturally
-            }}
+            disabled={isSubmitting}
           >
-            {submitLead.isPending ? (
+            {isSubmitting ? (
               "Отправка..."
             ) : (
               <span className="flex items-center gap-2">
