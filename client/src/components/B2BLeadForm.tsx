@@ -51,6 +51,10 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
       (window as any).gtag_registration_conversion();
     }
 
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'acahydraulic_form_submit');
+    }
+
     toast.success('Заявка подготовлена', {
       description: 'Откроем WhatsApp — отправьте сообщение менеджеру.',
     });
