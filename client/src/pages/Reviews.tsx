@@ -46,7 +46,7 @@ export default function Reviews() {
 
           {/* Phone Number & Mobile Menu */}
           <div className="flex items-center gap-4">
-            <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
               <Phone className="w-4 h-4 text-[#FFC000] fill-current group-hover:scale-110 transition-transform" />
               <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
             </a>
@@ -71,7 +71,7 @@ export default function Reviews() {
                     <Link href="/contacts" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">Контакты</Link>
                   </nav>
                   <div className="mt-auto p-6 border-t border-white/10">
-                    <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})} className="flex items-center gap-3 text-[#FFC000] mb-4">
+                    <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="flex items-center gap-3 text-[#FFC000] mb-4">
                       <Phone className="w-5 h-5" />
                       <span className="font-bebas text-xl">+7 (771) 417-79-25</span>
                     </a>
@@ -294,7 +294,7 @@ export default function Reviews() {
               <ul className="space-y-2 text-gray-500 text-sm font-roboto">
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-[#FFC000]" />
-                  <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})} className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
+                  <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
                 </li>
                 <li className="flex items-center gap-2">
                   <MessageCircle className="w-4 h-4 text-[#FFC000]" />

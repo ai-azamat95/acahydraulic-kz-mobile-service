@@ -13,6 +13,7 @@ export default function StickyMobileBar() {
           href="tel:+77714177925"
           className="flex-1 bg-black text-white flex items-center justify-center gap-2 py-4 font-bebas text-[16px] uppercase tracking-wide hover:bg-gray-900 transition-colors"
           onClick={() => {
+            if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); }
             window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'});
             fireTikTokContact('phone');
           }}

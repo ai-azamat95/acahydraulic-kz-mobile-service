@@ -57,7 +57,7 @@ export default function Contacts() {
                </svg>
             </a>
 
-            <a href="tel:+77714177925" className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
               <Phone className="w-4 h-4 text-[#FFC000] fill-current group-hover:scale-110 transition-transform" />
               <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
             </a>
@@ -89,7 +89,7 @@ export default function Contacts() {
                     <Link href="/contacts" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-[#FFC000] tracking-wide">Контакты</Link>
                   </nav>
                   <div className="mt-auto p-6 border-t border-white/10">
-                    <a href="tel:+77714177925" className="flex items-center gap-3 text-[#FFC000] mb-4">
+                    <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="flex items-center gap-3 text-[#FFC000] mb-4">
                       <Phone className="w-5 h-5" />
                       <span className="font-bebas text-xl">+7 (771) 417-79-25</span>
                     </a>
@@ -140,7 +140,7 @@ export default function Contacts() {
                     </div>
                     <div>
                       <h3 className="font-bebas text-xl text-white mb-1">Телефон</h3>
-                      <a href="tel:+77714177925" className="text-gray-400 hover:text-[#FFC000] transition-colors block text-lg">+7 (771) 417-79-25</a>
+                      <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="text-gray-400 hover:text-[#FFC000] transition-colors block text-lg">+7 (771) 417-79-25</a>
                       
                     </div>
                   </div>
@@ -266,7 +266,7 @@ export default function Contacts() {
 
       {/* Sticky Mobile Footer Action Bar */}
       <div className="md:hidden fixed bottom-12 left-2 right-2 p-3 bg-[#111111]/95 backdrop-blur border border-white/10 rounded-lg z-50 flex gap-2 shadow-2xl">
-        <a href="tel:+77714177925" className="flex-1" onClick={() => fireTikTokContact('phone')}>
+        <a href="tel:+77714177925" className="flex-1" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } fireTikTokContact('phone'); }}>
           <Button className="w-full bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold uppercase h-12 rounded-[4px] text-[16px] shadow-[0_0_15px_rgba(255,192,0,0.3)] tracking-wide">
             <Phone className="w-4 h-4 mr-2 fill-current" />
             Позвонить

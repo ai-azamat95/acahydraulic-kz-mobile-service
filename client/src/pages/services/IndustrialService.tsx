@@ -39,7 +39,7 @@ export default function IndustrialService() {
 
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
-            <a href="tel:+77714177925" className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
               <Phone className="w-4 h-4 text-[#FFC000] fill-current group-hover:scale-110 transition-transform" />
               <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
             </a>
@@ -75,7 +75,7 @@ export default function IndustrialService() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <a href="tel:+77714177925">
+                <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }}>
                   <Button className="bg-[#FFC000] text-black hover:bg-[#FFD700] font-bold px-8 py-6 text-lg">
                     <Phone className="w-5 h-5 mr-2" />
                     Обсудить договор
@@ -382,7 +382,7 @@ export default function IndustrialService() {
                     </li>
                   ))}
                 </ul>
-                <a href="tel:+77714177925">
+                <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }}>
                   <Button className={`w-full ${tariff.popular ? 'bg-[#FFC000] text-black hover:bg-[#FFD700]' : 'bg-white/10 hover:bg-white/20'} font-bold`}>
                     Обсудить условия
                   </Button>
@@ -395,7 +395,7 @@ export default function IndustrialService() {
             <p className="text-white/60 mb-4">
               * Итоговая стоимость зависит от типа техники, объёма работ и региона. Точный расчёт — после аудита.
             </p>
-            <a href="tel:+77714177925">
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }}>
               <Button className="bg-[#FFC000] text-black hover:bg-[#FFD700] font-bold px-8 py-6 text-lg">
                 <Phone className="w-5 h-5 mr-2" />
                 Получить расчёт для вашего парка
@@ -415,7 +415,7 @@ export default function IndustrialService() {
             Оставьте заявку — наш менеджер свяжется с вами в течение 30 минут и ответит на все вопросы
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:+77714177925">
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }}>
               <Button className="bg-[#FFC000] text-black hover:bg-[#FFD700] font-bold px-8 py-6 text-lg">
                 <Phone className="w-5 h-5 mr-2" />
                 Позвонить сейчас

@@ -53,7 +53,7 @@ export function Footer() {
             <ul className="space-y-2 text-gray-500 text-sm font-roboto">
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#FFC000]" />
-                <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})} className="hover:text-[#FFC000] transition-colors">{t('header.phone')}</a>
+                <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hover:text-[#FFC000] transition-colors">{t('header.phone')}</a>
               </li>
               <li className="flex items-center gap-2">
                 <MessageCircle className="w-4 h-4 text-[#FFC000]" />

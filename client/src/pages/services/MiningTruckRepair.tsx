@@ -35,7 +35,7 @@ export default function MiningTruckRepair() {
             </div>
           </Link>
           <div className="flex items-center gap-4">
-            <a href="tel:+77714177925" className="hidden md:flex items-center gap-2 bg-[#1a1a1a] px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors">
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a] px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors">
               <Phone className="w-4 h-4 text-[#FFC000]" />
               <span className="text-[#FFC000] font-bold font-bebas text-lg">+7 (771) 417-79-25</span>
             </a>
@@ -60,7 +60,7 @@ export default function MiningTruckRepair() {
               Профессиональный ремонт гусеничных и колесных экскаваторов всех марок. Восстановление гидравлики, двигателей, ходовой части.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="tel:+77714177925" className="bg-[#FFC000] text-black px-8 py-4 rounded font-bebas text-xl tracking-wide hover:bg-white transition-all duration-300 flex items-center justify-center gap-2">
+              <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="bg-[#FFC000] text-black px-8 py-4 rounded font-bebas text-xl tracking-wide hover:bg-white transition-all duration-300 flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
                 ВЫЗВАТЬ СПЕЦИАЛИСТА
               </a>
@@ -109,7 +109,7 @@ export default function MiningTruckRepair() {
             Работаем по всему Казахстану. Собственный склад запчастей.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="tel:+77714177925" className="bg-black text-[#FFC000] px-10 py-5 rounded font-bebas text-2xl tracking-wide hover:bg-white hover:text-black transition-all duration-300 inline-flex items-center justify-center gap-3">
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="bg-black text-[#FFC000] px-10 py-5 rounded font-bebas text-2xl tracking-wide hover:bg-white hover:text-black transition-all duration-300 inline-flex items-center justify-center gap-3">
               <Phone className="w-6 h-6" />
               ВЫЗВАТЬ СПЕЦИАЛИСТА
             </a>
@@ -145,7 +145,7 @@ export default function MiningTruckRepair() {
               <ul className="space-y-2 text-gray-500 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-[#FFC000]" />
-                  <a href="tel:+77714177925" className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
+                  <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
                 </li>
                 <li className="flex items-center gap-2">
                   <MessageCircle className="w-4 h-4 text-[#FFC000]" />

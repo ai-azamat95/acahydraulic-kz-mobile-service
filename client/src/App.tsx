@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, Router as WouterRouter, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 
 // Critical path — loaded immediately (above the fold on first visit)
 import Home from "@/pages/Home";
@@ -144,21 +144,6 @@ function App() {
   const routerBase = typeof window !== "undefined" && window.location.hostname.endsWith("github.io")
     ? "/acahydraulic-kz-mobile-service"
     : "";
-
-  // Global click tracking for phone links
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const link = target.closest('a[href^="tel:"]');
-      if (link) {
-        if (typeof window.gtag === 'function') {
-          window.gtag('event', 'acahydraulic_phone_click');
-        }
-      }
-    };
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
 
   return (
     <ErrorBoundary>

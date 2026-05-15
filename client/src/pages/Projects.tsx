@@ -436,7 +436,7 @@ export default function Projects() {
               </Link>
               <a 
                 href="tel:+77714177925" 
-                onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})}
+                onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }}
                 className="flex items-center justify-center gap-3 px-12 h-16 border border-white/20 rounded hover:bg-white/5 transition-colors"
               >
                 <Phone className="text-[#FFC000]" />

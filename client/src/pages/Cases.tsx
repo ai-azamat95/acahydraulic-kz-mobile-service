@@ -216,7 +216,7 @@ export default function Cases() {
                 Вызвать инженера
               </Button>
             </Link>
-            <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})}>
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }}>
               <Button variant="outline" className="border-black text-black hover:bg-black/10 px-10 py-6 text-lg font-bebas uppercase tracking-wider">
                 <Phone className="w-5 h-5 mr-2" />
                 Позвонить сейчас

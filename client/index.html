@@ -247,6 +247,24 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Global phone click tracking for GA4 -->
+    <script>
+      document.addEventListener('click', function(event) {
+        var link = event.target.closest && event.target.closest('a[href^="tel:"]');
+        if (!link) {
+          return;
+        }
+        if (typeof gtag === 'function') {
+          gtag('event', 'acahydraulic_phone_click', {
+            event_category: 'phone',
+            event_label: link.href,
+            link_url: link.href,
+            transport_type: 'beacon'
+          });
+        }
+      }, true);
+    </script>
   </body>
 
 </html>

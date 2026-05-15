@@ -115,7 +115,7 @@ export default function Home() {
                </svg>
             </a>
 
-            <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
+            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
               <Phone className="w-4 h-4 text-[#FFC000] fill-current group-hover:scale-110 transition-transform" />
               <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
             </a>
@@ -177,7 +177,7 @@ export default function Home() {
                     <Link href="/contacts" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.contacts')}</Link>
                   </nav>
                   <div className="mt-auto p-6 border-t border-white/10">
-                    <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})} className="flex items-center gap-3 text-[#FFC000] mb-4">
+                    <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="flex items-center gap-3 text-[#FFC000] mb-4">
                       <Phone className="w-5 h-5" />
                       <span className="font-bebas text-xl">+7 (771) 417-79-25</span>
                     </a>
@@ -225,7 +225,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto items-start">
               <a 
                 href="tel:+77714177925" 
-                onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})}
+                onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }}
                 className="inline-flex items-center justify-center bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-extrabold text-[14px] md:text-[18px] h-[38px] md:h-[56px] rounded-[4px] uppercase tracking-wide w-[220px] md:w-[260px] shadow-[0_4px_14px_rgba(255,192,0,0.4)] border-none transition-colors active:scale-95"
               >
                 {t('hero.cta_primary')}
@@ -627,7 +627,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-center gap-4">
             <a 
               href="tel:+77714177925" 
-              onClick={() => { window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); fireTikTokContact('phone'); }}
+              onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); fireTikTokContact('phone'); }}
               className="inline-flex items-center justify-center bg-black text-white hover:bg-gray-900 font-bebas font-bold text-xl h-16 px-10 rounded uppercase tracking-wide w-full md:w-auto shadow-xl transition-colors"
             >
               {t('cta.callNow')}
@@ -697,7 +697,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-[#FFC000] flex-shrink-0" />
-                  <a href="tel:+77714177925" onClick={() => window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'})} className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
+                  <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <MessageCircle className="w-5 h-5 text-[#FFC000] flex-shrink-0" />
