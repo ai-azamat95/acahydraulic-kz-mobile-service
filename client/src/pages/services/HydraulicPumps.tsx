@@ -28,7 +28,7 @@ const HydraulicPumps = () => {
           answer: 'Срок ремонта гидронасоса — от 3 до 7 рабочих дней в зависимости от модели и наличия запчастей. Для популярных моделей (Kawasaki K3V112, K3V140) запчасти есть на складе, срок ремонта сокращается до 3-5 дней.'
         }
       ]}
-      heroImage="/images/hydraulic-pump-repair.jpg"
+      heroImage="/images/hydraulic-repair-cinematic.webp"
       problems={[
         "Потеря давления в гидросистеме",
         "Посторонний шум и вибрация при работе",

@@ -18,6 +18,8 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
     phone: '',
     email: '',
     whatsapp: '',
+    location: '',
+    model: '',
     company: '',
     bin: '',
     equipmentType: '',
@@ -31,46 +33,34 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    if (formData.phone.replace(/\D/g, '').length < 10) {
+      toast.error('Укажите телефон с кодом города или оператора');
+      setIsSubmitting(false);
+      return;
+    }
+    const labels: Record<string, string> = {excavator:'Экскаватор', loader:'Погрузчик', crane:'Автокран', bulldozer:'Бульдозер', drilling:'Буровая установка', other:'Другое', emergency:'Срочно', planned:'Плановый ремонт', maintenance:'Техническое обслуживание', tender:'Запрос КП'};
     const messageLines = [
       'Здравствуйте! Нужна заявка на ремонт гидравлики с сайта acahydraulic.kz',
       `Контактное лицо: ${formData.name}`,
       `Телефон: ${formData.phone}`,
+      `Местонахождение: ${formData.location}`,
+      `Марка и модель: ${formData.model}`,
       formData.company ? `Компания: ${formData.company}` : '',
       formData.bin ? `БИН: ${formData.bin}` : '',
       formData.email ? `Email: ${formData.email}` : '',
       formData.whatsapp ? `WhatsApp: ${formData.whatsapp}` : '',
-      formData.equipmentType ? `Тип техники: ${formData.equipmentType}` : '',
-      formData.urgency ? `Срочность: ${formData.urgency}` : '',
+      formData.equipmentType ? `Тип техники: ${labels[formData.equipmentType] || formData.equipmentType}` : '',
+      formData.urgency ? `Срочность: ${labels[formData.urgency] || formData.urgency}` : '',
       formData.problem ? `Проблема: ${formData.problem}` : '',
       `Страница: ${window.location.href}`,
     ].filter(Boolean);
 
     const whatsappUrl = `https://wa.me/77714177925?text=${encodeURIComponent(messageLines.join('\n'))}`;
 
-    if (typeof (window as any).gtag_registration_conversion === 'function') {
-      (window as any).gtag_registration_conversion();
-    }
-
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', 'acahydraulic_form_submit');
-    }
-
-    toast.success('Заявка подготовлена', {
-      description: 'Откроем WhatsApp — отправьте сообщение менеджеру.',
-    });
+    // Open synchronously from the user action; never wait for advertising scripts.
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-    if (onSuccess) onSuccess();
-
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      whatsapp: '',
-      company: '',
-      bin: '',
-      equipmentType: '',
-      urgency: '',
-      problem: '',
+    toast.info('Сообщение подготовлено', {
+      description: 'Отправьте его в WhatsApp. Если окно не открылось, нажмите кнопку ещё раз. Введённые данные сохранены в форме.',
     });
     setIsSubmitting(false);
   };
@@ -80,59 +70,65 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
       <CardHeader className="bg-zinc-50 dark:bg-zinc-800/50 border-b border-zinc-100 dark:border-zinc-800">
         <CardTitle className="flex items-center gap-2 text-2xl">
           <Building2 className="text-[#FFB800]" />
-          Заявка на ремонт (Юр. лица)
+          Заявка на выездной ремонт
         </CardTitle>
         <CardDescription>
-          Приоритетная обработка корпоративных заявок. Ответ в течение 15 минут.
+          Укажите технику и место работ. Срок и стоимость выезда согласуем в WhatsApp.
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-2"><Label htmlFor="location">Где находится техника? *</Label><Input id="location" required placeholder="Город, посёлок или объект" value={formData.location} onChange={e => setFormData({...formData, location:e.target.value})} /></div>
+            <div className="space-y-2"><Label htmlFor="model">Марка и модель *</Label><Input id="model" required placeholder="Например, Hitachi ZX330" value={formData.model} onChange={e => setFormData({...formData, model:e.target.value})} /></div>
+          </div>
+          <details className="rounded border p-3"><summary className="cursor-pointer">Реквизиты компании (необязательно)</summary>
+          <div className="grid md:grid-cols-2 gap-4 mt-3">
             <div className="space-y-2">
               <Label htmlFor="company">Название компании</Label>
-              <Input 
-                id="company" 
-                placeholder="ООО 'СтройМашСервис'" 
+              <Input
+                id="company"
+                placeholder="ТОО «СтройМашСервис»"
                 value={formData.company}
                 onChange={(e) => setFormData({...formData, company: e.target.value})}
-                className="bg-zinc-50 dark:bg-zinc-950" 
+                className="bg-zinc-50 dark:bg-zinc-950"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="bin">БИН (опционально)</Label>
-              <Input 
-                id="bin" 
+              <Input
+                id="bin"
                 placeholder="Для выставления счета"
                 value={formData.bin}
                 onChange={(e) => setFormData({...formData, bin: e.target.value})}
-                className="bg-zinc-50 dark:bg-zinc-950" 
+                className="bg-zinc-50 dark:bg-zinc-950"
               />
             </div>
           </div>
 
+          </details>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">Контактное лицо *</Label>
-              <Input 
-                id="name" 
-                placeholder="Иван Петров" 
-                required 
+              <Input
+                id="name"
+                placeholder="Иван Петров"
+                required
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="bg-zinc-50 dark:bg-zinc-950" 
+                className="bg-zinc-50 dark:bg-zinc-950"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">Телефон *</Label>
-              <Input 
-                id="phone" 
-                type="tel" 
-                placeholder="+7 (777) 000-00-00" 
-                required 
+              <Input
+                id="phone"
+                type="tel"
+                placeholder="+7 (777) 000-00-00"
+                required
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="bg-zinc-50 dark:bg-zinc-950" 
+                className="bg-zinc-50 dark:bg-zinc-950"
               />
             </div>
           </div>
@@ -140,24 +136,24 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email (опционально)</Label>
-              <Input 
-                id="email" 
-                type="email" 
+              <Input
+                id="email"
+                type="email"
                 placeholder="ivan@company.kz"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="bg-zinc-50 dark:bg-zinc-950" 
+                className="bg-zinc-50 dark:bg-zinc-950"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="whatsapp">WhatsApp (опционально)</Label>
-              <Input 
-                id="whatsapp" 
-                type="tel" 
+              <Input
+                id="whatsapp"
+                type="tel"
                 placeholder="+7 (777) 000-00-00"
                 value={formData.whatsapp}
                 onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
-                className="bg-zinc-50 dark:bg-zinc-950" 
+                className="bg-zinc-50 dark:bg-zinc-950"
               />
             </div>
           </div>
@@ -199,9 +195,9 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
 
           <div className="space-y-2">
             <Label htmlFor="problem">Описание проблемы</Label>
-            <Textarea 
-              id="problem" 
-              placeholder="Опишите симптомы неисправности (например: пропало давление на горячую, шум в насосе...)" 
+            <Textarea
+              id="problem"
+              placeholder="Опишите симптомы неисправности (например: пропало давление на горячую, шум в насосе...)"
               className="min-h-[100px] bg-zinc-50 dark:bg-zinc-950"
               value={formData.problem}
               onChange={(e) => setFormData({...formData, problem: e.target.value})}
@@ -217,8 +213,8 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
             </div>
           </div>
 
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             className="w-full bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg h-12"
             disabled={isSubmitting}
           >
@@ -226,17 +222,17 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
               "Отправка..."
             ) : (
               <span className="flex items-center gap-2">
-                ОТПРАВИТЬ ЗАЯВКУ <Send className="w-5 h-5" />
+                ПРОДОЛЖИТЬ В WHATSAPP <Send className="w-5 h-5" />
               </span>
             )}
           </Button>
-          
+
           <p className="text-xs text-center text-muted-foreground">
-            Перезвоним в течение 10 минут
+            Заявка поступит после отправки сообщения в WhatsApp.
           </p>
-          
+
           <p className="text-xs text-center text-muted-foreground">
-            Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.
+            Нажимая кнопку, вы передаёте указанные сведения в WhatsApp для обработки обращения. <a href="/privacy/" className="underline">Политика конфиденциальности</a>.
           </p>
         </form>
       </CardContent>

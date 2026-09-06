@@ -24,7 +24,7 @@ export default function StoimostRemonGidromotora() {
       "@type": "WebPage",
       "@id": "https://acahydraulic.kz/blog/stoimost-remonta-gidromotora-komatsu",
     },
-    image: "https://acahydraulic.kz/images/hydraulic-motor-repair.jpg",
+    image: "https://acahydraulic.kz/images/hydraulic-repair-cinematic.webp",
   };
 
   return (
@@ -69,7 +69,7 @@ export default function StoimostRemonGidromotora() {
               </div>
             </div>
           </Link>
-          <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a] px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors">
+          <a href="tel:+77714177925" className="hidden md:flex items-center gap-2 bg-[#1a1a1a] px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors">
             <Phone className="w-4 h-4 text-[#FFC000]" />
             <span className="text-[#FFC000] font-bold font-bebas text-lg">+7 (771) 417-79-25</span>
           </a>
@@ -98,7 +98,7 @@ export default function StoimostRemonGidromotora() {
           Вопрос стоимости ремонта гидромотора Komatsu — один из самых частых в нашей практике. Клиенты хотят понять: стоит ли ремонтировать или выгоднее купить новый? Отвечаем честно, с реальными цифрами из нашей практики в Астане.
         </p>
 
-        <img src="/images/hydraulic-motor-repair.jpg" alt="Ремонт гидромотора Komatsu" className="w-full rounded-lg mb-10 object-cover h-64" loading="lazy" />
+        <img src="/images/hydraulic-repair-cinematic.webp" alt="Ремонт гидромотора Komatsu" className="w-full rounded-lg mb-10 object-cover h-64" loading="lazy" />
 
         <h2 className="font-bebas text-3xl text-[#FFC000] mb-4">Прайс-лист на ремонт гидромоторов Komatsu (2026)</h2>
         <div className="bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden mb-8">
@@ -167,10 +167,10 @@ export default function StoimostRemonGidromotora() {
           <h3 className="font-bebas text-3xl mb-3">Узнайте точную стоимость <span className="text-[#FFC000]">бесплатно</span></h3>
           <p className="text-gray-400 mb-6 text-sm">Пришлите фото или опишите проблему — дадим предварительную оценку за 15 минут.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="https://wa.me/77714177925?text=Здравствуйте!%20Нужен%20ремонт%20гидромотора%20Komatsu" target="_blank" rel="noopener noreferrer" onClick={() => window.gtag_whatsapp_conversion?.()} className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors">
+            <a href="https://wa.me/77714177925?text=Здравствуйте!%20Нужен%20ремонт%20гидромотора%20Komatsu" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors">
               <MessageCircle className="w-5 h-5" />WhatsApp
             </a>
-            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="flex items-center justify-center gap-2 bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas text-lg px-6 py-3 rounded transition-colors">
+            <a href="tel:+77714177925" className="flex items-center justify-center gap-2 bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas text-lg px-6 py-3 rounded transition-colors">
               <Phone className="w-5 h-5" />+7 (771) 417-79-25
             </a>
           </div>

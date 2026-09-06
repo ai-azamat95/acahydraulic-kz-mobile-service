@@ -10,7 +10,7 @@ const Karaganda = () => {
       seoDescription="Ремонт гидравлики карьерной и горнодобывающей техники в Карагандe. Обслуживание тяжелых экскаваторов Hitachi, Komatsu, бульдозеров, самосвалов. Выезд на разрезы 24/7. ☎ +7 (771) 417-79-25"
       seoKeywords="ремонт гидравлики Караганда, ремонт карьерной техники Караганда, ремонт экскаватора Komatsu Караганда, ремонт гидравлики шахтного оборудования, выездной сервис Караганда"
       canonical="/regions/karaganda"
-      heroImage="/images/karaganda-hydraulic.jpg"
+      heroImage="/images/service-van.webp"
       industries={[
         "Угольные разрезы и карьеры",
         "Тяжелые карьерные экскаваторы (Hitachi, Komatsu)",

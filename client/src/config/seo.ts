@@ -132,7 +132,7 @@ export const localBusinessSchema = {
   "@id": "https://acahydraulic.kz/#business",
   "name": "ACA Hydraulic",
   "legalName": "ТОО ACA Hydraulic",
-  "image": "https://acahydraulic.kz/webdev-static-assets/og-image.jpg",
+  "image": "https://acahydraulic.kz/webdev-static-assets/og-image.webp",
   "logo": "https://acahydraulic.kz/favicon-32.png",
   "description": "Профессиональный выездной сервис и ремонт гидравлики спецтехники, экскаваторов и буровых установок в Астане и по всему Казахстану. Работаем 24/7.",
   "address": {

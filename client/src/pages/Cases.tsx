@@ -35,7 +35,7 @@ const cases = [
     title: "Ремонт КПП бульдозера Shantui SD32",
     category: "bulldozers",
     categoryLabel: "Бульдозеры",
-    image: "/images/shantui-sd32.webp", // Placeholder
+    image: "/images/excavator-tech-repair.webp", // Placeholder
     location: "Экибастуз, угольный разрез",
     duration: "5 дней",
     problem: "Пропала тяга на 2-й передаче, посторонний шум в трансмиссии.",
@@ -47,7 +47,7 @@ const cases = [
     title: "Диагностика буровой SANY SR280",
     category: "drilling",
     categoryLabel: "Буровые",
-    image: "/images/sany-sr280.webp", // Placeholder
+    image: "/images/excavator-tech-repair.webp", // Placeholder
     location: "Атырау",
     duration: "2 дня",
     problem: "Нестабильное вращение ротора, падение давления в главном контуре.",
@@ -216,7 +216,7 @@ export default function Cases() {
                 Вызвать инженера
               </Button>
             </Link>
-            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }}>
+            <a href="tel:+77714177925">
               <Button variant="outline" className="border-black text-black hover:bg-black/10 px-10 py-6 text-lg font-bebas uppercase tracking-wider">
                 <Phone className="w-5 h-5 mr-2" />
                 Позвонить сейчас

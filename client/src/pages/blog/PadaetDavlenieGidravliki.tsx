@@ -235,7 +235,6 @@ export default function PadaetDavlenieGidravliki() {
               href="https://wa.me/77714177925?text=Здравствуйте!%20Упало%20давление%20гидравлики%20экскаватора"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => window.gtag_whatsapp_conversion?.()}
               className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors"
             >
               <MessageCircle className="w-5 h-5" />

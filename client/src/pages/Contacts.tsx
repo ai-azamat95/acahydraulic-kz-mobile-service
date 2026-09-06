@@ -4,7 +4,7 @@ import { Phone, MessageCircle, Menu, MapPin, Mail, Clock, Send, Video } from "lu
 import { Link } from "wouter";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { MapView } from "@/components/Map";
+
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
 export default function Contacts() {
@@ -57,7 +57,7 @@ export default function Contacts() {
                </svg>
             </a>
 
-            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
+            <a href="tel:+77714177925" className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
               <Phone className="w-4 h-4 text-[#FFC000] fill-current group-hover:scale-110 transition-transform" />
               <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
             </a>
@@ -89,7 +89,7 @@ export default function Contacts() {
                     <Link href="/contacts" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-[#FFC000] tracking-wide">Контакты</Link>
                   </nav>
                   <div className="mt-auto p-6 border-t border-white/10">
-                    <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="flex items-center gap-3 text-[#FFC000] mb-4">
+                    <a href="tel:+77714177925" className="flex items-center gap-3 text-[#FFC000] mb-4">
                       <Phone className="w-5 h-5" />
                       <span className="font-bebas text-xl">+7 (771) 417-79-25</span>
                     </a>
@@ -140,7 +140,7 @@ export default function Contacts() {
                     </div>
                     <div>
                       <h3 className="font-bebas text-xl text-white mb-1">Телефон</h3>
-                      <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="text-gray-400 hover:text-[#FFC000] transition-colors block text-lg">+7 (771) 417-79-25</a>
+                      <a href="tel:+77714177925" className="text-gray-400 hover:text-[#FFC000] transition-colors block text-lg">+7 (771) 417-79-25</a>
                       
                     </div>
                   </div>
@@ -203,7 +203,7 @@ export default function Contacts() {
 
               {/* Social Links */}
               <div className="grid grid-cols-2 gap-4">
-                <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="col-span-1" onClick={() => { if((window as any).gtag_whatsapp_conversion) (window as any).gtag_whatsapp_conversion('https://wa.me/77714177925'); fireTikTokContact('whatsapp'); }}>
+                <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="col-span-1">
                   <Button className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bebas text-lg h-14 uppercase tracking-wide">
                     <MessageCircle className="w-5 h-5 mr-2" />
                     WhatsApp
@@ -228,24 +228,7 @@ export default function Contacts() {
 
             {/* Map */}
             <div className="bg-[#1a1a1a] border border-white/10 rounded-sm overflow-hidden h-[500px] lg:h-auto relative">
-               <MapView 
-                className="w-full h-full"
-                onMapReady={(map: google.maps.Map) => {
-                  // Initialize map centered on Astana, Abai Avenue 24/1
-                  // Coordinates for Abai Avenue 24/1, Astana
-                  const position = { lat: 51.167758, lng: 71.423135 };
-                  map.setCenter(position);
-                  map.setZoom(16);
-                  
-                  // Add marker for base location
-                  new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    title: "ACA Hydraulic",
-                    animation: google.maps.Animation.DROP
-                  });
-                }}
-              />
+              <a href="https://2gis.kz/astana/geo/70000001111695391" target="_blank" rel="noopener noreferrer" className="flex h-full min-h-[300px] flex-col items-center justify-center gap-4 p-8 text-center"><MapPin className="h-12 w-12 text-[#FFC000]" /><span className="text-2xl">Астана, проспект Абая 24/1</span><span className="text-[#FFC000] underline">Посмотреть адрес и маршрут в 2ГИС</span></a>
               {/* Map Overlay Gradient */}
               <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#1a1a1a]/20"></div>
             </div>
@@ -266,13 +249,13 @@ export default function Contacts() {
 
       {/* Sticky Mobile Footer Action Bar */}
       <div className="md:hidden fixed bottom-12 left-2 right-2 p-3 bg-[#111111]/95 backdrop-blur border border-white/10 rounded-lg z-50 flex gap-2 shadow-2xl">
-        <a href="tel:+77714177925" className="flex-1" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } fireTikTokContact('phone'); }}>
+        <a href="tel:+77714177925" className="flex-1">
           <Button className="w-full bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold uppercase h-12 rounded-[4px] text-[16px] shadow-[0_0_15px_rgba(255,192,0,0.3)] tracking-wide">
             <Phone className="w-4 h-4 mr-2 fill-current" />
             Позвонить
           </Button>
         </a>
-        <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="flex-1" onClick={() => { if((window as any).gtag_whatsapp_conversion) (window as any).gtag_whatsapp_conversion('https://wa.me/77714177925'); fireTikTokContact('whatsapp'); }}>
+        <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="flex-1">
           <Button className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white border border-white/20 font-bebas font-bold uppercase h-12 rounded-[4px] text-[16px] tracking-wide">
             <MessageCircle className="w-5 h-5 mr-2 text-[#25D366]" />
             WhatsApp

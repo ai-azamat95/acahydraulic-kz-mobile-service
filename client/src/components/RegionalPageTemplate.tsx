@@ -38,7 +38,7 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
         canonical={canonical}
         faq={faq}
         breadcrumbs={[
-          { name: 'Регионы', url: '/regions' },
+
           { name: city, url: canonical || '/regions' },
         ]}
         serviceSchema={canonical ? {
@@ -56,7 +56,7 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
             <img src={heroImage} alt={`Ремонт гидравлики ${city}`} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/70" />
           </div>
-          
+
           <div className="container relative z-10 px-4 md:px-6 text-center">
             <div className="inline-flex items-center gap-2 bg-[#FFB800] text-black px-4 py-1 rounded-full font-bold mb-6">
               <MapPin className="w-4 h-4" />
@@ -67,10 +67,10 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
             </h1>
             <p className="text-xl text-gray-200 mb-8 font-light max-w-2xl mx-auto">
               Специализированный сервис для {regionSpec}. <br />
-              Прибытие бригады на объект от 2 часов.
+              Срок и стоимость выезда согласуем по местонахождению техники.
             </p>
-            <Button size="lg" className="bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg px-8">
-              ВЫЗВАТЬ БРИГАДУ В {city.toUpperCase()}
+            <Button asChild size="lg" className="bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg px-8">
+              <a href="#repair-request">Вызвать бригаду</a>
             </Button>
           </div>
         </section>
@@ -127,10 +127,10 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
                 <Phone className="w-8 h-8 text-[#FFB800]" />
                 <div className="text-left">
                   <div className="text-sm text-gray-400">Круглосуточная диспетчерская</div>
-                  <div className="text-xl font-bold">+7 (771) 417-79-25</div>
+                  <a href="tel:+77714177925" className="text-xl font-bold">+7 (771) 417-79-25</a>
                 </div>
               </div>
-              <div className="w-full max-w-2xl">
+              <div id="repair-request" className="w-full max-w-2xl scroll-mt-8">
                 <B2BLeadForm />
               </div>
             </div>

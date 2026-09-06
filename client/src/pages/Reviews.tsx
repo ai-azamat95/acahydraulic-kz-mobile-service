@@ -46,7 +46,7 @@ export default function Reviews() {
 
           {/* Phone Number & Mobile Menu */}
           <div className="flex items-center gap-4">
-            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
+            <a href="tel:+77714177925" className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
               <Phone className="w-4 h-4 text-[#FFC000] fill-current group-hover:scale-110 transition-transform" />
               <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
             </a>
@@ -71,7 +71,7 @@ export default function Reviews() {
                     <Link href="/contacts" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">Контакты</Link>
                   </nav>
                   <div className="mt-auto p-6 border-t border-white/10">
-                    <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="flex items-center gap-3 text-[#FFC000] mb-4">
+                    <a href="tel:+77714177925" className="flex items-center gap-3 text-[#FFC000] mb-4">
                       <Phone className="w-5 h-5" />
                       <span className="font-bebas text-xl">+7 (771) 417-79-25</span>
                     </a>
@@ -163,66 +163,6 @@ export default function Reviews() {
 
           </div>
 
-          {/* Official Letters */}
-          <div className="mb-20">
-            <h2 className="font-bebas text-3xl md:text-4xl text-white mb-10 tracking-wide text-center uppercase">Благодарственные письма</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              
-              <div className="group cursor-pointer">
-                <div className="aspect-[1/1.4] bg-white p-2 rounded-sm mb-4 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                    <FileText className="w-12 h-12 text-gray-400" />
-                  </div>
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white font-bebas tracking-wide border border-white px-4 py-2">Увеличить</span>
-                  </div>
-                </div>
-                <p className="text-white font-bold text-center text-sm">ТОО "АтырауНефтеМаш"</p>
-                <p className="text-gray-500 text-center text-xs">Благодарность за ремонт крановой техники</p>
-              </div>
-
-              <div className="group cursor-pointer">
-                <div className="aspect-[1/1.4] bg-white p-2 rounded-sm mb-4 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                    <FileText className="w-12 h-12 text-gray-400" />
-                  </div>
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white font-bebas tracking-wide border border-white px-4 py-2">Увеличить</span>
-                  </div>
-                </div>
-                <p className="text-white font-bold text-center text-sm">АО "КазАвтоЖол"</p>
-                <p className="text-gray-500 text-center text-xs">Отзыв о сервисном обслуживании</p>
-              </div>
-
-              <div className="group cursor-pointer">
-                <div className="aspect-[1/1.4] bg-white p-2 rounded-sm mb-4 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                    <FileText className="w-12 h-12 text-gray-400" />
-                  </div>
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white font-bebas tracking-wide border border-white px-4 py-2">Увеличить</span>
-                  </div>
-                </div>
-                <p className="text-white font-bold text-center text-sm">ТОО "Bazis Construction"</p>
-                <p className="text-gray-500 text-center text-xs">Рекомендательное письмо</p>
-              </div>
-
-              <div className="group cursor-pointer">
-                <div className="aspect-[1/1.4] bg-white p-2 rounded-sm mb-4 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                    <FileText className="w-12 h-12 text-gray-400" />
-                  </div>
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white font-bebas tracking-wide border border-white px-4 py-2">Увеличить</span>
-                  </div>
-                </div>
-                <p className="text-white font-bold text-center text-sm">ТОО "ERG Service"</p>
-                <p className="text-gray-500 text-center text-xs">Благодарность за сложный ремонт</p>
-              </div>
-
-            </div>
-          </div>
-
           {/* CTA Section */}
           <div className="bg-[#1a1a1a] border border-white/10 p-8 md:p-12 rounded-sm text-center">
             <h2 className="font-bebas text-3xl md:text-4xl text-white mb-4 tracking-wide">Оставьте свой отзыв</h2>
@@ -230,7 +170,7 @@ export default function Reviews() {
               Ваше мнение помогает нам становиться лучше. Если вы уже воспользовались нашими услугами, пожалуйста, поделитесь впечатлениями.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a href="https://wa.me/77714177925" onClick={() => { window.gtag_report_conversion('https://wa.me/77714177925'); return false; }} target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-[#FFC000] text-black hover:bg-white font-bebas text-xl py-6 px-8 tracking-wide w-full sm:w-auto">
                   Написать в WhatsApp <MessageCircle className="ml-2 w-5 h-5" />
                 </Button>
@@ -294,11 +234,11 @@ export default function Reviews() {
               <ul className="space-y-2 text-gray-500 text-sm font-roboto">
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-[#FFC000]" />
-                  <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
+                  <a href="tel:+77714177925" className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
                 </li>
                 <li className="flex items-center gap-2">
                   <MessageCircle className="w-4 h-4 text-[#FFC000]" />
-                  <a href="https://wa.me/77714177925" onClick={() => { window.gtag_report_conversion('https://wa.me/77714177925'); return false; }} target="_blank" rel="noopener noreferrer" className="hover:text-[#FFC000] transition-colors">WhatsApp</a>
+                  <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="hover:text-[#FFC000] transition-colors">WhatsApp</a>
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-[#FFC000]" />

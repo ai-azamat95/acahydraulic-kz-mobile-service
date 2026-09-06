@@ -17,7 +17,7 @@ const regionsConfig: Record<string, {
     regionSpec: "строительного сектора и коммунальных служб",
     seoTitle: "Ремонт гидравлики Астана | Выездной сервис спецтехники",
     seoDescription: "Ремонт гидравлики в Астане с выездом. Диагностика экскаваторов, кранов, погрузчиков. Ремонт насосов и распределителей. Работаем с НДС.",
-    heroImage: "/images/astana-hydraulic.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Строительство жилых комплексов и дорог",
       "Коммунальная уборочная техника",
@@ -30,7 +30,7 @@ const regionsConfig: Record<string, {
     regionSpec: "угольной промышленности и горнодобывающего сектора",
     seoTitle: "Ремонт гидравлики Караганда | Сервис карьерной техники",
     seoDescription: "Ремонт гидравлики в Караганде. Обслуживание карьерных экскаваторов, буровых станков, шахтного оборудования. Выезд на разрезы.",
-    heroImage: "/images/karaganda-mining.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Угольные разрезы и добыча",
       "Карьерные экскаваторы (Hitachi, Komatsu)",
@@ -43,7 +43,7 @@ const regionsConfig: Record<string, {
     regionSpec: "агропромышленного комплекса и машиностроения",
     seoTitle: "Ремонт гидравлики Петропавловск | Сервис сельхозтехники",
     seoDescription: "Ремонт гидравлики в Петропавловске. Диагностика тракторов, комбайнов, посевных комплексов. Выезд в поля СКО.",
-    heroImage: "/images/petropavlovsk-agro.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Сельскохозяйственная техника (John Deere, Claas)",
       "Дорожно-строительные работы",
@@ -56,7 +56,7 @@ const regionsConfig: Record<string, {
     regionSpec: "горнорудной промышленности и логистики",
     seoTitle: "Ремонт гидравлики Семей | Выездной сервис спецтехники",
     seoDescription: "Ремонт гидравлики в Семее и области Абай. Обслуживание горной техники, погрузчиков, кранов. Оперативный выезд.",
-    heroImage: "/images/semey-industrial.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Горнорудные предприятия",
       "Логистические центры",
@@ -69,7 +69,7 @@ const regionsConfig: Record<string, {
     regionSpec: "энергетического сектора и угольной промышленности",
     seoTitle: "Ремонт гидравлики Павлодар Экибастуз | Сервис спецтехники",
     seoDescription: "Ремонт гидравлики в Павлодаре и Экибастузе. Обслуживание техники на угольных разрезах и ГРЭС. Ремонт насосов и распределителей.",
-    heroImage: "/images/pavlodar-energy.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Угольные разрезы Экибастуза",
       "Энергетические предприятия",
@@ -82,7 +82,7 @@ const regionsConfig: Record<string, {
     regionSpec: "цветной металлургии и горного дела",
     seoTitle: "Ремонт гидравлики Жезказган Балхаш | Сервис горной техники",
     seoDescription: "Ремонт гидравлики в Жезказгане и Балхаше. Обслуживание техники на медных рудниках и обогатительных фабриках. Выездной сервис.",
-    heroImage: "/images/zhezkazgan-copper.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Медные рудники и карьеры",
       "Обогатительные фабрики",
@@ -95,7 +95,7 @@ const regionsConfig: Record<string, {
     regionSpec: "золотодобывающей промышленности и агросектора",
     seoTitle: "Ремонт гидравлики Кокшетау | Сервис спецтехники Акмолинская область",
     seoDescription: "Ремонт гидравлики в Кокшетау и Акмолинской области. Обслуживание техники на золотых приисках и полях. Выездной сервис.",
-    heroImage: "/images/kokshetau-gold.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Золотодобывающие предприятия",
       "Зерновое хозяйство",
@@ -108,7 +108,7 @@ const regionsConfig: Record<string, {
     regionSpec: "железорудной промышленности и сельского хозяйства",
     seoTitle: "Ремонт гидравлики Костанай | Сервис спецтехники",
     seoDescription: "Ремонт гидравлики в Костанае и области. Обслуживание техники на железорудных карьерах и в агросекторе. Ремонт гидронасосов.",
-    heroImage: "/images/kostanay-iron.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Железорудные карьеры (ССГПО)",
       "Крупные агрохолдинги",
@@ -123,7 +123,7 @@ const regionsConfig: Record<string, {
     regionSpec: "строительства, логистики и промышленности",
     seoTitle: "Ремонт гидравлики Алматы | Выездной сервис спецтехники",
     seoDescription: "Ремонт гидравлики в Алматы и области. Диагностика и ремонт спецтехники с выездом. Ремонт гидронасосов, моторов, цилиндров.",
-    heroImage: "/images/almaty-construction.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Строительство БАКАД и развязок",
       "Логистические терминалы",
@@ -136,7 +136,7 @@ const regionsConfig: Record<string, {
     regionSpec: "нефтегазового сектора и шельфовых проектов",
     seoTitle: "Ремонт гидравлики Атырау | Сервис нефтегазовой техники",
     seoDescription: "Ремонт гидравлики в Атырау. Обслуживание техники на месторождениях Тенгиз, Кашаган. Взрывозащищенное оборудование.",
-    heroImage: "/images/atyrau-oil.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Нефтегазовые месторождения (Тенгиз, Кашаган)",
       "Строительство трубопроводов",
@@ -149,7 +149,7 @@ const regionsConfig: Record<string, {
     regionSpec: "морской логистики и нефтесервиса",
     seoTitle: "Ремонт гидравлики Актау | Сервис портовой техники",
     seoDescription: "Ремонт гидравлики в Актау. Обслуживание портовых кранов, погрузчиков, техники на месторождениях Мангистау.",
-    heroImage: "/images/aktau-port.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Морской порт Актау",
       "Месторождения Мангистау",
@@ -162,7 +162,7 @@ const regionsConfig: Record<string, {
     regionSpec: "промышленности и сельского хозяйства",
     seoTitle: "Ремонт гидравлики Шымкент | Выездной сервис ЮКО",
     seoDescription: "Ремонт гидравлики в Шымкенте и Туркестанской области. Обслуживание спецтехники, цементных заводов, агротехники.",
-    heroImage: "/images/shymkent-industry.jpg",
+    heroImage: "/images/service-van.webp",
     industries: [
       "Цементные и кирпичные заводы",
       "Сельское хозяйство ЮКО",
