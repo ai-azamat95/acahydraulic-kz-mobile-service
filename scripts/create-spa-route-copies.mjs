@@ -13,7 +13,7 @@ if (!fs.existsSync(indexPath)) {
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 const sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
 const locs = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)].map((m) => m[1]);
-const routes = new Set(['404']);
+const routes = new Set(['404', 'privacy', 'terms']);
 
 for (const raw of locs) {
   const route = raw.replace(/^\/+|\/+$/g, '');
@@ -23,9 +23,11 @@ for (const raw of locs) {
 }
 
 const explicitMeta = {
+  privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
+  terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
   '': {
     title: 'Ремонт гидравлики спецтехники в Казахстане | ACA Hydraulic',
-    description: 'Выездной ремонт гидравлики экскаваторов, буровых, кранов и спецтехники. Диагностика на объекте, работа 24/7 по Казахстану, гарантия до 12 месяцев.',
+    description: 'Выездной ремонт гидравлики экскаваторов, буровых, кранов и спецтехники. Диагностика на объекте, работа 24/7 по Казахстану, гарантия по договору.',
   },
   services: {
     title: 'Услуги ремонта гидравлики спецтехники | ACA Hydraulic',
@@ -182,8 +184,12 @@ function withRouteHead(html, route) {
   out = setTag(out, /<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${c}">`);
   out = setTag(out, /<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${t}">`);
   out = setTag(out, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${d}">`);
-  out = setTag(out, /<meta\s+name=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${t}">`);
-  out = setTag(out, /<meta\s+name=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${d}">`);
+  out = setTag(out, /<meta\s+(?:name|property)=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${t}">`);
+  out = setTag(out, /<meta\s+(?:name|property)=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${d}">`);
+  out = out.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
+    const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);
+    return managed ? `<${name} data-rh="true"${attrs}>` : tag;
+  });
   return out;
 }
 

@@ -11,6 +11,7 @@ import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
 
 // Lazy-loaded pages — split into separate chunks to reduce initial bundle
+const Legal = lazy(() => import("./pages/Legal"));
 const Services = lazy(() => import("./pages/Services"));
 const About = lazy(() => import("./pages/About"));
 const Reviews = lazy(() => import("./pages/Reviews"));
@@ -82,6 +83,8 @@ function AppRoutes() {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route path={"/"} component={Home} />
+        <Route path="/privacy" component={Legal} />
+        <Route path="/terms" component={Legal} />
         <Route path={"/services/mobile-repair"} component={MobileRepair} />
         <Route path={"/services/hydraulic-pumps"} component={HydraulicPumps} />
         <Route path={"/services/hydraulic-motors"} component={HydraulicMotors} />

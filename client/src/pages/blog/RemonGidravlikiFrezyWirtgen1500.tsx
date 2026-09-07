@@ -12,19 +12,19 @@ declare global {
 
 const WIRTGEN_PHOTOS = [
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-1.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-1.webp"),
     alt: "Специалисты ACA Hydraulic диагностируют гидравлику дорожной фрезы Wirtgen 1500",
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-2.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-2.webp"),
     alt: "Диагностика гидравлического блока Wirtgen 1500 с манометрами давления",
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-6.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-6.webp"),
     alt: "Инженер ACA Hydraulic диагностирует гидромотор ходовой части Wirtgen 1500",
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-7.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-7.webp"),
     alt: "Фреза Wirtgen 1500 на площадке перед выездной диагностикой ACA Hydraulic",
   },
 ];
@@ -50,7 +50,7 @@ export default function RemonGidravlikiFrezyWirtgen1500() {
       "@type": "WebPage",
       "@id": "https://acahydraulic.kz/blog/remont-gidravliki-frezy-wirtgen-1500",
     },
-    image: publicAsset("webdev-static-assets/wirtgen-1500-1.png"),
+    image: publicAsset("webdev-static-assets/wirtgen-1500-1.webp"),
     articleSection: "Ремонт Wirtgen",
     keywords:
       "ремонт гидравлики Wirtgen 1500, дорожная фреза теряет ход при нагреве, ремонт гидромотора Wirtgen, ремонт дорожной фрезы Казахстан, Wirtgen потеря хода",
@@ -327,7 +327,6 @@ export default function RemonGidravlikiFrezyWirtgen1500() {
               href="https://wa.me/77714177925?text=Здравствуйте!%20Нужен%20ремонт%20гидравлики%20Wirtgen"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => window.gtag_whatsapp_conversion?.()}
               className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors"
             >
               <MessageCircle className="w-5 h-5" />

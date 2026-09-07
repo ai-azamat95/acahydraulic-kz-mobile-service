@@ -24,7 +24,7 @@ const HydraulicValves = () => {
           answer: 'Ремонт гидрораспределителя в Астане — от 40 000 тг. Стоимость зависит от типа распределителя, количества секций и степени износа. Диагностика бесплатна.'
         }
       ]}
-      heroImage="/images/hydraulic-valve-repair.jpg"
+      heroImage="/images/hydraulic-repair-cinematic.webp"
       problems={[
         "Заклинивание золотника (тугой ход)",
         "Самопроизвольное опускание рабочего органа",

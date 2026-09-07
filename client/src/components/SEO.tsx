@@ -1,3 +1,4 @@
+import { useLocation } from "wouter";
 import { Helmet } from "react-helmet-async";
 
 import { publicAsset } from "@/lib/assets";
@@ -60,11 +61,13 @@ export function SEO({
   const fullTitle = title.includes(SITE_NAME)
     ? title
     : `${title} | ${SITE_NAME}`;
-  const canonicalPath = canonical || "/";
-  const canonicalUrl = canonicalPath.startsWith("http")
+  const [location] = useLocation();
+  const canonicalPath = canonical || location;
+  const rawCanonicalUrl = canonicalPath.startsWith("http")
     ? canonicalPath
     : `${BASE_URL}${canonicalPath.startsWith("/") ? canonicalPath : `/${canonicalPath}`}`;
-  const imageUrl = ogImage || DEFAULT_OG_IMAGE;
+  const canonicalUrl = rawCanonicalUrl.split(/[?#]/)[0].replace(/\/+$/, "") + "/";
+  const imageUrl = new URL(ogImage || DEFAULT_OG_IMAGE, BASE_URL).href;
 
   // ── Breadcrumb Schema ──────────────────────────────────────────────────────
   const breadcrumbSchema =

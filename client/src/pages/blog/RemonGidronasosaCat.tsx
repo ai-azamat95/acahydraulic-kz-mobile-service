@@ -31,7 +31,7 @@ export default function RemonGidronasosaCat() {
       "@type": "WebPage",
       "@id": "https://acahydraulic.kz/blog/remont-gidronasosa-cat",
     },
-    image: "https://acahydraulic.kz/images/hydraulic-pump-repair.webp",
+    image: "https://acahydraulic.kz/images/hydraulic-repair-cinematic.webp",
     articleSection: "Ремонт CAT",
     keywords:
       "ремонт гидронасоса CAT, ремонт гидронасоса Caterpillar, CAT 320 гидронасос, ремонт гидравлики CAT Астана",
@@ -125,7 +125,7 @@ export default function RemonGidronasosaCat() {
         </p>
 
         <img
-          src="/images/hydraulic-pump-repair.webp"
+          src="/images/hydraulic-repair-cinematic.webp"
           alt="Ремонт гидронасоса CAT в Астане"
           className="w-full rounded-lg mb-10 object-cover h-64"
           loading="lazy"
@@ -265,7 +265,6 @@ export default function RemonGidronasosaCat() {
               href="https://wa.me/77714177925?text=Здравствуйте!%20Нужен%20ремонт%20гидронасоса%20CAT"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => window.gtag_whatsapp_conversion?.()}
               className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors"
             >
               <MessageCircle className="w-5 h-5" />

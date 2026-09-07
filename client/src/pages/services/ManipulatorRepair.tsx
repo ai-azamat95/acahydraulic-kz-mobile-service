@@ -49,7 +49,7 @@ export default function ManipulatorRepair() {
               >
                 Заказать диагностику
               </Button>
-              <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }}>
+              <a href="tel:+77714177925">
                 <Button variant="outline" className="h-14 px-8 rounded font-bebas font-bold text-lg uppercase tracking-wide border-white/20 hover:border-[#FFC000] hover:text-[#FFC000]">
                   <Phone className="mr-2" size={20} />
                   +7 (771) 417-79-25
@@ -154,7 +154,7 @@ export default function ManipulatorRepair() {
             >
               Заказать диагностику
             </Button>
-            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }}>
+            <a href="tel:+77714177925">
               <Button variant="outline" className="h-14 px-8 rounded font-bebas font-bold text-lg uppercase tracking-wide border-white/20 hover:border-[#FFC000] hover:text-[#FFC000]">
                 <Phone className="mr-2" size={20} />
                 +7 (771) 417-79-25

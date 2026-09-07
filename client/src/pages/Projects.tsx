@@ -7,70 +7,70 @@ import { Link } from "wouter";
 import { publicAsset } from "@/lib/assets";
 const WIRTGEN_PHOTOS = [
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-1.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-1.webp"),
     caption: "Специалисты ACA Hydraulic проводят диагностику гидравлики фрезы Wirtgen 1500 на объекте"
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-2.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-2.webp"),
     caption: "Диагностика гидравлического блока с применением манометров давления"
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-4.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-4.webp"),
     caption: "Система управления Wirtgen 1500 — панель оператора и гидравлические регуляторы"
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-3.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-3.webp"),
     caption: "Диагностика электронного блока управления и гидравлических клапанов"
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-5.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-5.webp"),
     caption: "Панель управления фрезы Wirtgen 1500 после восстановления гидравлики"
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-6.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-6.webp"),
     caption: "Инженер ACA Hydraulic диагностирует гидромотор ходовой части — причина потери хода при нагреве"
   },
   {
-    url: publicAsset("webdev-static-assets/wirtgen-1500-7.png"),
+    url: publicAsset("webdev-static-assets/wirtgen-1500-7.webp"),
     caption: "Фреза Wirtgen 1500 на площадке перед выездной диагностикой — специалист готовится к работе"
   }
 ];
 
 const SHANTUI_PHOTOS = [
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-6.webp"),
     caption: "Демонтаж двигателя с применением автокрана — подготовка к капитальному ремонту"
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-4.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-4.webp"),
     caption: "Разборка двигателя: вид сверху на гидравлическую систему управления"
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-5.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-5.webp"),
     caption: "Установка двигателя обратно на раму бульдозера"
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-1.jpeg"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-1.webp"),
     caption: "Ремонт трансмиссии: сборка маховика двигателя"
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-7.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-7.webp"),
     caption: "Снятый гидронасос бульдозера до ремонта — видны следы износа"
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-9.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-9.webp"),
     caption: "Блок цилиндров двигателя после капитального ремонта — новые уплотнения и коленвал"
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-8.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-8.webp"),
     caption: "Гидронасос после восстановления — замена пар трения и распределительного диска"
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-3.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-3.webp"),
     caption: "Специалист ACA Hydraulic на фоне восстановленного бульдозера SHANTUI SD32"
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-2.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-2.webp"),
     caption: "Бульдозер SHANTUI SD32 после полного восстановления — готов к работе"
   }
 ];
@@ -435,8 +435,7 @@ export default function Projects() {
                 </Button>
               </Link>
               <a 
-                href="tel:+77714177925" 
-                onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }}
+                href="tel:+77714177925"
                 className="flex items-center justify-center gap-3 px-12 h-16 border border-white/20 rounded hover:bg-white/5 transition-colors"
               >
                 <Phone className="text-[#FFC000]" />

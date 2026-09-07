@@ -16,7 +16,7 @@ export default function MobileRepair() {
     <>
       <SEO
         title="Выездной ремонт гидравлики спецтехники в Казахстане 24/7"
-        description="Выездной ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Диагностика за 2 часа, работа по договору с НДС, гарантия до 12 месяцев."
+        description="Выездной ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Диагностика на объекте, работа по договору с НДС, гарантия по договору."
         keywords="выездной ремонт гидравлики, мобильный сервис спецтехники, ремонт гидравлики на объекте, ремонт экскаватора на объекте, аварийный ремонт гидравлики"
         canonical="/services/mobile-repair"
         breadcrumbs={[
@@ -59,18 +59,18 @@ export default function MobileRepair() {
               <span className="text-[#FFC000]">спецтехники на объекте</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Восстановление работоспособности экскаваторов, буровых и кранов за 24-48 часов. 
+              Восстановление работоспособности экскаваторов, буровых и кранов после диагностики и согласования работ.
               Работаем по договору с НДС. Выезд в любую точку Казахстана.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
+              <Button
                 onClick={() => setIsFormOpen(true)}
                 className="bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold text-lg h-14 px-8 rounded uppercase tracking-wide"
               >
                 Оставить заявку на выезд
               </Button>
-              <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="flex items-center justify-center gap-3 px-8 h-14 border border-white/20 rounded hover:bg-white/5 transition-colors">
+              <a href="tel:+77714177925" className="flex items-center justify-center gap-3 px-8 h-14 border border-white/20 rounded hover:bg-white/5 transition-colors">
                 <Phone className="text-[#FFC000]" />
                 <span className="font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
               </a>
@@ -85,7 +85,7 @@ export default function MobileRepair() {
           <h2 className="font-bebas text-3xl md:text-4xl mb-10 uppercase">
             Услуга для <span className="text-[#FFC000]">промышленных предприятий</span>
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-[#1a1a1a] p-6 border border-white/5 rounded hover:border-[#FFC000]/30 transition-colors">
               <HardHat className="w-10 h-10 text-[#FFC000] mb-4" />
@@ -156,7 +156,7 @@ export default function MobileRepair() {
           <h2 className="font-bebas text-3xl md:text-4xl mb-10 uppercase text-center">
             Почему с нами работают <span className="text-[#FFC000]">крупные заказчики</span>
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="p-6 bg-[#1a1a1a] rounded border-l-2 border-[#FFC000]">
               <FileText className="w-8 h-8 text-[#FFC000] mb-4" />
@@ -166,12 +166,12 @@ export default function MobileRepair() {
             <div className="p-6 bg-[#1a1a1a] rounded border-l-2 border-[#FFC000]">
               <Clock className="w-8 h-8 text-[#FFC000] mb-4" />
               <h4 className="font-bold mb-2">Скорость реакции</h4>
-              <p className="text-sm text-gray-400">Выезд бригады в течение 24 часов после заявки.</p>
+              <p className="text-sm text-gray-400">Время прибытия согласуем с учётом местонахождения техники.</p>
             </div>
             <div className="p-6 bg-[#1a1a1a] rounded border-l-2 border-[#FFC000]">
               <ShieldCheck className="w-8 h-8 text-[#FFC000] mb-4" />
               <h4 className="font-bold mb-2">Гарантия на работы</h4>
-              <p className="text-sm text-gray-400">6-12 месяцев на восстановленные узлы и агрегаты.</p>
+              <p className="text-sm text-gray-400">Срок и условия гарантии указываем в договоре.</p>
             </div>
             <div className="p-6 bg-[#1a1a1a] rounded border-l-2 border-[#FFC000]">
               <Truck className="w-8 h-8 text-[#FFC000] mb-4" />
@@ -203,13 +203,13 @@ export default function MobileRepair() {
                   <img src="/images/cases/cat-336/main.webp" alt="Caterpillar 336 D2" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute top-4 left-4 bg-[#FFC000] text-black px-3 py-1 text-xs font-bold uppercase tracking-wider">Кейс</div>
                 </div>
-                
+
                 {/* Content */}
                 <div className="p-6 md:p-8 flex flex-col justify-center">
                   <h3 className="font-bebas text-3xl mb-4 group-hover:text-[#FFC000] transition-colors">
                     Ремонт экскаватора Caterpillar 336 D2
                   </h3>
-                  
+
                   <div className="grid grid-cols-4 gap-2 mb-6">
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
                       <img src="/images/cases/cat-336/hydraulics.webp" alt="Гидравлика" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
@@ -230,7 +230,7 @@ export default function MobileRepair() {
                       <span className="text-[#FFC000] font-bold uppercase text-xs tracking-wider block mb-1">Симптомы:</span>
                       <p>Потеря мощности, глохнет под нагрузкой. Запаздывание одной гусеницы. Отсутствие давления одного насоса.</p>
                     </div>
-                    
+
                     <div>
                       <span className="text-[#FFC000] font-bold uppercase text-xs tracking-wider block mb-1">Диагностика выявила:</span>
                       <ul className="list-disc list-inside space-y-1 text-gray-400">
@@ -261,13 +261,13 @@ export default function MobileRepair() {
                   <img src="/images/cases/hitachi-330/main-new.webp" alt="Hitachi 330 5G" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute top-4 left-4 bg-[#FFC000] text-black px-3 py-1 text-xs font-bold uppercase tracking-wider">Кейс</div>
                 </div>
-                
+
                 {/* Content */}
                 <div className="p-6 md:p-8 flex flex-col justify-center">
                   <h3 className="font-bebas text-3xl mb-4 group-hover:text-[#FFC000] transition-colors">
                     Ремонт гидросистемы Hitachi 330 5G
                   </h3>
-                  
+
                   <div className="grid grid-cols-4 gap-2 mb-6">
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
                       <img src="/images/cases/hitachi-330/display.webp" alt="Диагностика" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
@@ -279,7 +279,7 @@ export default function MobileRepair() {
                       <img src="/images/cases/hitachi-330/parts.webp" alt="Запчасти" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/hitachi-330/repair3.webp" alt="Процесс" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <img src="/images/cases/hitachi-330/repair1.webp" alt="Процесс" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                   </div>
 
@@ -288,7 +288,7 @@ export default function MobileRepair() {
                       <span className="text-[#FFC000] font-bold uppercase text-xs tracking-wider block mb-1">Симптомы:</span>
                       <p>При нагрузке глохнет двигатель. Одна гусеница забегает вперед. Стрела поднимается рывками.</p>
                     </div>
-                    
+
                     <div>
                       <span className="text-[#FFC000] font-bold uppercase text-xs tracking-wider block mb-1">Диагностика выявила:</span>
                       <ul className="list-disc list-inside space-y-1 text-gray-400">
@@ -322,9 +322,9 @@ export default function MobileRepair() {
             Нужен профессиональный ремонт гидравлики?
           </h2>
           <p className="text-xl font-medium mb-8 max-w-2xl mx-auto">
-            Оставьте заявку сейчас. Инженер свяжется с вами в течение 15 минут для уточнения деталей и расчета стоимости выезда.
+            Оставьте заявку сейчас. Инженер свяжется с вами для уточнения деталей и расчета стоимости выезда.
           </p>
-          <Button 
+          <Button
             onClick={() => setIsFormOpen(true)}
             className="bg-black text-white hover:bg-gray-900 font-bebas font-bold text-xl h-16 px-12 rounded uppercase tracking-wide shadow-xl"
           >
@@ -341,7 +341,7 @@ export default function MobileRepair() {
               Заявка на сервисное обслуживание
             </DialogTitle>
           </DialogHeader>
-          
+
           <form className="space-y-4 mt-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -392,7 +392,7 @@ export default function MobileRepair() {
             <Button type="submit" className="w-full bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold text-lg h-12 uppercase mt-2">
               Отправить заявку
             </Button>
-            
+
             <p className="text-xs text-gray-500 text-center">
               Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.
             </p>

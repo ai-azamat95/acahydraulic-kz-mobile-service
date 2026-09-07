@@ -1,4 +1,3 @@
-import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
 import { seoConfig, localBusinessSchema } from "@/config/seo";
@@ -17,7 +16,7 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 export default function Home() {
   // The userAuth hooks provides authentication state
   // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
@@ -61,7 +60,7 @@ export default function Home() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden xl:flex items-center gap-4">
             <Link href="/" className="text-[#FFC000] font-roboto text-sm uppercase tracking-wide transition-colors hover:text-[#FFD700]">{t('nav.home')}</Link>
             <Link href="/services" className="text-white/90 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wide transition-colors">{t('nav.services')}</Link>
             <Link href="/about" className="text-white/90 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wide transition-colors">{t('nav.about')}</Link>
@@ -115,9 +114,9 @@ export default function Home() {
                </svg>
             </a>
 
-            <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
+            <a href="tel:+77714177925" className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
               <Phone className="w-4 h-4 text-[#FFC000] fill-current group-hover:scale-110 transition-transform" />
-              <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
+              <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide whitespace-nowrap">+7 (771) 417-79-25</span>
             </a>
             
             {/* TikTok Button - Mobile (Header) */}
@@ -137,7 +136,7 @@ export default function Home() {
             {/* Mobile Menu Trigger */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden text-white hover:text-[#FFC000] hover:bg-transparent">
+                <Button variant="ghost" size="icon" className="xl:hidden text-white hover:text-[#FFC000] hover:bg-transparent">
                   <Menu className="w-8 h-8" />
                 </Button>
               </SheetTrigger>
@@ -177,7 +176,7 @@ export default function Home() {
                     <Link href="/contacts" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.contacts')}</Link>
                   </nav>
                   <div className="mt-auto p-6 border-t border-white/10">
-                    <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="flex items-center gap-3 text-[#FFC000] mb-4">
+                    <a href="tel:+77714177925" className="flex items-center gap-3 text-[#FFC000] mb-4">
                       <Phone className="w-5 h-5" />
                       <span className="font-bebas text-xl">+7 (771) 417-79-25</span>
                     </a>
@@ -218,32 +217,31 @@ export default function Home() {
               {t('hero.title')}
             </h1>
             
-            <p className="text-[12px] md:text-[18px] text-[#d1d5db] mb-10 md:mb-10 max-w-[95%] md:max-w-[600px] font-roboto font-normal leading-[1.3] md:leading-[1.5] tracking-wide drop-shadow-md">
+            <p className="text-[15px] md:text-[18px] text-[#d1d5db] mb-10 md:mb-10 max-w-[95%] md:max-w-[600px] font-roboto font-normal leading-[1.3] md:leading-[1.5] tracking-wide drop-shadow-md">
               {t('hero.subtitle')}
             </p>
 
             <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto items-start">
               <a 
-                href="tel:+77714177925" 
-                onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }}
-                className="inline-flex items-center justify-center bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-extrabold text-[14px] md:text-[18px] h-[38px] md:h-[56px] rounded-[4px] uppercase tracking-wide w-[220px] md:w-[260px] shadow-[0_4px_14px_rgba(255,192,0,0.4)] border-none transition-colors active:scale-95"
+                href="tel:+77714177925"
+                className="inline-flex items-center justify-center bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-extrabold text-[14px] md:text-[18px] h-[46px] md:h-[56px] rounded-[4px] uppercase tracking-wide w-[220px] md:w-[260px] shadow-[0_4px_14px_rgba(255,192,0,0.4)] border-none transition-colors active:scale-95"
               >
                 {t('hero.cta_primary')}
               </a>
               <Button 
                 onClick={() => setIsFormDialogOpen(true)}
-                className="bg-[#1a1a1a]/90 hover:bg-black text-white border border-white/10 font-bebas font-extrabold text-[14px] md:text-[18px] h-[38px] md:h-[56px] rounded-[4px] uppercase tracking-wide w-[220px] md:w-[260px] backdrop-blur-md shadow-lg"
+                className="bg-[#1a1a1a]/90 hover:bg-black text-white border border-white/10 font-bebas font-extrabold text-[14px] md:text-[18px] h-[46px] md:h-[56px] rounded-[4px] uppercase tracking-wide w-[220px] md:w-[260px] backdrop-blur-md shadow-lg"
               >
                 {t('hero.cta_secondary')}
               </Button>
             </div>
 
             {/* Informational Text Block */}
-            <div className="mt-5 md:mt-6 text-white/85 font-roboto font-medium text-[11px] md:text-[14px] leading-relaxed max-w-[95%] md:max-w-[600px]">
+            <div className="mt-5 md:mt-6 text-white/85 font-roboto font-medium text-[14px] md:text-[14px] leading-relaxed max-w-[95%] md:max-w-[600px]">
               <div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-4 md:gap-y-2">
                 <span className="flex items-center gap-1.5">
                   <span className="text-[#FFC000]">✓</span>
-                  Среднее время ответа — 5–10 минут
+                  Время выезда согласуем по телефону
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="text-[#FFC000]">✓</span>
@@ -550,12 +548,12 @@ export default function Home() {
               <div className="absolute bottom-8 left-8 right-8 bg-black/80 backdrop-blur-md p-6 rounded border border-white/10 z-20">
                 <div className="flex justify-between items-center">
                   <div>
-                    <span className="block text-3xl font-bebas text-[#FFC000]">1500+</span>
+                    <span className="block text-3xl font-bebas text-[#FFC000]">Сервис</span>
                     <span className="text-xs text-gray-400 uppercase tracking-wider">{t('comprehensiveApproach.repairedUnits')}</span>
                   </div>
                   <div className="h-10 w-px bg-white/20"></div>
                   <div>
-                    <span className="block text-3xl font-bebas text-[#FFC000]">98%</span>
+                    <span className="block text-3xl font-bebas text-[#FFC000]">Контроль</span>
                     <span className="text-xs text-gray-400 uppercase tracking-wider">{t('comprehensiveApproach.successfulRepairs')}</span>
                   </div>
                 </div>
@@ -575,10 +573,10 @@ export default function Home() {
             
             {/* Equipment brands - Mobile Only */}
             <div className="flex md:hidden flex-wrap justify-center items-center gap-8 px-4 w-full">
-               <img src="/brands/cat-logo.png" alt="CAT ET" className="h-16 w-auto object-contain opacity-85" loading="lazy" />
-               <img src="/brands/toughbuilt-logo.png" alt="ToughBuilt" className="h-12 w-auto object-contain opacity-85" loading="lazy" />
-               <img src="/brands/milwaukee-logo.jpg" alt="Milwaukee" className="h-14 w-auto object-contain opacity-85" loading="lazy" />
-               <img src="/brands/perkins-logo.png" alt="Perkins" className="h-16 w-auto object-contain opacity-85" loading="lazy" />
+               <img src="/images/cat_logo_final.webp" alt="CAT ET" className="h-16 w-auto object-contain opacity-85" loading="lazy" />
+               <img src="/images/toughbuilt_logo.webp" alt="ToughBuilt" className="h-12 w-auto object-contain opacity-85" loading="lazy" />
+               <img src="/images/milwaukee_logo.webp" alt="Milwaukee" className="h-14 w-auto object-contain opacity-85" loading="lazy" />
+               <img src="/images/perkins_logo.webp" alt="Perkins" className="h-16 w-auto object-contain opacity-85" loading="lazy" />
             </div>
           </div>
         </div>
@@ -626,8 +624,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col md:flex-row justify-center gap-4">
             <a 
-              href="tel:+77714177925" 
-              onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); fireTikTokContact('phone'); }}
+              href="tel:+77714177925"
               className="inline-flex items-center justify-center bg-black text-white hover:bg-gray-900 font-bebas font-bold text-xl h-16 px-10 rounded uppercase tracking-wide w-full md:w-auto shadow-xl transition-colors"
             >
               {t('cta.callNow')}
@@ -635,8 +632,7 @@ export default function Home() {
             <a 
               href="https://wa.me/77714177925" 
               target="_blank" 
-              rel="noopener noreferrer" 
-              onClick={() => { window.gtag_report_conversion('https://wa.me/77714177925'); fireTikTokContact('whatsapp'); }}
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center border-2 border-black bg-transparent text-black hover:bg-black/10 font-bebas font-bold text-xl h-16 px-10 rounded uppercase tracking-wide w-full md:w-auto transition-colors"
             >
               {t('cta.whatsapp')}
@@ -697,11 +693,11 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-[#FFC000] flex-shrink-0" />
-                  <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } window.gtag('event', 'conversion', {'send_to': 'AW-17847190636/MNy9COmB06QcEOyImr5C'}); }} className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
+                  <a href="tel:+77714177925" className="hover:text-[#FFC000] transition-colors">+7 (771) 417-79-25</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <MessageCircle className="w-5 h-5 text-[#FFC000] flex-shrink-0" />
-                  <a href="https://wa.me/77714177925" onClick={() => { window.gtag_report_conversion('https://wa.me/77714177925'); return false; }} target="_blank" rel="noopener noreferrer" className="hover:text-[#FFC000] transition-colors">WhatsApp</a>
+                  <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="hover:text-[#FFC000] transition-colors">WhatsApp</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-[#FFC000] flex-shrink-0" />
@@ -716,8 +712,8 @@ export default function Home() {
               &copy; {new Date().getFullYear()} ACA Hydraulic. {t('footer.rights')}
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-gray-600 hover:text-[#FFC000] text-xs transition-colors">{t('footer.privacyPolicy')}</a>
-              <a href="#" className="text-gray-600 hover:text-[#FFC000] text-xs transition-colors">{t('footer.termsOfUse')}</a>
+              <a href="/privacy/" className="text-gray-600 hover:text-[#FFC000] text-xs transition-colors">{t('footer.privacyPolicy')}</a>
+              <a href="/terms/" className="text-gray-600 hover:text-[#FFC000] text-xs transition-colors">{t('footer.termsOfUse')}</a>
             </div>
           </div>
         </div>

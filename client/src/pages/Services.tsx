@@ -322,7 +322,7 @@ export default function Services() {
               >
                 Оставить заявку
               </Button>
-              <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }}>
+              <a href="tel:+77714177925">
                 <Button className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black font-roboto uppercase tracking-wider px-8 py-6 text-base transition-all">
                   <Phone className="w-5 h-5 mr-2" />
                   +7 (771) 417-79-25
@@ -372,7 +372,7 @@ export default function Services() {
             <div>
               <h3 className="font-sans font-bold text-white text-lg mb-4">Контакты</h3>
               <div className="flex flex-col gap-3">
-                <a href="tel:+77714177925" onClick={() => { if (typeof window.gtag === 'function') { window.gtag('event', 'acahydraulic_phone_click', { event_category: 'phone', event_label: 'tel:+77714177925', link_url: 'tel:+77714177925', transport_type: 'beacon' }); } }} className="flex items-center gap-2 text-white/60 hover:text-[#FFC000] text-sm transition-colors">
+                <a href="tel:+77714177925" className="flex items-center gap-2 text-white/60 hover:text-[#FFC000] text-sm transition-colors">
                   <Phone size={16} />
                   +7 (771) 417-79-25
                 </a>

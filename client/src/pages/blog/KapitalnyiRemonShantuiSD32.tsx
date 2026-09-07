@@ -12,27 +12,27 @@ declare global {
 
 const SHANTUI_PHOTOS = [
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-6.webp"),
     alt: "Демонтаж двигателя бульдозера SHANTUI SD32 автокраном — подготовка к капитальному ремонту",
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-1.jpeg"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-1.webp"),
     alt: "Капитальный ремонт двигателя бульдозера SHANTUI SD32 — разборка и дефектовка",
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-2.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-2.webp"),
     alt: "Ремонт гидравлической системы бульдозера SHANTUI SD32",
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-3.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-3.webp"),
     alt: "Специалист ACA Hydraulic проверяет гидравлику SHANTUI SD32 после ремонта",
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-4.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-4.webp"),
     alt: "Бульдозер SHANTUI SD32 после капитального ремонта — вид сбоку",
   },
   {
-    url: publicAsset("webdev-static-assets/shantui-sd32-5.png"),
+    url: publicAsset("webdev-static-assets/shantui-sd32-5.webp"),
     alt: "Гидравлические узлы SHANTUI SD32 после восстановления",
   },
 ];
@@ -58,7 +58,7 @@ export default function KapitalnyiRemonShantuiSD32() {
       "@type": "WebPage",
       "@id": "https://acahydraulic.kz/blog/kapitalnyy-remont-shantui-sd32",
     },
-    image: publicAsset("webdev-static-assets/shantui-sd32-6.png"),
+    image: publicAsset("webdev-static-assets/shantui-sd32-6.webp"),
     articleSection: "Ремонт бульдозеров",
     keywords:
       "капитальный ремонт SHANTUI SD32, ремонт бульдозера SHANTUI, ремонт ДВС SHANTUI SD32, ремонт гидравлики SHANTUI, SHANTUI SD32 Казахстан",
@@ -329,7 +329,6 @@ export default function KapitalnyiRemonShantuiSD32() {
               href="https://wa.me/77714177925?text=Здравствуйте!%20Нужен%20капитальный%20ремонт%20SHANTUI%20SD32"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => window.gtag_whatsapp_conversion?.()}
               className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors"
             >
               <MessageCircle className="w-5 h-5" />
