@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { SEO } from "@/components/SEO";
+import B2BLeadForm from "@/components/B2BLeadForm";
 
 export default function MobileRepair() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -335,68 +336,14 @@ export default function MobileRepair() {
 
       {/* B2B Lead Form Dialog */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent className="bg-[#1a1a1a] border border-white/10 text-white sm:max-w-[500px]">
+        <DialogContent className="bg-[#1a1a1a] border border-white/10 text-white sm:max-w-[650px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="font-bebas text-2xl text-[#FFC000] uppercase tracking-wide">
               Заявка на сервисное обслуживание
             </DialogTitle>
           </DialogHeader>
 
-          <form className="space-y-4 mt-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="company">Название компании *</Label>
-                <Input id="company" placeholder="ТОО / ИП" className="bg-black/50 border-white/10 focus:border-[#FFC000]" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="city">Город / Объект *</Label>
-                <Input id="city" placeholder="Астана" className="bg-black/50 border-white/10 focus:border-[#FFC000]" required />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="tech-type">Тип техники и модель *</Label>
-              <Input id="tech-type" placeholder="Например: Экскаватор Hitachi ZX330" className="bg-black/50 border-white/10 focus:border-[#FFC000]" required />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="problem">Описание неисправности</Label>
-              <Textarea id="problem" placeholder="Опишите проблему: медленная работа, течь, посторонние звуки..." className="bg-black/50 border-white/10 focus:border-[#FFC000] min-h-[80px]" />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="urgency">Срочность</Label>
-              <Select>
-                <SelectTrigger className="bg-black/50 border-white/10 focus:border-[#FFC000]">
-                  <SelectValue placeholder="Выберите срочность" />
-                </SelectTrigger>
-                <SelectContent className="bg-[#1a1a1a] border-white/10 text-white">
-                  <SelectItem value="asap">Аварийный выезд (Срочно)</SelectItem>
-                  <SelectItem value="week">В течение недели</SelectItem>
-                  <SelectItem value="plan">Плановое ТО</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Контактное лицо *</Label>
-                <Input id="name" placeholder="Имя" className="bg-black/50 border-white/10 focus:border-[#FFC000]" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Телефон *</Label>
-                <Input id="phone" placeholder="+7 (___) ___-__-__" className="bg-black/50 border-white/10 focus:border-[#FFC000]" required />
-              </div>
-            </div>
-
-            <Button type="submit" className="w-full bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold text-lg h-12 uppercase mt-2">
-              Отправить заявку
-            </Button>
-
-            <p className="text-xs text-gray-500 text-center">
-              Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.
-            </p>
-          </form>
+          <B2BLeadForm />
         </DialogContent>
       </Dialog>
       </div>
