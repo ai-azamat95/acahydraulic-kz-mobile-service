@@ -50,6 +50,11 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
       />
 
       <div className="min-h-screen bg-background">
+        <nav aria-label="Хлебные крошки" className="container px-4 py-4 text-sm">
+          <a href="/" className="underline">Главная</a>
+          <span className="mx-2" aria-hidden="true">/</span>
+          <span aria-current="page">Ремонт гидравлики — {city}</span>
+        </nav>
         {/* Hero Section */}
         <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -116,6 +121,29 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
           </div>
         </section>
 
+        <section className="container px-4 py-12">
+          <h2 className="text-2xl font-bold mb-4">Какие работы выполняем</h2>
+          <p className="mb-6 text-muted-foreground">Выберите услугу, чтобы узнать порядок диагностики и ремонта. Возможность и сроки выезда в г. {city} согласуем по местонахождению техники.</p>
+          <nav aria-label="Услуги ремонта" className="grid gap-4 sm:grid-cols-2">
+            <a className="rounded border p-4 underline" href="/services/mobile-repair/">Выездной ремонт спецтехники</a>
+            <a className="rounded border p-4 underline" href="/services/hydraulic-pumps/">Диагностика и ремонт гидронасосов</a>
+            <a className="rounded border p-4 underline" href="/services/hydraulic-motors/">Ремонт гидромоторов хода и поворота</a>
+            <a className="rounded border p-4 underline" href="/services/hydraulic-valves/">Ремонт гидрораспределителей</a>
+          </nav>
+        </section>
+        {faq && faq.length > 0 && (
+          <section className="container px-4 pb-12">
+            <h2 className="text-2xl font-bold mb-6">Вопросы о ремонте в г. {city}</h2>
+            <div className="space-y-4">
+              {faq.map(item => (
+                <details key={item.question} className="rounded border p-4">
+                  <summary className="cursor-pointer font-semibold">{item.question}</summary>
+                  <p className="mt-3 text-muted-foreground">{item.answer}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
         {/* Call to Action */}
         <section className="py-16 bg-zinc-900 text-white">
           <div className="container px-4 md:px-6 text-center">

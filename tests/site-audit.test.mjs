@@ -3,6 +3,22 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
+test('static error pages are noindex while sitemap pages remain indexable', () => {
+  for (const file of ['dist/public/404.html', 'dist/public/404/index.html']) {
+    assert.match(fs.readFileSync(file, 'utf8'), /<meta[^>]*name="robots"[^>]*content="noindex, follow"/);
+  }
+  for (const [, url] of fs.readFileSync('dist/public/sitemap.xml', 'utf8').matchAll(/<loc>(.*?)<\/loc>/g)) {
+    assert.doesNotMatch(fs.readFileSync('dist/public' + new URL(url).pathname + 'index.html', 'utf8'), /content="noindex/);
+  }
+});
+
+test('structured data is valid JSON and does not advertise a nonexistent search', () => {
+  const page = fs.readFileSync('dist/public/index.html', 'utf8');
+  const schemas = [...page.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1]));
+  assert.equal(schemas.filter(s => s['@id'] === 'https://acahydraulic.kz/#business').length, 1);
+  assert.equal(schemas.find(s => s['@type'] === 'WebSite').potentialAction, undefined);
+});
+
 const html = fs.readFileSync('client/index.html', 'utf8');
 const tracker = html.split('<!-- One tracker per contact click.')[1].match(/<script>([\s\S]*?)<\/script>/)[1];
 test('one analytics event per contact click, no navigation dependency or personal query data', () => {

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
-import { seoConfig, localBusinessSchema } from "@/config/seo";
+import { seoConfig } from "@/config/seo";
 import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Scan, Microscope, Settings, Gauge, Menu, X, Send, Video, MapPin, Building2, Calculator, ArrowRight, Mail } from "lucide-react";
 import CostCalculator from "@/components/CostCalculator";
 import { Link } from "wouter";
@@ -29,7 +29,6 @@ export default function Home() {
         description={seoConfig.home.description}
         keywords={seoConfig.home.keywords}
         canonical={seoConfig.home.canonical}
-        schema={localBusinessSchema}
       />
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-transparent pt-2 pb-2 px-4 md:pt-3 md:pb-3">
