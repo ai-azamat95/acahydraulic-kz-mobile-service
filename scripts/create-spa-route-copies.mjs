@@ -23,11 +23,12 @@ for (const raw of locs) {
 }
 
 const explicitMeta = {
+  '404': { title: 'Страница не найдена | ACA Hydraulic', description: 'Эта страница отсутствует. Перейдите на главную ACA Hydraulic.' },
   privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
   terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
   '': {
-    title: 'Ремонт гидравлики спецтехники в Казахстане | ACA Hydraulic',
-    description: 'Выездной ремонт гидравлики экскаваторов, буровых, кранов и спецтехники. Диагностика на объекте, работа 24/7 по Казахстану, гарантия по договору.',
+    title: 'Ремонт гидравлики спецтехники в Астане и Казахстане | ACA Hydraulic',
+    description: 'Выездная диагностика и ремонт гидравлики экскаваторов, погрузчиков и буровых установок. Астана и Казахстан. Стоимость работ согласуем после диагностики.',
   },
   services: {
     title: 'Услуги ремонта гидравлики спецтехники | ACA Hydraulic',
@@ -178,6 +179,9 @@ function withRouteHead(html, route) {
   const c = escapeAttr(canonical);
 
   let out = html;
+  if (route === '404') {
+    out = setTag(out, /<meta\s+name=["']robots["'][^>]*>/i, '<meta name="robots" content="noindex, follow">');
+  }
   out = setTag(out, /<title[^>]*>.*?<\/title>/is, `<title>${t}</title>`);
   out = setTag(out, /<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${d}">`, `<meta name="description" content="${d}">`);
   out = setTag(out, /<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${c}">`, `<link rel="canonical" href="${c}">`);
