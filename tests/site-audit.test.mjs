@@ -48,5 +48,7 @@ test('every sitemap page has one correct static canonical and a page bundle', ()
     assert.ok(tags[0].includes(`href="${url}"`),route);
     assert.ok(tags[0].includes('data-rh="true"'),route);
     assert.match(page, /<script[^>]+src="\/assets\//);
+    assert.match(page, /<main aria-label=/, route);
+    assert.match(page, /data-static-page-schema/, route);
   }
 });
