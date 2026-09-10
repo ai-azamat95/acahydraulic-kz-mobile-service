@@ -5,6 +5,7 @@ const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
 const sitemapPath = path.join(outDir, 'sitemap.xml');
 const baseUrl = 'https://acahydraulic.kz';
+const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
 
 if (!fs.existsSync(indexPath)) {
   throw new Error(`Missing ${indexPath}. Run build first.`);
@@ -125,6 +126,7 @@ const blogNames = {
 };
 
 function metaForRoute(route) {
+  if (serviceContent['/' + route]) return serviceContent['/' + route];
   if (explicitMeta[route]) return explicitMeta[route];
   if (route.startsWith('services/')) {
     const key = route.split('/')[1];
@@ -205,6 +207,14 @@ function fallbackLinks(route) {
 }
 
 function staticFallback(route, meta, canonical) {
+  const content = serviceContent['/' + route];
+  const details = content ? content.sections.map(section =>
+    '<section><h2>' + escapeHtml(section.title) + '</h2><p>' + escapeHtml(section.text) + '</p></section>'
+  ).join('') + '<section><h2>Вопросы перед ремонтом</h2>' + content.faq.map(item =>
+    '<details><summary>' + escapeHtml(item.question) + '</summary><p>' + escapeHtml(item.answer) + '</p></details>'
+  ).join('') + '</section><nav aria-label="Связанные услуги и материалы"><ul>' + content.related.map(link =>
+    '<li><a href="' + escapeAttr(link.href) + '">' + escapeHtml(link.label) + '</a></li>'
+  ).join('') + '</ul></nav>' : '';
   const links = fallbackLinks(route)
     .map(([label, href]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`)
     .join('');
@@ -216,6 +226,7 @@ function staticFallback(route, meta, canonical) {
   <h1>${escapeHtml(meta.title.replace(/ \| ACA Hydraulic$/, ''))}</h1>
   <p>${escapeHtml(meta.description)}</p>
   <p>ACA Hydraulic выполняет диагностику и ремонт гидравлических систем спецтехники. Условия, сроки выезда и стоимость согласовываются после получения информации о технике и неисправности.</p>
+  ${details}
   <nav aria-label="Основные услуги"><ul>${links}</ul></nav>
   <p><a href="tel:+77714177925">Позвонить: +7 (771) 417-79-25</a> · <a href="https://wa.me/77714177925">Написать в WhatsApp</a></p>
 </main>`;
