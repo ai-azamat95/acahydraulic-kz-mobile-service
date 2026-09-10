@@ -170,6 +170,57 @@ function escapeAttr(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function fallbackLinks(route) {
+  if (route.startsWith('blog/')) {
+    return [
+      ['Ремонт гидронасосов', '/services/hydraulic-pumps/'],
+      ['Ремонт гидромоторов', '/services/hydraulic-motors/'],
+      ['Выездной ремонт гидравлики', '/services/mobile-repair/'],
+      ['Контакты ACA Hydraulic', '/contacts/'],
+    ];
+  }
+  if (route.startsWith('regions/')) {
+    return [
+      ['Выездной ремонт гидравлики', '/services/mobile-repair/'],
+      ['Ремонт гидронасосов', '/services/hydraulic-pumps/'],
+      ['Ремонт гидромоторов', '/services/hydraulic-motors/'],
+      ['Все услуги', '/services/'],
+    ];
+  }
+  return [
+    ['Выездной ремонт гидравлики', '/services/mobile-repair/'],
+    ['Ремонт гидронасосов', '/services/hydraulic-pumps/'],
+    ['Ремонт гидромоторов', '/services/hydraulic-motors/'],
+    ['Контакты ACA Hydraulic', '/contacts/'],
+  ];
+}
+
+function staticFallback(route, meta, canonical) {
+  const links = fallbackLinks(route)
+    .map(([label, href]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`)
+    .join('');
+  const trail = route
+    ? `<p><a href="/">ACA Hydraulic</a> / ${escapeHtml(meta.title)}</p>`
+    : '';
+  return `<main aria-label="${escapeAttr(meta.title)}">
+  ${trail}
+  <h1>${escapeHtml(meta.title.replace(/ \| ACA Hydraulic$/, ''))}</h1>
+  <p>${escapeHtml(meta.description)}</p>
+  <p>ACA Hydraulic выполняет диагностику и ремонт гидравлических систем спецтехники. Условия, сроки выезда и стоимость согласовываются после получения информации о технике и неисправности.</p>
+  <nav aria-label="Основные услуги"><ul>${links}</ul></nav>
+  <p><a href="tel:+77714177925">Позвонить: +7 (771) 417-79-25</a> · <a href="https://wa.me/77714177925">Написать в WhatsApp</a></p>
+</main>`;
+}
+
 function withRouteHead(html, route) {
   const routePath = route ? `/${route}` : '/';
   const canonical = routePath === '/' ? `${baseUrl}/` : `${baseUrl}${routePath}/`;
@@ -190,6 +241,18 @@ function withRouteHead(html, route) {
   out = setTag(out, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${d}">`);
   out = setTag(out, /<meta\s+(?:name|property)=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${t}">`);
   out = setTag(out, /<meta\s+(?:name|property)=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${d}">`);
+  const pageSchema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: title,
+    description,
+    inLanguage: 'ru-KZ',
+    isPartOf: { '@id': `${baseUrl}/#website` },
+  });
+  out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema>${pageSchema}</script>\n</head>`);
+  out = out.replace('<div id="root"></div>', `<div id="root">${staticFallback(route, { title, description }, canonical)}</div>`);
   out = out.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);
     return managed ? `<${name} data-rh="true"${attrs}>` : tag;
