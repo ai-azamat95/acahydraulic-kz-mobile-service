@@ -1,227 +1,241 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Wrench, Calendar, MapPin, Filter, Phone } from "lucide-react";
+import { CheckCircle2, Eye, ExternalLink, Filter, Phone, PlayCircle, Video } from "lucide-react";
 import { SEO } from "@/components/SEO";
 
-// Case Study Data
-const cases = [
+type RepairCase = {
+  id: string;
+  title: string;
+  category: "excavators" | "hdd";
+  categoryLabel: string;
+  problem: string;
+  work: string;
+  result: string;
+  videoUrl: string;
+  videoLabel: string;
+  views: string;
+  note?: string;
+};
+
+const cases: RepairCase[] = [
   {
-    id: "hitachi-330",
-    title: "Ремонт гидросистемы Hitachi ZX330-5G",
+    id: "cat-330d2l-drowned",
+    title: "Caterpillar 330D2L — восстановление после затопления",
     category: "excavators",
     categoryLabel: "Экскаваторы",
-    image: "/images/cases/hitachi-330/main-new.webp", // Placeholder, will use real image if available
-    location: "Карагандинская область",
-    duration: "3 дня",
-    problem: "Медленная работа гидравлики, перегрев масла при нагрузке.",
-    solution: "Диагностика гидронасоса, замена качающего узла, настройка клапанов.",
-    result: "Производительность восстановлена на 100%, температура в норме."
+    problem:
+      "Экскаватор был затоплен. До нашего выезда технику неоднократно пытались восстановить, но машина не возвращалась к нормальной работе.",
+    work:
+      "Провели выездную диагностику, последовательно проверили системы машины и выполнили восстановительные работы. Процесс ремонта снят по этапам — от первичного осмотра до финального запуска.",
+    result:
+      "Экскаватор запущен и возвращён в работу. На TikTok опубликована серия из нескольких частей с диагностикой, ремонтом и итоговой проверкой.",
+    videoUrl: "https://www.tiktok.com/@acaservice01/video/7630110235562085650",
+    videoLabel: "Смотреть CAT 330D2L в TikTok",
+    views: "181 тыс.+",
+    note: "Один из самых просматриваемых реальных ремонтов ACA Hydraulic",
   },
   {
-    id: "cat-336",
-    title: "Восстановление Caterpillar 336D2",
+    id: "cat-330dl-hot-power-loss",
+    title: "Caterpillar 330DL — терял мощность после прогрева",
     category: "excavators",
     categoryLabel: "Экскаваторы",
-    image: "/images/cases/cat-336/main.webp", // Placeholder
-    location: "Астана, строительный объект",
-    duration: "4 дня",
-    problem: "Потеря мощности, глохнет под нагрузкой, запаздывание гусеницы.",
-    solution: "Ремонт электроцепи, замена датчиков, восстановление серворегулятора.",
-    result: "Экскаватор полностью исправен, мощность соответствует заводским параметрам."
+    problem:
+      "После прогрева гидравлической системы до рабочей температуры машина теряла мощность. Дополнительно возникала проблема с поворотом и был высокий расход топлива.",
+    work:
+      "Провели диагностику гидравлики и двигателя под рабочей нагрузкой. В процессе ремонта устранили выявленные неисправности, включая некорректную работу форсунки.",
+    result:
+      "После ремонта экскаватор работает исправно. Финальная часть ремонта получила десятки тысяч просмотров и реальные переходы к телефонному контакту.",
+    videoUrl: "https://www.tiktok.com/@acaservice01/video/7648329720278289672",
+    videoLabel: "Смотреть CAT 330DL в TikTok",
+    views: "89 тыс.+",
+    note: "30 кликов по телефону с этого ролика по данным TikTok",
   },
   {
-    id: "shantui-sd32",
-    title: "Ремонт КПП бульдозера Shantui SD32",
-    category: "bulldozers",
-    categoryLabel: "Бульдозеры",
-    image: "/images/excavator-tech-repair.webp", // Placeholder
-    location: "Экибастуз, угольный разрез",
-    duration: "5 дней",
-    problem: "Пропала тяга на 2-й передаче, посторонний шум в трансмиссии.",
-    solution: "Капитальный ремонт ГТР и коробки передач, замена фрикционов.",
-    result: "Тяговое усилие восстановлено, техника вернулась в карьер."
+    id: "sany-sy365h-hot-hydraulics",
+    title: "SANY SY365H — потеря мощности и рывки гидравлики на горячую",
+    category: "excavators",
+    categoryLabel: "Экскаваторы",
+    problem:
+      "При достижении рабочей температуры экскаватор терял мощность, а подъём стрелы сопровождался рывками. Машина требовала комплексной проверки гидравлики и электрической части.",
+    work:
+      "Провели диагностику, ремонт гидравлики, работу с распределителем, устранение утечек, демонтаж насоса и восстановление электропроводки. Весь процесс опубликован серией видео.",
+    result:
+      "Гидравлическая и электрическая части восстановлены, показания приведены в норму, экскаватор запущен и готов к работе.",
+    videoUrl: "https://www.tiktok.com/@acaservice01/video/7658206304082677000",
+    videoLabel: "Смотреть SANY SY365H в TikTok",
+    views: "21 тыс.+",
+    note: "Есть полная серия: диагностика → ремонт → финальный запуск",
   },
   {
-    id: "sany-sr280",
-    title: "Диагностика буровой SANY SR280",
-    category: "drilling",
-    categoryLabel: "Буровые",
-    image: "/images/excavator-tech-repair.webp", // Placeholder
-    location: "Атырау",
-    duration: "2 дня",
-    problem: "Нестабильное вращение ротора, падение давления в главном контуре.",
-    solution: "Настройка предохранительных клапанов, замена РВД, калибровка насосов.",
-    result: "Буровая установка работает в штатном режиме."
-  }
+    id: "xcmg-xz360e-hydraulics",
+    title: "XCMG XZ360E — гидравлика не работала, насос оказался исправен",
+    category: "hdd",
+    categoryLabel: "Буровые / ГНБ",
+    problem:
+      "Гидравлические функции установки не работали. Первоначально подозрение могло падать на насос, но диагностика показала, что насос исправен.",
+    work:
+      "Провели поиск причины непосредственно на объекте, проверили гидросистему и управление, нашли фактическую неисправность и восстановили систему без необоснованной замены исправного насоса.",
+    result:
+      "После ремонта проверили ход установки, работу опор и подъём стрелы. Гидравлическая система работает стабильно.",
+    videoUrl: "https://www.tiktok.com/@acaservice01/video/7614139811183545607",
+    videoLabel: "Смотреть XCMG XZ360E в TikTok",
+    views: "51 тыс.+",
+    note: "Реальный пример, почему точная диагностика важнее замены деталей наугад",
+  },
 ];
 
 const categories = [
-  { id: "all", label: "Все проекты" },
+  { id: "all", label: "Все реальные ремонты" },
   { id: "excavators", label: "Экскаваторы" },
-  { id: "mining_loaders", label: "Шахтные погрузчики" },
-  { id: "bulldozers", label: "Бульдозеры" },
-  { id: "milling", label: "Фрезы" },
-  { id: "hdd", label: "ГНБ" },
-  { id: "piling", label: "Сваебойные" },
-  { id: "graders", label: "Грейдеры" },
-  { id: "loaders", label: "Погрузчики" }
-];
+  { id: "hdd", label: "Буровые / ГНБ" },
+] as const;
 
 export default function Cases() {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]["id"]>("all");
 
-  const filteredCases = activeCategory === "all" 
-    ? cases 
-    : cases.filter(c => c.category === activeCategory);
+  const filteredCases =
+    activeCategory === "all" ? cases : cases.filter((item) => item.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-roboto">
-      <SEO 
-        title="Кейсы и примеры работ | ACA Hydraulic" 
-        description="Примеры ремонта гидравлики спецтехники: экскаваторы, бульдозеры, краны. Фото и описание выполненных работ по всему Казахстану."
-        keywords="кейсы ремонта гидравлики, примеры работ, ремонт экскаваторов фото, портфолио гидравликов"
+      <SEO
+        title="Реальные кейсы ремонта спецтехники с видео | ACA Hydraulic"
+        description="Реальные выездные ремонты ACA Hydraulic: Caterpillar 330D2L, CAT 330DL, SANY SY365H, XCMG XZ360E. Диагностика, ремонт и результат на видео. Выезд по Казахстану."
+        keywords="реальный ремонт экскаватора, выездной ремонт спецтехники, Caterpillar 330D2L ремонт, SANY SY365H ремонт, диагностика гидравлики экскаватора"
+        canonical="/cases"
       />
 
-      {/* Hero Section */}
       <section className="relative py-20 bg-[#111] border-b border-white/10 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/pattern-grid.png')] opacity-5"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <h1 className="font-bebas text-5xl md:text-7xl text-white mb-6">
-            Наши <span className="text-[#FFC000]">проекты</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#FFC000]/30 bg-[#FFC000]/10 text-[#FFC000] text-xs font-bold uppercase tracking-wider mb-5">
+            <Video className="w-4 h-4" />
+            Только реальные работы
+          </div>
+          <h1 className="font-bebas text-5xl md:text-7xl text-white mb-6 leading-none">
+            Реальные ремонты <span className="text-[#FFC000]">на видео</span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl">
-            Реальные примеры восстановления техники. Мы не просто меняем запчасти — мы решаем инженерные задачи любой сложности.
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed">
+            Здесь нет шаблонных «кейсов». Каждая работа ниже подтверждена опубликованным видео: неисправность, диагностика, процесс ремонта и результат на реальной технике.
           </p>
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="py-8 border-b border-white/5 sticky top-0 bg-[#0a0a0a]/95 backdrop-blur z-30">
+      <section className="py-7 border-b border-white/5 bg-[#0d0d0d]">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-3 items-center">
-            <div className="flex items-center gap-2 text-gray-400 mr-4">
-              <Filter className="w-5 h-5" />
-              <span className="text-sm uppercase font-bold tracking-wider">Фильтр:</span>
+            <div className="flex items-center gap-2 text-gray-500 mr-2">
+              <Filter className="w-4 h-4" />
+              <span className="text-xs uppercase font-bold tracking-wider">Фильтр</span>
             </div>
-            {categories.map((cat) => (
+            {categories.map((category) => (
               <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-5 py-2 rounded-full text-sm font-bold uppercase tracking-wide transition-all ${
-                  activeCategory === cat.id
-                    ? "bg-[#FFC000] text-black shadow-[0_0_15px_rgba(255,192,0,0.3)]"
-                    : "bg-[#1a1a1a] text-gray-400 hover:bg-[#222] hover:text-white border border-white/10"
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${
+                  activeCategory === category.id
+                    ? "bg-[#FFC000] text-black"
+                    : "bg-[#171717] text-gray-400 border border-white/10 hover:text-white hover:border-white/20"
                 }`}
               >
-                {cat.label}
+                {category.label}
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Cases Grid */}
-      <section className="py-16">
+      <section className="py-14 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {filteredCases.map((item) => (
-              <div key={item.id} className="group bg-[#1a1a1a] border border-white/10 rounded-sm overflow-hidden hover:border-[#FFC000]/50 transition-all duration-300">
-                {/* Image Area */}
-                <div className="relative h-64 overflow-hidden bg-[#111]">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-600">
-                    {/* Placeholder fallback if image missing */}
-                    <Wrench className="w-12 h-12 opacity-20" />
-                  </div>
-                  {/* Ideally use real images here */}
-                  {/* <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" /> */}
-                  
-                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur px-3 py-1 rounded text-[#FFC000] text-xs font-bold uppercase tracking-wider border border-[#FFC000]/20">
-                    {item.categoryLabel}
-                  </div>
-                </div>
-
-                {/* Content Area */}
-                <div className="p-8">
-                  <h3 className="font-bebas text-3xl text-white mb-4 group-hover:text-[#FFC000] transition-colors">
-                    {item.title}
-                  </h3>
-
-                  <div className="flex flex-wrap gap-4 mb-6 text-sm text-gray-400 border-b border-white/5 pb-6">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-[#FFC000]" />
-                      {item.location}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-[#FFC000]" />
-                      Срок: {item.duration}
+              <article
+                key={item.id}
+                className="bg-[#141414] border border-white/10 rounded-xl overflow-hidden hover:border-[#FFC000]/40 transition-colors"
+              >
+                <div className="p-6 md:p-8">
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+                    <span className="text-[#FFC000] text-xs font-bold uppercase tracking-wider border border-[#FFC000]/20 bg-[#FFC000]/5 px-3 py-1 rounded-full">
+                      {item.categoryLabel}
+                    </span>
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <Eye className="w-4 h-4 text-[#FFC000]" />
+                      <span>{item.views} просмотров</span>
                     </div>
                   </div>
 
-                  <div className="space-y-4 mb-8">
+                  <h2 className="font-bebas text-3xl md:text-4xl leading-tight mb-6">{item.title}</h2>
+
+                  <div className="space-y-5">
                     <div>
-                      <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Проблема:</h4>
+                      <div className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1.5">Проблема</div>
                       <p className="text-gray-300 leading-relaxed">{item.problem}</p>
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Решение:</h4>
-                      <p className="text-gray-300 leading-relaxed">{item.solution}</p>
+                      <div className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1.5">Что сделали</div>
+                      <p className="text-gray-300 leading-relaxed">{item.work}</p>
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Результат:</h4>
-                      <div className="flex items-start gap-2 text-white">
+                      <div className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1.5">Результат</div>
+                      <div className="flex gap-2.5 text-white leading-relaxed">
                         <CheckCircle2 className="w-5 h-5 text-[#FFC000] shrink-0 mt-0.5" />
                         <span>{item.result}</span>
                       </div>
                     </div>
                   </div>
 
-                  <Link href="/contacts">
-                    <Button className="w-full bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black uppercase font-bebas tracking-wider h-12">
-                      Хочу такой же результат
-                    </Button>
-                  </Link>
+                  {item.note && (
+                    <div className="mt-6 p-4 bg-white/[0.03] border border-white/10 rounded-lg text-sm text-gray-400">
+                      {item.note}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-7">
+                    <a href={item.videoUrl} target="_blank" rel="noopener noreferrer">
+                      <Button className="w-full h-12 bg-[#FFC000] hover:bg-[#eab000] text-black font-bold">
+                        <PlayCircle className="w-5 h-5 mr-2" />
+                        Смотреть ремонт
+                        <ExternalLink className="w-4 h-4 ml-2" />
+                      </Button>
+                    </a>
+                    <Link href="/contacts">
+                      <Button className="w-full h-12 bg-transparent border border-white/20 text-white hover:border-[#FFC000] hover:text-[#FFC000]">
+                        Рассчитать выезд
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-
-          {filteredCases.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-gray-500 text-xl">В данной категории пока нет кейсов.</p>
-              <Button 
-                variant="link" 
-                onClick={() => setActiveCategory("all")}
-                className="text-[#FFC000] mt-4"
-              >
-                Показать все проекты
-              </Button>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-[#FFC000]">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-bebas text-4xl md:text-6xl text-black mb-6 uppercase">
-            У вас похожая проблема?
-          </h2>
-          <p className="text-black/80 text-xl max-w-2xl mx-auto mb-10 font-medium">
-            Не теряйте деньги на простое техники. Наши инженеры готовы выехать на диагностику уже сегодня.
-          </p>
-          <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <Link href="/contacts">
-              <Button className="bg-black text-white hover:bg-gray-900 px-10 py-6 text-lg font-bebas uppercase tracking-wider">
-                Вызвать инженера
-              </Button>
-            </Link>
-            <a href="tel:+77714177925">
-              <Button variant="outline" className="border-black text-black hover:bg-black/10 px-10 py-6 text-lg font-bebas uppercase tracking-wider">
-                <Phone className="w-5 h-5 mr-2" />
-                Позвонить сейчас
-              </Button>
-            </a>
+      <section className="py-16 bg-[#111] border-y border-white/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="font-bebas text-4xl md:text-5xl mb-4">
+              Похожая неисправность на вашей технике?
+            </h2>
+            <p className="text-gray-400 text-lg mb-3">
+              Выездная диагностика сложных неисправностей спецтехники — <strong className="text-white">от 200 000 ₸</strong>.
+            </p>
+            <p className="text-gray-500 mb-8">
+              Точная стоимость зависит от местоположения, модели техники и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/contacts">
+                <Button className="bg-[#FFC000] hover:bg-[#eab000] text-black px-8 h-12 font-bold">
+                  Отправить данные техники
+                </Button>
+              </Link>
+              <a href="tel:+77714177925">
+                <Button className="bg-transparent border border-white/20 hover:border-[#FFC000] text-white px-8 h-12">
+                  <Phone className="w-5 h-5 mr-2 text-[#FFC000]" />
+                  +7 (771) 417-79-25
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </section>
