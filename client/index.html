@@ -59,8 +59,10 @@
       // Google Ads
       gtag('config', 'AW-17847190636');
 
-      // Compatibility helpers only record events; navigation is always native.
-      function gtag_whatsapp_conversion() { try { window.gtag('event', 'acahydraulic_whatsapp_click', {event_category:'whatsapp'}); window.gtag('event','conversion',{send_to:'AW-17847190636/JZkfCOu_84McEOyImr5C'}); } catch (_) {} return true; }
+      // Compatibility helpers record contact intent only.
+      // Google Ads WhatsApp conversion is intentionally fired only by the
+      // qualified calculator lead after the client accepts the 200,000 KZT gate.
+      function gtag_whatsapp_conversion() { try { window.gtag('event', 'acahydraulic_whatsapp_click', {event_category:'whatsapp'}); } catch (_) {} return true; }
       function gtag_registration_conversion() { return true; }
       function gtag_phone_conversion() { return true; }
       function gtag_report_conversion() { return true; }
@@ -72,7 +74,7 @@
     <!-- TikTok Pixel Code Start -->
     <script>
       !function (w, d, t) {
-        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
         ttq.load('D6M5H3JC77U9JTU04Q60');
         ttq.page();
       }(window, document, 'ttq');
@@ -204,7 +206,8 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- One tracker per contact click. Analytics never controls navigation. -->
+    <!-- Contact-intent tracker. Only phone remains an immediate Ads conversion;
+         WhatsApp is promoted to Ads conversion only after calculator qualification. -->
     <script>
       document.addEventListener('click', function(event) {
         var link = event.target.closest && event.target.closest('a[href]');
@@ -215,7 +218,9 @@
         try {
           // Do not send WhatsApp query text (client details) to analytics.
           window.gtag('event', 'acahydraulic_' + kind + '_click', {event_category: kind, transport_type: 'beacon'});
-          window.gtag('event', 'conversion', {send_to: 'AW-17847190636/' + (kind === 'phone' ? 'MNy9COmB06QcEOyImr5C' : 'JZkfCOu_84McEOyImr5C')});
+          if (kind === 'phone') {
+            window.gtag('event', 'conversion', {send_to: 'AW-17847190636/MNy9COmB06QcEOyImr5C'});
+          }
         } catch (_) {}
       }, true);
     </script>
