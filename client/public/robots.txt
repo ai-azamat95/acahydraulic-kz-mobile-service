@@ -3,5 +3,6 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-# Sitemap
+# Sitemaps
 Sitemap: https://acahydraulic.kz/sitemap.xml
+Sitemap: https://acahydraulic.kz/sitemap-cases.xml
