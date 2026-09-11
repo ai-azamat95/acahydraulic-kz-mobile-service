@@ -37,6 +37,23 @@ const cases: RepairCase[] = [
     note: "Один из самых просматриваемых реальных ремонтов ACA Hydraulic",
   },
   {
+    id: "hitachi-330-5g-floating-pressure",
+    title: "Hitachi 330-5G — плавает давление, стрела поднимается рывками",
+    category: "excavators",
+    categoryLabel: "Экскаваторы",
+    problem:
+      "Машина работала медленно и не развивала нормальную мощность. Давление в гидросистеме было нестабильным, а подъём стрелы сопровождался рывками.",
+    work:
+      "Провели выездную диагностику гидросистемы, проверку давления, клапанов и работы системы под нагрузкой. Цель — определить фактическую причину до замены дорогостоящих узлов.",
+    result:
+      "Реальный процесс диагностики и ремонта опубликован в TikTok. Ролик набрал более 111 тысяч просмотров и дал переходы в профиль и телефонные обращения.",
+    videoUrl: "https://www.tiktok.com/@acaservice01/video/7529938314011380997",
+    videoLabel: "Смотреть Hitachi 330-5G в TikTok",
+    views: "111 тыс.+",
+    note: "1 616 переходов в профиль и 4 клика по телефону по данным TikTok",
+    casePath: "/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami",
+  },
+  {
     id: "cat-330dl-hot-power-loss",
     title: "Caterpillar 330DL — терял мощность после прогрева",
     category: "excavators",
@@ -104,8 +121,8 @@ export default function Cases() {
     <div className="min-h-screen bg-[#0a0a0a] text-white font-roboto">
       <SEO
         title="Реальные кейсы ремонта спецтехники с видео | ACA Hydraulic"
-        description="Реальные выездные ремонты ACA Hydraulic: Caterpillar 330D2L, CAT 330DL, SANY SY365H, XCMG XZ360E. Диагностика, ремонт и результат на видео. Выезд по Казахстану."
-        keywords="реальный ремонт экскаватора, выездной ремонт спецтехники, Caterpillar 330D2L ремонт, SANY SY365H ремонт, диагностика гидравлики экскаватора"
+        description="Реальные выездные ремонты ACA Hydraulic: Caterpillar, Hitachi 330-5G, SANY SY365H, XCMG XZ360E. Диагностика, ремонт и результат на видео. Выезд по Казахстану."
+        keywords="реальный ремонт экскаватора, выездной ремонт спецтехники, Caterpillar ремонт, Hitachi 330 5G ремонт, SANY SY365H ремонт, диагностика гидравлики экскаватора"
         canonical="/cases"
       />
 
