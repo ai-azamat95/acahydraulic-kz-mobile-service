@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Eye, ExternalLink, Filter, Phone, PlayCircle, Video } from "lucide-react";
+import { CheckCircle2, Eye, ExternalLink, FileText, Filter, Phone, PlayCircle, Video } from "lucide-react";
 import { SEO } from "@/components/SEO";
 
 type RepairCase = {
@@ -16,6 +16,7 @@ type RepairCase = {
   videoLabel: string;
   views: string;
   note?: string;
+  casePath?: string;
 };
 
 const cases: RepairCase[] = [
@@ -50,6 +51,7 @@ const cases: RepairCase[] = [
     videoLabel: "Смотреть CAT 330DL в TikTok",
     views: "89 тыс.+",
     note: "30 кликов по телефону с этого ролика по данным TikTok",
+    casePath: "/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu",
   },
   {
     id: "sany-sy365h-hot-hydraulics",
@@ -66,6 +68,7 @@ const cases: RepairCase[] = [
     videoLabel: "Смотреть SANY SY365H в TikTok",
     views: "21 тыс.+",
     note: "Есть полная серия: диагностика → ремонт → финальный запуск",
+    casePath: "/cases/sany-sy365h-gidravlika-na-goryachuyu",
   },
   {
     id: "xcmg-xz360e-hydraulics",
@@ -190,11 +193,19 @@ export default function Cases() {
                     </div>
                   )}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-7">
+                  <div className={`grid grid-cols-1 ${item.casePath ? "sm:grid-cols-3" : "sm:grid-cols-2"} gap-3 mt-7`}>
+                    {item.casePath && (
+                      <Link href={item.casePath}>
+                        <Button className="w-full h-12 bg-white/5 border border-white/15 text-white hover:border-[#FFC000] hover:text-[#FFC000]">
+                          <FileText className="w-4 h-4 mr-2" />
+                          Разбор кейса
+                        </Button>
+                      </Link>
+                    )}
                     <a href={item.videoUrl} target="_blank" rel="noopener noreferrer">
                       <Button className="w-full h-12 bg-[#FFC000] hover:bg-[#eab000] text-black font-bold">
                         <PlayCircle className="w-5 h-5 mr-2" />
-                        Смотреть ремонт
+                        Смотреть видео
                         <ExternalLink className="w-4 h-4 ml-2" />
                       </Button>
                     </a>
