@@ -11,6 +11,8 @@ import {
 
 const WHATSAPP_NUMBER = "77714177925";
 const DIAGNOSTIC_PRICE = "от 200 000 ₸";
+const DIAGNOSTIC_VALUE = 200000;
+const GOOGLE_ADS_QUALIFIED_LEAD = "AW-17847190636/JZkfCOu_84McEOyImr5C";
 
 const equipmentTypes = [
   { id: "excavator", label: "Экскаватор", image: "/icons/excavator.svg" },
@@ -166,6 +168,11 @@ function track(eventName: string, params: Record<string, unknown> = {}) {
   (window as any).gtag?.("event", eventName, params);
 }
 
+function trackTikTok(eventName: string, params: Record<string, unknown> = {}) {
+  if (typeof window === "undefined") return;
+  (window as any).ttq?.track?.(eventName, params);
+}
+
 export default function CostCalculator() {
   const [step, setStep] = useState(1);
   const [selection, setSelection] = useState<Selection>(initialSelection);
@@ -214,7 +221,13 @@ export default function CostCalculator() {
       brand: selection.brand,
       model: selection.model,
       city: selection.city,
-      diagnostic_price: 200000,
+      diagnostic_price: DIAGNOSTIC_VALUE,
+    });
+    trackTikTok("ViewContent", {
+      content_type: "service",
+      content_name: "Выездная диагностика гидравлики",
+      value: DIAGNOSTIC_VALUE,
+      currency: "KZT",
     });
     goNext();
   };
@@ -226,7 +239,7 @@ export default function CostCalculator() {
       equipment: selectedEquipment,
       brand: selection.brand,
       city: selection.city,
-      diagnostic_price: 200000,
+      diagnostic_price: DIAGNOSTIC_VALUE,
     });
   };
 
@@ -250,13 +263,36 @@ export default function CostCalculator() {
     .join("\n");
 
   const openWhatsApp = () => {
-    track("calculator_whatsapp_click", {
+    const leadParams = {
       equipment: selectedEquipment,
       brand: selection.brand,
       model: selection.model,
       city: selection.city,
-      diagnostic_price: 200000,
-      qualified_lead: true,
+      component: selection.component || "unknown",
+      diagnostic_price: DIAGNOSTIC_VALUE,
+      value: DIAGNOSTIC_VALUE,
+      currency: "KZT",
+      lead_type: "qualified_mobile_service",
+      budget_confirmed: true,
+    };
+
+    track("calculator_whatsapp_click", leadParams);
+    track("qualified_lead", leadParams);
+    track("generate_lead", leadParams);
+
+    if (typeof window !== "undefined") {
+      (window as any).gtag?.("event", "conversion", {
+        send_to: GOOGLE_ADS_QUALIFIED_LEAD,
+        value: DIAGNOSTIC_VALUE,
+        currency: "KZT",
+      });
+    }
+
+    trackTikTok("SubmitForm", {
+      content_type: "service",
+      content_name: "Квалифицированная заявка на выездную диагностику",
+      value: DIAGNOSTIC_VALUE,
+      currency: "KZT",
     });
   };
 
@@ -456,7 +492,7 @@ export default function CostCalculator() {
               <Button variant="ghost" onClick={goBack} className="text-gray-400 hover:text-white hover:bg-[#3A3A3A]">← Назад</Button>
               <Button
                 onClick={() => {
-                  track("calculator_price_gate_view", { city: selection.city, diagnostic_price: 200000 });
+                  track("calculator_price_gate_view", { city: selection.city, diagnostic_price: DIAGNOSTIC_VALUE });
                   goNext();
                 }}
                 disabled={!selection.city}
