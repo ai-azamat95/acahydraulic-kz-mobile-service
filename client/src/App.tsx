@@ -23,6 +23,7 @@ const Blog = lazy(() => import("./pages/Blog"));
 // Real repair case pages
 const Cat330DLHotPowerLoss = lazy(() => import("./pages/cases/Cat330DLHotPowerLoss"));
 const SanySY365HHotHydraulics = lazy(() => import("./pages/cases/SanySY365HHotHydraulics"));
+const Hitachi330FloatingPressure = lazy(() => import("./pages/cases/Hitachi330FloatingPressure"));
 
 // Service sub-pages (lazy loaded)
 const MobileRepair = lazy(() => import("./pages/services/MobileRepair"));
@@ -119,6 +120,7 @@ function AppRoutes() {
         <Route path="/cases" component={Cases} />
         <Route path="/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu" component={Cat330DLHotPowerLoss} />
         <Route path="/cases/sany-sy365h-gidravlika-na-goryachuyu" component={SanySY365HHotHydraulics} />
+        <Route path="/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami" component={Hitachi330FloatingPressure} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/remont-gidronasosa-cat" component={RemonGidronasosaCat} />
         <Route path="/blog/padaet-davlenie-gidravliki-ekskavatora" component={PadaetDavlenieGidravliki} />
