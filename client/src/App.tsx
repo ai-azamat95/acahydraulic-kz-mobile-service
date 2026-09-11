@@ -17,7 +17,6 @@ const About = lazy(() => import("./pages/About"));
 const Reviews = lazy(() => import("./pages/Reviews"));
 const Contacts = lazy(() => import("./pages/Contacts"));
 const Cases = lazy(() => import("./pages/Cases"));
-const Projects = lazy(() => import("./pages/Projects"));
 const Corporate = lazy(() => import("./pages/Corporate"));
 const Blog = lazy(() => import("./pages/Blog"));
 
@@ -66,7 +65,6 @@ const KapitalnyiRemonShantuiSD32 = lazy(() => import("./pages/blog/KapitalnyiRem
 const RemonGidravlikiLiebherrR950 = lazy(() => import("./pages/blog/RemonGidravlikiLiebherrR950"));
 const VosstanovlenieGidromotoraVolvoEC380 = lazy(() => import("./pages/blog/VosstanovlenieGidromotoraVolvoEC380"));
 
-// Minimal loading fallback — prevents layout shift
 function PageLoader() {
   return (
     <div className="min-h-screen bg-[#111111] flex items-center justify-center">
@@ -76,8 +74,6 @@ function PageLoader() {
 }
 
 function AppRoutes() {
-  // make sure to consider if you need authentication for certain routes
-  // Fire TikTok PageView on every route change via server-side Events API
   useTikTokPageView();
   return (
     <Suspense fallback={<PageLoader />}>
@@ -115,7 +111,7 @@ function AppRoutes() {
         <Route path="/brands/liebherr" component={BrandLiebherr} />
         <Route path="/brands/volvo" component={BrandVolvo} />
         <Route path="/corporate" component={Corporate} />
-        <Route path="/projects" component={Projects} />
+        <Route path="/projects" component={Cases} />
         <Route path="/cases" component={Cases} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/remont-gidronasosa-cat" component={RemonGidronasosaCat} />
@@ -131,17 +127,11 @@ function AppRoutes() {
         <Route path={"/reviews"} component={Reviews} />
         <Route path={"/contacts"} component={Contacts} />
         <Route path={"/404"} component={NotFound} />
-        {/* Final fallback route */}
         <Route component={NotFound} />
       </Switch>
     </Suspense>
   );
 }
-
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
   const routerBase = typeof window !== "undefined" && window.location.hostname.endsWith("github.io")
@@ -150,10 +140,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="dark"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Toaster />
           <WouterRouter base={routerBase}>
