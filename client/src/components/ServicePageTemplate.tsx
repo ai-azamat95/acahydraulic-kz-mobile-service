@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2, AlertTriangle, Clock, ShieldCheck, FileText }
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import B2BLeadForm from '@/components/B2BLeadForm';
+import ServiceDetails, { ServiceFAQ, type ServiceContent } from '@/components/ServiceDetails';
 
 interface ServicePageProps {
   title: string;
@@ -20,6 +21,7 @@ interface ServicePageProps {
   processSteps: { title: string; desc: string }[];
   faq?: { question: string; answer: string }[];
   breadcrumbs?: { name: string; url: string }[];
+  content?: ServiceContent;
 }
 
 const ServicePageTemplate: React.FC<ServicePageProps> = ({
@@ -36,6 +38,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
   processSteps,
   faq,
   breadcrumbs,
+  content,
 }) => {
   return (
     <>
@@ -55,7 +58,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-[500px] py-16 flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img src={heroImage} alt={title} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/70" />
@@ -74,16 +77,18 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 {description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg px-8">
-                  РАССЧИТАТЬ СТОИМОСТЬ
+                <Button asChild size="lg" className="bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg px-8">
+                  <a href="#service-request">ОБСУДИТЬ РЕМОНТ</a>
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8">
-                  СКАЧАТЬ ПРАЙС-ЛИСТ
+                <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8">
+                  <a href="tel:+77714177925">ПОЗВОНИТЬ</a>
                 </Button>
               </div>
             </motion.div>
           </div>
         </section>
+
+        {content && <ServiceDetails content={content} />}
 
         {/* Problems & Solutions (B2B Focus) */}
         <section className="py-20 bg-zinc-50 dark:bg-zinc-900/50">
@@ -164,8 +169,10 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
           </div>
         </section>
 
+        {faq && faq.length > 0 && <ServiceFAQ items={faq} />}
+
         {/* CTA Section */}
-        <section className="py-20 bg-[#FFB800]">
+        <section id="service-request" className="py-20 bg-[#FFB800] scroll-mt-8">
           <div className="container px-4 md:px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
               Нужен профессиональный ремонт гидравлики?

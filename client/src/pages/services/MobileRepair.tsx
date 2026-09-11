@@ -10,14 +10,19 @@ import { Label } from "@/components/ui/label";
 import { SEO } from "@/components/SEO";
 import B2BLeadForm from "@/components/B2BLeadForm";
 
+import serviceContent from "../../../../shared/service-content.json";
+import ServiceDetails, { ServiceFAQ } from "@/components/ServiceDetails";
+const content = serviceContent["/services/mobile-repair"];
+
 export default function MobileRepair() {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
     <>
       <SEO
-        title="Выездной ремонт гидравлики спецтехники в Казахстане 24/7"
-        description="Выездной ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Диагностика на объекте, работа по договору с НДС, гарантия по договору."
+        title={content.title}
+        description={content.description}
+        faq={content.faq}
         keywords="выездной ремонт гидравлики, мобильный сервис спецтехники, ремонт гидравлики на объекте, ремонт экскаватора на объекте, аварийный ремонт гидравлики"
         canonical="/services/mobile-repair"
         breadcrumbs={[
@@ -79,6 +84,8 @@ export default function MobileRepair() {
           </div>
         </div>
       </section>
+
+      <ServiceDetails content={content} />
 
       {/* Target Audience - Who is this for? */}
       <section className="py-16 bg-[#111]">
@@ -317,6 +324,7 @@ export default function MobileRepair() {
       </section>
 
       {/* CTA Section */}
+      <ServiceFAQ items={content.faq} />
       <section className="py-20 bg-[#FFC000] text-black">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-bebas font-bold text-4xl md:text-5xl mb-6 uppercase">
