@@ -1,4 +1,5 @@
 import { SEO } from "@/components/SEO";
+import LocalRepairInfo from '@/components/LocalRepairInfo';
 import { Phone, MessageCircle, CheckCircle, ArrowRight, Wrench, Clock, Shield, Mail } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
@@ -11,8 +12,8 @@ export default function ExcavatorRepair() {
   return (
     <div className="min-h-screen bg-[#111111] text-white font-roboto">
       <SEO 
-        title="Ремонт гидравлики экскаваторов в Астане | CAT, Komatsu, Hitachi | ACA Hydraulic"
-        description="Ремонт гидравлики экскаваторов CAT, Komatsu, Hitachi, Hyundai в Астане и Казахстане. Выездная диагностика и ремонт на объекте. Гарантия 12 месяцев. Работаем 24/7."
+        title="Ремонт экскаваторов в Астане — гидравлика и ДВС | ACA Hydraulic"
+        description="Выездной ремонт экскаваторов CAT, Komatsu, Hitachi, Hyundai и SANY в Астане. Диагностика от 200 000 ₸. Гидравлика, двигатель, проверка под нагрузкой."
         keywords="ремонт гидравлики экскаватора, ремонт экскаватора Астана, ремонт CAT экскаватор, ремонт Komatsu PC, ремонт Hitachi ZX, ремонт гидронасоса экскаватора, выездной ремонт экскаватора"
         canonical="/services/excavator-repair"
         breadcrumbs={[
@@ -28,7 +29,7 @@ export default function ExcavatorRepair() {
         faq={[
           {
             question: 'Сколько стоит ремонт гидравлики экскаватора?',
-            answer: 'Стоимость ремонта гидравлики экскаватора зависит от марки, модели и характера неисправности. Диагностика бесплатна при последующем ремонте. Ремонт главного гидронасоса — от 80 000 тг, гидромотора хода — от 60 000 тг, гидрораспределителя — от 40 000 тг. Точную стоимость определяем после диагностики.'
+            answer: 'Диагностика платная, от 200 000 ₸. После выявления причины согласуем ремонт, запчасти и расходы на выезд отдельно. Гарантия на работы — 6 месяцев при соблюдении рекомендаций.'
           },
           {
             question: 'Какие марки экскаваторов вы ремонтируете?',
@@ -78,11 +79,11 @@ export default function ExcavatorRepair() {
               <span className="text-[#FFC000] font-bebas text-sm tracking-wide">ВЫЕЗДНОЙ СЕРВИС 24/7</span>
             </div>
             <h1 className="font-bebas text-5xl md:text-7xl text-white mb-6 leading-none tracking-wide">
-              Ремонт экскаваторов<br/>
-              <span className="text-[#FFC000]">любой сложности</span>
+              Ремонт экскаваторов в Астане<br/>
+              <span className="text-[#FFC000]">с выездом на объект</span>
             </h1>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl font-roboto">
-              Профессиональный ремонт гусеничных и колесных экскаваторов всех марок. Восстановление гидравлики, двигателей, ходовой части.
+              Диагностика и ремонт гидравлики, двигателей и ходовой части гусеничных и колёсных экскаваторов. Выезжаем на строительные объекты, карьеры и площадки предприятий в Астане и по Казахстану.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="tel:+77714177925" className="bg-[#FFC000] text-black px-8 py-4 rounded font-bebas text-xl tracking-wide hover:bg-white transition-all duration-300 flex items-center justify-center gap-2">
@@ -97,6 +98,7 @@ export default function ExcavatorRepair() {
         </div>
       </section>
 
+      <LocalRepairInfo route="/services/excavator-repair" />
       {/* Services Grid */}
       <section className="py-20 bg-[#0a0a0a]">
         <div className="container mx-auto px-4">

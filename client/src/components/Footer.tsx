@@ -51,6 +51,7 @@ export function Footer() {
           <div>
             <h3 className="font-bebas text-xl text-white mb-4 tracking-wide">{t('footer.contactsTitle')}</h3>
             <ul className="space-y-2 text-gray-500 text-sm font-roboto">
+              <li><a href="/contacts/" className="hover:text-[#FFC000] transition-colors">г. Астана, трасса Астана–Караганда, 81</a></li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#FFC000]" />
                 <a href="tel:+77714177925" className="hover:text-[#FFC000] transition-colors">{t('header.phone')}</a>

@@ -165,7 +165,7 @@ const routeMeta: Record<string, SeoMeta> = {
   "/contacts": {
     title: `Контакты | ${SITE_NAME} — Ремонт гидравлики в Астане`,
     description:
-      "Контакты ACA Hydraulic. Астана, ул. Абая 24/1. Телефон: +7 (771) 417-79-25. WhatsApp, Telegram. Работаем 24/7.",
+      "Контакты ACA Hydraulic. Астана, трасса Астана–Караганда, 81. Телефон: +7 (771) 417-79-25. WhatsApp, Telegram. Работаем 24/7.",
   },
   "/reviews": {
     title: `Отзывы клиентов | ${SITE_NAME}`,

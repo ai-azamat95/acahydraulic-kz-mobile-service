@@ -1,4 +1,5 @@
 import React from 'react';
+import LocalRepairInfo from '@/components/LocalRepairInfo';
 import { SEO } from '@/components/SEO';
 import { MapPin, Truck, Clock, Phone, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -80,6 +81,7 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
           </div>
         </section>
 
+        {canonical === '/regions/astana' && <LocalRepairInfo route="/regions/astana" />}
         {/* Regional Specifics */}
         <section className="py-16 bg-zinc-50 dark:bg-zinc-900/50">
           <div className="container px-4 md:px-6">
