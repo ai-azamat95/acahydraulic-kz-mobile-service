@@ -20,14 +20,15 @@ test('structured data is valid JSON and does not advertise a nonexistent search'
 });
 
 const html = fs.readFileSync('client/index.html', 'utf8');
-const tracker = html.split('<!-- One tracker per contact click.')[1].match(/<script>([\s\S]*?)<\/script>/)[1];
-test('one analytics event per contact click, no navigation dependency or personal query data', () => {
+const tracker = html.split('<!-- Contact-intent tracker.')[1].match(/<script>([\s\S]*?)<\/script>/)[1];
+test('contact intent is tracked once; only phone immediately converts; no personal query data', () => {
   for (const href of ['tel:+77714177925', 'https://wa.me/77714177925?text=PRIVATE_CLIENT_DATA']) {
     let listener; const calls = [];
     vm.runInNewContext(tracker, {document:{addEventListener:(_, fn) => listener = fn}, window:{gtag:(...args) => calls.push(args)}});
     listener({target:{closest:() => ({getAttribute:() => href})}});
-    assert.equal(calls.length, 2);
-    assert.equal(calls.filter(c => c[1] === 'conversion').length, 1);
+    const isPhone = href.startsWith('tel:');
+    assert.equal(calls.length, isPhone ? 2 : 1);
+    assert.equal(calls.filter(c => c[1] === 'conversion').length, isPhone ? 1 : 0);
     assert.ok(!JSON.stringify(calls).includes('PRIVATE_CLIENT_DATA'));
   }
 });
