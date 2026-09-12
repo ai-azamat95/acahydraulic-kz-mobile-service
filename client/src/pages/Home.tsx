@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
 import { seoConfig } from "@/config/seo";
+import LocalRepairInfo from '@/components/LocalRepairInfo';
 import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Scan, Microscope, Settings, Gauge, Menu, X, Send, Video, MapPin, Building2, Calculator, ArrowRight, Mail } from "lucide-react";
 import CostCalculator from "@/components/CostCalculator";
 import { Link } from "wouter";
@@ -316,6 +317,7 @@ export default function Home() {
         </div>
       </section>
 
+      <LocalRepairInfo route="/" />
       {/* YouTube Video Section */}
       <section className="py-14 md:py-20 bg-[#0a0a0a] border-t border-white/10">
         <div className="container mx-auto px-4">
@@ -688,7 +690,7 @@ export default function Home() {
               <ul className="space-y-4 text-gray-400 text-sm">
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#FFC000] flex-shrink-0" />
-                  <span>Астана, Абая 24/1</span>
+                  <span>г. Астана, трасса Астана–Караганда, 81</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-[#FFC000] flex-shrink-0" />

@@ -153,7 +153,7 @@ export default function Contacts() {
                       <h3 className="font-bebas text-xl text-white mb-1">Адрес</h3>
                       <p className="text-gray-400">
                         Республика Казахстан, г. Астана,<br />
-                        проспект Абая 24/1
+                        трасса Астана–Караганда, 81
                       </p>
                     </div>
                   </div>
@@ -228,17 +228,17 @@ export default function Contacts() {
 
             {/* Map */}
             <div className="bg-[#1a1a1a] border border-white/10 rounded-sm overflow-hidden h-[500px] lg:h-auto relative">
-              <a href="https://2gis.kz/astana/geo/70000001111695391" target="_blank" rel="noopener noreferrer" className="flex h-full min-h-[300px] flex-col items-center justify-center gap-4 p-8 text-center"><MapPin className="h-12 w-12 text-[#FFC000]" /><span className="text-2xl">Астана, проспект Абая 24/1</span><span className="text-[#FFC000] underline">Посмотреть адрес и маршрут в 2ГИС</span></a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0%2C%20%D1%82%D1%80%D0%B0%D1%81%D1%81%D0%B0%20%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0-%D0%9A%D0%B0%D1%80%D0%B0%D0%B3%D0%B0%D0%BD%D0%B4%D0%B0%2C%2081" target="_blank" rel="noopener noreferrer" className="flex h-full min-h-[300px] flex-col items-center justify-center gap-4 p-8 text-center"><MapPin className="h-12 w-12 text-[#FFC000]" /><span className="text-2xl">Астана, трасса Астана–Караганда, 81</span><span className="text-[#FFC000] underline">Найти адрес в Google Картах</span></a>
               {/* Map Overlay Gradient */}
               <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#1a1a1a]/20"></div>
             </div>
 
             {/* 2GIS Link Button */}
             <div className="mt-6">
-              <a href="https://2gis.kz/astana/geo/70000001111695391" target="_blank" rel="noopener noreferrer" className="block">
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0%2C%20%D1%82%D1%80%D0%B0%D1%81%D1%81%D0%B0%20%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0-%D0%9A%D0%B0%D1%80%D0%B0%D0%B3%D0%B0%D0%BD%D0%B4%D0%B0%2C%2081" target="_blank" rel="noopener noreferrer" className="block">
                 <Button className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white border border-white/20 font-bebas text-lg h-14 uppercase tracking-wide group transition-all">
                   <MapPin className="w-5 h-5 mr-2 text-[#FFC000] group-hover:scale-110 transition-transform" />
-                  Открыть в 2ГИС
+                  Поиск адреса на карте
                 </Button>
               </a>
             </div>

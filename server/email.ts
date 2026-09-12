@@ -376,7 +376,7 @@ function generateAutoReplyHTML(lead: Partial<Lead>): string {
   
   <div class="footer">
     <p>acahydraulic.kz | info@acahydraulic.kz</p>
-    <p>Астана, Абая 24/1</p>
+    <p>г. Астана, трасса Астана–Караганда, 81</p>
   </div>
 </body>
 </html>

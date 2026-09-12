@@ -3,11 +3,11 @@
 
 export const seoConfig = {
   home: {
-    title: "Ремонт гидравлики спецтехники в Астане и Казахстане",
-    description: "Выездная диагностика и ремонт гидравлики экскаваторов, погрузчиков и буровых установок. Астана и Казахстан. Стоимость работ согласуем после диагностики.",
+    title: "Ремонт гидравлики в Астане — выездной сервис",
+    description: "Ремонт гидравлики в Астане: экскаваторы, погрузчики и буровые. Диагностика от 200 000 ₸, выезд на объект. База: трасса Астана–Караганда, 81.",
     keywords: "ремонт гидравлики астана, ремонт экскаваторов казахстан, выездной ремонт спецтехники, ремонт гидросистем, гидравлический сервис",
     canonical: "/",
-    h1: "Выездной сервис гидравлики спецтехники"
+    h1: "Ремонт гидравлики в Астане"
   },
   
   services: {
@@ -36,7 +36,7 @@ export const seoConfig = {
   
   contacts: {
     title: "Контакты ACA Hydraulic | Ремонт гидравлики в Астане",
-    description: "Свяжитесь с нами для ремонта гидравлики: +7 (771) 417-79-25. Адрес: Астана, Казахстан. Работаем 24/7. WhatsApp, Telegram. Выезд мастера на объект в течение 2 часов.",
+    description: "ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Телефон и WhatsApp +7 (771) 417-79-25. Диагностика и ремонт гидравлики с выездом.",
     keywords: "контакты ACA Hydraulic, телефон ремонт гидравлики астана, адрес сервиса спецтехники, вызвать мастера",
     canonical: "/contacts",
     h1: "Контакты ACA Hydraulic"
@@ -137,18 +137,11 @@ export const localBusinessSchema = {
   "description": "Профессиональный выездной сервис и ремонт гидравлики спецтехники, экскаваторов и буровых установок в Астане и по всему Казахстану. Работаем 24/7.",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "проспект Абая 24/1",
+    "streetAddress": "трасса Астана–Караганда, 81",
     "addressLocality": "Астана",
     "addressRegion": "Астана",
-    "postalCode": "010000",
     "addressCountry": "KZ"
   },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 51.167758,
-    "longitude": 71.423135
-  },
-  "hasMap": "https://2gis.kz/astana/geo/70000001111695391",
   "telephone": "+77714177925",
   "email": "info@acahydraulic.kz",
   "url": "https://acahydraulic.kz",
@@ -174,8 +167,7 @@ export const localBusinessSchema = {
   "sameAs": [
     "https://wa.me/77714177925",
     "https://t.me/+77714177925",
-    "https://www.tiktok.com/@acaservice01",
-    "https://2gis.kz/astana/geo/70000001111695391"
+    "https://www.tiktok.com/@acaservice01"
   ],
   "areaServed": [
     {"@type": "City", "name": "Астана"},

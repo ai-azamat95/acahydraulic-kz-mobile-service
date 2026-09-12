@@ -5,6 +5,7 @@ const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
 const sitemapPath = path.join(outDir, 'sitemap.xml');
 const baseUrl = 'https://acahydraulic.kz';
+const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-repair-content.json', import.meta.url), 'utf8'));
 const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
 
 if (!fs.existsSync(indexPath)) {
@@ -28,8 +29,16 @@ const explicitMeta = {
   privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
   terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
   '': {
-    title: 'Ремонт гидравлики спецтехники в Астане и Казахстане | ACA Hydraulic',
-    description: 'Выездная диагностика и ремонт гидравлики экскаваторов, погрузчиков и буровых установок. Астана и Казахстан. Стоимость работ согласуем после диагностики.',
+    title: 'Ремонт гидравлики в Астане — выездной сервис | ACA Hydraulic',
+    description: 'Ремонт гидравлики в Астане: экскаваторы, погрузчики и буровые. Диагностика от 200 000 ₸, выезд на объект. База: трасса Астана–Караганда, 81.',
+  },
+  'regions/astana': {
+    title: 'Выездной ремонт гидравлики в Астане | ACA Hydraulic',
+    description: 'Выездная диагностика гидравлики в Астане от 200 000 ₸. Ремонт экскаваторов, погрузчиков и буровых на объекте. База: трасса Астана–Караганда, 81.',
+  },
+  'services/excavator-repair': {
+    title: 'Ремонт экскаваторов в Астане — гидравлика и ДВС | ACA Hydraulic',
+    description: 'Выездной ремонт экскаваторов CAT, Komatsu, Hitachi, Hyundai и SANY в Астане. Диагностика от 200 000 ₸. Гидравлика, двигатель, проверка под нагрузкой.',
   },
   services: {
     title: 'Услуги ремонта гидравлики спецтехники | ACA Hydraulic',
@@ -57,7 +66,7 @@ const explicitMeta = {
   },
   contacts: {
     title: 'Контакты ACA Hydraulic | Вызвать ремонт гидравлики',
-    description: 'Контакты ACA Hydraulic: вызов бригады для ремонта гидравлики спецтехники. Телефон и WhatsApp +7 (771) 417-79-25.',
+    description: 'ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Телефон и WhatsApp +7 (771) 417-79-25. Диагностика и ремонт гидравлики с выездом.',
   },
   corporate: {
     title: 'Корпоративное обслуживание спецтехники | ACA Hydraulic',
@@ -207,6 +216,12 @@ function fallbackLinks(route) {
 }
 
 function staticFallback(route, meta, canonical) {
+  const local = localRepairContent['/' + route];
+  const localHtml = local ? '<section><h2>' + escapeHtml(local.title) + '</h2>' +
+    local.paragraphs.map(text => '<p>' + escapeHtml(text) + '</p>').join('') +
+    '<nav aria-label="Услуги и примеры ремонта"><ul>' + local.links.map(link =>
+      '<li><a href="' + escapeAttr(link.href) + '">' + escapeHtml(link.label) + '</a></li>'
+    ).join('') + '</ul></nav></section>' : '';
   const content = serviceContent['/' + route];
   const details = content ? content.sections.map(section =>
     '<section><h2>' + escapeHtml(section.title) + '</h2><p>' + escapeHtml(section.text) + '</p></section>'
@@ -227,6 +242,8 @@ function staticFallback(route, meta, canonical) {
   <p>${escapeHtml(meta.description)}</p>
   <p>ACA Hydraulic выполняет диагностику и ремонт гидравлических систем спецтехники. Условия, сроки выезда и стоимость согласовываются после получения информации о технике и неисправности.</p>
   ${details}
+  ${localHtml}
+  <p>Адрес ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Перед приездом позвоните для согласования.</p>
   <nav aria-label="Основные услуги"><ul>${links}</ul></nav>
   <p><a href="tel:+77714177925">Позвонить: +7 (771) 417-79-25</a> · <a href="https://wa.me/77714177925">Написать в WhatsApp</a></p>
 </main>`;
