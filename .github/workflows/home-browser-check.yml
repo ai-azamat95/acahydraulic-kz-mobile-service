@@ -74,6 +74,7 @@ jobs:
               await page.evaluate(() => window.scrollTo(0, 0));
               await page.screenshot({ path: 'ui-check/home-' + width + '.png' });
               const hero = await page.getByRole('heading', { level: 1 }).locator('xpath=ancestor::section').boundingBox();
+              assert.deepEqual(errors, [], 'Browser runtime errors at ' + width);
               results.push({ width, heroHeight: hero.height, layout: 'pass', contactDialog: 'pass', pageErrors: errors });
               await page.close();
             }
