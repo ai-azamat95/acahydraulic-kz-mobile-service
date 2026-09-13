@@ -214,7 +214,7 @@ export default function Home() {
           {/* Main Content */}
           <div className="max-w-xl md:max-w-2xl">
             <p className="mb-3 text-sm font-bold text-[#FFC000]">Выезд на объект по Казахстану</p>
-            <h1 className="font-bebas font-bold text-[28px] md:text-[72px] leading-[1.1] md:leading-[0.95] text-white mb-4 md:mb-6 uppercase tracking-normal drop-shadow-2xl scale-y-110 origin-top-left">
+            <h1 className="font-bebas font-bold text-[28px] md:text-[56px] leading-[1.1] md:leading-[0.95] text-white mb-4 md:mb-6 uppercase tracking-normal drop-shadow-2xl scale-y-110 origin-top-left">
               {t('hero.title')}
             </h1>
             
@@ -237,7 +237,7 @@ export default function Home() {
                 onClick={() => setIsFormDialogOpen(true)}
                 className="bg-[#1a1a1a]/90 hover:bg-black text-white border border-white/10 font-bebas font-extrabold text-[14px] md:text-[18px] h-[46px] md:h-[56px] rounded-[4px] uppercase tracking-wide w-[220px] md:w-[260px] backdrop-blur-md shadow-lg"
               >
-                Описать неисправность
+                Описать поломку
               </Button>
             </div>
 
