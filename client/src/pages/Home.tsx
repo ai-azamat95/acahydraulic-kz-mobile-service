@@ -99,7 +99,7 @@ export default function Home() {
               <LanguageSwitcher />
             </div>
             {/* TikTok Button - Desktop */}
-            <a href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center justify-center w-10 h-10 bg-black rounded-full border border-white/10 hover:border-[#FF0050]/50 hover:bg-[#111] transition-all group relative overflow-hidden">
+            <a aria-label="ACA Hydraulic в TikTok" href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center justify-center w-10 h-10 bg-black rounded-full border border-white/10 hover:border-[#FF0050]/50 hover:bg-[#111] transition-all group relative overflow-hidden">
                <div className="absolute inset-0 bg-gradient-to-tr from-[#25F4EE]/20 to-[#FE2C55]/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                <svg className="w-5 h-5 text-white group-hover:text-[#FF0050] transition-colors relative z-10" viewBox="0 0 24 24" fill="currentColor">
                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
@@ -107,7 +107,7 @@ export default function Home() {
             </a>
 
             {/* YouTube Button - Desktop */}
-            <a href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center justify-center w-10 h-10 bg-black rounded-full border border-white/10 hover:border-[#FF0000]/50 hover:bg-[#111] transition-all group relative overflow-hidden">
+            <a aria-label="ACA Hydraulic на YouTube" href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center justify-center w-10 h-10 bg-black rounded-full border border-white/10 hover:border-[#FF0000]/50 hover:bg-[#111] transition-all group relative overflow-hidden">
                <div className="absolute inset-0 bg-[#FF0000]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                <svg className="w-5 h-5 text-white group-hover:text-[#FF0000] transition-colors relative z-10" viewBox="0 0 24 24" fill="currentColor">
                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -120,14 +120,14 @@ export default function Home() {
             </a>
             
             {/* TikTok Button - Mobile (Header) */}
-            <a href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer" className="md:hidden flex items-center justify-center w-9 h-9 bg-black rounded-full border border-white/10 active:scale-95 transition-transform">
+            <a aria-label="ACA Hydraulic в TikTok" href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer" className="md:hidden flex items-center justify-center w-11 h-11 text-gray-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000] transition-colors">
                <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
                </svg>
             </a>
 
             {/* YouTube Button - Mobile (Header) */}
-            <a href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer" className="md:hidden flex items-center justify-center w-9 h-9 bg-black rounded-full border border-white/10 active:scale-95 transition-transform">
+            <a aria-label="ACA Hydraulic на YouTube" href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer" className="md:hidden flex items-center justify-center w-11 h-11 text-gray-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000] transition-colors">
                <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                </svg>
@@ -136,7 +136,7 @@ export default function Home() {
             {/* Mobile Menu Trigger */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="xl:hidden text-white hover:text-[#FFC000] hover:bg-transparent">
+                <Button aria-label="Открыть меню" variant="ghost" size="icon" className="xl:hidden text-white hover:text-[#FFC000] hover:bg-transparent">
                   <Menu className="w-8 h-8" />
                 </Button>
               </SheetTrigger>
@@ -193,7 +193,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative min-h-[100dvh] flex flex-col">
+      <section className="relative flex flex-col">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -210,17 +210,22 @@ export default function Home() {
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#111111] to-transparent z-0"></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10 flex-grow flex flex-col pt-14 pb-[70px] md:pt-32 md:pb-12 min-h-[100dvh] justify-between md:justify-center">
+        <div className="container mx-auto px-4 relative z-10 flex flex-col pt-24 pb-8 md:pt-32 md:pb-12">
           {/* Main Content */}
-          <div className="max-w-xl mt-12 md:mt-0 md:max-w-2xl pl-4 md:pl-0">
+          <div className="max-w-xl md:max-w-2xl">
+            <p className="mb-3 text-sm font-bold text-[#FFC000]">Выезд на объект по Казахстану</p>
             <h1 className="font-bebas font-bold text-[28px] md:text-[72px] leading-[1.1] md:leading-[0.95] text-white mb-4 md:mb-6 uppercase tracking-normal drop-shadow-2xl scale-y-110 origin-top-left">
               {t('hero.title')}
             </h1>
             
-            <p className="text-[15px] md:text-[18px] text-[#d1d5db] mb-10 md:mb-10 max-w-[95%] md:max-w-[600px] font-roboto font-normal leading-[1.3] md:leading-[1.5] tracking-wide drop-shadow-md">
-              {t('hero.subtitle')}
+            <p className="text-[15px] md:text-[18px] text-[#d1d5db] mb-4 md:mb-5 max-w-[95%] md:max-w-[600px] font-roboto font-normal leading-[1.3] md:leading-[1.5] tracking-wide drop-shadow-md">
+              Выездная диагностика и ремонт экскаваторов, погрузчиков и буровых. Техника теряет мощность, глохнет под нагрузкой или не работает ход? Определим причину и согласуем ремонт.
             </p>
 
+            <div className="mb-5 max-w-xl">
+              <p className="text-xl md:text-2xl font-bold text-white">Диагностика от 200 000 ₸</p>
+              <p className="mt-1 text-sm leading-relaxed text-gray-300">Ремонт, запчасти и расходы на выезд — отдельно.</p>
+            </div>
             <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto items-start">
               <a 
                 href="tel:+77714177925"
@@ -232,7 +237,7 @@ export default function Home() {
                 onClick={() => setIsFormDialogOpen(true)}
                 className="bg-[#1a1a1a]/90 hover:bg-black text-white border border-white/10 font-bebas font-extrabold text-[14px] md:text-[18px] h-[46px] md:h-[56px] rounded-[4px] uppercase tracking-wide w-[220px] md:w-[260px] backdrop-blur-md shadow-lg"
               >
-                {t('hero.cta_secondary')}
+                Описать неисправность
               </Button>
             </div>
 
@@ -253,7 +258,7 @@ export default function Home() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="text-[#FFC000]">✓</span>
-                  Собственный склад запчастей
+                  Собственная ремонтная база в Астане
                 </span>
               </div>
             </div>
@@ -261,28 +266,10 @@ export default function Home() {
 
 
 
-          {/* Bottom Section - Mobile Only */}
-          <div className="mt-auto md:hidden">
-            {/* Mobile Features Grid */}
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              <div className="bg-black/40 backdrop-blur-sm p-3 rounded border border-white/5">
-                <div className="flex items-center gap-2 mb-1">
-                  <Truck className="w-4 h-4 text-[#FFC000]" />
-                  <span className="font-bebas text-sm text-white">{t('hero.emergencyCall')}</span>
-                </div>
-                <p className="text-[10px] text-gray-400 leading-tight">{t('hero.emergencyCallDesc')}</p>
-              </div>
-              <div className="bg-black/40 backdrop-blur-sm p-3 rounded border border-white/5">
-                <div className="flex items-center gap-2 mb-1">
-                  <ShieldCheck className="w-4 h-4 text-[#FFC000]" />
-                  <span className="font-bebas text-sm text-white">{t('hero.warranty')}</span>
-                </div>
-                <p className="text-[10px] text-gray-400 leading-tight">{t('hero.warrantyDesc')}</p>
-              </div>
-            </div>
-
-
-          </div>
+          <p className="mt-5 text-sm leading-relaxed text-gray-300 md:hidden">
+            <ShieldCheck className="mr-2 inline-block h-4 w-4 text-[#FFC000]" aria-hidden="true" />
+            Гарантия на работы — 6 месяцев при соблюдении рекомендаций.
+          </p>
 
           {/* Desktop Benefits Row */}
           <div className="hidden md:grid grid-cols-3 gap-8 mt-12 border-t border-white/10 pt-8">
@@ -300,8 +287,8 @@ export default function Home() {
                 <ShieldCheck className="w-6 h-6 text-[#FFC000]" />
               </div>
               <div>
-                <h3 className="font-bebas text-xl text-white mb-1">{t('benefits.qualityWarranty')}</h3>
-                <p className="text-sm text-gray-400">{t('benefits.qualityWarrantyDesc')}</p>
+                <h3 className="font-bebas text-xl text-white mb-1">Гарантия на работы — 6 месяцев</h3>
+                <p className="text-sm text-gray-400">При соблюдении рекомендаций</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -313,6 +300,49 @@ export default function Home() {
                 <p className="text-sm text-gray-400">{t('benefits.complexRepairDesc')}</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="repair-cases-title" className="border-t border-white/10 bg-[#111111] py-8 md:py-12">
+        <div className="container mx-auto px-4">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 id="repair-cases-title" className="font-bebas text-3xl md:text-4xl text-white">Реальные выездные ремонты</h2>
+              <p className="mt-2 text-sm md:text-base text-gray-300">Техника, выполненные работы и видео результата.</p>
+            </div>
+            <Link href="/cases/" className="inline-flex min-h-11 items-center text-[#FFC000] underline underline-offset-4">Все кейсы ремонта</Link>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              {
+                model: 'Caterpillar 325C',
+                task: 'Ремонт двигателя и гидравлики',
+                result: 'Сначала выполнили ремонт двигателя, затем гидравлики. В видео — запуск после ремонта двигателя.',
+                video: 'https://www.tiktok.com/@acaservice01/video/7650900443517750546',
+              },
+              {
+                model: 'Caterpillar 330DL',
+                task: 'Потеря мощности после прогрева',
+                result: 'Провели выездную диагностику и ремонт. Финальное видео показывает работу экскаватора после устранения неисправностей.',
+                video: 'https://www.tiktok.com/@acaservice01/video/7648329720278289672',
+              },
+              {
+                model: 'SANY SY365H',
+                task: 'Рывки стрелы и потеря мощности',
+                result: 'Восстановили гидравлику и электрическую часть. Экскаватор запущен и возвращён в работу.',
+                video: 'https://www.tiktok.com/@acaservice01/video/7676537009258712327',
+              },
+            ].map((repair) => (
+              <article key={repair.model} className="flex flex-col border border-white/15 rounded p-5 bg-[#1a1a1a]">
+                <h3 className="text-xl font-bold text-white">{repair.model}</h3>
+                <p className="mt-2 font-medium text-[#FFC000]">{repair.task}</p>
+                <p className="mt-3 mb-4 text-sm leading-relaxed text-gray-300">{repair.result}</p>
+                <a href={repair.video} target="_blank" rel="noopener noreferrer" aria-label={`Смотреть ремонт ${repair.model} в TikTok`} className="mt-auto inline-flex min-h-11 items-center gap-2 text-white underline underline-offset-4 hover:text-[#FFC000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">
+                  <Video className="h-5 w-5 shrink-0" aria-hidden="true" /> Смотреть видео ремонта
+                </a>
+              </article>
+            ))}
           </div>
         </div>
       </section>
