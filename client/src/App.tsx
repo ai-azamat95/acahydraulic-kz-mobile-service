@@ -19,6 +19,8 @@ const Contacts = lazy(() => import("./pages/Contacts"));
 const Cases = lazy(() => import("./pages/Cases"));
 const Corporate = lazy(() => import("./pages/Corporate"));
 const Blog = lazy(() => import("./pages/Blog"));
+const Catalog = lazy(() => import("./pages/Catalog"));
+const ProductPage = lazy(() => import("./pages/ProductPage"));
 
 // Real repair case pages
 const Cat330DLHotPowerLoss = lazy(() => import("./pages/cases/Cat330DLHotPowerLoss"));
@@ -86,6 +88,8 @@ function AppRoutes() {
         <Route path={"/"} component={Home} />
         <Route path="/privacy" component={Legal} />
         <Route path="/terms" component={Legal} />
+        <Route path="/parts" component={Catalog} />
+        <Route path="/parts/:slug" component={ProductPage} />
         <Route path={"/services/mobile-repair"} component={MobileRepair} />
         <Route path={"/services/hydraulic-pumps"} component={HydraulicPumps} />
         <Route path={"/services/hydraulic-motors"} component={HydraulicMotors} />
