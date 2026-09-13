@@ -1,0 +1,95 @@
+name: Check homepage in browser
+on:
+  pull_request:
+    paths:
+      - 'client/src/pages/Home.tsx'
+      - '.github/workflows/home-browser-check.yml'
+permissions:
+  contents: read
+jobs:
+  home-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Install browser test runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/aca-ui" playwright@1.62.1 --no-audit --no-fund
+          node "$RUNNER_TEMP/aca-ui/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Check responsive layout and contact controls
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import http from 'node:http';
+          import assert from 'node:assert/strict';
+          const { chromium } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
+          const root = path.resolve('dist/public');
+          const server = http.createServer((req, res) => {
+            let file = path.join(root, decodeURIComponent(req.url.split('?')[0]));
+            if (!file.startsWith(root)) { res.writeHead(403).end(); return; }
+            if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');
+            if (!fs.existsSync(file)) { res.writeHead(404).end(); return; }
+            res.setHeader('Content-Type', ({'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2'})[path.extname(file)] || 'application/octet-stream');
+            fs.createReadStream(file).pipe(res);
+          });
+          await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+          const origin = 'http://127.0.0.1:' + server.address().port;
+          const browser = await chromium.launch();
+          fs.mkdirSync('ui-check', { recursive: true });
+          const results = [];
+          try {
+            for (const width of [320, 390, 768, 1024, 1440]) {
+              const page = await browser.newPage({ viewport: { width, height: 900 }, locale: 'ru-RU' });
+              const errors = [];
+              page.on('pageerror', error => errors.push(error.message));
+              await page.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
+              await page.goto(origin, { waitUntil: 'networkidle' });
+              await page.getByRole('heading', { name: 'Реальные выездные ремонты' }).waitFor();
+              assert.equal(await page.locator('h1').count(), 1);
+              assert.equal(await page.locator('section[aria-labelledby="repair-cases-title"] article').count(), 3);
+              assert(await page.getByText('Диагностика от 200 000 ₸', { exact: true }).isVisible());
+              assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Page overflows at ' + width);
+              assert.equal(await page.getByRole('link', { name: 'Вызвать специалиста', exact: true }).getAttribute('href'), 'tel:+77714177925');
+              for (const link of await page.locator('section[aria-labelledby="repair-cases-title"] article a').all()) {
+                assert.match(await link.getAttribute('href'), /^https:\/\/www\.tiktok\.com\/@acaservice01\/video\/\d+$/);
+              }
+              await page.getByRole('button', { name: 'Описать поломку', exact: true }).click();
+              await page.getByRole('dialog').waitFor({ state: 'visible' });
+              assert(await page.getByRole('dialog').locator('form').isVisible());
+              await page.screenshot({ path: 'ui-check/form-' + width + '.png' });
+              await page.keyboard.press('Escape');
+              await page.getByRole('dialog').waitFor({ state: 'hidden' });
+              if (width < 1280) {
+                await page.getByRole('button', { name: 'Открыть меню' }).click();
+                await page.getByRole('dialog').waitFor();
+                await page.keyboard.press('Escape');
+                await page.getByRole('dialog').waitFor({ state: 'hidden' });
+              }
+              await page.evaluate(() => window.scrollTo(0, 0));
+              await page.screenshot({ path: 'ui-check/home-' + width + '.png' });
+              if (width === 390) await page.locator('section[aria-labelledby="repair-cases-title"]').screenshot({ path: 'ui-check/cases-390.png' });
+              const hero = await page.getByRole('heading', { level: 1 }).locator('xpath=ancestor::section').boundingBox();
+              assert.deepEqual(errors, [], 'Browser runtime errors at ' + width);
+              results.push({ width, heroHeight: hero.height, layout: 'pass', contactDialog: 'pass', pageErrors: errors });
+              await page.close();
+            }
+          } finally {
+            fs.writeFileSync('ui-check/results.json', JSON.stringify(results, null, 2));
+            console.log(JSON.stringify(results, null, 2));
+            await browser.close();
+            server.close();
+          }
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: homepage-browser-check
+          path: ui-check/
+          retention-days: 7
