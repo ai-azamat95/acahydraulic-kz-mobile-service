@@ -60,7 +60,7 @@ jobs:
               for (const link of await page.locator('section[aria-labelledby="repair-cases-title"] article a').all()) {
                 assert.match(await link.getAttribute('href'), /^https:\/\/www\.tiktok\.com\/@acaservice01\/video\/\d+$/);
               }
-              await page.getByRole('button', { name: 'Описать неисправность', exact: true }).click();
+              await page.getByRole('button', { name: 'Описать поломку', exact: true }).click();
               await page.getByRole('dialog').waitFor({ state: 'visible' });
               assert(await page.getByRole('dialog').locator('form').isVisible());
               await page.screenshot({ path: 'ui-check/form-' + width + '.png' });
@@ -70,9 +70,11 @@ jobs:
                 await page.getByRole('button', { name: 'Открыть меню' }).click();
                 await page.getByRole('dialog').waitFor();
                 await page.keyboard.press('Escape');
+                await page.getByRole('dialog').waitFor({ state: 'hidden' });
               }
               await page.evaluate(() => window.scrollTo(0, 0));
               await page.screenshot({ path: 'ui-check/home-' + width + '.png' });
+              if (width === 390) await page.locator('section[aria-labelledby="repair-cases-title"]').screenshot({ path: 'ui-check/cases-390.png' });
               const hero = await page.getByRole('heading', { level: 1 }).locator('xpath=ancestor::section').boundingBox();
               assert.deepEqual(errors, [], 'Browser runtime errors at ' + width);
               results.push({ width, heroHeight: hero.height, layout: 'pass', contactDialog: 'pass', pageErrors: errors });
