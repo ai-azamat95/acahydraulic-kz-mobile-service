@@ -43,88 +43,73 @@
 }
 
 :root {
-  /* Industrial Yellow/Orange Accent - Exact Match */
-  --primary: oklch(0.80 0.16 85); /* Slightly deeper yellow/orange #FFC000 */
+  --primary: oklch(0.80 0.16 85);
   --primary-foreground: oklch(0.15 0.02 280);
-  
   --sidebar-primary: oklch(0.82 0.18 85);
   --sidebar-primary-foreground: oklch(0.15 0.02 280);
-  
   --chart-1: oklch(0.82 0.18 85);
   --chart-2: oklch(0.75 0.16 80);
   --chart-3: oklch(0.65 0.14 75);
   --chart-4: oklch(0.55 0.12 70);
   --chart-5: oklch(0.45 0.10 65);
-  
-  --radius: 0.25rem; /* Sharper corners for industrial look */
-  
-  /* Dark Theme by Default for Industrial Look - Lightened to Dark Grey */
-  --background: oklch(0.22 0.02 280); /* Dark Grey (lightened from 0.15) */
-  --foreground: oklch(0.95 0.01 280); /* White/Light Grey */
-  
-  --card: oklch(0.26 0.02 280); /* Lightened from 0.20 */
+  --radius: 0.25rem;
+  --background: oklch(0.22 0.02 280);
+  --foreground: oklch(0.95 0.01 280);
+  --card: oklch(0.26 0.02 280);
   --card-foreground: oklch(0.95 0.01 280);
-  
-  --popover: oklch(0.26 0.02 280); /* Lightened from 0.20 */
+  --popover: oklch(0.26 0.02 280);
   --popover-foreground: oklch(0.95 0.01 280);
-  
-  --secondary: oklch(0.30 0.02 280); /* Lightened from 0.25 */
+  --secondary: oklch(0.30 0.02 280);
   --secondary-foreground: oklch(0.95 0.01 280);
-  
-  --muted: oklch(0.35 0.02 280); /* Lightened from 0.30 */
+  --muted: oklch(0.35 0.02 280);
   --muted-foreground: oklch(0.72 0.01 280);
-  
-  --accent: oklch(0.30 0.02 280); /* Lightened from 0.25 */
+  --accent: oklch(0.30 0.02 280);
   --accent-foreground: oklch(0.95 0.01 280);
-  
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  
-  --border: oklch(0.35 0.02 280); /* Lightened from 0.30 */
-  --input: oklch(0.35 0.02 280); /* Lightened from 0.30 */
-  --ring: oklch(0.82 0.18 85); /* Yellow ring */
-  
-  --sidebar: oklch(0.22 0.02 280); /* Lightened from 0.15 */
+  --border: oklch(0.35 0.02 280);
+  --input: oklch(0.35 0.02 280);
+  --ring: oklch(0.82 0.18 85);
+  --sidebar: oklch(0.22 0.02 280);
   --sidebar-foreground: oklch(0.95 0.01 280);
-  --sidebar-accent: oklch(0.30 0.02 280); /* Lightened from 0.25 */
+  --sidebar-accent: oklch(0.30 0.02 280);
   --sidebar-accent-foreground: oklch(0.95 0.01 280);
-  --sidebar-border: oklch(0.35 0.02 280); /* Lightened from 0.30 */
+  --sidebar-border: oklch(0.35 0.02 280);
   --sidebar-ring: oklch(0.82 0.18 85);
 }
 
 .dark {
-  /* Same as root since we want dark mode by default - Lightened */
   --primary: oklch(0.82 0.18 85);
   --primary-foreground: oklch(0.15 0.02 280);
   --sidebar-primary: oklch(0.82 0.18 85);
   --sidebar-primary-foreground: oklch(0.15 0.02 280);
-  --background: oklch(0.22 0.02 280); /* Lightened */
+  --background: oklch(0.22 0.02 280);
   --foreground: oklch(0.95 0.01 280);
-  --card: oklch(0.26 0.02 280); /* Lightened */
+  --card: oklch(0.26 0.02 280);
   --card-foreground: oklch(0.95 0.01 280);
-  --popover: oklch(0.26 0.02 280); /* Lightened */
+  --popover: oklch(0.26 0.02 280);
   --popover-foreground: oklch(0.95 0.01 280);
-  --secondary: oklch(0.30 0.02 280); /* Lightened */
+  --secondary: oklch(0.30 0.02 280);
   --secondary-foreground: oklch(0.95 0.01 280);
-  --muted: oklch(0.35 0.02 280); /* Lightened */
+  --muted: oklch(0.35 0.02 280);
   --muted-foreground: oklch(0.72 0.01 280);
-  --accent: oklch(0.30 0.02 280); /* Lightened */
+  --accent: oklch(0.30 0.02 280);
   --accent-foreground: oklch(0.95 0.01 280);
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.35 0.02 280); /* Lightened */
-  --input: oklch(0.35 0.02 280); /* Lightened */
+  --border: oklch(0.35 0.02 280);
+  --input: oklch(0.35 0.02 280);
   --ring: oklch(0.82 0.18 85);
   --chart-1: oklch(0.82 0.18 85);
   --chart-2: oklch(0.75 0.16 80);
   --chart-3: oklch(0.65 0.14 75);
   --chart-4: oklch(0.55 0.12 70);
   --chart-5: oklch(0.45 0.10 65);
-  --sidebar: oklch(0.22 0.02 280); /* Lightened */
+  --sidebar: oklch(0.22 0.02 280);
   --sidebar-foreground: oklch(0.95 0.01 280);
-  --sidebar-accent: oklch(0.30 0.02 280); /* Lightened */
+  --sidebar-accent: oklch(0.30 0.02 280);
   --sidebar-accent-foreground: oklch(0.95 0.01 280);
-  --sidebar-border: oklch(0.35 0.02 280); /* Lightened */
+  --sidebar-border: oklch(0.35 0.02 280);
   --sidebar-ring: oklch(0.82 0.18 85);
 }
 
@@ -133,17 +118,17 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-light; /* Lighter body text (font-weight: 300) */
+    @apply bg-background text-foreground font-light;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold; /* Heavier headings (font-weight: 700) */
-    letter-spacing: -0.02em; /* Tighter letter spacing for headings */
+    @apply font-bold;
+    letter-spacing: -0.02em;
   }
   h1 {
-    @apply font-extrabold; /* Extra bold for h1 (font-weight: 800) */
+    @apply font-extrabold;
   }
   p {
-    @apply font-normal; /* Normal weight for paragraphs (font-weight: 400) */
+    @apply font-normal;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -159,24 +144,11 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -187,19 +159,20 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
   }
 }
+
 @layer utilities {
   .font-bebas {
     font-family: 'Bebas Neue', sans-serif;
@@ -212,7 +185,6 @@
   }
 }
 
-/* Attempt to hide the Made in Manus badge */
 a[href*="manus.im"],
 div[class*="manus-badge"],
 #manus-badge,
@@ -223,7 +195,7 @@ div[class*="manus-badge"],
   visibility: hidden !important;
 }
 
-/* Parts catalog category cards: product photography first, not abstract icons. */
+/* Parts catalog category cards: real product photography on white background. */
 section[aria-labelledby="categories-title"] button.group.relative {
   background: #ffffff !important;
   border-color: #dedede !important;
@@ -256,10 +228,8 @@ section[aria-labelledby="categories-title"] button.group.relative > div[class*="
   background: linear-gradient(to top, #ffffff 0%, #ffffff 36%, rgba(255,255,255,0.96) 50%, rgba(255,255,255,0.08) 82%) !important;
 }
 
-section[aria-labelledby="categories-title"] button.group.relative > svg.absolute {
-  display: none !important;
-}
-
+/* Never show abstract category icons as a substitute for a product photo. */
+section[aria-labelledby="categories-title"] button.group.relative > svg.absolute,
 section[aria-labelledby="categories-title"] button.group.relative > div.relative > span:first-child {
   display: none !important;
 }
@@ -274,4 +244,11 @@ section[aria-labelledby="categories-title"] button.group.relative .text-gray-400
 
 section[aria-labelledby="categories-title"] button.group.relative .text-\[\#FFC000\] {
   color: #c68f00 !important;
+}
+
+/* Category cards are navigation tiles, not loading-state counters. Hide the
+   transient count line so users never see a misleading “0 products” while
+   the catalog index is arriving on a mobile connection. */
+section[aria-labelledby="categories-title"] button.group.relative > div.relative > span.mt-1 {
+  display: none !important;
 }
