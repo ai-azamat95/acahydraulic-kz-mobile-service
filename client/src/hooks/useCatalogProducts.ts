@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import "@/catalog-mobile.css";
+import "@/catalog-performance.css";
 import type { CatalogIndexProduct, CatalogProduct } from "@/types/catalog";
 
 type CatalogManifest = {
@@ -43,9 +44,6 @@ export function useCatalogIndex() {
         setLoading(true);
         setError(false);
 
-        // The manifest is tiny. Revalidate only this file so a new deployment
-        // is discovered quickly, while the large versioned catalog files stay
-        // in the browser cache between visits.
         const manifest = await fetchJson<CatalogManifest>(
           "/catalog-data/manifest.json",
           controller.signal,
@@ -57,8 +55,6 @@ export function useCatalogIndex() {
           manifest.importedAt,
         );
 
-        // Fast first paint: download just one small chunk first. The page can
-        // render immediately instead of blocking on all 10k+ products.
         try {
           const firstChunk = await fetchJson<CatalogIndexProduct[]>(
             firstChunkUrl,
@@ -88,8 +84,6 @@ export function useCatalogIndex() {
               return;
             }
 
-            // Compatibility fallback for an older deployment: stream chunks
-            // progressively, but keep each versioned file cacheable.
             const collected: CatalogIndexProduct[] = [];
             for (let start = 0; start < manifest.chunkCount; start += 6) {
               if (controller.signal.aborted) return;
@@ -115,15 +109,10 @@ export function useCatalogIndex() {
           } catch (fullIndexError) {
             if (controller.signal.aborted) return;
             console.error("Full catalog index failed to load", fullIndexError);
-            // If the first chunk rendered successfully, keep the usable page
-            // instead of replacing it with an error screen.
             if (!bootstrapLoaded) setError(true);
           }
         };
 
-        // Let the browser paint the catalogue UI before parsing the large
-        // consolidated index. This materially improves perceived navigation
-        // speed on iPhone/mobile networks.
         backgroundTimer = window.setTimeout(() => {
           void loadFullIndex();
         }, 120);
