@@ -54,6 +54,35 @@ const trpcClient = trpc.createClient({
   ],
 });
 
+// Warm the catalogue after the homepage has had time to paint. This keeps the
+// homepage critical path small, but makes the common "Home -> Parts" journey
+// feel instant on mobile. Only the catalogue code and first small index chunk
+// are prefetched; the 10k+ product index is still deferred until the page opens.
+if (typeof window !== "undefined" && window.location.pathname === "/") {
+  const connection = (navigator as Navigator & {
+    connection?: { saveData?: boolean; effectiveType?: string };
+  }).connection;
+
+  const avoidPrefetch = connection?.saveData || connection?.effectiveType === "2g";
+  if (!avoidPrefetch) {
+    window.setTimeout(() => {
+      void import("./pages/Catalog");
+      void fetch("/catalog-data/manifest.json", { cache: "no-cache" })
+        .then((response) => (response.ok ? response.json() : null))
+        .then((manifest: { importedAt?: string } | null) => {
+          if (!manifest) return;
+          const suffix = manifest.importedAt
+            ? `?v=${encodeURIComponent(manifest.importedAt)}`
+            : "";
+          return fetch(`/catalog-data/search-index-001.json${suffix}`, {
+            cache: "force-cache",
+          });
+        })
+        .catch(() => undefined);
+    }, 1800);
+  }
+}
+
 createRoot(document.getElementById("root")!).render(
   <trpc.Provider client={trpcClient} queryClient={queryClient}>
     <QueryClientProvider client={queryClient}>
