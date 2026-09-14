@@ -35,6 +35,8 @@ jobs:
         run: node scripts/create-spa-route-copies.mjs
       - name: Create static case route copies
         run: node scripts/create-case-route-copies.mjs
+      - name: Create static catalog route copies
+        run: node scripts/create-catalog-route-copies.mjs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

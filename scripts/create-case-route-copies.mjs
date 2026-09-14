@@ -54,11 +54,11 @@ function setMeta(html, route) {
   const canonical = `${baseUrl}/${route}/`;
   html = html.replace(/<title>.*?<\/title>/i, `<title>${meta.title}</title>`);
   html = html.replace(/<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeAttr(meta.description)}">`);
-  if (/<link\s+rel=["']canonical["'][^>]*>/i.test(html)) {
-    html = html.replace(/<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${canonical}">`);
-  } else {
-    html = html.replace('</head>', `<link rel="canonical" href="${canonical}">\n</head>`);
-  }
+  // The root document is already managed by react-helmet and can contain
+  // attributes before rel="canonical". Remove every existing canonical first
+  // so generated route copies always expose exactly one route-specific URL.
+  html = html.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
+  html = html.replace('</head>', `<link data-rh="true" rel="canonical" href="${canonical}">\n</head>`);
   return html;
 }
 

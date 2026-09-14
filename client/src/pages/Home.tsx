@@ -63,6 +63,7 @@ export default function Home() {
           <nav className="hidden xl:flex items-center gap-4">
             <Link href="/" className="text-[#FFC000] font-roboto text-sm uppercase tracking-wide transition-colors hover:text-[#FFD700]">{t('nav.home')}</Link>
             <Link href="/services" className="text-white/90 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wide transition-colors">{t('nav.services')}</Link>
+            <Link href="/catalog" className="text-white/90 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wide transition-colors">{t('nav.catalog')}</Link>
             <Link href="/about" className="text-white/90 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wide transition-colors">{t('nav.about')}</Link>
             <Link href="/projects" className="text-white/90 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wide transition-colors">Проекты</Link>
             {/* Brands dropdown */}
@@ -149,6 +150,7 @@ export default function Home() {
                   <nav className="flex flex-col p-6 gap-6">
                     <Link href="/" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-[#FFC000] tracking-wide">{t('nav.home')}</Link>
                     <Link href="/services" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.services')}</Link>
+                    <Link href="/catalog" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.catalog')}</Link>
                     <Link href="/about" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.about')}</Link>
                     {/* Brands section in mobile menu */}
                     <div>

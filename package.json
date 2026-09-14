@@ -10,6 +10,8 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "vitest run",
+    "catalog:sync": "node scripts/import-sinocmp-catalog.mjs",
+    "catalog:routes": "node scripts/create-catalog-route-copies.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },
   "dependencies": {

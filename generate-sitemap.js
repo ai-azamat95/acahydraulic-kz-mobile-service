@@ -6,6 +6,7 @@ const BASE_URL = 'https://acahydraulic.kz';
 const pages = [
   '/',
   '/services',
+  '/catalog',
   '/about',
   '/reviews',
   '/contacts',

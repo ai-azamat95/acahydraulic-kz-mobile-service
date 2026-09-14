@@ -44,6 +44,10 @@ const explicitMeta = {
     title: 'Услуги ремонта гидравлики спецтехники | ACA Hydraulic',
     description: 'Ремонт гидронасосов, гидромоторов, распределителей, цилиндров и выездной сервис спецтехники по Казахстану.',
   },
+  catalog: {
+    title: 'Запчасти для спецтехники: подбор по номеру и модели | ACA Hydraulic',
+    description: 'Подбор гидравлических и электронных запчастей для CAT, Komatsu, Hitachi, Volvo, SANY, XCMG и другой спецтехники. Проверка совместимости и заявка в WhatsApp.',
+  },
   about: {
     title: 'О компании ACA Hydraulic | Гидравлический сервис',
     description: 'ACA Hydraulic — сервис по ремонту гидравлики спецтехники с выездом на объект, документами для юрлиц и гарантией на работы.',
@@ -263,7 +267,8 @@ function withRouteHead(html, route) {
   }
   out = setTag(out, /<title[^>]*>.*?<\/title>/is, `<title>${t}</title>`);
   out = setTag(out, /<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${d}">`, `<meta name="description" content="${d}">`);
-  out = setTag(out, /<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${c}">`, `<link rel="canonical" href="${c}">`);
+  out = out.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
+  out = out.replace('</head>', `<link data-rh="true" rel="canonical" href="${c}">\n</head>`);
   out = setTag(out, /<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${c}">`);
   out = setTag(out, /<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${t}">`);
   out = setTag(out, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${d}">`);
@@ -283,7 +288,7 @@ function withRouteHead(html, route) {
   out = out.replace('<div id="root"></div>', `<div id="root">${staticFallback(route, { title, description }, canonical)}</div>`);
   out = out.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);
-    return managed ? `<${name} data-rh="true"${attrs}>` : tag;
+    return managed && !/\bdata-rh=/i.test(attrs) ? `<${name} data-rh="true"${attrs}>` : tag;
   });
   return out;
 }

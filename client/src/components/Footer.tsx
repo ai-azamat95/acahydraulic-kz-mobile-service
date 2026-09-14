@@ -32,6 +32,7 @@ export function Footer() {
             <h3 className="font-bebas text-xl text-white mb-4 tracking-wide">{t('footer.servicesTitle')}</h3>
             <ul className="space-y-2 text-gray-500 text-sm font-roboto">
               <li><Link href="/services" className="hover:text-[#FFC000] transition-colors">{t('nav.services')}</Link></li>
+              <li><Link href="/catalog" className="hover:text-[#FFC000] transition-colors">{t('nav.catalog')}</Link></li>
               <li><Link href="/services" className="hover:text-[#FFC000] transition-colors">{t('servicesPage.engine.title')}</Link></li>
               <li><Link href="/services" className="hover:text-[#FFC000] transition-colors">{t('servicesPage.metalwork.title')}</Link></li>
               <li><Link href="/services" className="hover:text-[#FFC000] transition-colors">{t('servicesPage.mobile.title')}</Link></li>

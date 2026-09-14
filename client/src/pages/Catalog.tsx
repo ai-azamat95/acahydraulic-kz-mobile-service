@@ -1,258 +1,345 @@
-import { useMemo, useState } from "react";
-import { ArrowRight, MessageCircle, PackageSearch, Search } from "lucide-react";
+import { FormEvent, useDeferredValue, useMemo, useState } from "react";
 import { Link } from "wouter";
-
-import { Footer } from "@/components/Footer";
-import { SEO } from "@/components/SEO";
 import {
-  catalogBrands,
-  catalogCategories,
-  catalogProducts,
-  formatKzt,
-} from "@/data/catalog";
+  ArrowLeft,
+  Boxes,
+  Check,
+  ChevronRight,
+  CircuitBoard,
+  Cog,
+  Fan,
+  Fuel,
+  Gauge,
+  MessageCircle,
+  Monitor,
+  PackageCheck,
+  PackageSearch,
+  Search,
+  ScanLine,
+  Settings,
+  ShieldCheck,
+  Truck,
+  Wrench,
+} from "lucide-react";
 
-const WHATSAPP = "77714177925";
+import { SEO } from "@/components/SEO";
+import { ProductResults } from "@/components/catalog/ProductResults";
+import { catalogCopy, partCategories, supportedBrands, type CatalogLanguage } from "@/content/partsCatalog";
+import { useCatalogIndex } from "@/hooks/useCatalogProducts";
+import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
-function Catalog() {
-  const [query, setQuery] = useState("");
-  const [brand, setBrand] = useState("all");
-  const [category, setCategory] = useState("all");
+const categoryIcons = [Gauge, Settings, Cog, Boxes, Wrench, CircuitBoard, Monitor, PackageCheck, Fuel, Fan, ScanLine, PackageSearch];
+const WHATSAPP_NUMBER = "77714177925";
 
-  const filteredProducts = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
+export default function Catalog() {
+  const [language, setLanguage] = useState<CatalogLanguage>("ru");
+  const [partQuery, setPartQuery] = useState("");
+  const [brand, setBrand] = useState("");
+  const [machineModel, setMachineModel] = useState("");
+  const [category, setCategory] = useState("");
+  const [formError, setFormError] = useState("");
+  const [visibleCount, setVisibleCount] = useState(24);
+  const copy = catalogCopy[language];
+  const { products, loading, error } = useCatalogIndex();
+  const fireContact = useTikTokContact();
+  const deferredQuery = useDeferredValue(`${partQuery} ${machineModel}`.trim().toLowerCase());
 
-    return catalogProducts.filter((product) => {
-      const searchable = [
-        product.title,
-        product.sku,
-        product.brand,
-        product.category,
-        ...product.oem,
-        ...product.machineModels,
-      ]
-        .join(" ")
-        .toLowerCase();
-
-      const matchesQuery = !normalized || searchable.includes(normalized);
-      const matchesBrand = brand === "all" || product.brand === brand;
-      const matchesCategory = category === "all" || product.category === category;
-
-      return matchesQuery && matchesBrand && matchesCategory;
-    });
-  }, [brand, category, query]);
-
-  const whatsappText = encodeURIComponent(
-    "Здравствуйте! Нужна помощь с подбором гидравлической запчасти."
+  const selectedCategory = useMemo(
+    () => partCategories.find((item) => item.id === category),
+    [category],
   );
 
+  const filteredProducts = useMemo(() => {
+    const brandNeedle = brand.toLowerCase();
+    return products.filter((product) => {
+      if (category && product.category !== category) return false;
+      const haystack = `${product.title} ${product.tags.join(" ")}`.toLowerCase();
+      if (brandNeedle && !haystack.includes(brandNeedle)) return false;
+      if (deferredQuery) {
+        const terms = deferredQuery.split(/\s+/).filter(Boolean);
+        if (!terms.every((term) => haystack.includes(term))) return false;
+      }
+      return true;
+    });
+  }, [brand, category, deferredQuery, products]);
+
+  const openWhatsApp = (event?: FormEvent) => {
+    event?.preventDefault();
+    if (!partQuery.trim() && !machineModel.trim()) {
+      setFormError(copy.emptyQuery);
+      return;
+    }
+
+    setFormError("");
+    const categoryName = selectedCategory?.[language] || copy.allCategories;
+    const lines = [
+      copy.whatsappIntro,
+      `${copy.whatsappPart}: ${partQuery.trim() || "-"}`,
+      `${copy.whatsappBrand}: ${brand || "-"}`,
+      `${copy.whatsappModel}: ${machineModel.trim() || "-"}`,
+      `${copy.whatsappCategory}: ${categoryName}`,
+      copy.whatsappPhoto,
+    ];
+    fireContact("whatsapp");
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener,noreferrer");
+  };
+
   return (
-    <div className="min-h-screen bg-[#0d0d0d] text-white">
+    <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
       <SEO
-        title="Каталог гидравлических запчастей"
-        description="Каталог гидравлических запчастей ACA Hydraulic: поиск по OEM, артикулу, бренду и модели спецтехники. Подбор, поставка и установка в Казахстане."
-        canonical="/parts"
-        keywords="гидравлические запчасти, запчасти экскаватора, гидронасос, гидромотор, OEM запчасти, купить запчасти спецтехники Казахстан"
-        noIndex
-        breadcrumbs={[{ name: "Каталог запчастей", url: "/parts" }]}
+        title="Запчасти для спецтехники: подбор по номеру и модели"
+        description="Подбор гидравлических и электронных запчастей для CAT, Komatsu, Hitachi, Volvo, SANY, XCMG и другой спецтехники. Проверка совместимости и заявка в WhatsApp."
+        keywords="запчасти для спецтехники Казахстан, гидронасос купить, гидромотор, запчасти экскаваторов, CAT, Komatsu, Hitachi"
+        canonical="/catalog"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Каталог запчастей ACA Hydraulic",
+          url: "https://acahydraulic.kz/catalog/",
+          inLanguage: ["ru-KZ", "kk-KZ", "en"],
+          about: "Запчасти для гидравлических систем и спецтехники",
+        }}
+        breadcrumbs={[{ name: "Каталог запчастей", url: "/catalog" }]}
       />
 
-      <header className="border-b border-white/10 bg-[#111111]">
-        <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-5">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-[30px] gap-[3px]">
-              <div className="h-full w-[10px] bg-[#FFC000]" />
-              <div className="flex h-full flex-col justify-between">
-                <div className="h-[13.5px] w-[10px] bg-[#FFC000]" />
-                <div className="h-[13.5px] w-[10px] bg-[#FFC000]" />
-              </div>
-            </div>
-            <div>
-              <div className="text-lg font-bold leading-none tracking-wide">ACA</div>
-              <div className="mt-1 text-[11px] font-medium leading-none tracking-wider text-gray-300">
-                HYDRAULIC
-              </div>
-            </div>
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
+        <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 py-3">
+          <Link href="/" className="flex items-center gap-3" aria-label="ACA Hydraulic">
+            <span className="flex h-7 gap-[3px]" aria-hidden="true">
+              <span className="w-2.5 bg-[#FFC000]" />
+              <span className="flex flex-col justify-between">
+                <span className="h-3 w-2.5 bg-[#FFC000]" />
+                <span className="h-3 w-2.5 bg-[#FFC000]" />
+              </span>
+            </span>
+            <span className="flex flex-col leading-none">
+              <strong className="text-lg tracking-wide">ACA</strong>
+              <span className="mt-0.5 text-[11px] tracking-wider">HYDRAULIC</span>
+            </span>
           </Link>
-          <a
-            href={`https://wa.me/${WHATSAPP}?text=${whatsappText}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-md bg-[#FFC000] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#ffd044]"
-          >
-            <MessageCircle className="h-4 w-4" />
-            Подбор по WhatsApp
-          </a>
+
+          <div className="flex items-center gap-2" aria-label="Language">
+            {(["ru", "kz", "en"] as CatalogLanguage[]).map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setLanguage(item)}
+                aria-pressed={language === item}
+                className={`min-h-10 min-w-10 rounded px-3 text-sm font-bold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] ${
+                  language === item ? "bg-[#FFC000] text-black" : "text-gray-300 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {item.toUpperCase()}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
       <main>
-        <section className="border-b border-white/10 bg-gradient-to-b from-[#151515] to-[#0d0d0d]">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-4xl">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#FFC000]/30 bg-[#FFC000]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#FFC000]">
-                <PackageSearch className="h-4 w-4" />
-                ACA Parts
-              </div>
-              <h1 className="max-w-3xl text-4xl font-black tracking-tight md:text-6xl">
-                Гидравлические запчасти для спецтехники
+        <section className="border-b border-white/10 bg-[#151515]">
+          <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
+            <Link href="/" className="mb-6 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-[#FFC000]">
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              {copy.backToService}
+            </Link>
+            <div className="max-w-3xl">
+              <h1 className="font-bebas text-4xl font-bold uppercase leading-tight tracking-wide md:text-6xl">
+                {copy.pageTitle}
               </h1>
-              <p className="mt-5 max-w-3xl text-base leading-7 text-gray-400 md:text-lg">
-                Поиск по OEM-номеру, артикулу, бренду и модели техники. Перед отгрузкой
-                совместимость подтверждаем по маркировке и исполнению узла.
-              </p>
-              <div className="mt-8 rounded-xl border border-[#FFC000]/20 bg-[#FFC000]/5 p-4 text-sm text-gray-300">
-                Сейчас это пилотная версия каталога. Товарные позиции ниже используются для
-                проверки структуры карточек и поиска и не означают подтверждённое наличие.
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{copy.pageDescription}</p>
+            </div>
+
+            <form onSubmit={openWhatsApp} className="mt-8 border border-white/15 bg-[#0d0d0d] p-4 md:p-6" noValidate>
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                <label className="grid gap-2 text-sm font-medium text-white xl:col-span-2">
+                  {copy.searchLabel}
+                  <span className="relative">
+                    <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" aria-hidden="true" />
+                    <input
+                      value={partQuery}
+                      onChange={(event) => setPartQuery(event.target.value)}
+                      placeholder={copy.searchPlaceholder}
+                      className="min-h-12 w-full rounded border border-white/20 bg-[#181818] py-3 pl-11 pr-3 text-base text-white placeholder:text-gray-500 focus:border-[#FFC000] focus:outline-none"
+                    />
+                  </span>
+                </label>
+
+                <label className="grid gap-2 text-sm font-medium text-white">
+                  {copy.brandLabel}
+                  <select
+                    value={brand}
+                    onChange={(event) => setBrand(event.target.value)}
+                    className="min-h-12 rounded border border-white/20 bg-[#181818] px-3 text-base text-white focus:border-[#FFC000] focus:outline-none"
+                  >
+                    <option value="">{copy.brandPlaceholder}</option>
+                    {supportedBrands.map((item) => <option key={item}>{item}</option>)}
+                  </select>
+                </label>
+
+                <label className="grid gap-2 text-sm font-medium text-white">
+                  {copy.categoryLabel}
+                  <select
+                    value={category}
+                    onChange={(event) => setCategory(event.target.value)}
+                    className="min-h-12 rounded border border-white/20 bg-[#181818] px-3 text-base text-white focus:border-[#FFC000] focus:outline-none"
+                  >
+                    <option value="">{copy.allCategories}</option>
+                    {partCategories.map((item) => <option key={item.id} value={item.id}>{item[language]}</option>)}
+                  </select>
+                </label>
+
+                <label className="grid gap-2 text-sm font-medium text-white md:col-span-2 xl:col-span-3">
+                  {copy.modelLabel}
+                  <input
+                    value={machineModel}
+                    onChange={(event) => setMachineModel(event.target.value)}
+                    placeholder={copy.modelPlaceholder}
+                    className="min-h-12 rounded border border-white/20 bg-[#181818] px-3 text-base text-white placeholder:text-gray-500 focus:border-[#FFC000] focus:outline-none"
+                  />
+                </label>
+
+                <button
+                  type="submit"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 self-end rounded bg-[#FFC000] px-5 font-bold text-black transition-colors hover:bg-[#E6AC00] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
+                >
+                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  {copy.findButton}
+                </button>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-gray-400">{copy.helper}</p>
+              {formError && <p className="mt-3 text-sm font-medium text-[#FFD24A]" role="alert">{formError}</p>}
+            </form>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-12 md:py-16" aria-labelledby="categories-title">
+          <h2 id="categories-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.categoriesTitle}</h2>
+          <p className="mt-3 max-w-2xl leading-relaxed text-gray-400">{copy.categoriesDescription}</p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {partCategories.map((item, index) => {
+              const Icon = categoryIcons[index];
+              const active = category === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setCategory(active ? "" : item.id)}
+                  aria-pressed={active}
+                  className={`group flex min-h-24 items-center gap-4 rounded border p-4 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] ${
+                    active ? "border-[#FFC000] bg-[#FFC000]/10" : "border-white/10 bg-[#151515] hover:border-white/30"
+                  }`}
+                >
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded bg-[#FFC000]/10 text-[#FFC000]">
+                    <Icon className="h-6 w-6" aria-hidden="true" />
+                  </span>
+                  <span className="flex flex-1 items-center justify-between gap-3 font-semibold">
+                    {item[language]}
+                    <ChevronRight className="h-4 w-4 text-gray-500 transition-transform group-hover:translate-x-0.5 group-hover:text-[#FFC000]" aria-hidden="true" />
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="mt-14 border-t border-white/10 pt-10" aria-live="polite">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.resultsTitle}</h2>
+              {!loading && !error && <p className="text-sm text-gray-400">{filteredProducts.length.toLocaleString()} {copy.productsFound}</p>}
+            </div>
+            <ProductResults
+              copy={copy}
+              language={language}
+              products={filteredProducts.slice(0, visibleCount)}
+              total={filteredProducts.length}
+              loading={loading}
+              error={error}
+              canLoadMore={visibleCount < filteredProducts.length}
+              onLoadMore={() => setVisibleCount((count) => count + 24)}
+            />
+          </div>
+        </section>
+
+        <section className="border-y border-white/10 bg-[#151515]">
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-[1.05fr_0.95fr] md:py-16">
+            <div>
+              <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.brandsTitle}</h2>
+              <p className="mt-3 max-w-xl leading-relaxed text-gray-400">{copy.brandsDescription}</p>
+              <div className="mt-7 flex flex-wrap gap-2">
+                {supportedBrands.map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => setBrand(brand === item ? "" : item)}
+                    aria-pressed={brand === item}
+                    className={`min-h-10 rounded border px-4 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] ${
+                      brand === item ? "border-[#FFC000] bg-[#FFC000] text-black" : "border-white/15 bg-[#0e0e0e] text-gray-200 hover:border-white/35"
+                    }`}
+                  >
+                    {item}
+                  </button>
+                ))}
               </div>
             </div>
 
-            <div className="mt-10 grid gap-3 rounded-2xl border border-white/10 bg-black/30 p-4 md:grid-cols-[minmax(0,1fr)_220px_220px]">
-              <label className="relative block">
-                <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-                <input
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="OEM, артикул, модель техники..."
-                  className="h-12 w-full rounded-lg border border-white/10 bg-[#121212] pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-gray-600 focus:border-[#FFC000]"
-                />
-              </label>
-              <select
-                value={brand}
-                onChange={(event) => setBrand(event.target.value)}
-                className="h-12 rounded-lg border border-white/10 bg-[#121212] px-4 text-sm text-white outline-none focus:border-[#FFC000]"
-                aria-label="Бренд"
-              >
-                <option value="all">Все бренды</option>
-                {catalogBrands.map((item) => (
-                  <option value={item} key={item}>
+            <div className="border-l-2 border-[#FFC000] bg-[#0e0e0e] p-6 md:p-8">
+              <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide">{copy.processTitle}</h2>
+              <ol className="mt-6 grid gap-5">
+                {copy.process.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm leading-relaxed text-gray-300 md:text-base">
+                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#FFC000]" aria-hidden="true" />
                     {item}
-                  </option>
+                  </li>
                 ))}
-              </select>
-              <select
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-                className="h-12 rounded-lg border border-white/10 bg-[#121212] px-4 text-sm text-white outline-none focus:border-[#FFC000]"
-                aria-label="Категория"
-              >
-                <option value="all">Все категории</option>
-                {catalogCategories.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+              </ol>
             </div>
           </div>
         </section>
 
-        <section className="container mx-auto px-4 py-12 md:py-16">
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <p className="text-sm text-gray-500">Найдено позиций</p>
-              <p className="mt-1 text-2xl font-bold">{filteredProducts.length}</p>
-            </div>
-            <div className="text-right text-xs text-gray-600">
-              Наценка в движке каталога: по умолчанию +50%
-            </div>
+        <section className="mx-auto max-w-7xl px-4 py-12 md:py-16">
+          <div className="grid gap-4 md:grid-cols-2">
+            <article className="rounded border border-white/10 bg-[#151515] p-6">
+              <Truck className="h-7 w-7 text-[#FFC000]" aria-hidden="true" />
+              <h2 className="mt-5 text-xl font-bold">{copy.deliveryTitle}</h2>
+              <p className="mt-3 leading-relaxed text-gray-400">{copy.deliveryText}</p>
+            </article>
+            <article className="rounded border border-white/10 bg-[#151515] p-6">
+              <ShieldCheck className="h-7 w-7 text-[#FFC000]" aria-hidden="true" />
+              <h2 className="mt-5 text-xl font-bold">{copy.qualityTitle}</h2>
+              <p className="mt-3 leading-relaxed text-gray-400">{copy.qualityText}</p>
+            </article>
           </div>
 
-          {filteredProducts.length === 0 ? (
-            <div className="rounded-2xl border border-white/10 bg-[#121212] p-10 text-center">
-              <PackageSearch className="mx-auto h-10 w-10 text-[#FFC000]" />
-              <h2 className="mt-4 text-xl font-bold">Позиция не найдена</h2>
-              <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-gray-500">
-                Отправьте OEM-номер или фото шильдика в WhatsApp — подберём нужное исполнение.
-              </p>
-            </div>
-          ) : (
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              {filteredProducts.map((product) => (
-                <article
-                  key={product.id}
-                  className="group overflow-hidden rounded-2xl border border-white/10 bg-[#121212] transition hover:-translate-y-1 hover:border-[#FFC000]/50"
-                >
-                  <Link href={`/parts/${product.slug}`} className="block">
-                    <div className="flex aspect-[16/10] items-center justify-center border-b border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#0c0c0c] p-8">
-                      {product.image ? (
-                        <img
-                          src={product.image}
-                          alt={product.title}
-                          className="h-full w-full object-contain"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="text-center">
-                          <PackageSearch className="mx-auto h-14 w-14 text-[#FFC000]" />
-                          <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-                            {product.brand}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-xs font-semibold uppercase tracking-wider text-[#FFC000]">
-                            {product.category}
-                          </p>
-                          <h2 className="mt-2 text-lg font-bold leading-snug transition group-hover:text-[#FFC000]">
-                            {product.title}
-                          </h2>
-                        </div>
-                      </div>
-                      <dl className="mt-4 space-y-2 text-sm">
-                        <div className="flex justify-between gap-4 border-b border-white/5 pb-2">
-                          <dt className="text-gray-600">Артикул</dt>
-                          <dd className="font-medium text-gray-300">{product.sku}</dd>
-                        </div>
-                        <div className="flex justify-between gap-4 border-b border-white/5 pb-2">
-                          <dt className="text-gray-600">OEM</dt>
-                          <dd className="max-w-[60%] text-right font-medium text-gray-300">
-                            {product.oem.join(", ")}
-                          </dd>
-                        </div>
-                      </dl>
-                      <div className="mt-5 flex items-center justify-between gap-4">
-                        <span className="text-lg font-black">{formatKzt(product.priceKzt)}</span>
-                        <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#FFC000]">
-                          Карточка
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
-          )}
-        </section>
-
-        <section className="border-y border-white/10 bg-[#111111]">
-          <div className="container mx-auto grid gap-6 px-4 py-12 md:grid-cols-[1fr_auto] md:items-center">
+          <div className="mt-8 flex flex-col items-start justify-between gap-6 border border-[#FFC000]/45 bg-[#FFC000]/5 p-6 md:flex-row md:items-center md:p-8">
             <div>
-              <h2 className="text-2xl font-black md:text-3xl">Нет нужной позиции в каталоге?</h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500">
-                Пришлите OEM-номер, модель техники или фото шильдика. Подберём запчасть и
-                подтвердим совместимость до заказа.
-              </p>
+              <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide">{copy.requestTitle}</h2>
+              <p className="mt-2 max-w-2xl leading-relaxed text-gray-300">{copy.requestDescription}</p>
+              <p className="mt-2 text-sm text-gray-500">{copy.requestNote}</p>
             </div>
-            <a
-              href={`https://wa.me/${WHATSAPP}?text=${whatsappText}`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#FFC000] px-6 font-bold text-black transition hover:bg-[#ffd044]"
+            <button
+              type="button"
+              onClick={() => openWhatsApp()}
+              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded bg-[#FFC000] px-6 font-bold text-black hover:bg-[#E6AC00] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
             >
-              <MessageCircle className="h-5 w-5" />
-              Отправить запрос
-            </a>
+              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              {copy.requestButton}
+            </button>
           </div>
         </section>
       </main>
 
-      <Footer />
+      <footer className="border-t border-white/10 bg-[#090909]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 text-sm text-gray-400 md:flex-row md:items-center md:justify-between">
+          <div>
+            <strong className="text-white">ACA Hydraulic</strong>
+            <p className="mt-1">Астана, трасса Астана-Караганда, 81</p>
+          </div>
+          <div className="flex flex-wrap gap-4">
+            <a href="tel:+77714177925" className="font-semibold text-[#FFC000] hover:text-[#FFD24A]">+7 (771) 417-79-25</a>
+            <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#FFC000] hover:text-[#FFD24A]">WhatsApp</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
-
-export default Catalog;
