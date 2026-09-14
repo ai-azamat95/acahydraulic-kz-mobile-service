@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 
 import type { CatalogIndexProduct, CatalogProduct } from "@/types/catalog";
 
+async function fetchJson<T>(url: string, signal: AbortSignal): Promise<T> {
+  const response = await fetch(url, {
+    signal,
+    cache: "no-store",
+    headers: { accept: "application/json" },
+  });
+  if (!response.ok) throw new Error(`Catalog request failed: ${response.status} ${url}`);
+  return response.json() as Promise<T>;
+}
+
 export function useCatalogIndex() {
   const [products, setProducts] = useState<CatalogIndexProduct[]>([]);
   const [loading, setLoading] = useState(true);
@@ -9,26 +19,63 @@ export function useCatalogIndex() {
 
   useEffect(() => {
     const controller = new AbortController();
-    fetch("/catalog-data/manifest.json", { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) throw new Error("Catalog manifest unavailable");
-        return response.json();
-      })
-      .then(async (manifest: { chunkCount: number }) => {
-        const requests = Array.from({ length: manifest.chunkCount }, (_, index) =>
-          fetch(`/catalog-data/search-index-${String(index + 1).padStart(3, "0")}.json`, { signal: controller.signal })
-            .then((response) => {
-              if (!response.ok) throw new Error("Catalog index unavailable");
-              return response.json() as Promise<CatalogIndexProduct[]>;
-            }),
-        );
-        const chunks = await Promise.all(requests);
-        setProducts(chunks.flat().sort((a, b) => a.title.localeCompare(b.title, "en")));
-      })
-      .catch((requestError) => {
-        if (requestError.name !== "AbortError") setError(true);
-      })
-      .finally(() => setLoading(false));
+
+    async function loadCatalog() {
+      try {
+        setLoading(true);
+        setError(false);
+
+        const manifest = await fetchJson<{
+          chunkCount: number;
+          indexFile?: string;
+        }>("/catalog-data/manifest.json", controller.signal);
+
+        // New deployments publish one consolidated search index. This is much
+        // more reliable on mobile than waiting for 40+ parallel JSON requests.
+        // Keep the chunk fallback so older cached deployments still work.
+        if (manifest.indexFile) {
+          try {
+            const index = await fetchJson<CatalogIndexProduct[]>(
+              `/catalog-data/${manifest.indexFile}`,
+              controller.signal,
+            );
+            setProducts(index.sort((a, b) => a.title.localeCompare(b.title, "en")));
+            return;
+          } catch (indexError) {
+            if (controller.signal.aborted) return;
+            console.warn("Consolidated catalog index unavailable, falling back to chunks", indexError);
+          }
+        }
+
+        const collected: CatalogIndexProduct[] = [];
+        for (let start = 0; start < manifest.chunkCount; start += 6) {
+          const batch = Array.from(
+            { length: Math.min(6, manifest.chunkCount - start) },
+            (_, offset) => start + offset + 1,
+          );
+          const chunks = await Promise.all(
+            batch.map((page) =>
+              fetchJson<CatalogIndexProduct[]>(
+                `/catalog-data/search-index-${String(page).padStart(3, "0")}.json`,
+                controller.signal,
+              ),
+            ),
+          );
+          collected.push(...chunks.flat());
+          // Progressive rendering means users see real products instead of a
+          // page full of zero counters while the remaining chunks load.
+          setProducts([...collected].sort((a, b) => a.title.localeCompare(b.title, "en")));
+        }
+      } catch (requestError) {
+        if (requestError instanceof DOMException && requestError.name === "AbortError") return;
+        console.error("Catalog index failed to load", requestError);
+        setError(true);
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    }
+
+    loadCatalog();
     return () => controller.abort();
   }, []);
 
@@ -44,14 +91,16 @@ export function useCatalogProduct(handle: string) {
     const controller = new AbortController();
     async function loadProduct() {
       try {
-        const mapResponse = await fetch("/catalog-data/product-map.json", { signal: controller.signal });
-        if (!mapResponse.ok) throw new Error("Product map unavailable");
-        const productMap = (await mapResponse.json()) as Record<string, number>;
+        const productMap = await fetchJson<Record<string, number>>(
+          "/catalog-data/product-map.json",
+          controller.signal,
+        );
         const chunk = productMap[handle];
         if (!chunk) throw new Error("Product not found");
-        const chunkResponse = await fetch(`/catalog-data/products-${String(chunk).padStart(3, "0")}.json`, { signal: controller.signal });
-        if (!chunkResponse.ok) throw new Error("Product data unavailable");
-        const products = (await chunkResponse.json()) as CatalogProduct[];
+        const products = await fetchJson<CatalogProduct[]>(
+          `/catalog-data/products-${String(chunk).padStart(3, "0")}.json`,
+          controller.signal,
+        );
         const match = products.find((item) => item.handle === handle);
         if (!match) throw new Error("Product not found");
         setProduct(match);
@@ -59,7 +108,7 @@ export function useCatalogProduct(handle: string) {
         if (requestError instanceof DOMException && requestError.name === "AbortError") return;
         setError(true);
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     }
     loadProduct();
