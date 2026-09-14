@@ -32,7 +32,7 @@ async function fetchJson(url, attempt = 1) {
   const response = await fetch(url, {
     headers: {
       accept: 'application/json',
-      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.2 (+https://acahydraulic.kz/catalog/)',
+      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.3 (+https://acahydraulic.kz/catalog/)',
     },
   });
   if (response.ok) return response.json();
@@ -69,8 +69,6 @@ function detectCategory(product) {
 
 function markedUpPrice(price) {
   const numeric = Number(price);
-  // Sinocmp uses extremely large sentinel values for quote-only items. Keep
-  // legitimate pumps/engines priced below KZT 10m, but hide those sentinels.
   if (!Number.isFinite(numeric) || numeric <= 0 || numeric >= 10_000_000) return null;
   return Math.round(numeric * MARKUP * 100) / 100;
 }
@@ -99,9 +97,6 @@ function imageBelongsToProduct(product, value, productCategory) {
   const raw = rawImageUrl(value);
   if (!raw) return false;
 
-  // Shopify image objects may expose alt text. Use it together with the file
-  // name to reject obvious cross-product/category mismatches. If the image
-  // has no recognizable category tokens, keep it rather than guessing.
   const imageCategory = detectCategoryFromText(`${raw} ${typeof value === 'object' ? value.alt || '' : ''}`);
   if (imageCategory && productCategory !== 'other-parts' && imageCategory !== productCategory) {
     return false;
@@ -116,10 +111,6 @@ function productGallery(product) {
     ? product.variants.map((variant) => variant.featured_image).filter(Boolean)
     : [];
 
-  // Prefer the canonical/featured product image first. Do not blindly take
-  // images[0]: on large Shopify catalogs stale or variant imagery can appear
-  // earlier in that array. Every fallback image is checked against product_id
-  // and against obvious category conflicts before it is published.
   const candidates = [
     product.image,
     product.featured_image,
@@ -224,7 +215,20 @@ async function run() {
 
   await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
   searchIndex.sort((a, b) => a.title.localeCompare(b.title, 'en'));
+
+  const categorySummary = {};
+  for (const [category] of categoryRules) {
+    categorySummary[category] = { count: 0, imageUrl: null };
+  }
+  for (const product of searchIndex) {
+    const summary = categorySummary[product.category] || (categorySummary[product.category] = { count: 0, imageUrl: null });
+    summary.count += 1;
+    if (!summary.imageUrl && product.imageUrl) summary.imageUrl = product.imageUrl;
+  }
+
   const importedAt = new Date().toISOString();
+  writeJson('search-index.json', searchIndex);
+  writeJson('category-summary.json', categorySummary);
   writeJson('product-map.json', productMap);
   writeJson('manifest.json', {
     source: SOURCE_ORIGIN,
@@ -234,6 +238,8 @@ async function run() {
     chunkCount: Math.ceil(searchIndex.length / PAGE_SIZE),
     markup: MARKUP,
     currency: 'KZT',
+    indexFile: 'search-index.json',
+    categorySummaryFile: 'category-summary.json',
     imagePolicy: 'Only product-bound supplier images are published. Foreign product/category images are rejected.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);
