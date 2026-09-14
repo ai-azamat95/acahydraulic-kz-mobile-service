@@ -7,6 +7,7 @@ export type CatalogIndexProduct = {
   available: boolean;
   minPriceKzt: number | null;
   maxPriceKzt: number | null;
+  imageUrl: string | null;
   chunk: number;
 };
 
@@ -23,6 +24,7 @@ export type CatalogVariant = {
 export type CatalogProduct = CatalogIndexProduct & {
   productType: string;
   variants: CatalogVariant[];
+  gallery: string[];
   sourceUrl: string;
   sourceUpdatedAt: string;
 };
