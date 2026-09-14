@@ -7,6 +7,7 @@ const PAGE_SIZE = 250;
 const MARKUP = 1.5;
 const CONCURRENCY = 2;
 const MAX_RETRIES = 5;
+const MAX_GALLERY_IMAGES = 8;
 
 const categoryRules = [
   ['hydraulic-pumps', ['hydraulic pump', 'piston pump', 'gear pump']],
@@ -31,7 +32,7 @@ async function fetchJson(url, attempt = 1) {
   const response = await fetch(url, {
     headers: {
       accept: 'application/json',
-      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.0 (+https://acahydraulic.kz/catalog/)',
+      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.1 (+https://acahydraulic.kz/catalog/)',
     },
   });
   if (response.ok) return response.json();
@@ -59,6 +60,23 @@ function markedUpPrice(price) {
   return Math.round(numeric * MARKUP * 100) / 100;
 }
 
+function normalizeImageUrl(value) {
+  if (!value) return null;
+  const raw = typeof value === 'string' ? value : value.src;
+  if (!raw || typeof raw !== 'string') return null;
+  if (raw.startsWith('//')) return `https:${raw}`;
+  if (raw.startsWith('/')) return `${SOURCE_ORIGIN}${raw}`;
+  return raw;
+}
+
+function productGallery(product) {
+  const candidates = [
+    ...(Array.isArray(product.images) ? product.images : []),
+    product.image,
+  ];
+  return [...new Set(candidates.map(normalizeImageUrl).filter(Boolean))].slice(0, MAX_GALLERY_IMAGES);
+}
+
 function normalizeProduct(product, page) {
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
@@ -70,6 +88,7 @@ function normalizeProduct(product, page) {
     options: [variant.option1, variant.option2, variant.option3].filter((value) => value && value !== 'Default Title'),
   }));
   const salePrices = variants.map((variant) => variant.priceKzt).filter(Number.isFinite);
+  const gallery = productGallery(product);
   return {
     id: String(product.id),
     handle: product.handle,
@@ -80,6 +99,8 @@ function normalizeProduct(product, page) {
     available: variants.some((variant) => variant.available),
     minPriceKzt: salePrices.length ? Math.min(...salePrices) : null,
     maxPriceKzt: salePrices.length ? Math.max(...salePrices) : null,
+    imageUrl: gallery[0] || null,
+    gallery,
     variants,
     sourceUrl: `${SOURCE_ORIGIN}/products/${product.handle}`,
     sourceUpdatedAt: product.updated_at,
@@ -130,6 +151,7 @@ async function run() {
           available: product.available,
           minPriceKzt: product.minPriceKzt,
           maxPriceKzt: product.maxPriceKzt,
+          imageUrl: product.imageUrl,
           chunk: page,
         };
         searchIndex.push(indexProduct);
@@ -154,7 +176,7 @@ async function run() {
     chunkCount: Math.ceil(searchIndex.length / PAGE_SIZE),
     markup: MARKUP,
     currency: 'KZT',
-    imagePolicy: 'Supplier images are not republished without permission.',
+    imagePolicy: 'Supplier product images are reused with permission for ACA Hydraulic catalog listings.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);
 }
