@@ -1,28 +1,5 @@
-/* Lightweight mobile image overrides for the parts catalogue. */
-@media (max-width: 767px) {
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(1)>img {
-    content: url("https://sinocmp.com/cdn/shop/files/708-3S-00460-Hydraulic-Pump-for-Komatsu-Excavator-PC40MR-PC50MR_01.jpg?v=1747210219&width=360") !important;
-  }
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(3)>img {
-    content: url("https://sinocmp.com/cdn/shop/files/BMRW-315-Orbital-Hydraulic-Wheel-Motor_05.jpg?v=1781059689&width=360") !important;
-  }
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(4)>img {
-    content: url("https://sinocmp.com/cdn/shop/files/20Y-27-00320-Travel-Device-for-Komatsu-PC200-7-PC210-7-Excavator_01.jpg?v=1774629940&width=360") !important;
-  }
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(5)>img {
-    content: url("https://sinocmp.com/cdn/shop/files/171-0030--1710030-Main-Control-Valve-for-Cat-320C-E320C-Excavator_01.jpg?v=1769962935&width=360") !important;
-  }
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(6)>img {
-    content: url("https://sinocmp.com/cdn/shop/files/Solenoid-Valve-Assembly-207-60-71311-for-Komatsu-Excavator-PC300-7-PC360-7-PC450LC-8_01.jpg?v=1762399119&width=360") !important;
-  }
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(7)>img {
-    content: url("https://sinocmp.com/cdn/shop/files/7835-12-1014-Monitor-Display-Panel-for-Komatsu-PC300-7_01.jpg?v=1769962778&width=360") !important;
-  }
-}
-
-/* Product cards below the fold do not need layout/paint work until the user
-   scrolls near them. This reduces main-thread work when opening the catalogue. */
+/* Defer rendering of product cards until they approach the viewport. */
 section[aria-labelledby="categories-title"] article.group {
   content-visibility: auto;
-  contain-intrinsic-size: 330px;
+  contain-intrinsic-size: auto 330px;
 }

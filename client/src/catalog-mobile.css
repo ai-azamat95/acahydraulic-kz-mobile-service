@@ -15,117 +15,60 @@ section[aria-labelledby="categories-title"] article.group .text-gray-400{color:#
 body:has(section[aria-labelledby="categories-title"]) main>section.border-y{background:#f8fafc!important;border-color:#e5e7eb!important;color:#111827!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{background:#fff!important;color:#111827!important}
 
-/* Desktop category photography */
-section[aria-labelledby="categories-title"] button.group.relative{background:#fff!important;border-color:#e1e5ea!important;box-shadow:0 6px 20px rgba(15,23,42,.07)!important}
-section[aria-labelledby="categories-title"] button.group.relative>div.absolute.inset-0:not([class*="bg-gradient"]){background:#fff!important}
-section[aria-labelledby="categories-title"] button.group.relative>img{opacity:1!important;filter:none!important;background:#fff!important;mix-blend-mode:normal!important}
-section[aria-labelledby="categories-title"] button.group.relative .text-white{color:#111827!important}
-section[aria-labelledby="categories-title"] button.group.relative .text-gray-400{color:#7a8495!important}
-section[aria-labelledby="categories-title"] button.group.relative .text-\[\#FFC000\]{color:#b97800!important}
+
+/* Category navigation uses normal document flow so long labels stay readable. */
+.aca-category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}
+.aca-category-card{position:relative;display:flex;min-width:0;flex-direction:column;align-items:stretch;gap:12px;padding:16px 16px 20px;border:1px solid #e1e5ea;border-radius:14px;background:#fff;color:#111827;text-align:left;box-shadow:0 4px 16px rgb(15 23 42 / 5%);transition:border-color .15s,box-shadow .15s}
+.aca-category-card:hover,.aca-category-card[aria-pressed="true"]{border-color:#ffc000;box-shadow:0 0 0 1px #ffc000}
+.aca-category-card:focus-visible{outline:3px solid #b97800;outline-offset:3px}
+.aca-category-media{position:relative;display:grid;place-items:center;width:100%;height:132px;flex-shrink:0}
+.aca-category-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#fff}
+.aca-category-fallback{width:48px;height:48px;color:#b97800}
+.aca-category-label{display:block;min-width:0;padding-right:18px;font-size:15px;font-weight:700;line-height:1.4;overflow-wrap:anywhere}
+.aca-category-arrow{position:absolute;bottom:22px;right:12px;width:16px;height:16px;color:#b97800}
+.aca-mobile-promos,.aca-mobile-nav{display:none}
+#categories-title,#catalog-delivery,#catalog-search{scroll-margin-top:90px}
 
 @media(max-width:767px){
-  body:has(section[aria-labelledby="categories-title"])>#root>div{padding-bottom:88px!important;overflow-x:hidden!important}
-  body:has(section[aria-labelledby="categories-title"]) header{height:70px!important;min-height:70px!important}
-  body:has(section[aria-labelledby="categories-title"]) header>div{position:relative!important;height:70px!important;min-height:70px!important;padding:9px 16px!important;max-width:none!important}
-  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"]{gap:10px!important}
-  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"]>span:first-child{height:31px!important}
-  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"] strong{font-size:19px!important}
-  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"] span span{font-size:10px!important}
-  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"]{position:absolute!important;right:56px!important;top:10px!important;z-index:3!important;display:flex!important;flex-direction:column!important;gap:4px!important}
-  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"] button{display:none!important;min-width:48px!important;min-height:48px!important;padding:0 10px!important;border-radius:8px!important;font-size:13px!important;background:#1a1d20!important;color:#fff!important}
-  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"] button[aria-pressed="true"],body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"]:focus-within button{display:block!important}
-  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"] button[aria-pressed="true"]{background:#ffc000!important;color:#111!important}
-  body:has(section[aria-labelledby="categories-title"]) header>div::before{content:"";position:absolute;right:110px;top:22px;width:21px;height:21px;border:3px solid #fff;border-radius:50%;box-sizing:border-box;opacity:.96}
-  body:has(section[aria-labelledby="categories-title"]) header>div::after{content:"";position:absolute;right:16px;top:24px;width:28px;height:20px;background:linear-gradient(#fff,#fff) 0 0/28px 3px no-repeat,linear-gradient(#fff,#fff) 0 8px/28px 3px no-repeat,linear-gradient(#fff,#fff) 0 16px/28px 3px no-repeat;opacity:.96}
-  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"]::after{content:"";position:absolute;right:106px;top:42px;width:10px;height:3px;background:#fff;transform:rotate(45deg);border-radius:2px}
-
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type>div{padding:12px 14px 14px!important;max-width:none!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type a.mb-5{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .grid.lg\:grid-cols-\[1\.15fr_0\.85fr\]{display:flex!important;flex-direction:column!important;gap:10px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .grid.lg\:grid-cols-\[1\.15fr_0\.85fr\]>div:first-child>.max-w-3xl{display:none!important}
-
-  /* Exact approved two-banner mobile scale */
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{order:-1!important;position:relative!important;width:100%!important;height:239px!important;min-height:239px!important;aspect-ratio:auto!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside>*{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before,body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{content:"";position:absolute;left:0;right:0;background-repeat:no-repeat;background-position:center;background-size:100% 100%;border-radius:12px;box-shadow:0 3px 10px rgba(15,23,42,.08)}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before{top:0;height:127px;background-image:url('/catalog-assets/promo-yellow.svg')}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{bottom:0;height:106px;background-image:url('/catalog-assets/promo-blue.svg')}
-
-  /* Search tabs and form */
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label]{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0!important;overflow:visible!important;padding:0!important;margin:4px 0 0!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button{min-width:0!important;min-height:42px!important;padding:0 5px!important;border-radius:0!important;border:1px solid #e2e5ea!important;background:#f4f5f7!important;color:#111827!important;font-size:11px!important;font-weight:700!important;white-space:nowrap!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button:first-child{border-radius:7px 0 0 0!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button:last-child{border-radius:0 7px 0 0!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button[aria-pressed="true"]{background:#ffc000!important;border-color:#ffc000!important;color:#111!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{margin:0!important;padding:6px 0 0!important;border:0!important;border-radius:0!important;box-shadow:none!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label{font-size:0!important;gap:0!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label input{min-height:48px!important;height:48px!important;border-radius:6px!important;font-size:13px!important;padding-left:43px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label svg{left:13px!important;width:20px!important;height:20px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-2{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1{display:grid!important;grid-template-columns:1fr!important;gap:7px!important;margin-top:7px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button{min-height:48px!important;height:48px!important;border-radius:5px!important;font-size:14px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button+button{background:#fff!important;border:1.5px solid #16191d!important;color:#111827!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button+button svg{color:#13a63a!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form p:not([role="alert"]){font-size:0!important;margin:7px 0 0!important;color:#7a8495!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form p:not([role="alert"])::before{content:"Например: 708-2L-00400, 22U-60-21301, K3V112, 320D, SY365H и т.д.";font-size:11px!important;line-height:1.25!important;color:#7a8495!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .mt-6.rounded-xl{display:none!important}
-
-  /* Categories: approved compact horizontal 2-column cards */
-  section[aria-labelledby="categories-title"]{padding:8px 14px 20px!important;max-width:none!important}
-  section[aria-labelledby="categories-title"]>div:first-child{position:relative!important;display:block!important}
-  section[aria-labelledby="categories-title"]>div:first-child::after{content:"Все категории  →";position:absolute;right:2px;top:5px;color:#0759be;font-size:12px;font-weight:700}
-  section[aria-labelledby="categories-title"] h2{font-family:Inter,sans-serif!important;font-size:23px!important;line-height:1.15!important;text-transform:none!important;letter-spacing:-.035em!important}
-  section[aria-labelledby="categories-title"] p.mt-2,section[aria-labelledby="categories-title"]>div:first-child>button{display:none!important}
-  section[aria-labelledby="categories-title"] .mt-6.grid{margin-top:10px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
-  section[aria-labelledby="categories-title"] .mt-6.grid>button:nth-child(2){display:none!important}
-  section[aria-labelledby="categories-title"] button.group.relative{position:relative!important;min-height:128px!important;height:128px!important;border-radius:11px!important;border:1px solid #e1e5ea!important;background:#fff!important;box-shadow:0 3px 12px rgba(15,23,42,.055)!important;overflow:hidden!important}
-  section[aria-labelledby="categories-title"] button.group.relative[aria-pressed="true"]{border-color:#ffc000!important;box-shadow:0 0 0 1px #ffc000!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div.absolute.inset-0:not([class*="bg-gradient"]){background:#fff!important}
-  section[aria-labelledby="categories-title"] button.group.relative>img{left:0!important;right:auto!important;top:0!important;width:47%!important;height:100%!important;padding:8px 5px 8px 7px!important;object-fit:contain!important;object-position:center!important;opacity:1!important;filter:none!important;background:#fff!important;mix-blend-mode:normal!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div[class*="bg-gradient"]{display:none!important}
-  section[aria-labelledby="categories-title"] button.group.relative>svg.absolute,section[aria-labelledby="categories-title"] button.group.relative>div.relative>span:first-child{display:none!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div.relative{position:absolute!important;left:47%!important;right:0!important;top:0!important;bottom:0!important;min-height:0!important;height:auto!important;padding:9px 24px 9px 5px!important;display:flex!important;justify-content:center!important}
-  section[aria-labelledby="categories-title"] button.group.relative .line-clamp-2{font-family:Inter,sans-serif!important;color:#111827!important;font-size:11.5px!important;line-height:1.22!important;font-weight:800!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1{position:relative!important;display:block!important;margin-top:7px!important;font-size:10.5px!important;line-height:1.2!important;color:#7c8697!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1>span{display:block!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1 svg{position:absolute!important;right:-18px!important;top:50%!important;width:15px!important;height:15px!important;transform:translateY(-50%)!important;color:#b97800!important}
-
-  /* Curated, category-correct photos */
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(1)>img{content:url("https://sinocmp.com/cdn/shop/files/708-3S-00460-Hydraulic-Pump-for-Komatsu-Excavator-PC40MR-PC50MR_01.jpg?v=1747210219&width=800")!important}
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(3)>img{content:url("https://sinocmp.com/cdn/shop/files/BMRW-315-Orbital-Hydraulic-Wheel-Motor_05.jpg?v=1781059689&width=800")!important}
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(4)>img{content:url("https://sinocmp.com/cdn/shop/files/20Y-27-00320-Travel-Device-for-Komatsu-PC200-7-PC210-7-Excavator_01.jpg?v=1774629940&width=800")!important}
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(5)>img{content:url("https://sinocmp.com/cdn/shop/files/171-0030--1710030-Main-Control-Valve-for-Cat-320C-E320C-Excavator_01.jpg?v=1769962935&width=800")!important}
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(6)>img{content:url("https://sinocmp.com/cdn/shop/files/Solenoid-Valve-Assembly-207-60-71311-for-Komatsu-Excavator-PC300-7-PC360-7-PC450LC-8_01.jpg?v=1762399119&width=800")!important}
-  section[aria-labelledby="categories-title"] button.group.relative:nth-child(7)>img{content:url("https://sinocmp.com/cdn/shop/files/7835-12-1014-Monitor-Display-Panel-for-Komatsu-PC300-7_01.jpg?v=1769962778&width=800")!important}
-
-  section[aria-labelledby="categories-title"] .mt-12{margin-top:24px!important;padding-top:18px!important}
-  section[aria-labelledby="categories-title"] .mt-12 h2{font-size:22px!important}
-  section[aria-labelledby="categories-title"] article.group .flex-1{padding:9px!important}
-  section[aria-labelledby="categories-title"] article.group h3{min-height:3.15rem!important;font-size:11.5px!important;line-height:1.28!important}
-  section[aria-labelledby="categories-title"] article.group .pt-4{padding-top:8px!important}
-  section[aria-labelledby="categories-title"] article.group .text-base{font-size:13px!important}
-  section[aria-labelledby="categories-title"] article.group a,section[aria-labelledby="categories-title"] article.group button{font-size:10.5px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section.border-y,body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{display:none!important}
-
-  /* Bottom navigation, same scale and spacing as approved mockup. */
-  body:has(section[aria-labelledby="categories-title"]) footer{position:fixed!important;left:0!important;right:0!important;bottom:0!important;z-index:60!important;height:78px!important;background:#101317!important;border-top:1px solid #252a31!important;color:#fff!important}
-  body:has(section[aria-labelledby="categories-title"]) footer>div{position:relative!important;height:78px!important;min-height:78px!important;padding:0!important;max-width:none!important;display:block!important}
-  body:has(section[aria-labelledby="categories-title"]) footer>div>div:first-child{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) footer>div>div:last-child{display:block!important}
-  body:has(section[aria-labelledby="categories-title"]) footer a[href^="tel:"]{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) footer a[href*="wa.me"]{position:absolute!important;left:50%!important;top:-17px!important;transform:translateX(-50%)!important;width:82px!important;height:82px!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:35px 0 0!important;background:#ffc000!important;color:#111!important;font-size:11px!important;font-weight:800!important;box-shadow:0 5px 14px rgba(0,0,0,.22)!important}
-  body:has(section[aria-labelledby="categories-title"]) footer a[href*="wa.me"]::before{content:"◉";position:absolute;top:7px;left:0;right:0;text-align:center;font-size:29px;font-weight:900}
-  body:has(section[aria-labelledby="categories-title"]) footer>div::before{content:"▦\AКаталог";white-space:pre-line;position:absolute;left:8%;top:11px;text-align:center;font-size:11px;line-height:1.6;color:#fff}
-  body:has(section[aria-labelledby="categories-title"]) footer>div::after{content:"▣\AДоставка";white-space:pre-line;position:absolute;left:69%;top:11px;text-align:center;font-size:11px;line-height:1.6;color:#fff}
-  body:has(section[aria-labelledby="categories-title"]) footer::before{content:"☆\AИзбранное";white-space:pre-line;position:absolute;left:28%;top:11px;text-align:center;font-size:11px;line-height:1.6;color:#fff;z-index:2}
-  body:has(section[aria-labelledby="categories-title"]) footer::after{content:"◉\AПоддержка";white-space:pre-line;position:absolute;right:5%;top:11px;text-align:center;font-size:11px;line-height:1.6;color:#fff;z-index:2}
-}
-
-@media(max-width:360px){
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{height:220px!important;min-height:220px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before{height:117px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{height:98px!important}
-  section[aria-labelledby="categories-title"] button.group.relative{height:120px!important;min-height:120px!important}
-  section[aria-labelledby="categories-title"] button.group.relative .line-clamp-2{font-size:10.8px!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1{font-size:9.8px!important}
+  body:has(section[aria-labelledby="categories-title"])>#root>div{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}
+  body:has(section[aria-labelledby="categories-title"]) header>div{min-height:68px;gap:8px;padding:10px 14px}
+  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"]{gap:2px}
+  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"] button{min-width:38px;min-height:44px;padding:0 8px;font-size:12px}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type>div{padding:14px}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type a.mb-5{display:none}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .grid.lg\:grid-cols-\[1\.15fr_0\.85fr\]{display:flex;flex-direction:column;gap:14px}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .max-w-3xl{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{display:none}
+  .aca-mobile-promos{display:grid;order:-1;gap:10px;width:100%;min-width:0}
+  .aca-mobile-promos a{display:block;overflow:hidden;border-radius:12px;line-height:0;box-shadow:0 3px 12px rgb(15 23 42 / 7%)}
+  .aca-mobile-promos img{display:block;width:100%;height:auto;object-fit:contain}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;overflow:visible;margin-top:0;padding:0}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button{min-width:0;min-height:44px;padding:8px 4px;border-radius:0;border:1px solid #e2e5ea;background:#f4f5f7;color:#111827;font-size:11px;line-height:1.3;white-space:normal;overflow-wrap:anywhere}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button[aria-pressed="true"]{background:#ffc000;border-color:#ffc000;color:#111}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{margin:0;padding:8px 0 0;border:0;box-shadow:none}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label{font-size:0;gap:0}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label input{min-height:48px;border-radius:8px;font-size:16px}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-2{display:none}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1{grid-template-columns:1fr;gap:8px;margin-top:8px}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button{min-height:48px;font-size:14px}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button+button{background:#fff;border:1.5px solid #16191d;color:#111827}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button+button svg{color:#13a63a}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form p{font-size:12px;line-height:1.45}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .mt-6.rounded-xl{display:none}
+  section[aria-labelledby="categories-title"]{padding:20px 14px}
+  section[aria-labelledby="categories-title"] h2{font-family:Inter,sans-serif;font-size:24px;line-height:1.2;text-transform:none;letter-spacing:-.025em}
+  section[aria-labelledby="categories-title"]>div:first-child p{display:none}
+  .aca-category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+  .aca-category-card{gap:10px;padding:12px 12px 18px;border-radius:12px}
+  .aca-category-media{height:96px}
+  .aca-category-label{font-size:13px;line-height:1.4;padding-right:12px}
+  .aca-category-arrow{right:8px;bottom:20px;width:14px;height:14px}
+  section[aria-labelledby="categories-title"] .mt-12{margin-top:28px;padding-top:20px}
+  section[aria-labelledby="categories-title"] article.group h3{font-size:13px;line-height:1.4}
+  body:has(section[aria-labelledby="categories-title"]) footer{position:static}
+  .aca-mobile-nav{position:fixed;inset:auto 0 0;z-index:60;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid #30343a;background:#101317;color:#fff}
+  .aca-mobile-nav a{display:flex;min-height:56px;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:4px;text-align:center;font-size:10px;line-height:1.25;font-weight:500;overflow-wrap:anywhere;border-radius:10px}
+  .aca-mobile-nav svg{width:22px;height:22px;flex-shrink:0}
+  .aca-mobile-nav .aca-mobile-whatsapp{background:#ffc000;color:#111;font-weight:700}
+  .aca-mobile-nav a:focus-visible{outline:2px solid #ffc000;outline-offset:2px}
 }
