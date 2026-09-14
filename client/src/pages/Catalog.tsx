@@ -31,6 +31,18 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 const categoryIcons = [Gauge, Settings, Cog, Boxes, Wrench, CircuitBoard, Monitor, PackageCheck, Fuel, Fan, ScanLine, PackageSearch];
 const WHATSAPP_NUMBER = "77714177925";
 
+function categoryThumbnail(source: string) {
+  try {
+    const url = new URL(source);
+    if (url.hostname === "sinocmp.com" || url.hostname === "cdn.shopify.com") {
+      url.searchParams.set("width", "480");
+    }
+    return url.href;
+  } catch {
+    return source;
+  }
+}
+
 type SearchMode = "part" | "oem" | "vin";
 
 const enhancementCopy = {
@@ -281,7 +293,7 @@ export default function Catalog() {
         </div>
       </header>
 
-      <main>
+      <main id="catalog-top">
         <section className="overflow-hidden border-b border-white/10 bg-[#151515]">
           <div className="mx-auto max-w-7xl px-4 py-7 md:py-11">
             <Link href="/" className="mb-5 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-[#FFC000]">
@@ -320,7 +332,7 @@ export default function Catalog() {
                   })}
                 </div>
 
-                <form onSubmit={searchCatalog} className="mt-3 rounded-xl border border-white/15 bg-[#0d0d0d] p-4 shadow-[0_18px_55px_rgba(0,0,0,0.28)] md:p-5" noValidate>
+                <form id="catalog-search" onSubmit={searchCatalog} className="mt-3 rounded-xl border border-white/15 bg-[#0d0d0d] p-4 shadow-[0_18px_55px_rgba(0,0,0,0.28)] md:p-5" noValidate>
                   <label className="grid gap-2 text-sm font-medium text-white">
                     {activeSearchMode.label}
                     <span className="relative">
@@ -394,6 +406,14 @@ export default function Catalog() {
                 </form>
               </div>
 
+              <div className="aca-mobile-promos">
+                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>
+                  <img src="/catalog-assets/promo-yellow.svg" width="665" height="225" alt={ui.promos[0].text} fetchPriority="high" />
+                </a>
+                <a href="#catalog-delivery" aria-label={copy.deliveryTitle}>
+                  <img src="/catalog-assets/promo-blue.svg" width="665" height="189" alt={copy.deliveryTitle} decoding="async" />
+                </a>
+              </div>
               <aside className="relative min-h-[310px] overflow-hidden rounded-xl border border-[#FFC000]/35 bg-[radial-gradient(circle_at_80%_10%,rgba(255,192,0,0.25),transparent_34%),linear-gradient(145deg,#171717,#090909)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] md:p-8">
                 <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-[#FFC000]/15" aria-hidden="true" />
                 <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-[#FFC000]/10" aria-hidden="true" />
@@ -475,7 +495,7 @@ export default function Catalog() {
             )}
           </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <div className="aca-category-grid">
             {partCategories.map((item, index) => {
               const Icon = categoryIcons[index];
               const active = category === item.id;
@@ -486,33 +506,25 @@ export default function Catalog() {
                   type="button"
                   onClick={() => chooseCategory(item.id)}
                   aria-pressed={active}
-                  className={`group relative min-h-[155px] overflow-hidden rounded-xl border text-left shadow-[0_12px_35px_rgba(0,0,0,0.2)] transition duration-200 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] ${
-                    active ? "border-[#FFC000]" : "border-white/10 hover:border-[#FFC000]/45"
-                  }`}
+                  className="aca-category-card"
                 >
-                  <div className="absolute inset-0 bg-[#151515]" />
-                  {stat?.imageUrl ? (
-                    <img
-                      src={stat.imageUrl}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      className="absolute right-[-8%] top-[-4%] h-[82%] w-[72%] object-contain opacity-70 transition duration-300 group-hover:scale-105 group-hover:opacity-90"
-                    />
-                  ) : (
-                    <Icon className="absolute right-4 top-4 h-16 w-16 text-[#FFC000]/15" aria-hidden="true" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/82 to-[#0d0d0d]/20" />
-                  <div className="relative flex h-full min-h-[155px] flex-col justify-end p-3.5 md:p-4">
-                    <span className={`mb-auto grid h-9 w-9 place-items-center rounded-lg ${active ? "bg-[#FFC000] text-black" : "bg-[#FFC000]/10 text-[#FFC000]"}`}>
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <span className="line-clamp-2 text-sm font-extrabold leading-snug text-white md:text-base">{item[language]}</span>
-                    <span className="mt-1 flex items-center justify-between gap-2 text-[11px] text-gray-400 md:text-xs">
-                      <span>{stat?.count?.toLocaleString() || 0} {copy.productsFound}</span>
-                      <ChevronRight className="h-4 w-4 text-[#FFC000] transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-                    </span>
-                  </div>
+                  <span className="aca-category-media">
+                    <Icon className="aca-category-fallback" aria-hidden="true" />
+                    {stat?.imageUrl && (
+                      <img
+                        key={stat.imageUrl}
+                        src={categoryThumbnail(stat.imageUrl)}
+                        alt=""
+                        width="240"
+                        height="160"
+                        loading="lazy"
+                        decoding="async"
+                        onError={(event) => { event.currentTarget.style.display = "none"; }}
+                      />
+                    )}
+                  </span>
+                  <span className="aca-category-label">{item[language]}</span>
+                  <ChevronRight className="aca-category-arrow" aria-hidden="true" />
                 </button>
               );
             })}
@@ -575,7 +587,7 @@ export default function Catalog() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-12 md:py-16">
+        <section id="catalog-delivery" className="mx-auto max-w-7xl px-4 py-12 md:py-16">
           <div className="grid gap-4 md:grid-cols-2">
             <article className="rounded border border-white/10 bg-[#151515] p-6">
               <Truck className="h-7 w-7 text-[#FFC000]" aria-hidden="true" />
@@ -606,6 +618,13 @@ export default function Catalog() {
           </div>
         </section>
       </main>
+
+      <nav className="aca-mobile-nav" aria-label={copy.pageTitle}>
+        <a href="#categories-title"><Boxes aria-hidden="true" /><span>{copy.allCategories}</span></a>
+        <a href="#catalog-delivery"><Truck aria-hidden="true" /><span>{copy.deliveryTitle}</span></a>
+        <a className="aca-mobile-whatsapp" href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer"><MessageCircle aria-hidden="true" /><span>WhatsApp</span></a>
+        <a href="tel:+77714177925"><Wrench aria-hidden="true" /><span>{language === "ru" ? "Поддержка" : language === "kz" ? "Қолдау" : "Support"}</span></a>
+      </nav>
 
       <footer className="border-t border-white/10 bg-[#090909]">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 text-sm text-gray-400 md:flex-row md:items-center md:justify-between">
