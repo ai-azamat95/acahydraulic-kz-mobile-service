@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "wouter";
-import { ArrowLeft, Check, MessageCircle, Package, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Check, ImageIcon, MessageCircle, Package, ShieldCheck, ZoomIn } from "lucide-react";
 
 import { SEO } from "@/components/SEO";
 import { catalogCopy, partCategories, type CatalogLanguage } from "@/content/partsCatalog";
@@ -19,11 +19,24 @@ function formatKzt(value: number, language: CatalogLanguage) {
 export default function CatalogProduct() {
   const { handle = "" } = useParams<{ handle: string }>();
   const [language, setLanguage] = useState<CatalogLanguage>("ru");
+  const [selectedImage, setSelectedImage] = useState("");
+  const [imageFailed, setImageFailed] = useState(false);
   const { product, loading, error } = useCatalogProduct(handle);
   const fireContact = useTikTokContact();
   const copy = catalogCopy[language];
   const category = product ? partCategories.find((item) => item.id === product.category) : null;
   const categoryName = category?.[language] || product?.category || "";
+
+  const gallery = useMemo(() => {
+    if (!product) return [];
+    const images = product.gallery?.length ? product.gallery : product.imageUrl ? [product.imageUrl] : [];
+    return [...new Set(images.filter(Boolean))];
+  }, [product]);
+
+  useEffect(() => {
+    setSelectedImage(gallery[0] || "");
+    setImageFailed(false);
+  }, [gallery]);
 
   const requestProduct = () => {
     if (!product) return;
@@ -32,6 +45,7 @@ export default function CatalogProduct() {
       `${copy.whatsappPart}: ${product.title}`,
       `${copy.whatsappCategory}: ${categoryName}`,
       `${copy.price}: ${product.minPriceKzt !== null ? `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
+      `Ссылка: ${window.location.href}`,
       copy.whatsappPhoto,
     ].join("\n");
     fireContact("whatsapp");
@@ -60,6 +74,7 @@ export default function CatalogProduct() {
   const displayedPrice = product.minPriceKzt !== null
     ? `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
+  const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
 
   return (
     <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
@@ -71,7 +86,8 @@ export default function CatalogProduct() {
           "@context": "https://schema.org",
           "@type": "Product",
           name: product.title,
-          sku: product.variants.find((variant) => variant.sku)?.sku || product.id,
+          image: gallery,
+          sku: mainSku,
           category: categoryName,
           brand: { "@type": "Brand", name: product.tags[0] || "ACA Hydraulic" },
           offers: product.minPriceKzt !== null ? {
@@ -127,31 +143,87 @@ export default function CatalogProduct() {
           {copy.backToCatalog}
         </Link>
 
-        <div className="mt-6 grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="grid min-h-72 place-items-center rounded border border-white/10 bg-[#151515] p-8">
-            <div className="text-center">
-              <span className="mx-auto grid h-24 w-24 place-items-center rounded bg-[#FFC000]/10 text-[#FFC000]">
-                <Package className="h-12 w-12" aria-hidden="true" />
-              </span>
-              <p className="mt-5 text-sm text-gray-500">{categoryName}</p>
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1fr] xl:grid-cols-[1.08fr_0.92fr]">
+          <section aria-label="Product photos">
+            <div className="relative aspect-square overflow-hidden rounded-lg border border-white/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
+              {selectedImage && !imageFailed ? (
+                <img
+                  src={selectedImage}
+                  alt={product.title}
+                  decoding="async"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  onError={() => setImageFailed(true)}
+                  className="h-full w-full object-contain p-4 md:p-8"
+                />
+              ) : (
+                <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_50%_42%,#fff,#f1f1f1)] text-gray-400">
+                  <div className="text-center">
+                    <ImageIcon className="mx-auto h-16 w-16" aria-hidden="true" />
+                    <p className="mt-3 text-sm font-semibold">ACA Hydraulic</p>
+                  </div>
+                </div>
+              )}
+              {selectedImage && !imageFailed && (
+                <span className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1 rounded bg-black/70 px-2.5 py-1 text-xs font-medium text-white">
+                  <ZoomIn className="h-3.5 w-3.5" aria-hidden="true" />
+                  Фото товара
+                </span>
+              )}
             </div>
-          </div>
 
-          <div>
-            <p className="text-sm font-bold text-[#FFC000]">{categoryName}</p>
-            <h1 className="mt-3 text-3xl font-bold leading-tight md:text-5xl">{product.title}</h1>
+            {gallery.length > 1 && (
+              <div className="mt-3 grid grid-cols-5 gap-2 sm:grid-cols-6 md:grid-cols-8">
+                {gallery.map((image, index) => (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={() => {
+                      setSelectedImage(image);
+                      setImageFailed(false);
+                    }}
+                    aria-label={`Фото ${index + 1}`}
+                    aria-pressed={selectedImage === image}
+                    className={`aspect-square overflow-hidden rounded border bg-white p-1 transition ${selectedImage === image ? "border-[#FFC000] ring-1 ring-[#FFC000]" : "border-white/15 hover:border-white/40"}`}
+                  >
+                    <img src={image} alt="" loading="lazy" decoding="async" className="h-full w-full object-contain" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <div className="lg:py-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-sm font-bold text-[#FFC000]">{categoryName}</p>
+              <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-gray-400">SKU: {mainSku}</span>
+            </div>
+            <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">{product.title}</h1>
             <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{copy.productDescription}</p>
-            <p className="mt-7 text-3xl font-bold text-[#FFC000]">{displayedPrice}</p>
-            <p className="mt-2 text-sm text-gray-400">{product.available ? copy.available : copy.checkAvailability}</p>
-            <button
-              type="button"
-              onClick={requestProduct}
-              className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded bg-[#FFC000] px-6 font-bold text-black hover:bg-[#E6AC00] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
-            >
-              <MessageCircle className="h-5 w-5" aria-hidden="true" />
-              {copy.requestButton}
-            </button>
-            <p className="mt-3 text-sm text-gray-500">{copy.requestNote}</p>
+
+            <div className="mt-7 rounded-lg border border-white/10 bg-[#151515] p-5 md:p-6">
+              <p className="text-3xl font-extrabold text-[#FFC000] md:text-4xl">{displayedPrice}</p>
+              <div className="mt-3 flex items-center gap-2 text-sm text-gray-300">
+                <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
+                {product.available ? copy.available : copy.checkAvailability}
+              </div>
+              <button
+                type="button"
+                onClick={requestProduct}
+                className="mt-6 inline-flex min-h-13 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3.5 text-base font-extrabold text-black transition-colors hover:bg-[#E6AC00] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:w-auto"
+              >
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                {copy.requestButton}
+              </button>
+              <p className="mt-3 text-sm text-gray-500">{copy.requestNote}</p>
+            </div>
+
+            {product.tags.length > 0 && (
+              <div className="mt-6 flex flex-wrap gap-2">
+                {product.tags.slice(0, 8).map((tag) => (
+                  <span key={tag} className="rounded border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-gray-400">{tag}</span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
