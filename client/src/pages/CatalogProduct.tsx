@@ -10,11 +10,10 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 const WHATSAPP_NUMBER = "77714177925";
 
 function formatKzt(value: number, language: CatalogLanguage) {
-  return new Intl.NumberFormat(language === "en" ? "en-US" : "ru-RU", {
-    style: "currency",
-    currency: "KZT",
+  const amount = new Intl.NumberFormat(language === "en" ? "en-US" : "ru-RU", {
     maximumFractionDigits: 0,
   }).format(value);
+  return `${amount} ₸`;
 }
 
 export default function CatalogProduct() {

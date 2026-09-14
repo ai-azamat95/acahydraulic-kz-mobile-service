@@ -16,11 +16,10 @@ type ProductResultsProps = {
 };
 
 function formatKzt(value: number, language: CatalogLanguage) {
-  return new Intl.NumberFormat(language === "en" ? "en-US" : "ru-RU", {
-    style: "currency",
-    currency: "KZT",
+  const amount = new Intl.NumberFormat(language === "en" ? "en-US" : "ru-RU", {
     maximumFractionDigits: 0,
   }).format(value);
+  return `${amount} ₸`;
 }
 
 export function ProductResults({ copy, language, products, total, loading, error, canLoadMore, onLoadMore }: ProductResultsProps) {
