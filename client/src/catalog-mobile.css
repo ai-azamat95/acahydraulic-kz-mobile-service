@@ -72,3 +72,9 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
   .aca-mobile-nav .aca-mobile-whatsapp{background:#ffc000;color:#111;font-weight:700}
   .aca-mobile-nav a:focus-visible{outline:2px solid #ffc000;outline-offset:2px}
 }
+
+/* Delivery is reachable from the mobile navigation and must retain contrast. */
+#catalog-delivery article{background:#f8fafc;border-color:#e1e5ea}
+#catalog-delivery h2{color:#111827}
+#catalog-delivery p{color:#64748b}
+body:has(section[aria-labelledby="categories-title"]) main>section.border-y .border-l-2 h2{color:#fff}
