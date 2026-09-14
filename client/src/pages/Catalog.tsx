@@ -31,6 +31,18 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 const categoryIcons = [Gauge, Settings, Cog, Boxes, Wrench, CircuitBoard, Monitor, PackageCheck, Fuel, Fan, ScanLine, PackageSearch];
 const WHATSAPP_NUMBER = "77714177925";
 
+function categoryThumbnail(source: string) {
+  try {
+    const url = new URL(source);
+    if (url.hostname === "sinocmp.com" || url.hostname === "cdn.shopify.com") {
+      url.searchParams.set("width", "480");
+    }
+    return url.href;
+  } catch {
+    return source;
+  }
+}
+
 type SearchMode = "part" | "oem" | "vin";
 
 const enhancementCopy = {
@@ -501,7 +513,7 @@ export default function Catalog() {
                     {stat?.imageUrl && (
                       <img
                         key={stat.imageUrl}
-                        src={stat.imageUrl}
+                        src={categoryThumbnail(stat.imageUrl)}
                         alt=""
                         width="240"
                         height="160"
