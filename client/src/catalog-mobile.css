@@ -1,137 +1,131 @@
-@keyframes acaPromoYellow{0%,44%{opacity:1}50%,94%{opacity:0}100%{opacity:1}}
-@keyframes acaPromoBlue{0%,44%{opacity:0}50%,94%{opacity:1}100%{opacity:0}}
-
-/* Catalog-only light ecommerce skin. The service homepage remains unchanged. */
+/* ACA Hydraulic catalog production skin — approved mobile layout. */
 body:has(section[aria-labelledby="categories-title"]){background:#fff!important}
-body:has(section[aria-labelledby="categories-title"])>#root>div{background:#fff!important;color:#111827!important;padding-bottom:76px}
-body:has(section[aria-labelledby="categories-title"]) header{background:rgba(12,14,16,.98)!important;border-color:#24272b!important;color:#fff!important}
-body:has(section[aria-labelledby="categories-title"]) header .text-gray-300{color:#e5e7eb!important}
-
-/* Hero + search */
+body:has(section[aria-labelledby="categories-title"])>#root>div{background:#fff!important;color:#111827!important}
+body:has(section[aria-labelledby="categories-title"]) header{background:#0d0f11!important;border-color:#202328!important;color:#fff!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type{background:#fff!important;border-color:#eef0f2!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type h1{color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type p.text-gray-300,
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type p.text-gray-400{color:#6b7280!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{background:#fff!important;border:1px solid #e5e7eb!important;box-shadow:0 12px 30px rgba(15,23,42,.08)!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form label{color:#374151!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form input,
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form select{background:#fff!important;color:#111827!important;border-color:#d1d5db!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form input::placeholder{color:#9ca3af!important}
-
-/* Promo carousel: clean yellow / blue slides, no dark overlay. */
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{min-height:0!important;aspect-ratio:3/2!important;padding:0!important;overflow:hidden!important;border:1px solid #e5b100!important;border-radius:16px!important;background:#fff!important;box-shadow:0 14px 34px rgba(15,23,42,.14)!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside>*{opacity:0!important;pointer-events:none!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before,
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{position:absolute;inset:0;display:flex;align-items:flex-end;white-space:pre-line;padding:28px 28px 34px;font-family:Inter,sans-serif;font-size:clamp(24px,5vw,48px);font-weight:900;line-height:1.02;letter-spacing:-.04em;background-repeat:no-repeat;background-position:right bottom;background-size:58% auto;pointer-events:none}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before{content:"СКИДКА 5%\Aна первый заказ\A\AПРОМОКОД: ACA5";color:#111;background-color:#ffc000;background-image:url("https://sinocmp.com/cdn/shop/files/708-3S-00460-Hydraulic-Pump-for-Komatsu-Excavator-PC40MR-PC50MR_01.jpg?v=1747210219&width=1200");animation:acaPromoYellow 10s ease-in-out infinite}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{content:"ОРИГИНАЛ • КИТАЙ • КОРЕЯ\A\AПодбор по OEM, модели и шильдику";color:#fff;background-color:#0b4ca3;background-image:url("https://sinocmp.com/cdn/shop/files/708-3S-00460-Hydraulic-Pump-for-Komatsu-Excavator-PC40MR-PC50MR_02.jpg?v=1747210219&width=1200");animation:acaPromoBlue 10s ease-in-out infinite}
-
-/* Supply options */
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .mt-6.rounded-xl{background:#f8fafc!important;border-color:#e5e7eb!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .mt-6.rounded-xl h2{color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .mt-6.rounded-xl button{border-color:#d1d5db!important;background:#fff!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .mt-6.rounded-xl button[aria-pressed="true"]{background:#ffc000!important;border-color:#ffc000!important;color:#111!important}
-
-/* Categories — large real part photography on pure white, Sinocmp-style. */
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type h1,section[aria-labelledby="categories-title"] h2{color:#111827!important}
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type p.text-gray-300,body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type p.text-gray-400{color:#6b7280!important}
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{background:#fff!important;border-color:#dde1e6!important;color:#111827!important}
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form input,body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form select{background:#fff!important;color:#111827!important;border-color:#ccd2da!important}
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form input::placeholder{color:#9aa3b2!important}
 section[aria-labelledby="categories-title"]{background:#fff!important;color:#111827!important}
-section[aria-labelledby="categories-title"] h2{color:#111827!important}
-section[aria-labelledby="categories-title"] p.text-gray-400{color:#6b7280!important}
-section[aria-labelledby="categories-title"] button.group.relative{min-height:220px!important;background:#fff!important;border-color:#e5e7eb!important;border-radius:14px!important;box-shadow:0 8px 24px rgba(15,23,42,.09)!important;overflow:hidden!important}
-section[aria-labelledby="categories-title"] button.group.relative[aria-pressed="true"]{border-color:#ffc000!important;box-shadow:0 0 0 2px rgba(255,192,0,.25),0 10px 28px rgba(15,23,42,.11)!important}
-section[aria-labelledby="categories-title"] button.group.relative>div.absolute.inset-0:not([class*="bg-gradient"]){background:#fff!important}
-section[aria-labelledby="categories-title"] button.group.relative>img{top:0!important;right:0!important;width:100%!important;height:68%!important;padding:7px 9px 2px!important;object-fit:contain!important;object-position:center!important;opacity:1!important;background:#fff!important;filter:none!important;mix-blend-mode:normal!important}
-
-/* Curated category images. Never use a wiring harness for a hydraulic-pump tile again. */
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(1)>img{content:url("https://sinocmp.com/cdn/shop/files/708-3S-00460-Hydraulic-Pump-for-Komatsu-Excavator-PC40MR-PC50MR_01.jpg?v=1747210219&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(2)>img{content:url("https://sinocmp.com/cdn/shop/products/Cylinder_Block_Valve_Plate_R_05be573c-369f-41df-a436-a584e792d8c5.jpg?v=1764778329&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(3)>img{content:url("https://sinocmp.com/cdn/shop/files/BMRW-315-Orbital-Hydraulic-Wheel-Motor_05.jpg?v=1781059689&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(5)>img{content:url("https://sinocmp.com/cdn/shop/files/171-0030--1710030-Main-Control-Valve-for-Cat-320C-E320C-Excavator_01.jpg?v=1769962935&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(6)>img{content:url("https://sinocmp.com/cdn/shop/files/Solenoid-Valve-Assembly-207-60-71311-for-Komatsu-Excavator-PC300-7-PC360-7-PC450LC-8_01.jpg?v=1762399119&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(7)>img{content:url("https://sinocmp.com/cdn/shop/files/7835-12-1014-Monitor-Display-Panel-for-Komatsu-PC300-7_01.jpg?v=1769962778&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(8)>img{content:url("https://sinocmp.com/cdn/shop/files/Arm-Cylinder-Seal-Kit_02.jpg?v=1767371487&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(9)>img{content:url("https://sinocmp.com/cdn/shop/files/254-4339-Fuel-Injector-for-CAT-C9-Engine_01.jpg?v=1788487479&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(10)>img{content:url("https://sinocmp.com/cdn/shop/files/Air-Conditioning-Compressor-14649606-15082742-for-Volvo-Excavators-Loaders_01.jpg?v=1780330520&width=1200")!important}
-section[aria-labelledby="categories-title"] button.group.relative:nth-child(11)>img{content:url("https://sinocmp.com/cdn/shop/files/Greencasehydraulicpressuretestkit.png?v=1772554325&width=1200")!important}
-
-section[aria-labelledby="categories-title"] button.group.relative>div[class*="bg-gradient"]{background:linear-gradient(to top,#fff 0%,#fff 36%,rgba(255,255,255,.97) 50%,rgba(255,255,255,.02) 82%)!important}
-section[aria-labelledby="categories-title"] button.group.relative>svg.absolute,
-section[aria-labelledby="categories-title"] button.group.relative>div.relative>span:first-child{display:none!important}
-section[aria-labelledby="categories-title"] button.group.relative .text-white{color:#111827!important}
-section[aria-labelledby="categories-title"] button.group.relative .text-gray-400{color:#6b7280!important}
-section[aria-labelledby="categories-title"] button.group.relative .text-\[\#FFC000\]{color:#b77d00!important}
-section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1{display:flex!important}
-
-/* Product result cards */
-section[aria-labelledby="categories-title"] article.group{background:#fff!important;border-color:#e5e7eb!important;box-shadow:0 8px 24px rgba(15,23,42,.07)!important}
-section[aria-labelledby="categories-title"] article.group h3,
-section[aria-labelledby="categories-title"] article.group h3 a{color:#111827!important}
-section[aria-labelledby="categories-title"] article.group .text-gray-400{color:#6b7280!important}
-section[aria-labelledby="categories-title"] article.group a.bg-\[\#0f0f0f\]{background:#fff!important;color:#111827!important;border-color:#d1d5db!important}
-
-/* Lower desktop sections */
+section[aria-labelledby="categories-title"] article.group{background:#fff!important;border-color:#e2e6eb!important;box-shadow:0 5px 18px rgba(15,23,42,.07)!important}
+section[aria-labelledby="categories-title"] article.group h3,section[aria-labelledby="categories-title"] article.group h3 a{color:#111827!important}
+section[aria-labelledby="categories-title"] article.group .text-gray-400{color:#7a8495!important}
 body:has(section[aria-labelledby="categories-title"]) main>section.border-y{background:#f8fafc!important;border-color:#e5e7eb!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section.border-y h2{color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section.border-y p,
-body:has(section[aria-labelledby="categories-title"]) main>section.border-y li{color:#4b5563!important}
-body:has(section[aria-labelledby="categories-title"]) main>section.border-y .bg-\[\#0e0e0e\]{background:#fff!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{background:#fff!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type article{background:#fff!important;border-color:#e5e7eb!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type h2{color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type p{color:#6b7280!important}
+
+/* Desktop category photography */
+section[aria-labelledby="categories-title"] button.group.relative{background:#fff!important;border-color:#e1e5ea!important;box-shadow:0 6px 20px rgba(15,23,42,.07)!important}
+section[aria-labelledby="categories-title"] button.group.relative>div.absolute.inset-0:not([class*="bg-gradient"]){background:#fff!important}
+section[aria-labelledby="categories-title"] button.group.relative>img{opacity:1!important;filter:none!important;background:#fff!important;mix-blend-mode:normal!important}
+section[aria-labelledby="categories-title"] button.group.relative .text-white{color:#111827!important}
+section[aria-labelledby="categories-title"] button.group.relative .text-gray-400{color:#7a8495!important}
+section[aria-labelledby="categories-title"] button.group.relative .text-\[\#FFC000\]{color:#b97800!important}
 
 @media(max-width:767px){
-  body:has(section[aria-labelledby="categories-title"])>#root>div{padding-bottom:84px}
-  body:has(section[aria-labelledby="categories-title"]) header>div{min-height:68px!important;padding:10px 16px!important}
-  body:has(section[aria-labelledby="categories-title"]) header button{min-width:46px!important;min-height:46px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type>div{padding:14px 14px 22px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .grid.lg\:grid-cols-\[1\.15fr_0\.85fr\]{display:flex!important;flex-direction:column!important;gap:14px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{order:-1!important;width:100%!important;border-radius:14px!important;aspect-ratio:1.55/1!important}
+  body:has(section[aria-labelledby="categories-title"])>#root>div{padding-bottom:88px!important;overflow-x:hidden!important}
+  body:has(section[aria-labelledby="categories-title"]) header{height:70px!important;min-height:70px!important}
+  body:has(section[aria-labelledby="categories-title"]) header>div{position:relative!important;height:70px!important;min-height:70px!important;padding:9px 16px!important;max-width:none!important}
+  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"]{gap:10px!important}
+  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"]>span:first-child{height:31px!important}
+  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"] strong{font-size:19px!important}
+  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"] span span{font-size:10px!important}
+  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"]{position:absolute!important;right:56px!important;top:10px!important;z-index:3!important;display:flex!important;flex-direction:column!important;gap:4px!important}
+  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"] button{display:none!important;min-width:48px!important;min-height:48px!important;padding:0 10px!important;border-radius:8px!important;font-size:13px!important;background:#1a1d20!important;color:#fff!important}
+  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"] button[aria-pressed="true"],body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"]:focus-within button{display:block!important}
+  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"] button[aria-pressed="true"]{background:#ffc000!important;color:#111!important}
+  body:has(section[aria-labelledby="categories-title"]) header>div::before{content:"";position:absolute;right:110px;top:22px;width:21px;height:21px;border:3px solid #fff;border-radius:50%;box-sizing:border-box;opacity:.96}
+  body:has(section[aria-labelledby="categories-title"]) header>div::after{content:"";position:absolute;right:16px;top:24px;width:28px;height:20px;background:linear-gradient(#fff,#fff) 0 0/28px 3px no-repeat,linear-gradient(#fff,#fff) 0 8px/28px 3px no-repeat,linear-gradient(#fff,#fff) 0 16px/28px 3px no-repeat;opacity:.96}
+  body:has(section[aria-labelledby="categories-title"]) header a[aria-label="ACA Hydraulic"]::after{content:"";position:absolute;right:106px;top:42px;width:10px;height:3px;background:#fff;transform:rotate(45deg);border-radius:2px}
+
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type>div{padding:12px 14px 14px!important;max-width:none!important}
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type a.mb-5{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type h1{font-family:Inter,sans-serif!important;font-size:27px!important;line-height:1.15!important;text-transform:none!important;letter-spacing:-.03em!important;margin-top:6px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type h1+p{font-size:14px!important;line-height:1.5!important;margin-top:7px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before,
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{padding:20px 16px 22px;font-size:27px;background-size:57% auto;background-position:right bottom}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label]{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0!important;overflow:visible!important;padding:0!important;margin-top:16px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button{border-radius:0!important;min-width:0!important;padding:0 6px!important;font-size:12px!important;border-color:#e5e7eb!important;background:#f3f4f6!important;color:#111827!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button:first-child{border-radius:8px 0 0 8px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button:last-child{border-radius:0 8px 8px 0!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .grid.lg\:grid-cols-\[1\.15fr_0\.85fr\]{display:flex!important;flex-direction:column!important;gap:10px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .grid.lg\:grid-cols-\[1\.15fr_0\.85fr\]>div:first-child>.max-w-3xl{display:none!important}
+
+  /* Exact approved two-banner mobile scale */
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{order:-1!important;position:relative!important;width:100%!important;height:239px!important;min-height:239px!important;aspect-ratio:auto!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside>*{display:none!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before,body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{content:"";position:absolute;left:0;right:0;background-repeat:no-repeat;background-position:center;background-size:100% 100%;border-radius:12px;box-shadow:0 3px 10px rgba(15,23,42,.08)}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before{top:0;height:127px;background-image:url('/catalog-assets/promo-yellow.svg')}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{bottom:0;height:106px;background-image:url('/catalog-assets/promo-blue.svg')}
+
+  /* Search tabs and form */
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label]{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0!important;overflow:visible!important;padding:0!important;margin:4px 0 0!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button{min-width:0!important;min-height:42px!important;padding:0 5px!important;border-radius:0!important;border:1px solid #e2e5ea!important;background:#f4f5f7!important;color:#111827!important;font-size:11px!important;font-weight:700!important;white-space:nowrap!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button:first-child{border-radius:7px 0 0 0!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button:last-child{border-radius:0 7px 0 0!important}
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button[aria-pressed="true"]{background:#ffc000!important;border-color:#ffc000!important;color:#111!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{margin-top:8px!important;padding:10px!important;border-radius:10px!important;box-shadow:none!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{margin:0!important;padding:6px 0 0!important;border:0!important;border-radius:0!important;box-shadow:none!important}
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label{font-size:0!important;gap:0!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label input{min-height:54px!important;font-size:14px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label input{min-height:48px!important;height:48px!important;border-radius:6px!important;font-size:13px!important;padding-left:43px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label svg{left:13px!important;width:20px!important;height:20px!important}
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-2{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1{grid-template-columns:1fr!important;margin-top:8px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button{min-height:50px!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form p{font-size:12px!important;margin-top:8px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1{display:grid!important;grid-template-columns:1fr!important;gap:7px!important;margin-top:7px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button{min-height:48px!important;height:48px!important;border-radius:5px!important;font-size:14px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button+button{background:#fff!important;border:1.5px solid #16191d!important;color:#111827!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button+button svg{color:#13a63a!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form p:not([role="alert"]){font-size:0!important;margin:7px 0 0!important;color:#7a8495!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form p:not([role="alert"])::before{content:"Например: 708-2L-00400, 22U-60-21301, K3V112, 320D, SY365H и т.д.";font-size:11px!important;line-height:1.25!important;color:#7a8495!important}
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .mt-6.rounded-xl{display:none!important}
 
-  section[aria-labelledby="categories-title"]{padding:22px 14px 34px!important}
-  section[aria-labelledby="categories-title"] h2{font-family:Inter,sans-serif!important;font-size:25px!important;text-transform:none!important;letter-spacing:-.025em!important}
-  section[aria-labelledby="categories-title"] p.mt-2{display:none!important}
-  section[aria-labelledby="categories-title"] .mt-6.grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
-  section[aria-labelledby="categories-title"] button.group.relative,
-  section[aria-labelledby="categories-title"] button.group.relative>div.relative{min-height:198px!important}
-  section[aria-labelledby="categories-title"] button.group.relative>img{height:64%!important;padding:5px!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div.relative{padding:0 10px 10px!important}
-  section[aria-labelledby="categories-title"] button.group.relative .line-clamp-2{font-size:13px!important;font-weight:800!important;line-height:1.25!important}
-  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1{font-size:10px!important;display:flex!important;color:#6b7280!important}
-  section[aria-labelledby="categories-title"] .mt-12{margin-top:28px!important}
+  /* Categories: approved compact horizontal 2-column cards */
+  section[aria-labelledby="categories-title"]{padding:8px 14px 20px!important;max-width:none!important}
+  section[aria-labelledby="categories-title"]>div:first-child{position:relative!important;display:block!important}
+  section[aria-labelledby="categories-title"]>div:first-child::after{content:"Все категории  →";position:absolute;right:2px;top:5px;color:#0759be;font-size:12px;font-weight:700}
+  section[aria-labelledby="categories-title"] h2{font-family:Inter,sans-serif!important;font-size:23px!important;line-height:1.15!important;text-transform:none!important;letter-spacing:-.035em!important}
+  section[aria-labelledby="categories-title"] p.mt-2,section[aria-labelledby="categories-title"]>div:first-child>button{display:none!important}
+  section[aria-labelledby="categories-title"] .mt-6.grid{margin-top:10px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  section[aria-labelledby="categories-title"] .mt-6.grid>button:nth-child(2){display:none!important}
+  section[aria-labelledby="categories-title"] button.group.relative{position:relative!important;min-height:128px!important;height:128px!important;border-radius:11px!important;border:1px solid #e1e5ea!important;background:#fff!important;box-shadow:0 3px 12px rgba(15,23,42,.055)!important;overflow:hidden!important}
+  section[aria-labelledby="categories-title"] button.group.relative[aria-pressed="true"]{border-color:#ffc000!important;box-shadow:0 0 0 1px #ffc000!important}
+  section[aria-labelledby="categories-title"] button.group.relative>div.absolute.inset-0:not([class*="bg-gradient"]){background:#fff!important}
+  section[aria-labelledby="categories-title"] button.group.relative>img{left:0!important;right:auto!important;top:0!important;width:47%!important;height:100%!important;padding:8px 5px 8px 7px!important;object-fit:contain!important;object-position:center!important;opacity:1!important;filter:none!important;background:#fff!important;mix-blend-mode:normal!important}
+  section[aria-labelledby="categories-title"] button.group.relative>div[class*="bg-gradient"]{display:none!important}
+  section[aria-labelledby="categories-title"] button.group.relative>svg.absolute,section[aria-labelledby="categories-title"] button.group.relative>div.relative>span:first-child{display:none!important}
+  section[aria-labelledby="categories-title"] button.group.relative>div.relative{position:absolute!important;left:47%!important;right:0!important;top:0!important;bottom:0!important;min-height:0!important;height:auto!important;padding:9px 24px 9px 5px!important;display:flex!important;justify-content:center!important}
+  section[aria-labelledby="categories-title"] button.group.relative .line-clamp-2{font-family:Inter,sans-serif!important;color:#111827!important;font-size:11.5px!important;line-height:1.22!important;font-weight:800!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1{position:relative!important;display:block!important;margin-top:7px!important;font-size:10.5px!important;line-height:1.2!important;color:#7c8697!important}
+  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1>span{display:block!important}
+  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1 svg{position:absolute!important;right:-18px!important;top:50%!important;width:15px!important;height:15px!important;transform:translateY(-50%)!important;color:#b97800!important}
 
-  section[aria-labelledby="categories-title"] article.group .flex-1{padding:10px!important}
-  section[aria-labelledby="categories-title"] article.group h3{min-height:3.2rem!important;font-size:12px!important}
-  section[aria-labelledby="categories-title"] article.group .pt-4{padding-top:9px!important}
-  section[aria-labelledby="categories-title"] article.group .text-base{font-size:14px!important}
+  /* Curated, category-correct photos */
+  section[aria-labelledby="categories-title"] button.group.relative:nth-child(1)>img{content:url("https://sinocmp.com/cdn/shop/files/708-3S-00460-Hydraulic-Pump-for-Komatsu-Excavator-PC40MR-PC50MR_01.jpg?v=1747210219&width=800")!important}
+  section[aria-labelledby="categories-title"] button.group.relative:nth-child(3)>img{content:url("https://sinocmp.com/cdn/shop/files/BMRW-315-Orbital-Hydraulic-Wheel-Motor_05.jpg?v=1781059689&width=800")!important}
+  section[aria-labelledby="categories-title"] button.group.relative:nth-child(4)>img{content:url("https://sinocmp.com/cdn/shop/files/20Y-27-00320-Travel-Device-for-Komatsu-PC200-7-PC210-7-Excavator_01.jpg?v=1774629940&width=800")!important}
+  section[aria-labelledby="categories-title"] button.group.relative:nth-child(5)>img{content:url("https://sinocmp.com/cdn/shop/files/171-0030--1710030-Main-Control-Valve-for-Cat-320C-E320C-Excavator_01.jpg?v=1769962935&width=800")!important}
+  section[aria-labelledby="categories-title"] button.group.relative:nth-child(6)>img{content:url("https://sinocmp.com/cdn/shop/files/Solenoid-Valve-Assembly-207-60-71311-for-Komatsu-Excavator-PC300-7-PC360-7-PC450LC-8_01.jpg?v=1762399119&width=800")!important}
+  section[aria-labelledby="categories-title"] button.group.relative:nth-child(7)>img{content:url("https://sinocmp.com/cdn/shop/files/7835-12-1014-Monitor-Display-Panel-for-Komatsu-PC300-7_01.jpg?v=1769962778&width=800")!important}
 
-  body:has(section[aria-labelledby="categories-title"]) main>section.border-y,
-  body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) footer{position:fixed!important;left:0;right:0;bottom:0;z-index:60;border-top:1px solid #24272b!important;background:#101214!important}
-  body:has(section[aria-labelledby="categories-title"]) footer>div{padding:8px 14px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:10px!important}
+  section[aria-labelledby="categories-title"] .mt-12{margin-top:24px!important;padding-top:18px!important}
+  section[aria-labelledby="categories-title"] .mt-12 h2{font-size:22px!important}
+  section[aria-labelledby="categories-title"] article.group .flex-1{padding:9px!important}
+  section[aria-labelledby="categories-title"] article.group h3{min-height:3.15rem!important;font-size:11.5px!important;line-height:1.28!important}
+  section[aria-labelledby="categories-title"] article.group .pt-4{padding-top:8px!important}
+  section[aria-labelledby="categories-title"] article.group .text-base{font-size:13px!important}
+  section[aria-labelledby="categories-title"] article.group a,section[aria-labelledby="categories-title"] article.group button{font-size:10.5px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section.border-y,body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{display:none!important}
+
+  /* Bottom navigation, same scale and spacing as approved mockup. */
+  body:has(section[aria-labelledby="categories-title"]) footer{position:fixed!important;left:0!important;right:0!important;bottom:0!important;z-index:60!important;height:78px!important;background:#101317!important;border-top:1px solid #252a31!important;color:#fff!important}
+  body:has(section[aria-labelledby="categories-title"]) footer>div{position:relative!important;height:78px!important;min-height:78px!important;padding:0!important;max-width:none!important;display:block!important}
   body:has(section[aria-labelledby="categories-title"]) footer>div>div:first-child{display:none!important}
-  body:has(section[aria-labelledby="categories-title"]) footer a[href^="tel:"]{color:#fff!important;font-size:12px!important}
-  body:has(section[aria-labelledby="categories-title"]) footer a[href*="wa.me"]{display:flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;min-width:158px!important;border-radius:999px!important;background:#ffc000!important;color:#111!important;font-weight:900!important;padding:0 18px!important}
+  body:has(section[aria-labelledby="categories-title"]) footer>div>div:last-child{display:block!important}
+  body:has(section[aria-labelledby="categories-title"]) footer a[href^="tel:"]{display:none!important}
+  body:has(section[aria-labelledby="categories-title"]) footer a[href*="wa.me"]{position:absolute!important;left:50%!important;top:-17px!important;transform:translateX(-50%)!important;width:82px!important;height:82px!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:35px 0 0!important;background:#ffc000!important;color:#111!important;font-size:11px!important;font-weight:800!important;box-shadow:0 5px 14px rgba(0,0,0,.22)!important}
+  body:has(section[aria-labelledby="categories-title"]) footer a[href*="wa.me"]::before{content:"◉";position:absolute;top:7px;left:0;right:0;text-align:center;font-size:29px;font-weight:900}
+  body:has(section[aria-labelledby="categories-title"]) footer>div::before{content:"▦\AКаталог";white-space:pre-line;position:absolute;left:8%;top:11px;text-align:center;font-size:11px;line-height:1.6;color:#fff}
+  body:has(section[aria-labelledby="categories-title"]) footer>div::after{content:"▣\AДоставка";white-space:pre-line;position:absolute;left:69%;top:11px;text-align:center;font-size:11px;line-height:1.6;color:#fff}
+  body:has(section[aria-labelledby="categories-title"]) footer::before{content:"☆\AИзбранное";white-space:pre-line;position:absolute;left:28%;top:11px;text-align:center;font-size:11px;line-height:1.6;color:#fff;z-index:2}
+  body:has(section[aria-labelledby="categories-title"]) footer::after{content:"◉\AПоддержка";white-space:pre-line;position:absolute;right:5%;top:11px;text-align:center;font-size:11px;line-height:1.6;color:#fff;z-index:2}
 }
 
-@media(prefers-reduced-motion:reduce){
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before{animation:none!important;opacity:1!important}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{animation:none!important;opacity:0!important}
+@media(max-width:360px){
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{height:220px!important;min-height:220px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::before{height:117px!important}
+  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside::after{height:98px!important}
+  section[aria-labelledby="categories-title"] button.group.relative{height:120px!important;min-height:120px!important}
+  section[aria-labelledby="categories-title"] button.group.relative .line-clamp-2{font-size:10.8px!important}
+  section[aria-labelledby="categories-title"] button.group.relative>div.relative>span.mt-1{font-size:9.8px!important}
 }
