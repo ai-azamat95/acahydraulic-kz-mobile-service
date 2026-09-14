@@ -10,6 +10,7 @@ interface RegionalPageProps {
   city: string;
   regionSpec: string;
   seoTitle: string;
+  heroTitle?: string;
   seoDescription: string;
   seoKeywords?: string;
   canonical?: string;
@@ -23,6 +24,7 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
   city,
   regionSpec,
   seoTitle,
+  heroTitle,
   seoDescription,
   seoKeywords,
   canonical,
@@ -69,7 +71,7 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
               {city} и область
             </div>
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 uppercase tracking-tight">
-              Выездной ремонт гидравлики <br /> спецтехники в г. {city}
+              {heroTitle ?? <>Выездной ремонт гидравлики <br /> спецтехники в г. {city}</>}
             </h1>
             <p className="text-xl text-gray-200 mb-8 font-light max-w-2xl mx-auto">
               Специализированный сервис для {regionSpec}. <br />

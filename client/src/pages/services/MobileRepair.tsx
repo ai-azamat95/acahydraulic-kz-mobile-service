@@ -61,8 +61,8 @@ export default function MobileRepair() {
               Для юридических лиц
             </div>
             <h1 className="font-bebas font-bold text-4xl md:text-6xl leading-[0.95] mb-6 uppercase">
-              Выездной ремонт гидравлики <br/>
-              <span className="text-[#FFC000]">спецтехники на объекте</span>
+              Выездная диагностика гидравлики <br/>
+              <span className="text-[#FFC000]">по Казахстану</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
               Восстановление работоспособности экскаваторов, буровых и кранов после диагностики и согласования работ.
