@@ -29,6 +29,8 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Sync catalog with Sinocmp
+        run: pnpm catalog:sync
       - name: Build
         run: pnpm build
       - name: Create static route copies
