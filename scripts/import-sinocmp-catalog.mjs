@@ -32,7 +32,7 @@ async function fetchJson(url, attempt = 1) {
   const response = await fetch(url, {
     headers: {
       accept: 'application/json',
-      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.1 (+https://acahydraulic.kz/catalog/)',
+      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.2 (+https://acahydraulic.kz/catalog/)',
     },
   });
   if (response.ok) return response.json();
@@ -44,12 +44,27 @@ async function fetchJson(url, attempt = 1) {
   throw new Error(`Catalog request failed: ${response.status} ${url}`);
 }
 
-function detectCategory(product) {
-  const haystack = [product.title, product.product_type, ...(product.tags || [])].join(' ').toLowerCase();
+function normalizeSearchText(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/https?:\/\//g, ' ')
+    .replace(/[-_./]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function detectCategoryFromText(value) {
+  const haystack = normalizeSearchText(value);
+  if (!haystack) return null;
   for (const [category, terms] of categoryRules) {
-    if (terms.some((term) => haystack.includes(term))) return category;
+    if (terms.length && terms.some((term) => haystack.includes(term))) return category;
   }
-  return 'other-parts';
+  return null;
+}
+
+function detectCategory(product) {
+  const haystack = [product.title, product.product_type, ...(product.tags || [])].join(' ');
+  return detectCategoryFromText(haystack) || 'other-parts';
 }
 
 function markedUpPrice(price) {
@@ -60,21 +75,64 @@ function markedUpPrice(price) {
   return Math.round(numeric * MARKUP * 100) / 100;
 }
 
-function normalizeImageUrl(value) {
+function rawImageUrl(value) {
   if (!value) return null;
-  const raw = typeof value === 'string' ? value : value.src;
+  if (typeof value === 'string') return value;
+  return value.src || value.url || null;
+}
+
+function normalizeImageUrl(value) {
+  const raw = rawImageUrl(value);
   if (!raw || typeof raw !== 'string') return null;
   if (raw.startsWith('//')) return `https:${raw}`;
   if (raw.startsWith('/')) return `${SOURCE_ORIGIN}${raw}`;
   return raw;
 }
 
+function imageBelongsToProduct(product, value, productCategory) {
+  if (!value) return false;
+
+  if (typeof value === 'object' && value.product_id != null) {
+    if (String(value.product_id) !== String(product.id)) return false;
+  }
+
+  const raw = rawImageUrl(value);
+  if (!raw) return false;
+
+  // Shopify image objects may expose alt text. Use it together with the file
+  // name to reject obvious cross-product/category mismatches. If the image
+  // has no recognizable category tokens, keep it rather than guessing.
+  const imageCategory = detectCategoryFromText(`${raw} ${typeof value === 'object' ? value.alt || '' : ''}`);
+  if (imageCategory && productCategory !== 'other-parts' && imageCategory !== productCategory) {
+    return false;
+  }
+
+  return true;
+}
+
 function productGallery(product) {
+  const productCategory = detectCategory(product);
+  const variantImages = Array.isArray(product.variants)
+    ? product.variants.map((variant) => variant.featured_image).filter(Boolean)
+    : [];
+
+  // Prefer the canonical/featured product image first. Do not blindly take
+  // images[0]: on large Shopify catalogs stale or variant imagery can appear
+  // earlier in that array. Every fallback image is checked against product_id
+  // and against obvious category conflicts before it is published.
   const candidates = [
-    ...(Array.isArray(product.images) ? product.images : []),
     product.image,
+    product.featured_image,
+    ...variantImages,
+    ...(Array.isArray(product.images) ? product.images : []),
   ];
-  return [...new Set(candidates.map(normalizeImageUrl).filter(Boolean))].slice(0, MAX_GALLERY_IMAGES);
+
+  return [...new Set(
+    candidates
+      .filter((value) => imageBelongsToProduct(product, value, productCategory))
+      .map(normalizeImageUrl)
+      .filter(Boolean),
+  )].slice(0, MAX_GALLERY_IMAGES);
 }
 
 function normalizeProduct(product, page) {
@@ -176,7 +234,7 @@ async function run() {
     chunkCount: Math.ceil(searchIndex.length / PAGE_SIZE),
     markup: MARKUP,
     currency: 'KZT',
-    imagePolicy: 'Supplier product images are reused with permission for ACA Hydraulic catalog listings.',
+    imagePolicy: 'Only product-bound supplier images are published. Foreign product/category images are rejected.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);
 }
