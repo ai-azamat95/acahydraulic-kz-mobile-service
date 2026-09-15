@@ -30,6 +30,9 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
 const categoryIcons = [Gauge, Settings, Cog, Boxes, Wrench, CircuitBoard, Monitor, PackageCheck, Fuel, Fan, ScanLine, PackageSearch];
 const WHATSAPP_NUMBER = "77714177925";
+const DEFAULT_VISIBLE_PRODUCTS = 24;
+const HYDRAULIC_PUMP_VISIBLE_PRODUCTS = 800;
+const HYDRAULIC_PUMP_LOAD_MORE_BATCH = 200;
 // Local copies of representative SinoCMP product photos, used with permission.
 const categoryImageOverrides: Record<string, string> = {
   "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
@@ -66,6 +69,19 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
   const plural = new Intl.PluralRules("ru-RU").select(count);
   const noun = plural === "one" ? "товар" : plural === "few" ? "товара" : "товаров";
   return `${formattedCount} ${noun}`;
+}
+
+function initialVisibleProducts(category: string) {
+  return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
+}
+
+function visibleProductsLabel(visible: number, total: number, language: CatalogLanguage) {
+  const locale = language === "kz" ? "kk-KZ" : language === "en" ? "en-US" : "ru-RU";
+  const shown = Math.min(visible, total).toLocaleString(locale);
+  const available = total.toLocaleString(locale);
+  if (language === "kz") return `${shown} / ${available} тауар көрсетілді`;
+  if (language === "en") return `Showing ${shown} of ${available} products`;
+  return `Показано ${shown} из ${available} товаров`;
 }
 
 type SearchMode = "part" | "oem" | "vin";
@@ -167,7 +183,7 @@ export default function Catalog() {
   const [searchMode, setSearchMode] = useState<SearchMode>("part");
   const [supplyOption, setSupplyOption] = useState("");
   const [formError, setFormError] = useState("");
-  const [visibleCount, setVisibleCount] = useState(24);
+  const [visibleCount, setVisibleCount] = useState(() => initialVisibleProducts(category));
   const resultsRef = useRef<HTMLDivElement>(null);
   const copy = catalogCopy[language];
   const ui = enhancementCopy[language];
@@ -247,7 +263,7 @@ export default function Catalog() {
       return;
     }
     setFormError("");
-    setVisibleCount(24);
+    setVisibleCount(initialVisibleProducts(category));
     scrollToResults();
   };
 
@@ -255,14 +271,14 @@ export default function Catalog() {
     const nextCategory = category === categoryId ? "" : categoryId;
     setCategory(nextCategory);
     replaceCategoryInUrl(nextCategory);
-    setVisibleCount(24);
+    setVisibleCount(initialVisibleProducts(nextCategory));
     setFormError("");
     scrollToResults();
   };
 
   const chooseBrand = (brandName: string) => {
     setBrand(brand === brandName ? "" : brandName);
-    setVisibleCount(24);
+    setVisibleCount(initialVisibleProducts(category));
     scrollToResults();
   };
 
@@ -403,7 +419,7 @@ export default function Catalog() {
                           const nextCategory = event.target.value;
                           setCategory(nextCategory);
                           replaceCategoryInUrl(nextCategory);
-                          setVisibleCount(24);
+                          setVisibleCount(initialVisibleProducts(nextCategory));
                         }}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-2 text-sm text-white focus:border-[#FFC000] focus:outline-none"
                       >
@@ -577,13 +593,14 @@ export default function Catalog() {
             className="mt-12 scroll-mt-24 border-t border-white/10 pt-8"
             aria-live="polite"
             data-result-count={filteredProducts.length}
+            data-visible-count={Math.min(visibleCount, filteredProducts.length)}
           >
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.resultsTitle}</h2>
                 {selectedCategory && <p className="mt-1 text-sm font-medium text-[#FFC000]">{selectedCategory[language]}</p>}
               </div>
-              {!loading && !error && <p className="text-sm text-gray-400">{filteredProducts.length.toLocaleString()} {copy.productsFound}</p>}
+              {!loading && !error && <p className="text-sm text-gray-400">{visibleProductsLabel(visibleCount, filteredProducts.length, language)}</p>}
             </div>
             <ProductResults
               copy={copy}
@@ -593,7 +610,7 @@ export default function Catalog() {
               loading={loading}
               error={error}
               canLoadMore={visibleCount < filteredProducts.length}
-              onLoadMore={() => setVisibleCount((count) => count + 24)}
+              onLoadMore={() => setVisibleCount((count) => count + (category === "hydraulic-pumps" ? HYDRAULIC_PUMP_LOAD_MORE_BATCH : DEFAULT_VISIBLE_PRODUCTS))}
             />
           </div>
         </section>
