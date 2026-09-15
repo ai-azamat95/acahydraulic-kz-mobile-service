@@ -55,7 +55,7 @@ assert.deepEqual(mainControlValveAudit.missingProductIds, [], 'no supplier main 
 assert.deepEqual(mainControlValveAudit.unexpectedProductIds, [], 'no keyword-only products may enter the main control valve category');
 assert.equal(categorySummary['main-control-valves'].count, mainControlValveAudit.sourceProducts, 'rendered main control valve count must match the supplier collection');
 
-const engineCylinderBlock = products.find((product) => product.handle === '04294187-d7e-engine-cylinder-block-sinocmp');
+const engineCylinderBlock = products.find((product) => product.handle === '04294187-d7e-engine-cylinder-block');
 assert(engineCylinderBlock, 'known engine cylinder block must be present');
 assert.equal(engineCylinderBlock.category, 'engine-fuel', 'engine cylinder block must not be classified as a pump part');
 
