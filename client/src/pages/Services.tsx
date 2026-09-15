@@ -5,76 +5,20 @@ import { Link } from "wouter";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import serviceDirectory from "../../../shared/service-directory.json";
 import B2BLeadForm from "@/components/B2BLeadForm";
 
 export default function Services() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
 
-  const serviceCategories = [
-    {
-      id: 1,
-      title: "Выездной инженерный сервис 24/7",
-      description: "Диагностика и ремонт гидравлических систем спецтехники на объекте заказчика",
-      iconUrl: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/KYQZdSsbHxcVQlIn.png",
-      link: "/services/mobile-repair",
-      subcategories: []
-    },
-    {
-      id: 2,
-      title: "Ремонт спецтехники",
-      description: "Восстановление гидравлических систем дорожно-строительной и карьерной техники",
-      iconUrl: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/MZwFsdpoMEzfgQfw.png",
-      subcategories: [
-        { name: "Экскаваторы", link: "/services/excavator-repair" },
-        { name: "Бульдозеры", link: "/services/bulldozer-repair" },
-        { name: "Погрузчики", link: "/services/loader-repair" },
-        { name: "Грейдеры", link: "/services/grader-repair" },
-        { name: "Карьерная техника", link: "/services/dump-truck-repair" },
-        { name: "Манипуляторы", link: "/services/manipulator-repair" }
-      ]
-    },
-    {
-      id: 3,
-      title: "Ремонт буровых установок",
-      description: "Специализированный сервис гидравлики буровых установок и сваебойной техники",
-      iconUrl: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/yQQPcVMMlQeepSEr.png",
-      subcategories: [
-        { name: "ГНБ (горизонтальное направленное бурение)", link: "/services/gnb-repair" },
-        { name: "Вертикальные буровые установки", link: "/services/drilling-repair" },
-        { name: "Сваебойные установки", link: "/services/piledriver-repair" }
-      ]
-    },
-    {
-      id: 4,
-      title: "Ремонт гидравлических систем",
-      description: "Профессиональное восстановление гидравлических компонентов промышленного класса",
-      iconUrl: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/MgdZLeLSZdvrjPGn.png",
-      subcategories: [
-        { name: "Гидронасосы", link: "/services/hydraulic-pumps" },
-        { name: "Гидромоторы", link: "/services/hydraulic-motors" },
-        { name: "Распределители", link: "/services/hydraulic-distributors" },
-        { name: "Гидроцилиндры", link: "#" },
-        { name: "Промывочные системы", link: "#" }
-      ]
-    },
-    {
-      id: 5,
-      title: "Промышленная гидравлика",
-      description: "Ремонт и модернизация гидравлических систем промышленного оборудования",
-      iconUrl: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/VYnvlZsfMWkVlviD.png",
-      subcategories: [
-        { name: "Промышленные прессы", link: "/services/press-repair" },
-        { name: "Промышленное оборудование", link: "#" }
-      ]
-    }
-  ];
+  const serviceCategories = serviceDirectory.categories;
 
   return (
     <div className="min-h-[100dvh] bg-background text-white font-roboto flex flex-col overflow-x-hidden">
       <SEO 
-        title="Услуги по ремонту спецтехники и гидравлики | ACA Hydraulic" 
-        description="Профессиональный ремонт гидравлических систем спецтехники: выездной сервис, экскаваторы, ГНБ, буровые установки, промышленная гидравлика. Работаем с юридическими лицами."
+        title={serviceDirectory.title}
+        description={serviceDirectory.description}
         keywords="выездной сервис гидравлики, ремонт экскаваторов, ремонт ГНБ, ремонт буровых установок, промышленная гидравлика, ремонт спецтехники"
       />
       
@@ -138,7 +82,7 @@ export default function Services() {
         <div className="container mx-auto relative z-10">
           <div className="max-w-4xl">
             <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-white leading-tight mb-6 drop-shadow-lg">
-              Инженерные решения<br />для промышленной<br />гидравлики
+              {serviceDirectory.heading}
             </h1>
             <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl drop-shadow-md">
               Профессиональный ремонт и восстановление гидравлических систем спецтехники. Работаем с юридическими лицами по договору с НДС.

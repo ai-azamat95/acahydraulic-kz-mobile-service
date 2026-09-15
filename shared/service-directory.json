@@ -1,0 +1,111 @@
+{
+  "title": "Ремонт спецтехники и гидравлики в Астане | ACA Hydraulic",
+  "description": "Диагностика и ремонт гидравлики экскаваторов, погрузчиков, буровых, гидронасосов и гидромоторов. База в Астане, выезд по Казахстану по согласованию.",
+  "heading": "Ремонт спецтехники и гидравлики в Астане",
+  "categories": [
+    {
+      "id": 1,
+      "title": "Выездной инженерный сервис 24/7",
+      "description": "Диагностика и ремонт гидравлических систем спецтехники на объекте заказчика",
+      "iconUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/KYQZdSsbHxcVQlIn.png",
+      "link": "/services/mobile-repair/",
+      "subcategories": []
+    },
+    {
+      "id": 2,
+      "title": "Ремонт спецтехники",
+      "description": "Восстановление гидравлических систем дорожно-строительной и карьерной техники",
+      "iconUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/MZwFsdpoMEzfgQfw.png",
+      "subcategories": [
+        {
+          "name": "Экскаваторы",
+          "link": "/services/excavator-repair/"
+        },
+        {
+          "name": "Бульдозеры",
+          "link": "/services/bulldozer-repair/"
+        },
+        {
+          "name": "Погрузчики",
+          "link": "/services/loader-repair/"
+        },
+        {
+          "name": "Грейдеры",
+          "link": "/services/grader-repair/"
+        },
+        {
+          "name": "Карьерная техника",
+          "link": "/services/mining-truck-repair/"
+        },
+        {
+          "name": "Манипуляторы",
+          "link": "/services/manipulator-repair/"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Ремонт буровых установок",
+      "description": "Специализированный сервис гидравлики буровых установок и сваебойной техники",
+      "iconUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/yQQPcVMMlQeepSEr.png",
+      "subcategories": [
+        {
+          "name": "ГНБ (горизонтальное направленное бурение)",
+          "link": "/services/gnb-repair/"
+        },
+        {
+          "name": "Вертикальные буровые установки",
+          "link": "/services/drilling-repair/"
+        },
+        {
+          "name": "Сваебойные установки",
+          "link": "/services/piledriver-repair/"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Ремонт гидравлических систем",
+      "description": "Профессиональное восстановление гидравлических компонентов промышленного класса",
+      "iconUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/MgdZLeLSZdvrjPGn.png",
+      "subcategories": [
+        {
+          "name": "Гидронасосы",
+          "link": "/services/hydraulic-pumps/"
+        },
+        {
+          "name": "Гидромоторы",
+          "link": "/services/hydraulic-motors/"
+        },
+        {
+          "name": "Распределители",
+          "link": "/services/hydraulic-valves/"
+        },
+        {
+          "name": "Гидроцилиндры",
+          "link": "#"
+        },
+        {
+          "name": "Промывочные системы",
+          "link": "#"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Промышленная гидравлика",
+      "description": "Ремонт и модернизация гидравлических систем промышленного оборудования",
+      "iconUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/VYnvlZsfMWkVlviD.png",
+      "subcategories": [
+        {
+          "name": "Промышленные прессы",
+          "link": "/services/press-repair/"
+        },
+        {
+          "name": "Промышленное оборудование",
+          "link": "/services/industrial-service/"
+        }
+      ]
+    }
+  ]
+}

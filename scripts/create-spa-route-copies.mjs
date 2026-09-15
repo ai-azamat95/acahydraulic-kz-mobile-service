@@ -7,6 +7,7 @@ const sitemapPath = path.join(outDir, 'sitemap.xml');
 const baseUrl = 'https://acahydraulic.kz';
 const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-repair-content.json', import.meta.url), 'utf8'));
 const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
+const serviceDirectory = JSON.parse(fs.readFileSync(new URL('../shared/service-directory.json', import.meta.url), 'utf8'));
 
 if (!fs.existsSync(indexPath)) {
   throw new Error(`Missing ${indexPath}. Run build first.`);
@@ -139,6 +140,7 @@ const blogNames = {
 };
 
 function metaForRoute(route) {
+  if (route === 'services') return serviceDirectory;
   if (serviceContent['/' + route]) return serviceContent['/' + route];
   if (explicitMeta[route]) return explicitMeta[route];
   if (route.startsWith('services/')) {
@@ -220,6 +222,13 @@ function fallbackLinks(route) {
 }
 
 function staticFallback(route, meta, canonical) {
+  const directoryHtml = route === 'services' ? serviceDirectory.categories.map(category => {
+    const items = category.subcategories.length ? category.subcategories : [{ name: category.title, link: category.link }];
+    const links = items.map(item => item.link && item.link !== '#'
+      ? '<li><a href="' + escapeAttr(item.link) + '">' + escapeHtml(item.name) + '</a></li>'
+      : '<li>' + escapeHtml(item.name) + '</li>').join('');
+    return '<section><h2>' + escapeHtml(category.title) + '</h2><p>' + escapeHtml(category.description) + '</p><ul>' + links + '</ul></section>';
+  }).join('') : '';
   const local = localRepairContent['/' + route];
   const localHtml = local ? '<section><h2>' + escapeHtml(local.title) + '</h2>' +
     local.paragraphs.map(text => '<p>' + escapeHtml(text) + '</p>').join('') +
@@ -246,6 +255,7 @@ function staticFallback(route, meta, canonical) {
   <p>${escapeHtml(meta.description)}</p>
   <p>ACA Hydraulic выполняет диагностику и ремонт гидравлических систем спецтехники. Условия, сроки выезда и стоимость согласовываются после получения информации о технике и неисправности.</p>
   ${details}
+  ${directoryHtml}
   ${localHtml}
   <p>Адрес ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Перед приездом позвоните для согласования.</p>
   <nav aria-label="Основные услуги"><ul>${links}</ul></nav>
