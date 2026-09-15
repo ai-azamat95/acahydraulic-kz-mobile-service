@@ -70,6 +70,19 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 
 type SearchMode = "part" | "oem" | "vin";
 
+function categoryFromUrl() {
+  if (typeof window === "undefined") return "";
+  const requestedCategory = new URLSearchParams(window.location.search).get("category") || "";
+  return partCategories.some((item) => item.id === requestedCategory) ? requestedCategory : "";
+}
+
+function replaceCategoryInUrl(category: string) {
+  const url = new URL(window.location.href);
+  if (category) url.searchParams.set("category", category);
+  else url.searchParams.delete("category");
+  window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+}
+
 const enhancementCopy = {
   ru: {
     searchModes: [
@@ -150,7 +163,7 @@ export default function Catalog() {
   const [partQuery, setPartQuery] = useState("");
   const [brand, setBrand] = useState("");
   const [machineModel, setMachineModel] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(categoryFromUrl);
   const [searchMode, setSearchMode] = useState<SearchMode>("part");
   const [supplyOption, setSupplyOption] = useState("");
   const [formError, setFormError] = useState("");
@@ -253,6 +266,7 @@ export default function Catalog() {
   const chooseCategory = (categoryId: string) => {
     const nextCategory = category === categoryId ? "" : categoryId;
     setCategory(nextCategory);
+    replaceCategoryInUrl(nextCategory);
     setVisibleCount(24);
     setFormError("");
     scrollToResults();
@@ -389,7 +403,12 @@ export default function Catalog() {
                       {copy.categoryLabel}
                       <select
                         value={category}
-                        onChange={(event) => setCategory(event.target.value)}
+                        onChange={(event) => {
+                          const nextCategory = event.target.value;
+                          setCategory(nextCategory);
+                          replaceCategoryInUrl(nextCategory);
+                          setVisibleCount(24);
+                        }}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-2 text-sm text-white focus:border-[#FFC000] focus:outline-none"
                       >
                         <option value="">{copy.allCategories}</option>
@@ -561,7 +580,12 @@ export default function Catalog() {
             })}
           </div>
 
-          <div ref={resultsRef} className="mt-12 scroll-mt-24 border-t border-white/10 pt-8" aria-live="polite">
+          <div
+            ref={resultsRef}
+            className="mt-12 scroll-mt-24 border-t border-white/10 pt-8"
+            aria-live="polite"
+            data-result-count={filteredProducts.length}
+          >
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.resultsTitle}</h2>
