@@ -9,7 +9,7 @@ const server = http.createServer((req,res) => {
   if(!file.startsWith(root + path.sep) && file !== root){res.writeHead(403).end();return;}
   if(fs.existsSync(file) && fs.statSync(file).isDirectory())file=path.join(file,'index.html');
   if(!fs.existsSync(file))file=path.join(root,'index.html');
-  res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp','.woff2':'font/woff2'})[path.extname(file)] || 'application/octet-stream');
+  res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2'})[path.extname(file)] || 'application/octet-stream');
   fs.createReadStream(file).pipe(res);
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -30,6 +30,7 @@ try {
         for(const lang of ['RU','KZ','EN']){
           await page.getByRole('button',{name:lang,exact:true}).click();
           assert.equal(await page.locator('.aca-category-card:visible').count(),12);
+          assert.equal(await page.locator('.aca-category-count:visible').count(),12);
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page overflow '+engineName+' '+width+' '+lang);
           const clipped=await page.locator('.aca-category-label').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1).map(n=>n.textContent));
           assert.deepEqual(clipped,[],'clipped labels '+width+' '+lang);
@@ -37,6 +38,8 @@ try {
             assert.equal(await page.locator('.aca-mobile-promos a:visible').count(),2);
             const imgs=await page.locator('.aca-mobile-promos img').evaluateAll(nodes=>nodes.map(n=>({loaded:n.complete&&n.naturalWidth>0,ratio:n.clientWidth/n.clientHeight,natural:n.naturalWidth/n.naturalHeight})));
             assert(imgs.every(i=>i.loaded&&Math.abs(i.ratio-i.natural)<.05),'banner load/aspect ratio');
+            const promoPaths=await page.locator('.aca-mobile-promos img').evaluateAll(nodes=>nodes.map(n=>new URL(n.src).pathname));
+            assert.deepEqual(promoPaths,['/catalog-assets/promo-first-order.jpg','/catalog-assets/promo-china-delivery.jpg'],'approved local banner assets');
             const promo=await page.locator('.aca-mobile-promos').boundingBox();
             const form=await page.locator('#catalog-search').boundingBox();
             assert(promo.y+promo.height<=form.y,'banner overlaps search');
@@ -47,6 +50,12 @@ try {
           }
         }
         await page.getByRole('button',{name:'RU',exact:true}).click();
+        await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
+        await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
+        const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
+        assert.equal(categoryImages.length,12,'each category needs a product image');
+        assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
+        assert.equal(categoryImages[3].path,'/catalog-assets/final-drive-category.jpg');
         await page.locator('.aca-category-card').first().click();
         assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'true');
         await page.locator('.aca-category-card').first().click();

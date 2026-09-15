@@ -30,6 +30,21 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
 const categoryIcons = [Gauge, Settings, Cog, Boxes, Wrench, CircuitBoard, Monitor, PackageCheck, Fuel, Fan, ScanLine, PackageSearch];
 const WHATSAPP_NUMBER = "77714177925";
+// Local copies of representative SinoCMP product photos, used with permission.
+const categoryImageOverrides: Record<string, string> = {
+  "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
+  "pump-parts": "/catalog-assets/category-pump-parts.jpg",
+  "hydraulic-motors": "/catalog-assets/category-hydraulic-motor.jpg",
+  "final-drives": "/catalog-assets/final-drive-category.jpg",
+  "control-valves": "/catalog-assets/category-control-valve.jpg",
+  "electrical": "/catalog-assets/category-electrical.jpg",
+  "controllers-monitors": "/catalog-assets/category-monitor.jpg",
+  "seals-filters": "/catalog-assets/category-seals-filters.jpg",
+  "engine-fuel": "/catalog-assets/category-engine-fuel.jpg",
+  "air-conditioning": "/catalog-assets/category-air-conditioning.jpg",
+  "diagnostic-tools": "/catalog-assets/category-diagnostic-tools.jpg",
+  "other-parts": "/catalog-assets/category-other-parts.jpg",
+};
 
 function categoryThumbnail(source: string) {
   try {
@@ -41,6 +56,16 @@ function categoryThumbnail(source: string) {
   } catch {
     return source;
   }
+}
+
+function categoryCountLabel(count: number, language: CatalogLanguage) {
+  const locale = language === "kz" ? "kk-KZ" : language === "en" ? "en-US" : "ru-RU";
+  const formattedCount = count.toLocaleString(locale);
+  if (language === "kz") return `${formattedCount} тауар`;
+  if (language === "en") return `${formattedCount} ${count === 1 ? "item" : "items"}`;
+  const plural = new Intl.PluralRules("ru-RU").select(count);
+  const noun = plural === "one" ? "товар" : plural === "few" ? "товара" : "товаров";
+  return `${formattedCount} ${noun}`;
 }
 
 type SearchMode = "part" | "oem" | "vin";
@@ -408,10 +433,10 @@ export default function Catalog() {
 
               <div className="aca-mobile-promos">
                 <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>
-                  <img src="/catalog-assets/promo-yellow.svg" width="665" height="225" alt={ui.promos[0].text} fetchPriority="high" />
+                  <img src="/catalog-assets/promo-first-order.jpg" width="900" height="300" alt={ui.promos[0].text} fetchPriority="high" />
                 </a>
                 <a href="#catalog-delivery" aria-label={copy.deliveryTitle}>
-                  <img src="/catalog-assets/promo-blue.svg" width="665" height="189" alt={copy.deliveryTitle} decoding="async" />
+                  <img src="/catalog-assets/promo-china-delivery.jpg" width="900" height="300" alt={copy.deliveryTitle} loading="lazy" decoding="async" />
                 </a>
               </div>
               <aside className="relative min-h-[310px] overflow-hidden rounded-xl border border-[#FFC000]/35 bg-[radial-gradient(circle_at_80%_10%,rgba(255,192,0,0.25),transparent_34%),linear-gradient(145deg,#171717,#090909)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] md:p-8">
@@ -500,6 +525,7 @@ export default function Catalog() {
               const Icon = categoryIcons[index];
               const active = category === item.id;
               const stat = categoryStats[item.id];
+              const imageUrl = categoryImageOverrides[item.id] || stat?.imageUrl;
               return (
                 <button
                   key={item.id}
@@ -510,10 +536,10 @@ export default function Catalog() {
                 >
                   <span className="aca-category-media">
                     <Icon className="aca-category-fallback" aria-hidden="true" />
-                    {stat?.imageUrl && (
+                    {imageUrl && (
                       <img
-                        key={stat.imageUrl}
-                        src={categoryThumbnail(stat.imageUrl)}
+                        key={imageUrl}
+                        src={categoryThumbnail(imageUrl)}
                         alt=""
                         width="240"
                         height="160"
@@ -523,7 +549,12 @@ export default function Catalog() {
                       />
                     )}
                   </span>
-                  <span className="aca-category-label">{item[language]}</span>
+                  <span className="aca-category-copy">
+                    <span className="aca-category-label">{item[language]}</span>
+                    <span className="aca-category-count">
+                      {categoryCountLabel(stat?.count || 0, language)}
+                    </span>
+                  </span>
                   <ChevronRight className="aca-category-arrow" aria-hidden="true" />
                 </button>
               );
