@@ -71,6 +71,14 @@ assert.deepEqual(fuelInjectorAudit.missingProductIds, [], 'no supplier fuel inje
 assert.deepEqual(fuelInjectorAudit.unexpectedProductIds, [], 'no keyword-only products may enter the fuel injector category');
 assert.equal(categorySummary['fuel-injectors'].count, fuelInjectorAudit.sourceProducts, 'rendered fuel injector count must match the supplier collection');
 
+const engineRebuildKitAudit = strictCategoryAudit.categories['engine-rebuild-kits'];
+assert(engineRebuildKitAudit, 'engine rebuild kit collection audit must be present');
+assert.equal(engineRebuildKitAudit.collection, 'engine-overhaul-rebuild-kit');
+assert.equal(engineRebuildKitAudit.importedProducts, engineRebuildKitAudit.sourceProducts, 'every supplier engine rebuild kit must be imported');
+assert.deepEqual(engineRebuildKitAudit.missingProductIds, [], 'no supplier engine rebuild kits may be missing');
+assert.deepEqual(engineRebuildKitAudit.unexpectedProductIds, [], 'no keyword-only products may enter the engine rebuild kit category');
+assert.equal(categorySummary['engine-rebuild-kits'].count, engineRebuildKitAudit.sourceProducts, 'rendered engine rebuild kit count must match the supplier collection');
+
 const engineCylinderBlock = products.find((product) => product.handle === '04294187-d7e-engine-cylinder-block');
 assert(engineCylinderBlock, 'known engine cylinder block must be present');
 assert.equal(engineCylinderBlock.category, 'engine-fuel', 'engine cylinder block must not be classified as a pump part');
