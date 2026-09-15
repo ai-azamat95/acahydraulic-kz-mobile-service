@@ -50,7 +50,9 @@ for (let page = 1; page <= manifest.chunkCount; page += 1) {
 assert.equal(products.length, manifest.productCount, 'public product count must match the manifest');
 assert.equal(new Set(products.map((product) => product.handle)).size, products.length, 'public product handles must be unique');
 const pumpParts = products.filter((product) => (product.categories || [product.category]).includes('pump-parts'));
+const wiringHarnesses = products.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses'));
 assert(pumpParts.length > 0, 'pump parts category must not be empty');
+assert(wiringHarnesses.length > 0, 'wiring harness category must not be empty');
 assert(
   pumpParts.every(
     (product) =>
@@ -58,6 +60,14 @@ assert(
       JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-pump-parts.jpg']),
   ),
   'pump parts must use the local unbranded catalogue image',
+);
+assert(
+  wiringHarnesses.every(
+    (product) =>
+      product.imageUrl === '/catalog-assets/category-wiring-harness.jpg' &&
+      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-wiring-harness.jpg']),
+  ),
+  'wiring harnesses must use the local unbranded catalogue image',
 );
 
 console.log(
@@ -67,6 +77,7 @@ console.log(
       filesChecked: jsonFiles.length,
       products: products.length,
       pumpParts: pumpParts.length,
+      wiringHarnesses: wiringHarnesses.length,
       supplierBrandOccurrences: 0,
       sensitiveSupplierFields: 0,
     },
