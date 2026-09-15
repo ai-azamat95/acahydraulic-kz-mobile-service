@@ -14,7 +14,8 @@ for (let page = 1; page <= manifest.chunkCount; page += 1) {
 
 const hydraulicPumps = products.filter((product) => product.category === 'hydraulic-pumps');
 const gearPumps = products.filter((product) => product.category === 'gear-pumps');
-const pumps = [...hydraulicPumps, ...gearPumps];
+const pistonPumps = products.filter((product) => product.category === 'piston-pumps');
+const pumps = [...hydraulicPumps, ...gearPumps, ...pistonPumps];
 const uniqueIds = new Set(pumps.map((product) => product.id));
 const uniqueHandles = new Set(pumps.map((product) => product.handle));
 const approvedImageHost = (value) => {
@@ -25,6 +26,7 @@ const approvedImageHost = (value) => {
 assert.equal(audit.passed, true, 'supplier comparison must pass');
 assert(hydraulicPumps.length >= 800, `hydraulic pump catalogue must contain at least 800 products, received ${hydraulicPumps.length}`);
 assert.equal(gearPumps.length, audit.collections['gear-pump'], 'every supplier gear pump must be assigned to the separate gear pump category');
+assert.equal(pistonPumps.length, audit.collections['piston-pump'], 'every supplier piston pump must be assigned to the separate piston pump category');
 assert.equal(audit.failures.length, 0, 'supplier comparison must have no failures');
 assert.equal(audit.unexpectedProducts, 0, 'no keyword-only products may enter the pump category');
 assert.equal(audit.importedProducts, audit.uniqueSourceProducts, 'every supplier pump must be imported');
@@ -61,6 +63,7 @@ console.log(JSON.stringify({
   pumps: pumps.length,
   hydraulicPumps: hydraulicPumps.length,
   gearPumps: gearPumps.length,
+  pistonPumps: pistonPumps.length,
   exactTitles: audit.exactTitleAndHandleMatches,
   exactSkus: audit.exactSkuMatches,
   exactGalleries: audit.exactGalleryMatches,

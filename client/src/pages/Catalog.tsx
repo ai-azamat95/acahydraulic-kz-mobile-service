@@ -31,6 +31,7 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge> = {
   "hydraulic-pumps": Gauge,
   "gear-pumps": Cog,
+  "piston-pumps": Gauge,
   "pump-parts": Settings,
   "hydraulic-motors": Cog,
   "final-drives": Boxes,
@@ -51,6 +52,7 @@ const HYDRAULIC_PUMP_LOAD_MORE_BATCH = 200;
 const categoryImageOverrides: Record<string, string> = {
   "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
   "gear-pumps": "/catalog-assets/category-gear-pump.jpg",
+  "piston-pumps": "/catalog-assets/category-piston-pump.jpg",
   "pump-parts": "/catalog-assets/category-pump-parts.jpg",
   "hydraulic-motors": "/catalog-assets/category-hydraulic-motor.jpg",
   "final-drives": "/catalog-assets/final-drive-category.jpg",
@@ -87,7 +89,7 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 }
 
 function initialVisibleProducts(category: string) {
-  if (category === "gear-pumps") return Number.MAX_SAFE_INTEGER;
+  if (category === "gear-pumps" || category === "piston-pumps") return Number.MAX_SAFE_INTEGER;
   return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
 }
 
