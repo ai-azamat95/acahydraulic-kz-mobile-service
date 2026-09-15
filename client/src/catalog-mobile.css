@@ -72,7 +72,7 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
 }
 
 @media(min-width:1280px){
-  .aca-category-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+  .aca-category-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
   .aca-category-card{grid-template-columns:64px minmax(0,1fr);gap:6px;min-height:116px;padding:9px 18px 9px 8px;border-radius:12px}
   .aca-category-media{height:92px}
   .aca-category-label{font-size:13px;line-height:1.25}

@@ -52,10 +52,12 @@ assert.equal(new Set(products.map((product) => product.handle)).size, products.l
 const pumpParts = products.filter((product) => (product.categories || [product.category]).includes('pump-parts'));
 const wiringHarnesses = products.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses'));
 const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
+const fuelPumps = products.filter((product) => (product.categories || [product.category]).includes('fuel-pumps'));
 const engineRebuildKits = products.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits'));
 assert(pumpParts.length > 0, 'pump parts category must not be empty');
 assert(wiringHarnesses.length > 0, 'wiring harness category must not be empty');
 assert(fuelInjectors.length > 0, 'fuel injector category must not be empty');
+assert(fuelPumps.length > 0, 'fuel pump category must not be empty');
 assert(engineRebuildKits.length > 0, 'engine rebuild kit category must not be empty');
 assert(
   pumpParts.every(
@@ -82,6 +84,14 @@ assert(
   'fuel injectors must use the local unbranded catalogue image',
 );
 assert(
+  fuelPumps.every(
+    (product) =>
+      product.imageUrl === '/catalog-assets/category-fuel-pump.jpg' &&
+      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-fuel-pump.jpg']),
+  ),
+  'fuel pumps must use the local unbranded catalogue image',
+);
+assert(
   engineRebuildKits.every(
     (product) =>
       product.imageUrl === '/catalog-assets/category-engine-rebuild-kit.jpg' &&
@@ -99,6 +109,7 @@ console.log(
       pumpParts: pumpParts.length,
       wiringHarnesses: wiringHarnesses.length,
       fuelInjectors: fuelInjectors.length,
+      fuelPumps: fuelPumps.length,
       engineRebuildKits: engineRebuildKits.length,
       supplierBrandOccurrences: 0,
       sensitiveSupplierFields: 0,
