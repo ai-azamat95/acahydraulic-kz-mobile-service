@@ -36,6 +36,7 @@ function formatPrice(product: CatalogIndexProduct, copy: CatalogCopy, language: 
 }
 
 function productCode(product: CatalogIndexProduct) {
+  if (product.skus?.[0]) return product.skus[0];
   const usefulTag = product.tags.find((tag) => /\d/.test(tag) && tag.length <= 26);
   return usefulTag || product.category;
 }
@@ -48,7 +49,7 @@ function ProductImage({ product }: { product: CatalogIndexProduct }) {
     <div className="relative aspect-square w-full overflow-hidden bg-white">
       {showImage ? (
         <img
-          src={product.imageUrl || ""}
+          src={product.imageUrl ? `${product.imageUrl}${product.imageUrl.includes("?") ? "&" : "?"}width=480` : ""}
           alt={product.title}
           loading="lazy"
           decoding="async"
@@ -58,9 +59,9 @@ function ProductImage({ product }: { product: CatalogIndexProduct }) {
         />
       ) : (
         <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_50%_40%,#fff,#f4f4f4)] text-gray-400">
-          <div className="text-center">
-            <Package className="mx-auto h-12 w-12" aria-hidden="true" />
-            <span className="mt-2 block text-xs font-medium">ACA Hydraulic</span>
+          <div className="w-full p-4 text-center">
+            <img src={`/catalog-assets/categories/${product.category}.webp`} alt="" width="240" height="160" className="mx-auto h-28 w-full object-contain opacity-50" />
+            <span className="mt-2 block text-xs font-medium text-gray-600">Фото уточняется · ACA Hydraulic</span>
           </div>
         </div>
       )}
@@ -96,7 +97,7 @@ export function ProductResults({ copy, language, products, total, loading, error
               className="group flex min-w-0 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#151515] shadow-[0_12px_35px_rgba(0,0,0,0.22)] transition duration-200 hover:-translate-y-0.5 hover:border-[#FFC000]/55 hover:shadow-[0_16px_45px_rgba(0,0,0,0.32)]"
             >
               <Link href={`/catalog/${product.handle}`} className="relative block" aria-label={product.title}>
-                <ProductImage product={product} />
+                <ProductImage key={`${product.id}:${product.imageUrl}`} product={product} />
                 <div className="absolute left-2 top-2 max-w-[70%] truncate rounded-full border border-black/10 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white backdrop-blur sm:left-3 sm:top-3 sm:text-[11px]">
                   {productCode(product)}
                 </div>

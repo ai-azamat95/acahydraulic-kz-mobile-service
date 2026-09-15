@@ -4,6 +4,7 @@ export type CatalogIndexProduct = {
   title: string;
   category: string;
   tags: string[];
+  skus?: string[];
   available: boolean;
   minPriceKzt: number | null;
   maxPriceKzt: number | null;
@@ -23,6 +24,7 @@ export type CatalogVariant = {
 
 export type CatalogProduct = CatalogIndexProduct & {
   productType: string;
+  specifications?: { name: string; value: string }[];
   variants: CatalogVariant[];
   gallery: string[];
   sourceUrl: string;

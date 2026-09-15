@@ -1,80 +1,104 @@
-/* ACA Hydraulic catalog production skin — approved mobile layout. */
-body:has(section[aria-labelledby="categories-title"]){background:#fff!important}
-body:has(section[aria-labelledby="categories-title"])>#root>div{background:#fff!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) header{background:#0d0f11!important;border-color:#202328!important;color:#fff!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type{background:#fff!important;border-color:#eef0f2!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type h1,section[aria-labelledby="categories-title"] h2{color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type p.text-gray-300,body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type p.text-gray-400{color:#6b7280!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{background:#fff!important;border-color:#dde1e6!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form input,body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form select{background:#fff!important;color:#111827!important;border-color:#ccd2da!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form input::placeholder{color:#9aa3b2!important}
-section[aria-labelledby="categories-title"]{background:#fff!important;color:#111827!important}
-section[aria-labelledby="categories-title"] article.group{background:#fff!important;border-color:#e2e6eb!important;box-shadow:0 5px 18px rgba(15,23,42,.07)!important}
-section[aria-labelledby="categories-title"] article.group h3,section[aria-labelledby="categories-title"] article.group h3 a{color:#111827!important}
-section[aria-labelledby="categories-title"] article.group .text-gray-400{color:#7a8495!important}
-body:has(section[aria-labelledby="categories-title"]) main>section.border-y{background:#f8fafc!important;border-color:#e5e7eb!important;color:#111827!important}
-body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{background:#fff!important;color:#111827!important}
-
-
-/* Category navigation uses normal document flow so long labels stay readable. */
+/* Catalog-only styles: shared desktop and mobile markup, natural text flow. */
+.aca-catalog {background:#fff;color:#111827;overflow-wrap:break-word}
+.aca-catalog-header{background:#0d0f11!important;color:#fff;border-color:#202328!important}
+.aca-catalog-header>div{min-height:72px;gap:12px}
+.aca-catalog-header a{flex-shrink:0}
+.aca-catalog-header [aria-label="Language"]{flex-shrink:0}
+.aca-catalog main>section:first-of-type{background:#fff;color:#111827;border-color:#e5e7eb}
+.aca-catalog-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:start;gap:28px}
+.aca-catalog-hero>div{min-width:0}
+.aca-catalog-hero h1{color:#111827}
+.aca-catalog-hero p.text-gray-300,.aca-catalog-hero p.text-gray-400{color:#64748b}
+.aca-catalog #catalog-search{background:#fff;border-color:#dce1e7;box-shadow:0 6px 24px rgb(15 23 42 / 5%);color:#111827}
+.aca-catalog #catalog-search label{color:#334155}
+.aca-catalog #catalog-search input,.aca-catalog #catalog-search select{background:#fff;color:#111827;border-color:#cbd5e1;min-width:0}
+.aca-catalog #catalog-search input::placeholder{color:#8792a3}
+.aca-catalog #catalog-search button+button{background:#fff;border-color:#26323e;color:#111827}
+.aca-catalog #catalog-search button+button svg{color:#159b43}
+.aca-search-modes{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:0!important;overflow:visible!important}
+.aca-search-modes button{min-width:0;white-space:normal;overflow-wrap:anywhere;border-radius:0!important;padding:10px 6px!important;color:#334155;background:#f3f5f7;border-color:#dce1e7;font-size:13px;line-height:1.4}
+.aca-search-modes button:first-child{border-radius:8px 0 0 8px!important}
+.aca-search-modes button:last-child{border-radius:0 8px 8px 0!important}
+.aca-search-modes button[aria-pressed=true]{background:#ffc000;color:#111;border-color:#ffc000}
+.aca-mobile-promos{display:grid;gap:14px;min-width:0}
+.aca-mobile-promos>a{display:flex;position:relative;flex-direction:column;overflow:hidden;border-radius:14px;text-decoration:none}
+.aca-mobile-promos>a:focus-visible{outline:3px solid #b97800;outline-offset:3px}
+.aca-promo-discount{background:#ffc000;color:#111;padding:22px 26px;gap:4px}
+.aca-promo-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.aca-promo-discount>strong{font-size:44px;font-weight:900;line-height:1.12;letter-spacing:-.035em}
+.aca-promo-discount>span:not([class]){font-size:16px;font-weight:600}
+.aca-promo-code{display:flex;align-items:center;gap:7px;align-self:start;margin-top:12px;padding:8px 12px;border:1px solid rgb(0 0 0 / 15%);border-radius:6px;font-size:13px;background:rgb(255 255 255 / 25%)}
+.aca-promo-delivery{background:#085ab7;color:#fff}
+.aca-delivery-copy{display:grid;gap:6px;padding:20px 24px 0}
+.aca-delivery-copy strong{font-size:25px;line-height:1.15;font-weight:800;letter-spacing:-.02em}
+.aca-delivery-copy>span{font-size:12px;line-height:1.5;color:#e0efff}
+.aca-promo-delivery img{display:block;width:100%;aspect-ratio:2.65;object-fit:cover;object-position:center 43%;height:auto}
+.aca-delivery-link{display:flex;align-items:center;justify-content:space-between;padding:10px 24px 14px;font-size:12px;font-weight:600}
 .aca-category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}
-.aca-category-card{position:relative;display:flex;min-width:0;flex-direction:column;align-items:stretch;gap:12px;padding:16px 16px 20px;border:1px solid #e1e5ea;border-radius:14px;background:#fff;color:#111827;text-align:left;box-shadow:0 4px 16px rgb(15 23 42 / 5%);transition:border-color .15s,box-shadow .15s}
-.aca-category-card:hover,.aca-category-card[aria-pressed="true"]{border-color:#ffc000;box-shadow:0 0 0 1px #ffc000}
+.aca-category-card{position:relative;display:flex;min-width:0;flex-direction:column;align-items:stretch;gap:10px;padding:16px;border:1px solid #e1e5ea;border-radius:12px;background:#fff;color:#111827;text-align:left;transition:border-color .15s,box-shadow .15s}
+.aca-category-card:hover,.aca-category-card[aria-pressed=true]{border-color:#c98e00;box-shadow:0 0 0 1px #ffc000}
 .aca-category-card:focus-visible{outline:3px solid #b97800;outline-offset:3px}
 .aca-category-media{position:relative;display:grid;place-items:center;width:100%;height:132px;flex-shrink:0}
 .aca-category-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#fff}
 .aca-category-fallback{width:48px;height:48px;color:#b97800}
-.aca-category-label{display:block;min-width:0;padding-right:18px;font-size:15px;font-weight:700;line-height:1.4;overflow-wrap:anywhere}
-.aca-category-arrow{position:absolute;bottom:22px;right:12px;width:16px;height:16px;color:#b97800}
-.aca-mobile-promos,.aca-mobile-nav{display:none}
-#categories-title,#catalog-delivery,#catalog-search{scroll-margin-top:90px}
-
+.aca-category-label{display:block;min-width:0;padding-right:14px;font-size:15px;font-weight:700;line-height:1.4;overflow-wrap:anywhere}
+.aca-category-count{font-size:12px;color:#64748b;margin-top:auto}
+.aca-category-arrow{position:absolute;bottom:17px;right:12px;width:16px;height:16px;color:#a86f00}
+.aca-catalog section[aria-labelledby="categories-title"] article.group{background:#fff;border-color:#e2e6eb;box-shadow:0 4px 16px rgb(15 23 42 / 5%)}
+.aca-catalog section[aria-labelledby="categories-title"] article.group h3{color:#111827}
+.aca-catalog #catalog-results>div>div>p{color:#8c6200}
+.aca-catalog #catalog-results article .text-\[\#FFC000\]{color:#8a6000}
+.aca-catalog #catalog-results>div:last-child>button{color:#111827;border-color:#cbd5e1}
+.aca-catalog main>section.border-y{background:#f8fafc;border-color:#e5e7eb}
+.aca-catalog main>section.border-y .border-l-2 h2{color:#fff}
+.aca-catalog main>section:last-of-type{background:#fff}
+.aca-catalog #catalog-delivery article{background:#f8fafc;border-color:#e1e5ea}
+.aca-catalog #catalog-delivery h2{color:#111827}
+.aca-catalog #catalog-delivery p{color:#64748b}
+.aca-catalog #catalog-delivery>div:last-child{border-color:#e2ba46}
+.aca-mobile-nav{display:none}
+#categories-title,#catalog-delivery,#catalog-search,#catalog-results{scroll-margin-top:90px}
+@media(max-width:1023px){.aca-catalog-hero{grid-template-columns:1fr}.aca-mobile-promos{grid-row:1;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}.aca-promo-discount{justify-content:center}.aca-category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:767px){
-  body:has(section[aria-labelledby="categories-title"])>#root>div{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}
-  body:has(section[aria-labelledby="categories-title"]) header>div{min-height:68px;gap:8px;padding:10px 14px}
-  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"]{gap:2px}
-  body:has(section[aria-labelledby="categories-title"]) header div[aria-label="Language"] button{min-width:38px;min-height:44px;padding:0 8px;font-size:12px}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type>div{padding:14px}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type a.mb-5{display:none}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .grid.lg\:grid-cols-\[1\.15fr_0\.85fr\]{display:flex;flex-direction:column;gap:14px}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .max-w-3xl{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{display:none}
-  .aca-mobile-promos{display:grid;order:-1;gap:10px;width:100%;min-width:0}
-  .aca-mobile-promos a{display:block;overflow:hidden;border-radius:12px;line-height:0;box-shadow:0 3px 12px rgb(15 23 42 / 7%)}
-  .aca-mobile-promos img{display:block;width:100%;height:auto;object-fit:contain}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;overflow:visible;margin-top:0;padding:0}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button{min-width:0;min-height:44px;padding:8px 4px;border-radius:0;border:1px solid #e2e5ea;background:#f4f5f7;color:#111827;font-size:11px;line-height:1.3;white-space:normal;overflow-wrap:anywhere}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type div[aria-label] button[aria-pressed="true"]{background:#ffc000;border-color:#ffc000;color:#111}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{margin:0;padding:8px 0 0;border:0;box-shadow:none}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label{font-size:0;gap:0}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form>label input{min-height:48px;border-radius:8px;font-size:16px}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-2{display:none}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1{grid-template-columns:1fr;gap:8px;margin-top:8px}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button{min-height:48px;font-size:14px}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button+button{background:#fff;border:1.5px solid #16191d;color:#111827}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form .mt-4.grid.grid-cols-1 button+button svg{color:#13a63a}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form p{font-size:12px;line-height:1.45}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .mt-6.rounded-xl{display:none}
-  section[aria-labelledby="categories-title"]{padding:20px 14px}
-  section[aria-labelledby="categories-title"] h2{font-family:Inter,sans-serif;font-size:24px;line-height:1.2;text-transform:none;letter-spacing:-.025em}
-  section[aria-labelledby="categories-title"]>div:first-child p{display:none}
-  .aca-category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
-  .aca-category-card{gap:10px;padding:12px 12px 18px;border-radius:12px}
-  .aca-category-media{height:96px}
-  .aca-category-label{font-size:13px;line-height:1.4;padding-right:12px}
-  .aca-category-arrow{right:8px;bottom:20px;width:14px;height:14px}
-  section[aria-labelledby="categories-title"] .mt-12{margin-top:28px;padding-top:20px}
-  section[aria-labelledby="categories-title"] article.group h3{font-size:13px;line-height:1.4}
-  body:has(section[aria-labelledby="categories-title"]) footer{position:static}
-  .aca-mobile-nav{position:fixed;inset:auto 0 0;z-index:60;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid #30343a;background:#101317;color:#fff}
-  .aca-mobile-nav a{display:flex;min-height:56px;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:4px;text-align:center;font-size:10px;line-height:1.25;font-weight:500;overflow-wrap:anywhere;border-radius:10px}
-  .aca-mobile-nav svg{width:22px;height:22px;flex-shrink:0}
-  .aca-mobile-nav .aca-mobile-whatsapp{background:#ffc000;color:#111;font-weight:700}
-  .aca-mobile-nav a:focus-visible{outline:2px solid #ffc000;outline-offset:2px}
+ .aca-catalog{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+ .aca-catalog-header>div{min-height:64px;padding:10px 14px;gap:8px}
+ .aca-catalog-header [aria-label="Language"]{gap:2px}
+ .aca-catalog-header [aria-label="Language"] button{min-width:36px;min-height:44px;padding:0 7px;font-size:12px}
+ .aca-catalog main>section:first-of-type>div{padding:16px 14px}
+ .aca-catalog-hero{gap:18px}
+ .aca-catalog-hero h1{font-size:28px;line-height:1.15}
+ .aca-catalog-hero .max-w-3xl>p{font-size:14px;line-height:1.5;margin-top:8px}
+ .aca-catalog main>section:first-of-type a.mb-5{display:none}
+ .aca-mobile-promos{grid-template-columns:1fr;gap:12px}
+ .aca-promo-discount{padding:18px 20px;gap:3px}
+ .aca-promo-discount>strong{font-size:36px}
+ .aca-promo-discount>span:not([class]){font-size:15px}
+ .aca-promo-code{margin-top:8px;padding:6px 10px}
+ .aca-delivery-copy{padding:16px 20px 0}
+ .aca-delivery-copy strong{font-size:23px}
+ .aca-promo-delivery img{aspect-ratio:2.65}
+ .aca-delivery-link{padding:8px 20px 12px}
+ .aca-search-modes{margin-top:18px}
+ .aca-search-modes button{font-size:11px;min-height:44px}
+ .aca-catalog #catalog-search{padding:12px;margin-top:8px}
+ .aca-catalog #catalog-search>label{font-size:0;gap:0}
+ .aca-catalog #catalog-search>label input{font-size:16px;min-height:48px}
+ .aca-catalog #catalog-search .mt-4.grid.grid-cols-1{grid-template-columns:1fr;gap:8px;margin-top:12px}
+ .aca-catalog #catalog-search .mt-4.grid.grid-cols-1 button{min-height:48px;font-size:14px;padding:8px}
+ .aca-catalog #catalog-search p{font-size:12px;line-height:1.45}
+ .aca-catalog main>section:first-of-type .mt-6.rounded-xl{display:none}
+ .aca-catalog section[aria-labelledby="categories-title"]{padding:24px 14px}
+ .aca-catalog section[aria-labelledby="categories-title"] h2{font-family:Inter,sans-serif;font-size:24px;line-height:1.2;text-transform:none;letter-spacing:-.025em}
+ .aca-category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+ .aca-category-card{gap:8px;padding:12px;border-radius:10px}
+ .aca-category-media{height:96px}
+ .aca-category-label{font-size:13px;line-height:1.4;padding-right:8px}
+ .aca-category-arrow{right:8px;bottom:12px;width:14px;height:14px}
+ .aca-catalog section[aria-labelledby="categories-title"] .mt-12{margin-top:28px;padding-top:20px}
+ .aca-catalog section[aria-labelledby="categories-title"] article.group h3{font-size:13px;line-height:1.4}
+ .aca-mobile-nav{position:fixed;inset:auto 0 0;z-index:60;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid #30343a;background:#101317;color:#fff}
+ .aca-mobile-nav a{display:flex;min-height:52px;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:4px;text-align:center;font-size:10px;line-height:1.25;font-weight:500;overflow-wrap:anywhere;border-radius:8px}
+ .aca-mobile-nav svg{width:22px;height:22px;flex-shrink:0}
+ .aca-mobile-nav .aca-mobile-whatsapp{background:#ffc000;color:#111;font-weight:700}
+ .aca-mobile-nav a:focus-visible{outline:2px solid #ffc000;outline-offset:2px}
 }
-
-/* Delivery is reachable from the mobile navigation and must retain contrast. */
-#catalog-delivery article{background:#f8fafc;border-color:#e1e5ea}
-#catalog-delivery h2{color:#111827}
-#catalog-delivery p{color:#64748b}
-body:has(section[aria-labelledby="categories-title"]) main>section.border-y .border-l-2 h2{color:#fff}

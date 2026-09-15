@@ -33,16 +33,17 @@ export function useCatalogIndex() {
   const [products, setProducts] = useState<CatalogIndexProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [indexComplete, setIndexComplete] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
     let backgroundTimer: number | undefined;
 
     async function loadCatalog() {
-      let bootstrapLoaded = false;
       try {
         setLoading(true);
         setError(false);
+        setIndexComplete(false);
 
         const manifest = await fetchJson<CatalogManifest>(
           "/catalog-data/manifest.json",
@@ -63,7 +64,6 @@ export function useCatalogIndex() {
           );
           if (!controller.signal.aborted) {
             setProducts(firstChunk);
-            bootstrapLoaded = firstChunk.length > 0;
             setLoading(false);
           }
         } catch (bootstrapError) {
@@ -80,7 +80,7 @@ export function useCatalogIndex() {
                 controller.signal,
                 "force-cache",
               );
-              if (!controller.signal.aborted) setProducts(index);
+              if (!controller.signal.aborted) { setProducts(index); setIndexComplete(true); setLoading(false); }
               return;
             }
 
@@ -106,10 +106,12 @@ export function useCatalogIndex() {
               collected.push(...chunks.flat());
               if (!controller.signal.aborted) setProducts([...collected]);
             }
+            if (!controller.signal.aborted) { setIndexComplete(true); setLoading(false); }
           } catch (fullIndexError) {
             if (controller.signal.aborted) return;
             console.error("Full catalog index failed to load", fullIndexError);
-            if (!bootstrapLoaded) setError(true);
+            setError(true);
+            setLoading(false);
           }
         };
 
@@ -131,7 +133,7 @@ export function useCatalogIndex() {
     };
   }, []);
 
-  return { products, loading, error };
+  return { products, loading, error, indexComplete };
 }
 
 export function useCatalogProduct(handle: string) {

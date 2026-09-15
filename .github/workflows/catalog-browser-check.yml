@@ -20,6 +20,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm catalog:sync
+      - run: node --test tests/catalog-*.test.mjs
       - run: pnpm build
       - name: Install browser runtime
         run: |
