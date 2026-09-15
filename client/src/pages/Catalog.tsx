@@ -298,7 +298,7 @@ export default function Catalog() {
         breadcrumbs={[{ name: "Каталог запчастей", url: "/catalog" }]}
       />
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
+      <header className="aca-catalog-header sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
         <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 py-3">
           <Link href="/" className="flex items-center gap-3" aria-label="ACA Hydraulic">
             <span className="flex h-7 gap-[3px]" aria-hidden="true">
@@ -313,6 +313,16 @@ export default function Catalog() {
               <span className="mt-0.5 text-[11px] tracking-wider">HYDRAULIC</span>
             </span>
           </Link>
+
+          <nav className="aca-desktop-nav" aria-label={copy.pageTitle}>
+            <a href="#categories-title">{copy.categoriesTitle}</a>
+            <a href="#catalog-search">{language === "ru" ? "Подбор запчасти" : language === "kz" ? "Бөлшек іріктеу" : "Parts search"}</a>
+            <a href="tel:+77714177925">+7 (771) 417-79-25</a>
+            <a className="aca-desktop-whatsapp" href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+              WhatsApp
+            </a>
+          </nav>
 
           <div className="flex items-center gap-2" aria-label="Language">
             {(["ru", "kz", "en"] as CatalogLanguage[]).map((item) => (
@@ -333,15 +343,15 @@ export default function Catalog() {
       </header>
 
       <main id="catalog-top">
-        <section className="overflow-hidden border-b border-white/10 bg-[#151515]">
-          <div className="mx-auto max-w-7xl px-4 py-7 md:py-11">
+        <section className="aca-catalog-hero overflow-hidden border-b border-white/10 bg-[#151515]">
+          <div className="aca-catalog-hero-inner mx-auto max-w-7xl px-4 py-7 md:py-11">
             <Link href="/" className="mb-5 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-[#FFC000]">
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               {copy.backToService}
             </Link>
 
-            <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
-              <div>
+            <div className="aca-catalog-lead grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
+              <div className="aca-catalog-search-column">
                 <div className="max-w-3xl">
                   <h1 className="font-bebas text-4xl font-bold uppercase leading-tight tracking-wide md:text-6xl">
                     {copy.pageTitle}
@@ -458,7 +468,7 @@ export default function Catalog() {
                   <img src="/catalog-assets/promo-china-delivery.jpg" width="900" height="300" alt={copy.deliveryTitle} loading="lazy" decoding="async" />
                 </a>
               </div>
-              <aside className="relative min-h-[310px] overflow-hidden rounded-xl border border-[#FFC000]/35 bg-[radial-gradient(circle_at_80%_10%,rgba(255,192,0,0.25),transparent_34%),linear-gradient(145deg,#171717,#090909)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] md:p-8">
+              <aside className="aca-desktop-promo relative min-h-[310px] overflow-hidden rounded-xl border border-[#FFC000]/35 bg-[radial-gradient(circle_at_80%_10%,rgba(255,192,0,0.25),transparent_34%),linear-gradient(145deg,#171717,#090909)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] md:p-8">
                 <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-[#FFC000]/15" aria-hidden="true" />
                 <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-[#FFC000]/10" aria-hidden="true" />
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFC000]">{ui.promoTitle}</p>
@@ -483,10 +493,25 @@ export default function Catalog() {
                     />
                   ))}
                 </div>
+
+                <div className="aca-promo-proof" aria-label={language === "ru" ? "Преимущества каталога" : language === "kz" ? "Каталог артықшылықтары" : "Catalogue benefits"}>
+                  <div>
+                    <strong>{products.length > 0 ? products.length.toLocaleString(language === "en" ? "en-US" : "ru-RU") : "10 000+"}</strong>
+                    <span>{language === "ru" ? "позиций в каталоге" : language === "kz" ? "каталогтағы позиция" : "catalogue items"}</span>
+                  </div>
+                  <div>
+                    <strong>OEM / VIN</strong>
+                    <span>{language === "ru" ? "проверка совместимости" : language === "kz" ? "сәйкестікті тексеру" : "fitment verification"}</span>
+                  </div>
+                  <div>
+                    <strong>KZ</strong>
+                    <span>{language === "ru" ? "доставка по Казахстану" : language === "kz" ? "Қазақстанға жеткізу" : "delivery nationwide"}</span>
+                  </div>
+                </div>
               </aside>
             </div>
 
-            <div className="mt-6 rounded-xl border border-white/10 bg-[#0d0d0d] p-4 md:p-5">
+            <div className="aca-supply-panel mt-6 rounded-xl border border-white/10 bg-[#0d0d0d] p-4 md:p-5">
               <div className="flex flex-wrap items-end justify-between gap-2">
                 <div>
                   <h2 className="text-base font-bold text-white md:text-lg">{ui.supplyTitle}</h2>
@@ -522,7 +547,7 @@ export default function Catalog() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-10 md:py-14" aria-labelledby="categories-title">
+        <section className="aca-catalog-content mx-auto max-w-7xl px-4 py-10 md:py-14" aria-labelledby="categories-title">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <h2 id="categories-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.categoriesTitle}</h2>
