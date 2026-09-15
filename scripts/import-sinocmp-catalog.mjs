@@ -34,15 +34,20 @@ const CATEGORY_COLLECTIONS = [
   // Keep wiring harnesses in the broader electrical category while also
   // exposing the supplier's exact collection as a dedicated sales category.
   ['wiring-harnesses', ['wiring-harness']],
+  // Fuel injectors remain part of the broader engine and fuel catalogue while
+  // the supplier's exact collection is also available as a dedicated filter.
+  ['fuel-injectors', ['fuel-injector']],
 ];
 const PUMP_COLLECTIONS = ['hydraulic-pump-assembly', 'piston-pump', 'gear-pump'];
 const STRICT_CATEGORY_COLLECTIONS = [
   ['hydraulic-motors', 'hydraulic-motor'],
   ['main-control-valves', 'main-control-valve'],
   ['wiring-harnesses', 'wiring-harness'],
+  ['fuel-injectors', 'fuel-injector'],
 ];
 const PUMP_PARTS_PLACEHOLDER = '/catalog-assets/category-pump-parts.jpg';
 const WIRING_HARNESS_PLACEHOLDER = '/catalog-assets/category-wiring-harness.jpg';
+const FUEL_INJECTOR_PLACEHOLDER = '/catalog-assets/category-fuel-injector.jpg';
 
 const categoryRules = [
   ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'piston shoe', 'swash plate']],
@@ -206,6 +211,7 @@ function publicProductGallery(product, categories) {
   const categoryList = Array.isArray(categories) ? categories : [categories];
   if (categoryList.includes('pump-parts')) return [PUMP_PARTS_PLACEHOLDER];
   if (categoryList.includes('wiring-harnesses')) return [WIRING_HARNESS_PLACEHOLDER];
+  if (categoryList.includes('fuel-injectors')) return [FUEL_INJECTOR_PLACEHOLDER];
   return productGallery(product).filter((imageUrl) => !containsSupplierBrand(imageUrl));
 }
 

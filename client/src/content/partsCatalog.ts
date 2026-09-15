@@ -238,6 +238,7 @@ export const partCategories = [
   { id: "controllers-monitors", ru: "Контроллеры и мониторы", kz: "Контроллерлер мен мониторлар", en: "Controllers and monitors" },
   { id: "seals-filters", ru: "Ремкомплекты и фильтры", kz: "Жөндеу жинақтары мен сүзгілер", en: "Seal kits and filters" },
   { id: "engine-fuel", ru: "Двигатель и топливная", kz: "Қозғалтқыш және отын жүйесі", en: "Engine and fuel parts" },
+  { id: "fuel-injectors", ru: "Топливные форсунки", kz: "Отын бүріккіштері", en: "Fuel injectors" },
   { id: "air-conditioning", ru: "Кондиционирование", kz: "Кондиционер жүйесі", en: "Air conditioning" },
   { id: "diagnostic-tools", ru: "Диагностические инструменты", kz: "Диагностикалық құралдар", en: "Diagnostic tools" },
   { id: "other-parts", ru: "Другие запчасти", kz: "Басқа қосалқы бөлшектер", en: "Other parts" },
