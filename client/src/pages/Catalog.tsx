@@ -1,4 +1,4 @@
-import { FormEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useDeferredValue, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import {
   ArrowLeft,
@@ -168,7 +168,6 @@ export default function Catalog() {
   const [supplyOption, setSupplyOption] = useState("");
   const [formError, setFormError] = useState("");
   const [visibleCount, setVisibleCount] = useState(24);
-  const [promoIndex, setPromoIndex] = useState(0);
   const resultsRef = useRef<HTMLDivElement>(null);
   const copy = catalogCopy[language];
   const ui = enhancementCopy[language];
@@ -176,17 +175,6 @@ export default function Catalog() {
   const fireContact = useTikTokContact();
   const deferredQuery = useDeferredValue(`${searchMode === "vin" ? "" : partQuery} ${machineModel}`.trim().toLowerCase());
   const activeSearchMode = ui.searchModes.find((item) => item.id === searchMode) || ui.searchModes[0];
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setPromoIndex((index) => (index + 1) % ui.promos.length);
-    }, 4500);
-    return () => window.clearInterval(timer);
-  }, [ui.promos.length]);
-
-  useEffect(() => {
-    setPromoIndex(0);
-  }, [language]);
 
   const selectedCategory = useMemo(
     () => partCategories.find((item) => item.id === category),
@@ -278,8 +266,6 @@ export default function Catalog() {
     scrollToResults();
   };
 
-  const promo = ui.promos[promoIndex];
-
   return (
     <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
       <SEO
@@ -299,7 +285,7 @@ export default function Catalog() {
       />
 
       <header className="aca-catalog-header sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
-        <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 py-3">
+        <div className="mx-auto flex min-h-16 max-w-[1600px] items-center justify-between gap-4 px-4 py-3">
           <Link href="/" className="flex items-center gap-3" aria-label="ACA Hydraulic">
             <span className="flex h-7 gap-[3px]" aria-hidden="true">
               <span className="w-2.5 bg-[#FFC000]" />
@@ -344,7 +330,7 @@ export default function Catalog() {
 
       <main id="catalog-top">
         <section className="aca-catalog-hero overflow-hidden border-b border-white/10 bg-[#151515]">
-          <div className="aca-catalog-hero-inner mx-auto max-w-7xl px-4 py-7 md:py-11">
+          <div className="aca-catalog-hero-inner mx-auto max-w-[1600px] px-4 py-7 md:py-11">
             <Link href="/" className="mb-5 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-[#FFC000]">
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               {copy.backToService}
@@ -468,32 +454,13 @@ export default function Catalog() {
                   <img src="/catalog-assets/promo-china-delivery.jpg" width="900" height="300" alt={copy.deliveryTitle} loading="lazy" decoding="async" />
                 </a>
               </div>
-              <aside className="aca-desktop-promo relative min-h-[310px] overflow-hidden rounded-xl border border-[#FFC000]/35 bg-[radial-gradient(circle_at_80%_10%,rgba(255,192,0,0.25),transparent_34%),linear-gradient(145deg,#171717,#090909)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] md:p-8">
-                <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-[#FFC000]/15" aria-hidden="true" />
-                <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-[#FFC000]/10" aria-hidden="true" />
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFC000]">{ui.promoTitle}</p>
-                <p className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-gray-400">{promo.eyebrow}</p>
-                <h2 className="mt-2 font-bebas text-4xl font-bold uppercase leading-none tracking-wide md:text-5xl">{promo.title}</h2>
-                <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-300 md:text-base">{promo.text}</p>
-
-                <div className="mt-6 inline-flex items-center gap-3 rounded-lg border border-[#FFC000]/40 bg-black/40 px-4 py-3">
-                  <span className="text-xs uppercase tracking-wider text-gray-400">{ui.promoCode}</span>
-                  <strong className="text-xl tracking-[0.14em] text-[#FFC000]">{promo.badge}</strong>
-                </div>
-
-                <div className="mt-8 flex items-center gap-2" aria-label={ui.promoTitle}>
-                  {ui.promos.map((item, index) => (
-                    <button
-                      key={item.badge}
-                      type="button"
-                      onClick={() => setPromoIndex(index)}
-                      aria-label={`${ui.promoTitle} ${index + 1}`}
-                      aria-pressed={index === promoIndex}
-                      className={`h-2.5 rounded-full transition-all ${index === promoIndex ? "w-8 bg-[#FFC000]" : "w-2.5 bg-white/25 hover:bg-white/45"}`}
-                    />
-                  ))}
-                </div>
-
+              <aside className="aca-desktop-promo" aria-label={ui.promoTitle}>
+                <a className="aca-desktop-banner" href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>
+                  <img src="/catalog-assets/promo-first-order.jpg" width="900" height="300" alt={ui.promos[0].text} fetchPriority="high" />
+                </a>
+                <a className="aca-desktop-banner" href="#catalog-delivery" aria-label={copy.deliveryTitle}>
+                  <img src="/catalog-assets/promo-china-delivery.jpg" width="900" height="300" alt={copy.deliveryTitle} loading="eager" decoding="async" />
+                </a>
                 <div className="aca-promo-proof" aria-label={language === "ru" ? "Преимущества каталога" : language === "kz" ? "Каталог артықшылықтары" : "Catalogue benefits"}>
                   <div>
                     <strong>{products.length > 0 ? products.length.toLocaleString(language === "en" ? "en-US" : "ru-RU") : "10 000+"}</strong>
@@ -547,7 +514,7 @@ export default function Catalog() {
           </div>
         </section>
 
-        <section className="aca-catalog-content mx-auto max-w-7xl px-4 py-10 md:py-14" aria-labelledby="categories-title">
+        <section className="aca-catalog-content mx-auto max-w-[1600px] px-4 py-10 md:py-14" aria-labelledby="categories-title">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <h2 id="categories-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.categoriesTitle}</h2>
@@ -632,7 +599,7 @@ export default function Catalog() {
         </section>
 
         <section className="border-y border-white/10 bg-[#151515]">
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-[1.05fr_0.95fr] md:py-16">
+          <div className="mx-auto grid max-w-[1600px] gap-10 px-4 py-12 md:grid-cols-[1.05fr_0.95fr] md:py-16">
             <div>
               <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.brandsTitle}</h2>
               <p className="mt-3 max-w-xl leading-relaxed text-gray-400">{copy.brandsDescription}</p>
@@ -667,7 +634,7 @@ export default function Catalog() {
           </div>
         </section>
 
-        <section id="catalog-delivery" className="mx-auto max-w-7xl px-4 py-12 md:py-16">
+        <section id="catalog-delivery" className="mx-auto max-w-[1600px] px-4 py-12 md:py-16">
           <div className="grid gap-4 md:grid-cols-2">
             <article className="rounded border border-white/10 bg-[#151515] p-6">
               <Truck className="h-7 w-7 text-[#FFC000]" aria-hidden="true" />
@@ -707,7 +674,7 @@ export default function Catalog() {
       </nav>
 
       <footer className="border-t border-white/10 bg-[#090909]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 text-sm text-gray-400 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-[1600px] flex-col gap-5 px-4 py-8 text-sm text-gray-400 md:flex-row md:items-center md:justify-between">
           <div>
             <strong className="text-white">ACA Hydraulic</strong>
             <p className="mt-1">Астана, трасса Астана-Караганда, 81</p>

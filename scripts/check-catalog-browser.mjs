@@ -25,7 +25,7 @@ try {
   for(const [engineName,engine] of Object.entries({chromium,webkit})){
     const browser=await engine.launch();
     try{
-      for(const width of [320,390,430,768,1440]){
+      for(const width of [320,390,430,768,1024,1440,1920]){
         const page=await browser.newPage({viewport:{width,height:900},locale:'ru-RU'});
         const errors=[];
         page.on('pageerror',e=>errors.push(e.message));
@@ -53,13 +53,17 @@ try {
             const delivery=await page.locator('#catalog-delivery').boundingBox();
             assert(delivery.y>=0&&delivery.y<900,'delivery link must scroll to visible content');
           }
-          if(width===1440){
+          if(width>=1440){
             const hero=await page.locator('.aca-catalog-hero').boundingBox();
             assert(hero.height<820,'desktop hero should reveal categories in the first viewport');
             assert.equal(await page.locator('.aca-desktop-nav:visible').count(),1,'desktop navigation must be visible');
             assert.equal(await page.locator('.aca-category-card').evaluateAll(nodes=>new Set(nodes.map(node=>Math.round(node.getBoundingClientRect().top))).size),2,'desktop categories should use two compact rows');
             assert.equal(await page.locator('.aca-product-card').evaluateAll(nodes=>nodes.filter(node=>Math.abs(node.getBoundingClientRect().top-nodes[0].getBoundingClientRect().top)<2).length),5,'desktop product grid should show five cards per row');
-            assert.equal(await page.locator('.aca-desktop-promo h2').evaluate(node=>getComputedStyle(node).color),'rgb(255, 255, 255)','desktop promo heading must remain readable');
+            assert.equal(await page.locator('.aca-desktop-banner:visible').count(),2,'desktop must show both promotional banners');
+            const desktopBannerImages=await page.locator('.aca-desktop-banner img').evaluateAll(nodes=>nodes.map(node=>({loaded:node.complete&&node.naturalWidth>0,ratio:node.clientWidth/node.clientHeight,natural:node.naturalWidth/node.naturalHeight})));
+            assert(desktopBannerImages.every(image=>image.loaded&&Math.abs(image.ratio-image.natural)<.05),'desktop banners must load without distortion');
+            const contentWidth=await page.locator('.aca-catalog-hero-inner').evaluate(node=>node.getBoundingClientRect().width);
+            assert(contentWidth>=Math.min(width-32,1600)-1,'desktop catalogue should use the available wide-screen space');
             assert.equal(await page.locator('#catalog-search label').first().evaluate(node=>getComputedStyle(node).color),'rgb(55, 65, 81)','desktop form labels need readable contrast');
           }
         }
