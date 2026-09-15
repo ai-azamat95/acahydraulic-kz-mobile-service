@@ -31,6 +31,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Sync catalog with Sinocmp
         run: pnpm catalog:sync
+      - name: Verify hydraulic pump import
+        run: pnpm catalog:verify-pumps
       - name: Build
         run: pnpm build
       - name: Create static route copies

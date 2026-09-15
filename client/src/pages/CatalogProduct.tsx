@@ -30,7 +30,7 @@ export default function CatalogProduct() {
   const gallery = useMemo(() => {
     if (!product) return [];
     const images = product.gallery?.length ? product.gallery : product.imageUrl ? [product.imageUrl] : [];
-    return [...new Set(images.filter(Boolean))];
+    return Array.from(new Set(images.filter(Boolean)));
   }, [product]);
 
   useEffect(() => {
