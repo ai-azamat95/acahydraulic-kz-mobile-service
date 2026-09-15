@@ -45,7 +45,7 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
   .aca-catalog-hero-inner{padding-top:24px!important;padding-bottom:28px!important}
   .aca-catalog-hero-inner>a.mb-5{margin-bottom:12px}
   .aca-catalog-lead{gap:24px}
-  .aca-catalog-search-column h1{font-size:clamp(48px,4.15vw,60px);line-height:.98}
+  .aca-catalog-search-column h1{font-size:clamp(46px,3.75vw,54px);line-height:.96}
   .aca-catalog-search-column .max-w-3xl p{margin-top:10px;font-size:17px;line-height:1.55}
   .aca-catalog-search-column>div[aria-label]{margin-top:18px}
   .aca-catalog-search-column form{padding:16px!important}
