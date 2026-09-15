@@ -30,8 +30,20 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
 const categoryIcons = [Gauge, Settings, Cog, Boxes, Wrench, CircuitBoard, Monitor, PackageCheck, Fuel, Fan, ScanLine, PackageSearch];
 const WHATSAPP_NUMBER = "77714177925";
+// Local copies of representative SinoCMP product photos, used with permission.
 const categoryImageOverrides: Record<string, string> = {
+  "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
+  "pump-parts": "/catalog-assets/category-pump-parts.jpg",
+  "hydraulic-motors": "/catalog-assets/category-hydraulic-motor.jpg",
   "final-drives": "/catalog-assets/final-drive-category.jpg",
+  "control-valves": "/catalog-assets/category-control-valve.jpg",
+  "electrical": "/catalog-assets/category-electrical.jpg",
+  "controllers-monitors": "/catalog-assets/category-monitor.jpg",
+  "seals-filters": "/catalog-assets/category-seals-filters.jpg",
+  "engine-fuel": "/catalog-assets/category-engine-fuel.jpg",
+  "air-conditioning": "/catalog-assets/category-air-conditioning.jpg",
+  "diagnostic-tools": "/catalog-assets/category-diagnostic-tools.jpg",
+  "other-parts": "/catalog-assets/category-other-parts.jpg",
 };
 
 function categoryThumbnail(source: string) {
@@ -44,6 +56,16 @@ function categoryThumbnail(source: string) {
   } catch {
     return source;
   }
+}
+
+function categoryCountLabel(count: number, language: CatalogLanguage) {
+  const locale = language === "kz" ? "kk-KZ" : language === "en" ? "en-US" : "ru-RU";
+  const formattedCount = count.toLocaleString(locale);
+  if (language === "kz") return `${formattedCount} тауар`;
+  if (language === "en") return `${formattedCount} ${count === 1 ? "item" : "items"}`;
+  const plural = new Intl.PluralRules("ru-RU").select(count);
+  const noun = plural === "one" ? "товар" : plural === "few" ? "товара" : "товаров";
+  return `${formattedCount} ${noun}`;
 }
 
 type SearchMode = "part" | "oem" | "vin";
@@ -527,7 +549,12 @@ export default function Catalog() {
                       />
                     )}
                   </span>
-                  <span className="aca-category-label">{item[language]}</span>
+                  <span className="aca-category-copy">
+                    <span className="aca-category-label">{item[language]}</span>
+                    <span className="aca-category-count">
+                      {categoryCountLabel(stat?.count || 0, language)}
+                    </span>
+                  </span>
                   <ChevronRight className="aca-category-arrow" aria-hidden="true" />
                 </button>
               );

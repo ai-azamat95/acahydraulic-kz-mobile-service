@@ -16,16 +16,18 @@ body:has(section[aria-labelledby="categories-title"]) main>section.border-y{back
 body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{background:#fff!important;color:#111827!important}
 
 
-/* Category navigation uses normal document flow so long labels stay readable. */
+/* Category navigation keeps product imagery and real inventory counts visible. */
 .aca-category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}
-.aca-category-card{position:relative;display:flex;min-width:0;flex-direction:column;align-items:stretch;gap:12px;padding:16px 16px 20px;border:1px solid #e1e5ea;border-radius:14px;background:#fff;color:#111827;text-align:left;box-shadow:0 4px 16px rgb(15 23 42 / 5%);transition:border-color .15s,box-shadow .15s}
-.aca-category-card:hover,.aca-category-card[aria-pressed="true"]{border-color:#ffc000;box-shadow:0 0 0 1px #ffc000}
+.aca-category-card{position:relative;display:grid;grid-template-columns:minmax(84px,42%) minmax(0,1fr);align-items:center;gap:12px;min-width:0;min-height:136px;padding:12px 26px 12px 12px;border:1px solid #e1e5ea;border-radius:14px;background:#fff;color:#111827;text-align:left;box-shadow:0 4px 16px rgb(15 23 42 / 5%);transition:border-color .15s,box-shadow .15s,transform .15s}
+.aca-category-card:hover,.aca-category-card[aria-pressed="true"]{border-color:#ffc000;box-shadow:0 0 0 1px #ffc000,0 8px 24px rgb(15 23 42 / 9%);transform:translateY(-1px)}
 .aca-category-card:focus-visible{outline:3px solid #b97800;outline-offset:3px}
-.aca-category-media{position:relative;display:grid;place-items:center;width:100%;height:132px;flex-shrink:0}
+.aca-category-media{position:relative;display:grid;place-items:center;width:100%;height:108px;min-width:0}
 .aca-category-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#fff}
 .aca-category-fallback{width:48px;height:48px;color:#b97800}
-.aca-category-label{display:block;min-width:0;padding-right:18px;font-size:15px;font-weight:700;line-height:1.4;overflow-wrap:anywhere}
-.aca-category-arrow{position:absolute;bottom:22px;right:12px;width:16px;height:16px;color:#b97800}
+.aca-category-copy{display:flex;min-width:0;flex-direction:column;gap:7px}
+.aca-category-label{display:block;min-width:0;font-size:15px;font-weight:800;line-height:1.3;overflow-wrap:anywhere}
+.aca-category-count{display:block;min-width:0;color:#7a8495;font-size:12px;font-weight:500;line-height:1.35;overflow-wrap:anywhere}
+.aca-category-arrow{position:absolute;top:50%;right:9px;width:16px;height:16px;color:#b97800;transform:translateY(-50%)}
 .aca-mobile-promos,.aca-mobile-nav{display:none}
 #categories-title,#catalog-delivery,#catalog-search{scroll-margin-top:90px}
 
@@ -59,10 +61,12 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
   section[aria-labelledby="categories-title"] h2{font-family:Inter,sans-serif;font-size:24px;line-height:1.2;text-transform:none;letter-spacing:-.025em}
   section[aria-labelledby="categories-title"]>div:first-child p{display:none}
   .aca-category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
-  .aca-category-card{gap:10px;padding:12px 12px 18px;border-radius:12px}
-  .aca-category-media{height:96px}
-  .aca-category-label{font-size:13px;line-height:1.4;padding-right:12px}
-  .aca-category-arrow{right:8px;bottom:20px;width:14px;height:14px}
+  .aca-category-card{grid-template-columns:48px minmax(0,1fr);gap:6px;min-height:126px;padding:8px 20px 8px 8px;border-radius:12px}
+  .aca-category-media{height:88px}
+  .aca-category-copy{gap:5px}
+  .aca-category-label{font-size:12px;line-height:1.3}
+  .aca-category-count{font-size:10.5px;line-height:1.3}
+  .aca-category-arrow{right:5px;width:14px;height:14px}
   section[aria-labelledby="categories-title"] .mt-12{margin-top:28px;padding-top:20px}
   section[aria-labelledby="categories-title"] article.group h3{font-size:13px;line-height:1.4}
   body:has(section[aria-labelledby="categories-title"]) footer{position:static}
@@ -71,6 +75,14 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
   .aca-mobile-nav svg{width:22px;height:22px;flex-shrink:0}
   .aca-mobile-nav .aca-mobile-whatsapp{background:#ffc000;color:#111;font-weight:700}
   .aca-mobile-nav a:focus-visible{outline:2px solid #ffc000;outline-offset:2px}
+}
+
+@media(max-width:359px){
+  .aca-category-grid{grid-template-columns:1fr}
+  .aca-category-card{grid-template-columns:92px minmax(0,1fr);min-height:108px;padding-right:28px}
+  .aca-category-media{height:88px}
+  .aca-category-label{font-size:14px}
+  .aca-category-count{font-size:11px}
 }
 
 /* Delivery is reachable from the mobile navigation and must retain contrast. */
