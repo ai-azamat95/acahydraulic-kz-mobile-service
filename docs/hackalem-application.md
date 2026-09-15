@@ -8,9 +8,9 @@ ACA Hydraulic is an operating heavy-equipment field-service business. The techni
 
 ## What to review in 60 seconds
 
-1. Open the prototype route: `/industrial-ai`.
+1. Open the public prototype: **https://acahydraulic.kz/industrial-ai/**
 2. Click **Load demo** to use the SANY SY365H service case.
-3. Run **Analyze with Industrial AI**.
+3. Click **Run reviewer demo**.
 4. Review the structured output:
    - known facts;
    - missing information;
@@ -20,10 +20,16 @@ ACA Hydraulic is an operating heavy-equipment field-service business. The techni
    - safety gates;
    - technician decision gate.
 5. Inspect the implementation:
-   - `client/src/pages/IndustrialAI.tsx` — interactive prototype UI;
+   - `client/src/pages/IndustrialAI.tsx` — interactive prototype UI and public reviewer replay;
    - `server/industrialAI.ts` — LLM prompt, structured JSON schema and runtime validation;
    - `server/routers.ts` — typed tRPC endpoint and demo rate limit;
    - `docs/hackathon-concept.md` — product thesis and roadmap.
+
+## Public demo architecture
+
+The public site is deployed as a static GitHub Pages build. To avoid exposing an API key in the browser, the bundled SANY SY365H reviewer flow uses a deterministic replay that follows the same response contract as the live backend.
+
+The actual LLM implementation is included in the repository: the server invokes the model, constrains the response with JSON Schema, validates it with Zod and exposes the result through a typed tRPC endpoint with rate limiting. A server deployment can run custom cases; the public static build is intentionally limited to the bundled reviewer case.
 
 ## Why this is not a generic chatbot
 
@@ -31,7 +37,7 @@ The prototype returns a domain-specific schema rather than free-form chat. It is
 
 `machine → symptoms → evidence → missing data → ranked hypotheses → verification checks → parts-search brief → technician decision`
 
-The output is validated with Zod before it reaches the frontend. The public demo endpoint is deliberately rate-limited.
+The output is validated with Zod before it reaches the frontend.
 
 ## Safety / human-in-the-loop model
 

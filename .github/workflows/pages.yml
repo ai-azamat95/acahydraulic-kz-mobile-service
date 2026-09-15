@@ -35,6 +35,8 @@ jobs:
         run: pnpm build
       - name: Create static route copies
         run: node scripts/create-spa-route-copies.mjs
+      - name: Create Industrial AI route copy
+        run: node scripts/create-industrial-ai-route.mjs
       - name: Create static case route copies
         run: node scripts/create-case-route-copies.mjs
       - name: Create static catalog route copies
