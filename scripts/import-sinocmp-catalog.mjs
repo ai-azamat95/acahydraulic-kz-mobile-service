@@ -2,30 +2,42 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const SOURCE_ORIGIN = 'https://sinocmp.com';
+const KAZAKHSTAN_MARKET_COOKIE = 'localization=KZ; _shopify_country=KZ; cart_currency=KZT';
 const OUTPUT_DIR = path.resolve('client/public/catalog-data');
 const PAGE_SIZE = 250;
 const MARKUP = 1.5;
+const PRICE_ON_REQUEST_THRESHOLD_KZT = 10_000_000;
 const CONCURRENCY = 2;
+const COLLECTION_CONCURRENCY = 3;
 const MAX_RETRIES = 5;
-const PUMP_COLLECTIONS = [
-  'hydraulic-pump-assembly',
-  'piston-pump',
-  'gear-pump',
+const CATEGORY_COLLECTIONS = [
+  // Preserve the audited pump scope: every product in these supplier
+  // collections remains a hydraulic pump even if it is cross-listed elsewhere.
+  ['hydraulic-pumps', ['hydraulic-pump-assembly', 'piston-pump', 'gear-pump']],
+  ['pump-parts', ['hydraulic-pump-spare-parts']],
+  ['final-drives', ['final-drive-assembly']],
+  ['control-valves', ['main-control-valve', 'valves']],
+  ['hydraulic-motors', ['hydraulic-motor']],
+  ['diagnostic-tools', ['diagnostic-tool', 'pressure-test-kit']],
+  ['air-conditioning', ['air-conditioning']],
+  ['controllers-monitors', ['controller', 'monitor', 'joystick-controller']],
+  ['seals-filters', ['filters', 'seal-kits', 'engine-gasket-kit', 'consumable-parts']],
+  ['engine-fuel', ['fuel-parts', 'engine-parts']],
+  ['electrical', ['electrical-parts']],
 ];
+const PUMP_COLLECTIONS = CATEGORY_COLLECTIONS.find(([category]) => category === 'hydraulic-pumps')[1];
 
 const categoryRules = [
-  // Hydraulic pumps are assigned from the supplier collections, not keywords.
-  ['hydraulic-pumps', []],
-  ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'cylinder block', 'piston shoe', 'swash plate']],
-  ['hydraulic-motors', ['hydraulic motor', 'swing motor', 'travel motor', 'orbit motor']],
+  ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'piston shoe', 'swash plate']],
   ['final-drives', ['final drive', 'travel device', 'reduction gearbox']],
-  ['control-valves', ['control valve', 'main valve', 'relief valve', 'pilot valve', 'valves']],
-  ['electrical', ['sensor', 'solenoid', 'relay', 'wiring harness', 'alternator', 'starter motor']],
+  ['control-valves', ['control valve', 'main valve', 'relief valve', 'pilot valve', 'flow valve']],
+  ['diagnostic-tools', ['diagnostic tool', 'pressure test', 'gauge kit']],
+  ['hydraulic-motors', ['hydraulic motor', 'swing motor', 'travel motor', 'orbit motor']],
   ['controllers-monitors', ['controller', 'monitor', 'display', 'ecu', 'ecm']],
   ['seals-filters', ['seal kit', 'gasket kit', 'filter']],
-  ['engine-fuel', ['fuel injector', 'fuel pump', 'common rail', 'turbocharger', 'water pump', 'oil pump', 'engine']],
   ['air-conditioning', ['compressor', 'air conditioning', 'a/c ', 'blower motor', 'radiator']],
-  ['diagnostic-tools', ['diagnostic tool', 'pressure test', 'gauge kit', 'adapter']],
+  ['engine-fuel', ['fuel injector', 'fuel pump', 'common rail', 'turbocharger', 'water pump', 'oil pump', 'engine']],
+  ['electrical', ['sensor', 'solenoid', 'relay', 'wiring harness', 'alternator', 'starter motor']],
   ['other-parts', []],
 ];
 
@@ -37,7 +49,8 @@ async function fetchJson(url, attempt = 1) {
   const response = await fetch(url, {
     headers: {
       accept: 'application/json',
-      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.3 (+https://acahydraulic.kz/catalog/)',
+      cookie: KAZAKHSTAN_MARKET_COOKIE,
+      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.4 (+https://acahydraulic.kz/catalog/)',
     },
   });
   if (response.ok) return response.json();
@@ -67,15 +80,25 @@ function detectCategoryFromText(value) {
   return null;
 }
 
-function detectCategory(product, pumpProductIds = new Set()) {
-  if (pumpProductIds.has(String(product.id))) return 'hydraulic-pumps';
+function detectCategory(product, collectionCategoryByProductId = new Map()) {
   const haystack = [product.title, product.product_type, ...(product.tags || [])].join(' ');
-  return detectCategoryFromText(haystack) || 'other-parts';
+  const textCategory = detectCategoryFromText(haystack);
+  const collectionCategory = collectionCategoryByProductId.get(String(product.id));
+
+  if (collectionCategory === 'hydraulic-pumps') return collectionCategory;
+
+  // A small set of precise product phrases is more reliable than collection
+  // membership when a supplier assigns a valve to the Hydraulic Motor collection.
+  if (['pump-parts', 'final-drives', 'control-valves', 'diagnostic-tools'].includes(textCategory)) {
+    return textCategory;
+  }
+
+  return collectionCategory || textCategory || 'other-parts';
 }
 
 function markedUpPrice(price) {
   const numeric = Number(price);
-  if (!Number.isFinite(numeric) || numeric <= 0 || numeric >= 10_000_000) return null;
+  if (!Number.isFinite(numeric) || numeric <= 0 || numeric >= PRICE_ON_REQUEST_THRESHOLD_KZT) return null;
   return Math.round(numeric * MARKUP * 100) / 100;
 }
 
@@ -93,7 +116,7 @@ function normalizeImageUrl(value) {
   return raw;
 }
 
-function imageBelongsToProduct(product, value, productCategory) {
+function imageBelongsToProduct(product, value) {
   if (!value) return false;
 
   if (typeof value === 'object' && value.product_id != null) {
@@ -109,38 +132,25 @@ function imageBelongsToProduct(product, value, productCategory) {
     return false;
   }
 
-  // Pumps must reproduce the supplier gallery exactly. Keep the existing
-  // category-safety filter for product groups that are not part of this task.
-  if (productCategory !== 'hydraulic-pumps') {
-    const raw = rawImageUrl(value);
-    const imageCategory = detectCategoryFromText(`${raw} ${typeof value === 'object' ? value.alt || '' : ''}`);
-    if (imageCategory && productCategory !== 'other-parts' && imageCategory !== productCategory) return false;
-  }
-
   return true;
 }
 
-function productGallery(product, productCategory) {
-  const variantImages = Array.isArray(product.variants)
-    ? product.variants.map((variant) => variant.featured_image).filter(Boolean)
-    : [];
+function productGallery(product) {
+  const variantImages = Array.isArray(product.variants) ? product.variants.map((variant) => variant.featured_image).filter(Boolean) : [];
 
-  const candidates = [
-    product.image,
-    product.featured_image,
-    ...variantImages,
-    ...(Array.isArray(product.images) ? product.images : []),
+  const candidates = [product.image, product.featured_image, ...variantImages, ...(Array.isArray(product.images) ? product.images : [])];
+
+  return [
+    ...new Set(
+      candidates
+        .filter((value) => imageBelongsToProduct(product, value))
+        .map(normalizeImageUrl)
+        .filter(Boolean),
+    ),
   ];
-
-  return [...new Set(
-    candidates
-      .filter((value) => imageBelongsToProduct(product, value, productCategory))
-      .map(normalizeImageUrl)
-      .filter(Boolean),
-  )];
 }
 
-function normalizeProduct(product, page, pumpProductIds) {
+function normalizeProduct(product, page, collectionCategoryByProductId) {
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
     title: variant.title === 'Default Title' ? '' : variant.title,
@@ -151,8 +161,8 @@ function normalizeProduct(product, page, pumpProductIds) {
     options: [variant.option1, variant.option2, variant.option3].filter((value) => value && value !== 'Default Title'),
   }));
   const salePrices = variants.map((variant) => variant.priceKzt).filter(Number.isFinite);
-  const category = detectCategory(product, pumpProductIds);
-  const gallery = productGallery(product, category);
+  const category = detectCategory(product, collectionCategoryByProductId);
+  const gallery = productGallery(product);
   return {
     id: String(product.id),
     handle: product.handle,
@@ -204,8 +214,158 @@ function pumpSourceSnapshot(product) {
     handle: product.handle,
     title: product.title,
     skus: (product.variants || []).map((variant) => variant.sku || ''),
-    gallery: productGallery(product, 'hydraulic-pumps'),
+    gallery: productGallery(product),
   };
+}
+
+function catalogSourceSnapshot(product) {
+  return {
+    id: String(product.id),
+    handle: product.handle,
+    title: product.title,
+    skus: (product.variants || []).map((variant) => variant.sku || ''),
+    sourcePricesKzt: (product.variants || []).map((variant) => Number(variant.price)),
+    gallery: productGallery(product),
+  };
+}
+
+function verifyCatalogImport(sourceProducts, importedProducts, marketCurrency, expectedPublishedProducts) {
+  const failures = [];
+  let exactTitleMatches = 0;
+  let exactSkuMatches = 0;
+  let exactGalleryMatches = 0;
+  let exactMarkupPrices = 0;
+  let priceOnRequestVariants = 0;
+  let sourceVariantCount = 0;
+  const productsWithoutSourceImages = [];
+
+  for (const [id, source] of sourceProducts) {
+    const imported = importedProducts.get(id);
+    if (!imported) {
+      failures.push({ id, reason: 'missing-product', title: source.title });
+      continue;
+    }
+
+    if (imported.title === source.title && imported.handle === source.handle) exactTitleMatches += 1;
+    else
+      failures.push({
+        id,
+        reason: 'title-or-handle-mismatch',
+        source: source.title,
+        imported: imported.title,
+      });
+
+    const importedSkus = imported.variants.map((variant) => variant.sku || '');
+    if (exactList(importedSkus) === exactList(source.skus)) exactSkuMatches += 1;
+    else
+      failures.push({
+        id,
+        reason: 'sku-mismatch',
+        source: source.skus,
+        imported: importedSkus,
+      });
+
+    if (source.gallery.length === 0) {
+      productsWithoutSourceImages.push({
+        id,
+        handle: source.handle,
+        title: source.title,
+        skus: source.skus,
+      });
+    }
+    if (exactList(imported.gallery) === exactList(source.gallery)) exactGalleryMatches += 1;
+    else
+      failures.push({
+        id,
+        reason: 'gallery-mismatch',
+        source: source.gallery,
+        imported: imported.gallery,
+      });
+
+    if (imported.variants.length !== source.sourcePricesKzt.length) {
+      failures.push({
+        id,
+        reason: 'variant-count-mismatch',
+        source: source.sourcePricesKzt.length,
+        imported: imported.variants.length,
+      });
+      continue;
+    }
+
+    sourceVariantCount += source.sourcePricesKzt.length;
+    source.sourcePricesKzt.forEach((sourcePriceKzt, index) => {
+      const importedVariant = imported.variants[index];
+      const expectedPriceKzt = markedUpPrice(sourcePriceKzt);
+      if (importedVariant.sourcePriceKzt !== sourcePriceKzt || importedVariant.priceKzt !== expectedPriceKzt) {
+        failures.push({
+          id,
+          reason: 'price-markup-mismatch',
+          sku: importedVariant.sku,
+          sourcePriceKzt,
+          expectedPriceKzt,
+          importedSourcePriceKzt: importedVariant.sourcePriceKzt,
+          importedPriceKzt: importedVariant.priceKzt,
+        });
+      } else if (expectedPriceKzt === null) priceOnRequestVariants += 1;
+      else exactMarkupPrices += 1;
+    });
+  }
+
+  const unexpectedProductIds = [...importedProducts.keys()].filter((id) => !sourceProducts.has(id));
+  if (unexpectedProductIds.length) {
+    failures.push({
+      reason: 'unexpected-products',
+      ids: unexpectedProductIds.slice(0, 20),
+      count: unexpectedProductIds.length,
+    });
+  }
+
+  const report = {
+    checkedAt: new Date().toISOString(),
+    source: SOURCE_ORIGIN,
+    marketCurrency,
+    markup: MARKUP,
+    expectedPublishedProducts,
+    uniqueSourceProducts: sourceProducts.size,
+    importedProducts: importedProducts.size,
+    sourceVariantCount,
+    exactTitleAndHandleMatches: exactTitleMatches,
+    exactSkuMatches,
+    exactGalleryMatches,
+    exactMarkupPrices,
+    priceOnRequestThresholdKzt: PRICE_ON_REQUEST_THRESHOLD_KZT,
+    priceOnRequestVariants,
+    productsWithoutSourceImages: productsWithoutSourceImages.length,
+    productsWithoutSourceImagesList: productsWithoutSourceImages,
+    unexpectedProducts: unexpectedProductIds.length,
+    failures: failures.slice(0, 50),
+    passed:
+      failures.length === 0 &&
+      marketCurrency === 'KZT' &&
+      sourceProducts.size === expectedPublishedProducts &&
+      importedProducts.size === expectedPublishedProducts,
+  };
+
+  if (!report.passed) {
+    throw new Error(`Full catalog import verification failed: ${JSON.stringify(report)}`);
+  }
+  return report;
+}
+
+async function fetchCategoryCollections() {
+  const queue = CATEGORY_COLLECTIONS.flatMap(([category, handles]) => handles.map((handle) => ({ category, handle })));
+  const results = [];
+  let next = 0;
+
+  async function worker() {
+    while (next < queue.length) {
+      const item = queue[next++];
+      results.push({ ...item, products: await fetchCollection(item.handle) });
+    }
+  }
+
+  await Promise.all(Array.from({ length: COLLECTION_CONCURRENCY }, () => worker()));
+  return results;
 }
 
 function verifyPumpImport(sourceProducts, importedProducts, collectionCounts) {
@@ -222,22 +382,49 @@ function verifyPumpImport(sourceProducts, importedProducts, collectionCounts) {
       continue;
     }
     if (imported.title === source.title && imported.handle === source.handle) exactTitleMatches += 1;
-    else failures.push({ id, reason: 'title-or-handle-mismatch', source: source.title, imported: imported.title });
+    else
+      failures.push({
+        id,
+        reason: 'title-or-handle-mismatch',
+        source: source.title,
+        imported: imported.title,
+      });
 
     const importedSkus = imported.variants.map((variant) => variant.sku || '');
     if (exactList(importedSkus) === exactList(source.skus)) exactSkuMatches += 1;
-    else failures.push({ id, reason: 'sku-mismatch', source: source.skus, imported: importedSkus });
+    else
+      failures.push({
+        id,
+        reason: 'sku-mismatch',
+        source: source.skus,
+        imported: importedSkus,
+      });
 
     if (source.gallery.length === 0) {
-      productsWithoutSourceImages.push({ id, handle: source.handle, title: source.title, skus: source.skus });
+      productsWithoutSourceImages.push({
+        id,
+        handle: source.handle,
+        title: source.title,
+        skus: source.skus,
+      });
     }
     if (exactList(imported.gallery) === exactList(source.gallery)) exactGalleryMatches += 1;
-    else failures.push({ id, reason: 'gallery-mismatch', source: source.gallery, imported: imported.gallery });
+    else
+      failures.push({
+        id,
+        reason: 'gallery-mismatch',
+        source: source.gallery,
+        imported: imported.gallery,
+      });
   }
 
   const unexpectedProductIds = [...importedProducts.keys()].filter((id) => !sourceProducts.has(id));
   if (unexpectedProductIds.length) {
-    failures.push({ reason: 'unexpected-products', ids: unexpectedProductIds.slice(0, 20), count: unexpectedProductIds.length });
+    failures.push({
+      reason: 'unexpected-products',
+      ids: unexpectedProductIds.slice(0, 20),
+      count: unexpectedProductIds.length,
+    });
   }
 
   const report = {
@@ -266,12 +453,32 @@ async function run() {
   fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  const pumpCollections = await Promise.all(
-    PUMP_COLLECTIONS.map(async (handle) => [handle, await fetchCollection(handle)]),
-  );
-  const collectionCounts = Object.fromEntries(
-    pumpCollections.map(([handle, products]) => [handle, products.length]),
-  );
+  const cart = await fetchJson(`${SOURCE_ORIGIN}/cart.js`);
+  const shopMetadata = await fetchJson(`${SOURCE_ORIGIN}/meta.json`);
+  const marketCurrency = cart.currency;
+  if (marketCurrency !== 'KZT') {
+    throw new Error(`Expected SinoCMP Kazakhstan market prices in KZT, received ${marketCurrency || 'unknown currency'}`);
+  }
+  const expectedPublishedProducts = Number(shopMetadata.published_products_count);
+  if (!Number.isInteger(expectedPublishedProducts) || expectedPublishedProducts <= 0) {
+    throw new Error('SinoCMP did not return a valid published product count');
+  }
+
+  const categoryCollections = await fetchCategoryCollections();
+  const collectionCategoryByProductId = new Map();
+  for (const [category, handles] of CATEGORY_COLLECTIONS) {
+    for (const handle of handles) {
+      const collection = categoryCollections.find((item) => item.handle === handle);
+      for (const product of collection?.products || []) {
+        if (!collectionCategoryByProductId.has(String(product.id))) {
+          collectionCategoryByProductId.set(String(product.id), category);
+        }
+      }
+    }
+  }
+
+  const pumpCollections = categoryCollections.filter(({ handle }) => PUMP_COLLECTIONS.includes(handle)).map(({ handle, products }) => [handle, products]);
+  const collectionCounts = Object.fromEntries(pumpCollections.map(([handle, products]) => [handle, products.length]));
   const sourcePumpProducts = new Map();
   for (const [, products] of pumpCollections) {
     for (const product of products) {
@@ -283,6 +490,8 @@ async function run() {
 
   const searchIndex = [];
   const productMap = {};
+  const sourceCatalogProducts = new Map();
+  const importedCatalogProducts = new Map();
   const importedPumpProducts = new Map();
   let nextPage = 1;
   let reachedEnd = false;
@@ -297,10 +506,14 @@ async function run() {
         return;
       }
 
-      const normalized = products.map((product) => normalizeProduct(product, page, pumpProductIds));
+      for (const product of products) {
+        sourceCatalogProducts.set(String(product.id), catalogSourceSnapshot(product));
+      }
+      const normalized = products.map((product) => normalizeProduct(product, page, collectionCategoryByProductId));
       writeJson(`products-${String(page).padStart(3, '0')}.json`, normalized);
       const pageIndex = [];
       for (const product of normalized) {
+        importedCatalogProducts.set(product.id, product);
         if (product.category === 'hydraulic-pumps') importedPumpProducts.set(product.id, product);
         productMap[product.handle] = page;
         const indexProduct = {
@@ -342,6 +555,8 @@ async function run() {
   writeJson('search-index.json', searchIndex);
   writeJson('category-summary.json', categorySummary);
   writeJson('product-map.json', productMap);
+  const catalogAudit = verifyCatalogImport(sourceCatalogProducts, importedCatalogProducts, marketCurrency, expectedPublishedProducts);
+  writeJson('catalog-import-audit.json', catalogAudit);
   const pumpAudit = verifyPumpImport(sourcePumpProducts, importedPumpProducts, collectionCounts);
   writeJson('pump-import-audit.json', pumpAudit);
   writeJson('manifest.json', {
@@ -351,9 +566,11 @@ async function run() {
     pageSize: PAGE_SIZE,
     chunkCount: Math.ceil(searchIndex.length / PAGE_SIZE),
     markup: MARKUP,
+    priceOnRequestThresholdKzt: PRICE_ON_REQUEST_THRESHOLD_KZT,
     currency: 'KZT',
     indexFile: 'search-index.json',
     categorySummaryFile: 'category-summary.json',
+    catalogAuditFile: 'catalog-import-audit.json',
     pumpAuditFile: 'pump-import-audit.json',
     imagePolicy: 'Supplier-authorized, product-bound SinoCMP images are published unchanged. Foreign images are rejected.',
   });

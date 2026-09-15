@@ -7,6 +7,12 @@ dist/
 build/
 *.dist
 
+# Generated catalog indexes and audit reports (rebuilt during deploy)
+client/public/catalog-data/catalog-import-audit.json
+client/public/catalog-data/category-summary.json
+client/public/catalog-data/pump-import-audit.json
+client/public/catalog-data/search-index.json
+
 # Environment variables
 .env
 .env.local
