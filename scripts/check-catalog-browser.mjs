@@ -109,7 +109,7 @@ try {
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedMainControlValveCount),'all main control valves must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedMainControlValveCount,'all main control valves must render as real product cards');
             const overlappingValve = page.locator('.aca-product-card').filter({hasText:'Control Valve Assy for Kobelco Excavator SK250LC'});
-            assert.equal(await overlappingValve.locator('.aca-product-code').innerText(),'MAIN-CONTROL-VALVES','overlapping products must show the active category badge');
+            assert.equal(await overlappingValve.locator('.aca-product-code').textContent(),'main-control-valves','overlapping products must show the active category badge');
           }
           await page.goto(origin+'/catalog?category=control-valves',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
