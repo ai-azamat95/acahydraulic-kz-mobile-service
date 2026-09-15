@@ -32,6 +32,7 @@ const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge>
   "hydraulic-pumps": Gauge,
   "gear-pumps": Cog,
   "piston-pumps": Gauge,
+  "main-control-valves": Wrench,
   "pump-parts": Settings,
   "hydraulic-motors": Cog,
   "final-drives": Boxes,
@@ -53,6 +54,7 @@ const categoryImageOverrides: Record<string, string> = {
   "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
   "gear-pumps": "/catalog-assets/category-gear-pump.jpg",
   "piston-pumps": "/catalog-assets/category-piston-pump.jpg",
+  "main-control-valves": "/catalog-assets/category-main-control-valve.jpg",
   "pump-parts": "/catalog-assets/category-pump-parts.jpg",
   "hydraulic-motors": "/catalog-assets/category-hydraulic-motor.jpg",
   "final-drives": "/catalog-assets/final-drive-category.jpg",
@@ -89,7 +91,7 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 }
 
 function initialVisibleProducts(category: string) {
-  if (["gear-pumps", "piston-pumps", "hydraulic-motors"].includes(category)) return Number.MAX_SAFE_INTEGER;
+  if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves"].includes(category)) return Number.MAX_SAFE_INTEGER;
   return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
 }
 
@@ -219,10 +221,12 @@ export default function Catalog() {
     const stats: Record<string, { count: number; imageUrl: string | null }> = {};
     for (const item of partCategories) stats[item.id] = { count: 0, imageUrl: null };
     for (const product of products) {
-      const stat = stats[product.category];
-      if (!stat) continue;
-      stat.count += 1;
-      if (!stat.imageUrl && product.imageUrl) stat.imageUrl = product.imageUrl;
+      for (const categoryId of product.categories || [product.category]) {
+        const stat = stats[categoryId];
+        if (!stat) continue;
+        stat.count += 1;
+        if (!stat.imageUrl && product.imageUrl) stat.imageUrl = product.imageUrl;
+      }
     }
     return stats;
   }, [products]);
@@ -230,7 +234,7 @@ export default function Catalog() {
   const filteredProducts = useMemo(() => {
     const brandNeedle = brand.toLowerCase();
     return products.filter((product) => {
-      if (category && product.category !== category) return false;
+      if (category && !(product.categories || [product.category]).includes(category)) return false;
       const haystack = `${product.title} ${product.tags.join(" ")}`.toLowerCase();
       if (brandNeedle && !haystack.includes(brandNeedle)) return false;
       if (deferredQuery) {

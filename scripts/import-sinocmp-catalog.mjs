@@ -9,7 +9,7 @@ const MARKUP = 1.5;
 const PRICE_ON_REQUEST_THRESHOLD_KZT = 10_000_000;
 const CONCURRENCY = 2;
 const COLLECTION_CONCURRENCY = 3;
-const MAX_RETRIES = 8;
+const MAX_RETRIES = 12;
 const CATEGORY_COLLECTIONS = [
   // Gear pumps are a distinct sales category. Keep this entry before the
   // broader hydraulic pump collections so cross-listed products land here.
@@ -20,9 +20,10 @@ const CATEGORY_COLLECTIONS = [
   // Preserve the audited pump scope: every product in these supplier
   // collections remains a hydraulic pump even if it is cross-listed elsewhere.
   ['hydraulic-pumps', ['hydraulic-pump-assembly']],
+  ['main-control-valves', ['main-control-valve']],
   ['pump-parts', ['hydraulic-pump-spare-parts']],
   ['final-drives', ['final-drive-assembly']],
-  ['control-valves', ['main-control-valve', 'valves']],
+  ['control-valves', ['valves']],
   ['hydraulic-motors', ['hydraulic-motor']],
   ['diagnostic-tools', ['diagnostic-tool', 'pressure-test-kit']],
   ['air-conditioning', ['air-conditioning']],
@@ -34,6 +35,7 @@ const CATEGORY_COLLECTIONS = [
 const PUMP_COLLECTIONS = ['hydraulic-pump-assembly', 'piston-pump', 'gear-pump'];
 const STRICT_CATEGORY_COLLECTIONS = [
   ['hydraulic-motors', 'hydraulic-motor'],
+  ['main-control-valves', 'main-control-valve'],
 ];
 
 const categoryRules = [
@@ -64,8 +66,8 @@ async function fetchJson(url, attempt = 1) {
   });
   if (response.ok) return response.json();
   if ((response.status === 429 || response.status >= 500) && attempt < MAX_RETRIES) {
-    const retryAfter = Number(response.headers.get('retry-after')) || attempt * 2;
-    await sleep(retryAfter * 1000);
+    const retryAfter = Number(response.headers.get('retry-after')) || Math.min(30, 2 ** attempt);
+    await sleep(retryAfter * 1000 + Math.floor(Math.random() * 750));
     return fetchJson(url, attempt + 1);
   }
   throw new Error(`Catalog request failed: ${response.status} ${url}`);
@@ -94,7 +96,7 @@ function detectCategory(product, collectionCategoryByProductId = new Map()) {
   const textCategory = detectCategoryFromText(haystack);
   const collectionCategory = collectionCategoryByProductId.get(String(product.id));
 
-  if (['hydraulic-pumps', 'gear-pumps', 'piston-pumps', 'hydraulic-motors'].includes(collectionCategory)) return collectionCategory;
+  if (['hydraulic-pumps', 'gear-pumps', 'piston-pumps', 'hydraulic-motors', 'main-control-valves'].includes(collectionCategory)) return collectionCategory;
 
   // A small set of precise product phrases is more reliable than collection
   // membership when a supplier assigns a valve to the Hydraulic Motor collection.
@@ -163,7 +165,7 @@ function productGallery(product) {
   ];
 }
 
-function normalizeProduct(product, page, collectionCategoryByProductId) {
+function normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId) {
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
     title: variant.title === 'Default Title' ? '' : variant.title,
@@ -175,12 +177,14 @@ function normalizeProduct(product, page, collectionCategoryByProductId) {
   }));
   const salePrices = variants.map((variant) => variant.priceKzt).filter(Number.isFinite);
   const category = detectCategory(product, collectionCategoryByProductId);
+  const categories = [...new Set([category, ...(strictCategoryMembershipsByProductId.get(String(product.id)) || [])])];
   const gallery = productGallery(product);
   return {
     id: String(product.id),
     handle: product.handle,
     title: product.title,
     category,
+    categories,
     productType: product.product_type || '',
     tags: product.tags || [],
     available: variants.some((variant) => variant.available),
@@ -474,7 +478,7 @@ function verifyStrictCategoryImports(categoryCollections, importedProducts) {
     }
 
     const sourceIds = new Set(collection.products.map((product) => String(product.id)));
-    const categoryProducts = [...importedProducts.values()].filter((product) => product.category === category);
+    const categoryProducts = [...importedProducts.values()].filter((product) => (product.categories || [product.category]).includes(category));
     const importedIds = new Set(categoryProducts.map((product) => String(product.id)));
     const missingProductIds = [...sourceIds].filter((id) => !importedIds.has(id));
     const unexpectedProductIds = [...importedIds].filter((id) => !sourceIds.has(id));
@@ -534,6 +538,16 @@ async function run() {
       }
     }
   }
+  const strictCategoryMembershipsByProductId = new Map();
+  for (const [category, collectionHandle] of STRICT_CATEGORY_COLLECTIONS) {
+    const collection = categoryCollections.find((item) => item.handle === collectionHandle);
+    for (const product of collection?.products || []) {
+      const id = String(product.id);
+      const memberships = strictCategoryMembershipsByProductId.get(id) || [];
+      memberships.push(category);
+      strictCategoryMembershipsByProductId.set(id, memberships);
+    }
+  }
 
   const pumpCollections = categoryCollections.filter(({ handle }) => PUMP_COLLECTIONS.includes(handle)).map(({ handle, products }) => [handle, products]);
   const collectionCounts = Object.fromEntries(pumpCollections.map(([handle, products]) => [handle, products.length]));
@@ -566,7 +580,7 @@ async function run() {
       for (const product of products) {
         sourceCatalogProducts.set(String(product.id), catalogSourceSnapshot(product));
       }
-      const normalized = products.map((product) => normalizeProduct(product, page, collectionCategoryByProductId));
+      const normalized = products.map((product) => normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId));
       writeJson(`products-${String(page).padStart(3, '0')}.json`, normalized);
       const pageIndex = [];
       for (const product of normalized) {
@@ -578,6 +592,7 @@ async function run() {
           handle: product.handle,
           title: product.title,
           category: product.category,
+          categories: product.categories,
           tags: product.tags,
           available: product.available,
           minPriceKzt: product.minPriceKzt,
@@ -603,9 +618,11 @@ async function run() {
     categorySummary[category] = { count: 0, imageUrl: null };
   }
   for (const product of searchIndex) {
-    const summary = categorySummary[product.category] || (categorySummary[product.category] = { count: 0, imageUrl: null });
-    summary.count += 1;
-    if (!summary.imageUrl && product.imageUrl) summary.imageUrl = product.imageUrl;
+    for (const category of product.categories || [product.category]) {
+      const summary = categorySummary[category] || (categorySummary[category] = { count: 0, imageUrl: null });
+      summary.count += 1;
+      if (!summary.imageUrl && product.imageUrl) summary.imageUrl = product.imageUrl;
+    }
   }
 
   const importedAt = new Date().toISOString();
