@@ -45,6 +45,7 @@ const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge>
   "engine-fuel": Fuel,
   "engine-rebuild-kits": Settings,
   "fuel-injectors": Fuel,
+  "fuel-pumps": Fuel,
   "air-conditioning": Fan,
   "diagnostic-tools": ScanLine,
   "other-parts": PackageSearch,
@@ -70,6 +71,7 @@ const categoryImageOverrides: Record<string, string> = {
   "engine-fuel": "/catalog-assets/category-engine-fuel.jpg",
   "engine-rebuild-kits": "/catalog-assets/category-engine-rebuild-kit.jpg",
   "fuel-injectors": "/catalog-assets/category-fuel-injector.jpg",
+  "fuel-pumps": "/catalog-assets/category-fuel-pump.jpg",
   "air-conditioning": "/catalog-assets/category-air-conditioning.jpg",
   "diagnostic-tools": "/catalog-assets/category-diagnostic-tools.jpg",
   "other-parts": "/catalog-assets/category-other-parts.jpg",
@@ -98,7 +100,7 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 }
 
 function initialVisibleProducts(category: string) {
-  if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves", "wiring-harnesses", "fuel-injectors", "engine-rebuild-kits"].includes(category)) return Number.MAX_SAFE_INTEGER;
+  if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves", "wiring-harnesses", "fuel-injectors", "fuel-pumps", "engine-rebuild-kits"].includes(category)) return Number.MAX_SAFE_INTEGER;
   return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
 }
 

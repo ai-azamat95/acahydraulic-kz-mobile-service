@@ -37,6 +37,9 @@ const CATEGORY_COLLECTIONS = [
   // Fuel injectors remain part of the broader engine and fuel catalogue while
   // the supplier's exact collection is also available as a dedicated filter.
   ['fuel-injectors', ['fuel-injector']],
+  // Fuel pumps remain part of the broader engine and fuel catalogue while the
+  // supplier's exact collection is also available as a dedicated filter.
+  ['fuel-pumps', ['fuel-pump']],
   // Engine rebuild kits remain in the broader engine and fuel catalogue while
   // this exact supplier collection is exposed as a dedicated category.
   ['engine-rebuild-kits', ['engine-overhaul-rebuild-kit']],
@@ -47,11 +50,13 @@ const STRICT_CATEGORY_COLLECTIONS = [
   ['main-control-valves', 'main-control-valve'],
   ['wiring-harnesses', 'wiring-harness'],
   ['fuel-injectors', 'fuel-injector'],
+  ['fuel-pumps', 'fuel-pump'],
   ['engine-rebuild-kits', 'engine-overhaul-rebuild-kit'],
 ];
 const PUMP_PARTS_PLACEHOLDER = '/catalog-assets/category-pump-parts.jpg';
 const WIRING_HARNESS_PLACEHOLDER = '/catalog-assets/category-wiring-harness.jpg';
 const FUEL_INJECTOR_PLACEHOLDER = '/catalog-assets/category-fuel-injector.jpg';
+const FUEL_PUMP_PLACEHOLDER = '/catalog-assets/category-fuel-pump.jpg';
 const ENGINE_REBUILD_KIT_PLACEHOLDER = '/catalog-assets/category-engine-rebuild-kit.jpg';
 
 const categoryRules = [
@@ -217,6 +222,7 @@ function publicProductGallery(product, categories) {
   if (categoryList.includes('pump-parts')) return [PUMP_PARTS_PLACEHOLDER];
   if (categoryList.includes('wiring-harnesses')) return [WIRING_HARNESS_PLACEHOLDER];
   if (categoryList.includes('fuel-injectors')) return [FUEL_INJECTOR_PLACEHOLDER];
+  if (categoryList.includes('fuel-pumps')) return [FUEL_PUMP_PLACEHOLDER];
   if (categoryList.includes('engine-rebuild-kits')) return [ENGINE_REBUILD_KIT_PLACEHOLDER];
   return productGallery(product).filter((imageUrl) => !containsSupplierBrand(imageUrl));
 }

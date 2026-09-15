@@ -71,6 +71,14 @@ assert.deepEqual(fuelInjectorAudit.missingProductIds, [], 'no supplier fuel inje
 assert.deepEqual(fuelInjectorAudit.unexpectedProductIds, [], 'no keyword-only products may enter the fuel injector category');
 assert.equal(categorySummary['fuel-injectors'].count, fuelInjectorAudit.sourceProducts, 'rendered fuel injector count must match the supplier collection');
 
+const fuelPumpAudit = strictCategoryAudit.categories['fuel-pumps'];
+assert(fuelPumpAudit, 'fuel pump collection audit must be present');
+assert.equal(fuelPumpAudit.collection, 'fuel-pump');
+assert.equal(fuelPumpAudit.importedProducts, fuelPumpAudit.sourceProducts, 'every supplier fuel pump must be imported');
+assert.deepEqual(fuelPumpAudit.missingProductIds, [], 'no supplier fuel pumps may be missing');
+assert.deepEqual(fuelPumpAudit.unexpectedProductIds, [], 'no keyword-only products may enter the fuel pump category');
+assert.equal(categorySummary['fuel-pumps'].count, fuelPumpAudit.sourceProducts, 'rendered fuel pump count must match the supplier collection');
+
 const engineRebuildKitAudit = strictCategoryAudit.categories['engine-rebuild-kits'];
 assert(engineRebuildKitAudit, 'engine rebuild kit collection audit must be present');
 assert.equal(engineRebuildKitAudit.collection, 'engine-overhaul-rebuild-kit');
