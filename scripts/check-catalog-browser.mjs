@@ -4,6 +4,11 @@ import http from 'node:http';
 import assert from 'node:assert/strict';
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
+const catalogDir = path.join(root, 'catalog-data');
+const expectedControlValveCount = fs.readdirSync(catalogDir)
+  .filter((file) => /^search-index-\d+\.json$/.test(file))
+  .flatMap((file) => JSON.parse(fs.readFileSync(path.join(catalogDir, file), 'utf8')))
+  .filter((product) => product.category === 'control-valves').length;
 const server = http.createServer((req,res) => {
   let file = path.join(root,decodeURIComponent(req.url.split('?')[0]));
   if(!file.startsWith(root + path.sep) && file !== root){res.writeHead(403).end();return;}
@@ -58,8 +63,14 @@ try {
         assert.equal(categoryImages[3].path,'/catalog-assets/final-drive-category.jpg');
         await page.locator('.aca-category-card').first().click();
         assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'true');
+        assert.equal(new URL(page.url()).searchParams.get('category'),'hydraulic-pumps','category click must create a shareable URL');
         await page.locator('.aca-category-card').first().click();
         assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'false');
+        assert.equal(new URL(page.url()).searchParams.has('category'),false,'clearing a category must clear the URL filter');
+        await page.goto(origin+'/catalog?category=control-valves',{waitUntil:'networkidle'});
+        await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
+        assert.equal(await page.locator('.aca-category-card[aria-pressed="true"]').count(),1,'URL category must select exactly one category');
+        assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedControlValveCount),'URL category must filter product results');
         await page.evaluate(()=>window.scrollTo(0,0));
         await page.screenshot({path:'catalog-ui-check/'+engineName+'-'+width+'.png'});
         assert.deepEqual(errors,[],'runtime errors');
