@@ -14,9 +14,12 @@ const CATEGORY_COLLECTIONS = [
   // Gear pumps are a distinct sales category. Keep this entry before the
   // broader hydraulic pump collections so cross-listed products land here.
   ['gear-pumps', ['gear-pump']],
+  // Piston pumps are also a distinct sales category and do not overlap the
+  // supplier's hydraulic-pump-assembly or gear-pump collections.
+  ['piston-pumps', ['piston-pump']],
   // Preserve the audited pump scope: every product in these supplier
   // collections remains a hydraulic pump even if it is cross-listed elsewhere.
-  ['hydraulic-pumps', ['hydraulic-pump-assembly', 'piston-pump']],
+  ['hydraulic-pumps', ['hydraulic-pump-assembly']],
   ['pump-parts', ['hydraulic-pump-spare-parts']],
   ['final-drives', ['final-drive-assembly']],
   ['control-valves', ['main-control-valve', 'valves']],
@@ -88,7 +91,7 @@ function detectCategory(product, collectionCategoryByProductId = new Map()) {
   const textCategory = detectCategoryFromText(haystack);
   const collectionCategory = collectionCategoryByProductId.get(String(product.id));
 
-  if (collectionCategory === 'hydraulic-pumps' || collectionCategory === 'gear-pumps') return collectionCategory;
+  if (['hydraulic-pumps', 'gear-pumps', 'piston-pumps'].includes(collectionCategory)) return collectionCategory;
 
   // A small set of precise product phrases is more reliable than collection
   // membership when a supplier assigns a valve to the Hydraulic Motor collection.
@@ -516,7 +519,7 @@ async function run() {
       const pageIndex = [];
       for (const product of normalized) {
         importedCatalogProducts.set(product.id, product);
-        if (product.category === 'hydraulic-pumps' || product.category === 'gear-pumps') importedPumpProducts.set(product.id, product);
+        if (['hydraulic-pumps', 'gear-pumps', 'piston-pumps'].includes(product.category)) importedPumpProducts.set(product.id, product);
         productMap[product.handle] = page;
         const indexProduct = {
           id: product.id,

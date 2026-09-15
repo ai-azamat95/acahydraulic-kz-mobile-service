@@ -10,6 +10,7 @@ const catalogProducts = fs.readdirSync(catalogDir)
   .flatMap((file) => JSON.parse(fs.readFileSync(path.join(catalogDir, file), 'utf8')));
 const expectedControlValveCount = catalogProducts.filter((product) => product.category === 'control-valves').length;
 const expectedGearPumpCount = catalogProducts.filter((product) => product.category === 'gear-pumps').length;
+const expectedPistonPumpCount = catalogProducts.filter((product) => product.category === 'piston-pumps').length;
 const server = http.createServer((req,res) => {
   let file = path.join(root,decodeURIComponent(req.url.split('?')[0]));
   if(!file.startsWith(root + path.sep) && file !== root){res.writeHead(403).end();return;}
@@ -35,8 +36,8 @@ try {
         await page.locator('.aca-category-card').first().waitFor();
         for(const lang of ['RU','KZ','EN']){
           await page.getByRole('button',{name:lang,exact:true}).click();
-          assert.equal(await page.locator('.aca-category-card:visible').count(),13);
-          assert.equal(await page.locator('.aca-category-count:visible').count(),13);
+          assert.equal(await page.locator('.aca-category-card:visible').count(),14);
+          assert.equal(await page.locator('.aca-category-count:visible').count(),14);
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page overflow '+engineName+' '+width+' '+lang);
           const clipped=await page.locator('.aca-category-label').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1).map(n=>n.textContent));
           assert.deepEqual(clipped,[],'clipped labels '+width+' '+lang);
@@ -72,9 +73,9 @@ try {
         await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
-        assert.equal(categoryImages.length,13,'each category needs a product image');
+        assert.equal(categoryImages.length,14,'each category needs a product image');
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
-        assert.equal(categoryImages[4].path,'/catalog-assets/final-drive-category.jpg');
+        assert.equal(categoryImages[5].path,'/catalog-assets/final-drive-category.jpg');
         if(width===1440){
           await page.locator('.aca-category-card').first().click();
           assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'true');
@@ -89,6 +90,12 @@ try {
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedGearPumpCount),'gear pump URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedGearPumpCount),'all gear pumps must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedGearPumpCount,'all gear pumps must render as real product cards');
+          }
+          if(expectedPistonPumpCount>0){
+            await page.goto(origin+'/catalog?category=piston-pumps',{waitUntil:'networkidle'});
+            assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedPistonPumpCount),'piston pump URL must contain the complete supplier collection');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedPistonPumpCount),'all piston pumps must be visible without pagination');
+            assert.equal(await page.locator('.aca-product-card').count(),expectedPistonPumpCount,'all piston pumps must render as real product cards');
           }
           await page.goto(origin+'/catalog?category=control-valves',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
