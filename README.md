@@ -6,6 +6,30 @@ ACA Hydraulic is a real-world industrial service project focused on **on-site hy
 
 This repository contains the web platform behind `acahydraulic.kz`. The product is being developed around a practical operating problem: heavy-equipment service is often fragmented across phone calls, WhatsApp messages, photos of nameplates, manual diagnostics, parts searches and individual technician experience.
 
+## HackAlem AI prototype
+
+This repository now includes a working **ACA Industrial AI** prototype for multi-brand heavy-equipment service.
+
+**Prototype route:** `/industrial-ai`
+
+The demo accepts machine data, symptoms, fault codes, measurements and previous interventions, then returns a structured technician-facing report with:
+
+- known facts separated from missing information;
+- ranked diagnostic hypotheses with confidence labels;
+- a verification checklist instead of premature parts replacement;
+- a parts-search brief;
+- explicit safety gates and a final technician decision gate.
+
+This is deliberately **human-in-the-loop decision support**, not an autonomous-repair claim. The LLM output is constrained by JSON Schema, validated at runtime with Zod and exposed through a typed tRPC endpoint. The public demo endpoint is rate-limited.
+
+Review the implementation:
+
+- [`client/src/pages/IndustrialAI.tsx`](client/src/pages/IndustrialAI.tsx) — interactive prototype UI;
+- [`server/industrialAI.ts`](server/industrialAI.ts) — domain prompt, structured output schema and validation;
+- [`server/routers.ts`](server/routers.ts) — typed API endpoint and rate limiting;
+- [`docs/hackalem-application.md`](docs/hackalem-application.md) — 60-second reviewer brief;
+- [`docs/hackathon-concept.md`](docs/hackathon-concept.md) — product thesis and roadmap.
+
 ## Product goal
 
 Build a digital operating layer for independent heavy-equipment service that can eventually connect:
@@ -21,7 +45,7 @@ The long-term direction is a **multi-brand industrial service platform** rather 
 
 ## Current project
 
-The current codebase powers the ACA Hydraulic web presence and service/catalog workflows. It includes a modern frontend, server-side application code, database tooling and catalog synchronization utilities.
+The current codebase powers the ACA Hydraulic web presence and service/catalog workflows. It includes a modern frontend, server-side application code, database tooling, catalog synchronization utilities and the Industrial AI prototype.
 
 ### Stack
 
@@ -30,6 +54,7 @@ The current codebase powers the ACA Hydraulic web presence and service/catalog w
 - Vite
 - Express
 - tRPC
+- Zod
 - Drizzle ORM
 - MySQL
 - React Query
@@ -43,22 +68,18 @@ Heavy-equipment owners frequently operate mixed fleets: Caterpillar, SANY, XCMG,
 
 ACA Hydraulic is being built from real field-service operations, so the product direction starts with actual service cases, customer requests, diagnostics and parts workflows rather than a purely theoretical demo.
 
-## AI / hackathon direction
+## AI workflow
 
-The next product layer is an **AI-assisted service agent** for heavy equipment. This is a roadmap / prototype direction, not a claim that the production system already performs autonomous diagnosis.
-
-The proposed workflow:
+The current prototype demonstrates the first layer of an **AI-assisted service agent** for heavy equipment:
 
 1. Customer or technician enters machine model, symptoms and available measurements.
-2. The system structures the case and requests missing information.
-3. Photos of nameplates / component markings can be used to identify parts or narrow the search.
-4. The assistant produces a ranked set of likely causes and recommended checks.
-5. A technician remains responsible for the final diagnosis and repair decision.
-6. The system can then prepare a service request, parts shortlist and quotation workflow.
+2. The system structures the case and identifies missing information.
+3. The AI separates known facts from uncertain hypotheses.
+4. It produces ranked probable causes and recommended verification checks.
+5. It prepares a parts-search brief while keeping a qualified technician responsible for the final diagnosis and repair decision.
+6. Future iterations can add nameplate/computer-vision intake and resolved-case knowledge retrieval.
 
 The objective is **decision support and workflow automation**, not replacing qualified mechanics.
-
-See: [`docs/hackathon-concept.md`](docs/hackathon-concept.md)
 
 ## Local development
 
