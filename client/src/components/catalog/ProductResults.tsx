@@ -9,6 +9,7 @@ type ProductResultsProps = {
   copy: CatalogCopy;
   language: CatalogLanguage;
   products: CatalogIndexProduct[];
+  activeCategory?: string;
   total: number;
   loading: boolean;
   error: boolean;
@@ -35,9 +36,9 @@ function formatPrice(product: CatalogIndexProduct, copy: CatalogCopy, language: 
   return `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}`;
 }
 
-function productCode(product: CatalogIndexProduct) {
+function productCode(product: CatalogIndexProduct, activeCategory?: string) {
   const usefulTag = product.tags.find((tag) => /\d/.test(tag) && tag.length <= 26);
-  return usefulTag || product.category;
+  return usefulTag || activeCategory || product.category;
 }
 
 function ProductImage({ product }: { product: CatalogIndexProduct }) {
@@ -68,7 +69,7 @@ function ProductImage({ product }: { product: CatalogIndexProduct }) {
   );
 }
 
-export function ProductResults({ copy, language, products, total, loading, error, canLoadMore, onLoadMore }: ProductResultsProps) {
+export function ProductResults({ copy, language, products, activeCategory, total, loading, error, canLoadMore, onLoadMore }: ProductResultsProps) {
   if (loading) {
     return <div className="mt-8 min-h-40 border border-white/10 bg-[#151515] p-6 text-gray-300" role="status">{copy.loadingProducts}</div>;
   }
@@ -97,8 +98,8 @@ export function ProductResults({ copy, language, products, total, loading, error
             >
               <Link href={`/catalog/${product.handle}`} className="relative block" aria-label={product.title}>
                 <ProductImage product={product} />
-                <div className="absolute left-2 top-2 max-w-[70%] truncate rounded-full border border-black/10 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white backdrop-blur sm:left-3 sm:top-3 sm:text-[11px]">
-                  {productCode(product)}
+                <div className="aca-product-code absolute left-2 top-2 max-w-[70%] truncate rounded-full border border-black/10 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white backdrop-blur sm:left-3 sm:top-3 sm:text-[11px]">
+                  {productCode(product, activeCategory)}
                 </div>
                 <div
                   className={`absolute right-2 top-2 rounded-full border px-2 py-1 text-[10px] font-bold backdrop-blur sm:right-3 sm:top-3 sm:text-[11px] ${

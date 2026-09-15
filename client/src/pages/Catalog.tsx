@@ -628,6 +628,7 @@ export default function Catalog() {
               copy={copy}
               language={language}
               products={filteredProducts.slice(0, visibleCount)}
+              activeCategory={category || undefined}
               total={filteredProducts.length}
               loading={loading}
               error={error}
