@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "catalog:sync": "node scripts/import-sinocmp-catalog.mjs",
+    "catalog:verify": "node scripts/check-catalog-import.mjs",
     "catalog:verify-pumps": "node scripts/check-pump-import.mjs",
     "catalog:routes": "node scripts/create-catalog-route-copies.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
