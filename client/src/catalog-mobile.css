@@ -10,7 +10,6 @@ body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type
 body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form input::placeholder{color:#9aa3b2!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form label{color:#374151!important}
 body:has(section[aria-labelledby="categories-title"]) .aca-desktop-promo{color:#fff!important}
-body:has(section[aria-labelledby="categories-title"]) .aca-desktop-promo h2{color:#fff!important}
 section[aria-labelledby="categories-title"]{background:#fff!important;color:#111827!important}
 section[aria-labelledby="categories-title"] article.group{background:#fff!important;border-color:#e2e6eb!important;box-shadow:0 5px 18px rgba(15,23,42,.07)!important}
 section[aria-labelledby="categories-title"] article.group h3,section[aria-labelledby="categories-title"] article.group h3 a{color:#111827!important}
@@ -32,6 +31,11 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
 .aca-category-count{display:block;min-width:0;color:#7a8495;font-size:12px;font-weight:500;line-height:1.35;overflow-wrap:anywhere}
 .aca-category-arrow{position:absolute;top:50%;right:9px;width:16px;height:16px;color:#b97800;transform:translateY(-50%)}
 .aca-mobile-promos,.aca-mobile-nav,.aca-desktop-nav{display:none}
+.aca-desktop-promo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+.aca-desktop-banner{display:block;overflow:hidden;border:1px solid #dbe0e6;border-radius:14px;background:#fff;line-height:0;box-shadow:0 14px 36px rgb(15 23 42 / 12%)}
+.aca-desktop-banner:focus-visible{outline:3px solid #b97800;outline-offset:3px}
+.aca-desktop-banner img{display:block;width:100%;height:auto;aspect-ratio:3/1;object-fit:cover}
+.aca-desktop-promo .aca-promo-proof{grid-column:1/-1;border-radius:14px;background:#101214;padding:16px 18px}
 #categories-title,#catalog-delivery,#catalog-search{scroll-margin-top:90px}
 
 @media(min-width:1024px){
@@ -55,11 +59,9 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
   .aca-catalog-search-column form select,.aca-catalog-search-column form label>input{min-height:42px}
   .aca-catalog-search-column form button{min-height:46px}
   .aca-catalog-search-column form p.mt-3{margin-top:9px;font-size:13px}
-  .aca-desktop-promo{display:flex;min-height:0!important;flex-direction:column;padding:24px!important}
-  .aca-desktop-promo>p.mt-8{margin-top:22px}
-  .aca-desktop-promo>h2{font-size:44px}
-  .aca-desktop-promo>div.mt-8{margin-top:22px}
-  .aca-promo-proof{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:auto;padding-top:24px}
+  .aca-desktop-promo{grid-template-columns:1fr;align-content:start}
+  .aca-desktop-promo .aca-promo-proof{grid-column:auto}
+  .aca-promo-proof{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
   .aca-promo-proof>div{display:flex;min-width:0;flex-direction:column;gap:5px;border-top:1px solid rgb(255 255 255 / 16%);padding-top:12px}
   .aca-promo-proof strong{color:#ffc000;font-size:18px;line-height:1.15}
   .aca-promo-proof span{color:#b7bec9;font-size:11px;line-height:1.35}
