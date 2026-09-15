@@ -35,6 +35,10 @@ jobs:
         run: pnpm catalog:verify
       - name: Verify hydraulic pump import
         run: pnpm catalog:verify-pumps
+      - name: Remove private supplier data from the public catalogue
+        run: pnpm catalog:prepare-public
+      - name: Verify public catalogue privacy
+        run: pnpm catalog:verify-public
       - name: Build
         run: pnpm build
       - name: Create static route copies
@@ -45,6 +49,8 @@ jobs:
         run: node scripts/create-case-route-copies.mjs
       - name: Create static catalog route copies
         run: node scripts/create-catalog-route-copies.mjs
+      - name: Verify published site has no supplier identity
+        run: pnpm catalog:verify-site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

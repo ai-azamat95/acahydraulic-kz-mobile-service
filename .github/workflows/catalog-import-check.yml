@@ -28,3 +28,7 @@ jobs:
         run: pnpm catalog:verify
       - name: Compare pumps, SKUs, titles and galleries
         run: pnpm catalog:verify-pumps
+      - name: Remove private supplier data from the public catalogue
+        run: pnpm catalog:prepare-public
+      - name: Verify public catalogue privacy
+        run: pnpm catalog:verify-public

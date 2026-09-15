@@ -39,9 +39,10 @@ assert.equal(uniqueHandles.size, pumps.length, 'pump handles must be unique');
 
 for (const product of pumps) {
   assert(product.title.trim(), `blank title for ${product.id}`);
-  assert.equal(product.sourceUrl, `https://sinocmp.com/products/${product.handle}`);
+  assert.equal('sourceUrl' in product, false, `supplier URL leaked for ${product.handle}`);
   assert(product.variants.length > 0, `missing variants for ${product.handle}`);
   assert(product.variants.every((variant) => variant.sku.trim()), `blank source SKU for ${product.handle}`);
+  assert(product.variants.every((variant) => !('sourcePriceKzt' in variant)), `supplier price leaked for ${product.handle}`);
   assert(product.gallery.every(approvedImageHost), `foreign image URL for ${product.handle}`);
   assert.equal(product.imageUrl, product.gallery[0] || null, `primary image mismatch for ${product.handle}`);
 }

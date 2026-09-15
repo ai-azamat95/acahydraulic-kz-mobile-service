@@ -37,6 +37,7 @@ const STRICT_CATEGORY_COLLECTIONS = [
   ['hydraulic-motors', 'hydraulic-motor'],
   ['main-control-valves', 'main-control-valve'],
 ];
+const PUMP_PARTS_PLACEHOLDER = '/catalog-assets/category-pump-parts.jpg';
 
 const categoryRules = [
   ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'piston shoe', 'swash plate']],
@@ -80,6 +81,37 @@ function normalizeSearchText(value) {
     .replace(/[-_./]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function containsSupplierBrand(value) {
+  return /sinocmp/i.test(String(value || ''));
+}
+
+function publicText(value) {
+  return String(value || '')
+    .replace(/\bfor\s+sinocmp[®™]?\b/gi, '')
+    .replace(/sinocmp[®™]?/gi, '')
+    .replace(/\s+([,.;:])/g, '$1')
+    .replace(/\s+/g, ' ')
+    .replace(/[\s|:–—-]+$/g, '')
+    .trim();
+}
+
+function publicHandle(value, productId) {
+  const handle = String(value || '')
+    .toLowerCase()
+    .replace(/sinocmp/gi, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-{2,}/g, '-');
+  return handle || `part-${productId}`;
+}
+
+function publicSku(value, variantId) {
+  const sku = String(value || '').trim();
+  if (!sku) return '';
+  const sanitized = sku.replace(/sinocmp[®™]?/gi, 'ACA').replace(/\s+/g, ' ').trim();
+  return sanitized || `ACA-${variantId}`;
 }
 
 function detectCategoryFromText(value) {
@@ -165,36 +197,40 @@ function productGallery(product) {
   ];
 }
 
+function publicProductGallery(product, category) {
+  if (category === 'pump-parts') return [PUMP_PARTS_PLACEHOLDER];
+  return productGallery(product).filter((imageUrl) => !containsSupplierBrand(imageUrl));
+}
+
 function normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId) {
+  const category = detectCategory(product, collectionCategoryByProductId);
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
-    title: variant.title === 'Default Title' ? '' : variant.title,
-    sku: variant.sku || '',
+    title: variant.title === 'Default Title' ? '' : publicText(variant.title),
+    sku: publicSku(variant.sku, variant.id),
     available: Boolean(variant.available),
-    sourcePriceKzt: Number(variant.price),
     priceKzt: markedUpPrice(variant.price),
-    options: [variant.option1, variant.option2, variant.option3].filter((value) => value && value !== 'Default Title'),
+    options: [variant.option1, variant.option2, variant.option3]
+      .filter((value) => value && value !== 'Default Title')
+      .map(publicText),
   }));
   const salePrices = variants.map((variant) => variant.priceKzt).filter(Number.isFinite);
-  const category = detectCategory(product, collectionCategoryByProductId);
   const categories = [...new Set([category, ...(strictCategoryMembershipsByProductId.get(String(product.id)) || [])])];
-  const gallery = productGallery(product);
+  const gallery = publicProductGallery(product, category);
   return {
     id: String(product.id),
-    handle: product.handle,
-    title: product.title,
+    handle: publicHandle(product.handle, product.id),
+    title: publicText(product.title),
     category,
     categories,
-    productType: product.product_type || '',
-    tags: product.tags || [],
+    productType: publicText(product.product_type),
+    tags: (product.tags || []).map(publicText).filter(Boolean),
     available: variants.some((variant) => variant.available),
     minPriceKzt: salePrices.length ? Math.min(...salePrices) : null,
     maxPriceKzt: salePrices.length ? Math.max(...salePrices) : null,
     imageUrl: gallery[0] || null,
     gallery,
     variants,
-    sourceUrl: `${SOURCE_ORIGIN}/products/${product.handle}`,
-    sourceUpdatedAt: product.updated_at,
     chunk: page,
   };
 }
@@ -225,24 +261,26 @@ function exactList(values) {
   return JSON.stringify(values);
 }
 
-function pumpSourceSnapshot(product) {
+function pumpSourceSnapshot(product, collectionCategoryByProductId) {
+  const category = detectCategory(product, collectionCategoryByProductId);
   return {
     id: String(product.id),
-    handle: product.handle,
-    title: product.title,
-    skus: (product.variants || []).map((variant) => variant.sku || ''),
-    gallery: productGallery(product),
+    handle: publicHandle(product.handle, product.id),
+    title: publicText(product.title),
+    skus: (product.variants || []).map((variant) => publicSku(variant.sku, variant.id)),
+    gallery: publicProductGallery(product, category),
   };
 }
 
-function catalogSourceSnapshot(product) {
+function catalogSourceSnapshot(product, collectionCategoryByProductId) {
+  const category = detectCategory(product, collectionCategoryByProductId);
   return {
     id: String(product.id),
-    handle: product.handle,
-    title: product.title,
-    skus: (product.variants || []).map((variant) => variant.sku || ''),
+    handle: publicHandle(product.handle, product.id),
+    title: publicText(product.title),
+    skus: (product.variants || []).map((variant) => publicSku(variant.sku, variant.id)),
     sourcePricesKzt: (product.variants || []).map((variant) => Number(variant.price)),
-    gallery: productGallery(product),
+    gallery: publicProductGallery(product, category),
   };
 }
 
@@ -313,14 +351,13 @@ function verifyCatalogImport(sourceProducts, importedProducts, marketCurrency, e
     source.sourcePricesKzt.forEach((sourcePriceKzt, index) => {
       const importedVariant = imported.variants[index];
       const expectedPriceKzt = markedUpPrice(sourcePriceKzt);
-      if (importedVariant.sourcePriceKzt !== sourcePriceKzt || importedVariant.priceKzt !== expectedPriceKzt) {
+      if (importedVariant.priceKzt !== expectedPriceKzt) {
         failures.push({
           id,
           reason: 'price-markup-mismatch',
           sku: importedVariant.sku,
           sourcePriceKzt,
           expectedPriceKzt,
-          importedSourcePriceKzt: importedVariant.sourcePriceKzt,
           importedPriceKzt: importedVariant.priceKzt,
         });
       } else if (expectedPriceKzt === null) priceOnRequestVariants += 1;
@@ -339,7 +376,6 @@ function verifyCatalogImport(sourceProducts, importedProducts, marketCurrency, e
 
   const report = {
     checkedAt: new Date().toISOString(),
-    source: SOURCE_ORIGIN,
     marketCurrency,
     markup: MARKUP,
     expectedPublishedProducts,
@@ -446,7 +482,6 @@ function verifyPumpImport(sourceProducts, importedProducts, collectionCounts) {
 
   const report = {
     checkedAt: new Date().toISOString(),
-    source: SOURCE_ORIGIN,
     collections: collectionCounts,
     uniqueSourceProducts: sourceProducts.size,
     importedProducts: importedProducts.size,
@@ -499,7 +534,6 @@ function verifyStrictCategoryImports(categoryCollections, importedProducts) {
 
   const report = {
     checkedAt: new Date().toISOString(),
-    source: SOURCE_ORIGIN,
     categories,
     failures,
     passed: failures.length === 0,
@@ -554,7 +588,7 @@ async function run() {
   const sourcePumpProducts = new Map();
   for (const [, products] of pumpCollections) {
     for (const product of products) {
-      sourcePumpProducts.set(String(product.id), pumpSourceSnapshot(product));
+      sourcePumpProducts.set(String(product.id), pumpSourceSnapshot(product, collectionCategoryByProductId));
     }
   }
   const pumpProductIds = new Set(sourcePumpProducts.keys());
@@ -578,7 +612,7 @@ async function run() {
       }
 
       for (const product of products) {
-        sourceCatalogProducts.set(String(product.id), catalogSourceSnapshot(product));
+        sourceCatalogProducts.set(String(product.id), catalogSourceSnapshot(product, collectionCategoryByProductId));
       }
       const normalized = products.map((product) => normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId));
       writeJson(`products-${String(page).padStart(3, '0')}.json`, normalized);
@@ -636,7 +670,6 @@ async function run() {
   const strictCategoryAudit = verifyStrictCategoryImports(categoryCollections, importedCatalogProducts);
   writeJson('strict-category-import-audit.json', strictCategoryAudit);
   writeJson('manifest.json', {
-    source: SOURCE_ORIGIN,
     importedAt,
     productCount: searchIndex.length,
     pageSize: PAGE_SIZE,
@@ -649,7 +682,7 @@ async function run() {
     catalogAuditFile: 'catalog-import-audit.json',
     pumpAuditFile: 'pump-import-audit.json',
     strictCategoryAuditFile: 'strict-category-import-audit.json',
-    imagePolicy: 'Supplier-authorized, product-bound SinoCMP images are published unchanged. Foreign images are rejected.',
+    imagePolicy: 'Product images are published without visible supplier identity in customer-facing catalogue data.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);
 }

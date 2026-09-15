@@ -17,7 +17,6 @@ export type CatalogVariant = {
   title: string;
   sku: string;
   available: boolean;
-  sourcePriceKzt: number;
   priceKzt: number | null;
   options: string[];
 };
@@ -26,6 +25,4 @@ export type CatalogProduct = CatalogIndexProduct & {
   productType: string;
   variants: CatalogVariant[];
   gallery: string[];
-  sourceUrl: string;
-  sourceUpdatedAt: string;
 };
