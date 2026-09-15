@@ -11,6 +11,7 @@ const catalogProducts = fs.readdirSync(catalogDir)
 const expectedControlValveCount = catalogProducts.filter((product) => product.category === 'control-valves').length;
 const expectedGearPumpCount = catalogProducts.filter((product) => product.category === 'gear-pumps').length;
 const expectedPistonPumpCount = catalogProducts.filter((product) => product.category === 'piston-pumps').length;
+const expectedHydraulicMotorCount = catalogProducts.filter((product) => product.category === 'hydraulic-motors').length;
 const server = http.createServer((req,res) => {
   let file = path.join(root,decodeURIComponent(req.url.split('?')[0]));
   if(!file.startsWith(root + path.sep) && file !== root){res.writeHead(403).end();return;}
@@ -97,6 +98,10 @@ try {
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedPistonPumpCount),'all piston pumps must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedPistonPumpCount,'all piston pumps must render as real product cards');
           }
+          await page.goto(origin+'/catalog?category=hydraulic-motors',{waitUntil:'networkidle'});
+          assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedHydraulicMotorCount),'hydraulic motor URL must contain the complete supplier collection');
+          assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedHydraulicMotorCount),'all hydraulic motors must be visible without pagination');
+          assert.equal(await page.locator('.aca-product-card').count(),expectedHydraulicMotorCount,'all hydraulic motors must render as real product cards');
           await page.goto(origin+'/catalog?category=control-valves',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
           assert.equal(await page.locator('.aca-category-card[aria-pressed="true"]').count(),1,'URL category must select exactly one category');

@@ -32,6 +32,9 @@ const CATEGORY_COLLECTIONS = [
   ['electrical', ['electrical-parts']],
 ];
 const PUMP_COLLECTIONS = ['hydraulic-pump-assembly', 'piston-pump', 'gear-pump'];
+const STRICT_CATEGORY_COLLECTIONS = [
+  ['hydraulic-motors', 'hydraulic-motor'],
+];
 
 const categoryRules = [
   ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'piston shoe', 'swash plate']],
@@ -91,13 +94,17 @@ function detectCategory(product, collectionCategoryByProductId = new Map()) {
   const textCategory = detectCategoryFromText(haystack);
   const collectionCategory = collectionCategoryByProductId.get(String(product.id));
 
-  if (['hydraulic-pumps', 'gear-pumps', 'piston-pumps'].includes(collectionCategory)) return collectionCategory;
+  if (['hydraulic-pumps', 'gear-pumps', 'piston-pumps', 'hydraulic-motors'].includes(collectionCategory)) return collectionCategory;
 
   // A small set of precise product phrases is more reliable than collection
   // membership when a supplier assigns a valve to the Hydraulic Motor collection.
   if (['pump-parts', 'final-drives', 'control-valves', 'diagnostic-tools'].includes(textCategory)) {
     return textCategory;
   }
+
+  // Keep exact supplier collection categories free of products that only
+  // happen to contain the category phrase in their title or tags.
+  if (textCategory === 'hydraulic-motors') return collectionCategory || 'other-parts';
 
   return collectionCategory || textCategory || 'other-parts';
 }
@@ -455,6 +462,51 @@ function verifyPumpImport(sourceProducts, importedProducts, collectionCounts) {
   return report;
 }
 
+function verifyStrictCategoryImports(categoryCollections, importedProducts) {
+  const categories = {};
+  const failures = [];
+
+  for (const [category, collectionHandle] of STRICT_CATEGORY_COLLECTIONS) {
+    const collection = categoryCollections.find((item) => item.handle === collectionHandle);
+    if (!collection) {
+      failures.push({ category, collection: collectionHandle, reason: 'missing-source-collection' });
+      continue;
+    }
+
+    const sourceIds = new Set(collection.products.map((product) => String(product.id)));
+    const categoryProducts = [...importedProducts.values()].filter((product) => product.category === category);
+    const importedIds = new Set(categoryProducts.map((product) => String(product.id)));
+    const missingProductIds = [...sourceIds].filter((id) => !importedIds.has(id));
+    const unexpectedProductIds = [...importedIds].filter((id) => !sourceIds.has(id));
+
+    categories[category] = {
+      collection: collectionHandle,
+      sourceProducts: sourceIds.size,
+      importedProducts: importedIds.size,
+      missingProductIds,
+      unexpectedProductIds,
+      passed: missingProductIds.length === 0 && unexpectedProductIds.length === 0,
+    };
+
+    if (missingProductIds.length || unexpectedProductIds.length) {
+      failures.push({ category, collection: collectionHandle, missingProductIds, unexpectedProductIds });
+    }
+  }
+
+  const report = {
+    checkedAt: new Date().toISOString(),
+    source: SOURCE_ORIGIN,
+    categories,
+    failures,
+    passed: failures.length === 0,
+  };
+
+  if (failures.length) {
+    throw new Error(`Strict category import verification failed: ${JSON.stringify(report)}`);
+  }
+  return report;
+}
+
 async function run() {
   fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -564,6 +616,8 @@ async function run() {
   writeJson('catalog-import-audit.json', catalogAudit);
   const pumpAudit = verifyPumpImport(sourcePumpProducts, importedPumpProducts, collectionCounts);
   writeJson('pump-import-audit.json', pumpAudit);
+  const strictCategoryAudit = verifyStrictCategoryImports(categoryCollections, importedCatalogProducts);
+  writeJson('strict-category-import-audit.json', strictCategoryAudit);
   writeJson('manifest.json', {
     source: SOURCE_ORIGIN,
     importedAt,
@@ -577,6 +631,7 @@ async function run() {
     categorySummaryFile: 'category-summary.json',
     catalogAuditFile: 'catalog-import-audit.json',
     pumpAuditFile: 'pump-import-audit.json',
+    strictCategoryAuditFile: 'strict-category-import-audit.json',
     imagePolicy: 'Supplier-authorized, product-bound SinoCMP images are published unchanged. Foreign images are rejected.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);

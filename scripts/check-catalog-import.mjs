@@ -5,6 +5,7 @@ import path from 'node:path';
 const catalogDir = path.resolve('client/public/catalog-data');
 const manifest = JSON.parse(fs.readFileSync(path.join(catalogDir, 'manifest.json'), 'utf8'));
 const audit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.catalogAuditFile), 'utf8'));
+const strictCategoryAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.strictCategoryAuditFile), 'utf8'));
 const categorySummary = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.categorySummaryFile), 'utf8'));
 const products = [];
 
@@ -35,7 +36,16 @@ assert.equal(
 
 const flowControlValve = products.find((product) => product.handle === '0-16-gpm-1-2-npt-hydraulic-motor-flow-control-valve-w-relief');
 assert(flowControlValve, 'known flow control valve must be present');
-assert.equal(flowControlValve.category, 'control-valves', 'flow control valve must not be classified as a hydraulic motor');
+assert.equal(flowControlValve.category, 'hydraulic-motors', 'every product in the supplier hydraulic motor collection must stay in that category');
+
+assert.equal(strictCategoryAudit.passed, true, 'strict supplier collection comparison must pass');
+const hydraulicMotorAudit = strictCategoryAudit.categories['hydraulic-motors'];
+assert(hydraulicMotorAudit, 'hydraulic motor collection audit must be present');
+assert.equal(hydraulicMotorAudit.collection, 'hydraulic-motor');
+assert.equal(hydraulicMotorAudit.importedProducts, hydraulicMotorAudit.sourceProducts, 'every supplier hydraulic motor must be imported');
+assert.deepEqual(hydraulicMotorAudit.missingProductIds, [], 'no supplier hydraulic motors may be missing');
+assert.deepEqual(hydraulicMotorAudit.unexpectedProductIds, [], 'no keyword-only products may enter the hydraulic motor category');
+assert.equal(categorySummary['hydraulic-motors'].count, hydraulicMotorAudit.sourceProducts, 'rendered hydraulic motor count must match the supplier collection');
 
 const engineCylinderBlock = products.find((product) => product.handle === '04294187-d7e-engine-cylinder-block-sinocmp');
 assert(engineCylinderBlock, 'known engine cylinder block must be present');
