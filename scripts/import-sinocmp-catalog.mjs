@@ -7,10 +7,15 @@ const PAGE_SIZE = 250;
 const MARKUP = 1.5;
 const CONCURRENCY = 2;
 const MAX_RETRIES = 5;
-const MAX_GALLERY_IMAGES = 8;
+const PUMP_COLLECTIONS = [
+  'hydraulic-pump-assembly',
+  'piston-pump',
+  'gear-pump',
+];
 
 const categoryRules = [
-  ['hydraulic-pumps', ['hydraulic pump', 'piston pump', 'gear pump']],
+  // Hydraulic pumps are assigned from the supplier collections, not keywords.
+  ['hydraulic-pumps', []],
   ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'cylinder block', 'piston shoe', 'swash plate']],
   ['hydraulic-motors', ['hydraulic motor', 'swing motor', 'travel motor', 'orbit motor']],
   ['final-drives', ['final drive', 'travel device', 'reduction gearbox']],
@@ -62,7 +67,8 @@ function detectCategoryFromText(value) {
   return null;
 }
 
-function detectCategory(product) {
+function detectCategory(product, pumpProductIds = new Set()) {
+  if (pumpProductIds.has(String(product.id))) return 'hydraulic-pumps';
   const haystack = [product.title, product.product_type, ...(product.tags || [])].join(' ');
   return detectCategoryFromText(haystack) || 'other-parts';
 }
@@ -94,19 +100,27 @@ function imageBelongsToProduct(product, value, productCategory) {
     if (String(value.product_id) !== String(product.id)) return false;
   }
 
-  const raw = rawImageUrl(value);
-  if (!raw) return false;
-
-  const imageCategory = detectCategoryFromText(`${raw} ${typeof value === 'object' ? value.alt || '' : ''}`);
-  if (imageCategory && productCategory !== 'other-parts' && imageCategory !== productCategory) {
+  const normalized = normalizeImageUrl(value);
+  if (!normalized) return false;
+  try {
+    const hostname = new URL(normalized).hostname;
+    if (hostname !== 'sinocmp.com' && hostname !== 'cdn.shopify.com' && !hostname.endsWith('.shopify.com')) return false;
+  } catch {
     return false;
+  }
+
+  // Pumps must reproduce the supplier gallery exactly. Keep the existing
+  // category-safety filter for product groups that are not part of this task.
+  if (productCategory !== 'hydraulic-pumps') {
+    const raw = rawImageUrl(value);
+    const imageCategory = detectCategoryFromText(`${raw} ${typeof value === 'object' ? value.alt || '' : ''}`);
+    if (imageCategory && productCategory !== 'other-parts' && imageCategory !== productCategory) return false;
   }
 
   return true;
 }
 
-function productGallery(product) {
-  const productCategory = detectCategory(product);
+function productGallery(product, productCategory) {
   const variantImages = Array.isArray(product.variants)
     ? product.variants.map((variant) => variant.featured_image).filter(Boolean)
     : [];
@@ -123,10 +137,10 @@ function productGallery(product) {
       .filter((value) => imageBelongsToProduct(product, value, productCategory))
       .map(normalizeImageUrl)
       .filter(Boolean),
-  )].slice(0, MAX_GALLERY_IMAGES);
+  )];
 }
 
-function normalizeProduct(product, page) {
+function normalizeProduct(product, page, pumpProductIds) {
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
     title: variant.title === 'Default Title' ? '' : variant.title,
@@ -137,12 +151,13 @@ function normalizeProduct(product, page) {
     options: [variant.option1, variant.option2, variant.option3].filter((value) => value && value !== 'Default Title'),
   }));
   const salePrices = variants.map((variant) => variant.priceKzt).filter(Number.isFinite);
-  const gallery = productGallery(product);
+  const category = detectCategory(product, pumpProductIds);
+  const gallery = productGallery(product, category);
   return {
     id: String(product.id),
     handle: product.handle,
     title: product.title,
-    category: detectCategory(product),
+    category,
     productType: product.product_type || '',
     tags: product.tags || [],
     available: variants.some((variant) => variant.available),
@@ -167,12 +182,108 @@ async function fetchPage(page) {
   return payload.products || [];
 }
 
+async function fetchCollection(handle) {
+  const products = [];
+  for (let page = 1; ; page += 1) {
+    const url = `${SOURCE_ORIGIN}/collections/${handle}/products.json?limit=${PAGE_SIZE}&page=${page}`;
+    const payload = await fetchJson(url);
+    const batch = payload.products || [];
+    products.push(...batch);
+    if (batch.length < PAGE_SIZE) return products;
+    await sleep(250);
+  }
+}
+
+function exactList(values) {
+  return JSON.stringify(values);
+}
+
+function pumpSourceSnapshot(product) {
+  return {
+    id: String(product.id),
+    handle: product.handle,
+    title: product.title,
+    skus: (product.variants || []).map((variant) => variant.sku || ''),
+    gallery: productGallery(product, 'hydraulic-pumps'),
+  };
+}
+
+function verifyPumpImport(sourceProducts, importedProducts, collectionCounts) {
+  const failures = [];
+  let exactTitleMatches = 0;
+  let exactSkuMatches = 0;
+  let exactGalleryMatches = 0;
+  const productsWithoutSourceImages = [];
+
+  for (const [id, source] of sourceProducts) {
+    const imported = importedProducts.get(id);
+    if (!imported) {
+      failures.push({ id, reason: 'missing-product', title: source.title });
+      continue;
+    }
+    if (imported.title === source.title && imported.handle === source.handle) exactTitleMatches += 1;
+    else failures.push({ id, reason: 'title-or-handle-mismatch', source: source.title, imported: imported.title });
+
+    const importedSkus = imported.variants.map((variant) => variant.sku || '');
+    if (exactList(importedSkus) === exactList(source.skus)) exactSkuMatches += 1;
+    else failures.push({ id, reason: 'sku-mismatch', source: source.skus, imported: importedSkus });
+
+    if (source.gallery.length === 0) {
+      productsWithoutSourceImages.push({ id, handle: source.handle, title: source.title, skus: source.skus });
+    }
+    if (exactList(imported.gallery) === exactList(source.gallery)) exactGalleryMatches += 1;
+    else failures.push({ id, reason: 'gallery-mismatch', source: source.gallery, imported: imported.gallery });
+  }
+
+  const unexpectedProductIds = [...importedProducts.keys()].filter((id) => !sourceProducts.has(id));
+  if (unexpectedProductIds.length) {
+    failures.push({ reason: 'unexpected-products', ids: unexpectedProductIds.slice(0, 20), count: unexpectedProductIds.length });
+  }
+
+  const report = {
+    checkedAt: new Date().toISOString(),
+    source: SOURCE_ORIGIN,
+    collections: collectionCounts,
+    uniqueSourceProducts: sourceProducts.size,
+    importedProducts: importedProducts.size,
+    exactTitleAndHandleMatches: exactTitleMatches,
+    exactSkuMatches,
+    exactGalleryMatches,
+    productsWithoutSourceImages: productsWithoutSourceImages.length,
+    productsWithoutSourceImagesList: productsWithoutSourceImages,
+    unexpectedProducts: unexpectedProductIds.length,
+    failures: failures.slice(0, 50),
+    passed: failures.length === 0,
+  };
+
+  if (failures.length) {
+    throw new Error(`Hydraulic pump import verification failed: ${JSON.stringify(report)}`);
+  }
+  return report;
+}
+
 async function run() {
   fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
+  const pumpCollections = await Promise.all(
+    PUMP_COLLECTIONS.map(async (handle) => [handle, await fetchCollection(handle)]),
+  );
+  const collectionCounts = Object.fromEntries(
+    pumpCollections.map(([handle, products]) => [handle, products.length]),
+  );
+  const sourcePumpProducts = new Map();
+  for (const [, products] of pumpCollections) {
+    for (const product of products) {
+      sourcePumpProducts.set(String(product.id), pumpSourceSnapshot(product));
+    }
+  }
+  const pumpProductIds = new Set(sourcePumpProducts.keys());
+  console.log(`Supplier pump collections: ${pumpProductIds.size} unique products`);
+
   const searchIndex = [];
   const productMap = {};
+  const importedPumpProducts = new Map();
   let nextPage = 1;
   let reachedEnd = false;
   let importedCount = 0;
@@ -186,10 +297,11 @@ async function run() {
         return;
       }
 
-      const normalized = products.map((product) => normalizeProduct(product, page));
+      const normalized = products.map((product) => normalizeProduct(product, page, pumpProductIds));
       writeJson(`products-${String(page).padStart(3, '0')}.json`, normalized);
       const pageIndex = [];
       for (const product of normalized) {
+        if (product.category === 'hydraulic-pumps') importedPumpProducts.set(product.id, product);
         productMap[product.handle] = page;
         const indexProduct = {
           id: product.id,
@@ -230,6 +342,8 @@ async function run() {
   writeJson('search-index.json', searchIndex);
   writeJson('category-summary.json', categorySummary);
   writeJson('product-map.json', productMap);
+  const pumpAudit = verifyPumpImport(sourcePumpProducts, importedPumpProducts, collectionCounts);
+  writeJson('pump-import-audit.json', pumpAudit);
   writeJson('manifest.json', {
     source: SOURCE_ORIGIN,
     importedAt,
@@ -240,7 +354,8 @@ async function run() {
     currency: 'KZT',
     indexFile: 'search-index.json',
     categorySummaryFile: 'category-summary.json',
-    imagePolicy: 'Only product-bound supplier images are published. Foreign product/category images are rejected.',
+    pumpAuditFile: 'pump-import-audit.json',
+    imagePolicy: 'Supplier-authorized, product-bound SinoCMP images are published unchanged. Foreign images are rejected.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);
 }
