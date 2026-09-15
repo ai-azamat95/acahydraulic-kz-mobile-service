@@ -49,7 +49,7 @@ const WHATSAPP_NUMBER = "77714177925";
 const DEFAULT_VISIBLE_PRODUCTS = 24;
 const HYDRAULIC_PUMP_VISIBLE_PRODUCTS = 800;
 const HYDRAULIC_PUMP_LOAD_MORE_BATCH = 200;
-// Local copies of representative SinoCMP product photos, used with permission.
+// Local representative product photos keep category navigation fast and consistent.
 const categoryImageOverrides: Record<string, string> = {
   "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
   "gear-pumps": "/catalog-assets/category-gear-pump.jpg",
@@ -71,7 +71,7 @@ const categoryImageOverrides: Record<string, string> = {
 function categoryThumbnail(source: string) {
   try {
     const url = new URL(source);
-    if (url.hostname === "sinocmp.com" || url.hostname === "cdn.shopify.com") {
+    if (url.hostname === "cdn.shopify.com" || url.hostname.endsWith(".shopify.com")) {
       url.searchParams.set("width", "480");
     }
     return url.href;
