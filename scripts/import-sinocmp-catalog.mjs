@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const SOURCE_ORIGIN = 'https://sinocmp.com';
+const KAZAKHSTAN_MARKET_COOKIE = 'localization=KZ; _shopify_country=KZ; cart_currency=KZT';
 const OUTPUT_DIR = path.resolve('client/public/catalog-data');
 const PAGE_SIZE = 250;
 const MARKUP = 1.5;
@@ -48,6 +49,7 @@ async function fetchJson(url, attempt = 1) {
   const response = await fetch(url, {
     headers: {
       accept: 'application/json',
+      cookie: KAZAKHSTAN_MARKET_COOKIE,
       'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.4 (+https://acahydraulic.kz/catalog/)',
     },
   });
