@@ -10,6 +10,33 @@ import { analyzeLead } from "./leadAnalysis";
 import { sendLeadEmail, sendAutoReply } from "./email";
 import { TRPCError } from "@trpc/server";
 import { sendTikTokEvent } from "./tiktok";
+import { analyzeIndustrialCase, industrialCaseInputSchema } from "./industrialAI";
+
+const INDUSTRIAL_AI_LIMIT = 5;
+const INDUSTRIAL_AI_WINDOW_MS = 60 * 60 * 1000;
+const industrialAiUsage = new Map<string, { count: number; resetAt: number }>();
+
+function assertIndustrialAiRateLimit(ip: string) {
+  const now = Date.now();
+  const current = industrialAiUsage.get(ip);
+
+  if (!current || current.resetAt <= now) {
+    industrialAiUsage.set(ip, {
+      count: 1,
+      resetAt: now + INDUSTRIAL_AI_WINDOW_MS,
+    });
+    return;
+  }
+
+  if (current.count >= INDUSTRIAL_AI_LIMIT) {
+    throw new TRPCError({
+      code: "TOO_MANY_REQUESTS",
+      message: "HackAlem demo limit reached. Please try again later.",
+    });
+  }
+
+  current.count += 1;
+}
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -153,6 +180,31 @@ export const appRouter = router({
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: "Не удалось обработать заявку. Пожалуйста, попробуйте позже.",
+          });
+        }
+      }),
+  }),
+
+  // Public HackAlem demo. The endpoint is deliberately constrained and rate-limited.
+  industrialAI: router({
+    analyze: publicProcedure
+      .input(industrialCaseInputSchema)
+      .mutation(async ({ input, ctx }) => {
+        const ip =
+          (ctx.req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+          ctx.req.socket.remoteAddress ||
+          "unknown";
+
+        assertIndustrialAiRateLimit(ip);
+
+        try {
+          return await analyzeIndustrialCase(input);
+        } catch (error) {
+          console.error("[Industrial AI] Analysis failed:", error);
+          if (error instanceof TRPCError) throw error;
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Industrial AI could not structure this case. Please try again.",
           });
         }
       }),
