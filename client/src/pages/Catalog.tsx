@@ -28,7 +28,21 @@ import { catalogCopy, partCategories, supportedBrands, type CatalogLanguage } fr
 import { useCatalogIndex } from "@/hooks/useCatalogProducts";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
-const categoryIcons = [Gauge, Settings, Cog, Boxes, Wrench, CircuitBoard, Monitor, PackageCheck, Fuel, Fan, ScanLine, PackageSearch];
+const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge> = {
+  "hydraulic-pumps": Gauge,
+  "gear-pumps": Cog,
+  "pump-parts": Settings,
+  "hydraulic-motors": Cog,
+  "final-drives": Boxes,
+  "control-valves": Wrench,
+  electrical: CircuitBoard,
+  "controllers-monitors": Monitor,
+  "seals-filters": PackageCheck,
+  "engine-fuel": Fuel,
+  "air-conditioning": Fan,
+  "diagnostic-tools": ScanLine,
+  "other-parts": PackageSearch,
+};
 const WHATSAPP_NUMBER = "77714177925";
 const DEFAULT_VISIBLE_PRODUCTS = 24;
 const HYDRAULIC_PUMP_VISIBLE_PRODUCTS = 800;
@@ -36,6 +50,7 @@ const HYDRAULIC_PUMP_LOAD_MORE_BATCH = 200;
 // Local copies of representative SinoCMP product photos, used with permission.
 const categoryImageOverrides: Record<string, string> = {
   "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
+  "gear-pumps": "/catalog-assets/category-gear-pump.jpg",
   "pump-parts": "/catalog-assets/category-pump-parts.jpg",
   "hydraulic-motors": "/catalog-assets/category-hydraulic-motor.jpg",
   "final-drives": "/catalog-assets/final-drive-category.jpg",
@@ -72,6 +87,7 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 }
 
 function initialVisibleProducts(category: string) {
+  if (category === "gear-pumps") return Number.MAX_SAFE_INTEGER;
   return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
 }
 
@@ -548,8 +564,8 @@ export default function Catalog() {
           </div>
 
           <div className="aca-category-grid">
-            {partCategories.map((item, index) => {
-              const Icon = categoryIcons[index];
+            {partCategories.map((item) => {
+              const Icon = categoryIcons[item.id];
               const active = category === item.id;
               const stat = categoryStats[item.id];
               const imageUrl = categoryImageOverrides[item.id] || stat?.imageUrl;

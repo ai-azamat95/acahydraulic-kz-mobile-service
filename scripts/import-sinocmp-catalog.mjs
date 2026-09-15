@@ -9,11 +9,14 @@ const MARKUP = 1.5;
 const PRICE_ON_REQUEST_THRESHOLD_KZT = 10_000_000;
 const CONCURRENCY = 2;
 const COLLECTION_CONCURRENCY = 3;
-const MAX_RETRIES = 5;
+const MAX_RETRIES = 8;
 const CATEGORY_COLLECTIONS = [
+  // Gear pumps are a distinct sales category. Keep this entry before the
+  // broader hydraulic pump collections so cross-listed products land here.
+  ['gear-pumps', ['gear-pump']],
   // Preserve the audited pump scope: every product in these supplier
   // collections remains a hydraulic pump even if it is cross-listed elsewhere.
-  ['hydraulic-pumps', ['hydraulic-pump-assembly', 'piston-pump', 'gear-pump']],
+  ['hydraulic-pumps', ['hydraulic-pump-assembly', 'piston-pump']],
   ['pump-parts', ['hydraulic-pump-spare-parts']],
   ['final-drives', ['final-drive-assembly']],
   ['control-valves', ['main-control-valve', 'valves']],
@@ -25,7 +28,7 @@ const CATEGORY_COLLECTIONS = [
   ['engine-fuel', ['fuel-parts', 'engine-parts']],
   ['electrical', ['electrical-parts']],
 ];
-const PUMP_COLLECTIONS = CATEGORY_COLLECTIONS.find(([category]) => category === 'hydraulic-pumps')[1];
+const PUMP_COLLECTIONS = ['hydraulic-pump-assembly', 'piston-pump', 'gear-pump'];
 
 const categoryRules = [
   ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'piston shoe', 'swash plate']],
@@ -85,7 +88,7 @@ function detectCategory(product, collectionCategoryByProductId = new Map()) {
   const textCategory = detectCategoryFromText(haystack);
   const collectionCategory = collectionCategoryByProductId.get(String(product.id));
 
-  if (collectionCategory === 'hydraulic-pumps') return collectionCategory;
+  if (collectionCategory === 'hydraulic-pumps' || collectionCategory === 'gear-pumps') return collectionCategory;
 
   // A small set of precise product phrases is more reliable than collection
   // membership when a supplier assigns a valve to the Hydraulic Motor collection.
@@ -493,16 +496,15 @@ async function run() {
   const sourceCatalogProducts = new Map();
   const importedCatalogProducts = new Map();
   const importedPumpProducts = new Map();
+  const expectedPageCount = Math.ceil(expectedPublishedProducts / PAGE_SIZE);
   let nextPage = 1;
-  let reachedEnd = false;
   let importedCount = 0;
 
   async function worker() {
-    while (!reachedEnd) {
+    while (nextPage <= expectedPageCount) {
       const page = nextPage++;
       const products = await fetchPage(page);
       if (products.length === 0) {
-        reachedEnd = true;
         return;
       }
 
@@ -514,7 +516,7 @@ async function run() {
       const pageIndex = [];
       for (const product of normalized) {
         importedCatalogProducts.set(product.id, product);
-        if (product.category === 'hydraulic-pumps') importedPumpProducts.set(product.id, product);
+        if (product.category === 'hydraulic-pumps' || product.category === 'gear-pumps') importedPumpProducts.set(product.id, product);
         productMap[product.handle] = page;
         const indexProduct = {
           id: product.id,
