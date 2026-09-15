@@ -1,6 +1,7 @@
 # ACA Hydraulic — Heavy Equipment Field Service Platform
 
 [![Website](https://img.shields.io/badge/live-acahydraulic.kz-111827)](https://acahydraulic.kz)
+[![Industrial AI Demo](https://img.shields.io/badge/HackAlem-Industrial_AI-FFC000)](https://acahydraulic.kz/industrial-ai/)
 
 ACA Hydraulic is a real-world industrial service project focused on **on-site hydraulic diagnostics, heavy-equipment repair and spare-parts workflows in Kazakhstan**.
 
@@ -8,9 +9,9 @@ This repository contains the web platform behind `acahydraulic.kz`. The product 
 
 ## HackAlem AI prototype
 
-This repository now includes a working **ACA Industrial AI** prototype for multi-brand heavy-equipment service.
+This repository includes **ACA Industrial AI**, a technician-facing prototype for multi-brand heavy-equipment service.
 
-**Prototype route:** `/industrial-ai`
+**Live reviewer demo:** https://acahydraulic.kz/industrial-ai/
 
 The demo accepts machine data, symptoms, fault codes, measurements and previous interventions, then returns a structured technician-facing report with:
 
@@ -20,12 +21,14 @@ The demo accepts machine data, symptoms, fault codes, measurements and previous 
 - a parts-search brief;
 - explicit safety gates and a final technician decision gate.
 
-This is deliberately **human-in-the-loop decision support**, not an autonomous-repair claim. The LLM output is constrained by JSON Schema, validated at runtime with Zod and exposed through a typed tRPC endpoint. The public demo endpoint is rate-limited.
+This is deliberately **human-in-the-loop decision support**, not an autonomous-repair claim. The LLM output contract is constrained by JSON Schema, validated at runtime with Zod and exposed through a typed tRPC endpoint. The server endpoint is rate-limited.
+
+For the public GitHub Pages build, the bundled SANY SY365H case is presented as a deterministic reviewer replay so the complete UX can be inspected without exposing an API key in the browser. The live LLM backend implementation remains in the repository and is used in a server deployment.
 
 Review the implementation:
 
-- [`client/src/pages/IndustrialAI.tsx`](client/src/pages/IndustrialAI.tsx) — interactive prototype UI;
-- [`server/industrialAI.ts`](server/industrialAI.ts) — domain prompt, structured output schema and validation;
+- [`client/src/pages/IndustrialAI.tsx`](client/src/pages/IndustrialAI.tsx) — interactive prototype UI and safe public reviewer replay;
+- [`server/industrialAI.ts`](server/industrialAI.ts) — domain prompt, structured JSON schema and validation;
 - [`server/routers.ts`](server/routers.ts) — typed API endpoint and rate limiting;
 - [`docs/hackalem-application.md`](docs/hackalem-application.md) — 60-second reviewer brief;
 - [`docs/hackathon-concept.md`](docs/hackathon-concept.md) — product thesis and roadmap.
