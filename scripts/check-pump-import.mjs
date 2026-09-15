@@ -21,6 +21,7 @@ const approvedImageHost = (value) => {
 };
 
 assert.equal(audit.passed, true, 'supplier comparison must pass');
+assert(pumps.length >= 800, `hydraulic pump catalogue must contain at least 800 products, received ${pumps.length}`);
 assert.equal(audit.failures.length, 0, 'supplier comparison must have no failures');
 assert.equal(audit.unexpectedProducts, 0, 'no keyword-only products may enter the pump category');
 assert.equal(audit.importedProducts, audit.uniqueSourceProducts, 'every supplier pump must be imported');

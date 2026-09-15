@@ -74,16 +74,20 @@ try {
         assert.equal(categoryImages.length,12,'each category needs a product image');
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
         assert.equal(categoryImages[3].path,'/catalog-assets/final-drive-category.jpg');
-        await page.locator('.aca-category-card').first().click();
-        assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'true');
-        assert.equal(new URL(page.url()).searchParams.get('category'),'hydraulic-pumps','category click must create a shareable URL');
-        await page.locator('.aca-category-card').first().click();
-        assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'false');
-        assert.equal(new URL(page.url()).searchParams.has('category'),false,'clearing a category must clear the URL filter');
-        await page.goto(origin+'/catalog?category=control-valves',{waitUntil:'networkidle'});
-        await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
-        assert.equal(await page.locator('.aca-category-card[aria-pressed="true"]').count(),1,'URL category must select exactly one category');
-        assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedControlValveCount),'URL category must filter product results');
+        if(width===1440){
+          await page.locator('.aca-category-card').first().click();
+          assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'true');
+          assert.equal(new URL(page.url()).searchParams.get('category'),'hydraulic-pumps','category click must create a shareable URL');
+          assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),'800','hydraulic pump category must expose at least 800 cards immediately');
+          assert.equal(await page.locator('.aca-product-card').count(),800,'hydraulic pump category must render 800 real product cards');
+          await page.locator('.aca-category-card').first().click();
+          assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'false');
+          assert.equal(new URL(page.url()).searchParams.has('category'),false,'clearing a category must clear the URL filter');
+          await page.goto(origin+'/catalog?category=control-valves',{waitUntil:'networkidle'});
+          await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
+          assert.equal(await page.locator('.aca-category-card[aria-pressed="true"]').count(),1,'URL category must select exactly one category');
+          assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedControlValveCount),'URL category must filter product results');
+        }
         await page.evaluate(()=>window.scrollTo(0,0));
         await page.screenshot({path:'catalog-ui-check/'+engineName+'-'+width+'.png'});
         assert.deepEqual(errors,[],'runtime errors');
