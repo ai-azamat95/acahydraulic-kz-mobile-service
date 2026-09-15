@@ -1,28 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { categoryRules, detectCategory } from './catalog-classification.mjs';
 
 const SOURCE_ORIGIN = 'https://sinocmp.com';
-const OUTPUT_DIR = path.resolve('client/public/catalog-data');
+const PUBLISHED_DIR = path.resolve('client/public/catalog-data');
+const OUTPUT_DIR = path.resolve('client/public/catalog-data-staging');
 const PAGE_SIZE = 250;
 const MARKUP = 1.5;
 const CONCURRENCY = 2;
 const MAX_RETRIES = 5;
 const MAX_GALLERY_IMAGES = 8;
-
-const categoryRules = [
-  ['hydraulic-pumps', ['hydraulic pump', 'piston pump', 'gear pump']],
-  ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'cylinder block', 'piston shoe', 'swash plate']],
-  ['hydraulic-motors', ['hydraulic motor', 'swing motor', 'travel motor', 'orbit motor']],
-  ['final-drives', ['final drive', 'travel device', 'reduction gearbox']],
-  ['control-valves', ['control valve', 'main valve', 'relief valve', 'pilot valve', 'valves']],
-  ['electrical', ['sensor', 'solenoid', 'relay', 'wiring harness', 'alternator', 'starter motor']],
-  ['controllers-monitors', ['controller', 'monitor', 'display', 'ecu', 'ecm']],
-  ['seals-filters', ['seal kit', 'gasket kit', 'filter']],
-  ['engine-fuel', ['fuel injector', 'fuel pump', 'common rail', 'turbocharger', 'water pump', 'oil pump', 'engine']],
-  ['air-conditioning', ['compressor', 'air conditioning', 'a/c ', 'blower motor', 'radiator']],
-  ['diagnostic-tools', ['diagnostic tool', 'pressure test', 'gauge kit', 'adapter']],
-  ['other-parts', []],
-];
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -30,6 +17,7 @@ function sleep(ms) {
 
 async function fetchJson(url, attempt = 1) {
   const response = await fetch(url, {
+    signal: AbortSignal.timeout(45000),
     headers: {
       accept: 'application/json',
       'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.3 (+https://acahydraulic.kz/catalog/)',
@@ -42,29 +30,6 @@ async function fetchJson(url, attempt = 1) {
     return fetchJson(url, attempt + 1);
   }
   throw new Error(`Catalog request failed: ${response.status} ${url}`);
-}
-
-function normalizeSearchText(value) {
-  return String(value || '')
-    .toLowerCase()
-    .replace(/https?:\/\//g, ' ')
-    .replace(/[-_./]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function detectCategoryFromText(value) {
-  const haystack = normalizeSearchText(value);
-  if (!haystack) return null;
-  for (const [category, terms] of categoryRules) {
-    if (terms.length && terms.some((term) => haystack.includes(term))) return category;
-  }
-  return null;
-}
-
-function detectCategory(product) {
-  const haystack = [product.title, product.product_type, ...(product.tags || [])].join(' ');
-  return detectCategoryFromText(haystack) || 'other-parts';
 }
 
 function markedUpPrice(price) {
@@ -84,7 +49,10 @@ function normalizeImageUrl(value) {
   if (!raw || typeof raw !== 'string') return null;
   if (raw.startsWith('//')) return `https:${raw}`;
   if (raw.startsWith('/')) return `${SOURCE_ORIGIN}${raw}`;
-  return raw;
+  try {
+    const url = new URL(raw);
+    return url.protocol === 'https:' && (url.hostname === 'sinocmp.com' || url.hostname === 'cdn.shopify.com' || url.hostname.endsWith('.shopify.com')) ? url.href : null;
+  } catch { return null; }
 }
 
 function imageBelongsToProduct(product, value, productCategory) {
@@ -97,11 +65,8 @@ function imageBelongsToProduct(product, value, productCategory) {
   const raw = rawImageUrl(value);
   if (!raw) return false;
 
-  const imageCategory = detectCategoryFromText(`${raw} ${typeof value === 'object' ? value.alt || '' : ''}`);
-  if (imageCategory && productCategory !== 'other-parts' && imageCategory !== productCategory) {
-    return false;
-  }
-
+  // Shopify product ownership is authoritative. Category keywords in a filename
+  // are not: a pump sensor image legitimately contains both "pump" and "sensor".
   return true;
 }
 
@@ -126,6 +91,22 @@ function productGallery(product) {
   )].slice(0, MAX_GALLERY_IMAGES);
 }
 
+function productSpecifications(html = '') {
+  // Publish factual attributes only; never execute or inject supplier HTML.
+  const decode = (value) => value.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/\s+/g, ' ').trim();
+  const allowed = /^(?:part (?:name|number|no\.?|type)|model|application|applicable (?:model|machine)|voltage|power|displacement|rotation|shaft|port size|adjustable flow rate|flow rate|pressure|material|weight|product weight|packaging dimensions|dimensions|size|condition|engine model|machine model|oem (?:number|no\.?))$/i;
+  const specifications = [];
+  for (const match of html.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/gi)) {
+    const text = decode(match[1]);
+    const separator = text.indexOf(':');
+    if (separator < 1) continue;
+    const name = text.slice(0, separator).trim();
+    const value = text.slice(separator + 1).trim();
+    if (allowed.test(name) && value && value.length <= 250 && !specifications.some(item => item.name === name)) specifications.push({ name, value });
+  }
+  return specifications.slice(0, 16);
+}
+
 function normalizeProduct(product, page) {
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
@@ -143,8 +124,10 @@ function normalizeProduct(product, page) {
     handle: product.handle,
     title: product.title,
     category: detectCategory(product),
+    specifications: productSpecifications(product.body_html),
     productType: product.product_type || '',
     tags: product.tags || [],
+    skus: variants.map((variant) => variant.sku).filter(Boolean),
     available: variants.some((variant) => variant.available),
     minPriceKzt: salePrices.length ? Math.min(...salePrices) : null,
     maxPriceKzt: salePrices.length ? Math.max(...salePrices) : null,
@@ -162,12 +145,14 @@ function writeJson(fileName, data) {
 }
 
 async function fetchPage(page) {
-  const url = `${SOURCE_ORIGIN}/collections/all/products.json?limit=${PAGE_SIZE}&page=${page}`;
+  const url = `${SOURCE_ORIGIN}/collections/all/products.json?limit=${PAGE_SIZE}&page=${page}&currency=KZT`;
   const payload = await fetchJson(url);
   return payload.products || [];
 }
 
 async function run() {
+  const cart = await fetchJson(`${SOURCE_ORIGIN}/cart.js?currency=KZT`);
+  if (cart.currency !== 'KZT') throw new Error(`Source market currency is ${cart.currency}, expected KZT; keeping published prices unchanged.`);
   fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
@@ -197,6 +182,7 @@ async function run() {
           title: product.title,
           category: product.category,
           tags: product.tags,
+          skus: product.skus,
           available: product.available,
           minPriceKzt: product.minPriceKzt,
           maxPriceKzt: product.maxPriceKzt,
@@ -235,13 +221,18 @@ async function run() {
     importedAt,
     productCount: searchIndex.length,
     pageSize: PAGE_SIZE,
-    chunkCount: Math.ceil(searchIndex.length / PAGE_SIZE),
+    chunkCount: Math.max(...Object.values(productMap)),
     markup: MARKUP,
     currency: 'KZT',
     indexFile: 'search-index.json',
     categorySummaryFile: 'category-summary.json',
     imagePolicy: 'Only product-bound supplier images are published. Foreign product/category images are rejected.',
   });
+  if (!searchIndex.length || new Set(searchIndex.map(p => p.handle)).size !== searchIndex.length) throw new Error('Empty or duplicate catalogue; keeping previous data.');
+  const previousCount = fs.existsSync(path.join(PUBLISHED_DIR, 'manifest.json')) ? JSON.parse(fs.readFileSync(path.join(PUBLISHED_DIR, 'manifest.json'), 'utf8')).productCount : 0;
+  if (previousCount && searchIndex.length < previousCount * 0.95) throw new Error('Incomplete supplier catalogue; keeping previous data.');
+  fs.rmSync(PUBLISHED_DIR, { recursive: true, force: true });
+  fs.renameSync(OUTPUT_DIR, PUBLISHED_DIR);
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);
 }
 

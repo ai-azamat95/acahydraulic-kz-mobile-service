@@ -1,4 +1,4 @@
-import { FormEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useDeferredValue, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import {
   ArrowLeft,
@@ -30,18 +30,6 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
 const categoryIcons = [Gauge, Settings, Cog, Boxes, Wrench, CircuitBoard, Monitor, PackageCheck, Fuel, Fan, ScanLine, PackageSearch];
 const WHATSAPP_NUMBER = "77714177925";
-
-function categoryThumbnail(source: string) {
-  try {
-    const url = new URL(source);
-    if (url.hostname === "sinocmp.com" || url.hostname === "cdn.shopify.com") {
-      url.searchParams.set("width", "480");
-    }
-    return url.href;
-  } catch {
-    return source;
-  }
-}
 
 type SearchMode = "part" | "oem" | "vin";
 
@@ -130,25 +118,13 @@ export default function Catalog() {
   const [supplyOption, setSupplyOption] = useState("");
   const [formError, setFormError] = useState("");
   const [visibleCount, setVisibleCount] = useState(24);
-  const [promoIndex, setPromoIndex] = useState(0);
   const resultsRef = useRef<HTMLDivElement>(null);
   const copy = catalogCopy[language];
   const ui = enhancementCopy[language];
-  const { products, loading, error } = useCatalogIndex();
+  const { products, loading, error, indexComplete } = useCatalogIndex();
   const fireContact = useTikTokContact();
   const deferredQuery = useDeferredValue(`${searchMode === "vin" ? "" : partQuery} ${machineModel}`.trim().toLowerCase());
   const activeSearchMode = ui.searchModes.find((item) => item.id === searchMode) || ui.searchModes[0];
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setPromoIndex((index) => (index + 1) % ui.promos.length);
-    }, 4500);
-    return () => window.clearInterval(timer);
-  }, [ui.promos.length]);
-
-  useEffect(() => {
-    setPromoIndex(0);
-  }, [language]);
 
   const selectedCategory = useMemo(
     () => partCategories.find((item) => item.id === category),
@@ -171,8 +147,9 @@ export default function Catalog() {
     const brandNeedle = brand.toLowerCase();
     return products.filter((product) => {
       if (category && product.category !== category) return false;
-      const haystack = `${product.title} ${product.tags.join(" ")}`.toLowerCase();
-      if (brandNeedle && !haystack.includes(brandNeedle)) return false;
+      const categoryNames = partCategories.find((item) => item.id === product.category);
+      const haystack = `${product.title} ${product.tags.join(" ")} ${product.skus?.join(" ") || ""} ${categoryNames?.ru || ""} ${categoryNames?.kz || ""} ${categoryNames?.en || ""}`.toLowerCase();
+      if (brandNeedle && !`${product.title} ${product.tags.join(" ")}`.toLowerCase().includes(brandNeedle)) return false;
       if (deferredQuery) {
         const terms = deferredQuery.split(/\s+/).filter(Boolean);
         if (!terms.every((term) => haystack.includes(term))) return false;
@@ -239,10 +216,9 @@ export default function Catalog() {
     scrollToResults();
   };
 
-  const promo = ui.promos[promoIndex];
 
   return (
-    <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
+    <div className="aca-catalog min-h-[100dvh] bg-white text-[#111827] font-roboto">
       <SEO
         title="Запчасти для спецтехники: подбор по номеру, OEM и VIN"
         description="Подбор гидравлических и электронных запчастей по номеру, OEM, VIN и модели техники. CAT, Komatsu, Hitachi, Volvo, SANY, XCMG и другие бренды."
@@ -259,7 +235,7 @@ export default function Catalog() {
         breadcrumbs={[{ name: "Каталог запчастей", url: "/catalog" }]}
       />
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
+      <header className="aca-catalog-header sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
         <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 py-3">
           <Link href="/" className="flex items-center gap-3" aria-label="ACA Hydraulic">
             <span className="flex h-7 gap-[3px]" aria-hidden="true">
@@ -301,7 +277,7 @@ export default function Catalog() {
               {copy.backToService}
             </Link>
 
-            <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
+            <div className="aca-catalog-hero">
               <div>
                 <div className="max-w-3xl">
                   <h1 className="font-bebas text-4xl font-bold uppercase leading-tight tracking-wide md:text-6xl">
@@ -310,7 +286,7 @@ export default function Catalog() {
                   <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{copy.pageDescription}</p>
                 </div>
 
-                <div className="mt-6 flex gap-2 overflow-x-auto pb-1" aria-label={ui.searchType}>
+                <div className="aca-search-modes mt-6 flex gap-2 overflow-x-auto pb-1" aria-label={ui.searchType}>
                   {ui.searchModes.map((item) => {
                     const active = searchMode === item.id;
                     return (
@@ -406,39 +382,21 @@ export default function Catalog() {
                 </form>
               </div>
 
-              <div className="aca-mobile-promos">
-                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>
-                  <img src="/catalog-assets/promo-yellow.svg" width="665" height="225" alt={ui.promos[0].text} fetchPriority="high" />
+              <aside className="aca-mobile-promos" aria-label={ui.promoTitle}>
+                <a className="aca-promo-discount" href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer">
+                  <span className="aca-promo-eyebrow">{ui.promos[0].eyebrow}</span>
+                  <strong>{ui.promos[0].title}</strong>
+                  <span>{language === "ru" ? "на первый заказ запчастей" : language === "kz" ? "алғашқы бөлшек тапсырысына" : "on your first parts order"}</span>
+                  <span className="aca-promo-code">{ui.promoCode}: <b>ACA5</b><ChevronRight size={18} aria-hidden="true" /></span>
                 </a>
-                <a href="#catalog-delivery" aria-label={copy.deliveryTitle}>
-                  <img src="/catalog-assets/promo-blue.svg" width="665" height="189" alt={copy.deliveryTitle} decoding="async" />
+                <a className="aca-promo-delivery" href="#catalog-delivery">
+                  <span className="aca-delivery-copy">
+                    <strong>{language === "ru" ? "Доставка из Китая" : language === "kz" ? "Қытайдан жеткізу" : "Delivery from China"}</strong>
+                    <span>{language === "ru" ? "Проверка детали · Фото перед отправкой" : language === "kz" ? "Бөлшекті тексеру · Жөнелтер алдында фото" : "Part verification · Photos before dispatch"}</span>
+                  </span>
+                  <img src="/catalog-assets/aca-cargo-wasp.webp" width="1200" height="800" alt={language === "ru" ? "Грузовой самолёт ACA HYDRAULIC с эмблемой осы" : "ACA HYDRAULIC cargo aircraft with wasp emblem"} fetchPriority="high" decoding="async" />
+                  <span className="aca-delivery-link">{language === "ru" ? "Условия доставки" : language === "kz" ? "Жеткізу шарттары" : "Delivery details"}<ChevronRight size={18} aria-hidden="true" /></span>
                 </a>
-              </div>
-              <aside className="relative min-h-[310px] overflow-hidden rounded-xl border border-[#FFC000]/35 bg-[radial-gradient(circle_at_80%_10%,rgba(255,192,0,0.25),transparent_34%),linear-gradient(145deg,#171717,#090909)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] md:p-8">
-                <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-[#FFC000]/15" aria-hidden="true" />
-                <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-[#FFC000]/10" aria-hidden="true" />
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFC000]">{ui.promoTitle}</p>
-                <p className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-gray-400">{promo.eyebrow}</p>
-                <h2 className="mt-2 font-bebas text-4xl font-bold uppercase leading-none tracking-wide md:text-5xl">{promo.title}</h2>
-                <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-300 md:text-base">{promo.text}</p>
-
-                <div className="mt-6 inline-flex items-center gap-3 rounded-lg border border-[#FFC000]/40 bg-black/40 px-4 py-3">
-                  <span className="text-xs uppercase tracking-wider text-gray-400">{ui.promoCode}</span>
-                  <strong className="text-xl tracking-[0.14em] text-[#FFC000]">{promo.badge}</strong>
-                </div>
-
-                <div className="mt-8 flex items-center gap-2" aria-label={ui.promoTitle}>
-                  {ui.promos.map((item, index) => (
-                    <button
-                      key={item.badge}
-                      type="button"
-                      onClick={() => setPromoIndex(index)}
-                      aria-label={`${ui.promoTitle} ${index + 1}`}
-                      aria-pressed={index === promoIndex}
-                      className={`h-2.5 rounded-full transition-all ${index === promoIndex ? "w-8 bg-[#FFC000]" : "w-2.5 bg-white/25 hover:bg-white/45"}`}
-                    />
-                  ))}
-                </div>
               </aside>
             </div>
 
@@ -500,6 +458,7 @@ export default function Catalog() {
               const Icon = categoryIcons[index];
               const active = category === item.id;
               const stat = categoryStats[item.id];
+              const thumbnail = `/catalog-assets/categories/${item.id}.webp`;
               return (
                 <button
                   key={item.id}
@@ -510,10 +469,10 @@ export default function Catalog() {
                 >
                   <span className="aca-category-media">
                     <Icon className="aca-category-fallback" aria-hidden="true" />
-                    {stat?.imageUrl && (
+                    {(
                       <img
-                        key={stat.imageUrl}
-                        src={categoryThumbnail(stat.imageUrl)}
+                        key={item.id}
+                        src={thumbnail}
                         alt=""
                         width="240"
                         height="160"
@@ -524,13 +483,14 @@ export default function Catalog() {
                     )}
                   </span>
                   <span className="aca-category-label">{item[language]}</span>
+                  <span className="aca-category-count">{loading ? "…" : (stat?.count || 0).toLocaleString(language === "en" ? "en-US" : "ru-RU")}</span>
                   <ChevronRight className="aca-category-arrow" aria-hidden="true" />
                 </button>
               );
             })}
           </div>
 
-          <div ref={resultsRef} className="mt-12 scroll-mt-24 border-t border-white/10 pt-8" aria-live="polite">
+          <div ref={resultsRef} id="catalog-results" className="mt-12 scroll-mt-24 border-t border-white/10 pt-8" aria-live="polite">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.resultsTitle}</h2>
@@ -538,6 +498,7 @@ export default function Catalog() {
               </div>
               {!loading && !error && <p className="text-sm text-gray-400">{filteredProducts.length.toLocaleString()} {copy.productsFound}</p>}
             </div>
+            {!indexComplete && !error && <p className="mt-3 text-sm text-slate-600" role="status">{language === "ru" ? "Загружаем полный каталог…" : language === "kz" ? "Толық каталог жүктелуде…" : "Loading the complete catalogue…"}</p>}
             <ProductResults
               copy={copy}
               language={language}

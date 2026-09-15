@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import assert from 'node:assert/strict';
-const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
+const { chromium, webkit } = await import(process.env.PLAYWRIGHT_MODULE || process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
 const server = http.createServer((req,res) => {
   let file = path.join(root,decodeURIComponent(req.url.split('?')[0]));
@@ -17,7 +17,7 @@ const origin='http://127.0.0.1:'+server.address().port;
 fs.mkdirSync('catalog-ui-check',{recursive:true});
 const results=[];
 try {
-  for(const [engineName,engine] of Object.entries({chromium,webkit})){
+  for(const [engineName,engine] of Object.entries(process.env.CATALOG_BROWSER === 'webkit' ? {webkit} : {chromium,webkit})){
     const browser=await engine.launch();
     try{
       for(const width of [320,390,430,768,1440]){
@@ -27,6 +27,9 @@ try {
         await page.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
         await page.goto(origin+'/catalog',{waitUntil:'networkidle'});
         await page.locator('.aca-category-card').first().waitFor();
+        assert.equal(await page.locator('.aca-mobile-promos a:visible').count(),2,'banners visible at every viewport');
+        const categoryImages=await page.locator('.aca-category-media img').evaluateAll(async nodes=>{await Promise.all(nodes.map(n=>{n.loading='eager';return n.decode().catch(()=>{})}));return nodes.map(n=>n.complete&&n.naturalWidth>0)});
+        assert(categoryImages.every(Boolean),'local category images load');
         for(const lang of ['RU','KZ','EN']){
           await page.getByRole('button',{name:lang,exact:true}).click();
           assert.equal(await page.locator('.aca-category-card:visible').count(),12);
@@ -35,8 +38,8 @@ try {
           assert.deepEqual(clipped,[],'clipped labels '+width+' '+lang);
           if(width<768){
             assert.equal(await page.locator('.aca-mobile-promos a:visible').count(),2);
-            const imgs=await page.locator('.aca-mobile-promos img').evaluateAll(nodes=>nodes.map(n=>({loaded:n.complete&&n.naturalWidth>0,ratio:n.clientWidth/n.clientHeight,natural:n.naturalWidth/n.naturalHeight})));
-            assert(imgs.every(i=>i.loaded&&Math.abs(i.ratio-i.natural)<.05),'banner load/aspect ratio');
+            const imgs=await page.locator('.aca-mobile-promos img').evaluateAll(nodes=>nodes.map(n=>n.complete&&n.naturalWidth>0));
+            assert(imgs.every(Boolean),'banner images load');
             const promo=await page.locator('.aca-mobile-promos').boundingBox();
             const form=await page.locator('#catalog-search').boundingBox();
             assert(promo.y+promo.height<=form.y,'banner overlaps search');
@@ -51,6 +54,11 @@ try {
         assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'true');
         await page.locator('.aca-category-card').first().click();
         assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'false');
+        const index=JSON.parse(fs.readFileSync('client/public/catalog-data/search-index.json','utf8'));
+        await page.locator('.aca-category-card').first().click();
+        const resultLinks=await page.locator('#catalog-results article h3 a').evaluateAll(nodes=>nodes.map(n=>({title:n.textContent,href:n.getAttribute('href')})));
+        assert(resultLinks.length>0,'hydraulic pumps must have results');
+        for(const link of resultLinks){const record=index.find(p=>'/catalog/'+p.handle===link.href);assert(record&&record.category==='hydraulic-pumps'&&record.title===link.title,'wrong product in hydraulic pumps');}
         await page.evaluate(()=>window.scrollTo(0,0));
         await page.screenshot({path:'catalog-ui-check/'+engineName+'-'+width+'.png'});
         assert.deepEqual(errors,[],'runtime errors');

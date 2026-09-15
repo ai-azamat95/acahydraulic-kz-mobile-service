@@ -89,7 +89,7 @@ export default function CatalogProduct() {
           image: gallery,
           sku: mainSku,
           category: categoryName,
-          brand: { "@type": "Brand", name: product.tags[0] || "ACA Hydraulic" },
+
           offers: product.minPriceKzt !== null ? {
             "@type": "AggregateOffer",
             priceCurrency: "KZT",
@@ -158,8 +158,8 @@ export default function CatalogProduct() {
               ) : (
                 <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_50%_42%,#fff,#f1f1f1)] text-gray-400">
                   <div className="text-center">
-                    <ImageIcon className="mx-auto h-16 w-16" aria-hidden="true" />
-                    <p className="mt-3 text-sm font-semibold">ACA Hydraulic</p>
+                    <img src={`/catalog-assets/categories/${product.category}.webp`} alt="" width="480" height="360" className="mx-auto max-h-60 w-full object-contain opacity-50" />
+                    <p className="mt-3 px-4 text-sm font-semibold text-gray-600">{language === "ru" ? "Фото детали уточняется. Иллюстрация категории." : language === "kz" ? "Бөлшек фотосы нақтылануда. Санат иллюстрациясы." : "Part photo pending. Category illustration."}</p>
                   </div>
                 </div>
               )}
@@ -185,7 +185,7 @@ export default function CatalogProduct() {
                     aria-pressed={selectedImage === image}
                     className={`aspect-square overflow-hidden rounded border bg-white p-1 transition ${selectedImage === image ? "border-[#FFC000] ring-1 ring-[#FFC000]" : "border-white/15 hover:border-white/40"}`}
                   >
-                    <img src={image} alt="" loading="lazy" decoding="async" className="h-full w-full object-contain" />
+                    <img src={image} alt="" loading="lazy" decoding="async" onError={(event) => { event.currentTarget.style.visibility = "hidden"; }} className="h-full w-full object-contain" />
                   </button>
                 ))}
               </div>
@@ -226,6 +226,20 @@ export default function CatalogProduct() {
             )}
           </div>
         </div>
+
+        {Boolean(product.specifications?.length) && (
+          <section className="mt-10 border-t border-white/10 pt-8" aria-labelledby="specifications-title">
+            <h2 id="specifications-title" className="text-2xl font-bold">{language === "ru" ? "Характеристики детали" : language === "kz" ? "Бөлшек сипаттамалары" : "Part specifications"}</h2>
+            <dl className="mt-5 grid gap-x-8 md:grid-cols-2">
+              {product.specifications!.map(({ name, value }) => (
+                <div key={name} className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-4 border-b border-white/10 py-3 text-sm">
+                  <dt className="text-gray-400">{name}</dt>
+                  <dd className="break-words text-gray-100">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
 
         <section className="mt-12 border-t border-white/10 pt-10" aria-labelledby="variants-title">
           <h2 id="variants-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.variantsTitle}</h2>
