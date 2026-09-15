@@ -45,7 +45,7 @@ function ProductImage({ product }: { product: CatalogIndexProduct }) {
   const showImage = Boolean(product.imageUrl) && !failed;
 
   return (
-    <div className="relative aspect-square w-full overflow-hidden bg-white">
+    <div className="aca-product-media relative aspect-square w-full overflow-hidden bg-white">
       {showImage ? (
         <img
           src={product.imageUrl || ""}
@@ -86,14 +86,14 @@ export function ProductResults({ copy, language, products, total, loading, error
 
   return (
     <>
-      <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="aca-product-grid mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => {
           const visibleTags = product.tags.slice(0, 2);
           const whatsappText = encodeURIComponent(`Здравствуйте! Интересует запчасть: ${product.title}\n${window.location.origin}/catalog/${product.handle}`);
           return (
             <article
               key={product.id}
-              className="group flex min-w-0 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#151515] shadow-[0_12px_35px_rgba(0,0,0,0.22)] transition duration-200 hover:-translate-y-0.5 hover:border-[#FFC000]/55 hover:shadow-[0_16px_45px_rgba(0,0,0,0.32)]"
+              className="aca-product-card group flex min-w-0 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#151515] shadow-[0_12px_35px_rgba(0,0,0,0.22)] transition duration-200 hover:-translate-y-0.5 hover:border-[#FFC000]/55 hover:shadow-[0_16px_45px_rgba(0,0,0,0.32)]"
             >
               <Link href={`/catalog/${product.handle}`} className="relative block" aria-label={product.title}>
                 <ProductImage product={product} />
