@@ -3,6 +3,7 @@ export type CatalogIndexProduct = {
   handle: string;
   title: string;
   category: string;
+  categories?: string[];
   tags: string[];
   available: boolean;
   minPriceKzt: number | null;

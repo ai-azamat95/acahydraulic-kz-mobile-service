@@ -228,6 +228,7 @@ export const partCategories = [
   { id: "hydraulic-pumps", ru: "Гидронасосы", kz: "Гидросорғылар", en: "Hydraulic pumps" },
   { id: "gear-pumps", ru: "Шестерёнчатые насосы", kz: "Тісті сорғылар", en: "Gear pumps" },
   { id: "piston-pumps", ru: "Поршневые насосы", kz: "Поршеньді сорғылар", en: "Piston pumps" },
+  { id: "main-control-valves", ru: "Основные гидрораспределители", kz: "Негізгі гидротаратқыштар", en: "Main control valves" },
   { id: "pump-parts", ru: "Запчасти гидронасосов", kz: "Гидросорғы бөлшектері", en: "Hydraulic pump parts" },
   { id: "hydraulic-motors", ru: "Гидромоторы", kz: "Гидромоторлар", en: "Hydraulic motors" },
   { id: "final-drives", ru: "Бортовые редукторы", kz: "Борттық редукторлар", en: "Final drives" },

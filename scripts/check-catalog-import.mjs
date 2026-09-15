@@ -28,10 +28,10 @@ assert.equal(audit.exactMarkupPrices + audit.priceOnRequestVariants, audit.sourc
 assert.equal(products.length, audit.uniqueSourceProducts, 'published product data must match the audited source count');
 assert.equal(new Set(products.map((product) => product.id)).size, products.length, 'source product IDs must be unique');
 assert.equal(new Set(products.map((product) => product.handle)).size, products.length, 'product handles must be unique');
-assert.equal(
-  Object.values(categorySummary).reduce((total, category) => total + category.count, 0),
-  products.length,
-  'every product must be assigned to one catalog category',
+assert(products.every((product) => (product.categories || [product.category]).includes(product.category)), 'every product must include its primary category');
+assert(
+  Object.values(categorySummary).reduce((total, category) => total + category.count, 0) >= products.length,
+  'every product must be assigned to at least one catalog category',
 );
 
 const flowControlValve = products.find((product) => product.handle === '0-16-gpm-1-2-npt-hydraulic-motor-flow-control-valve-w-relief');
@@ -46,6 +46,14 @@ assert.equal(hydraulicMotorAudit.importedProducts, hydraulicMotorAudit.sourcePro
 assert.deepEqual(hydraulicMotorAudit.missingProductIds, [], 'no supplier hydraulic motors may be missing');
 assert.deepEqual(hydraulicMotorAudit.unexpectedProductIds, [], 'no keyword-only products may enter the hydraulic motor category');
 assert.equal(categorySummary['hydraulic-motors'].count, hydraulicMotorAudit.sourceProducts, 'rendered hydraulic motor count must match the supplier collection');
+
+const mainControlValveAudit = strictCategoryAudit.categories['main-control-valves'];
+assert(mainControlValveAudit, 'main control valve collection audit must be present');
+assert.equal(mainControlValveAudit.collection, 'main-control-valve');
+assert.equal(mainControlValveAudit.importedProducts, mainControlValveAudit.sourceProducts, 'every supplier main control valve must be imported');
+assert.deepEqual(mainControlValveAudit.missingProductIds, [], 'no supplier main control valves may be missing');
+assert.deepEqual(mainControlValveAudit.unexpectedProductIds, [], 'no keyword-only products may enter the main control valve category');
+assert.equal(categorySummary['main-control-valves'].count, mainControlValveAudit.sourceProducts, 'rendered main control valve count must match the supplier collection');
 
 const engineCylinderBlock = products.find((product) => product.handle === '04294187-d7e-engine-cylinder-block-sinocmp');
 assert(engineCylinderBlock, 'known engine cylinder block must be present');
