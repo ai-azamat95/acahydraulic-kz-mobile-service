@@ -51,8 +51,10 @@ assert.equal(products.length, manifest.productCount, 'public product count must 
 assert.equal(new Set(products.map((product) => product.handle)).size, products.length, 'public product handles must be unique');
 const pumpParts = products.filter((product) => (product.categories || [product.category]).includes('pump-parts'));
 const wiringHarnesses = products.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses'));
+const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
 assert(pumpParts.length > 0, 'pump parts category must not be empty');
 assert(wiringHarnesses.length > 0, 'wiring harness category must not be empty');
+assert(fuelInjectors.length > 0, 'fuel injector category must not be empty');
 assert(
   pumpParts.every(
     (product) =>
@@ -69,6 +71,14 @@ assert(
   ),
   'wiring harnesses must use the local unbranded catalogue image',
 );
+assert(
+  fuelInjectors.every(
+    (product) =>
+      product.imageUrl === '/catalog-assets/category-fuel-injector.jpg' &&
+      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-fuel-injector.jpg']),
+  ),
+  'fuel injectors must use the local unbranded catalogue image',
+);
 
 console.log(
   JSON.stringify(
@@ -78,6 +88,7 @@ console.log(
       products: products.length,
       pumpParts: pumpParts.length,
       wiringHarnesses: wiringHarnesses.length,
+      fuelInjectors: fuelInjectors.length,
       supplierBrandOccurrences: 0,
       sensitiveSupplierFields: 0,
     },
