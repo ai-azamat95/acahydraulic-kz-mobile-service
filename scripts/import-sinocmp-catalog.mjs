@@ -31,13 +31,18 @@ const CATEGORY_COLLECTIONS = [
   ['seals-filters', ['filters', 'seal-kits', 'engine-gasket-kit', 'consumable-parts']],
   ['engine-fuel', ['fuel-parts', 'engine-parts']],
   ['electrical', ['electrical-parts']],
+  // Keep wiring harnesses in the broader electrical category while also
+  // exposing the supplier's exact collection as a dedicated sales category.
+  ['wiring-harnesses', ['wiring-harness']],
 ];
 const PUMP_COLLECTIONS = ['hydraulic-pump-assembly', 'piston-pump', 'gear-pump'];
 const STRICT_CATEGORY_COLLECTIONS = [
   ['hydraulic-motors', 'hydraulic-motor'],
   ['main-control-valves', 'main-control-valve'],
+  ['wiring-harnesses', 'wiring-harness'],
 ];
 const PUMP_PARTS_PLACEHOLDER = '/catalog-assets/category-pump-parts.jpg';
+const WIRING_HARNESS_PLACEHOLDER = '/catalog-assets/category-wiring-harness.jpg';
 
 const categoryRules = [
   ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'piston shoe', 'swash plate']],
@@ -197,8 +202,10 @@ function productGallery(product) {
   ];
 }
 
-function publicProductGallery(product, category) {
-  if (category === 'pump-parts') return [PUMP_PARTS_PLACEHOLDER];
+function publicProductGallery(product, categories) {
+  const categoryList = Array.isArray(categories) ? categories : [categories];
+  if (categoryList.includes('pump-parts')) return [PUMP_PARTS_PLACEHOLDER];
+  if (categoryList.includes('wiring-harnesses')) return [WIRING_HARNESS_PLACEHOLDER];
   return productGallery(product).filter((imageUrl) => !containsSupplierBrand(imageUrl));
 }
 
@@ -216,7 +223,7 @@ function normalizeProduct(product, page, collectionCategoryByProductId, strictCa
   }));
   const salePrices = variants.map((variant) => variant.priceKzt).filter(Number.isFinite);
   const categories = [...new Set([category, ...(strictCategoryMembershipsByProductId.get(String(product.id)) || [])])];
-  const gallery = publicProductGallery(product, category);
+  const gallery = publicProductGallery(product, categories);
   return {
     id: String(product.id),
     handle: publicHandle(product.handle, product.id),
@@ -261,26 +268,28 @@ function exactList(values) {
   return JSON.stringify(values);
 }
 
-function pumpSourceSnapshot(product, collectionCategoryByProductId) {
+function pumpSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId) {
   const category = detectCategory(product, collectionCategoryByProductId);
+  const categories = [...new Set([category, ...(strictCategoryMembershipsByProductId.get(String(product.id)) || [])])];
   return {
     id: String(product.id),
     handle: publicHandle(product.handle, product.id),
     title: publicText(product.title),
     skus: (product.variants || []).map((variant) => publicSku(variant.sku, variant.id)),
-    gallery: publicProductGallery(product, category),
+    gallery: publicProductGallery(product, categories),
   };
 }
 
-function catalogSourceSnapshot(product, collectionCategoryByProductId) {
+function catalogSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId) {
   const category = detectCategory(product, collectionCategoryByProductId);
+  const categories = [...new Set([category, ...(strictCategoryMembershipsByProductId.get(String(product.id)) || [])])];
   return {
     id: String(product.id),
     handle: publicHandle(product.handle, product.id),
     title: publicText(product.title),
     skus: (product.variants || []).map((variant) => publicSku(variant.sku, variant.id)),
     sourcePricesKzt: (product.variants || []).map((variant) => Number(variant.price)),
-    gallery: publicProductGallery(product, category),
+    gallery: publicProductGallery(product, categories),
   };
 }
 
@@ -588,7 +597,10 @@ async function run() {
   const sourcePumpProducts = new Map();
   for (const [, products] of pumpCollections) {
     for (const product of products) {
-      sourcePumpProducts.set(String(product.id), pumpSourceSnapshot(product, collectionCategoryByProductId));
+      sourcePumpProducts.set(
+        String(product.id),
+        pumpSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId),
+      );
     }
   }
   const pumpProductIds = new Set(sourcePumpProducts.keys());
@@ -612,7 +624,10 @@ async function run() {
       }
 
       for (const product of products) {
-        sourceCatalogProducts.set(String(product.id), catalogSourceSnapshot(product, collectionCategoryByProductId));
+        sourceCatalogProducts.set(
+          String(product.id),
+          catalogSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId),
+        );
       }
       const normalized = products.map((product) => normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId));
       writeJson(`products-${String(page).padStart(3, '0')}.json`, normalized);

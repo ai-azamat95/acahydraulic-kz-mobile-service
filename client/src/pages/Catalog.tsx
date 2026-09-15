@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import {
   ArrowLeft,
   Boxes,
+  Cable,
   Check,
   ChevronRight,
   CircuitBoard,
@@ -38,6 +39,7 @@ const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge>
   "final-drives": Boxes,
   "control-valves": Wrench,
   electrical: CircuitBoard,
+  "wiring-harnesses": Cable,
   "controllers-monitors": Monitor,
   "seals-filters": PackageCheck,
   "engine-fuel": Fuel,
@@ -60,6 +62,7 @@ const categoryImageOverrides: Record<string, string> = {
   "final-drives": "/catalog-assets/final-drive-category.jpg",
   "control-valves": "/catalog-assets/category-control-valve.jpg",
   "electrical": "/catalog-assets/category-electrical.jpg",
+  "wiring-harnesses": "/catalog-assets/category-wiring-harness.jpg",
   "controllers-monitors": "/catalog-assets/category-monitor.jpg",
   "seals-filters": "/catalog-assets/category-seals-filters.jpg",
   "engine-fuel": "/catalog-assets/category-engine-fuel.jpg",
@@ -91,7 +94,7 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 }
 
 function initialVisibleProducts(category: string) {
-  if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves"].includes(category)) return Number.MAX_SAFE_INTEGER;
+  if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves", "wiring-harnesses"].includes(category)) return Number.MAX_SAFE_INTEGER;
   return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
 }
 

@@ -55,6 +55,14 @@ assert.deepEqual(mainControlValveAudit.missingProductIds, [], 'no supplier main 
 assert.deepEqual(mainControlValveAudit.unexpectedProductIds, [], 'no keyword-only products may enter the main control valve category');
 assert.equal(categorySummary['main-control-valves'].count, mainControlValveAudit.sourceProducts, 'rendered main control valve count must match the supplier collection');
 
+const wiringHarnessAudit = strictCategoryAudit.categories['wiring-harnesses'];
+assert(wiringHarnessAudit, 'wiring harness collection audit must be present');
+assert.equal(wiringHarnessAudit.collection, 'wiring-harness');
+assert.equal(wiringHarnessAudit.importedProducts, wiringHarnessAudit.sourceProducts, 'every supplier wiring harness must be imported');
+assert.deepEqual(wiringHarnessAudit.missingProductIds, [], 'no supplier wiring harnesses may be missing');
+assert.deepEqual(wiringHarnessAudit.unexpectedProductIds, [], 'no keyword-only products may enter the wiring harness category');
+assert.equal(categorySummary['wiring-harnesses'].count, wiringHarnessAudit.sourceProducts, 'rendered wiring harness count must match the supplier collection');
+
 const engineCylinderBlock = products.find((product) => product.handle === '04294187-d7e-engine-cylinder-block');
 assert(engineCylinderBlock, 'known engine cylinder block must be present');
 assert.equal(engineCylinderBlock.category, 'engine-fuel', 'engine cylinder block must not be classified as a pump part');

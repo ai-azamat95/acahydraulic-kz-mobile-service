@@ -234,6 +234,7 @@ export const partCategories = [
   { id: "final-drives", ru: "Бортовые редукторы", kz: "Борттық редукторлар", en: "Final drives" },
   { id: "control-valves", ru: "Распределители и клапаны", kz: "Таратқыштар мен клапандар", en: "Control valves" },
   { id: "electrical", ru: "Датчики и соленоиды", kz: "Датчиктер мен соленоидтар", en: "Sensors and solenoids" },
+  { id: "wiring-harnesses", ru: "Жгуты проводки", kz: "Сымдар шоғыры", en: "Wiring harnesses" },
   { id: "controllers-monitors", ru: "Контроллеры и мониторы", kz: "Контроллерлер мен мониторлар", en: "Controllers and monitors" },
   { id: "seals-filters", ru: "Ремкомплекты и фильтры", kz: "Жөндеу жинақтары мен сүзгілер", en: "Seal kits and filters" },
   { id: "engine-fuel", ru: "Двигатель и топливная", kz: "Қозғалтқыш және отын жүйесі", en: "Engine and fuel parts" },
