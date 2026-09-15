@@ -89,7 +89,7 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 }
 
 function initialVisibleProducts(category: string) {
-  if (category === "gear-pumps" || category === "piston-pumps") return Number.MAX_SAFE_INTEGER;
+  if (["gear-pumps", "piston-pumps", "hydraulic-motors"].includes(category)) return Number.MAX_SAFE_INTEGER;
   return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
 }
 
