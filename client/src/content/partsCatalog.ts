@@ -40,6 +40,8 @@ export type CatalogCopy = {
   checkAvailability: string;
   viewPart: string;
   loadMore: string;
+  fitmentLabel: string;
+  fitmentUnknown: string;
   productDescription: string;
   variantsTitle: string;
   variant: string;
@@ -97,6 +99,8 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
     checkAvailability: "Наличие уточняется",
     viewPart: "Открыть карточку",
     loadMore: "Показать ещё",
+    fitmentLabel: "Подходит для",
+    fitmentUnknown: "Совместимость уточняем по OEM, модели и шильдику техники.",
     productDescription: "Подберём эту запчасть для вашей техники, сверим исполнение и подтвердим совместимость до оплаты.",
     variantsTitle: "Варианты и цены",
     variant: "Исполнение",
@@ -152,6 +156,8 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
     checkAvailability: "Қолжетімділігі нақтыланады",
     viewPart: "Карточканы ашу",
     loadMore: "Тағы көрсету",
+    fitmentLabel: "Қолданылуы",
+    fitmentUnknown: "Сәйкестігін OEM, техника моделі және тақтайша бойынша тексереміз.",
     productDescription: "Бұл бөлшекті техникаңызға іріктеп, орындалуын салыстырып, төлемге дейін сәйкестігін растаймыз.",
     variantsTitle: "Нұсқалар мен бағалар",
     variant: "Орындалуы",
@@ -207,6 +213,8 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
     checkAvailability: "Availability to be confirmed",
     viewPart: "View part",
     loadMore: "Load more",
+    fitmentLabel: "Fits",
+    fitmentUnknown: "Fitment is verified by OEM number, machine model and nameplate.",
     productDescription: "We will match this part to your machine, verify its configuration and confirm fitment before payment.",
     variantsTitle: "Options and prices",
     variant: "Option",

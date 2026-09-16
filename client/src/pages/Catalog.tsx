@@ -244,7 +244,7 @@ export default function Catalog() {
     const brandNeedle = brand.toLowerCase();
     return products.filter((product) => {
       if (category && !(product.categories || [product.category]).includes(category)) return false;
-      const haystack = `${product.title} ${product.tags.join(" ")}`.toLowerCase();
+      const haystack = `${product.title} ${product.fitment || ""} ${product.tags.join(" ")}`.toLowerCase();
       if (brandNeedle && !haystack.includes(brandNeedle)) return false;
       if (deferredQuery) {
         const terms = deferredQuery.split(/\s+/).filter(Boolean);

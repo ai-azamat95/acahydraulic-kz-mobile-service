@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { extractFitment } from './lib/catalog-fitment.mjs';
+
 const SOURCE_ORIGIN = 'https://sinocmp.com';
 const KAZAKHSTAN_MARKET_COOKIE = 'localization=KZ; _shopify_country=KZ; cart_currency=KZT';
 const OUTPUT_DIR = path.resolve('client/public/catalog-data');
@@ -229,6 +231,7 @@ function publicProductGallery(product, categories) {
 
 function normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId) {
   const category = detectCategory(product, collectionCategoryByProductId);
+  const title = publicText(product.title);
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
     title: variant.title === 'Default Title' ? '' : publicText(variant.title),
@@ -245,7 +248,9 @@ function normalizeProduct(product, page, collectionCategoryByProductId, strictCa
   return {
     id: String(product.id),
     handle: publicHandle(product.handle, product.id),
-    title: publicText(product.title),
+    title,
+    fitment: extractFitment(title),
+    sku: variants.find((variant) => variant.sku)?.sku || String(product.id),
     category,
     categories,
     productType: publicText(product.product_type),
@@ -658,6 +663,8 @@ async function run() {
           id: product.id,
           handle: product.handle,
           title: product.title,
+          fitment: product.fitment,
+          sku: product.sku,
           category: product.category,
           categories: product.categories,
           tags: product.tags,

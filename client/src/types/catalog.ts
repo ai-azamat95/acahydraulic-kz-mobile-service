@@ -2,6 +2,8 @@ export type CatalogIndexProduct = {
   id: string;
   handle: string;
   title: string;
+  fitment: string | null;
+  sku: string;
   category: string;
   categories?: string[];
   tags: string[];

@@ -75,21 +75,29 @@ export default function CatalogProduct() {
     ? `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
+  const fitmentText = product.fitment || copy.fitmentUnknown;
+  const seoDescription = `${product.title}. ${copy.fitmentLabel}: ${fitmentText}. Цена ${displayedPrice}. Проверка совместимости до оплаты.`;
 
   return (
     <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
       <SEO
         title={`${product.title} - цена и подбор`}
-        description={`${product.title}. Цена ${displayedPrice}. Проверка совместимости с моделью спецтехники и заказ через ACA Hydraulic.`}
+        description={seoDescription}
         canonical={`/catalog/${product.handle}`}
+        ogImage={gallery[0]}
         schema={{
           "@context": "https://schema.org",
           "@type": "Product",
           name: product.title,
+          description: seoDescription,
           image: gallery,
           sku: mainSku,
           category: categoryName,
-          brand: { "@type": "Brand", name: product.tags[0] || "ACA Hydraulic" },
+          additionalProperty: product.fitment ? [{
+            "@type": "PropertyValue",
+            name: copy.fitmentLabel,
+            value: product.fitment,
+          }] : undefined,
           offers: product.minPriceKzt !== null ? {
             "@type": "AggregateOffer",
             priceCurrency: "KZT",
@@ -199,6 +207,14 @@ export default function CatalogProduct() {
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">{product.title}</h1>
             <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{copy.productDescription}</p>
+
+            <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
+              <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{copy.fitmentLabel}</h2>
+              <p className="mt-2 leading-relaxed text-gray-200">{fitmentText}</p>
+              {product.fitment && (
+                <p className="mt-2 text-xs leading-5 text-gray-500">{copy.fitmentUnknown}</p>
+              )}
+            </section>
 
             <div className="mt-7 rounded-lg border border-white/10 bg-[#151515] p-5 md:p-6">
               <p className="text-3xl font-extrabold text-[#FFC000] md:text-4xl">{displayedPrice}</p>

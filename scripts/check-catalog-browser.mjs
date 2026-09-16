@@ -76,6 +76,7 @@ try {
           }
         }
         await page.getByRole('button',{name:'RU',exact:true}).click();
+        assert.equal(await page.locator('.aca-product-fitment').count(),await page.locator('.aca-product-card').count(),'every product card needs a fitment description');
         await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
@@ -151,6 +152,12 @@ try {
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
           assert.equal(await page.locator('.aca-category-card[aria-pressed="true"]').count(),1,'URL category must select exactly one category');
           assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedControlValveCount),'URL category must filter product results');
+          const detailProduct=catalogProducts[0];
+          await page.goto(origin+'/catalog/'+detailProduct.handle,{waitUntil:'networkidle'});
+          await page.locator('.aca-product-fitment-detail').waitFor();
+          assert(await page.locator('.aca-product-fitment-detail').isVisible(),'product page must show fitment details');
+          const productSchema=await page.locator('script[type="application/ld+json"]').evaluateAll(nodes=>nodes.map(node=>{try{return JSON.parse(node.textContent||'{}')}catch{return null}}).find(value=>value?.['@type']==='Product'));
+          assert(productSchema?.description,'product page schema must include a description');
         }
         await page.evaluate(()=>window.scrollTo(0,0));
         await page.screenshot({path:'catalog-ui-check/'+engineName+'-'+width+'.png'});

@@ -119,6 +119,15 @@ export function ProductResults({ copy, language, products, activeCategory, total
                   </Link>
                 </h3>
 
+                <div className="aca-product-fitment mt-3 min-h-[3.4rem] border-l-2 border-[#FFC000]/70 pl-2.5">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#FFC000] sm:text-[11px]">
+                    {copy.fitmentLabel}
+                  </p>
+                  <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-400 sm:text-xs sm:leading-[1.15rem]">
+                    {product.fitment || copy.fitmentUnknown}
+                  </p>
+                </div>
+
                 {visibleTags.length > 0 && (
                   <div className="mt-3 hidden flex-wrap gap-1.5 sm:flex" aria-label="Product tags">
                     {visibleTags.map((tag) => (

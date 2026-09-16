@@ -4,7 +4,10 @@ on:
   pull_request:
     paths:
       - 'scripts/import-sinocmp-catalog.mjs'
+      - 'scripts/lib/catalog-fitment.mjs'
       - 'scripts/check-catalog-import.mjs'
+      - 'scripts/check-catalog-seo.mjs'
+      - 'scripts/create-catalog-route-copies.mjs'
       - 'scripts/check-pump-import.mjs'
       - 'package.json'
       - '.github/workflows/catalog-import-check.yml'
@@ -22,6 +25,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - name: Import current SinoCMP catalog
         run: pnpm catalog:sync
       - name: Compare all products, prices, SKUs, titles and galleries
@@ -32,3 +37,9 @@ jobs:
         run: pnpm catalog:prepare-public
       - name: Verify public catalogue privacy
         run: pnpm catalog:verify-public
+      - name: Build fitment-aware product pages
+        run: |
+          pnpm build
+          node scripts/create-catalog-route-copies.mjs
+      - name: Verify product SEO and sitemap
+        run: pnpm catalog:verify-seo
