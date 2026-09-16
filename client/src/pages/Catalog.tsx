@@ -501,7 +501,7 @@ export default function Catalog() {
                   <h1 className="font-bebas text-4xl font-bold uppercase leading-tight tracking-wide md:text-6xl">
                     {isLandingPage ? landingTitle : copy.pageTitle}
                   </h1>
-                  <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{isLandingPage ? landingDescription : copy.pageDescription}</p>
+                  <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{isLandingPage ? `${language === "ru" ? "Поставка под заказ." : language === "kz" ? "Тапсырыс бойынша." : "Supplied to order."} ${landingDescription}` : copy.pageDescription}</p>
                 </div>
 
                 <div className="mt-6 flex gap-2 overflow-x-auto pb-1" aria-label={ui.searchType}>
@@ -527,7 +527,6 @@ export default function Catalog() {
                 </div>
 
                 <form id="catalog-search" onSubmit={searchCatalog} className="mt-3 rounded-xl border border-white/15 bg-[#0d0d0d] p-4 shadow-[0_18px_55px_rgba(0,0,0,0.28)] md:p-5" noValidate>
-                  <p className="mb-4 rounded-lg border border-[#FFC000]/30 bg-[#FFC000]/5 p-3 text-sm text-gray-200">{language === "ru" ? "Запчасти под заказ. Цену и срок подтвердим по OEM, модели и фото шильдика." : language === "kz" ? "Қосалқы бөлшектер тапсырыс бойынша. Баға мен мерзімді OEM, модель және шильдик фотосы бойынша растаймыз." : "Parts supplied to order. Price and lead time confirmed using the part number, model and nameplate photo."}</p>
                   <label className="grid gap-2 text-sm font-medium text-white">
                     {activeSearchMode.label}
                     <span className="relative">
