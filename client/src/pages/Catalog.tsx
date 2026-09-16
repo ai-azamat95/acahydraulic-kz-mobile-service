@@ -28,6 +28,7 @@ import { ProductResults } from "@/components/catalog/ProductResults";
 import { catalogCopy, partCategories, supportedBrands, type CatalogLanguage } from "@/content/partsCatalog";
 import { useCatalogIndex } from "@/hooks/useCatalogProducts";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
+import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import {
   catalogBrandLandings,
   catalogCategoryLandings,
@@ -221,6 +222,7 @@ export default function Catalog() {
   const [formError, setFormError] = useState("");
   const [visibleCount, setVisibleCount] = useState(() => initialVisibleProducts(category));
   const resultsRef = useRef<HTMLDivElement>(null);
+  const trackedLandingRef = useRef("");
   const copy = catalogCopy[language];
   const ui = enhancementCopy[language];
   const { products, loading, error, complete } = useCatalogIndex();
@@ -312,6 +314,20 @@ export default function Catalog() {
     || "Подбор гидравлических и электронных запчастей по номеру, OEM, VIN и модели техники. CAT, Komatsu, Hitachi, Volvo, SANY, XCMG и другие бренды.";
   const isLandingPage = Boolean(categoryLanding || routeBrand || routeModel);
 
+  useEffect(() => {
+    if (!complete) return;
+    const trackingKey = landingPath;
+    if (trackedLandingRef.current === trackingKey) return;
+    trackedLandingRef.current = trackingKey;
+    trackCatalogEvent("view_item_list", {
+      item_list_id: landingPath,
+      item_list_name: categoryLanding?.id || routeBrand?.slug || routeModel?.slug || "catalog",
+      catalog_result_count: filteredProducts.length,
+      catalog_language: language,
+      items: filteredProducts.slice(0, 24).map(catalogAnalyticsItem),
+    });
+  }, [categoryLanding?.id, complete, filteredProducts, landingPath, language, routeBrand?.slug, routeModel?.slug]);
+
   const scrollToResults = () => {
     window.requestAnimationFrame(() => {
       resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -337,6 +353,16 @@ export default function Catalog() {
       `${ui.supplyType}: ${supplyOption || "-"}`,
       copy.whatsappPhoto,
     ];
+    trackCatalogEvent("catalog_whatsapp_click", {
+      catalog_source: "catalog_search",
+      search_mode: searchMode,
+      landing_id: landingPath,
+      category_id: category || "all",
+      brand_selected: Boolean(brand),
+      has_part_query: Boolean(partQuery.trim()),
+      has_machine_model: Boolean(machineModel.trim()),
+      supply_option_selected: Boolean(supplyOption),
+    });
     fireContact("whatsapp");
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener,noreferrer");
   };
@@ -353,6 +379,15 @@ export default function Catalog() {
     }
     setFormError("");
     setVisibleCount(initialVisibleProducts(category));
+    trackCatalogEvent("catalog_search", {
+      search_mode: searchMode,
+      landing_id: landingPath,
+      category_id: category || "all",
+      brand_selected: Boolean(brand),
+      has_part_query: Boolean(partQuery.trim()),
+      has_machine_model: Boolean(machineModel.trim()),
+      catalog_result_count: filteredProducts.length,
+    });
     scrollToResults();
   };
 

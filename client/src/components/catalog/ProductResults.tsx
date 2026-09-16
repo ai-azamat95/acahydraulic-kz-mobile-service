@@ -4,6 +4,7 @@ import { ChevronRight, MessageCircle, Package, SearchX } from "lucide-react";
 
 import type { CatalogCopy, CatalogLanguage } from "@/content/partsCatalog";
 import { partCategories } from "@/content/partsCatalog";
+import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 import type { CatalogIndexProduct } from "@/types/catalog";
 
 type ProductResultsProps = {
@@ -159,6 +160,11 @@ export function ProductResults({ copy, language, products, activeCategory, total
                       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappText}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackCatalogEvent("catalog_whatsapp_click", {
+                        catalog_source: "product_card",
+                        item_id: product.id,
+                        item_category: activeCategory || product.category,
+                      })}
                       className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded bg-[#FFC000] px-2 text-xs font-extrabold text-black transition-colors hover:bg-[#E6AC00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:min-h-11 sm:text-sm"
                     >
                       <MessageCircle className="h-4 w-4" aria-hidden="true" />
