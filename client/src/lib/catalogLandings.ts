@@ -1,10 +1,17 @@
 import landingData from "@shared/catalog-landings.json";
+import seoContent from "@shared/catalog-seo-content.json";
 
 export type CatalogCategoryLanding = (typeof landingData.categories)[number];
 export type CatalogBrandLanding = (typeof landingData.brands)[number];
 
 export const catalogCategoryLandings = landingData.categories;
 export const catalogBrandLandings = landingData.brands;
+export const catalogCategorySeoContent = seoContent;
+
+export function categorySeoContent(categoryId?: string) {
+  if (!categoryId || !(categoryId in catalogCategorySeoContent)) return null;
+  return catalogCategorySeoContent[categoryId as keyof typeof catalogCategorySeoContent];
+}
 
 const MODEL_RULES: Array<{ pattern: RegExp; brand: string; engine?: boolean; requiresBrand?: boolean }> = [
   { pattern: /^(?:PC|WA)\d{2,4}(?:-[A-Z0-9]+)?$/i, brand: "Komatsu" },

@@ -27,6 +27,7 @@ const products = Array.from({ length: manifest.chunkCount }, (_, index) => {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }).flat();
 const lastmod = String(manifest.importedAt || new Date().toISOString()).slice(0, 10);
+const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
 
 function escapeAttr(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
@@ -49,10 +50,22 @@ function setRootFallback(html, fallback) {
   throw new Error('Unable to locate the application root for static catalogue landing content.');
 }
 
-function relatedLinks(current, type) {
-  const categories = catalogCategoryLandings.filter((item) => type !== 'category' || item.id !== current).slice(0, 8);
-  const brands = brandPages.filter((item) => type !== 'brand' || item.slug !== current).slice(0, 8);
-  const models = modelPages.filter((item) => type !== 'model' || item.slug !== current).slice(0, 10);
+function relatedLinks(current, type, matches) {
+  const categories = catalogCategoryLandings
+    .filter((item) => type !== 'category' || item.id !== current)
+    .map((item) => ({ ...item, relatedCount: matches.filter((product) => (product.categories || [product.category]).includes(item.id)).length }))
+    .sort((a, b) => b.relatedCount - a.relatedCount)
+    .slice(0, 8);
+  const brands = brandPages
+    .filter((item) => type !== 'brand' || item.slug !== current)
+    .map((item) => ({ ...item, relatedCount: matches.filter((product) => productBrandSlugs.get(product.id).includes(item.slug)).length }))
+    .sort((a, b) => b.relatedCount - a.relatedCount || b.count - a.count)
+    .slice(0, 8);
+  const models = modelPages
+    .filter((item) => type !== 'model' || item.slug !== current)
+    .map((item) => ({ ...item, relatedCount: matches.filter((product) => productModels.get(product.id).some((model) => model.slug === item.slug)).length }))
+    .sort((a, b) => b.relatedCount - a.relatedCount || b.count - a.count)
+    .slice(0, 10);
   return `<section><h2>Другие разделы каталога</h2><p>${categories.map((item) => `<a href="/catalog/category/${item.id}/">${escapeHtml(item.title)}</a>`).join(' · ')}</p>
   <h2>Бренды и модели</h2><p>${brands.map((item) => `<a href="/catalog/brand/${item.slug}/">${escapeHtml(item.name)}</a>`).join(' · ')}</p><p>${models.map((item) => `<a href="/catalog/model/${item.slug}/">${escapeHtml(`${item.brand} ${item.label}`)}</a>`).join(' · ')}</p></section>`;
 }
@@ -76,13 +89,20 @@ function landingPage({ type, slug, title, description, intro, matches }) {
       })),
     },
   });
+  const seo = type === 'category' ? categorySeoContent[slug] : null;
+  const selectionGuide = seo ? `<section data-category-selection><h2>Как подобрать запчасть без ошибки</h2><p>${escapeHtml(seo.selection)}</p><p>Также ищут: ${seo.queries.map(escapeHtml).join(' · ')}.</p>
+  <h2>Частые вопросы по подбору</h2>
+  <details><summary>Какие данные нужны для подбора?</summary><p>${escapeHtml(seo.selection)}</p></details>
+  <details><summary>Как подтверждается совместимость?</summary><p>Сопоставляем OEM-номер, модель и серийный номер техники, исполнение и фотографии узла. Совпадение только по внешнему виду не считается подтверждением.</p></details>
+  <details><summary>Когда будут известны цена и срок?</summary><p>После проверки номера и комплектации уточняем доступный вариант поставки, актуальную цену и срок. До сверки эти данные не фиксируем.</p></details></section>` : '';
   const fallback = `<main aria-label="${escapeAttr(title)}">
   <nav aria-label="Хлебные крошки"><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a> / ${escapeHtml(title)}</nav>
   <h1>${escapeHtml(title)}</h1>
   <p>${escapeHtml(intro || description)}</p>
   <p>Найдено позиций: ${matches.length}. Цена, наличие и срок подтверждаются после проверки OEM-номера, модели, серийного номера и исполнения детали.</p>
+  ${selectionGuide}
   <section><h2>Товары раздела</h2><ul>${itemList.map((product) => `<li><a href="/catalog/${product.handle}/">${escapeHtml(product.title)}</a>${product.fitment ? ` — ${escapeHtml(product.fitment)}` : ''}</li>`).join('')}</ul></section>
-  ${relatedLinks(slug, type)}
+  ${relatedLinks(slug, type, matches)}
   <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a></p>
 </main>`;
 

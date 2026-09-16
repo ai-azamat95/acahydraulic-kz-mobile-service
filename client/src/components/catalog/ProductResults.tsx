@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { ChevronRight, MessageCircle, Package, SearchX } from "lucide-react";
 
 import type { CatalogCopy, CatalogLanguage } from "@/content/partsCatalog";
+import { partCategories } from "@/content/partsCatalog";
 import type { CatalogIndexProduct } from "@/types/catalog";
 
 type ProductResultsProps = {
@@ -36,9 +37,12 @@ function formatPrice(product: CatalogIndexProduct, copy: CatalogCopy, language: 
   return `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}`;
 }
 
-function productCode(product: CatalogIndexProduct, activeCategory?: string) {
+function productCode(product: CatalogIndexProduct, activeCategory: string | undefined, language: CatalogLanguage) {
+  const categoryId = activeCategory || product.category;
+  const category = partCategories.find((item) => item.id === categoryId);
+  if (category) return category[language];
   const usefulTag = product.tags.find((tag) => /\d/.test(tag) && tag.length <= 26);
-  return usefulTag || activeCategory || product.category;
+  return usefulTag || categoryId;
 }
 
 function ProductImage({ product }: { product: CatalogIndexProduct }) {
@@ -99,7 +103,7 @@ export function ProductResults({ copy, language, products, activeCategory, total
               <Link href={`/catalog/${product.handle}`} className="relative block" aria-label={product.title}>
                 <ProductImage product={product} />
                 <div className="aca-product-code absolute left-2 top-2 max-w-[70%] truncate rounded-full border border-black/10 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white backdrop-blur sm:left-3 sm:top-3 sm:text-[11px]">
-                  {productCode(product, activeCategory)}
+                  {productCode(product, activeCategory, language)}
                 </div>
                 <div
                   className={`absolute right-2 top-2 rounded-full border px-2 py-1 text-[10px] font-bold backdrop-blur sm:right-3 sm:top-3 sm:text-[11px] ${
