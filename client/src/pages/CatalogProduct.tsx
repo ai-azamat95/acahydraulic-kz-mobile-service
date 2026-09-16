@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, Check, ImageIcon, MessageCircle, Package, ShieldCheck, ZoomIn } from "lucide-react";
 
@@ -6,6 +6,7 @@ import { SEO } from "@/components/SEO";
 import { catalogCopy, partCategories, type CatalogLanguage } from "@/content/partsCatalog";
 import { useCatalogProduct } from "@/hooks/useCatalogProducts";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
+import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 
 const WHATSAPP_NUMBER = "77714177925";
 
@@ -21,6 +22,7 @@ export default function CatalogProduct() {
   const [language, setLanguage] = useState<CatalogLanguage>("ru");
   const [selectedImage, setSelectedImage] = useState("");
   const [imageFailed, setImageFailed] = useState(false);
+  const trackedProductRef = useRef("");
   const { product, loading, error } = useCatalogProduct(handle);
   const fireContact = useTikTokContact();
   const copy = catalogCopy[language];
@@ -38,6 +40,16 @@ export default function CatalogProduct() {
     setImageFailed(false);
   }, [gallery]);
 
+  useEffect(() => {
+    if (!product || trackedProductRef.current === product.id) return;
+    trackedProductRef.current = product.id;
+    trackCatalogEvent("view_item", {
+      currency: "KZT",
+      value: product.minPriceKzt ?? undefined,
+      items: [catalogAnalyticsItem(product)],
+    });
+  }, [product]);
+
   const requestProduct = () => {
     if (!product) return;
     const message = [
@@ -48,6 +60,11 @@ export default function CatalogProduct() {
       `Ссылка: ${window.location.href}`,
       copy.whatsappPhoto,
     ].join("\n");
+    trackCatalogEvent("catalog_whatsapp_click", {
+      catalog_source: "product_page",
+      item_id: product.id,
+      item_category: product.category,
+    });
     fireContact("whatsapp");
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
