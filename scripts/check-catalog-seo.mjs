@@ -28,6 +28,8 @@ for (const product of [productsWithFitment[0], products.find((item) => !item.fit
   assert(schemaMatch, 'static product page must include Product JSON-LD');
   const schema = JSON.parse(schemaMatch[1]);
   assert.equal(schema['@type'], 'Product');
+  assert(!schema.offers?.availability, 'supplier availability must not claim local stock or delivery status');
+  assert(html.includes('Поставка под заказ'), 'static product must disclose supply to order');
   assert.equal(schema.sku, product.sku);
   assert(schema.description?.includes('Применяемость:'), 'Product JSON-LD needs a fitment-aware description');
   assert(Array.isArray(schema.image) && schema.image.length > 0, 'Product JSON-LD needs an image');

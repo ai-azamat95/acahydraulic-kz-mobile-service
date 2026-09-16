@@ -58,7 +58,7 @@ function productPage(product) {
   const title = `${titleCore} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
   const price = Number.isFinite(product.minPriceKzt) ? `Цена от ${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
-  const description = `${product.title}. Применяемость: ${fitment}. ${price}. Проверка совместимости до оплаты.`;
+  const description = `${product.title}. Применяемость: ${fitment}. ${price}. Поставка под заказ. Цена и срок после проверки шильдика.`;
   const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
@@ -79,7 +79,6 @@ function productPage(product) {
       priceCurrency: 'KZT',
       lowPrice: product.minPriceKzt,
       highPrice: product.maxPriceKzt ?? product.minPriceKzt,
-      availability: product.available ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
       url: canonical,
     } : undefined,
   });
@@ -87,6 +86,7 @@ function productPage(product) {
   <p><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a></p>
   <h1>${escapeHtml(product.title)}</h1>
   <p>${escapeHtml(description)}</p>
+  <p><strong>Поставка под заказ. Цену и срок подтвердим после проверки шильдика.</strong></p>
   <h2>Применяемость</h2>
   <p>${escapeHtml(fitment)}</p>
   <p><strong>${escapeHtml(price)}</strong></p>
