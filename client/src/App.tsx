@@ -130,6 +130,9 @@ function AppRoutes() {
         <Route path="/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami" component={Hitachi330FloatingPressure} />
         <Route path="/blog" component={Blog} />
         <Route path="/catalog" component={Catalog} />
+        <Route path="/catalog/category/:categoryId" component={Catalog} />
+        <Route path="/catalog/brand/:brandSlug" component={Catalog} />
+        <Route path="/catalog/model/:modelSlug" component={Catalog} />
         <Route path="/catalog/:handle" component={CatalogProduct} />
         <Route path="/blog/remont-gidronasosa-cat" component={RemonGidronasosaCat} />
         <Route path="/blog/padaet-davlenie-gidravliki-ekskavatora" component={PadaetDavlenieGidravliki} />

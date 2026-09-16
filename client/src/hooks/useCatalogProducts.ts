@@ -33,6 +33,7 @@ export function useCatalogIndex() {
   const [products, setProducts] = useState<CatalogIndexProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [complete, setComplete] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -43,6 +44,7 @@ export function useCatalogIndex() {
       try {
         setLoading(true);
         setError(false);
+        setComplete(false);
 
         const manifest = await fetchJson<CatalogManifest>(
           "/catalog-data/manifest.json",
@@ -80,7 +82,10 @@ export function useCatalogIndex() {
                 controller.signal,
                 "force-cache",
               );
-              if (!controller.signal.aborted) setProducts(index);
+              if (!controller.signal.aborted) {
+                setProducts(index);
+                setComplete(true);
+              }
               return;
             }
 
@@ -106,6 +111,7 @@ export function useCatalogIndex() {
               collected.push(...chunks.flat());
               if (!controller.signal.aborted) setProducts([...collected]);
             }
+            if (!controller.signal.aborted) setComplete(true);
           } catch (fullIndexError) {
             if (controller.signal.aborted) return;
             console.error("Full catalog index failed to load", fullIndexError);
@@ -131,7 +137,7 @@ export function useCatalogIndex() {
     };
   }, []);
 
-  return { products, loading, error };
+  return { products, loading, error, complete };
 }
 
 export function useCatalogProduct(handle: string) {

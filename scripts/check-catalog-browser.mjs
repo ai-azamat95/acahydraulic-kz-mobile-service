@@ -84,35 +84,37 @@ try {
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
         assert.equal(categoryImages[6].path,'/catalog-assets/final-drive-category.jpg');
         if(width===1440){
+          assert.equal(await page.locator('.aca-category-card').first().getAttribute('href'),'/catalog/category/hydraulic-pumps','category cards must be crawlable links');
           await page.locator('.aca-category-card').first().click();
-          assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'true');
-          assert.equal(new URL(page.url()).searchParams.get('category'),'hydraulic-pumps','category click must create a shareable URL');
+          assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-current'),'page');
+          assert.equal(new URL(page.url()).pathname,'/catalog/category/hydraulic-pumps','category click must create a clean shareable URL');
+          assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://acahydraulic.kz/catalog/category/hydraulic-pumps/','category needs a self canonical');
           assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),'800','hydraulic pump category must expose at least 800 cards immediately');
           assert.equal(await page.locator('.aca-product-card').count(),800,'hydraulic pump category must render 800 real product cards');
           await page.locator('.aca-category-card').first().click();
-          assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-pressed'),'false');
-          assert.equal(new URL(page.url()).searchParams.has('category'),false,'clearing a category must clear the URL filter');
+          assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-current'),null);
+          assert.equal(new URL(page.url()).pathname,'/catalog','clearing a category must return to the catalogue');
           if(expectedGearPumpCount>0){
-            await page.goto(origin+'/catalog?category=gear-pumps',{waitUntil:'networkidle'});
+            await page.goto(origin+'/catalog/category/gear-pumps',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedGearPumpCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedGearPumpCount),'gear pump URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedGearPumpCount),'all gear pumps must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedGearPumpCount,'all gear pumps must render as real product cards');
           }
           if(expectedPistonPumpCount>0){
-            await page.goto(origin+'/catalog?category=piston-pumps',{waitUntil:'networkidle'});
+            await page.goto(origin+'/catalog/category/piston-pumps',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedPistonPumpCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedPistonPumpCount),'piston pump URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedPistonPumpCount),'all piston pumps must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedPistonPumpCount,'all piston pumps must render as real product cards');
           }
-          await page.goto(origin+'/catalog?category=hydraulic-motors',{waitUntil:'networkidle'});
+          await page.goto(origin+'/catalog/category/hydraulic-motors',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedHydraulicMotorCount);
           assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedHydraulicMotorCount),'hydraulic motor URL must contain the complete supplier collection');
           assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedHydraulicMotorCount),'all hydraulic motors must be visible without pagination');
           assert.equal(await page.locator('.aca-product-card').count(),expectedHydraulicMotorCount,'all hydraulic motors must render as real product cards');
           if(expectedMainControlValveCount>0){
-            await page.goto(origin+'/catalog?category=main-control-valves',{waitUntil:'networkidle'});
+            await page.goto(origin+'/catalog/category/main-control-valves',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedMainControlValveCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedMainControlValveCount),'main control valve URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedMainControlValveCount),'all main control valves must be visible without pagination');
@@ -121,36 +123,36 @@ try {
             assert.equal(await overlappingValve.locator('.aca-product-code').textContent(),'main-control-valves','overlapping products must show the active category badge');
           }
           if(expectedWiringHarnessCount>0){
-            await page.goto(origin+'/catalog?category=wiring-harnesses',{waitUntil:'networkidle'});
+            await page.goto(origin+'/catalog/category/wiring-harnesses',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedWiringHarnessCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedWiringHarnessCount),'wiring harness URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedWiringHarnessCount),'all wiring harnesses must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedWiringHarnessCount,'all wiring harnesses must render as real product cards');
           }
           if(expectedFuelInjectorCount>0){
-            await page.goto(origin+'/catalog?category=fuel-injectors',{waitUntil:'networkidle'});
+            await page.goto(origin+'/catalog/category/fuel-injectors',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedFuelInjectorCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelInjectorCount),'fuel injector URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelInjectorCount),'all fuel injectors must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedFuelInjectorCount,'all fuel injectors must render as real product cards');
           }
           if(expectedFuelPumpCount>0){
-            await page.goto(origin+'/catalog?category=fuel-pumps',{waitUntil:'networkidle'});
+            await page.goto(origin+'/catalog/category/fuel-pumps',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedFuelPumpCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelPumpCount),'fuel pump URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelPumpCount),'all fuel pumps must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedFuelPumpCount,'all fuel pumps must render as real product cards');
           }
           if(expectedEngineRebuildKitCount>0){
-            await page.goto(origin+'/catalog?category=engine-rebuild-kits',{waitUntil:'networkidle'});
+            await page.goto(origin+'/catalog/category/engine-rebuild-kits',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedEngineRebuildKitCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedEngineRebuildKitCount),'engine rebuild kit URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedEngineRebuildKitCount),'all engine rebuild kits must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedEngineRebuildKitCount,'all engine rebuild kits must render as real product cards');
           }
-          await page.goto(origin+'/catalog?category=control-valves',{waitUntil:'networkidle'});
+          await page.goto(origin+'/catalog/category/control-valves',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
-          assert.equal(await page.locator('.aca-category-card[aria-pressed="true"]').count(),1,'URL category must select exactly one category');
+          assert.equal(await page.locator('.aca-category-card[aria-current="page"]').count(),1,'URL category must select exactly one category');
           assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedControlValveCount),'URL category must filter product results');
           const detailProduct=catalogProducts[0];
           await page.goto(origin+'/catalog/'+detailProduct.handle,{waitUntil:'networkidle'});

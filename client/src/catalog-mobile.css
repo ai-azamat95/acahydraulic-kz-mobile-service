@@ -21,7 +21,7 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
 /* Category navigation keeps product imagery and real inventory counts visible. */
 .aca-category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}
 .aca-category-card{position:relative;display:grid;grid-template-columns:minmax(84px,42%) minmax(0,1fr);align-items:center;gap:12px;min-width:0;min-height:136px;padding:12px 26px 12px 12px;border:1px solid #e1e5ea;border-radius:14px;background:#fff;color:#111827;text-align:left;box-shadow:0 4px 16px rgb(15 23 42 / 5%);transition:border-color .15s,box-shadow .15s,transform .15s}
-.aca-category-card:hover,.aca-category-card[aria-pressed="true"]{border-color:#ffc000;box-shadow:0 0 0 1px #ffc000,0 8px 24px rgb(15 23 42 / 9%);transform:translateY(-1px)}
+.aca-category-card:hover,.aca-category-card[aria-current="page"]{border-color:#ffc000;box-shadow:0 0 0 1px #ffc000,0 8px 24px rgb(15 23 42 / 9%);transform:translateY(-1px)}
 .aca-category-card:focus-visible{outline:3px solid #b97800;outline-offset:3px}
 .aca-category-media{position:relative;display:grid;place-items:center;width:100%;height:108px;min-width:0}
 .aca-category-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#fff}
@@ -93,7 +93,10 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type>div{padding:14px}
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type a.mb-5{display:none}
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .grid.lg\:grid-cols-\[1\.15fr_0\.85fr\]{display:flex;flex-direction:column;gap:14px}
-  body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .max-w-3xl{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .max-w-3xl{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .aca-landing-heading{position:static;width:auto;height:auto;margin:0;padding:2px 0 4px;overflow:visible;clip:auto;white-space:normal;border:0}
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .aca-landing-heading h1{font-family:Inter,sans-serif;font-size:26px;line-height:1.08;letter-spacing:-.025em;text-transform:none}
+body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type .aca-landing-heading p{margin-top:7px;font-size:13px;line-height:1.45}
   body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type aside{display:none}
   .aca-mobile-promos{display:grid;order:-1;gap:10px;width:100%;min-width:0}
   .aca-mobile-promos a{display:block;overflow:hidden;border-radius:12px;line-height:0;box-shadow:0 3px 12px rgb(15 23 42 / 7%)}
