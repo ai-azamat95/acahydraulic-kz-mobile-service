@@ -14,6 +14,19 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
+const popularCatalogCategories = [
+  { id: "hydraulic-pumps", title: "Гидронасосы", text: "Насосы в сборе и подбор по OEM, модели и шильдику." },
+  { id: "gear-pumps", title: "Шестерёнчатые насосы", text: "Подбор по объёму, вращению, валу, фланцу и портам." },
+  { id: "piston-pumps", title: "Поршневые насосы", text: "Аксиально-поршневые насосы для экскаваторов и погрузчиков." },
+  { id: "pump-parts", title: "Запчасти гидронасосов", text: "Группы вращения, блоки цилиндров, валы и ремкомплекты." },
+  { id: "hydraulic-motors", title: "Гидромоторы", text: "Гидромоторы хода, поворота и рабочего оборудования." },
+  { id: "main-control-valves", title: "Гидрораспределители", text: "Основные распределители с проверкой секций и портов." },
+  { id: "fuel-injectors", title: "Топливные форсунки", text: "Форсунки и комплектующие Common Rail по номеру." },
+  { id: "fuel-pumps", title: "Топливные насосы", text: "ТНВД и насосы низкого давления для двигателей спецтехники." },
+  { id: "engine-rebuild-kits", title: "Комплекты капремонта ДВС", text: "Комплекты по модели и серийному номеру двигателя." },
+  { id: "wiring-harnesses", title: "Жгуты проводки", text: "Проводка двигателя, кабины и оборудования по разъёмам." },
+] as const;
+
 export default function Home() {
   // The userAuth hooks provides authentication state
   // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
@@ -597,6 +610,34 @@ export default function Home() {
         </div>
       </section>
 
+      <section aria-labelledby="popular-parts-title" className="border-t border-white/10 bg-[#0d0d0d] py-14 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#FFC000]">Каталог запчастей</p>
+              <h2 id="popular-parts-title" className="mt-3 font-bebas text-4xl font-bold uppercase tracking-wide text-white md:text-5xl">Популярные категории</h2>
+              <p className="mt-3 leading-relaxed text-gray-400">Перейдите сразу в нужный раздел. Для точного подбора подготовьте OEM-номер, модель и серийный номер техники, фотографию детали и шильдика.</p>
+            </div>
+            <Link href="/catalog" className="inline-flex min-h-11 shrink-0 items-center gap-2 font-bold text-[#FFC000] hover:text-[#FFD24A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">
+              Весь каталог <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+          <nav aria-label="Популярные категории запчастей" className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {popularCatalogCategories.map((item) => (
+              <Link
+                key={item.id}
+                href={`/catalog/category/${item.id}`}
+                className="group flex min-h-40 flex-col rounded-lg border border-white/10 bg-[#151515] p-5 transition duration-200 hover:-translate-y-0.5 hover:border-[#FFC000]/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
+              >
+                <span className="text-lg font-bold leading-snug text-white group-hover:text-[#FFC000]">{item.title}</span>
+                <span className="mt-3 text-sm leading-relaxed text-gray-400">{item.text}</span>
+                <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-bold text-[#FFC000]">Смотреть товары <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </section>
+
       {/* Equipment Brands Section */}
       <section className="py-16 bg-[#111111] border-t border-white/10">
         <div className="container mx-auto px-4">
@@ -703,7 +744,9 @@ export default function Home() {
                 <li><Link href="/services/mobile-repair" className="hover:text-[#FFC000] transition-colors">{t('footer.mobileRepair')}</Link></li>
                 <li><Link href="/services/hydraulic-pumps" className="hover:text-[#FFC000] transition-colors">{t('footer.pumpRepair')}</Link></li>
                 <li><Link href="/services/hydraulic-motors" className="hover:text-[#FFC000] transition-colors">{t('footer.motorRepair')}</Link></li>
-
+                <li><Link href="/catalog/category/hydraulic-pumps" className="hover:text-[#FFC000] transition-colors">Каталог гидронасосов</Link></li>
+                <li><Link href="/catalog/category/pump-parts" className="hover:text-[#FFC000] transition-colors">Запчасти гидронасосов</Link></li>
+                <li><Link href="/catalog/category/fuel-pumps" className="hover:text-[#FFC000] transition-colors">Топливные насосы</Link></li>
               </ul>
             </div>
 

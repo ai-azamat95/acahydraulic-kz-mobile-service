@@ -31,6 +31,7 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 import {
   catalogBrandLandings,
   catalogCategoryLandings,
+  categorySeoContent,
   extractBrandSlugs,
   extractModelLandings,
   landingSearchText,
@@ -293,6 +294,7 @@ export default function Catalog() {
   }, [brand, category, deferredQuery, products, routeBrand, routeModel]);
 
   const categoryLanding = catalogCategoryLandings.find((item) => item.id === category);
+  const categorySeo = categorySeoContent(categoryLanding?.id);
   const landingPath = categoryLanding
     ? `/catalog/category/${categoryLanding.id}`
     : routeBrand
@@ -701,6 +703,29 @@ export default function Catalog() {
               <h2 className="text-xl font-bold text-white">{landingTitle}</h2>
               <p className="mt-3 max-w-5xl leading-relaxed text-gray-300">{categoryLanding?.intro || landingDescription}</p>
               <p className="mt-3 max-w-5xl text-sm leading-relaxed text-gray-400">Цена, наличие и срок подтверждаются после проверки OEM-номера, модели, серийного номера и исполнения детали.</p>
+              {categorySeo && (
+                <div className="mt-6 grid gap-5 border-t border-white/10 pt-5 lg:grid-cols-[1.1fr_0.9fr]">
+                  <div>
+                    <h3 className="text-lg font-bold text-white">Как подобрать запчасть без ошибки</h3>
+                    <p className="mt-2 leading-relaxed text-gray-300">{categorySeo.selection}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-gray-400">Также ищут: {categorySeo.queries.join(" · ")}.</p>
+                  </div>
+                  <div className="grid gap-2" aria-label="Частые вопросы по подбору">
+                    <details className="rounded border border-white/10 bg-[#0f0f0f] p-4">
+                      <summary className="cursor-pointer font-bold text-white">Какие данные нужны для подбора?</summary>
+                      <p className="mt-2 text-sm leading-relaxed text-gray-400">{categorySeo.selection}</p>
+                    </details>
+                    <details className="rounded border border-white/10 bg-[#0f0f0f] p-4">
+                      <summary className="cursor-pointer font-bold text-white">Как подтверждается совместимость?</summary>
+                      <p className="mt-2 text-sm leading-relaxed text-gray-400">Сопоставляем OEM-номер, модель и серийный номер техники, исполнение и фотографии узла. Совпадение только по внешнему виду не считается подтверждением.</p>
+                    </details>
+                    <details className="rounded border border-white/10 bg-[#0f0f0f] p-4">
+                      <summary className="cursor-pointer font-bold text-white">Когда будут известны цена и срок?</summary>
+                      <p className="mt-2 text-sm leading-relaxed text-gray-400">После проверки номера и комплектации уточняем доступный вариант поставки, актуальную цену и срок. До сверки эти данные не фиксируем.</p>
+                    </details>
+                  </div>
+                </div>
+              )}
             </section>
           )}
 

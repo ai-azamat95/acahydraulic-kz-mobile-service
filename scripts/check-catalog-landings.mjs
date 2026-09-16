@@ -8,6 +8,8 @@ const publicDir = path.resolve('dist/public');
 const landingIndex = JSON.parse(fs.readFileSync(path.join(publicDir, 'catalog-data', 'landing-pages.json'), 'utf8'));
 const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap-catalog-landings.xml'), 'utf8');
 const robots = fs.readFileSync(path.join(publicDir, 'robots.txt'), 'utf8');
+const homeSource = fs.readFileSync(path.resolve('client/src/pages/Home.tsx'), 'utf8');
+const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
 const pages = [
   ...landingIndex.categories.map((page) => ({ type: 'category', slug: page.id, count: page.count })),
   ...landingIndex.brands.map((page) => ({ type: 'brand', slug: page.slug, count: page.count })),
@@ -16,6 +18,8 @@ const pages = [
 
 assert.equal(landingIndex.categories.length, 19, 'all 19 catalogue categories need landing pages');
 assert.deepEqual(landingIndex.categories.map((item) => item.id), catalogCategoryLandings.map((item) => item.id), 'category landing list must match UI categories');
+assert.deepEqual(Object.keys(categorySeoContent).sort(), catalogCategoryLandings.map((item) => item.id).sort(), 'every category needs SEO selection content');
+assert(homeSource.includes('href={`/catalog/category/${item.id}`}'), 'home category cards must use direct landing-page links');
 assert(landingIndex.brands.length >= 10, 'brand landing coverage is unexpectedly small');
 assert(landingIndex.models.length >= 20, 'model landing coverage is unexpectedly small');
 assert(landingIndex.models.every((item) => item.count >= 8), 'thin model pages must not be indexed');
@@ -35,11 +39,19 @@ for (const page of pages) {
   const productLinkCount = (html.match(/<a href="\/catalog\/(?!category\/|brand\/|model\/)[^/]+\/">/g) || []).length;
   assert(productLinkCount >= page.count, `${route} must link directly to every matching product`);
   assert(html.includes('data-static-collection-schema'), `${route} needs CollectionPage schema`);
+  if (page.type === 'category') {
+    assert(html.includes('data-category-selection'), `${route} needs visible selection guidance`);
+    assert((html.match(/<details>/g) || []).length >= 3, `${route} needs three useful selection questions`);
+  }
   assert(!/sinocmp/i.test(html), `${route} exposes supplier identity`);
   const description = html.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/i)?.[1];
   assert(description && description.length >= 90, `${route} needs a useful meta description`);
   assert(!descriptions.has(description), `${route} duplicates another meta description`);
   descriptions.add(description);
+}
+
+for (const slug of ['hydraulic-pumps', 'gear-pumps', 'piston-pumps', 'pump-parts', 'hydraulic-motors', 'main-control-valves', 'fuel-injectors', 'fuel-pumps', 'engine-rebuild-kits', 'wiring-harnesses']) {
+  assert(homeSource.includes(`id: "${slug}"`), `home page must link directly to ${slug}`);
 }
 
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;

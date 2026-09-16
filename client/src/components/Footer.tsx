@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="bg-[#0a0a0a] border-t border-white/10 py-12">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-5">
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="flex gap-[3px] h-[28px]">
@@ -27,7 +27,19 @@ export function Footer() {
               {t('footer.description')}
             </p>
           </div>
-          
+
+          <div>
+            <h3 className="font-bebas text-xl text-white mb-4 tracking-wide">Каталог</h3>
+            <ul className="space-y-2 text-gray-500 text-sm font-roboto">
+              <li><Link href="/catalog/category/hydraulic-pumps" className="hover:text-[#FFC000] transition-colors">Гидронасосы</Link></li>
+              <li><Link href="/catalog/category/gear-pumps" className="hover:text-[#FFC000] transition-colors">Шестерёнчатые насосы</Link></li>
+              <li><Link href="/catalog/category/pump-parts" className="hover:text-[#FFC000] transition-colors">Запчасти гидронасосов</Link></li>
+              <li><Link href="/catalog/category/hydraulic-motors" className="hover:text-[#FFC000] transition-colors">Гидромоторы</Link></li>
+              <li><Link href="/catalog/category/fuel-injectors" className="hover:text-[#FFC000] transition-colors">Топливные форсунки</Link></li>
+              <li><Link href="/catalog/category/fuel-pumps" className="hover:text-[#FFC000] transition-colors">Топливные насосы</Link></li>
+            </ul>
+          </div>
+
           <div>
             <h3 className="font-bebas text-xl text-white mb-4 tracking-wide">{t('footer.servicesTitle')}</h3>
             <ul className="space-y-2 text-gray-500 text-sm font-roboto">
