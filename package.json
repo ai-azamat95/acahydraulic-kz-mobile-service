@@ -18,6 +18,8 @@
     "catalog:verify-site": "node scripts/check-public-site.mjs",
     "catalog:verify-seo": "node scripts/check-catalog-seo.mjs",
     "catalog:routes": "node scripts/create-catalog-route-copies.mjs",
+    "catalog:landing-routes": "node scripts/create-catalog-landing-routes.mjs",
+    "catalog:verify-landings": "node scripts/check-catalog-landings.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },
   "dependencies": {

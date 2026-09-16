@@ -48,9 +48,13 @@ jobs:
       - name: Create static case route copies
         run: node scripts/create-case-route-copies.mjs
       - name: Create static catalog route copies
-        run: node scripts/create-catalog-route-copies.mjs
-      - name: Verify product SEO and sitemap
-        run: pnpm catalog:verify-seo
+        run: |
+          pnpm catalog:routes
+          pnpm catalog:landing-routes
+      - name: Verify catalog SEO and sitemaps
+        run: |
+          pnpm catalog:verify-seo
+          pnpm catalog:verify-landings
       - name: Verify published site has no supplier identity
         run: pnpm catalog:verify-site
       - name: Upload artifact
