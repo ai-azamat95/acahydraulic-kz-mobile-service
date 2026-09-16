@@ -50,7 +50,7 @@ export default function CatalogProduct() {
     });
   }, [product]);
 
-  const requestProduct = () => {
+  const requestProduct = (purpose: "part" | "nameplate" | "invoice" = "part") => {
     if (!product) return;
     const message = [
       copy.whatsappIntro,
@@ -59,9 +59,13 @@ export default function CatalogProduct() {
       `${copy.price}: ${product.minPriceKzt !== null ? `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
       `Ссылка: ${window.location.href}`,
       copy.whatsappPhoto,
-    ].join("\n");
+      language === "ru" ? "Поставка под заказ. Прошу подтвердить цену и срок." : language === "kz" ? "Тапсырыс бойынша жеткізу. Баға мен мерзімді растауыңызды сұраймын." : "Please confirm price and lead time for supply to order.",
+      language === "ru" ? "Город: \nКоличество: \nНужна к дате: " : language === "kz" ? "Қала: \nСаны: \nҚажетті күні: " : "City: \nQuantity: \nRequired by: ",
+      purpose === "invoice" ? (language === "ru" ? "Прошу подготовить счёт после согласования детали и поставки. Реквизиты приложу файлом в этом чате." : language === "kz" ? "Бөлшек пен жеткізу келісілгеннен кейін шот дайындауыңызды сұраймын. Деректемелер файлын осы чатқа тіркеймін." : "Please prepare an invoice after confirming the part and delivery. I will attach company details in this chat.") : "",
+    ].filter(Boolean).join("\n");
     trackCatalogEvent("catalog_whatsapp_click", {
       catalog_source: "product_page",
+      catalog_request_type: purpose,
       item_id: product.id,
       item_category: product.category,
     });
@@ -121,7 +125,6 @@ export default function CatalogProduct() {
             lowPrice: product.minPriceKzt,
             highPrice: product.maxPriceKzt ?? product.minPriceKzt,
             offerCount: product.variants.length,
-            availability: product.available ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
             url: `https://acahydraulic.kz/catalog/${product.handle}/`,
           } : undefined,
         }}
@@ -241,13 +244,22 @@ export default function CatalogProduct() {
               </div>
               <button
                 type="button"
-                onClick={requestProduct}
+                onClick={() => requestProduct()}
                 className="mt-6 inline-flex min-h-13 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3.5 text-base font-extrabold text-black transition-colors hover:bg-[#E6AC00] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:w-auto"
               >
                 <MessageCircle className="h-5 w-5" aria-hidden="true" />
                 {copy.requestButton}
               </button>
               <p className="mt-3 text-sm text-gray-500">{copy.requestNote}</p>
+              <div className="mt-4 flex flex-col items-start gap-3 text-sm">
+                <button type="button" onClick={() => requestProduct("nameplate")} className="min-h-11 text-[#FFC000] underline underline-offset-4">
+                  {language === "ru" ? "Отправить фото шильдика в WhatsApp" : language === "kz" ? "WhatsApp арқылы шильдик фотосын жіберу" : "Send a nameplate photo in WhatsApp"}
+                </button>
+                <button type="button" onClick={() => requestProduct("invoice")} className="min-h-11 text-white underline underline-offset-4">
+                  {language === "ru" ? "Запросить счёт в WhatsApp" : language === "kz" ? "WhatsApp арқылы шот сұрату" : "Request an invoice in WhatsApp"}
+                </button>
+                <p className="text-gray-400">{language === "ru" ? "Фото и файл с реквизитами прикрепите в открывшемся чате. Счёт подготовим после согласования детали, цены и срока." : language === "kz" ? "Фото мен деректемелер файлын ашылған чатқа тіркеңіз. Шот бөлшек, баға және мерзім келісілгеннен кейін дайындалады." : "Attach your photo or company details in the chat. We prepare the invoice after confirming the part, price and lead time."}</p>
+              </div>
             </div>
 
             {product.tags.length > 0 && (

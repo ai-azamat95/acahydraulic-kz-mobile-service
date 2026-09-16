@@ -1,3 +1,4 @@
+import { catalogMatchesQuery } from "@/lib/catalogSearch";
 import { FormEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useParams } from "wouter";
 import {
@@ -288,8 +289,7 @@ export default function Catalog() {
       if (routeModel && !extractModelLandings(landingText).some((item) => item.slug === routeModel.slug)) return false;
       if (!routeBrand && brandNeedle && !haystack.includes(brandNeedle)) return false;
       if (deferredQuery) {
-        const terms = deferredQuery.split(/\s+/).filter(Boolean);
-        if (!terms.every((term) => haystack.includes(term))) return false;
+        if (!catalogMatchesQuery(product, deferredQuery)) return false;
       }
       return true;
     });
@@ -501,7 +501,7 @@ export default function Catalog() {
                   <h1 className="font-bebas text-4xl font-bold uppercase leading-tight tracking-wide md:text-6xl">
                     {isLandingPage ? landingTitle : copy.pageTitle}
                   </h1>
-                  <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{isLandingPage ? landingDescription : copy.pageDescription}</p>
+                  <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{isLandingPage ? `${language === "ru" ? "Поставка под заказ." : language === "kz" ? "Тапсырыс бойынша." : "Supplied to order."} ${landingDescription}` : copy.pageDescription}</p>
                 </div>
 
                 <div className="mt-6 flex gap-2 overflow-x-auto pb-1" aria-label={ui.searchType}>
@@ -540,6 +540,18 @@ export default function Catalog() {
                       />
                     </span>
                   </label>
+
+                  {searchMode !== "vin" && partQuery.trim().length >= 2 && deferredQuery === `${partQuery} ${machineModel}`.trim().toLowerCase() && (
+                    <section aria-label={language === "ru" ? "Быстрые результаты поиска" : "Quick search results"} className="mt-2 overflow-hidden rounded-lg border border-white/15 bg-[#181818]">
+                      {filteredProducts.slice(0, 5).map((product) => (
+                        <Link key={product.id} href={`/catalog/${product.handle}`} className="flex min-h-16 items-center gap-3 border-b border-white/10 p-3 last:border-0 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">
+                          {product.imageUrl && <img src={product.imageUrl} alt="" width={44} height={44} loading="lazy" className="h-11 w-11 rounded bg-white object-contain" />}
+                          <span className="min-w-0"><span className="line-clamp-2 text-sm text-white">{product.title}</span><span className="mt-1 block text-xs text-[#FFC000]">{language === "ru" ? "Под заказ · Проверить цену и срок" : language === "kz" ? "Тапсырыс бойынша · Баға мен мерзімді нақтылау" : "To order · Confirm price and lead time"}</span></span>
+                        </Link>
+                      ))}
+                      {filteredProducts.length === 0 && <p className="p-3 text-sm text-gray-400">{loading || !complete ? copy.loadingProducts : copy.noResults}</p>}
+                    </section>
+                  )}
 
                   <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
                     <label className="grid gap-2 text-xs font-medium text-gray-300 md:text-sm">
