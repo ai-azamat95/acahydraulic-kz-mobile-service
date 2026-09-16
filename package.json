@@ -16,6 +16,7 @@
     "catalog:prepare-public": "node scripts/prepare-public-catalog.mjs",
     "catalog:verify-public": "node scripts/check-public-catalog.mjs",
     "catalog:verify-site": "node scripts/check-public-site.mjs",
+    "catalog:verify-seo": "node scripts/check-catalog-seo.mjs",
     "catalog:routes": "node scripts/create-catalog-route-copies.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },

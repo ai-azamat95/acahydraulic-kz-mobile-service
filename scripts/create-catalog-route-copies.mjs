@@ -41,18 +41,39 @@ function setTag(html, regex, replacement) {
   return html.replace('</head>', `${replacement}\n</head>`);
 }
 
+function setRootFallback(html, fallback) {
+  const replacement = `<div id="root">${fallback}</div>`;
+  if (html.includes('<div id="root"></div>')) {
+    return html.replace('<div id="root"></div>', replacement);
+  }
+
+  const populatedRoot = /<div id="root">[\s\S]*?<\/main><\/div>/;
+  if (populatedRoot.test(html)) return html.replace(populatedRoot, replacement);
+  throw new Error('Unable to locate the application root for static product content.');
+}
+
 function productPage(product) {
   const canonical = `${baseUrl}/catalog/${product.handle}/`;
   const titleCore = product.title.length > 110 ? `${product.title.slice(0, 107)}...` : product.title;
   const title = `${titleCore} | ACA Hydraulic`;
-  const description = `${product.title}. Цена от ${formatPrice(product.minPriceKzt)} с наценкой 50%. Проверка совместимости и заказ через ACA Hydraulic.`;
+  const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
+  const price = Number.isFinite(product.minPriceKzt) ? `Цена от ${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
+  const description = `${product.title}. Применяемость: ${fitment}. ${price}. Проверка совместимости до оплаты.`;
+  const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.title,
-    sku: product.id,
+    description,
+    image: image ? [image] : undefined,
+    sku: product.sku || product.id,
     category: product.category,
     url: canonical,
+    additionalProperty: product.fitment ? [{
+      '@type': 'PropertyValue',
+      name: 'Применяемость',
+      value: product.fitment,
+    }] : undefined,
     offers: Number.isFinite(product.minPriceKzt) ? {
       '@type': 'AggregateOffer',
       priceCurrency: 'KZT',
@@ -66,7 +87,9 @@ function productPage(product) {
   <p><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a></p>
   <h1>${escapeHtml(product.title)}</h1>
   <p>${escapeHtml(description)}</p>
-  <p><strong>Цена: от ${escapeHtml(formatPrice(product.minPriceKzt))}</strong></p>
+  <h2>Применяемость</h2>
+  <p>${escapeHtml(fitment)}</p>
+  <p><strong>${escapeHtml(price)}</strong></p>
   <p>Перед оплатой ACA Hydraulic сверяет номер детали, модель техники, серийный номер, исполнение, разъёмы, вал, фланец и порты.</p>
   <p>Доступны оригинальные, OEM и проверенные аналоговые варианты. Конкретный вариант, наличие, срок доставки и гарантия подтверждаются после проверки.</p>
   <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a></p>
@@ -80,8 +103,12 @@ function productPage(product) {
   html = setTag(html, /<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${canonical}">`);
   html = setTag(html, /<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)}">`);
   html = setTag(html, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
+  if (image) {
+    html = setTag(html, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${escapeAttr(image)}">`);
+    html = setTag(html, /<meta\s+name=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${escapeAttr(image)}">`);
+  }
   html = html.replace('</head>', `<script type="application/ld+json" data-static-product-schema>${schema}</script>\n</head>`);
-  html = html.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
+  html = setRootFallback(html, fallback);
   html = html.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);
     return managed && !/\bdata-rh=/i.test(attrs) ? `<${name} data-rh="true"${attrs}>` : tag;
