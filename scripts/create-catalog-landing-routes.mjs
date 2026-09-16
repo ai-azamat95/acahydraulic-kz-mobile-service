@@ -88,12 +88,12 @@ function landingPage({ type, slug, title, description, intro, matches }) {
 
   let html = indexHtml;
   html = setTag(html, /<title[^>]*>.*?<\/title>/is, `<title>${escapeHtml(title)} | ACA Hydraulic</title>`);
-  html = setTag(html, /<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${escapeAttr(description)}">`);
   html = html.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
   html = html.replace('</head>', `<link data-rh="true" rel="canonical" href="${canonical}">\n</head>`);
-  html = setTag(html, /<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${canonical}">`);
-  html = setTag(html, /<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)} | ACA Hydraulic">`);
-  html = setTag(html, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:url["'])[^>]*>/i, `<meta property="og:url" content="${canonical}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)} | ACA Hydraulic">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
   html = html.replace('</head>', `<script type="application/ld+json" data-static-collection-schema>${schema}</script>\n</head>`);
   html = setRootFallback(html, fallback);
   html = html.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
