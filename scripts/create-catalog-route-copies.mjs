@@ -57,8 +57,9 @@ function productPage(product) {
   const titleCore = product.title.length > 110 ? `${product.title.slice(0, 107)}...` : product.title;
   const title = `${titleCore} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
-  const price = Number.isFinite(product.minPriceKzt) ? `Цена от ${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
-  const description = `${product.title}. Применяемость: ${fitment}. ${price}. Поставка под заказ. Цена и срок после проверки шильдика.`;
+  const price = Number.isFinite(product.minPriceKzt) ? `Цена ${product.approvedSale ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
+  const saleTerms = product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану от 3 дней. Предоплата 100%. Стоимость доставки и точный срок согласуем до оплаты.' : '';
+  const description = `${product.title}. Применяемость: ${fitment}. ${price}. ${saleTerms} Поставка под заказ. Цена и срок после проверки шильдика.`;
   const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
@@ -68,6 +69,7 @@ function productPage(product) {
     image: image ? [image] : undefined,
     sku: product.sku || product.id,
     category: product.category,
+    itemCondition: product.approvedSale ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
     additionalProperty: product.fitment ? [{
       '@type': 'PropertyValue',
@@ -75,10 +77,11 @@ function productPage(product) {
       value: product.fitment,
     }] : undefined,
     offers: Number.isFinite(product.minPriceKzt) ? {
-      '@type': 'AggregateOffer',
+      '@type': product.approvedSale ? 'Offer' : 'AggregateOffer',
+      price: product.approvedSale ? product.minPriceKzt : undefined,
       priceCurrency: 'KZT',
-      lowPrice: product.minPriceKzt,
-      highPrice: product.maxPriceKzt ?? product.minPriceKzt,
+      lowPrice: product.approvedSale ? undefined : product.minPriceKzt,
+      highPrice: product.approvedSale ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
       url: canonical,
     } : undefined,
   });

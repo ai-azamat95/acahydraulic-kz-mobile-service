@@ -35,7 +35,7 @@ function formatPrice(product: CatalogIndexProduct, copy: CatalogCopy, language: 
     return `${formatKzt(product.minPriceKzt, language)} — ${formatKzt(product.maxPriceKzt, language)}`;
   }
 
-  return `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}`;
+  return `${product.approvedSale ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`;
 }
 
 function productCode(product: CatalogIndexProduct, activeCategory: string | undefined, language: CatalogLanguage) {

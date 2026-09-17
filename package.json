@@ -20,7 +20,8 @@
     "catalog:routes": "node scripts/create-catalog-route-copies.mjs",
     "catalog:landing-routes": "node scripts/create-catalog-landing-routes.mjs",
     "catalog:verify-landings": "node scripts/check-catalog-landings.mjs",
-    "db:push": "drizzle-kit generate && drizzle-kit migrate"
+    "db:push": "drizzle-kit generate && drizzle-kit migrate",
+    "catalog:test-prices": "node --test tests/catalog-approved-prices.test.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",
