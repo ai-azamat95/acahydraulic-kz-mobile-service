@@ -56,7 +56,7 @@ export default function CatalogProduct() {
       copy.whatsappIntro,
       `${copy.whatsappPart}: ${product.title}`,
       `${copy.whatsappCategory}: ${categoryName}`,
-      `${copy.price}: ${product.minPriceKzt !== null ? `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
+      `${copy.price}: ${product.minPriceKzt !== null ? `${product.approvedSale ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
       `Ссылка: ${window.location.href}`,
       copy.whatsappPhoto,
       language === "ru" ? "Поставка под заказ. Прошу подтвердить цену и срок." : language === "kz" ? "Тапсырыс бойынша жеткізу. Баға мен мерзімді растауыңызды сұраймын." : "Please confirm price and lead time for supply to order.",
@@ -93,7 +93,7 @@ export default function CatalogProduct() {
   }
 
   const displayedPrice = product.minPriceKzt !== null
-    ? `${copy.fromPrice} ${formatKzt(product.minPriceKzt, language)}`
+    ? `${product.approvedSale ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
   const fitmentText = product.fitment || copy.fitmentUnknown;
@@ -114,17 +114,19 @@ export default function CatalogProduct() {
           image: gallery,
           sku: mainSku,
           category: categoryName,
+          itemCondition: product.approvedSale ? "https://schema.org/NewCondition" : undefined,
           additionalProperty: product.fitment ? [{
             "@type": "PropertyValue",
             name: copy.fitmentLabel,
             value: product.fitment,
           }] : undefined,
           offers: product.minPriceKzt !== null ? {
-            "@type": "AggregateOffer",
+            "@type": product.approvedSale ? "Offer" : "AggregateOffer",
+            price: product.approvedSale ? product.minPriceKzt : undefined,
             priceCurrency: "KZT",
-            lowPrice: product.minPriceKzt,
-            highPrice: product.maxPriceKzt ?? product.minPriceKzt,
-            offerCount: product.variants.length,
+            lowPrice: product.approvedSale ? undefined : product.minPriceKzt,
+            highPrice: product.approvedSale ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
+            offerCount: product.approvedSale ? undefined : product.variants.length,
             url: `https://acahydraulic.kz/catalog/${product.handle}/`,
           } : undefined,
         }}
@@ -242,6 +244,9 @@ export default function CatalogProduct() {
                 <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
                 {product.available ? copy.available : copy.checkAvailability}
               </div>
+              {product.approvedSale && <p className="mt-3 text-sm leading-6 text-gray-300">
+                {language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану от 3 дней. Предоплата 100%. Стоимость доставки и точный срок согласуем до оплаты. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу 3 күннен бастап. Алдын ала төлем 100%. Жеткізу құны мен нақты мерзімі төлемге дейін келісіледі. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan from 3 days. 100% prepayment. Delivery cost and exact lead time agreed before payment. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
+              </p>}
               <button
                 type="button"
                 onClick={() => requestProduct()}
