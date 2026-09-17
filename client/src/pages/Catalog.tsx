@@ -896,6 +896,7 @@ export default function Catalog() {
               <Truck className="h-7 w-7 text-[#FFC000]" aria-hidden="true" />
               <h2 className="mt-5 text-xl font-bold">{copy.deliveryTitle}</h2>
               <p className="mt-3 leading-relaxed text-gray-400">{copy.deliveryText}</p>
+              <Link href="/delivery-and-returns/" className="mt-3 inline-flex min-h-11 items-center text-[#8a6100] underline">{language === "ru" ? "Доставка, оплата и возврат" : language === "kz" ? "Жеткізу, төлем және қайтару" : "Delivery, payment and returns"}</Link>
             </article>
             <article className="rounded border border-white/10 bg-[#151515] p-6">
               <ShieldCheck className="h-7 w-7 text-[#FFC000]" aria-hidden="true" />

@@ -8,6 +8,7 @@ const baseUrl = 'https://acahydraulic.kz';
 const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-repair-content.json', import.meta.url), 'utf8'));
 const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
 const serviceDirectory = JSON.parse(fs.readFileSync(new URL('../shared/service-directory.json', import.meta.url), 'utf8'));
+const deliveryPolicy = JSON.parse(fs.readFileSync(new URL('../shared/delivery-and-returns.json', import.meta.url), 'utf8'));
 
 if (!fs.existsSync(indexPath)) {
   throw new Error(`Missing ${indexPath}. Run build first.`);
@@ -16,7 +17,7 @@ if (!fs.existsSync(indexPath)) {
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 const sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
 const locs = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)].map((m) => m[1]);
-const routes = new Set(['404', 'privacy', 'terms']);
+const routes = new Set(['404', 'privacy', 'terms', 'delivery-and-returns']);
 
 for (const raw of locs) {
   const route = raw.replace(/^\/+|\/+$/g, '');
@@ -29,6 +30,7 @@ const explicitMeta = {
   '404': { title: 'Страница не найдена | ACA Hydraulic', description: 'Эта страница отсутствует. Перейдите на главную ACA Hydraulic.' },
   privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
   terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
+  'delivery-and-returns': { title: deliveryPolicy.title + ' | ACA Hydraulic', description: deliveryPolicy.description },
   '': {
     title: 'Ремонт гидравлики в Астане — выездной сервис | ACA Hydraulic',
     description: 'Ремонт гидравлики в Астане: экскаваторы, погрузчики и буровые. Диагностика от 200 000 ₸, выезд на объект. База: трасса Астана–Караганда, 81.',
@@ -222,6 +224,9 @@ function fallbackLinks(route) {
 }
 
 function staticFallback(route, meta, canonical) {
+  if (route === 'delivery-and-returns') {
+    return `<main><a href="/catalog/">Каталог запчастей</a><h1>${escapeHtml(deliveryPolicy.title)}</h1><p>${escapeHtml(deliveryPolicy.description)}</p>${deliveryPolicy.sections.map(section => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.text)}</p></section>`).join('')}<p><a href="tel:+77714177925">+7 771 417 79 25</a> · <a href="mailto:info@acahydraulic.kz">info@acahydraulic.kz</a></p></main>`;
+  }
   const directoryHtml = route === 'services' ? serviceDirectory.categories.map(category => {
     const items = category.subcategories.length ? category.subcategories : [{ name: category.title, link: category.link }];
     const links = items.map(item => item.link && item.link !== '#'

@@ -12,6 +12,7 @@ import NotFound from "@/pages/NotFound";
 
 // Lazy-loaded pages — split into separate chunks to reduce initial bundle
 const Legal = lazy(() => import("./pages/Legal"));
+const DeliveryAndReturns = lazy(() => import("./pages/DeliveryAndReturns"));
 const Services = lazy(() => import("./pages/Services"));
 const About = lazy(() => import("./pages/About"));
 const Reviews = lazy(() => import("./pages/Reviews"));
@@ -91,6 +92,7 @@ function AppRoutes() {
         <Route path={"/"} component={Home} />
         <Route path="/privacy" component={Legal} />
         <Route path="/terms" component={Legal} />
+        <Route path="/delivery-and-returns" component={DeliveryAndReturns} />
         <Route path="/industrial-ai" component={IndustrialAI} />
         <Route path="/parts" component={Catalog} />
         <Route path="/parts/:slug" component={ProductPage} />
