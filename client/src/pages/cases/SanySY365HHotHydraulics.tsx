@@ -1,3 +1,4 @@
+import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { Link } from "wouter";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
@@ -87,6 +88,7 @@ export default function SanySY365HHotHydraulics() {
             <Link href="/projects"><Button className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black">Все видеокейсы</Button></Link>
           </div>
         </section>
+      <PumpCaseTeaser />
       </main>
     </div>
   );

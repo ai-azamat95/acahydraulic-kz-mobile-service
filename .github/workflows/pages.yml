@@ -46,7 +46,9 @@ jobs:
       - name: Create Industrial AI route copy
         run: node scripts/create-industrial-ai-route.mjs
       - name: Create static case route copies
-        run: node scripts/create-case-route-copies.mjs
+        run: |
+          node scripts/create-case-route-copies.mjs
+          node --test tests/pump-case-publication.test.mjs
       - name: Create static catalog route copies
         run: |
           pnpm catalog:routes

@@ -1,3 +1,4 @@
+import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { Button } from "@/components/ui/button";
 import { Phone, CheckCircle2, Wrench, Truck, Clock, FileText, ShieldCheck, HardHat, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
@@ -354,6 +355,7 @@ export default function MobileRepair() {
           <B2BLeadForm />
         </DialogContent>
       </Dialog>
+      <PumpCaseTeaser />
       </div>
     </>
   );

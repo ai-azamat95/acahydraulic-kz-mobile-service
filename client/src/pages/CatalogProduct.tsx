@@ -1,3 +1,4 @@
+import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, Check, ImageIcon, MessageCircle, Package, ShieldCheck, ZoomIn } from "lucide-react";
@@ -320,6 +321,7 @@ export default function CatalogProduct() {
             <p className="mt-2 leading-relaxed text-gray-400">{copy.qualityText}</p>
           </div>
         </section>
+        {product.category === "hydraulic-pumps" && <div className="mt-12"><PumpCaseTeaser /></div>}
       </main>
     </div>
   );
