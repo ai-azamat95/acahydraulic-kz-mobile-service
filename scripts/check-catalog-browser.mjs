@@ -180,6 +180,9 @@ try {
       assert.equal(await journey.locator('[data-supply-offer]').count(),1);
       await journey.reload({waitUntil:'networkidle'});
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT','URL search survives reload');
+      await journey.locator('.aca-category-card[href="/catalog?q=K5V160DT"]').click();
+      assert.equal(new URL(journey.url()).searchParams.get('q'),'K5V160DT','category navigation preserves query');
+      assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT');
       await journey.locator('#catalog-search input').first().fill('HANDOK');
       await journey.locator('[data-supply-offer="handok-h5v80dtp"]').waitFor();
       await journey.locator('[data-supply-offer="sany-k5v160dt"]').waitFor({state:'detached'});

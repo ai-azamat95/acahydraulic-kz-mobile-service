@@ -583,7 +583,7 @@ export default function Catalog() {
                       {copy.brandLabel}
                       <select
                         value={brand}
-                        onChange={(event) => event.target.value ? chooseBrand(event.target.value) : navigate("/catalog")}
+                        onChange={(event) => chooseBrand(event.target.value)}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-2 text-sm text-white focus:border-[#FFC000] focus:outline-none"
                       >
                         <option value="">{copy.brandPlaceholder}</option>
@@ -721,7 +721,7 @@ export default function Catalog() {
             {matchingSupplyOffers.length > 0 && <button type="button" onClick={scrollToResults} className="min-h-11 text-sm font-bold text-[#8a6100] underline underline-offset-4">{pumpSupplyLabels[language].title}</button>}
             {category && (
               <Link
-                href="/catalog"
+                href={catalogSearchHref(partQuery)}
                 onClick={() => chooseCategory(category)}
                 className="min-h-10 rounded border border-white/15 bg-[#151515] px-4 text-sm font-bold text-gray-200 hover:border-[#FFC000]/50 hover:text-[#FFC000]"
               >
@@ -739,7 +739,7 @@ export default function Catalog() {
               return (
                 <Link
                   key={item.id}
-                  href={active ? "/catalog" : `/catalog/category/${item.id}`}
+                  href={catalogSearchHref(partQuery, active ? undefined : item.id)}
                   onClick={() => chooseCategory(item.id)}
                   aria-current={active ? "page" : undefined}
                   className="aca-category-card"
@@ -847,7 +847,7 @@ export default function Catalog() {
                   return (
                     <Link
                       key={item}
-                      href={routeBrand?.name === item ? "/catalog" : `/catalog/brand/${landing?.slug || ""}`}
+                      href={(routeBrand?.name === item ? "/catalog" : `/catalog/brand/${landing?.slug || ""}`) + (partQuery.trim() ? `?q=${encodeURIComponent(partQuery.trim())}` : "")}
                       onClick={() => chooseBrand(item)}
                       aria-current={routeBrand?.name === item ? "page" : undefined}
                       className={`min-h-10 rounded border px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] ${
