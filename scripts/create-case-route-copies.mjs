@@ -52,12 +52,26 @@ function escapeAttr(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 }
 
+function replaceRootContent(html, content) {
+  const opening = /<div\b[^>]*\bid=["']root["'][^>]*>/i.exec(html);
+  if (!opening) throw new Error('The case page is missing its root container');
+  const start = opening.index + opening[0].length;
+  const divTags = /<\/?div\b[^>]*>/gi;
+  divTags.lastIndex = start;
+  let depth = 1;
+  for (let tag; (tag = divTags.exec(html));) {
+    depth += /^<\//.test(tag[0]) ? -1 : 1;
+    if (depth === 0) return html.slice(0, start) + content + html.slice(tag.index);
+  }
+  throw new Error('The case page has an unclosed root container');
+}
+
 function setMeta(html, route) {
   const meta = caseMeta[route];
   if (!meta) return html;
   const canonical = `${baseUrl}/${route}/`;
-  html = html.replace(/<title>.*?<\/title>/i, `<title>${meta.title}</title>`);
-  html = html.replace(/<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeAttr(meta.description)}">`);
+  html = html.replace(/<title\b[^>]*>.*?<\/title>/is, `<title data-rh="true">${meta.title}</title>`);
+  html = html.replace(/<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" data-rh="true" content="${escapeAttr(meta.description)}">`);
   // The root document is already managed by react-helmet and can contain
   // attributes before rel="canonical". Remove every existing canonical first
   // so generated route copies always expose exactly one route-specific URL.
@@ -71,12 +85,13 @@ function setMeta(html, route) {
       'twitter:image': `${baseUrl}/media/pump-cases/sany-sy365h.webp`,
     };
     for (const [name, value] of Object.entries(socialMeta)) {
-      const pattern = new RegExp(`<meta\\s+(?:property|name)=["']${name}["'][^>]*>`, 'i');
-      html = html.replace(pattern, `<meta ${name.startsWith('og:') ? 'property' : 'name'}="${name}" content="${escapeAttr(value)}">`);
+      const pattern = new RegExp(`<meta(?=[^>]*\\b(?:property|name)=["']${name}["'])[^>]*>`, 'i');
+      html = html.replace(pattern, `<meta ${name.startsWith('og:') ? 'property' : 'name'}="${name}" content="${escapeAttr(value)}" data-rh="true">`);
     }
+    html = html.replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
     // Search crawlers and visitors without JavaScript receive the real case,
     // including the distinction between completed work and a pending order.
-    html = html.replace('<div id="root"></div>', `<div id="root"><main class="container mx-auto max-w-6xl px-4 py-12 text-white">
+    html = replaceRootContent(html, `<main class="container mx-auto max-w-6xl px-4 py-12 text-white">
       <a href="/cases/">Все кейсы ACA Hydraulic</a>
       <h1>Гидронасос — с подбором, доставкой и заменой</h1>
       <h2>SANY SY365H: K5V160DT, доставка, замена и запуск</h2>
@@ -91,7 +106,7 @@ function setMeta(html, route) {
       <p>Совместимость проверяем по модели техники, шильдику, валу, фланцу, портам, вращению, регулятору и комплектации.</p>
       <a href="https://wa.me/77714177925?text=${encodeURIComponent('Здравствуйте! Нужен насос с доставкой и заменой. Модель: __. Город: __. Пришлю шильдик.')}" rel="noopener noreferrer">Отправить шильдик в WhatsApp</a>
       <p><a href="tel:+77714177925">+7 771 417 79 25</a></p>
-    </main></div>`);
+    </main>`);
   }
   return html;
 }
