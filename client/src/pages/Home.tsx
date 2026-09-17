@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
 import { seoConfig } from "@/config/seo";
 import LocalRepairInfo from '@/components/LocalRepairInfo';
+import Cat325VideoCase from '@/components/Cat325VideoCase';
 import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Scan, Microscope, Settings, Gauge, Menu, X, Send, Video, MapPin, Building2, Calculator, ArrowRight, Mail } from "lucide-react";
 import CostCalculator from "@/components/CostCalculator";
 import { Link } from "wouter";
@@ -318,6 +319,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Cat325VideoCase />
 
       <section aria-labelledby="repair-cases-title" className="border-t border-white/10 bg-[#111111] py-8 md:py-12">
         <div className="container mx-auto px-4">
