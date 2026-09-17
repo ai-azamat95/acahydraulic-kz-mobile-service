@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { approvedPumpPrices, applyApprovedPrice, applyApprovedCatalogPrices } from '../scripts/catalog-approved-prices.mjs';
 
-const products = () => approvedPumpPrices.map(offer => ({ ...offer, category: 'hydraulic-pumps', minPriceKzt: null, maxPriceKzt: null, variants: [{ id: `${offer.id}-v`, priceKzt: null }] }));
+const products = () => approvedPumpPrices.map(offer => ({ ...offer, title: `${offer.model} hydraulic pump`, category: 'hydraulic-pumps', minPriceKzt: null, maxPriceKzt: null, variants: [{ id: `${offer.id}-v`, priceKzt: null }] }));
 
 test('approved assemblies get exact prices and condition without inventing stock or manufacturer', () => {
   for (const product of products()) {
@@ -22,6 +22,19 @@ test('approved assemblies get exact prices and condition without inventing stock
     assert.equal(result.available, undefined);
     assert.equal(result.brand, undefined);
     assert.equal(product.minPriceKzt, null);
+    assert.deepEqual(applyApprovedPrice(result), result);
+  }
+});
+
+test('model-first titles preserve the configuration fitment and identifiers', () => {
+  for (const product of products()) {
+    const original = { ...product, title: `${product.model} for Volvo`, fitment: 'Volvo EC210B', sku: 'OEM-123' };
+    const result = applyApprovedPrice(original);
+    assert.equal(result.title, `Гидронасос ${product.model} в сборе`);
+    assert.equal(result.fitment, original.fitment);
+    assert.equal(result.catalogTitle, original.title);
+    assert.equal(result.sku, original.sku);
+    assert.equal(result.handle, original.handle);
     assert.deepEqual(applyApprovedPrice(result), result);
   }
 });
