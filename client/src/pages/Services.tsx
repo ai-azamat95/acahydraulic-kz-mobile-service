@@ -1,15 +1,15 @@
+import SiteHomeLink from "@/components/SiteHomeLink";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
-import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Drill, Factory, Gauge, FileText, CheckCircle2, Building2, MapPin, Menu } from "lucide-react";
+import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Drill, Factory, Gauge, FileText, CheckCircle2, Building2, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import MobileSiteMenu from "@/components/MobileSiteMenu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import serviceDirectory from "../../../shared/service-directory.json";
 import B2BLeadForm from "@/components/B2BLeadForm";
 
 export default function Services() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
 
   const serviceCategories = serviceDirectory.categories;
@@ -26,7 +26,7 @@ export default function Services() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-transparent pt-2 pb-2 px-4 md:pt-6 md:pb-8">
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
-          <Link href="/">
+          <SiteHomeLink aria-label="ACA Hydraulic — главная">
             <div className="flex items-center gap-3 cursor-pointer">
               <div className="flex gap-[3px] h-[28px]">
                 <div className="w-[10px] h-full bg-[#FFC000]"></div>
@@ -40,12 +40,13 @@ export default function Services() {
                 <span className="font-sans font-medium text-[11px] text-white leading-none tracking-wider mt-[2px]">HYDRAULIC</span>
               </div>
             </div>
-          </Link>
+          </SiteHomeLink>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-6">
             <Link href="/" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Главная</Link>
             <Link href="/services" className="text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors border-b border-[#FFC000]">Услуги</Link>
+            <Link href="/catalog" className="text-white/80 hover:text-[#FFC000] text-sm uppercase tracking-wider">Запчасти</Link>
             <Link href="/about" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">О компании</Link>
             <Link href="/projects" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Проекты</Link>
             <Link href="/reviews" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Отзывы</Link>
@@ -54,24 +55,7 @@ export default function Services() {
           </nav>
 
           {/* Mobile Menu */}
-          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <button className="text-white p-2">
-                <Menu size={24} />
-              </button>
-            </SheetTrigger>
-            <SheetContent side="right" className="bg-[#1a1a1a] border-l border-white/10 w-[280px]">
-              <nav className="flex flex-col gap-6 mt-8">
-                <Link href="/" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors" onClick={() => setIsMenuOpen(false)}>Главная</Link>
-                <Link href="/services" className="text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors" onClick={() => setIsMenuOpen(false)}>Услуги</Link>
-                <Link href="/about" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors" onClick={() => setIsMenuOpen(false)}>О компании</Link>
-                <Link href="/projects" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors" onClick={() => setIsMenuOpen(false)}>Проекты</Link>
-                <Link href="/reviews" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors" onClick={() => setIsMenuOpen(false)}>Отзывы</Link>
-                <Link href="/blog" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors" onClick={() => setIsMenuOpen(false)}>Блог</Link>
-                <Link href="/contacts" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors" onClick={() => setIsMenuOpen(false)}>Контакты</Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
+          <MobileSiteMenu />
         </div>
       </header>
 

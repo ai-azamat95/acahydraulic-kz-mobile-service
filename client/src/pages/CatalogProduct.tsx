@@ -1,3 +1,4 @@
+import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "wouter";
@@ -145,7 +146,7 @@ export default function CatalogProduct() {
 
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
         <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" className="flex items-center gap-3" aria-label="ACA Hydraulic">
+          <SiteHomeLink className="flex items-center gap-3" aria-label="ACA Hydraulic">
             <span className="flex h-7 gap-[3px]" aria-hidden="true">
               <span className="w-2.5 bg-[#FFC000]" />
               <span className="flex flex-col justify-between">
@@ -157,7 +158,7 @@ export default function CatalogProduct() {
               <strong className="text-lg tracking-wide">ACA</strong>
               <span className="mt-0.5 text-[11px] tracking-wider">HYDRAULIC</span>
             </span>
-          </Link>
+          </SiteHomeLink>
           <div className="flex items-center gap-2" aria-label="Language">
             {(["ru", "kz", "en"] as CatalogLanguage[]).map((item) => (
               <button
