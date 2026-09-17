@@ -1,3 +1,4 @@
+import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
 import { seoConfig } from "@/config/seo";
@@ -321,6 +322,7 @@ export default function Home() {
       </section>
 
       <Cat325VideoCase />
+      <PumpCaseTeaser />
 
       <section aria-labelledby="repair-cases-title" className="border-t border-white/10 bg-[#111111] py-8 md:py-12">
         <div className="container mx-auto px-4">

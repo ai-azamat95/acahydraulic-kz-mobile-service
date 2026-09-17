@@ -1,3 +1,4 @@
+import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -144,6 +145,7 @@ export default function Cases() {
       </section>
 
       <Cat325VideoCase />
+      <PumpCaseTeaser />
 
       <section className="py-7 border-b border-white/5 bg-[#0d0d0d]">
         <div className="container mx-auto px-4">
