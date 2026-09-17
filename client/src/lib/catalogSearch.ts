@@ -16,7 +16,7 @@ export function normalizeCatalogSearch(value: string): string {
   return text.replace(/[-‐‑‒–—/]+/g, " ").replace(/\s+/g, " ").trim();
 }
 
-export function catalogMatchesQuery(product: CatalogIndexProduct, query: string): boolean {
+export function catalogMatchesQuery(product: Pick<CatalogIndexProduct, "title" | "catalogTitle" | "fitment" | "sku" | "tags">, query: string): boolean {
   const needle = normalizeCatalogSearch(query);
   if (!needle) return true;
   const text = normalizeCatalogSearch([product.title, product.catalogTitle, product.fitment, product.sku, ...product.tags].filter(Boolean).join(" "));

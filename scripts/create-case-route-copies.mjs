@@ -93,6 +93,7 @@ function setMeta(html, route) {
     // including the distinction between completed work and a pending order.
     html = replaceRootContent(html, `<main class="container mx-auto max-w-6xl px-4 py-12 text-white">
       <a href="/cases/">Все кейсы ACA Hydraulic</a>
+      <a href="/catalog/">Каталог запчастей</a>
       <h1>Гидронасос — с подбором, доставкой и заменой</h1>
       <h2>SANY SY365H: K5V160DT, доставка, замена и запуск</h2>
       <p>Завершённый заказ: клиент заказал насос через ACA Hydraulic. Организовали поставку с доставкой, демонтировали старый насос, установили новый и запустили экскаватор.</p>
@@ -104,6 +105,14 @@ function setMeta(html, route) {
       <ul><li>K5V80DTP, Китай — 1 700 000 ₸.</li><li>HANDOK H5V80DTP-12T, Южная Корея — 2 530 000 ₸.</li></ul>
       <p>Стоимость указанного насоса. Комплектацию, итоговую стоимость, доставку, срок и состав работ подтверждаем в расчёте до оплаты. Эти цены не являются стоимостью ремонта под ключ.</p>
       <p>Совместимость проверяем по модели техники, шильдику, валу, фланцу, портам, вращению, регулятору и комплектации.</p>
+      <nav aria-label="Продолжить подбор запчастей"><ul>
+        <li><a href="/catalog/category/hydraulic-pumps?q=K5V160DT">Найти K5V160DT в запчастях</a></li>
+        <li><a href="/catalog?q=K5V80DTP">Запчасти K5V80DTP</a></li>
+        <li><a href="/catalog?q=HANDOK">Запчасти HANDOK</a></li>
+        <li><a href="/catalog?q=ZX160W">Запчасти Hitachi ZX160W</a></li>
+        <li><a href="/catalog/brand/sany/">Запчасти SANY</a></li>
+        <li><a href="/catalog/category/pump-parts/">Запчасти гидронасосов</a></li>
+      </ul></nav>
       <a href="https://wa.me/77714177925?text=${encodeURIComponent('Здравствуйте! Нужен насос с доставкой и заменой. Модель: __. Город: __. Пришлю шильдик.')}" rel="noopener noreferrer">Отправить шильдик в WhatsApp</a>
       <p><a href="tel:+77714177925">+7 771 417 79 25</a></p>
     </main>`);
