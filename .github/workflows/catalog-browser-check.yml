@@ -2,6 +2,14 @@ name: Check catalogue responsive layout
 on:
   pull_request:
     paths:
+      - 'client/src/components/MobileSiteMenu.tsx'
+      - 'client/src/components/SiteHomeLink.tsx'
+      - 'client/src/components/ui/sheet.tsx'
+      - 'client/src/pages/Home.tsx'
+      - 'client/src/pages/Services.tsx'
+      - 'client/src/pages/Reviews.tsx'
+      - 'client/src/pages/Contacts.tsx'
+      - 'scripts/check-site-navigation.mjs'
       - 'client/src/pages/Catalog.tsx'
       - 'client/src/pages/CatalogProduct.tsx'
       - 'client/src/components/catalog/ProductResults.tsx'

@@ -1,3 +1,4 @@
+import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/components/catalog/PumpSupplyOffers";
 import { pumpCasePath } from "@/content/pumpCases";
 import { catalogSearchHref } from "@/lib/catalogLinks";
@@ -466,7 +467,7 @@ export default function Catalog() {
 
       <header className="aca-catalog-header sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
         <div className="mx-auto flex min-h-16 max-w-[1600px] items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" className="flex items-center gap-3" aria-label="ACA Hydraulic">
+          <SiteHomeLink className="flex items-center gap-3" aria-label="ACA Hydraulic">
             <span className="flex h-7 gap-[3px]" aria-hidden="true">
               <span className="w-2.5 bg-[#FFC000]" />
               <span className="flex flex-col justify-between">
@@ -478,7 +479,7 @@ export default function Catalog() {
               <strong className="text-lg tracking-wide">ACA</strong>
               <span className="mt-0.5 text-[11px] tracking-wider">HYDRAULIC</span>
             </span>
-          </Link>
+          </SiteHomeLink>
 
           <nav className="aca-desktop-nav" aria-label={copy.pageTitle}>
             <a href="#categories-title">{copy.categoriesTitle}</a>
@@ -511,10 +512,10 @@ export default function Catalog() {
       <main id="catalog-top">
         <section className="aca-catalog-hero overflow-hidden border-b border-white/10 bg-[#151515]">
           <div className="aca-catalog-hero-inner mx-auto max-w-[1600px] px-4 py-7 md:py-11">
-            <Link href="/" className="mb-5 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-[#FFC000]">
+            <SiteHomeLink className="mb-5 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-[#FFC000]">
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               {copy.backToService}
-            </Link>
+            </SiteHomeLink>
 
             <div className="aca-catalog-lead grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
               <div className="aca-catalog-search-column">

@@ -1,12 +1,11 @@
+import SiteHomeLink from "@/components/SiteHomeLink";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
-import { Phone, MessageCircle, Menu, Star, Quote, FileText, Mail } from "lucide-react";
+import { Phone, MessageCircle, Star, Quote, FileText, Mail } from "lucide-react";
 import { Link } from "wouter";
-import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import MobileSiteMenu from "@/components/MobileSiteMenu";
 
 export default function Reviews() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className="min-h-[100dvh] bg-[#111111] text-white font-roboto flex flex-col overflow-x-hidden">
@@ -19,7 +18,7 @@ export default function Reviews() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-transparent pt-2 pb-2 px-4 md:pt-6 md:pb-8 backdrop-blur-sm border-b border-white/5">
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
-          <Link href="/">
+          <SiteHomeLink aria-label="ACA Hydraulic — главная">
             <div className="flex items-center gap-3 cursor-pointer">
               <div className="flex gap-[3px] h-[28px]">
                 <div className="w-[10px] h-full bg-[#FFC000]"></div>
@@ -33,12 +32,13 @@ export default function Reviews() {
                 <span className="font-sans font-medium text-[11px] text-white leading-none tracking-wider mt-[2px]">HYDRAULIC</span>
               </div>
             </div>
-          </Link>
+          </SiteHomeLink>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-6">
             <Link href="/" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Главная</Link>
             <Link href="/services" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Услуги</Link>
+            <Link href="/catalog" className="text-white/80 hover:text-[#FFC000] text-sm uppercase tracking-wider">Запчасти</Link>
             <Link href="/about" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">О компании</Link>
             <Link href="/reviews" className="text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors border-b border-[#FFC000]">Отзывы</Link>
             <Link href="/contacts" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Контакты</Link>
@@ -46,43 +46,13 @@ export default function Reviews() {
 
           {/* Phone Number & Mobile Menu */}
           <div className="flex items-center gap-4">
-            <a href="tel:+77714177925" className="hidden md:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
+            <a href="tel:+77714177925" className="hidden xl:flex items-center gap-2 bg-[#1a1a1a]/80 px-4 py-2 rounded border border-white/10 hover:border-[#FFC000]/50 transition-colors group">
               <Phone className="w-4 h-4 text-[#FFC000] fill-current group-hover:scale-110 transition-transform" />
               <span className="text-[#FFC000] font-bold font-bebas text-lg tracking-wide">+7 (771) 417-79-25</span>
             </a>
             
             {/* Mobile Menu Trigger */}
-            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden text-white hover:text-[#FFC000] hover:bg-transparent">
-                  <Menu className="w-8 h-8" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-[#111111] border-l border-white/10 p-0 w-[300px]">
-                <div className="flex flex-col h-full">
-                  <div className="p-6 border-b border-white/10 flex justify-between items-center">
-                    <span className="font-bebas text-2xl text-white">Меню</span>
-                  </div>
-                  <nav className="flex flex-col p-6 gap-6">
-                    <Link href="/" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">Главная</Link>
-                    <Link href="/services" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">Услуги</Link>
-                    <Link href="/about" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">О компании</Link>
-                    <Link href="/reviews" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-[#FFC000] tracking-wide">Отзывы</Link>
-                    <Link href="/contacts" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">Контакты</Link>
-                  </nav>
-                  <div className="mt-auto p-6 border-t border-white/10">
-                    <a href="tel:+77714177925" className="flex items-center gap-3 text-[#FFC000] mb-4">
-                      <Phone className="w-5 h-5" />
-                      <span className="font-bebas text-xl">+7 (771) 417-79-25</span>
-                    </a>
-                    <p className="text-gray-500 text-xs font-roboto">
-                      Ежедневно с 8:00 до 20:00<br/>
-                      Выезд 24/7
-                    </p>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+            <MobileSiteMenu />
           </div>
         </div>
       </header>
