@@ -525,8 +525,6 @@ export default function Catalog() {
                   <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{isLandingPage ? `${language === "ru" ? "Поставка под заказ." : language === "kz" ? "Тапсырыс бойынша." : "Supplied to order."} ${landingDescription}` : copy.pageDescription}</p>
                 </div>
 
-                {matchingSupplyOffers.length > 0 && <button type="button" onClick={scrollToResults} className="mt-4 min-h-11 text-sm font-bold text-[#FFC000] underline underline-offset-4">{pumpSupplyLabels[language].title}</button>}
-
                 <div className="mt-6 flex gap-2 overflow-x-auto pb-1" aria-label={ui.searchType}>
                   {ui.searchModes.map((item) => {
                     const active = searchMode === item.id;
@@ -720,6 +718,7 @@ export default function Catalog() {
               <h2 id="categories-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.categoriesTitle}</h2>
               <p className="mt-2 max-w-2xl leading-relaxed text-gray-400">{ui.categoriesHint}</p>
             </div>
+            {matchingSupplyOffers.length > 0 && <button type="button" onClick={scrollToResults} className="min-h-11 text-sm font-bold text-[#8a6100] underline underline-offset-4">{pumpSupplyLabels[language].title}</button>}
             {category && (
               <Link
                 href="/catalog"
