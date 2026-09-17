@@ -15,6 +15,10 @@ test('approved assemblies get exact prices and condition without inventing stock
     assert.equal(result.variants[0].priceKzt, product.priceKzt);
     assert.equal(result.approvedSale.condition, 'new');
     assert.equal(result.approvedSale.prepaymentPercent, 100);
+    assert.equal(result.approvedSale.deliveryMinDays, 3);
+    assert.equal(result.approvedSale.deliveryMaxDays, 14);
+    assert.equal(result.approvedSale.shippingFromUsdPerKg, 3);
+    assert.equal(result.approvedSale.defectResolution, 'replacement-at-service-center');
     assert.equal(result.available, undefined);
     assert.equal(result.brand, undefined);
     assert.equal(product.minPriceKzt, null);
