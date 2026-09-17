@@ -28,7 +28,7 @@ export default function PumpSupplyInstallation() {
         <Link href="/cases" className={`inline-block py-2 text-sm text-gray-400 underline ${focus}`}>Все кейсы ремонта</Link>
         <p className="mt-5 text-sm font-bold uppercase tracking-wider text-[#FFC000]">ACA Hydraulic · поставка и сервис по Казахстану</p>
         <h1 className="mt-4 max-w-4xl font-bebas text-4xl leading-tight sm:text-5xl md:text-7xl">Гидронасос — с подбором, доставкой и заменой</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-gray-300">Одна команда ведёт заказ от проверки исполнения насоса до работ на машине. Ниже — завершённый ремонт SANY и текущий заказ HANDOK для Hitachi.</p>
+        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-gray-300">Одна команда ведёт заказ от проверки исполнения насоса до работ на машине. Ниже — завершённый ремонт SANY и текущий заказ HANDOK для Hitachi ZX160W.</p>
         <div className="mt-7 flex flex-wrap items-center gap-4">
           <Contact source="насос и работы">Отправить шильдик для расчёта</Contact>
           <a href="#pump-options" className={`inline-flex min-h-12 items-center gap-2 px-2 text-[#FFC000] underline underline-offset-4 ${focus}`}>Посмотреть насосы и цены <ArrowRight aria-hidden="true" className="h-4 w-4" /></a>
@@ -64,12 +64,12 @@ export default function PumpSupplyInstallation() {
       <div className={`${container} grid gap-8 md:grid-cols-[1fr_300px]`}>
         <div>
           <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">В работе · заказ оплачен, ожидает поставки</p>
-          <h2 className="mt-4 font-bebas text-4xl md:text-5xl">Hitachi: клиент выбрал корейский HANDOK</h2>
+          <h2 className="mt-4 font-bebas text-4xl md:text-5xl">Hitachi ZX160W: клиент выбрал корейский HANDOK</h2>
           <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">Для заказа рассмотрели китайский и корейский варианты насоса. Клиент выбрал HANDOK, оплатил заказ и сейчас ожидает поставки. Ниже — фотографии выбранного насоса и варианты для расчёта.</p>
           <p className="mt-4 max-w-3xl leading-relaxed text-gray-400">Статус на 17 сентября 2026 года: насос заказан. Установка и запуск по этому заказу ещё не выполнены.</p>
-          <div className="mt-6"><Contact source="HANDOK для Hitachi">Обсудить насос для моей техники</Contact></div>
+          <div className="mt-6"><Contact source="HANDOK для Hitachi ZX160W">Обсудить насос для моей техники</Contact></div>
         </div>
-        <PumpPhoto file="handok-h5v80dtp.webp" alt="Насос HANDOK из материалов заказа для Hitachi" caption="Фото выбранного насоса. Маркировка на шильдике: H5V80DTP-12T, Made in Korea." />
+        <PumpPhoto file="handok-h5v80dtp.webp" alt="Насос HANDOK из материалов заказа для Hitachi ZX160W" caption="Фото выбранного насоса. Маркировка на шильдике: H5V80DTP-12T, Made in Korea." />
       </div>
     </section>
 
