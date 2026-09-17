@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Eye, ExternalLink, FileText, Filter, Phone, PlayCircle, Video } from "lucide-react";
 import { SEO } from "@/components/SEO";
+import Cat325VideoCase, { cat325VideoSchema } from "@/components/Cat325VideoCase";
 
 type RepairCase = {
   id: string;
@@ -124,6 +125,7 @@ export default function Cases() {
         description="Реальные выездные ремонты ACA Hydraulic: Caterpillar, Hitachi 330-5G, SANY SY365H, XCMG XZ360E. Диагностика, ремонт и результат на видео. Выезд по Казахстану."
         keywords="реальный ремонт экскаватора, выездной ремонт спецтехники, Caterpillar ремонт, Hitachi 330 5G ремонт, SANY SY365H ремонт, диагностика гидравлики экскаватора"
         canonical="/cases"
+        schema={cat325VideoSchema}
       />
 
       <section className="relative py-20 bg-[#111] border-b border-white/10 overflow-hidden">
@@ -140,6 +142,8 @@ export default function Cases() {
           </p>
         </div>
       </section>
+
+      <Cat325VideoCase />
 
       <section className="py-7 border-b border-white/5 bg-[#0d0d0d]">
         <div className="container mx-auto px-4">
