@@ -1,0 +1,43 @@
+{
+  "confirmedAt": "2026-09-18",
+  "availability": "in_stock",
+  "shippingPriceKzt": 200000,
+  "handlingMinDays": 0,
+  "handlingMaxDays": 3,
+  "transitMinDays": 3,
+  "transitMaxDays": 11,
+  "terms": {
+    "ru": "Доступен к заказу. Отгрузка в течение 3 суток после полной оплаты. Ориентировочная поставка по Казахстану — 3–14 дней. Доставка одного насоса — 180 000–200 000 ₸, оплачивается отдельно. Предоплата 100%. При подтверждённом браке — замена через сервисный центр; транспортные расходы оплачивает клиент. Исполнение согласуем по шильдику до оплаты.",
+    "kz": "Тапсырыс беруге болады. Толық төлемнен кейін 3 тәулік ішінде жөнелтеміз. Қазақстан бойынша жеткізу мерзімі — шамамен 3–14 күн. Бір сорғыны жеткізу — 180 000–200 000 ₸, бөлек төленеді. Алдын ала төлем 100%. Расталған ақау кезінде сервис орталығы арқылы ауыстыру; тасымалдауды клиент төлейді. Төлемге дейін тақтайша бойынша нұсқасын келісеміз.",
+    "en": "Available to order. Dispatch within 3 days of full payment. Estimated delivery in Kazakhstan: 3–14 days. Delivery per pump costs KZT 180,000–200,000 separately. Full prepayment. Confirmed defects are handled by replacement through our service centre; the customer pays transportation costs. Configuration is confirmed against the nameplate before payment."
+  },
+  "products": [
+    {
+      "model": "K3V112DT",
+      "id": "HP-0019-01",
+      "title": "Гидронасос K3V112DT в сборе",
+      "link": "https://acahydraulic.kz/catalog/k3v112dt-hydraulic-pump-for-volvo-excavator-ec210b/",
+      "image_link": "https://cdn.shopify.com/s/files/1/0594/4046/4034/files/K3V112DT-Hydraulic-Pump-for-Volvo-Excavator-EC210B_03.jpg?v=1747731569",
+      "price": "1600000 KZT",
+      "handle": "k3v112dt-hydraulic-pump-for-volvo-excavator-ec210b"
+    },
+    {
+      "model": "K5V160DT",
+      "id": "ACA-250408-52",
+      "title": "Гидронасос K5V160DT в сборе",
+      "link": "https://acahydraulic.kz/catalog/14632316-excavator-hydraulic-pump-k5v160dt-for-ec300d-ec350d/",
+      "image_link": "https://cdn.shopify.com/s/files/1/0594/4046/4034/files/14632316-excavator-hydraulic-pump-K5V160DT-for-EC300D-EC350D-ZW-ZHTE_01_a8fc3b8d-ffec-499a-a435-797f061714a4.jpg?v=1744191852",
+      "price": "1600000 KZT",
+      "handle": "14632316-excavator-hydraulic-pump-k5v160dt-for-ec300d-ec350d"
+    },
+    {
+      "model": "K5V80DTP",
+      "id": "ACA-25-0708-45",
+      "title": "Гидронасос K5V80DTP в сборе",
+      "link": "https://acahydraulic.kz/catalog/hydraulic-pump-assembly-yf10v00006f1-yf10v00006f3-yn10v00043f1-fits-for-kobelco-sk235srlc-k5v80dtp/",
+      "image_link": "https://cdn.shopify.com/s/files/1/0594/4046/4034/files/Hydraulic-Pump-Assembly-YF10V00006F1-YF10V00006F3-YN10V00043F1-Fits-for-Kobelco-SK235SRLC-K5V80DTP_b04c444e-388d-42f0-a2a7-cad1fd5ca301.jpg?v=1751969513",
+      "price": "1700000 KZT",
+      "handle": "hydraulic-pump-assembly-yf10v00006f1-yf10v00006f3-yn10v00043f1-fits-for-kobelco-sk235srlc-k5v80dtp"
+    }
+  ]
+}

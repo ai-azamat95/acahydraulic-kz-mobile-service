@@ -52,7 +52,10 @@ function setRootFallback(html, fallback) {
   throw new Error('Unable to locate the application root for static product content.');
 }
 
+const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
+
 function productPage(product) {
+  const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
   const canonical = `${baseUrl}/catalog/${product.handle}/`;
   const titleCore = product.title.length > 110 ? `${product.title.slice(0, 107)}...` : product.title;
   const title = `${titleCore} | ACA Hydraulic`;
@@ -60,7 +63,7 @@ function productPage(product) {
   const fitmentLabel = product.approvedSale ? 'Применяемость этого исполнения' : 'Применяемость';
   const seriesNote = product.approvedSale ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
   const price = Number.isFinite(product.minPriceKzt) ? `Цена ${product.approvedSale ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
-  const saleTerms = product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
+  const saleTerms = merchantOffer ? merchantPumps.terms.ru : product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
   const description = `${product.title}. ${fitmentLabel}: ${fitment}. ${price}. ${saleTerms} Поставка под заказ. Цена и срок после проверки шильдика.`;
   const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
   const schema = JSON.stringify({
@@ -82,6 +85,7 @@ function productPage(product) {
       '@type': product.approvedSale ? 'Offer' : 'AggregateOffer',
       price: product.approvedSale ? product.minPriceKzt : undefined,
       priceCurrency: 'KZT',
+      availability: merchantOffer ? 'https://schema.org/InStock' : undefined,
       lowPrice: product.approvedSale ? undefined : product.minPriceKzt,
       highPrice: product.approvedSale ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
       url: canonical,

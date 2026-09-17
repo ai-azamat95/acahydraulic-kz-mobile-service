@@ -43,6 +43,8 @@ jobs:
         run: pnpm build
       - name: Create static route copies
         run: node scripts/create-spa-route-copies.mjs
+      - name: Create approved pump feed
+        run: node scripts/create-merchant-feed.mjs
       - name: Create Industrial AI route copy
         run: node scripts/create-industrial-ai-route.mjs
       - name: Create static case route copies
