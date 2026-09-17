@@ -9,7 +9,7 @@ export type CatalogIndexProduct = {
   tags: string[];
   available: boolean;
   minPriceKzt: number | null;
-  approvedSale?: { model: string; condition: 'new'; assembly: 'complete'; confirmedOn: string; deliveryMinDays: number; prepaymentPercent: number };
+  approvedSale?: { model: string; condition: 'new'; assembly: 'complete'; confirmedOn: string; deliveryMinDays: number; deliveryMaxDays: number; shippingFromUsdPerKg: number; defectResolution: 'replacement-at-service-center'; prepaymentPercent: number };
   maxPriceKzt: number | null;
   imageUrl: string | null;
   chunk: number;
