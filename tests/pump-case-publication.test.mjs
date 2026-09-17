@@ -18,6 +18,9 @@ test('pump case is useful without JavaScript and does not claim the pending orde
   assert.match(html, /2 530 000 ₸/);
   assert.match(html, /не являются стоимостью ремонта под ключ/);
   assert.match(html, /https:\/\/wa.me\/77714177925\?text=/);
+  assert.match(html, /href="\/catalog\/category\/hydraulic-pumps\?q=K5V160DT"/);
+  assert.match(html, /href="\/catalog\?q=ZX160W"/);
+  assert.match(html, /href="\/catalog\?q=HANDOK"/);
 });
 
 test('direct case URL has its own canonical, social preview and sitemap entry', () => {

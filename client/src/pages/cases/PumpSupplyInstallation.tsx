@@ -1,3 +1,6 @@
+import CaseCatalogLinks from "@/components/CaseCatalogLinks";
+import { catalogSearchHref } from "@/lib/catalogLinks";
+import { useEffect } from "react";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
@@ -17,6 +20,10 @@ function Contact({ source, children }: { source: string; children: React.ReactNo
 }
 
 export default function PumpSupplyInstallation() {
+  useEffect(() => {
+    const target = document.getElementById(window.location.hash.slice(1));
+    target?.scrollIntoView({ block: "start" });
+  }, []);
   return <main className="min-h-screen bg-[#0a0a0a] pt-8 text-white">
     <SEO title={pumpCaseTitle} description={pumpCaseDescription} canonical={pumpCasePath}
       ogImage="https://acahydraulic.kz/media/pump-cases/sany-sy365h.webp"
@@ -25,6 +32,7 @@ export default function PumpSupplyInstallation() {
       schema={{ "@context": "https://schema.org", "@type": "VideoObject", name: "SANY SY365H: поставка и замена гидронасоса K5V160DT", description: "Реальный заказ ACA Hydraulic: насос, доставка, демонтаж старого насоса, установка нового и запуск экскаватора.", thumbnailUrl: ["https://acahydraulic.kz/media/pump-cases/sany-sy365h.webp"], contentUrl: "https://acahydraulic.kz/media/pump-cases/sany-pump-36s.mp4", uploadDate: "2026-09-17T00:00:00+05:00", duration: "PT36S", inLanguage: "ru" }} />
     <section className="border-b border-white/10 py-10 md:py-16">
       <div className={container}>
+        <Link href="/catalog" className={`${focus} mr-5 inline-block py-2 text-sm font-bold text-[#FFC000] underline`}>Каталог запчастей</Link>
         <Link href="/cases" className={`inline-block py-2 text-sm text-gray-400 underline ${focus}`}>Все кейсы ремонта</Link>
         <p className="mt-5 text-sm font-bold uppercase tracking-wider text-[#FFC000]">ACA Hydraulic · поставка и сервис по Казахстану</p>
         <h1 className="mt-4 max-w-4xl font-bebas text-4xl leading-tight sm:text-5xl md:text-7xl">Гидронасос — с подбором, доставкой и заменой</h1>
@@ -54,6 +62,7 @@ export default function PumpSupplyInstallation() {
             <PumpPhoto file="sany-installed.webp" alt="Насос в отсеке экскаватора SANY SY365H" caption="Насос на машине: кадр из видео работ на SANY." />
           </div>
           <p className="my-5 text-sm leading-relaxed text-gray-400">Это опыт работы с конкретным экскаватором. Для другого SANY SY365H исполнение насоса также нужно сверить по шильдику и подключениям.</p>
+          <Link href={catalogSearchHref("K5V160DT", "hydraulic-pumps")} className={`mr-5 inline-block py-3 font-bold text-[#FFC000] underline underline-offset-4 ${focus}`}>Найти K5V160DT в запчастях</Link>
           <Link href="/cases/sany-sy365h-gidravlika-na-goryachuyu" className={`inline-block py-2 text-[#FFC000] underline underline-offset-4 ${focus}`}>Подробнее о диагностике гидравлики SANY</Link>
         </div>
         <SanyPumpVideo />
@@ -67,6 +76,7 @@ export default function PumpSupplyInstallation() {
           <h2 className="mt-4 font-bebas text-4xl md:text-5xl">Hitachi ZX160W: клиент выбрал корейский HANDOK</h2>
           <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">Для заказа рассмотрели китайский и корейский варианты насоса. Клиент выбрал HANDOK, оплатил заказ и сейчас ожидает поставки. Ниже — фотографии выбранного насоса и варианты для расчёта.</p>
           <p className="mt-4 max-w-3xl leading-relaxed text-gray-400">Статус на 17 сентября 2026 года: насос заказан. Установка и запуск по этому заказу ещё не выполнены.</p>
+          <Link href={catalogSearchHref("ZX160W")} className={`mt-4 inline-block py-3 font-bold text-[#FFC000] underline underline-offset-4 ${focus}`}>Искать запчасти для ZX160W</Link>
           <div className="mt-6"><Contact source="HANDOK для Hitachi ZX160W">Обсудить насос для моей техники</Contact></div>
         </div>
         <PumpPhoto file="handok-h5v80dtp.webp" alt="Насос HANDOK из материалов заказа для Hitachi ZX160W" caption="Фото выбранного насоса. Маркировка на шильдике: H5V80DTP-12T, Made in Korea." />
@@ -78,13 +88,14 @@ export default function PumpSupplyInstallation() {
         <h2 className="font-bebas text-4xl md:text-5xl">Два варианта насоса под заказ</h2>
         <p className="mt-4 max-w-3xl leading-relaxed text-gray-400">Сначала проверяем исполнение и совместимость. Сравнение ниже помогает обсудить бюджет; выбрать насос только по названию серии нельзя.</p>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {pumpOptions.map(option => <article key={option.id} className="flex flex-col rounded-lg border border-white/15 bg-[#151515] p-5 md:p-7">
+          {pumpOptions.map(option => <article id={option.id} key={option.id} className="scroll-mt-24 flex flex-col rounded-lg border border-white/15 bg-[#151515] p-5 md:p-7">
             <PumpPhoto file={option.image} alt={option.alt} caption={option.origin} />
             <h3 className="mt-5 text-2xl font-bold">{option.name}</h3>
             <p className="mt-3 text-3xl font-bold text-[#FFC000]">{option.price}</p>
             <p className="mt-2 text-sm text-gray-400">Под заказ · стоимость указанного насоса</p>
             <p className="my-5 flex-1 leading-relaxed text-gray-300">{option.detail}</p>
             <Contact source={option.name}>Проверить совместимость и расчёт</Contact>
+            <Link href={catalogSearchHref(option.id === "china-k5v80dtp" ? "K5V80DTP" : "HANDOK")} className={`mt-3 inline-flex min-h-11 items-center text-[#FFC000] underline underline-offset-4 ${focus}`}>Найти другие запчасти {option.id === "china-k5v80dtp" ? "K5V80DTP" : "HANDOK"}</Link>
           </article>)}
         </div>
         <p className="mt-5 max-w-4xl text-sm leading-relaxed text-gray-400">Цены согласованы 17 сентября 2026 года. Комплектацию, итоговую стоимость, доставку, срок и состав работ подтверждаем в расчёте до оплаты. Эти цены не являются стоимостью ремонта под ключ.</p>
@@ -101,6 +112,7 @@ export default function PumpSupplyInstallation() {
         </div>
       </div>
     </section>
+    <CaseCatalogLinks />
     <section className="py-12 md:py-16">
       <div className={container}>
         <h2 className="font-bebas text-4xl">Частые вопросы</h2>
