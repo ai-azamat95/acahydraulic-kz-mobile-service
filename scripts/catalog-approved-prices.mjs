@@ -21,6 +21,8 @@ export function applyApprovedPrice(product) {
   }
   return {
     ...product,
+    title: `Гидронасос ${offer.model} в сборе`,
+    catalogTitle: product.catalogTitle || product.title,
     minPriceKzt: offer.priceKzt,
     maxPriceKzt: offer.priceKzt,
     approvedSale: { model: offer.model, condition: 'new', assembly: 'complete', confirmedOn: '2026-09-17', deliveryMinDays: 3, deliveryMaxDays: 14, shippingFromUsdPerKg: 3, defectResolution: 'replacement-at-service-center', prepaymentPercent: 100 },

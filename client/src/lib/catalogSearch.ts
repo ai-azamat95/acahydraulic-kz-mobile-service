@@ -19,7 +19,7 @@ export function normalizeCatalogSearch(value: string): string {
 export function catalogMatchesQuery(product: CatalogIndexProduct, query: string): boolean {
   const needle = normalizeCatalogSearch(query);
   if (!needle) return true;
-  const text = normalizeCatalogSearch([product.title, product.fitment, product.sku, ...product.tags].filter(Boolean).join(" "));
+  const text = normalizeCatalogSearch([product.title, product.catalogTitle, product.fitment, product.sku, ...product.tags].filter(Boolean).join(" "));
   const tokens = needle.split(" ");
   if (tokens.every((token) => text.includes(token))) return true;
   // Numbers and model codes are commonly typed with different separators.

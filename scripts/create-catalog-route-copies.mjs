@@ -57,9 +57,11 @@ function productPage(product) {
   const titleCore = product.title.length > 110 ? `${product.title.slice(0, 107)}...` : product.title;
   const title = `${titleCore} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
+  const fitmentLabel = product.approvedSale ? 'Применяемость этого исполнения' : 'Применяемость';
+  const seriesNote = product.approvedSale ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
   const price = Number.isFinite(product.minPriceKzt) ? `Цена ${product.approvedSale ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
   const saleTerms = product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
-  const description = `${product.title}. Применяемость: ${fitment}. ${price}. ${saleTerms} Поставка под заказ. Цена и срок после проверки шильдика.`;
+  const description = `${product.title}. ${fitmentLabel}: ${fitment}. ${price}. ${saleTerms} Поставка под заказ. Цена и срок после проверки шильдика.`;
   const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
@@ -73,7 +75,7 @@ function productPage(product) {
     url: canonical,
     additionalProperty: product.fitment ? [{
       '@type': 'PropertyValue',
-      name: 'Применяемость',
+      name: fitmentLabel,
       value: product.fitment,
     }] : undefined,
     offers: Number.isFinite(product.minPriceKzt) ? {
@@ -90,8 +92,10 @@ function productPage(product) {
   <h1>${escapeHtml(product.title)}</h1>
   <p>${escapeHtml(description)}</p>
   <p><strong>Поставка под заказ. Цену и срок подтвердим после проверки шильдика.</strong></p>
-  <h2>Применяемость</h2>
+  <h2>${escapeHtml(fitmentLabel)}</h2>
   <p>${escapeHtml(fitment)}</p>
+  ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
+  ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
   <p>Перед оплатой ACA Hydraulic сверяет номер детали, модель техники, серийный номер, исполнение, разъёмы, вал, фланец и порты.</p>
   <p>Доступны оригинальные, OEM и проверенные аналоговые варианты. Конкретный вариант, наличие, срок доставки и гарантия подтверждаются после проверки.</p>

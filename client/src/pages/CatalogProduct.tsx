@@ -97,6 +97,12 @@ export default function CatalogProduct() {
     : copy.priceOnRequest;
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
   const fitmentText = product.fitment || copy.fitmentUnknown;
+  const fitmentLabel = product.approvedSale
+    ? language === "ru" ? "Применяемость этого исполнения" : language === "kz" ? "Осы нұсқаның қолданылуы" : "Applications of this configuration"
+    : copy.fitmentLabel;
+  const seriesNote = product.approvedSale
+    ? language === "ru" ? "Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Для вашей техники подберём подходящий вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно." : language === "kz" ? "Бұл сериядағы сорғылар әртүрлі маркалы техникада қолданылады. Мұнда нұсқалардың бірі көрсетілген. Техникаңызға сәйкес нұсқаны тақтайша, білік, фланец, порттар және реттегіш бойынша таңдаймыз. Сорғы моделінің сәйкес келуі жеткіліксіз." : "This pump series is used on equipment from different brands. This page lists one configuration. We select the correct version for your machine using the nameplate, shaft, flange, ports and regulator. A matching pump model alone does not confirm compatibility."
+    : "";
   const seoDescription = `${product.title}. ${copy.fitmentLabel}: ${fitmentText}. Цена ${displayedPrice}. Проверка совместимости до оплаты.`;
 
   return (
@@ -117,7 +123,7 @@ export default function CatalogProduct() {
           itemCondition: product.approvedSale ? "https://schema.org/NewCondition" : undefined,
           additionalProperty: product.fitment ? [{
             "@type": "PropertyValue",
-            name: copy.fitmentLabel,
+            name: fitmentLabel,
             value: product.fitment,
           }] : undefined,
           offers: product.minPriceKzt !== null ? {
@@ -231,8 +237,10 @@ export default function CatalogProduct() {
             <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{copy.productDescription}</p>
 
             <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
-              <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{copy.fitmentLabel}</h2>
+              <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{fitmentLabel}</h2>
               <p className="mt-2 leading-relaxed text-gray-200">{fitmentText}</p>
+              {product.catalogTitle && <p className="mt-2 text-sm leading-6 text-gray-400">{product.catalogTitle}</p>}
+              {seriesNote && <p className="mt-3 text-sm leading-6 text-gray-300">{seriesNote}</p>}
               {product.fitment && (
                 <p className="mt-2 text-xs leading-5 text-gray-500">{copy.fitmentUnknown}</p>
               )}

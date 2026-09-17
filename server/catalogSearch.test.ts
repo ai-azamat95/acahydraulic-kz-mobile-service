@@ -3,6 +3,13 @@ import { catalogMatchesQuery } from "@/lib/catalogSearch";
 import type { CatalogIndexProduct } from "@/types/catalog";
 const product = (title: string): CatalogIndexProduct => ({ id: "1", handle: "pump", title, fitment: null, sku: "ACA-001", category: "hydraulic-pumps", tags: [], available: true, minPriceKzt: null, maxPriceKzt: null, imageUrl: null, chunk: 1 });
 describe("catalog search", () => {
+  it("keeps OEM and machine searches when the display title leads with the pump model", () => {
+    const pump = { ...product("Гидронасос K3V112DTP в сборе"), catalogTitle: "215111278 excavator hydraulic pump K3V112DTP-9C32-14T for JS220 JS200" };
+    expect(catalogMatchesQuery(pump, "215111278")).toBe(true);
+    expect(catalogMatchesQuery(pump, "JS220")).toBe(true);
+    expect(catalogMatchesQuery(pump, "K3V112DTP 9C32 14T")).toBe(true);
+    expect(catalogMatchesQuery(pump, "215111279")).toBe(false);
+  });
   it.each(["20/911200", "20-911200", "20 911200", "20911200"])("matches OEM separators: %s", (query) => {
     expect(catalogMatchesQuery(product("Hydraulic pump 20/911200 for JCB"), query)).toBe(true);
   });

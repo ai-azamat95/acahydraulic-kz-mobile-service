@@ -2,6 +2,7 @@ export type CatalogIndexProduct = {
   id: string;
   handle: string;
   title: string;
+  catalogTitle?: string;
   fitment: string | null;
   sku: string;
   category: string;
