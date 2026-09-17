@@ -81,7 +81,7 @@ function setMeta(html, route) {
       <h1>Гидронасос — с подбором, доставкой и заменой</h1>
       <h2>SANY SY365H: K5V160DT, доставка, замена и запуск</h2>
       <p>Завершённый заказ: клиент заказал насос через ACA Hydraulic. Организовали поставку с доставкой, демонтировали старый насос, установили новый и запустили экскаватор.</p>
-      <video controls playsinline preload="none" width="360" poster="/media/pump-cases/sany-sy365h.webp" src="/media/pump-cases/sany-pump-36s.mp4"></video>
+      <video controls playsinline preload="none" width="360" style="max-width:100%;height:auto" poster="/media/pump-cases/sany-sy365h.webp" src="/media/pump-cases/sany-pump-36s.mp4"></video>
       <p>Видео 36 секунд, без звука, этапы работ подписаны в кадре.</p>
       <h2>Hitachi: заказ HANDOK ожидает поставки</h2>
       <p>На 17 сентября 2026 года клиент выбрал корейский HANDOK, оплатил заказ и ожидает поставки. Установка и запуск ещё не выполнены.</p>
