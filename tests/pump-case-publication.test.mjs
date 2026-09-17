@@ -11,7 +11,7 @@ test('pump case is useful without JavaScript and does not claim the pending orde
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
   assert.match(html, /SANY SY365H/);
   assert.match(html, /демонтировали старый насос, установили новый/);
-  assert.match(html, /Hitachi: заказ HANDOK ожидает поставки/);
+  assert.match(html, /Hitachi ZX160W: заказ HANDOK ожидает поставки/);
   assert.match(html, /Установка и запуск ещё не выполнены/);
   assert.match(html, /HANDOK H5V80DTP-12T/);
   assert.match(html, /1 700 000 ₸/);

@@ -23,8 +23,8 @@ const routes = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)]
 
 const caseMeta = {
   'cases/postavka-zamena-gidronasosa': {
-    title: 'Гидронасос с доставкой и заменой: SANY и Hitachi | ACA Hydraulic',
-    description: 'SANY SY365H: поставили K5V160DT, заменили насос и запустили экскаватор. Заказ HANDOK для Hitachi ожидает поставки. Фото, видео, варианты насосов и расчёт работ.',
+    title: 'Гидронасос с доставкой и заменой: SANY и Hitachi ZX160W | ACA Hydraulic',
+    description: 'SANY SY365H: поставили K5V160DT, заменили насос и запустили экскаватор. Заказ HANDOK для Hitachi ZX160W ожидает поставки. Фото, видео, варианты насосов и расчёт работ.',
   },
   'projects': {
     title: 'Реальные ремонты спецтехники на видео | ACA Hydraulic',
@@ -98,7 +98,7 @@ function setMeta(html, route) {
       <p>Завершённый заказ: клиент заказал насос через ACA Hydraulic. Организовали поставку с доставкой, демонтировали старый насос, установили новый и запустили экскаватор.</p>
       <video controls playsinline preload="none" width="360" style="max-width:100%;height:auto" poster="/media/pump-cases/sany-sy365h.webp" src="/media/pump-cases/sany-pump-36s.mp4"></video>
       <p>Видео 36 секунд, без звука, этапы работ подписаны в кадре.</p>
-      <h2>Hitachi: заказ HANDOK ожидает поставки</h2>
+      <h2>Hitachi ZX160W: заказ HANDOK ожидает поставки</h2>
       <p>На 17 сентября 2026 года клиент выбрал корейский HANDOK, оплатил заказ и ожидает поставки. Установка и запуск ещё не выполнены.</p>
       <h2>Варианты насосов под заказ</h2>
       <ul><li>K5V80DTP, Китай — 1 700 000 ₸.</li><li>HANDOK H5V80DTP-12T, Южная Корея — 2 530 000 ₸.</li></ul>
