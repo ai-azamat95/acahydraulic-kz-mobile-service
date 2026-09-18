@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { publicAsset } from "@/lib/assets";
+import { Link } from "wouter";
 import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 
 export function PumpPhoto({ file, alt, caption }: { file: string; alt: string; caption: string }) {
@@ -27,6 +28,7 @@ export function SanyPumpVideo() {
       Ваш браузер не поддерживает встроенное видео.
     </video>
     <figcaption className="mt-3 text-sm leading-relaxed text-gray-400">36 секунд: насос, демонтаж, работы на объекте и проверка экскаватора. Ролик без звука, этапы подписаны в кадре.</figcaption>
+    <Link href="/cases/sany-sy365h-zamena-gidronasosa-video/" className="mt-2 inline-block py-2 text-sm text-[#FFC000] underline">Видео замены насоса SANY с описанием работ</Link>
     {failed && <p role="status" className="mt-3 text-sm text-amber-300">Не удалось загрузить видео. Откройте файл по ссылке ниже.</p>}
     <a className="mt-2 inline-block py-2 text-sm text-[#FFC000] underline underline-offset-4" href={publicAsset("media/pump-cases/sany-pump-36s.mp4")}>Открыть видео отдельным файлом</a>
   </figure>;
