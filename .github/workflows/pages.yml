@@ -51,6 +51,11 @@ jobs:
         run: |
           node scripts/create-case-route-copies.mjs
           node --test tests/pump-case-publication.test.mjs
+
+      - name: Publish video pages and legacy redirects
+        run: |
+          node scripts/create-video-seo-routes.mjs
+          node --test tests/video-seo.test.mjs
       - name: Create static catalog route copies
         run: |
           pnpm catalog:routes

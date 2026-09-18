@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MessageCircle, Video } from "lucide-react";
 import { publicAsset } from "@/lib/assets";
+import { Link } from "wouter";
 
 const videoPath = "videos/cat325c-repair-74s.mp4";
 const posterPath = "videos/cat325c-repair-poster.webp";
@@ -42,6 +43,7 @@ export default function Cat325VideoCase() {
             <MessageCircle className="h-5 w-5 shrink-0" aria-hidden="true" /> Обсудить диагностику в WhatsApp
           </a>
           <p className="mt-3 text-sm text-gray-400">Выезд по согласованию, по Казахстану.</p>
+          <Link href="/cases/cat-325c-glokhnet-pod-nagruzkoy/" className="mt-4 inline-block py-3 text-[#FFC000] underline underline-offset-4">Смотреть видео и разбор ремонта CAT 325C</Link>
         </div>
         <div className="mx-auto w-full max-w-sm">
           <video controls playsInline preload="none" width={720} height={1280}
