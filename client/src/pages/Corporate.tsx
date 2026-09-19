@@ -131,7 +131,7 @@ const Corporate = () => {
                   </div>
                   <div className="flex items-center gap-3">
                     <ShieldCheck className="text-[#FFB800] w-6 h-6" />
-                    <span className="font-medium">Персональный менеджер 24/7</span>
+                    <span className="font-medium">Персональный менеджер по согласованию</span>
                   </div>
                 </div>
               </div>

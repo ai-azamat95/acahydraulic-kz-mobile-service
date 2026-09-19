@@ -6,5 +6,6 @@
   "/remont-gusenechnogo-ekskavatora": "/services/excavator-repair/",
   "/remont-frontalnogo-pogruzchika": "/services/loader-repair/",
   "/remont-greydera": "/services/grader-repair/",
-  "/remont-buldozerov": "/services/bulldozer-repair/"
+  "/remont-buldozerov": "/services/bulldozer-repair/",
+  "/projects": "/cases/"
 }

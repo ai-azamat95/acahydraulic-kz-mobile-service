@@ -1,11 +1,27 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { build } from 'esbuild';
+import { createRequire } from 'node:module';
 import { articleForRoute, articleList, articleSchema, renderArticle } from './seo-article-content.mjs';
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
 const sitemapPath = path.join(outDir, 'sitemap.xml');
 const baseUrl = 'https://acahydraulic.kz';
+await build({
+  entryPoints: ['scripts/render-static-pages.tsx'],
+  outfile: 'dist/seo-page-renderer.mjs',
+  bundle: true, platform: 'node', format: 'esm', jsx: 'automatic',
+  // Keep one React instance, but bundle Helmet's private dependencies for pnpm.
+  banner: { js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);' },
+  external: ['react', 'react-dom/*', 'wouter'],
+  alias: {
+    '@': path.resolve('client/src'),
+    'react-helmet-async': createRequire(import.meta.url).resolve('react-helmet-async'),
+  },
+  define: { 'import.meta.env.BASE_URL': '"/"' },
+});
+const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
 const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-repair-content.json', import.meta.url), 'utf8'));
 const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
 const serviceDirectory = JSON.parse(fs.readFileSync(new URL('../shared/service-directory.json', import.meta.url), 'utf8'));
@@ -81,11 +97,11 @@ const explicitMeta = {
     description: 'B2B обслуживание парка спецтехники: диагностика, выездной ремонт гидравлики, договор, НДС, приоритетный сервис.',
   },
   'services/mobile-repair': {
-    title: 'Выездной ремонт гидравлики спецтехники 24/7 | ACA Hydraulic',
+    title: 'Выездной ремонт гидравлики спецтехники по согласованию | ACA Hydraulic',
     description: 'Мобильный ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Выезд по Казахстану, диагностика, договор с НДС.',
   },
   'services/emergency-service': {
-    title: 'Срочный ремонт гидравлики 24/7 | ACA Hydraulic',
+    title: 'Срочный ремонт гидравлики по согласованию | ACA Hydraulic',
     description: 'Экстренный выезд на аварийный ремонт гидравлики спецтехники. Помогаем сократить простой экскаваторов, буровых и дорожной техники.',
   },
   'services/hydraulic-pumps': {
@@ -283,6 +299,15 @@ function withRouteHead(html, route) {
   const c = escapeAttr(canonical);
 
   let out = html;
+  const renderedArticle = renderStaticPage(route);
+  if (renderedArticle) {
+    out = out.replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, '')
+      .replace(/<meta(?=[^>]*\b(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi, '')
+      .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
+      .replace('</head>', `${renderedArticle.head.replace('<script ', '<script data-static-page-schema ')}\n</head>`)
+      .replace('<div id="root"></div>', `<div id="root">${renderedArticle.body}</div>`);
+    return out;
+  }
   if (route === '404') {
     out = setTag(out, /<meta\s+name=["']robots["'][^>]*>/i, '<meta name="robots" content="noindex, follow">');
   }

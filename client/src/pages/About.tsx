@@ -243,7 +243,7 @@ export default function About() {
 
             <div className="bg-[#1a1a1a] p-6 border border-white/5 rounded hover:border-[#FFC000]/30 transition-colors">
               <Truck className="w-10 h-10 text-[#FFC000] mb-4" />
-              <h3 className="font-bebas text-xl mb-2">Выездной сервис 24/7</h3>
+              <h3 className="font-bebas text-xl mb-2">Выездной сервис по согласованию</h3>
               <p className="text-gray-400 text-sm">Срочный выезд на объекты. Ремонт на месте. Минимизация простоев критически важного оборудования.</p>
             </div>
 

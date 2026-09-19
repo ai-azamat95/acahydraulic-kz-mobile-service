@@ -40,7 +40,7 @@ test('watch pages are discoverable from video sitemap, cases sitemap and existin
     assert.ok(videoMap.includes(route));
     assert.ok(caseMap.includes(route));
     assert.ok(videoMap.includes(`<video:content_loc>https://acahydraulic.kz${item.video}</video:content_loc>`));
-    for (const source of ['cases', 'projects', 'cases/postavka-zamena-gidronasosa']) assert.ok(read(source).includes(`href="${route}"`));
+    for (const source of ['cases', 'cases/postavka-zamena-gidronasosa']) assert.ok(read(source).includes(`href="${route}"`));
   }
 });
 
