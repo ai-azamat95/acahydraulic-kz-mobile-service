@@ -5,7 +5,11 @@ import { Calendar, User, ArrowRight, Tag, Clock } from "lucide-react";
 import { Link } from "wouter";
 
 import { publicAsset } from "@/lib/assets";
+import seoArticles from "../../../shared/seo-articles.json";
 const articles = [
+  ...seoArticles.map((article, index) => ({ id: 100 + index, title: article.title, excerpt: article.description,
+    date: article.publishedDate, displayDate: "19.09.2026", author: "ACA Hydraulic", category: article.category,
+    image: article.image, slug: article.slug, readTime: article.readTime })),
   {
     id: 1,
     title: "Ремонт гидронасоса CAT: пошаговое руководство и стоимость",
@@ -131,7 +135,7 @@ const blogListSchema = {
     url: `https://acahydraulic.kz/blog/${a.slug}`,
     datePublished: a.date,
     author: {
-      "@type": "Person",
+      "@type": a.author === "ACA Hydraulic" ? "Organization" : "Person",
       name: a.author.split(",")[0],
     },
   })),
