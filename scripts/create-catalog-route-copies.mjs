@@ -73,7 +73,6 @@ function productPage(product) {
     description,
     image: image ? [image] : undefined,
     sku: product.sku || product.id,
-    category: product.category,
     itemCondition: product.approvedSale ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
     additionalProperty: product.fitment ? [{
@@ -85,6 +84,16 @@ function productPage(product) {
       '@type': product.approvedSale ? 'Offer' : 'AggregateOffer',
       price: product.approvedSale ? product.minPriceKzt : undefined,
       priceCurrency: 'KZT',
+      shippingDetails: merchantOffer ? {
+              "@type": "OfferShippingDetails",
+              shippingRate: { "@type": "MonetaryAmount", value: merchantPumps.shippingPriceKzt, currency: "KZT" },
+              shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
+              deliveryTime: {
+                "@type": "ShippingDeliveryTime",
+                handlingTime: { "@type": "QuantitativeValue", minValue: merchantPumps.handlingMinDays, maxValue: merchantPumps.handlingMaxDays, unitCode: "DAY" },
+                transitTime: { "@type": "QuantitativeValue", minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: "DAY" },
+              },
+            } : undefined,
       availability: merchantOffer ? 'https://schema.org/InStock' : undefined,
       lowPrice: product.approvedSale ? undefined : product.minPriceKzt,
       highPrice: product.approvedSale ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
