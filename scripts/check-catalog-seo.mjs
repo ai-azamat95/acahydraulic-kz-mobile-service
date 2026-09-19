@@ -28,11 +28,30 @@ for (const product of [productsWithFitment[0], products.find((item) => !item.fit
   assert(schemaMatch, 'static product page must include Product JSON-LD');
   const schema = JSON.parse(schemaMatch[1]);
   assert.equal(schema['@type'], 'Product');
+  assert.equal(schema.category, undefined, 'internal category slugs are not Google product taxonomy values');
+  assert.equal(schema.offers?.shippingDetails, undefined, 'pump delivery terms must not be applied to unrelated parts');
   assert(!schema.offers?.availability, 'supplier availability must not claim local stock or delivery status');
   assert(html.includes('Поставка под заказ'), 'static product must disclose supply to order');
   assert.equal(schema.sku, product.sku);
   assert(schema.description?.includes('Применяемость:'), 'Product JSON-LD needs a fitment-aware description');
   assert(Array.isArray(schema.image) && schema.image.length > 0, 'Product JSON-LD needs an image');
+}
+
+const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
+for (const pump of merchantPumps.products) {
+  const html = fs.readFileSync(path.join(publicDir, 'catalog', pump.handle, 'index.html'), 'utf8');
+  const schema = JSON.parse(html.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s)[1]);
+  assert.equal(schema.category, undefined);
+  const shipping = schema.offers.shippingDetails;
+  assert.equal(shipping['@type'], 'OfferShippingDetails');
+  assert.equal(shipping.shippingDestination.addressCountry, 'KZ');
+  assert.deepEqual(shipping.shippingRate, { '@type': 'MonetaryAmount', value: merchantPumps.shippingPriceKzt, currency: 'KZT' });
+  for (const [field, min, max] of [
+    ['handlingTime', merchantPumps.handlingMinDays, merchantPumps.handlingMaxDays],
+    ['transitTime', merchantPumps.transitMinDays, merchantPumps.transitMaxDays],
+  ]) assert.deepEqual(shipping.deliveryTime[field], { '@type': 'QuantitativeValue', minValue: min, maxValue: max, unitCode: 'DAY' });
+  assert.equal(schema.review, undefined, 'do not invent product reviews');
+  assert.equal(schema.aggregateRating, undefined, 'do not invent product ratings');
 }
 
 const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap-products.xml'), 'utf8');
@@ -43,7 +62,7 @@ console.log(JSON.stringify({
   products: products.length,
   productsWithExplicitFitment: productsWithFitment.length,
   fitmentCoveragePercent: Number((fitmentCoverage * 100).toFixed(1)),
-  productSchemasChecked: 2,
+  productSchemasChecked: 2 + merchantPumps.products.length,
   sitemapProducts: products.length,
   commercialMarkupLeaks: 0,
 }, null, 2));
