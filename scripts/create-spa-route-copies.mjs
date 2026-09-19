@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { articleForRoute, articleList, articleSchema, renderArticle } from './seo-article-content.mjs';
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
@@ -142,6 +143,8 @@ const blogNames = {
 };
 
 function metaForRoute(route) {
+  const article = articleForRoute(route);
+  if (article) return { title: `${article.title} | ACA Hydraulic`, description: article.description };
   if (route === 'services') return serviceDirectory;
   if (serviceContent['/' + route]) return serviceContent['/' + route];
   if (explicitMeta[route]) return explicitMeta[route];
@@ -224,6 +227,8 @@ function fallbackLinks(route) {
 }
 
 function staticFallback(route, meta, canonical) {
+  const article = articleForRoute(route);
+  if (article) return renderArticle(article);
   if (route === 'delivery-and-returns') {
     return `<main><a href="/catalog/">Каталог запчастей</a><h1>${escapeHtml(deliveryPolicy.title)}</h1><p>${escapeHtml(deliveryPolicy.description)}</p>${deliveryPolicy.sections.map(section => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.text)}</p></section>`).join('')}<p><a href="tel:+77714177925">+7 771 417 79 25</a> · <a href="mailto:info@acahydraulic.kz">info@acahydraulic.kz</a></p></main>`;
   }
@@ -262,6 +267,7 @@ function staticFallback(route, meta, canonical) {
   ${details}
   ${directoryHtml}
   ${localHtml}
+  ${route === 'blog' ? articleList() : ''}
   <p>Адрес ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Перед приездом позвоните для согласования.</p>
   <nav aria-label="Основные услуги"><ul>${links}</ul></nav>
   <p><a href="tel:+77714177925">Позвонить: +7 (771) 417-79-25</a> · <a href="https://wa.me/77714177925">Написать в WhatsApp</a></p>
@@ -289,7 +295,13 @@ function withRouteHead(html, route) {
   out = setTag(out, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${d}">`);
   out = setTag(out, /<meta\s+(?:name|property)=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${t}">`);
   out = setTag(out, /<meta\s+(?:name|property)=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${d}">`);
-  const pageSchema = JSON.stringify({
+  const article = articleForRoute(route);
+  if (article) {
+    const image = escapeAttr(new URL(article.image, baseUrl).href);
+    out = setTag(out, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${image}">`);
+    out = setTag(out, /<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${image}">`);
+  }
+  const pageSchema = JSON.stringify(article ? articleSchema(article) : {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     '@id': `${canonical}#webpage`,
@@ -299,7 +311,7 @@ function withRouteHead(html, route) {
     inLanguage: 'ru-KZ',
     isPartOf: { '@id': `${baseUrl}/#website` },
   });
-  out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema>${pageSchema}</script>\n</head>`);
+  out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema${article ? ' data-rh="true"' : ''}>${pageSchema}</script>\n</head>`);
   out = out.replace('<div id="root"></div>', `<div id="root">${staticFallback(route, { title, description }, canonical)}</div>`);
   out = out.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);

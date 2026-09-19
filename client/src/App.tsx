@@ -3,6 +3,7 @@ import { useTikTokPageView } from "@/hooks/useTikTokEvents";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, Router as WouterRouter, Switch, Redirect } from "wouter";
 import legacyRedirects from "../../shared/legacy-redirects.json";
+import seoArticles from "../../shared/seo-articles.json";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { lazy, Suspense } from "react";
@@ -21,6 +22,7 @@ const Contacts = lazy(() => import("./pages/Contacts"));
 const Cases = lazy(() => import("./pages/Cases"));
 const Corporate = lazy(() => import("./pages/Corporate"));
 const Blog = lazy(() => import("./pages/Blog"));
+const PumpGuide = lazy(() => import("./pages/PumpGuide"));
 const Catalog = lazy(() => import("./pages/Catalog"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CatalogProduct = lazy(() => import("./pages/CatalogProduct"));
@@ -138,6 +140,7 @@ function AppRoutes() {
         <Route path="/cases/sany-sy365h-gidravlika-na-goryachuyu" component={SanySY365HHotHydraulics} />
         <Route path="/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami" component={Hitachi330FloatingPressure} />
         <Route path="/blog" component={Blog} />
+        {seoArticles.map(article => <Route key={article.slug} path={`/blog/${article.slug}`} component={PumpGuide} />)}
         <Route path="/catalog" component={Catalog} />
         <Route path="/catalog/category/:categoryId" component={Catalog} />
         <Route path="/catalog/brand/:brandSlug" component={Catalog} />

@@ -57,7 +57,7 @@
 
   <url>
     <loc>https://acahydraulic.kz/blog/</loc>
-    <lastmod>2026-03-16</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -419,4 +419,16 @@
 
   <url><loc>https://acahydraulic.kz/privacy/</loc><lastmod>2026-09-06</lastmod></url>
   <url><loc>https://acahydraulic.kz/terms/</loc><lastmod>2026-09-06</lastmod></url>
+  <url>
+    <loc>https://acahydraulic.kz/blog/k3v112dt-kak-podobrat-gidronasos/</loc>
+    <lastmod>2026-09-19</lastmod>
+  </url>
+  <url>
+    <loc>https://acahydraulic.kz/blog/remont-ili-zamena-gidronasosa/</loc>
+    <lastmod>2026-09-19</lastmod>
+  </url>
+  <url>
+    <loc>https://acahydraulic.kz/blog/k5v80dtp-handok-hitachi-zx160w/</loc>
+    <lastmod>2026-09-19</lastmod>
+  </url>
 </urlset>

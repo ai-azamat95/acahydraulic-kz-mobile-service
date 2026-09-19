@@ -15,6 +15,11 @@ export default function PumpCaseTeaser() {
           <Link href={pumpCasePath} className="mt-5 inline-flex min-h-11 items-center gap-2 font-bold text-[#FFC000] underline underline-offset-4 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
             Посмотреть кейс и варианты насосов <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
           </Link>
+          <nav aria-label="Статьи перед покупкой насоса" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#FFC000] underline underline-offset-4">
+            <Link href="/blog/k3v112dt-kak-podobrat-gidronasos/" className="py-2">Подбор K3V112DT</Link>
+            <Link href="/blog/remont-ili-zamena-gidronasosa/" className="py-2">Ремонт или замена?</Link>
+            <Link href="/blog/k5v80dtp-handok-hitachi-zx160w/" className="py-2">K5V80DTP и HANDOK</Link>
+          </nav>
         </div>
       </div>
     </section>
