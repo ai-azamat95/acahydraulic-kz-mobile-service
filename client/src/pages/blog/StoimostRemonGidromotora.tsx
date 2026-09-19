@@ -18,7 +18,7 @@ export default function StoimostRemonGidromotora() {
       "Реальные цены на ремонт гидромоторов Komatsu PC200, PC300, PC400 в Астане. Что влияет на стоимость, когда выгоднее ремонт, а не замена.",
     datePublished: "2026-01-15",
     dateModified: "2026-01-15",
-    author: { "@type": "Person", name: "Александр Иванов", jobTitle: "Главный инженер" },
+    author: { "@type": "Organization", name: "ACA Hydraulic" },
     publisher: { "@id": "https://acahydraulic.kz/#business" },
     mainEntityOfPage: {
       "@type": "WebPage",

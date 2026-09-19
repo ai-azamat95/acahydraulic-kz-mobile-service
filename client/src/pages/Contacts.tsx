@@ -144,9 +144,9 @@ export default function Contacts() {
                     </div>
                     <div>
                       <h3 className="font-bebas text-xl text-white mb-1">Режим работы</h3>
-                      <p className="text-gray-400">Пн-Пт: 9:00 - 18:00</p>
-                      <p className="text-gray-400">Сб: 9:00 - 14:00</p>
-                      <p className="text-[#FFC000] mt-1 font-bold">Аварийный выезд: 24/7</p>
+                      <p className="text-gray-400">Ежедневно, по договорённости</p>
+                      <p className="text-gray-400">Перед приездом согласуйте время по телефону.</p>
+                      <p className="text-[#FFC000] mt-1 font-bold">Аварийный выезд: по согласованию</p>
                     </div>
                   </div>
                 </div>

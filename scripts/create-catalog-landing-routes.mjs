@@ -106,7 +106,7 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a></p>
 </main>`;
 
-  let html = indexHtml;
+  let html = indexHtml.replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
   html = setTag(html, /<title[^>]*>.*?<\/title>/is, `<title>${escapeHtml(title)} | ACA Hydraulic</title>`);
   html = setTag(html, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${escapeAttr(description)}">`);
   html = html.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
@@ -114,7 +114,10 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:url["'])[^>]*>/i, `<meta property="og:url" content="${canonical}">`);
   html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)} | ACA Hydraulic">`);
   html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
-  html = html.replace('</head>', `<script type="application/ld+json" data-static-collection-schema>${schema}</script>\n</head>`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(`${title} | ACA Hydraulic`)}">`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:url["'])[^>]*>/i, `<meta name="twitter:url" content="${escapeAttr(canonical)}">`);
+  html = html.replace('</head>', `<script type="application/ld+json" data-static-collection-schema data-rh="true">${schema}</script>\n</head>`);
   html = setRootFallback(html, fallback);
   html = html.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);

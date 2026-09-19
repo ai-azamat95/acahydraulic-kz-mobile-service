@@ -19,11 +19,7 @@ export default function RemonGidronasosaCat() {
       "Разбираем ремонт гидронасоса экскаватора Caterpillar (CAT 320, 330, 336). Признаки неисправности, диагностика, стоимость ремонта в Казахстане.",
     datePublished: "2026-02-10",
     dateModified: "2026-02-10",
-    author: {
-      "@type": "Person",
-      name: "Александр Иванов",
-      jobTitle: "Главный инженер",
-    },
+    author: { "@type": "Organization", name: "ACA Hydraulic" },
     publisher: {
       "@id": "https://acahydraulic.kz/#business",
     },

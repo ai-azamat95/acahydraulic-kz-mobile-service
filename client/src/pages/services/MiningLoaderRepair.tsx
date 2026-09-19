@@ -12,7 +12,7 @@ export default function MiningLoaderRepair() {
     <div className="min-h-screen bg-[#111111] text-white font-roboto">
       <SEO 
         title="Ремонт экскаваторов | Профессиональный сервис гидравлики | ACA Hydraulic"
-        description="Ремонт экскаваторов всех марок: Caterpillar, Komatsu, Hitachi, Volvo. Восстановление гидравлики, двигателей, ходовой части. Выездной сервис 24/7 по Казахстану."
+        description="Ремонт экскаваторов всех марок: Caterpillar, Komatsu, Hitachi, Volvo. Восстановление гидравлики, двигателей, ходовой части. Выездной сервис по согласованию по Казахстану."
         keywords="ремонт экскаваторов, ремонт гидравлики экскаватора, ремонт гусеничных экскаваторов, ремонт колесных экскаваторов, Caterpillar, Komatsu, Hitachi"
       />
 
@@ -50,7 +50,7 @@ export default function MiningLoaderRepair() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 bg-[#FFC000]/10 border border-[#FFC000]/20 px-4 py-2 rounded-full mb-6">
               <span className="w-2 h-2 bg-[#FFC000] rounded-full animate-pulse"></span>
-              <span className="text-[#FFC000] font-bebas text-sm tracking-wide">ВЫЕЗДНОЙ СЕРВИС 24/7</span>
+              <span className="text-[#FFC000] font-bebas text-sm tracking-wide">ВЫЕЗДНОЙ СЕРВИС по согласованию</span>
             </div>
             <h1 className="font-bebas text-5xl md:text-7xl text-white mb-6 leading-none tracking-wide">
               Ремонт экскаваторов<br/>

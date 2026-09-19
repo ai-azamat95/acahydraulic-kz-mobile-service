@@ -76,7 +76,7 @@ export default function ExcavatorRepair() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 bg-[#FFC000]/10 border border-[#FFC000]/20 px-4 py-2 rounded-full mb-6">
               <span className="w-2 h-2 bg-[#FFC000] rounded-full animate-pulse"></span>
-              <span className="text-[#FFC000] font-bebas text-sm tracking-wide">ВЫЕЗДНОЙ СЕРВИС 24/7</span>
+              <span className="text-[#FFC000] font-bebas text-sm tracking-wide">ВЫЕЗДНОЙ СЕРВИС по согласованию</span>
             </div>
             <h1 className="font-bebas text-5xl md:text-7xl text-white mb-6 leading-none tracking-wide">
               Ремонт экскаваторов в Астане<br/>

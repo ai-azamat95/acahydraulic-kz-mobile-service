@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
@@ -70,6 +71,16 @@ function setMeta(html, route) {
   const meta = caseMeta[route];
   if (!meta) return html;
   const canonical = `${baseUrl}/${route}/`;
+  const rendered = renderStaticPage(route);
+  if (rendered) {
+    html = html.replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, '')
+      .replace(/<meta(?=[^>]*\b(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi, '')
+      .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
+      .replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
+    const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebPage', url: canonical, name: meta.title });
+    html = html.replace('</head>', `${rendered.head}<script type="application/ld+json" data-static-page-schema>${pageSchema}</script></head>`);
+    return replaceRootContent(html, rendered.body);
+  }
   html = html.replace(/<title\b[^>]*>.*?<\/title>/is, `<title data-rh="true">${meta.title}</title>`);
   html = html.replace(/<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" data-rh="true" content="${escapeAttr(meta.description)}">`);
   // The root document is already managed by react-helmet and can contain

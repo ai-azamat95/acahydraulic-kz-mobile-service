@@ -66,6 +66,8 @@ jobs:
           pnpm catalog:verify-landings
       - name: Verify published site has no supplier identity
         run: pnpm catalog:verify-site
+      - name: Audit every sitemap page and internal link
+        run: python3 scripts/audit-seo.py dist/public --strict > dist/seo-audit.json
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

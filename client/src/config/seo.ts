@@ -68,8 +68,8 @@ export const seoConfig = {
   
   // Service Pages
   mobileRepair: {
-    title: "Выездной ремонт гидравлики | Мобильный сервис 24/7",
-    description: "Выездной ремонт гидравлики экскаваторов и спецтехники на вашем объекте. Приезжаем в течение 2 часов. Диагностика и ремонт на месте. Работаем 24/7 по всему Казахстану.",
+    title: "Выездной ремонт гидравлики | Мобильный сервис по согласованию",
+    description: "Выездной ремонт гидравлики экскаваторов и спецтехники на вашем объекте. Время выезда согласуем после обращения. Диагностика и ремонт на месте. Работаем по согласованию по всему Казахстану.",
     keywords: "выездной ремонт гидравлики, мобильный сервис спецтехники, ремонт на объекте, срочный выезд мастера",
     canonical: "/services/mobile-repair",
     h1: "Выездной ремонт гидравлики"
@@ -101,11 +101,11 @@ export const seoConfig = {
   },
   
   emergencyService: {
-    title: "Срочный ремонт гидравлики 24/7 | Экстренный выезд",
-    description: "Экстренный ремонт гидравлики в любое время суток. Выезд в течение 1-2 часов. Устранение аварийных поломок на месте. Минимизация простоя техники. Звоните: +7 (771) 417-79-25",
-    keywords: "срочный ремонт гидравлики, экстренный ремонт 24/7, аварийный ремонт спецтехники, быстрый выезд мастера",
+    title: "Срочный ремонт гидравлики по согласованию | Экстренный выезд",
+    description: "Срочный ремонт гидравлики по согласованию. Время выезда согласуем после обращения. Устранение аварийных поломок на месте. Минимизация простоя техники. Звоните: +7 (771) 417-79-25",
+    keywords: "срочный ремонт гидравлики, экстренный ремонт по согласованию, аварийный ремонт спецтехники, быстрый выезд мастера",
     canonical: "/services/emergency-service",
-    h1: "Срочный ремонт гидравлики 24/7"
+    h1: "Срочный ремонт гидравлики по согласованию"
   },
   
   b2bMaintenance: {
@@ -128,13 +128,16 @@ export const seoConfig = {
 // LocalBusiness Schema for Home Page
 export const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": ["AutoRepair", "LocalBusiness"],
+  "@type": [
+    "AutoRepair",
+    "LocalBusiness"
+  ],
   "@id": "https://acahydraulic.kz/#business",
   "name": "ACA Hydraulic",
-  "legalName": "ТОО ACA Hydraulic",
+  "legalName": "ТОО «АСА-ГС»",
   "image": "https://acahydraulic.kz/webdev-static-assets/og-image.webp",
   "logo": "https://acahydraulic.kz/favicon-32.png",
-  "description": "Профессиональный выездной сервис и ремонт гидравлики спецтехники, экскаваторов и буровых установок в Астане и по всему Казахстану. Работаем 24/7.",
+  "description": "Профессиональный выездной сервис и ремонт гидравлики спецтехники, экскаваторов и буровых установок в Астане и по всему Казахстану. Ежедневно, по договорённости. Перед приездом согласуйте время.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "трасса Астана–Караганда, 81",
@@ -150,33 +153,40 @@ export const localBusinessSchema = {
   "paymentAccepted": "Cash, Bank Transfer",
   "foundingDate": "2024",
   "taxID": "240540017992",
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-      "opens": "09:00",
-      "closes": "18:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "09:00",
-      "closes": "14:00"
-    }
-  ],
   "sameAs": [
     "https://wa.me/77714177925",
     "https://t.me/+77714177925",
     "https://www.tiktok.com/@acaservice01"
   ],
   "areaServed": [
-    {"@type": "City", "name": "Астана"},
-    {"@type": "City", "name": "Алматы"},
-    {"@type": "City", "name": "Караганда"},
-    {"@type": "City", "name": "Атырау"},
-    {"@type": "City", "name": "Актау"},
-    {"@type": "City", "name": "Шымкент"},
-    {"@type": "Country", "name": "Казахстан"}
+    {
+      "@type": "City",
+      "name": "Астана"
+    },
+    {
+      "@type": "City",
+      "name": "Алматы"
+    },
+    {
+      "@type": "City",
+      "name": "Караганда"
+    },
+    {
+      "@type": "City",
+      "name": "Атырау"
+    },
+    {
+      "@type": "City",
+      "name": "Актау"
+    },
+    {
+      "@type": "City",
+      "name": "Шымкент"
+    },
+    {
+      "@type": "Country",
+      "name": "Казахстан"
+    }
   ],
   "serviceType": [
     "Ремонт гидравлики",
@@ -194,12 +204,9 @@ export const localBusinessSchema = {
     "@type": "ContactPoint",
     "telephone": "+77714177925",
     "contactType": "customer service",
-    "availableLanguage": ["Russian", "Kazakh"],
-    "hoursAvailable": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "00:00",
-      "closes": "23:59"
-    }
+    "availableLanguage": [
+      "Russian",
+      "Kazakh"
+    ]
   }
 };
