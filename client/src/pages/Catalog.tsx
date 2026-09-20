@@ -3,7 +3,7 @@ import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/componen
 import { pumpCasePath } from "@/content/pumpCases";
 import { catalogSearchHref } from "@/lib/catalogLinks";
 import { catalogMatchesQuery } from "@/lib/catalogSearch";
-import { FormEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useParams, useSearch } from "wouter";
 import {
   ArrowLeft,
@@ -33,7 +33,7 @@ import { ProductResults } from "@/components/catalog/ProductResults";
 import { catalogCopy, partCategories, supportedBrands, type CatalogLanguage } from "@/content/partsCatalog";
 import { useCatalogIndex } from "@/hooks/useCatalogProducts";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
-import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { catalogAnalyticsItem, catalogSearchAnalyticsParams, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import {
   catalogBrandLandings,
   catalogCategoryLandings,
@@ -293,7 +293,7 @@ export default function Catalog() {
     return Array.from(stats.values()).filter((item) => item.count >= 8).sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)).slice(0, 30);
   }, [products]);
 
-  const filteredProducts = useMemo(() => {
+  const filterProducts = useCallback((query: string) => {
     const brandNeedle = brand.toLowerCase();
     return products.filter((product) => {
       if (category && !(product.categories || [product.category]).includes(category)) return false;
@@ -302,12 +302,14 @@ export default function Catalog() {
       if (routeBrand && !extractBrandSlugs(landingText).includes(routeBrand.slug)) return false;
       if (routeModel && !extractModelLandings(landingText).some((item) => item.slug === routeModel.slug)) return false;
       if (!routeBrand && brandNeedle && !haystack.includes(brandNeedle)) return false;
-      if (deferredQuery) {
-        if (!catalogMatchesQuery(product, deferredQuery)) return false;
+      if (query) {
+        if (!catalogMatchesQuery(product, query)) return false;
       }
       return true;
     });
-  }, [brand, category, deferredQuery, products, routeBrand, routeModel]);
+  }, [brand, category, products, routeBrand, routeModel]);
+
+  const filteredProducts = useMemo(() => filterProducts(deferredQuery), [deferredQuery, filterProducts]);
 
   const matchingSupplyOffers = useMemo(() => {
     if (searchMode === "vin" || (category && category !== "hydraulic-pumps")) return [];
@@ -401,15 +403,24 @@ export default function Catalog() {
     }
     setFormError("");
     setVisibleCount(initialVisibleProducts(category));
-    trackCatalogEvent("catalog_search", {
-      search_mode: searchMode,
-      landing_id: landingPath,
-      category_id: category || "all",
-      brand_selected: Boolean(brand),
-      has_part_query: Boolean(partQuery.trim()),
-      has_machine_model: Boolean(machineModel.trim()),
-      catalog_result_count: filteredProducts.length,
+    const submittedQuery = `${partQuery} ${machineModel}`.trim().toLowerCase();
+    const submittedResultCount = filterProducts(submittedQuery).length;
+    const analyticsParams = catalogSearchAnalyticsParams({
+      searchMode,
+      landingId: landingPath,
+      categoryId: category || "all",
+      brandSelected: Boolean(brand),
+      partQuery,
+      machineModel,
+      resultCount: submittedResultCount,
     });
+    trackCatalogEvent("catalog_search", analyticsParams);
+    if (analyticsParams.search_term) {
+      trackCatalogEvent("view_search_results", analyticsParams);
+    }
+    if (submittedResultCount === 0) {
+      trackCatalogEvent("catalog_no_results", analyticsParams);
+    }
     scrollToResults();
   };
 
