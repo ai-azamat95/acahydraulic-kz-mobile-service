@@ -1,0 +1,11 @@
+{
+  "/contact": "/contacts/",
+  "/kompaniya": "/about/",
+  "/remont-gnb": "/services/gnb-repair/",
+  "/remont-kolesnogo-ekskavatora": "/services/excavator-repair/",
+  "/remont-gusenechnogo-ekskavatora": "/services/excavator-repair/",
+  "/remont-frontalnogo-pogruzchika": "/services/loader-repair/",
+  "/remont-greydera": "/services/grader-repair/",
+  "/remont-buldozerov": "/services/bulldozer-repair/",
+  "/projects": "/cases/"
+}

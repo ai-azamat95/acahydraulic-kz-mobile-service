@@ -1,8 +1,10 @@
+import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
 import { seoConfig } from "@/config/seo";
 import LocalRepairInfo from '@/components/LocalRepairInfo';
-import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Scan, Microscope, Settings, Gauge, Menu, X, Send, Video, MapPin, Building2, Calculator, ArrowRight, Mail } from "lucide-react";
+import Cat325VideoCase from '@/components/Cat325VideoCase';
+import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Scan, Microscope, Settings, Gauge, X, Send, Video, MapPin, Building2, Calculator, ArrowRight, Mail } from "lucide-react";
 import CostCalculator from "@/components/CostCalculator";
 import { Link } from "wouter";
 import { useState } from "react";
@@ -10,7 +12,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import B2BLeadForm from "@/components/B2BLeadForm";
 import StickyMobileBar from "@/components/StickyMobileBar";
 import { useTranslation } from "react-i18next";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import MobileSiteMenu from "@/components/MobileSiteMenu";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
@@ -32,7 +34,6 @@ export default function Home() {
   // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
 
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
   const { t } = useTranslation();
   const fireTikTokContact = useTikTokContact();
@@ -148,61 +149,7 @@ export default function Home() {
             </a>
 
             {/* Mobile Menu Trigger */}
-            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-              <SheetTrigger asChild>
-                <Button aria-label="Открыть меню" variant="ghost" size="icon" className="xl:hidden text-white hover:text-[#FFC000] hover:bg-transparent">
-                  <Menu className="w-8 h-8" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-[#111111] border-l border-white/10 p-0 w-[300px]">
-                <div className="flex flex-col h-full">
-                  <div className="p-6 border-b border-white/10 flex justify-between items-center">
-                    <span className="font-bebas text-2xl text-white">{t('nav.menu')}</span>
-                    <LanguageSwitcher />
-                  </div>
-                  <nav className="flex flex-col p-6 gap-6">
-                    <Link href="/" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-[#FFC000] tracking-wide">{t('nav.home')}</Link>
-                    <Link href="/services" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.services')}</Link>
-                    <Link href="/catalog" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.catalog')}</Link>
-                    <Link href="/about" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.about')}</Link>
-                    {/* Brands section in mobile menu */}
-                    <div>
-                      <div className="text-xs font-roboto text-gray-500 uppercase tracking-widest mb-2">Бренды</div>
-                      <div className="flex flex-wrap gap-2">
-                        {[
-                          { name: 'CAT', href: '/brands/cat' },
-                          { name: 'KOMATSU', href: '/brands/komatsu' },
-                          { name: 'HITACHI', href: '/brands/hitachi' },
-                          { name: 'HYUNDAI', href: '/brands/hyundai' },
-                          { name: 'WIRTGEN', href: '/brands/wirtgen' },
-                          { name: 'SHANTUI', href: '/brands/shantui' },
-                          { name: 'LIEBHERR', href: '/brands/liebherr' },
-                          { name: 'VOLVO CE', href: '/brands/volvo' },
-                        ].map((b) => (
-                          <Link key={b.name} href={b.href} onClick={() => setIsMenuOpen(false)}
-                            className="text-sm font-bebas text-gray-300 hover:text-[#FFC000] bg-white/5 hover:bg-white/10 px-3 py-1 rounded transition-colors tracking-wide">
-                            {b.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                    <Link href="/reviews" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.reviews')}</Link>
-                    <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.blog')}</Link>
-                    <Link href="/contacts" onClick={() => setIsMenuOpen(false)} className="text-xl font-bebas text-white hover:text-[#FFC000] transition-colors tracking-wide">{t('nav.contacts')}</Link>
-                  </nav>
-                  <div className="mt-auto p-6 border-t border-white/10">
-                    <a href="tel:+77714177925" className="flex items-center gap-3 text-[#FFC000] mb-4">
-                      <Phone className="w-5 h-5" />
-                      <span className="font-bebas text-xl">+7 (771) 417-79-25</span>
-                    </a>
-                    <p className="text-gray-500 text-xs font-roboto">
-                      {t('footer.schedule')}<br/>
-                      {t('footer.emergencyCall')}
-                    </p>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+            <MobileSiteMenu />
           </div>
         </div>
       </header>
@@ -318,6 +265,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Cat325VideoCase />
+      <PumpCaseTeaser />
 
       <section aria-labelledby="repair-cases-title" className="border-t border-white/10 bg-[#111111] py-8 md:py-12">
         <div className="container mx-auto px-4">

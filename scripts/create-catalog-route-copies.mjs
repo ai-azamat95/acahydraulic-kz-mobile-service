@@ -52,7 +52,10 @@ function setRootFallback(html, fallback) {
   throw new Error('Unable to locate the application root for static product content.');
 }
 
+const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
+
 function productPage(product) {
+  const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
   const canonical = `${baseUrl}/catalog/${product.handle}/`;
   const titleCore = product.title.length > 110 ? `${product.title.slice(0, 107)}...` : product.title;
   const title = `${titleCore} | ACA Hydraulic`;
@@ -60,7 +63,7 @@ function productPage(product) {
   const fitmentLabel = product.approvedSale ? 'Применяемость этого исполнения' : 'Применяемость';
   const seriesNote = product.approvedSale ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
   const price = Number.isFinite(product.minPriceKzt) ? `Цена ${product.approvedSale ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
-  const saleTerms = product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
+  const saleTerms = merchantOffer ? merchantPumps.terms.ru : product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
   const description = `${product.title}. ${fitmentLabel}: ${fitment}. ${price}. ${saleTerms} Поставка под заказ. Цена и срок после проверки шильдика.`;
   const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
   const schema = JSON.stringify({
@@ -70,7 +73,6 @@ function productPage(product) {
     description,
     image: image ? [image] : undefined,
     sku: product.sku || product.id,
-    category: product.category,
     itemCondition: product.approvedSale ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
     additionalProperty: product.fitment ? [{
@@ -82,6 +84,17 @@ function productPage(product) {
       '@type': product.approvedSale ? 'Offer' : 'AggregateOffer',
       price: product.approvedSale ? product.minPriceKzt : undefined,
       priceCurrency: 'KZT',
+      shippingDetails: merchantOffer ? {
+              "@type": "OfferShippingDetails",
+              shippingRate: { "@type": "MonetaryAmount", value: merchantPumps.shippingPriceKzt, currency: "KZT" },
+              shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
+              deliveryTime: {
+                "@type": "ShippingDeliveryTime",
+                handlingTime: { "@type": "QuantitativeValue", minValue: merchantPumps.handlingMinDays, maxValue: merchantPumps.handlingMaxDays, unitCode: "DAY" },
+                transitTime: { "@type": "QuantitativeValue", minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: "DAY" },
+              },
+            } : undefined,
+      availability: merchantOffer ? 'https://schema.org/InStock' : undefined,
       lowPrice: product.approvedSale ? undefined : product.minPriceKzt,
       highPrice: product.approvedSale ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
       url: canonical,
@@ -100,21 +113,25 @@ function productPage(product) {
   <p>Перед оплатой ACA Hydraulic сверяет номер детали, модель техники, серийный номер, исполнение, разъёмы, вал, фланец и порты.</p>
   <p>Доступны оригинальные, OEM и проверенные аналоговые варианты. Конкретный вариант, наличие, срок доставки и гарантия подтверждаются после проверки.</p>
   <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a></p>
+  ${product.category === 'hydraulic-pumps' ? `<nav aria-label="Статьи перед покупкой насоса"><ul><li><a href="/blog/k3v112dt-kak-podobrat-gidronasos/">Подбор K3V112DT</a></li><li><a href="/blog/remont-ili-zamena-gidronasosa/">Ремонт или замена гидронасоса</a></li><li><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">K5V80DTP и HANDOK</a></li></ul></nav>` : ''}
 </main>`;
 
-  let html = indexHtml;
+  let html = indexHtml.replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
   html = setTag(html, /<title[^>]*>.*?<\/title>/is, `<title>${escapeHtml(title)}</title>`);
-  html = setTag(html, /<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${escapeAttr(description)}">`);
   html = html.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
   html = html.replace('</head>', `<link data-rh="true" rel="canonical" href="${canonical}">\n</head>`);
-  html = setTag(html, /<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${canonical}">`);
-  html = setTag(html, /<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)}">`);
-  html = setTag(html, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:url["'])[^>]*>/i, `<meta property="og:url" content="${canonical}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
   if (image) {
-    html = setTag(html, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${escapeAttr(image)}">`);
-    html = setTag(html, /<meta\s+name=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${escapeAttr(image)}">`);
+    html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:image["'])[^>]*>/i, `<meta property="og:image" content="${escapeAttr(image)}">`);
+    html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:image["'])[^>]*>/i, `<meta name="twitter:image" content="${escapeAttr(image)}">`);
   }
-  html = html.replace('</head>', `<script type="application/ld+json" data-static-product-schema>${schema}</script>\n</head>`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(title)}">`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:url["'])[^>]*>/i, `<meta name="twitter:url" content="${escapeAttr(canonical)}">`);
+  html = html.replace('</head>', `<script type="application/ld+json" data-static-product-schema data-rh="true">${schema}</script>\n</head>`);
   html = setRootFallback(html, fallback);
   html = html.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);

@@ -1,3 +1,6 @@
+import merchantPumps from "../../../shared/merchant-pumps.json";
+import SiteHomeLink from "@/components/SiteHomeLink";
+import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, Check, ImageIcon, MessageCircle, Package, ShieldCheck, ZoomIn } from "lucide-react";
@@ -95,6 +98,7 @@ export default function CatalogProduct() {
   const displayedPrice = product.minPriceKzt !== null
     ? `${product.approvedSale ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
+  const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
   const fitmentText = product.fitment || copy.fitmentUnknown;
   const fitmentLabel = product.approvedSale
@@ -119,7 +123,6 @@ export default function CatalogProduct() {
           description: seoDescription,
           image: gallery,
           sku: mainSku,
-          category: categoryName,
           itemCondition: product.approvedSale ? "https://schema.org/NewCondition" : undefined,
           additionalProperty: product.fitment ? [{
             "@type": "PropertyValue",
@@ -130,6 +133,17 @@ export default function CatalogProduct() {
             "@type": product.approvedSale ? "Offer" : "AggregateOffer",
             price: product.approvedSale ? product.minPriceKzt : undefined,
             priceCurrency: "KZT",
+            shippingDetails: merchantOffer ? {
+              "@type": "OfferShippingDetails",
+              shippingRate: { "@type": "MonetaryAmount", value: merchantPumps.shippingPriceKzt, currency: "KZT" },
+              shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
+              deliveryTime: {
+                "@type": "ShippingDeliveryTime",
+                handlingTime: { "@type": "QuantitativeValue", minValue: merchantPumps.handlingMinDays, maxValue: merchantPumps.handlingMaxDays, unitCode: "DAY" },
+                transitTime: { "@type": "QuantitativeValue", minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: "DAY" },
+              },
+            } : undefined,
+            availability: merchantOffer ? "https://schema.org/InStock" : undefined,
             lowPrice: product.approvedSale ? undefined : product.minPriceKzt,
             highPrice: product.approvedSale ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
             offerCount: product.approvedSale ? undefined : product.variants.length,
@@ -144,7 +158,7 @@ export default function CatalogProduct() {
 
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
         <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" className="flex items-center gap-3" aria-label="ACA Hydraulic">
+          <SiteHomeLink className="flex items-center gap-3" aria-label="ACA Hydraulic">
             <span className="flex h-7 gap-[3px]" aria-hidden="true">
               <span className="w-2.5 bg-[#FFC000]" />
               <span className="flex flex-col justify-between">
@@ -156,7 +170,7 @@ export default function CatalogProduct() {
               <strong className="text-lg tracking-wide">ACA</strong>
               <span className="mt-0.5 text-[11px] tracking-wider">HYDRAULIC</span>
             </span>
-          </Link>
+          </SiteHomeLink>
           <div className="flex items-center gap-2" aria-label="Language">
             {(["ru", "kz", "en"] as CatalogLanguage[]).map((item) => (
               <button
@@ -253,7 +267,7 @@ export default function CatalogProduct() {
                 {product.available ? copy.available : copy.checkAvailability}
               </div>
               {product.approvedSale && <p className="mt-3 text-sm leading-6 text-gray-300">
-                {language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу — 3–14 күн. Жеткізу — кг үшін 3 АҚШ долларынан бастап, бөлек төленеді. Алдын ала төлем 100%. Жеткізудің толық құны төлемге дейін келісіледі. Ақау болса — сервис орталығы арқылы ауыстыру. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan in 3–14 days. Shipping from USD 3 per kg, charged separately. 100% prepayment. Final shipping cost agreed before payment. Defective units replaced through our service center. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
+                {merchantOffer ? merchantPumps.terms[language] : language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу — 3–14 күн. Жеткізу — кг үшін 3 АҚШ долларынан бастап, бөлек төленеді. Алдын ала төлем 100%. Жеткізудің толық құны төлемге дейін келісіледі. Ақау болса — сервис орталығы арқылы ауыстыру. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan in 3–14 days. Shipping from USD 3 per kg, charged separately. 100% prepayment. Final shipping cost agreed before payment. Defective units replaced through our service center. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
               </p>}
               <button
                 type="button"
@@ -318,8 +332,10 @@ export default function CatalogProduct() {
           <div>
             <h2 className="text-xl font-bold">{copy.qualityTitle}</h2>
             <p className="mt-2 leading-relaxed text-gray-400">{copy.qualityText}</p>
+            <Link href="/delivery-and-returns/" className="mt-3 inline-flex min-h-11 items-center text-[#FFC000] underline">{language === "ru" ? "Доставка, оплата и возврат" : language === "kz" ? "Жеткізу, төлем және қайтару" : "Delivery, payment and returns"}</Link>
           </div>
         </section>
+        {product.category === "hydraulic-pumps" && <div className="mt-12"><PumpCaseTeaser /></div>}
       </main>
     </div>
   );

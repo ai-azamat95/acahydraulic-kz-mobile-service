@@ -18,4 +18,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - run: node scripts/create-spa-route-copies.mjs
+      - run: node scripts/create-case-route-copies.mjs
+      - run: node scripts/create-video-seo-routes.mjs
+      - run: node scripts/create-merchant-feed.mjs
       - run: node --test tests/*.test.mjs

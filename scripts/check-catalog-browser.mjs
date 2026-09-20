@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import assert from 'node:assert/strict';
+import { checkSiteNavigation } from './check-site-navigation.mjs';
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
 const catalogDir = path.join(root, 'catalog-data');
@@ -168,6 +169,49 @@ try {
         console.log(JSON.stringify(results.at(-1)));
         await page.close();
       }
+      const journey = await browser.newPage({viewport:{width:390,height:844},locale:'ru-RU'});
+      const journeyErrors = [];
+      journey.on('pageerror', error => journeyErrors.push(error.message));
+      await journey.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
+      await journey.goto(origin+'/cases/postavka-zamena-gidronasosa',{waitUntil:'networkidle'});
+      await journey.getByRole('link',{name:'Найти K5V160DT в запчастях',exact:true}).click();
+      await journey.locator('[data-supply-offer="sany-k5v160dt"]').waitFor();
+      assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT');
+      await journey.waitForFunction(() => Number(document.querySelector('[data-result-count]')?.getAttribute('data-result-count')) > 0);
+      assert.equal(await journey.locator('[data-supply-offer]').count(),1);
+      await journey.reload({waitUntil:'networkidle'});
+      assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT','URL search survives reload');
+      await journey.locator('.aca-category-card[href="/catalog?q=K5V160DT"]').click();
+      assert.equal(new URL(journey.url()).searchParams.get('q'),'K5V160DT','category navigation preserves query');
+      assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT');
+      await journey.locator('#catalog-search input').first().fill('HANDOK');
+      await journey.locator('[data-supply-offer="handok-h5v80dtp"]').waitFor();
+      await journey.locator('[data-supply-offer="sany-k5v160dt"]').waitFor({state:'detached'});
+      await journey.locator('[data-supply-offer="handok-h5v80dtp"]').getByRole('link',{name:'Насос и история заказа',exact:true}).click();
+      await journey.getByRole('heading',{name:'Hitachi ZX160W: клиент выбрал корейский HANDOK',exact:true}).waitFor();
+      assert.equal(new URL(journey.url()).hash,'#hitachi-order');
+      await journey.waitForFunction(() => {
+        const top = document.getElementById('hitachi-order')?.getBoundingClientRect().top;
+        return top >= 0 && top < window.innerHeight;
+      });
+      await journey.getByRole('link',{name:'Искать запчасти для ZX160W',exact:true}).click();
+      await journey.locator('[data-supply-offer="handok-h5v80dtp"]').waitFor();
+      assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'ZX160W');
+      await journey.waitForFunction(() => Number(document.querySelector('[data-result-count]')?.getAttribute('data-result-count')) > 0);
+      await journey.locator('.aca-product-card > a').first().click();
+      await journey.locator('.aca-product-fitment-detail').waitFor();
+      await journey.goBack({waitUntil:'networkidle'});
+      assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'ZX160W','return from product preserves model');
+      for (const width of [320,768,1024,1440]) {
+        await journey.setViewportSize({width,height:900});
+        assert.equal(await journey.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true,'search results must fit viewport');
+      }
+      assert.deepEqual(journeyErrors,[],'case/catalog journey runtime errors');
+      results.push({engine:engineName,caseCatalogJourney:'pass',queryPersistence:'pass',caseAnchor:'pass'});
+      console.log(JSON.stringify(results.at(-1)));
+      await journey.close();
+      results.push({engine:engineName,navigation:await checkSiteNavigation(browser,origin,catalogProducts[0].handle)});
+      console.log(JSON.stringify(results.at(-1)));
     }finally{await browser.close();}
   }
 }finally{

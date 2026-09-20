@@ -1,0 +1,41 @@
+import React from "react";
+import { renderToString } from "react-dom/server";
+import helmetPackage from "react-helmet-async";
+import { Router } from "wouter";
+import PressureArticle from "../client/src/pages/blog/PadaetDavlenieGidravliki";
+import CatCase from "../client/src/pages/cases/Cat330DLHotPowerLoss";
+import SanyCase from "../client/src/pages/cases/SanySY365HHotHydraulics";
+import HitachiCase from "../client/src/pages/cases/Hitachi330FloatingPressure";
+import Cases from "../client/src/pages/Cases";
+
+const { HelmetProvider } = helmetPackage;
+const pages: Record<string, React.ComponentType> = {
+  "blog/padaet-davlenie-gidravliki-ekskavatora": PressureArticle,
+  "cases/cat-330dl-teryaet-moshchnost-na-goryachuyu": CatCase,
+  "cases/sany-sy365h-gidravlika-na-goryachuyu": SanyCase,
+  "cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami": HitachiCase,
+  cases: Cases,
+};
+
+// Use the actual page component, so the HTML read by crawlers matches the UI.
+export function renderStaticPage(requestedRoute: string) {
+  const Page = pages[requestedRoute];
+  if (!Page) return null;
+  const context: any = {};
+  const body = renderToString(
+    <HelmetProvider context={context}>
+      <Router ssrPath={`/${requestedRoute}`}>
+        <Page />
+      </Router>
+    </HelmetProvider>
+  );
+  const { helmet } = context;
+  return {
+    body: body.includes("<main")
+      ? body.replace("<main", '<main aria-label="Материал ACA Hydraulic"')
+      : `<main aria-label="Материал ACA Hydraulic">${body}</main>`,
+    head: ["title", "meta", "link", "script"]
+      .map(key => helmet[key].toString())
+      .join("\n"),
+  };
+}

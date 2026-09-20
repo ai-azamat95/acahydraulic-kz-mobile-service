@@ -1,7 +1,9 @@
 import { Toaster } from "@/components/ui/sonner";
 import { useTikTokPageView } from "@/hooks/useTikTokEvents";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Route, Router as WouterRouter, Switch } from "wouter";
+import { Route, Router as WouterRouter, Switch, Redirect } from "wouter";
+import legacyRedirects from "../../shared/legacy-redirects.json";
+import seoArticles from "../../shared/seo-articles.json";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { lazy, Suspense } from "react";
@@ -12,6 +14,7 @@ import NotFound from "@/pages/NotFound";
 
 // Lazy-loaded pages — split into separate chunks to reduce initial bundle
 const Legal = lazy(() => import("./pages/Legal"));
+const DeliveryAndReturns = lazy(() => import("./pages/DeliveryAndReturns"));
 const Services = lazy(() => import("./pages/Services"));
 const About = lazy(() => import("./pages/About"));
 const Reviews = lazy(() => import("./pages/Reviews"));
@@ -19,6 +22,7 @@ const Contacts = lazy(() => import("./pages/Contacts"));
 const Cases = lazy(() => import("./pages/Cases"));
 const Corporate = lazy(() => import("./pages/Corporate"));
 const Blog = lazy(() => import("./pages/Blog"));
+const PumpGuide = lazy(() => import("./pages/PumpGuide"));
 const Catalog = lazy(() => import("./pages/Catalog"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CatalogProduct = lazy(() => import("./pages/CatalogProduct"));
@@ -28,6 +32,8 @@ const IndustrialAI = lazy(() => import("./pages/IndustrialAI"));
 const Cat330DLHotPowerLoss = lazy(() => import("./pages/cases/Cat330DLHotPowerLoss"));
 const SanySY365HHotHydraulics = lazy(() => import("./pages/cases/SanySY365HHotHydraulics"));
 const Hitachi330FloatingPressure = lazy(() => import("./pages/cases/Hitachi330FloatingPressure"));
+const PumpSupplyInstallation = lazy(() => import("./pages/cases/PumpSupplyInstallation"));
+const VideoCase = lazy(() => import("./pages/cases/VideoCase"));
 
 // Service sub-pages (lazy loaded)
 const MobileRepair = lazy(() => import("./pages/services/MobileRepair"));
@@ -87,9 +93,11 @@ function AppRoutes() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Switch>
+        {Object.entries(legacyRedirects).map(([from, to]) => <Route key={from} path={from}><Redirect to={to} /></Route>)}
         <Route path={"/"} component={Home} />
         <Route path="/privacy" component={Legal} />
         <Route path="/terms" component={Legal} />
+        <Route path="/delivery-and-returns" component={DeliveryAndReturns} />
         <Route path="/industrial-ai" component={IndustrialAI} />
         <Route path="/parts" component={Catalog} />
         <Route path="/parts/:slug" component={ProductPage} />
@@ -125,10 +133,14 @@ function AppRoutes() {
         <Route path="/corporate" component={Corporate} />
         <Route path="/projects" component={Cases} />
         <Route path="/cases" component={Cases} />
+        <Route path="/cases/cat-325c-glokhnet-pod-nagruzkoy" component={VideoCase} />
+        <Route path="/cases/sany-sy365h-zamena-gidronasosa-video" component={VideoCase} />
+        <Route path="/cases/postavka-zamena-gidronasosa" component={PumpSupplyInstallation} />
         <Route path="/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu" component={Cat330DLHotPowerLoss} />
         <Route path="/cases/sany-sy365h-gidravlika-na-goryachuyu" component={SanySY365HHotHydraulics} />
         <Route path="/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami" component={Hitachi330FloatingPressure} />
         <Route path="/blog" component={Blog} />
+        {seoArticles.map(article => <Route key={article.slug} path={`/blog/${article.slug}`} component={PumpGuide} />)}
         <Route path="/catalog" component={Catalog} />
         <Route path="/catalog/category/:categoryId" component={Catalog} />
         <Route path="/catalog/brand/:brandSlug" component={Catalog} />

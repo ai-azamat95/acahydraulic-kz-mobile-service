@@ -8,3 +8,4 @@ Sitemap: https://acahydraulic.kz/sitemap.xml
 Sitemap: https://acahydraulic.kz/sitemap-cases.xml
 Sitemap: https://acahydraulic.kz/sitemap-products.xml
 Sitemap: https://acahydraulic.kz/sitemap-catalog-landings.xml
+Sitemap: https://acahydraulic.kz/sitemap-videos.xml

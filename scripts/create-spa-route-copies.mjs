@@ -1,13 +1,31 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { build } from 'esbuild';
+import { createRequire } from 'node:module';
+import { articleForRoute, articleList, articleSchema, renderArticle } from './seo-article-content.mjs';
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
 const sitemapPath = path.join(outDir, 'sitemap.xml');
 const baseUrl = 'https://acahydraulic.kz';
+await build({
+  entryPoints: ['scripts/render-static-pages.tsx'],
+  outfile: 'dist/seo-page-renderer.mjs',
+  bundle: true, platform: 'node', format: 'esm', jsx: 'automatic',
+  // Keep one React instance, but bundle Helmet's private dependencies for pnpm.
+  banner: { js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);' },
+  external: ['react', 'react-dom/*', 'wouter'],
+  alias: {
+    '@': path.resolve('client/src'),
+    'react-helmet-async': createRequire(import.meta.url).resolve('react-helmet-async'),
+  },
+  define: { 'import.meta.env.BASE_URL': '"/"' },
+});
+const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
 const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-repair-content.json', import.meta.url), 'utf8'));
 const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
 const serviceDirectory = JSON.parse(fs.readFileSync(new URL('../shared/service-directory.json', import.meta.url), 'utf8'));
+const deliveryPolicy = JSON.parse(fs.readFileSync(new URL('../shared/delivery-and-returns.json', import.meta.url), 'utf8'));
 
 if (!fs.existsSync(indexPath)) {
   throw new Error(`Missing ${indexPath}. Run build first.`);
@@ -16,7 +34,7 @@ if (!fs.existsSync(indexPath)) {
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 const sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
 const locs = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)].map((m) => m[1]);
-const routes = new Set(['404', 'privacy', 'terms']);
+const routes = new Set(['404', 'privacy', 'terms', 'delivery-and-returns']);
 
 for (const raw of locs) {
   const route = raw.replace(/^\/+|\/+$/g, '');
@@ -29,6 +47,7 @@ const explicitMeta = {
   '404': { title: 'Страница не найдена | ACA Hydraulic', description: 'Эта страница отсутствует. Перейдите на главную ACA Hydraulic.' },
   privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
   terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
+  'delivery-and-returns': { title: deliveryPolicy.title + ' | ACA Hydraulic', description: deliveryPolicy.description },
   '': {
     title: 'Ремонт гидравлики в Астане — выездной сервис | ACA Hydraulic',
     description: 'Ремонт гидравлики в Астане: экскаваторы, погрузчики и буровые. Диагностика от 200 000 ₸, выезд на объект. База: трасса Астана–Караганда, 81.',
@@ -78,11 +97,11 @@ const explicitMeta = {
     description: 'B2B обслуживание парка спецтехники: диагностика, выездной ремонт гидравлики, договор, НДС, приоритетный сервис.',
   },
   'services/mobile-repair': {
-    title: 'Выездной ремонт гидравлики спецтехники 24/7 | ACA Hydraulic',
+    title: 'Выездной ремонт гидравлики спецтехники по согласованию | ACA Hydraulic',
     description: 'Мобильный ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Выезд по Казахстану, диагностика, договор с НДС.',
   },
   'services/emergency-service': {
-    title: 'Срочный ремонт гидравлики 24/7 | ACA Hydraulic',
+    title: 'Срочный ремонт гидравлики по согласованию | ACA Hydraulic',
     description: 'Экстренный выезд на аварийный ремонт гидравлики спецтехники. Помогаем сократить простой экскаваторов, буровых и дорожной техники.',
   },
   'services/hydraulic-pumps': {
@@ -140,6 +159,8 @@ const blogNames = {
 };
 
 function metaForRoute(route) {
+  const article = articleForRoute(route);
+  if (article) return { title: `${article.title} | ACA Hydraulic`, description: article.description };
   if (route === 'services') return serviceDirectory;
   if (serviceContent['/' + route]) return serviceContent['/' + route];
   if (explicitMeta[route]) return explicitMeta[route];
@@ -222,6 +243,11 @@ function fallbackLinks(route) {
 }
 
 function staticFallback(route, meta, canonical) {
+  const article = articleForRoute(route);
+  if (article) return renderArticle(article);
+  if (route === 'delivery-and-returns') {
+    return `<main><a href="/catalog/">Каталог запчастей</a><h1>${escapeHtml(deliveryPolicy.title)}</h1><p>${escapeHtml(deliveryPolicy.description)}</p>${deliveryPolicy.sections.map(section => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.text)}</p></section>`).join('')}<p><a href="tel:+77714177925">+7 771 417 79 25</a> · <a href="mailto:info@acahydraulic.kz">info@acahydraulic.kz</a></p></main>`;
+  }
   const directoryHtml = route === 'services' ? serviceDirectory.categories.map(category => {
     const items = category.subcategories.length ? category.subcategories : [{ name: category.title, link: category.link }];
     const links = items.map(item => item.link && item.link !== '#'
@@ -257,6 +283,7 @@ function staticFallback(route, meta, canonical) {
   ${details}
   ${directoryHtml}
   ${localHtml}
+  ${route === 'blog' ? articleList() : ''}
   <p>Адрес ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Перед приездом позвоните для согласования.</p>
   <nav aria-label="Основные услуги"><ul>${links}</ul></nav>
   <p><a href="tel:+77714177925">Позвонить: +7 (771) 417-79-25</a> · <a href="https://wa.me/77714177925">Написать в WhatsApp</a></p>
@@ -272,6 +299,15 @@ function withRouteHead(html, route) {
   const c = escapeAttr(canonical);
 
   let out = html;
+  const renderedArticle = renderStaticPage(route);
+  if (renderedArticle) {
+    out = out.replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, '')
+      .replace(/<meta(?=[^>]*\b(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi, '')
+      .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
+      .replace('</head>', `${renderedArticle.head.replace('<script ', '<script data-static-page-schema ')}\n</head>`)
+      .replace('<div id="root"></div>', `<div id="root">${renderedArticle.body}</div>`);
+    return out;
+  }
   if (route === '404') {
     out = setTag(out, /<meta\s+name=["']robots["'][^>]*>/i, '<meta name="robots" content="noindex, follow">');
   }
@@ -284,7 +320,13 @@ function withRouteHead(html, route) {
   out = setTag(out, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${d}">`);
   out = setTag(out, /<meta\s+(?:name|property)=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${t}">`);
   out = setTag(out, /<meta\s+(?:name|property)=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${d}">`);
-  const pageSchema = JSON.stringify({
+  const article = articleForRoute(route);
+  if (article) {
+    const image = escapeAttr(new URL(article.image, baseUrl).href);
+    out = setTag(out, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${image}">`);
+    out = setTag(out, /<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${image}">`);
+  }
+  const pageSchema = JSON.stringify(article ? articleSchema(article) : {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     '@id': `${canonical}#webpage`,
@@ -294,7 +336,7 @@ function withRouteHead(html, route) {
     inLanguage: 'ru-KZ',
     isPartOf: { '@id': `${baseUrl}/#website` },
   });
-  out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema>${pageSchema}</script>\n</head>`);
+  out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema${article ? ' data-rh="true"' : ''}>${pageSchema}</script>\n</head>`);
   out = out.replace('<div id="root"></div>', `<div id="root">${staticFallback(route, { title, description }, canonical)}</div>`);
   out = out.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);

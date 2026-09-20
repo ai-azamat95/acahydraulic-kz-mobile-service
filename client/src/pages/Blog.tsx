@@ -5,7 +5,11 @@ import { Calendar, User, ArrowRight, Tag, Clock } from "lucide-react";
 import { Link } from "wouter";
 
 import { publicAsset } from "@/lib/assets";
+import seoArticles from "../../../shared/seo-articles.json";
 const articles = [
+  ...seoArticles.map((article, index) => ({ id: 100 + index, title: article.title, excerpt: article.description,
+    date: article.publishedDate, displayDate: "19.09.2026", author: "ACA Hydraulic", category: article.category,
+    image: article.image, slug: article.slug, readTime: article.readTime })),
   {
     id: 1,
     title: "Ремонт гидронасоса CAT: пошаговое руководство и стоимость",
@@ -13,7 +17,7 @@ const articles = [
       "Разбираем ремонт гидронасоса экскаватора Caterpillar (CAT 320, 330, 336). Признаки неисправности, диагностика, стоимость ремонта в Казахстане. Реальный кейс из нашей практики.",
     date: "2026-02-10",
     displayDate: "10.02.2026",
-    author: "Александр Иванов, Главный инженер",
+    author: "ACA Hydraulic",
     category: "Ремонт CAT",
     image: "/images/hydraulic-repair-cinematic.webp",
     slug: "remont-gidronasosa-cat",
@@ -26,7 +30,7 @@ const articles = [
       "Низкое давление в гидросистеме — одна из самых частых проблем. Разбираем 7 причин: от износа насоса до настройки предохранительного клапана. Как диагностировать самостоятельно?",
     date: "2026-01-25",
     displayDate: "25.01.2026",
-    author: "Сергей Петров, Сервисный инженер",
+    author: "ACA Hydraulic",
     category: "Диагностика",
     image: "/images/excavator-tech-repair.webp",
     slug: "padaet-davlenie-gidravliki-ekskavatora",
@@ -39,7 +43,7 @@ const articles = [
       "Реальные цены на ремонт гидромоторов Komatsu PC200, PC300, PC400 в Астане и Казахстане. Что влияет на стоимость, когда выгоднее ремонт, а не замена. Прайс-лист 2026.",
     date: "2026-01-15",
     displayDate: "15.01.2026",
-    author: "Александр Иванов, Главный инженер",
+    author: "ACA Hydraulic",
     category: "Цены и стоимость",
     image: "/images/hydraulic-repair-cinematic.webp",
     slug: "stoimost-remonta-gidromotora-komatsu",
@@ -52,7 +56,7 @@ const articles = [
       "Практическое руководство: как самостоятельно определить неисправность гидравлической системы спецтехники. Шумы, утечки, медленная работа — что означает каждый симптом.",
     date: "2025-12-20",
     displayDate: "20.12.2025",
-    author: "Сергей Петров, Сервисный инженер",
+    author: "ACA Hydraulic",
     category: "Диагностика",
     image: "/images/hydraulic-schematic-overlay.webp",
     slug: "kak-opredelit-neispravnost-gidravliki",
@@ -131,7 +135,7 @@ const blogListSchema = {
     url: `https://acahydraulic.kz/blog/${a.slug}`,
     datePublished: a.date,
     author: {
-      "@type": "Person",
+      "@type": a.author === "ACA Hydraulic" ? "Organization" : "Person",
       name: a.author.split(",")[0],
     },
   })),
@@ -249,7 +253,7 @@ export default function Blog() {
               { label: "Ремонт экскаваторов", href: "/services/excavator-repair" },
               { label: "Ремонт гидрораспределителей", href: "/services/hydraulic-valves" },
               { label: "Выездной ремонт", href: "/services/mobile-repair" },
-              { label: "Промышленный сервис", href: "/services/industrial" },
+              { label: "Промышленный сервис", href: "/services/industrial-service/" },
             ].map((link) => (
               <Link key={link.href} href={link.href}>
                 <span className="inline-block px-4 py-2 bg-[#1a1a1a] border border-white/10 rounded text-sm text-gray-300 hover:border-[#FFC000]/50 hover:text-[#FFC000] transition-colors cursor-pointer">
