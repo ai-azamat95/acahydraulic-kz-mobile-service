@@ -46,21 +46,29 @@
     <!-- Optimized: 2 font families only (Bebas Neue for headings, Inter for body) -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
+    <!-- Internal/automated traffic gate must run before any analytics vendor. -->
+    <script src="/analytics-gate.js"></script>
+
     <!-- Google Tag (unified: GA4 + Google Ads) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XZB9KZ4VCH"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      // GA4
-      gtag('config', 'G-XZB9KZ4VCH');
-      // Google Ads
-      gtag('config', 'AW-17847190636');
+      if (!window.__ACA_ANALYTICS_EXCLUDE__) {
+        var googleTag = document.createElement('script');
+        googleTag.async = true;
+        googleTag.src = 'https://www.googletagmanager.com/gtag/js?id=G-XZB9KZ4VCH';
+        document.head.appendChild(googleTag);
+        gtag('js', new Date());
+        // GA4
+        gtag('config', 'G-XZB9KZ4VCH');
+        // Google Ads
+        gtag('config', 'AW-17847190636');
+      }
 
       // Compatibility helpers record contact intent only.
       // Google Ads WhatsApp conversion is intentionally fired only by the
       // qualified calculator lead after the client accepts the 200,000 KZT gate.
-      function gtag_whatsapp_conversion() { try { window.gtag('event', 'acahydraulic_whatsapp_click', {event_category:'whatsapp'}); } catch (_) {} return true; }
+      function gtag_whatsapp_conversion() { try { if (!window.__ACA_ANALYTICS_EXCLUDE__) window.gtag('event', 'acahydraulic_whatsapp_click', {event_category:'whatsapp'}); } catch (_) {} return true; }
       function gtag_registration_conversion() { return true; }
       function gtag_phone_conversion() { return true; }
       function gtag_report_conversion() { return true; }
@@ -71,11 +79,13 @@
 
     <!-- TikTok Pixel Code Start -->
     <script>
+      if (!window.__ACA_ANALYTICS_EXCLUDE__) {
       !function (w, d, t) {
         w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
         ttq.load('D6M5H3JC77U9JTU04Q60');
         ttq.page();
       }(window, document, 'ttq');
+      }
     </script>
     <!-- TikTok Pixel Code End -->
 
@@ -179,6 +189,7 @@
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
+      if (!window.__ACA_ANALYTICS_EXCLUDE__) {
       (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
@@ -187,6 +198,7 @@
       })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109131701', 'ym');
 
       ym(109131701, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+      }
     </script>
     <!-- /Yandex.Metrika counter -->
   </head>
@@ -200,6 +212,7 @@
          WhatsApp is promoted to Ads conversion only after calculator qualification. -->
     <script>
       document.addEventListener('click', function(event) {
+        if (window.__ACA_ANALYTICS_EXCLUDE__) return;
         var link = event.target.closest && event.target.closest('a[href]');
         if (!link) return;
         var href = link.getAttribute('href') || '';
