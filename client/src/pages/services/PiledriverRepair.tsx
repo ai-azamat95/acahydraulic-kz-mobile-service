@@ -11,9 +11,10 @@ export default function PiledriverRepair() {
   return (
     <div className="min-h-screen bg-[#111111] text-white font-roboto">
       <SEO 
-        title="Ремонт экскаваторов | Профессиональный сервис гидравлики | ACA Hydraulic"
-        description="Ремонт экскаваторов всех марок: Caterpillar, Komatsu, Hitachi, Volvo. Восстановление гидравлики, двигателей, ходовой части. Выездной сервис по согласованию по Казахстану."
-        keywords="ремонт экскаваторов, ремонт гидравлики экскаватора, ремонт гусеничных экскаваторов, ремонт колесных экскаваторов, Caterpillar, Komatsu, Hitachi"
+        title="Ремонт гидравлики сваебойных установок | ACA Hydraulic"
+        description="Диагностика и ремонт гидравлики сваебойных установок: насосы, лебёдки, гидромоторы, цилиндры мачты и блоки управления. Выезд по Казахстану согласовывается после обращения."
+        keywords="ремонт сваебойной установки, ремонт гидравлики копра, ремонт гидромолота, диагностика сваебойной установки"
+        canonical="/services/piledriver-repair"
       />
 
       {/* Header */}
@@ -50,14 +51,14 @@ export default function PiledriverRepair() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 bg-[#FFC000]/10 border border-[#FFC000]/20 px-4 py-2 rounded-full mb-6">
               <span className="w-2 h-2 bg-[#FFC000] rounded-full animate-pulse"></span>
-              <span className="text-[#FFC000] font-bebas text-sm tracking-wide">ВЫЕЗДНОЙ СЕРВИС по согласованию</span>
+              <span className="text-[#FFC000] font-bebas text-sm tracking-wide">СВАЕБОЙНЫЕ УСТАНОВКИ: ДИАГНОСТИКА И РЕМОНТ</span>
             </div>
             <h1 className="font-bebas text-5xl md:text-7xl text-white mb-6 leading-none tracking-wide">
-              Ремонт экскаваторов<br/>
-              <span className="text-[#FFC000]">любой сложности</span>
+              Ремонт гидравлики<br/>
+              <span className="text-[#FFC000]">сваебойных установок</span>
             </h1>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl font-roboto">
-              Профессиональный ремонт гусеничных и колесных экскаваторов всех марок. Восстановление гидравлики, двигателей, ходовой части.
+              Проверяем подъём мачты, лебёдки, привод рабочего оборудования и управление гидросистемой. Причину отказа подтверждаем замерами до согласования ремонта.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="tel:+77714177925" className="bg-[#FFC000] text-black px-8 py-4 rounded font-bebas text-xl tracking-wide hover:bg-white transition-all duration-300 flex items-center justify-center gap-2">
@@ -78,10 +79,10 @@ export default function PiledriverRepair() {
           <h2 className="font-bebas text-4xl md:text-5xl text-white mb-12 text-center">Виды работ</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {[
-              { title: "Ремонт гидравлики", items: ["Гидронасосы", "Гидромоторы", "Распределители", "Гидроцилиндры"] },
-              { title: "Ремонт ходовой части", items: ["Гусеницы и траки", "Опорные катки", "Поддерживающие ролики", "Направляющие колеса"] },
-              { title: "Ремонт двигателей", items: ["Капитальный ремонт", "Замена поршневой группы", "Ремонт топливной системы", "Турбокомпрессоры"] },
-              { title: "Ремонт рабочего оборудования", items: ["Стрелы и рукояти", "Ковши всех типов", "Быстросъёмы", "Гидромолоты"] }
+              { title: "Мачта и цилиндры", items: ["Проверка подъёма и удержания", "Поиск наружных утечек", "Проверка цилиндров", "Контроль клапанов безопасности"] },
+              { title: "Лебёдки и гидромоторы", items: ["Проверка тяги и скорости", "Замер давления под нагрузкой", "Оценка дренажных утечек", "Дефектовка агрегата"] },
+              { title: "Насосы и управление", items: ["Проверка подачи насоса", "Диагностика регулятора", "Распределители и клапаны", "Настройка после ремонта"] },
+              { title: "Рабочий контур", items: ["Гидромолот или вибропогружатель", "Рукава высокого давления", "Соединения и трубопроводы", "Испытание рабочих движений"] }
             ].map((service, idx) => (
               <div key={idx} className="bg-[#1a1a1a] border border-white/10 p-8 rounded-sm hover:border-[#FFC000]/50 transition-all">
                 <h3 className="font-bebas text-2xl text-white mb-4">{service.title}</h3>
@@ -103,10 +104,10 @@ export default function PiledriverRepair() {
       <section className="py-20 bg-[#FFC000]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-bebas text-4xl md:text-6xl text-black mb-6">
-            Срочный выезд в течение <span className="bg-black text-[#FFC000] px-3">2 часов</span>
+            Нужна диагностика <span className="bg-black text-[#FFC000] px-3">сваебойной установки?</span>
           </h2>
           <p className="text-lg text-black mb-8 font-semibold">
-            Работаем по всему Казахстану. Собственный склад запчастей.
+            Пришлите модель установки, фото шильдиков насосов и гидромоторов, описание отказа и местонахождение. Состав первичной проверки согласуем заранее.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="tel:+77714177925" className="bg-black text-[#FFC000] px-10 py-5 rounded font-bebas text-2xl tracking-wide hover:bg-white hover:text-black transition-all duration-300 inline-flex items-center justify-center gap-3">

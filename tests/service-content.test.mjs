@@ -23,3 +23,34 @@ test('priority services publish the same useful content and metadata without Jav
     assert.doesNotMatch(html, /Диагностика бесплатно|Гарантия 12 месяцев/);
   }
 });
+
+test('specialized mining and piling pages have distinct copy and self canonicals', () => {
+  const pages = [
+    ['mining-loader-repair', 'MiningLoaderRepair.tsx', 'шахтных погрузчиков'],
+    ['piledriver-repair', 'PiledriverRepair.tsx', 'сваебойных установок'],
+    ['mining-truck-repair', 'MiningTruckRepair.tsx', 'карьерных самосвалов'],
+  ];
+
+  const titles = new Set();
+  const descriptions = new Set();
+  for (const [slug, file, subject] of pages) {
+    const route = `/services/${slug}`;
+    const page = content[route];
+    const source = fs.readFileSync(`client/src/pages/services/${file}`, 'utf8');
+    const html = fs.readFileSync(`dist/public${route}/index.html`, 'utf8');
+
+    assert.ok(page, route);
+    assert.match(page.title.toLowerCase(), new RegExp(subject));
+    assert.match(source.toLowerCase(), new RegExp(subject));
+    assert.ok(source.includes(`canonical="${route}"`), route);
+    assert.doesNotMatch(source, /Ремонт экскаваторов всех марок/);
+    assert.ok(html.includes(`<title data-rh="true">${page.title}</title>`), route);
+    assert.ok(html.includes(`rel="canonical" href="https://acahydraulic.kz${route}/"`), route);
+
+    titles.add(page.title);
+    descriptions.add(page.description);
+  }
+
+  assert.equal(titles.size, pages.length);
+  assert.equal(descriptions.size, pages.length);
+});
