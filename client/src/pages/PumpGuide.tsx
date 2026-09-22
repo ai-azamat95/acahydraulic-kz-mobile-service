@@ -25,7 +25,7 @@ export default function PumpGuide() {
     <article className="mx-auto max-w-4xl px-4 py-10 md:py-14">
       <p className="text-sm font-bold text-[#FFC000]">{article.category}</p>
       <h1 className="mt-4 font-bebas text-4xl leading-tight md:text-5xl">{article.title}</h1>
-      <p className="mt-4 text-sm text-gray-400">ACA Hydraulic · <time dateTime={article.publishedDate}>19 сентября 2026</time> · {article.readTime}</p>
+      <p className="mt-4 text-sm text-gray-400">ACA Hydraulic · <time dateTime={article.publishedDate}>{new Date(`${article.publishedDate}T00:00:00Z`).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}</time> · {article.readTime}</p>
       <p className="mt-6 text-lg leading-relaxed text-gray-200">{article.intro}</p>
       <figure className="my-8">
         <img src={article.image} alt={article.imageAlt} width={900} height={600} className="max-h-96 w-full rounded-lg bg-[#1a1a1a] object-contain" />

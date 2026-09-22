@@ -8,8 +8,8 @@ import { publicAsset } from "@/lib/assets";
 import seoArticles from "../../../shared/seo-articles.json";
 const articles = [
   ...seoArticles.map((article, index) => ({ id: 100 + index, title: article.title, excerpt: article.description,
-    date: article.publishedDate, displayDate: "19.09.2026", author: "ACA Hydraulic", category: article.category,
-    image: article.image, slug: article.slug, readTime: article.readTime })),
+    date: article.publishedDate, displayDate: article.publishedDate.split("-").reverse().join("."), author: "ACA Hydraulic", category: article.category,
+    image: article.image, imageAlt: article.imageAlt, slug: article.slug, readTime: article.readTime })),
   {
     id: 1,
     title: "Ремонт гидронасоса CAT: пошаговое руководство и стоимость",
@@ -191,7 +191,7 @@ export default function Blog() {
                 <div className="h-52 overflow-hidden relative">
                   <img
                     src={article.image}
-                    alt={article.title}
+                    alt={"imageAlt" in article ? article.imageAlt : article.title}
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />

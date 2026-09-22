@@ -56,3 +56,20 @@ test('guides link to catalog and real cases, and preserve supported price and or
   assert.match(comparison, /ожидание поставки на 17 сентября 2026 года/);
   assert.match(comparison, /не представляем этот заказ как завершённую установку/);
 });
+
+test('article publication dates are rendered from each article instead of a fixed date', () => {
+  for (const article of articles) {
+    const html = fs.readFileSync(`dist/public/blog/${article.slug}/index.html`, 'utf8');
+    const expected = new Date(`${article.publishedDate}T00:00:00Z`).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    assert.ok(html.includes(`<time datetime="${article.publishedDate}">${expected}</time>`));
+    if (article.image.startsWith("/")) assert.ok(fs.existsSync(`client/public${article.image}`));
+  }
+});
+
+test('updated repair articles do not promise free diagnostics', () => {
+  for (const slug of ['kak-opredelit-neispravnost-gidravliki', 'remont-gidronasosa-cat', 'stoimost-remonta-gidromotora-komatsu']) {
+    const html = fs.readFileSync(`dist/public/blog/${slug}/index.html`, 'utf8');
+    assert.doesNotMatch(html, /бесплат/iu);
+    assert.match(html, /200 000 ₸/);
+  }
+});

@@ -17,7 +17,7 @@ export default function StoimostRemonGidromotora() {
     description:
       "Реальные цены на ремонт гидромоторов Komatsu PC200, PC300, PC400 в Астане. Что влияет на стоимость, когда выгоднее ремонт, а не замена.",
     datePublished: "2026-01-15",
-    dateModified: "2026-01-15",
+    dateModified: "2026-09-22",
     author: { "@type": "Organization", name: "ACA Hydraulic" },
     publisher: { "@id": "https://acahydraulic.kz/#business" },
     mainEntityOfPage: {
@@ -42,7 +42,7 @@ export default function StoimostRemonGidromotora() {
         faq={[
           {
             question: "Сколько стоит ремонт гидромотора Komatsu PC200?",
-            answer: "Ремонт гидромотора хода Komatsu PC200 в Астане стоит от 60 000 тг. Точная стоимость зависит от степени износа. Диагностика бесплатна при последующем ремонте.",
+            answer: "Ремонт гидромотора хода Komatsu PC200 в Астане стоит от 60 000 тг. Точная стоимость зависит от степени износа. Диагностика спецтехники от 200 000 ₸. Ремонт, запчасти и расходы на выезд — отдельно.",
           },
           {
             question: "Что выгоднее — ремонт или замена гидромотора Komatsu?",
@@ -164,8 +164,8 @@ export default function StoimostRemonGidromotora() {
         </div>
 
         <div className="bg-[#1a1a1a] border border-[#FFC000]/30 rounded-xl p-8 text-center">
-          <h3 className="font-bebas text-3xl mb-3">Узнайте точную стоимость <span className="text-[#FFC000]">бесплатно</span></h3>
-          <p className="text-gray-400 mb-6 text-sm">Пришлите фото или опишите проблему — дадим предварительную оценку за 15 минут.</p>
+          <h3 className="font-bebas text-3xl mb-3">Получите расчёт <span className="text-[#FFC000]">по вашей задаче</span></h3>
+          <p className="text-gray-400 mb-6 text-sm">Пришлите модель техники, город, симптомы и фото шильдика. Диагностика спецтехники от 200 000 ₸; ремонт, запчасти и расходы на выезд — отдельно.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="https://wa.me/77714177925?text=Здравствуйте!%20Нужен%20ремонт%20гидромотора%20Komatsu" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors">
               <MessageCircle className="w-5 h-5" />WhatsApp
