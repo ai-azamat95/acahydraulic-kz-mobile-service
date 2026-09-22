@@ -12,7 +12,7 @@ export function catalogProductSeo(product, language = 'ru') {
   const copy = language === 'ru' ? productCopy[product.handle] : undefined;
   const name = catalogProductName(product, language);
   const price = Number.isFinite(product.minPriceKzt)
-    ? `Цена ${product.approvedSale ? '' : 'от '}${new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(product.minPriceKzt)} ₸.`
+    ? `Цена ${(product.approvedSale || product.ownerSale) ? '' : 'от '}${new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(product.minPriceKzt)} ₸.`
     : 'Цена по запросу.';
   const fitment = product.fitment || 'уточняется по номеру детали, модели и шильдику техники';
   return {
@@ -29,6 +29,6 @@ export function catalogProductCategories(product) {
 
 export function catalogProductSelection(product) {
   // Imported categories can be broad; use technical instructions only for reviewed products.
-  const category = productCopy[product.handle]?.selectionCategory || (product.approvedSale ? 'hydraulic-pumps' : 'other-parts');
+  const category = productCopy[product.handle]?.selectionCategory || ((product.approvedSale || product.ownerSale) ? 'hydraulic-pumps' : 'other-parts');
   return productCopy[product.handle]?.selection || selectionCopy[category].selection;
 }

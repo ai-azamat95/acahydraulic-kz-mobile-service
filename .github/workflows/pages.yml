@@ -60,6 +60,7 @@ jobs:
         run: |
           pnpm catalog:routes
           pnpm catalog:landing-routes
+          node scripts/check-cat-432e-sale.mjs
       - name: Verify catalog SEO and sitemaps
         run: |
           pnpm catalog:verify-seo

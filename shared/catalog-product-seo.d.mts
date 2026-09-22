@@ -6,6 +6,7 @@ type SeoProduct = {
   fitment?: string | null;
   minPriceKzt?: number | null;
   approvedSale?: unknown;
+  ownerSale?: unknown;
 };
 export function catalogProductName(product: Pick<SeoProduct, "handle" | "title">, language?: string): string;
 export function catalogProductSeo(product: SeoProduct, language?: string): { name: string; title: string; description: string };

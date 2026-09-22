@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import path from 'node:path';
 import { catalogProductSeo, catalogProductCategories, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 
@@ -64,7 +65,7 @@ function productPage(product) {
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
   const fitmentLabel = product.approvedSale ? 'Применяемость этого исполнения' : 'Применяемость';
   const seriesNote = product.approvedSale ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
-  const price = Number.isFinite(product.minPriceKzt) ? `Цена ${product.approvedSale ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
+  const price = Number.isFinite(product.minPriceKzt) ? `Цена ${(product.approvedSale || product.ownerSale) ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
   const saleTerms = merchantOffer ? merchantPumps.terms.ru : product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
   const description = productSeo.description;
   const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
@@ -75,7 +76,7 @@ function productPage(product) {
     description,
     image: image ? [image] : undefined,
     sku: product.sku || product.id,
-    itemCondition: product.approvedSale ? 'https://schema.org/NewCondition' : undefined,
+    itemCondition: (product.approvedSale || product.ownerSale) ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
     additionalProperty: product.fitment ? [{
       '@type': 'PropertyValue',
@@ -83,8 +84,8 @@ function productPage(product) {
       value: product.fitment,
     }] : undefined,
     offers: Number.isFinite(product.minPriceKzt) ? {
-      '@type': product.approvedSale ? 'Offer' : 'AggregateOffer',
-      price: product.approvedSale ? product.minPriceKzt : undefined,
+      '@type': (product.approvedSale || product.ownerSale) ? 'Offer' : 'AggregateOffer',
+      price: (product.approvedSale || product.ownerSale) ? product.minPriceKzt : undefined,
       priceCurrency: 'KZT',
       shippingDetails: merchantOffer ? {
               "@type": "OfferShippingDetails",
@@ -97,8 +98,8 @@ function productPage(product) {
               },
             } : undefined,
       availability: merchantOffer ? 'https://schema.org/InStock' : undefined,
-      lowPrice: product.approvedSale ? undefined : product.minPriceKzt,
-      highPrice: product.approvedSale ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
+      lowPrice: (product.approvedSale || product.ownerSale) ? undefined : product.minPriceKzt,
+      highPrice: (product.approvedSale || product.ownerSale) ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
       url: canonical,
     } : undefined,
   });
@@ -114,6 +115,7 @@ function productPage(product) {
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
+  ${product.ownerSale ? `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>` : ''}
   ${saleTerms ? `<p>${escapeHtml(saleTerms)}</p>` : ''}
   <section data-product-selection><h2>Что прислать для подбора этой запчасти</h2>
   <p>${escapeHtml(catalogProductSelection(product))}</p>
