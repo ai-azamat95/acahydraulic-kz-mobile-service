@@ -6,10 +6,16 @@ import PressureArticle from "../client/src/pages/blog/PadaetDavlenieGidravliki";
 import CatCase from "../client/src/pages/cases/Cat330DLHotPowerLoss";
 import SanyCase from "../client/src/pages/cases/SanySY365HHotHydraulics";
 import HitachiCase from "../client/src/pages/cases/Hitachi330FloatingPressure";
+import DiagnosisArticle from "../client/src/pages/blog/KakOpredelitNeispravnost";
+import PumpRepairArticle from "../client/src/pages/blog/RemonGidronasosaCat";
+import MotorCostArticle from "../client/src/pages/blog/StoimostRemonGidromotora";
 import Cases from "../client/src/pages/Cases";
 
 const { HelmetProvider } = helmetPackage;
 const pages: Record<string, React.ComponentType> = {
+  "blog/kak-opredelit-neispravnost-gidravliki": DiagnosisArticle,
+  "blog/remont-gidronasosa-cat": PumpRepairArticle,
+  "blog/stoimost-remonta-gidromotora-komatsu": MotorCostArticle,
   "blog/padaet-davlenie-gidravliki-ekskavatora": PressureArticle,
   "cases/cat-330dl-teryaet-moshchnost-na-goryachuyu": CatCase,
   "cases/sany-sy365h-gidravlika-na-goryachuyu": SanyCase,

@@ -12,11 +12,11 @@ export function articleSchema(article) {
     publisher: { '@id': 'https://acahydraulic.kz/#business' }, mainEntityOfPage: url, inLanguage: 'ru-KZ' };
 }
 export function articleList() {
-  return `<section><h2>Новые статьи о подборе и покупке гидронасосов</h2><ul>${articles.map(article => `<li><a href="/blog/${article.slug}/">${esc(article.title)}</a><p>${esc(article.description)}</p></li>`).join('')}</ul></section>`;
+  return `<section><h2>Статьи о подборе запчастей и ремонте спецтехники</h2><ul>${articles.map(article => `<li><a href="/blog/${article.slug}/">${esc(article.title)}</a><p>${esc(article.description)}</p></li>`).join('')}</ul></section>`;
 }
 export function renderArticle(article) {
   return `<main aria-label="${esc(article.title)}"><nav aria-label="Основная навигация"><a href="/">ACA Hydraulic</a> · <a href="/blog/">Блог</a> · <a href="/catalog/">Запчасти</a> · <a href="/services/">Услуги</a></nav>
-<article><h1>${esc(article.title)}</h1><p>ACA Hydraulic · <time datetime="${article.publishedDate}">19 сентября 2026</time> · ${esc(article.readTime)}</p>
+<article><h1>${esc(article.title)}</h1><p>ACA Hydraulic · <time datetime="${article.publishedDate}">${new Date(`${article.publishedDate}T00:00:00Z`).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time> · ${esc(article.readTime)}</p>
 <p>${esc(article.intro)}</p><figure><img src="${esc(article.image)}" alt="${esc(article.imageAlt)}" width="900" height="600" style="max-width:100%;height:auto;object-fit:contain"><figcaption>${esc(article.caption)}</figcaption></figure>
 <nav aria-label="Содержание статьи"><h2>В этой статье</h2><ol>${article.sections.map(section => `<li><a href="#${section.id}">${esc(section.title)}</a></li>`).join('')}</ol></nav>
 ${article.sections.map(section => `<section id="${section.id}"><h2>${esc(section.title)}</h2>${section.paragraphs.map(text => `<p>${esc(text)}</p>`).join('')}${section.bullets.length ? `<ul>${section.bullets.map(text => `<li>${esc(text)}</li>`).join('')}</ul>` : ''}</section>`).join('')}

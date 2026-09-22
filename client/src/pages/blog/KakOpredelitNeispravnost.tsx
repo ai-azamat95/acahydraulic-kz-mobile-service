@@ -16,7 +16,7 @@ export default function KakOpredelitNeispravnost() {
     headline: "Как определить неисправность гидравлики: 10 признаков",
     description: "Практическое руководство по самостоятельной диагностике неисправности гидравлики спецтехники. 10 симптомов и что они означают.",
     datePublished: "2025-12-20",
-    dateModified: "2025-12-20",
+    dateModified: "2026-09-22",
     author: { "@type": "Organization", name: "ACA Hydraulic" },
     publisher: { "@id": "https://acahydraulic.kz/#business" },
     mainEntityOfPage: { "@type": "WebPage", "@id": "https://acahydraulic.kz/blog/kak-opredelit-neispravnost-gidravliki" },
@@ -152,7 +152,7 @@ export default function KakOpredelitNeispravnost() {
 
         <div className="bg-[#1a1a1a] border border-[#FFC000]/30 rounded-xl p-8 text-center">
           <h3 className="font-bebas text-3xl mb-3">Заметили симптомы? <span className="text-[#FFC000]">Вызовите мастера</span></h3>
-          <p className="text-gray-400 mb-6 text-sm">Выезд в течение 2 часов по Астане. Диагностика бесплатно.</p>
+          <p className="text-gray-400 mb-6 text-sm">Диагностика спецтехники от 200 000 ₸. Ремонт, запчасти и расходы на выезд — отдельно. Время выезда согласуем.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="https://wa.me/77714177925?text=Здравствуйте!%20Нужна%20диагностика%20гидравлики" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors">
               <MessageCircle className="w-5 h-5" />WhatsApp
