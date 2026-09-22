@@ -1,3 +1,4 @@
+import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import type { CatalogIndexProduct } from "@/types/catalog";
 
 const aliases: [RegExp, string][] = [
@@ -16,10 +17,11 @@ export function normalizeCatalogSearch(value: string): string {
   return text.replace(/[-‐‑‒–—/]+/g, " ").replace(/\s+/g, " ").trim();
 }
 
-export function catalogMatchesQuery(product: Pick<CatalogIndexProduct, "title" | "catalogTitle" | "fitment" | "sku" | "tags">, query: string): boolean {
+export function catalogMatchesQuery(product: Pick<CatalogIndexProduct, "title" | "catalogTitle" | "fitment" | "sku" | "tags"> & { handle?: string }, query: string): boolean {
   const needle = normalizeCatalogSearch(query);
   if (!needle) return true;
-  const text = normalizeCatalogSearch([product.title, product.catalogTitle, product.fitment, product.sku, ...product.tags].filter(Boolean).join(" "));
+  const reviewedName = product.handle ? catalogProductName({ handle: product.handle, title: product.title }) : "";
+  const text = normalizeCatalogSearch([product.title, reviewedName, product.catalogTitle, product.fitment, product.sku, ...product.tags].filter(Boolean).join(" "));
   const tokens = needle.split(" ");
   if (tokens.every((token) => text.includes(token))) return true;
   // Numbers and model codes are commonly typed with different separators.

@@ -1,3 +1,5 @@
+import catalogHomeSeo from "@shared/catalog-home-seo.json";
+import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/components/catalog/PumpSupplyOffers";
 import { pumpCasePath } from "@/content/pumpCases";
@@ -331,11 +333,11 @@ export default function Catalog() {
   const landingTitle = categoryLanding?.title
     || (routeBrand ? `Запчасти ${routeBrand.name} для спецтехники` : "")
     || (routeModel ? `Запчасти для ${routeModel.engine ? "двигателя" : "спецтехники"} ${routeModel.brand} ${routeModel.label}` : "")
-    || "Запчасти для спецтехники: подбор по номеру, OEM и VIN";
+    || catalogHomeSeo.title;
   const landingDescription = categoryLanding?.description
     || (routeBrand ? `Каталог запчастей ${routeBrand.name} для спецтехники. Подбор по OEM-номеру, модели и серийному номеру с проверкой совместимости до оплаты.` : "")
     || (routeModel ? `Запчасти для ${routeModel.brand} ${routeModel.label}: поиск по OEM-номеру и узлу, проверка исполнения и совместимости, поставка по Казахстану.` : "")
-    || "Подбор гидравлических и электронных запчастей по номеру, OEM, VIN и модели техники. CAT, Komatsu, Hitachi, Volvo, SANY, XCMG и другие бренды.";
+    || catalogHomeSeo.description;
   const isLandingPage = Boolean(categoryLanding || routeBrand || routeModel);
 
   useEffect(() => {
@@ -469,7 +471,7 @@ export default function Catalog() {
               "@type": "ListItem",
               position: index + 1,
               url: `https://acahydraulic.kz/catalog/${product.handle}/`,
-              name: product.title,
+              name: catalogProductName(product, language),
             })),
           },
         }}
@@ -583,7 +585,7 @@ export default function Catalog() {
                     {filteredProducts.slice(0, 5).map((product) => (
                         <Link key={product.id} href={`/catalog/${product.handle}`} className="flex min-h-16 items-center gap-3 border-b border-white/10 p-3 last:border-0 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">
                           {product.imageUrl && <img src={product.imageUrl} alt="" width={44} height={44} loading="lazy" className="h-11 w-11 rounded bg-white object-contain" />}
-                          <span className="min-w-0"><span className="line-clamp-2 text-sm text-white">{product.title}</span><span className="mt-1 block text-xs text-[#FFC000]">{language === "ru" ? "Под заказ · Проверить цену и срок" : language === "kz" ? "Тапсырыс бойынша · Баға мен мерзімді нақтылау" : "To order · Confirm price and lead time"}</span></span>
+                          <span className="min-w-0"><span className="line-clamp-2 text-sm text-white">{catalogProductName(product, language)}</span><span className="mt-1 block text-xs text-[#FFC000]">{language === "ru" ? "Под заказ · Проверить цену и срок" : language === "kz" ? "Тапсырыс бойынша · Баға мен мерзімді нақтылау" : "To order · Confirm price and lead time"}</span></span>
                         </Link>
                       ))}
                       {filteredProducts.length === 0 && matchingSupplyOffers.length === 0 && <p className="p-3 text-sm text-gray-400">{loading || !complete ? copy.loadingProducts : copy.noResults}</p>}
@@ -783,6 +785,8 @@ export default function Catalog() {
             })}
           </div>
 
+
+
           {isLandingPage && (
             <section className="aca-landing-intro mt-8 border-l-2 border-[#FFC000] bg-[#151515] p-5 md:p-7" aria-label="О разделе каталога">
               <h2 className="text-xl font-bold text-white">{landingTitle}</h2>
@@ -900,6 +904,14 @@ export default function Catalog() {
             </div>
           </section>
         )}
+
+          {!isLandingPage && <section className="mx-auto max-w-[1600px] border-t border-gray-200 bg-white px-4 py-10 text-[#111827]" aria-labelledby="catalog-sections-title">
+            <h2 id="catalog-sections-title" className="text-xl font-bold">Каталог запчастей по узлам</h2>
+            <p className="mt-3 max-w-4xl leading-relaxed text-gray-700">{catalogHomeSeo.selection}</p>
+            <nav aria-label="Все разделы каталога" className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {catalogCategoryLandings.map(item => <Link key={item.id} href={`/catalog/category/${item.id}/`} className="flex min-h-11 items-center text-sm text-[#8a6100] underline underline-offset-4">{item.title}</Link>)}
+            </nav>
+          </section>}
 
         <section id="catalog-delivery" className="mx-auto max-w-[1600px] px-4 py-12 md:py-16">
           <div className="grid gap-4 md:grid-cols-2">

@@ -11,6 +11,8 @@ import { useCatalogProduct } from "@/hooks/useCatalogProducts";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
 import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 
+import { catalogProductSeo, catalogProductCategories, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
+
 const WHATSAPP_NUMBER = "77714177925";
 
 function formatKzt(value: number, language: CatalogLanguage) {
@@ -107,19 +109,21 @@ export default function CatalogProduct() {
   const seriesNote = product.approvedSale
     ? language === "ru" ? "Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Для вашей техники подберём подходящий вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно." : language === "kz" ? "Бұл сериядағы сорғылар әртүрлі маркалы техникада қолданылады. Мұнда нұсқалардың бірі көрсетілген. Техникаңызға сәйкес нұсқаны тақтайша, білік, фланец, порттар және реттегіш бойынша таңдаймыз. Сорғы моделінің сәйкес келуі жеткіліксіз." : "This pump series is used on equipment from different brands. This page lists one configuration. We select the correct version for your machine using the nameplate, shaft, flange, ports and regulator. A matching pump model alone does not confirm compatibility."
     : "";
-  const seoDescription = `${product.title}. ${copy.fitmentLabel}: ${fitmentText}. Цена ${displayedPrice}. Проверка совместимости до оплаты.`;
+  const productSeo = catalogProductSeo(product, language);
+  const productCategories = catalogProductCategories(product);
+  const seoDescription = productSeo.description;
 
   return (
     <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
       <SEO
-        title={`${product.title} - цена и подбор`}
+        title={productSeo.title}
         description={seoDescription}
         canonical={`/catalog/${product.handle}`}
         ogImage={gallery[0]}
         schema={{
           "@context": "https://schema.org",
           "@type": "Product",
-          name: product.title,
+          name: productSeo.name,
           description: seoDescription,
           image: gallery,
           sku: mainSku,
@@ -151,8 +155,9 @@ export default function CatalogProduct() {
           } : undefined,
         }}
         breadcrumbs={[
-          { name: "Каталог запчастей", url: "/catalog" },
-          { name: product.title, url: `/catalog/${product.handle}` },
+          { name: "Каталог запчастей", url: "/catalog/" },
+          ...productCategories.slice(0, 1).map(category => ({ name: category.title, url: `/catalog/category/${category.id}/` })),
+          { name: productSeo.name, url: `/catalog/${product.handle}` },
         ]}
       />
 
@@ -193,13 +198,19 @@ export default function CatalogProduct() {
           {copy.backToCatalog}
         </Link>
 
+        <nav aria-label="Разделы каталога" className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+          {productCategories.map(category => (
+            <Link key={category.id} href={`/catalog/category/${category.id}/`} className="inline-flex min-h-10 items-center text-sm text-[#FFC000] underline underline-offset-4">{category.title}</Link>
+          ))}
+        </nav>
+
         <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1fr] xl:grid-cols-[1.08fr_0.92fr]">
           <section aria-label="Product photos">
             <div className="relative aspect-square overflow-hidden rounded-lg border border-white/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
               {selectedImage && !imageFailed ? (
                 <img
                   src={selectedImage}
-                  alt={product.title}
+                  alt={productSeo.name}
                   decoding="async"
                   referrerPolicy="no-referrer-when-downgrade"
                   onError={() => setImageFailed(true)}
@@ -247,7 +258,8 @@ export default function CatalogProduct() {
               <p className="text-sm font-bold text-[#FFC000]">{categoryName}</p>
               <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-gray-400">SKU: {mainSku}</span>
             </div>
-            <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">{product.title}</h1>
+            <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">{productSeo.name}</h1>
+            {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
             <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{copy.productDescription}</p>
 
             <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
@@ -298,6 +310,13 @@ export default function CatalogProduct() {
             )}
           </div>
         </div>
+
+        {language === "ru" && <section className="mt-10 rounded-lg border border-white/10 bg-[#151515] p-5 md:p-7" aria-labelledby="selection-title">
+          <h2 id="selection-title" className="text-xl font-bold">Что прислать для подбора этой запчасти</h2>
+          <p className="mt-3 max-w-4xl leading-relaxed text-gray-300">{catalogProductSelection(product)}</p>
+          <p className="mt-3 max-w-4xl text-sm leading-relaxed text-gray-400">Укажите количество, город и нужную дату. Совпадения только модели техники недостаточно: исполнение, комплектацию, цену и срок поставки подтверждаем до оплаты.</p>
+          <button type="button" onClick={() => requestProduct("nameplate")} className="mt-4 min-h-11 font-bold text-[#FFC000] underline underline-offset-4">Отправить данные для подбора</button>
+        </section>}
 
         <section className="mt-12 border-t border-white/10 pt-10" aria-labelledby="variants-title">
           <h2 id="variants-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.variantsTitle}</h2>

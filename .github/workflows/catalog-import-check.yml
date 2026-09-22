@@ -12,6 +12,10 @@ on:
       - 'scripts/create-catalog-landing-routes.mjs'
       - 'scripts/lib/catalog-landings.mjs'
       - 'shared/catalog-landings.json'
+      - 'shared/catalog-product-*'
+      - 'shared/catalog-home-seo.json'
+      - 'tests/catalog-product-seo.test.mjs'
+      - 'scripts/create-spa-route-copies.mjs'
       - 'scripts/check-pump-import.mjs'
       - 'package.json'
       - '.github/workflows/catalog-import-check.yml'
@@ -37,6 +41,8 @@ jobs:
         run: pnpm catalog:verify
       - name: Compare pumps, SKUs, titles and galleries
         run: pnpm catalog:verify-pumps
+      - name: Verify reviewed product names and selection copy
+        run: node --test tests/catalog-product-seo.test.mjs
       - name: Remove private supplier data from the public catalogue
         run: pnpm catalog:prepare-public
       - name: Verify public catalogue privacy
@@ -44,6 +50,7 @@ jobs:
       - name: Build fitment-aware product pages
         run: |
           pnpm build
+          node scripts/create-spa-route-copies.mjs
           pnpm catalog:routes
           pnpm catalog:landing-routes
       - name: Verify product and landing-page SEO

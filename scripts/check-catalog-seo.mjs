@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { catalogProductSeo, catalogProductCategories } from '../shared/catalog-product-seo.mjs';
+import productCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
 
 const publicDir = path.resolve(process.argv[2] || 'dist/public');
 const catalogDir = path.join(publicDir, 'catalog-data');
@@ -54,6 +56,30 @@ for (const pump of merchantPumps.products) {
   assert.equal(schema.aggregateRating, undefined, 'do not invent product ratings');
 }
 
+// Check the actual generated pages, including metadata before JavaScript runs.
+const escapeHtml = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+for (const product of products) {
+  const html = fs.readFileSync(path.join(publicDir, 'catalog', product.handle, 'index.html'), 'utf8');
+  const seo = catalogProductSeo(product);
+  assert(html.includes(`<title data-rh="true">${escapeHtml(seo.title)} | ACA Hydraulic</title>`), `${product.handle}: static and client titles must match`);
+  assert(html.includes(`<h1>${escapeHtml(seo.name)}</h1>`), `${product.handle}: visible product name missing`);
+  assert.equal((html.match(/rel="canonical"/g) || []).length, 1, `${product.handle}: duplicate canonical`);
+  assert(html.includes(`href="https://acahydraulic.kz/catalog/${product.handle}/"`), `${product.handle}: self canonical missing`);
+  assert(html.includes('data-product-selection'), `${product.handle}: selection instructions missing`);
+  assert(!/<meta[^>]+name="robots"[^>]+noindex/i.test(html), `${product.handle}: unexpectedly noindex`);
+  for (const category of catalogProductCategories(product)) {
+    assert(html.includes(`href="/catalog/category/${category.id}/"`), `${product.handle}: category link missing`);
+  }
+  const schema = JSON.parse(html.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s)[1]);
+  assert.equal(schema.name, seo.name);
+  assert.equal(schema.description, seo.description);
+  if (productCopy[product.handle]) {
+    assert(html.includes(escapeHtml(product.title)), `${product.handle}: original identifiers must remain visible`);
+    const link = html.match(/href="(https:\/\/wa\.me\/77714177925\?text=[^"]+)"/)[1];
+    assert(new URL(link).searchParams.get('text').includes(`/catalog/${product.handle}/`), 'static WhatsApp inquiry must identify the product');
+  }
+}
+
 const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap-products.xml'), 'utf8');
 assert.equal((sitemap.match(/<url>/g) || []).length, products.length, 'product sitemap must include every product page');
 
@@ -62,7 +88,8 @@ console.log(JSON.stringify({
   products: products.length,
   productsWithExplicitFitment: productsWithFitment.length,
   fitmentCoveragePercent: Number((fitmentCoverage * 100).toFixed(1)),
-  productSchemasChecked: 2 + merchantPumps.products.length,
+  productSchemasChecked: products.length,
+  reviewedRussianProducts: Object.keys(productCopy).length,
   sitemapProducts: products.length,
   commercialMarkupLeaks: 0,
 }, null, 2));
