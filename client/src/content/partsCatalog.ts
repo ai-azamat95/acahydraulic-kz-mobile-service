@@ -241,7 +241,7 @@ export const partCategories = [
   { id: "hydraulic-motors", ru: "Гидромоторы", kz: "Гидромоторлар", en: "Hydraulic motors" },
   { id: "final-drives", ru: "Бортовые редукторы", kz: "Борттық редукторлар", en: "Final drives" },
   { id: "control-valves", ru: "Распределители и клапаны", kz: "Таратқыштар мен клапандар", en: "Control valves" },
-  { id: "electrical", ru: "Датчики и соленоиды", kz: "Датчиктер мен соленоидтар", en: "Sensors and solenoids" },
+  { id: "electrical", ru: "Электрика и датчики", kz: "Электр жабдықтары мен датчиктер", en: "Electrical parts and sensors" },
   { id: "wiring-harnesses", ru: "Жгуты проводки", kz: "Сымдар шоғыры", en: "Wiring harnesses" },
   { id: "controllers-monitors", ru: "Контроллеры и мониторы", kz: "Контроллерлер мен мониторлар", en: "Controllers and monitors" },
   { id: "seals-filters", ru: "Ремкомплекты и фильтры", kz: "Жөндеу жинақтары мен сүзгілер", en: "Seal kits and filters" },

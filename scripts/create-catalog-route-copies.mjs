@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { catalogProductSeo, catalogProductCategories, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
@@ -57,19 +58,20 @@ const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pum
 function productPage(product) {
   const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
   const canonical = `${baseUrl}/catalog/${product.handle}/`;
-  const titleCore = product.title.length > 110 ? `${product.title.slice(0, 107)}...` : product.title;
-  const title = `${titleCore} | ACA Hydraulic`;
+  const productSeo = catalogProductSeo(product);
+  const productCategories = catalogProductCategories(product);
+  const title = `${productSeo.title} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
   const fitmentLabel = product.approvedSale ? 'Применяемость этого исполнения' : 'Применяемость';
   const seriesNote = product.approvedSale ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
   const price = Number.isFinite(product.minPriceKzt) ? `Цена ${product.approvedSale ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
   const saleTerms = merchantOffer ? merchantPumps.terms.ru : product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
-  const description = `${product.title}. ${fitmentLabel}: ${fitment}. ${price}. ${saleTerms} Поставка под заказ. Цена и срок после проверки шильдика.`;
+  const description = productSeo.description;
   const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.title,
+    name: productSeo.name,
     description,
     image: image ? [image] : undefined,
     sku: product.sku || product.id,
@@ -100,9 +102,11 @@ function productPage(product) {
       url: canonical,
     } : undefined,
   });
-  const fallback = `<main aria-label="${escapeAttr(product.title)}">
+  const fallback = `<main aria-label="${escapeAttr(productSeo.name)}">
   <p><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a></p>
-  <h1>${escapeHtml(product.title)}</h1>
+  <nav aria-label="Разделы каталога">${productCategories.map(category => `<a href="/catalog/category/${category.id}/">${escapeHtml(category.title)}</a>`).join(' · ')}</nav>
+  <h1>${escapeHtml(productSeo.name)}</h1>
+  ${productSeo.name !== product.title ? `<p lang="en">${escapeHtml(product.title)}</p>` : ''}
   <p>${escapeHtml(description)}</p>
   <p><strong>Поставка под заказ. Цену и срок подтвердим после проверки шильдика.</strong></p>
   <h2>${escapeHtml(fitmentLabel)}</h2>
@@ -110,9 +114,12 @@ function productPage(product) {
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
-  <p>Перед оплатой ACA Hydraulic сверяет номер детали, модель техники, серийный номер, исполнение, разъёмы, вал, фланец и порты.</p>
+  ${saleTerms ? `<p>${escapeHtml(saleTerms)}</p>` : ''}
+  <section data-product-selection><h2>Что прислать для подбора этой запчасти</h2>
+  <p>${escapeHtml(catalogProductSelection(product))}</p>
+  <p>Укажите количество, город и нужную дату. Совпадения только модели техники недостаточно: исполнение, комплектацию, цену и срок поставки подтверждаем до оплаты.</p></section>
   <p>Доступны оригинальные, OEM и проверенные аналоговые варианты. Конкретный вариант, наличие, срок доставки и гарантия подтверждаются после проверки.</p>
-  <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a></p>
+  <p><a href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте! Интересует: ${productSeo.name}\n${canonical}\nМодель и серийный номер: \nКоличество: \nГород: \nНужна к дате: \nПриложу фото шильдика и детали.`)}">Запросить подбор в WhatsApp</a></p>
   ${product.category === 'hydraulic-pumps' ? `<nav aria-label="Статьи перед покупкой насоса"><ul><li><a href="/blog/k3v112dt-kak-podobrat-gidronasos/">Подбор K3V112DT</a></li><li><a href="/blog/remont-ili-zamena-gidronasosa/">Ремонт или замена гидронасоса</a></li><li><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">K5V80DTP и HANDOK</a></li></ul></nav>` : ''}
 </main>`;
 

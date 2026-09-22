@@ -1,3 +1,4 @@
+import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import { useState } from "react";
 import { Link } from "wouter";
 import { ChevronRight, MessageCircle, Package, SearchX } from "lucide-react";
@@ -46,7 +47,7 @@ function productCode(product: CatalogIndexProduct, activeCategory: string | unde
   return usefulTag || categoryId;
 }
 
-function ProductImage({ product }: { product: CatalogIndexProduct }) {
+function ProductImage({ product, name }: { product: CatalogIndexProduct; name: string }) {
   const [failed, setFailed] = useState(false);
   const showImage = Boolean(product.imageUrl) && !failed;
 
@@ -55,7 +56,7 @@ function ProductImage({ product }: { product: CatalogIndexProduct }) {
       {showImage ? (
         <img
           src={product.imageUrl || ""}
-          alt={product.title}
+          alt={name}
           loading="lazy"
           decoding="async"
           referrerPolicy="no-referrer-when-downgrade"
@@ -94,6 +95,7 @@ export function ProductResults({ copy, language, products, activeCategory, total
     <>
       <div className="aca-product-grid mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => {
+          const productName = catalogProductName(product, language);
           const visibleTags = product.tags.slice(0, 2);
           const whatsappText = encodeURIComponent(`Здравствуйте! Интересует запчасть: ${product.title}\n${window.location.origin}/catalog/${product.handle}`);
           return (
@@ -101,8 +103,8 @@ export function ProductResults({ copy, language, products, activeCategory, total
               key={product.id}
               className="aca-product-card group flex min-w-0 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#151515] shadow-[0_12px_35px_rgba(0,0,0,0.22)] transition duration-200 hover:-translate-y-0.5 hover:border-[#FFC000]/55 hover:shadow-[0_16px_45px_rgba(0,0,0,0.32)]"
             >
-              <Link href={`/catalog/${product.handle}`} className="relative block" aria-label={product.title}>
-                <ProductImage product={product} />
+              <Link href={`/catalog/${product.handle}`} className="relative block" aria-label={productName}>
+                <ProductImage product={product} name={productName} />
                 <div className="aca-product-code absolute left-2 top-2 max-w-[70%] truncate rounded-full border border-black/10 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white backdrop-blur sm:left-3 sm:top-3 sm:text-[11px]">
                   {productCode(product, activeCategory, language)}
                 </div>
@@ -120,7 +122,7 @@ export function ProductResults({ copy, language, products, activeCategory, total
               <div className="flex flex-1 flex-col p-3 sm:p-5">
                 <h3 className="line-clamp-3 min-h-[3.8rem] text-sm font-semibold leading-snug text-white sm:min-h-[4.4rem] sm:text-base">
                   <Link href={`/catalog/${product.handle}`} className="transition-colors hover:text-[#FFC000]">
-                    {product.title}
+                    {productName}
                   </Link>
                 </h3>
 

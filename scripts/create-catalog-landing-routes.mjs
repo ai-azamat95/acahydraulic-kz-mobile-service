@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { catalogProductName } from '../shared/catalog-product-seo.mjs';
 
 import {
   catalogBrandLandings,
@@ -85,7 +86,7 @@ function landingPage({ type, slug, title, description, intro, matches }) {
       '@type': 'ItemList',
       numberOfItems: matches.length,
       itemListElement: itemList.slice(0, 50).map((product, index) => ({
-        '@type': 'ListItem', position: index + 1, name: product.title, url: `${baseUrl}/catalog/${product.handle}/`,
+        '@type': 'ListItem', position: index + 1, name: catalogProductName(product), url: `${baseUrl}/catalog/${product.handle}/`,
       })),
     },
   });
@@ -101,7 +102,7 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   <p>${escapeHtml(intro || description)}</p>
   <p>Найдено позиций: ${matches.length}. Цена, наличие и срок подтверждаются после проверки OEM-номера, модели, серийного номера и исполнения детали.</p>
   ${selectionGuide}
-  <section><h2>Товары раздела</h2><ul>${itemList.map((product) => `<li><a href="/catalog/${product.handle}/">${escapeHtml(product.title)}</a>${product.fitment ? ` — ${escapeHtml(product.fitment)}` : ''}</li>`).join('')}</ul></section>
+  <section><h2>Товары раздела</h2><ul>${itemList.map((product) => `<li><a href="/catalog/${product.handle}/">${escapeHtml(catalogProductName(product))}</a>${product.fitment ? ` — ${escapeHtml(product.fitment)}` : ''}</li>`).join('')}</ul></section>
   ${relatedLinks(slug, type, matches)}
   <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a></p>
 </main>`;

@@ -25,6 +25,8 @@ const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.m
 const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-repair-content.json', import.meta.url), 'utf8'));
 const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
 const serviceDirectory = JSON.parse(fs.readFileSync(new URL('../shared/service-directory.json', import.meta.url), 'utf8'));
+const catalogHomeSeo = JSON.parse(fs.readFileSync(new URL('../shared/catalog-home-seo.json', import.meta.url), 'utf8'));
+const catalogLandings = JSON.parse(fs.readFileSync(new URL('../shared/catalog-landings.json', import.meta.url), 'utf8'));
 const deliveryPolicy = JSON.parse(fs.readFileSync(new URL('../shared/delivery-and-returns.json', import.meta.url), 'utf8'));
 
 if (!fs.existsSync(indexPath)) {
@@ -65,8 +67,8 @@ const explicitMeta = {
     description: 'Ремонт гидронасосов, гидромоторов, распределителей, цилиндров и выездной сервис спецтехники по Казахстану.',
   },
   catalog: {
-    title: 'Запчасти для спецтехники: подбор по номеру и модели | ACA Hydraulic',
-    description: 'Подбор гидравлических и электронных запчастей для CAT, Komatsu, Hitachi, Volvo, SANY, XCMG и другой спецтехники. Проверка совместимости и заявка в WhatsApp.',
+    title: `${catalogHomeSeo.title} | ACA Hydraulic`,
+    description: catalogHomeSeo.description,
   },
   about: {
     title: 'О компании ACA Hydraulic | Гидравлический сервис',
@@ -243,6 +245,14 @@ function fallbackLinks(route) {
 }
 
 function staticFallback(route, meta, canonical) {
+  if (route === 'catalog') {
+    return `<main aria-label="Каталог запчастей"><a href="/">ACA Hydraulic</a>
+      <h1>${escapeHtml(catalogHomeSeo.title)}</h1><p>${escapeHtml(catalogHomeSeo.description)}</p>
+      <section><h2>Что нужно для точного подбора</h2><p>${escapeHtml(catalogHomeSeo.selection)}</p></section>
+      <nav aria-label="Все разделы каталога"><h2>Каталог запчастей по узлам</h2><ul>${catalogLandings.categories.map(item => `<li><a href="/catalog/category/${item.id}/">${escapeHtml(item.title)}</a><p>${escapeHtml(item.intro)}</p></li>`).join('')}</ul></nav>
+      <p><a href="/delivery-and-returns/">Доставка, оплата и возврат</a></p>
+      <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a> · <a href="tel:+77714177925">+7 (771) 417-79-25</a></p></main>`;
+  }
   const article = articleForRoute(route);
   if (article) return renderArticle(article);
   if (route === 'delivery-and-returns') {

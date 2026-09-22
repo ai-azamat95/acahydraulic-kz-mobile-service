@@ -25,6 +25,13 @@ assert(landingIndex.models.length >= 20, 'model landing coverage is unexpectedly
 assert(landingIndex.models.every((item) => item.count >= 8), 'thin model pages must not be indexed');
 assert(robots.includes('Sitemap: https://acahydraulic.kz/sitemap-catalog-landings.xml'), 'robots.txt must announce the landing sitemap');
 
+const catalogHome = fs.readFileSync(path.join(publicDir, 'catalog/index.html'), 'utf8');
+for (const category of catalogCategoryLandings) {
+  assert(catalogHome.includes(`href="/catalog/category/${category.id}/"`), `catalog home must link to ${category.id} before JavaScript`);
+}
+assert(catalogHome.includes('Что нужно для точного подбора'), 'catalog home must explain how to request a part');
+assert(!catalogHome.includes('выполняет диагностику и ремонт гидравлических систем'), 'catalog home must describe parts instead of generic service fallback');
+
 const descriptions = new Set();
 for (const page of pages) {
   assert(page.count > 0, `${page.type}/${page.slug} must not be empty`);
