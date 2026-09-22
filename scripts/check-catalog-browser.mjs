@@ -179,6 +179,9 @@ try {
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT');
       await journey.waitForFunction(() => Number(document.querySelector('[data-result-count]')?.getAttribute('data-result-count')) > 0);
       assert.equal(await journey.locator('[data-supply-offer]').count(),1);
+      // This journey checks navigation after loading; do not tear down WebKit's
+      // in-flight index batches during a reload (reported as access-control errors).
+      await journey.waitForLoadState('networkidle');
       await journey.reload({waitUntil:'networkidle'});
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT','URL search survives reload');
       await journey.locator('.aca-category-card[href="/catalog?q=K5V160DT"]').click();
@@ -198,6 +201,7 @@ try {
       await journey.locator('[data-supply-offer="handok-h5v80dtp"]').waitFor();
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'ZX160W');
       await journey.waitForFunction(() => Number(document.querySelector('[data-result-count]')?.getAttribute('data-result-count')) > 0);
+      await journey.waitForLoadState('networkidle');
       await journey.locator('.aca-product-card > a').first().click();
       await journey.locator('.aca-product-fitment-detail').waitFor();
       await journey.goBack({waitUntil:'networkidle'});
