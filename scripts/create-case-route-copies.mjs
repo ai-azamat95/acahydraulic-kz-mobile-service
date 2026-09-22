@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import path from 'node:path';
 const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
 
@@ -23,6 +24,7 @@ const routes = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)]
   .filter((route) => route && !/\.[a-z0-9]+$/i.test(route));
 
 const caseMeta = {
+  [catSale.casePath.slice(1)]: { title: `${catSale.caseTitle} | ACA Hydraulic`, description: catSale.caseDescription },
   'cases/postavka-zamena-gidronasosa': {
     title: 'Гидронасос с доставкой и заменой: SANY и Hitachi ZX160W | ACA Hydraulic',
     description: 'SANY SY365H: поставили K5V160DT, заменили насос и запустили экскаватор. Заказ HANDOK для Hitachi ZX160W ожидает поставки. Фото, видео, варианты насосов и расчёт работ.',

@@ -9,6 +9,7 @@ import HitachiCase from "../client/src/pages/cases/Hitachi330FloatingPressure";
 import DiagnosisArticle from "../client/src/pages/blog/KakOpredelitNeispravnost";
 import PumpRepairArticle from "../client/src/pages/blog/RemonGidronasosaCat";
 import MotorCostArticle from "../client/src/pages/blog/StoimostRemonGidromotora";
+import Cat432ePumpSale from "../client/src/pages/cases/Cat432ePumpSale";
 import Cases from "../client/src/pages/Cases";
 
 const { HelmetProvider } = helmetPackage;
@@ -20,6 +21,7 @@ const pages: Record<string, React.ComponentType> = {
   "cases/cat-330dl-teryaet-moshchnost-na-goryachuyu": CatCase,
   "cases/sany-sy365h-gidravlika-na-goryachuyu": SanyCase,
   "cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami": HitachiCase,
+  "cases/cat-432e-postavka-gidronasosa-267-2755": Cat432ePumpSale,
   cases: Cases,
 };
 

@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { applyOwnerCatalogSales } from './catalog-owner-sales.mjs';
 import path from 'node:path';
 import { applyApprovedCatalogPrices } from './catalog-approved-prices.mjs';
 
@@ -11,6 +12,7 @@ if (!fs.existsSync(manifestPath)) {
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 const approvedPrices = applyApprovedCatalogPrices(catalogDir);
+applyOwnerCatalogSales(catalogDir);
 const privateFiles = [manifest.catalogAuditFile, manifest.pumpAuditFile, manifest.strictCategoryAuditFile].filter(Boolean);
 
 for (const fileName of privateFiles) {

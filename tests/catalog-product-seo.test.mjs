@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { applyOwnerSale } from '../scripts/catalog-owner-sales.mjs';
 import test from 'node:test';
 import fs from 'node:fs';
 import copy from '../shared/catalog-product-copy.json' with { type: 'json' };
@@ -10,9 +11,10 @@ const products = fs.readdirSync(dir).filter(file => /^search-index-\d+\.json$/.t
 const codes = text => text.toUpperCase().match(/\b[A-Z0-9]+(?:[-.][A-Z0-9]+)*\b/g)?.filter(word => /\d/.test(word)) || [];
 
 test('reviewed Russian names preserve every source part number and equipment model', () => {
-  assert.equal(Object.keys(copy).length, 10);
+  assert.equal(Object.keys(copy).length, 11);
   for (const [handle, content] of Object.entries(copy)) {
-    const product = products.find(item => item.handle === handle);
+    const imported = products.find(item => item.handle === handle);
+    const product = imported && applyOwnerSale(imported);
     assert(product, `${handle} must exist in the current catalog`);
     for (const code of codes(product.title)) assert(codes(content.name).includes(code), `${handle} lost ${code}`);
     for (const code of codes(content.name)) assert(codes(product.title).includes(code), `${handle} invented ${code}`);

@@ -32,6 +32,7 @@ const IndustrialAI = lazy(() => import("./pages/IndustrialAI"));
 const Cat330DLHotPowerLoss = lazy(() => import("./pages/cases/Cat330DLHotPowerLoss"));
 const SanySY365HHotHydraulics = lazy(() => import("./pages/cases/SanySY365HHotHydraulics"));
 const Hitachi330FloatingPressure = lazy(() => import("./pages/cases/Hitachi330FloatingPressure"));
+const Cat432ePumpSale = lazy(() => import("./pages/cases/Cat432ePumpSale"));
 const PumpSupplyInstallation = lazy(() => import("./pages/cases/PumpSupplyInstallation"));
 const VideoCase = lazy(() => import("./pages/cases/VideoCase"));
 
@@ -135,6 +136,7 @@ function AppRoutes() {
         <Route path="/cases" component={Cases} />
         <Route path="/cases/cat-325c-glokhnet-pod-nagruzkoy" component={VideoCase} />
         <Route path="/cases/sany-sy365h-zamena-gidronasosa-video" component={VideoCase} />
+        <Route path="/cases/cat-432e-postavka-gidronasosa-267-2755" component={Cat432ePumpSale} />
         <Route path="/cases/postavka-zamena-gidronasosa" component={PumpSupplyInstallation} />
         <Route path="/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu" component={Cat330DLHotPowerLoss} />
         <Route path="/cases/sany-sy365h-gidravlika-na-goryachuyu" component={SanySY365HHotHydraulics} />

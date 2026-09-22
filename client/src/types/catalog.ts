@@ -10,6 +10,7 @@ export type CatalogIndexProduct = {
   tags: string[];
   available: boolean;
   minPriceKzt: number | null;
+  ownerSale?: { condition: 'new'; confirmedOn: string; casePath: string };
   approvedSale?: { model: string; condition: 'new'; assembly: 'complete'; confirmedOn: string; deliveryMinDays: number; deliveryMaxDays: number; shippingFromUsdPerKg: number; defectResolution: 'replacement-at-service-center'; prepaymentPercent: number };
   maxPriceKzt: number | null;
   imageUrl: string | null;

@@ -1,3 +1,5 @@
+import catSale from "../../../shared/cat-432e-sale.json";
+import Cat432eSaleMedia from "@/components/Cat432eSaleMedia";
 import merchantPumps from "../../../shared/merchant-pumps.json";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
@@ -61,7 +63,7 @@ export default function CatalogProduct() {
       copy.whatsappIntro,
       `${copy.whatsappPart}: ${product.title}`,
       `${copy.whatsappCategory}: ${categoryName}`,
-      `${copy.price}: ${product.minPriceKzt !== null ? `${product.approvedSale ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
+      `${copy.price}: ${product.minPriceKzt !== null ? `${(product.approvedSale || product.ownerSale) ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
       `Ссылка: ${window.location.href}`,
       copy.whatsappPhoto,
       language === "ru" ? "Поставка под заказ. Прошу подтвердить цену и срок." : language === "kz" ? "Тапсырыс бойынша жеткізу. Баға мен мерзімді растауыңызды сұраймын." : "Please confirm price and lead time for supply to order.",
@@ -98,7 +100,7 @@ export default function CatalogProduct() {
   }
 
   const displayedPrice = product.minPriceKzt !== null
-    ? `${product.approvedSale ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
+    ? `${(product.approvedSale || product.ownerSale) ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
   const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
@@ -125,17 +127,17 @@ export default function CatalogProduct() {
           "@type": "Product",
           name: productSeo.name,
           description: seoDescription,
-          image: gallery,
+          image: gallery.map(image => new URL(image, "https://acahydraulic.kz").href),
           sku: mainSku,
-          itemCondition: product.approvedSale ? "https://schema.org/NewCondition" : undefined,
+          itemCondition: (product.approvedSale || product.ownerSale) ? "https://schema.org/NewCondition" : undefined,
           additionalProperty: product.fitment ? [{
             "@type": "PropertyValue",
             name: fitmentLabel,
             value: product.fitment,
           }] : undefined,
           offers: product.minPriceKzt !== null ? {
-            "@type": product.approvedSale ? "Offer" : "AggregateOffer",
-            price: product.approvedSale ? product.minPriceKzt : undefined,
+            "@type": (product.approvedSale || product.ownerSale) ? "Offer" : "AggregateOffer",
+            price: (product.approvedSale || product.ownerSale) ? product.minPriceKzt : undefined,
             priceCurrency: "KZT",
             shippingDetails: merchantOffer ? {
               "@type": "OfferShippingDetails",
@@ -148,9 +150,9 @@ export default function CatalogProduct() {
               },
             } : undefined,
             availability: merchantOffer ? "https://schema.org/InStock" : undefined,
-            lowPrice: product.approvedSale ? undefined : product.minPriceKzt,
-            highPrice: product.approvedSale ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
-            offerCount: product.approvedSale ? undefined : product.variants.length,
+            lowPrice: (product.approvedSale || product.ownerSale) ? undefined : product.minPriceKzt,
+            highPrice: (product.approvedSale || product.ownerSale) ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
+            offerCount: (product.approvedSale || product.ownerSale) ? undefined : product.variants.length,
             url: `https://acahydraulic.kz/catalog/${product.handle}/`,
           } : undefined,
         }}
@@ -260,7 +262,7 @@ export default function CatalogProduct() {
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">{productSeo.name}</h1>
             {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
-            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{copy.productDescription}</p>
+            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{product.ownerSale ? seoDescription : copy.productDescription}</p>
 
             <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
               <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{fitmentLabel}</h2>
@@ -278,6 +280,7 @@ export default function CatalogProduct() {
                 <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
                 {product.available ? copy.available : copy.checkAvailability}
               </div>
+              {product.ownerSale && <p className="mt-3 text-sm leading-6 text-gray-300">{catSale.terms[language]}</p>}
               {product.approvedSale && <p className="mt-3 text-sm leading-6 text-gray-300">
                 {merchantOffer ? merchantPumps.terms[language] : language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу — 3–14 күн. Жеткізу — кг үшін 3 АҚШ долларынан бастап, бөлек төленеді. Алдын ала төлем 100%. Жеткізудің толық құны төлемге дейін келісіледі. Ақау болса — сервис орталығы арқылы ауыстыру. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan in 3–14 days. Shipping from USD 3 per kg, charged separately. 100% prepayment. Final shipping cost agreed before payment. Defective units replaced through our service center. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
               </p>}
@@ -301,6 +304,7 @@ export default function CatalogProduct() {
               </div>
             </div>
 
+            {product.ownerSale && <section className="mt-8"><h2 className="text-2xl font-bold">Этот насос уже покупали в ACA Hydraulic</h2><p className="my-4 text-gray-300">Продали новый насос для CAT 432E. По обратной связи клиента, он остался доволен покупкой.</p><Cat432eSaleMedia /><Link href={catSale.casePath} className="mt-4 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline">Кейс продажи: CAT 432E и насос 267-2755</Link></section>}
             {product.tags.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-2">
                 {product.tags.slice(0, 8).map((tag) => (
