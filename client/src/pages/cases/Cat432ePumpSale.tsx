@@ -17,10 +17,7 @@ export default function Cat432ePumpSale() {
     <SEO title={sale.caseTitle} description={sale.caseDescription} canonical={sale.casePath}
       ogImage={sale.machineImage} pageType="article" publishedDate="2026-09-22" modifiedDate="2026-09-22"
       breadcrumbs={[{ name: "Кейсы", url: "/cases/" }, { name: "Продажа насоса для CAT 432E", url: sale.casePath }]}
-      faq={faq} schema={{ "@context": "https://schema.org", "@type": "Article", headline: sale.caseTitle,
-        description: sale.caseDescription, image: [sale.machineImage, sale.image].map(path => `https://acahydraulic.kz${path}`),
-        datePublished: "2026-09-22", dateModified: "2026-09-22", mainEntityOfPage: `https://acahydraulic.kz${sale.casePath}/`,
-        author: { "@type": "Organization", name: "ACA Hydraulic", url: "https://acahydraulic.kz/" } }} />
+      faq={faq} />
     <div className="container mx-auto max-w-6xl px-4">
       <Link href="/cases/" className="inline-flex min-h-11 items-center text-[#FFC000] underline">Все кейсы ACA Hydraulic</Link>
       <div className="mt-6 grid items-start gap-8 lg:grid-cols-[1.25fr_1fr]">

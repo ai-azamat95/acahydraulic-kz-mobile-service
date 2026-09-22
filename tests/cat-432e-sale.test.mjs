@@ -42,3 +42,12 @@ test('fresh imports and repeated preparation keep every catalog representation i
     assert.equal(fs.readFileSync(path.join(dir, files[0]), 'utf8'), before);
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 });
+
+test('case publishes one Article entity from the shared SEO component', () => {
+  const html = fs.readFileSync(`dist/public${sale.casePath}/index.html`, 'utf8');
+  const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map(match => JSON.parse(match[1]));
+  const articles = schemas.filter(schema => schema['@type'] === 'Article');
+  assert.equal(articles.length, 1);
+  assert.equal(articles[0]['@id'], `https://acahydraulic.kz${sale.casePath}/#article`);
+  assert.equal(articles[0].headline, sale.caseTitle);
+});
