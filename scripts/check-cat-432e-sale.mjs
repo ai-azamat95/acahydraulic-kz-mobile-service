@@ -16,6 +16,7 @@ test('published product and case expose exact price, self canonicals and recipro
     assert(fs.existsSync(`dist/public${image}`), `${image} must be published`);
   }
   const schema = JSON.parse(productHtml.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s)[1]);
+  assert.deepEqual(schema.image, sale.gallery.map(image => `https://acahydraulic.kz${image}`));
   assert.equal(schema.offers['@type'], 'Offer');
   assert.equal(schema.offers.price, 1230000);
   assert.equal(schema.offers.priceCurrency, 'KZT');

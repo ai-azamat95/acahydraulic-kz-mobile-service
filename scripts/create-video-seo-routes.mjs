@@ -1,12 +1,30 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 
 const out = path.resolve('dist/public');
 const base = 'https://acahydraulic.kz';
 const cases = JSON.parse(fs.readFileSync(new URL('../shared/video-cases.json', import.meta.url), 'utf8'));
 const redirects = JSON.parse(fs.readFileSync(new URL('../shared/legacy-redirects.json', import.meta.url), 'utf8'));
+const catalogCaseVideo = {
+  slug: catSale.casePath.replace(/^\/cases\/|\/$/g, ''),
+  title: 'Основной гидронасос 267-2755 для CAT 432E: обзор проданного узла',
+  description: 'Видео нового основного гидронасоса 267-2755, проданного клиенту для CAT 432E: корпус, вал, фланец, порты и регулятор.',
+  video: catSale.video,
+  poster: catSale.poster,
+  duration: 'PT9.588S',
+  seconds: 10,
+  uploadDate: '2026-09-22T00:00:00+05:00',
+};
+const sitemapVideos = [...cases, catalogCaseVideo];
 const template = fs.readFileSync(path.join(out, 'index.html'), 'utf8');
 const escape = text => String(text).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+const videoSchema = item => {
+  const url = `${base}/cases/${item.slug}/`;
+  return { '@context': 'https://schema.org', '@type': 'VideoObject', '@id': `${url}#video`, name: item.title,
+    description: item.description, thumbnailUrl: [`${base}${item.poster}`], contentUrl: `${base}${item.video}`,
+    url, mainEntityOfPage: url, uploadDate: item.uploadDate, duration: item.duration, inLanguage: 'ru' };
+};
 function replaceRoot(html, content) {
   const opening = /<div\b[^>]*\bid=["']root["'][^>]*>/i.exec(html);
   if (!opening) throw new Error('Missing root');
@@ -28,9 +46,7 @@ function writeRoute(route, html) {
 for (const item of cases) {
   const url = `${base}/cases/${item.slug}/`;
   const title = `${item.title} | ACA Hydraulic`;
-  const schema = { '@context': 'https://schema.org', '@type': 'VideoObject', '@id': `${url}#video`, name: item.title,
-    description: item.description, thumbnailUrl: [`${base}${item.poster}`], contentUrl: `${base}${item.video}`,
-    url, mainEntityOfPage: url, uploadDate: item.uploadDate, duration: item.duration, inLanguage: 'ru' };
+  const schema = videoSchema(item);
   let html = template.replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, '')
     .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
     .replace(/<meta(?=[^>]*\b(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi, '')
@@ -58,6 +74,15 @@ for (const item of cases) {
   writeRoute(`cases/${item.slug}`, html);
 }
 
+const catalogCaseFile = path.join(out, 'cases', catalogCaseVideo.slug, 'index.html');
+if (!fs.existsSync(catalogCaseFile)) throw new Error(`Missing catalog video case: ${catalogCaseFile}`);
+let catalogCaseHtml = fs.readFileSync(catalogCaseFile, 'utf8');
+catalogCaseHtml = catalogCaseHtml.replace(
+  '</head>',
+  `<script type="application/ld+json" data-static-video-schema>${JSON.stringify(videoSchema(catalogCaseVideo)).replace(/</g, '\\u003c')}</script></head>`,
+);
+fs.writeFileSync(catalogCaseFile, catalogCaseHtml);
+
 // GitHub Pages has no server redirect rules. A zero-delay meta refresh and
 // matching canonical provide a static redirect; do not claim an HTTP 301.
 for (const [from, to] of Object.entries(redirects)) {
@@ -67,7 +92,7 @@ for (const [from, to] of Object.entries(redirects)) {
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-${cases.map(item => `  <url><loc>${base}/cases/${item.slug}/</loc><video:video><video:thumbnail_loc>${base}${item.poster}</video:thumbnail_loc><video:title>${escape(item.title)}</video:title><video:description>${escape(item.description)}</video:description><video:content_loc>${base}${item.video}</video:content_loc><video:duration>${item.seconds}</video:duration><video:publication_date>${item.uploadDate}</video:publication_date><video:family_friendly>yes</video:family_friendly></video:video></url>`).join('\n')}
+${sitemapVideos.map(item => `  <url><loc>${base}/cases/${item.slug}/</loc><video:video><video:thumbnail_loc>${base}${item.poster}</video:thumbnail_loc><video:title>${escape(item.title)}</video:title><video:description>${escape(item.description)}</video:description><video:content_loc>${base}${item.video}</video:content_loc><video:duration>${item.seconds}</video:duration><video:publication_date>${item.uploadDate}</video:publication_date><video:family_friendly>yes</video:family_friendly></video:video></url>`).join('\n')}
 </urlset>\n`;
 fs.writeFileSync(path.join(out, 'sitemap-videos.xml'), sitemap);
 
@@ -75,8 +100,8 @@ fs.writeFileSync(path.join(out, 'sitemap-videos.xml'), sitemap);
 for (const route of ['cases', 'projects', 'cases/postavka-zamena-gidronasosa']) {
   const file = path.join(out, route, 'index.html');
   let html = fs.readFileSync(file, 'utf8');
-  const links = `<nav aria-label="Видео ремонта"><ul>${cases.map(item => `<li><a href="/cases/${item.slug}/">${escape(item.title)}</a></li>`).join('')}</ul></nav>`;
+  const links = `<nav aria-label="Видео ремонта"><ul>${sitemapVideos.map(item => `<li><a href="/cases/${item.slug}/">${escape(item.title)}</a></li>`).join('')}</ul></nav>`;
   html = html.replace('</main>', `${links}</main>`);
   fs.writeFileSync(file, html);
 }
-console.log(`Published ${cases.length} video watch pages, video sitemap and ${Object.keys(redirects).length} legacy redirects.`);
+console.log(`Published ${cases.length} video watch pages, ${sitemapVideos.length} video sitemap entries and ${Object.keys(redirects).length} legacy redirects.`);

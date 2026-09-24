@@ -49,8 +49,6 @@ export default function KapitalnyiRemonShantuiSD32() {
         ]}
       />
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-
       <div className="container mx-auto px-4 py-4 text-sm text-gray-500"><Link href="/" className="hover:text-[#FFC000]">Главная</Link><span className="mx-2">/</span><Link href="/blog" className="hover:text-[#FFC000]">Блог</Link><span className="mx-2">/</span><span className="text-white">SHANTUI SD32</span></div>
 
       <article className="max-w-4xl mx-auto px-4 py-10">
