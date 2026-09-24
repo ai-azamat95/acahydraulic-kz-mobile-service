@@ -6,7 +6,13 @@
   "condition": "new",
   "confirmedOn": "2026-09-22",
   "casePath": "/cases/cat-432e-postavka-gidronasosa-267-2755",
-  "image": "/media/cat-432e/pump-267-2755.jpg",
+  "image": "/media/cat-432e/pump-267-2755-shaft.jpg",
+  "gallery": [
+    "/media/cat-432e/pump-267-2755-shaft.jpg",
+    "/media/cat-432e/pump-267-2755-regulator.jpg",
+    "/media/cat-432e/pump-267-2755.jpg"
+  ],
+  "nameplateImage": "/media/cat-432e/pump-267-2755.jpg",
   "machineImage": "/media/cat-432e/cat-432e.jpg",
   "video": "/media/cat-432e/pump-267-2755.mp4",
   "poster": "/media/cat-432e/video-poster.jpg",
