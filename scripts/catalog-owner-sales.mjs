@@ -13,7 +13,7 @@ export function applyOwnerSale(product) {
   return { ...product, title: sale.name, fitment: 'CAT 432E. Исполнение для вашей машины проверяется по серийному номеру, шильдику и подключениям.',
     minPriceKzt: sale.priceKzt, maxPriceKzt: sale.priceKzt,
     imageUrl: sale.image, ownerSale: { condition: sale.condition, confirmedOn: sale.confirmedOn, casePath: sale.casePath },
-    ...(product.gallery ? { gallery: [sale.image] } : {}),
+    ...(product.variants ? { gallery: sale.gallery } : {}),
     ...(product.variants ? { variants: product.variants.map(variant => ({ ...variant, priceKzt: sale.priceKzt })) } : {}),
   };
 }

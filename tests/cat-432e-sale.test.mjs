@@ -16,7 +16,10 @@ test('owner-confirmed sale has exact price and real media without inheriting unr
   assert.equal(result.approvedSale, undefined);
   assert.equal(result.available, undefined);
   assert.equal(result.brand, undefined);
-  assert.deepEqual(result.gallery, [sale.image]);
+  assert.deepEqual(result.gallery, sale.gallery);
+  assert.equal(result.gallery[0], '/media/cat-432e/pump-267-2755-shaft.jpg');
+  assert.equal(result.gallery[1], '/media/cat-432e/pump-267-2755-regulator.jpg');
+  assert.equal(result.gallery[2], sale.nameplateImage);
   assert.deepEqual(applyOwnerSale(result), result);
   const unrelated = { ...product(), id: 'other' };
   assert.equal(applyOwnerSale(unrelated), unrelated);

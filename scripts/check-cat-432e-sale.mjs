@@ -6,6 +6,15 @@ import sale from '../shared/cat-432e-sale.json' with { type: 'json' };
 test('published product and case expose exact price, self canonicals and reciprocal links', () => {
   const productHtml = fs.readFileSync(`dist/public/catalog/${sale.handle}/index.html`, 'utf8');
   const caseHtml = fs.readFileSync(`dist/public${sale.casePath}/index.html`, 'utf8');
+  const productMap = JSON.parse(fs.readFileSync('dist/public/catalog-data/product-map.json', 'utf8'));
+  const productChunk = String(productMap[sale.handle]).padStart(3, '0');
+  const catalogProduct = JSON.parse(fs.readFileSync(`dist/public/catalog-data/products-${productChunk}.json`, 'utf8'))
+    .find(product => product.id === sale.id);
+  assert.deepEqual(catalogProduct.gallery, sale.gallery);
+  assert.equal(catalogProduct.imageUrl, sale.gallery[0]);
+  for (const image of sale.gallery) {
+    assert(fs.existsSync(`dist/public${image}`), `${image} must be published`);
+  }
   const schema = JSON.parse(productHtml.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s)[1]);
   assert.equal(schema.offers['@type'], 'Offer');
   assert.equal(schema.offers.price, 1230000);
