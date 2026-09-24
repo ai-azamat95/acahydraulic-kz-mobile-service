@@ -160,6 +160,47 @@ const blogNames = {
   'vosstanovlenie-gidromotora-volvo-ec380': 'Восстановление гидромотора Volvo EC380',
 };
 
+const staticBlogArticles = {
+  'blog/remont-gidravliki-frezy-wirtgen-1500': {
+    headline: 'Wirtgen 1500 не едет: выездная диагностика хода и гидросистемы',
+    description: 'Реальный выезд ACA Hydraulic на Wirtgen 1500: отсутствие нормального хода, проверка давления, электроклапанов, датчиков скорости и гидросистемы.',
+    image: '/webdev-static-assets/wirtgen-1500-1.webp',
+    dateModified: '2026-09-12',
+  },
+  'blog/kapitalnyy-remont-shantui-sd32': {
+    headline: 'SHANTUI SD32: что входит в диагностику и капитальный ремонт гидравлики',
+    description: 'Практическое руководство ACA Hydraulic по диагностике и подготовке капитального ремонта SHANTUI SD32: давление, насосы, гидромоторы, цилиндры, распределитель и загрязнение системы.',
+    image: '/webdev-static-assets/shantui-sd32-6.webp',
+    dateModified: '2026-09-12',
+  },
+  'blog/remont-gidravliki-liebherr-r950': {
+    headline: 'Liebherr R950 теряет мощность: как диагностировать гидросистему и главный насос',
+    description: 'Практическое руководство ACA Hydraulic: что проверять, если Liebherr R950 медленно работает, теряет усилие ковша или давление гидросистемы нестабильно.',
+    dateModified: '2026-09-12',
+  },
+  'blog/vosstanovlenie-gidromotora-volvo-ec380': {
+    headline: 'Volvo EC380 не едет: как диагностировать гидромотор хода и гидросистему',
+    description: 'Практическое руководство ACA Hydraulic: что проверять, если Volvo EC380 потерял ход, одна гусеница слабее или движение ухудшается после прогрева.',
+    dateModified: '2026-09-12',
+  },
+};
+
+function staticBlogArticleSchema(article, canonical) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${canonical}#article`,
+    headline: article.headline,
+    description: article.description,
+    image: article.image ? new URL(article.image, baseUrl).href : undefined,
+    dateModified: article.dateModified,
+    author: { '@id': `${baseUrl}/#business` },
+    publisher: { '@id': `${baseUrl}/#business` },
+    mainEntityOfPage: canonical,
+    inLanguage: 'ru-KZ',
+  };
+}
+
 function metaForRoute(route) {
   const article = articleForRoute(route);
   if (article) return { title: `${article.title} | ACA Hydraulic`, description: article.description };
@@ -331,12 +372,14 @@ function withRouteHead(html, route) {
   out = setTag(out, /<meta\s+(?:name|property)=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${t}">`);
   out = setTag(out, /<meta\s+(?:name|property)=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${d}">`);
   const article = articleForRoute(route);
-  if (article) {
-    const image = escapeAttr(new URL(article.image, baseUrl).href);
+  const staticBlogArticle = staticBlogArticles[route];
+  const articleImage = article?.image || staticBlogArticle?.image;
+  if (articleImage) {
+    const image = escapeAttr(new URL(articleImage, baseUrl).href);
     out = setTag(out, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${image}">`);
     out = setTag(out, /<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${image}">`);
   }
-  const pageSchema = JSON.stringify(article ? articleSchema(article) : {
+  const pageSchema = JSON.stringify(article ? articleSchema(article) : staticBlogArticle ? staticBlogArticleSchema(staticBlogArticle, canonical) : {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     '@id': `${canonical}#webpage`,
@@ -346,7 +389,7 @@ function withRouteHead(html, route) {
     inLanguage: 'ru-KZ',
     isPartOf: { '@id': `${baseUrl}/#website` },
   });
-  out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema${article ? ' data-rh="true"' : ''}>${pageSchema}</script>\n</head>`);
+  out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema${article || staticBlogArticle ? ' data-rh="true"' : ''}>${pageSchema}</script>\n</head>`);
   out = out.replace('<div id="root"></div>', `<div id="root">${staticFallback(route, { title, description }, canonical)}</div>`);
   out = out.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);

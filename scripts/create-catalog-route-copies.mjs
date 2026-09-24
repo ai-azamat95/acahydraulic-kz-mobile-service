@@ -68,13 +68,17 @@ function productPage(product) {
   const price = Number.isFinite(product.minPriceKzt) ? `Цена ${(product.approvedSale || product.ownerSale) ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
   const saleTerms = merchantOffer ? merchantPumps.terms.ru : product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
   const description = productSeo.description;
-  const image = product.imageUrl ? new URL(product.imageUrl, baseUrl).href : undefined;
+  const gallery = product.ownerSale?.casePath === catSale.casePath ? catSale.gallery : (product.gallery ?? []);
+  const images = [...new Set([product.imageUrl, ...gallery]
+    .filter(Boolean)
+    .map(value => new URL(value, baseUrl).href))];
+  const image = images[0];
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: productSeo.name,
     description,
-    image: image ? [image] : undefined,
+    image: images.length ? images : undefined,
     sku: product.sku || product.id,
     itemCondition: (product.approvedSale || product.ownerSale) ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
