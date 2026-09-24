@@ -26,3 +26,21 @@ test('local repair content is shared between the client and generated HTML', () 
     }
   }
 });
+
+test('traffic-led diagnostic articles expose query-aligned metadata and content', () => {
+  const pressure = fs.readFileSync('dist/public/blog/padaet-davlenie-gidravliki-ekskavatora/index.html', 'utf8');
+  const diagnosis = fs.readFileSync('dist/public/blog/kak-opredelit-neispravnost-gidravliki/index.html', 'utf8');
+
+  assert.match(pressure, /<title[^>]*>Давление в гидросистеме экскаватора: причины падения \| ACA Hydraulic<\/title>/);
+  assert.match(pressure, /Падает давление в гидросистеме экскаватора: что проверять/);
+  assert.match(pressure, /Порядок диагностики без замены деталей наугад/);
+  assert.match(pressure, /2026-09-25/);
+
+  assert.match(diagnosis, /<title[^>]*>Не работает гидравлика спецтехники: 10 признаков \| ACA Hydraulic<\/title>/);
+  assert.match(diagnosis, /Проблемы по гидравлике часто выглядят одинаково/);
+  assert.match(diagnosis, /Если гидравлика не работает совсем/);
+  assert.match(diagnosis, /href="\/blog\/padaet-davlenie-gidravliki-ekskavatora"/);
+
+  assert.equal([...pressure.matchAll(/<h1\b/g)].length, 1);
+  assert.equal([...diagnosis.matchAll(/<h1\b/g)].length, 1);
+});
