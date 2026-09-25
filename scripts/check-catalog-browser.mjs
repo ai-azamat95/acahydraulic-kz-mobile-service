@@ -179,23 +179,24 @@ try {
         await page.screenshot({path:'catalog-ui-check/'+engineName+'-'+width+'.png'});
         if(width===390){
           await page.goto(origin+'/parts/engines-complete/',{waitUntil:'networkidle'});
-          await page.locator('[data-engine-product-card]').waitFor();
-          assert.equal(await page.locator('[data-engine-product-card]').count(),1,'engine landing must expose one product card');
+          await page.locator('[data-engine-product-card]').first().waitFor();
+          assert.equal(await page.locator('[data-engine-product-card]').count(),25,'engine landing must expose all 25 product cards');
           assert.equal(
-            await page.locator('[data-engine-product-card] a').first().getAttribute('href'),
-            '/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10',
-            'engine card must link to the dedicated product page'
+            await page.locator('#n855 [data-engine-product-link]').getAttribute('href'),
+            '/parts/engines-complete/cummins/n855-nt855-nta855',
+            'N855 engine card must link to the dedicated family page'
           );
-          await page.locator('[data-engine-product-card] a').first().click();
-          await page.getByRole('heading',{level:1,name:/NTA855-C360S10/}).waitFor();
+          await page.locator('#n855 [data-engine-product-link]').click();
+          await page.getByRole('heading',{level:1,name:/N855 \/ NT855 \/ NTA855/}).waitFor();
           assert.equal(
             await page.locator('link[rel="canonical"]').getAttribute('href'),
-            'https://acahydraulic.kz/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10/',
+            'https://acahydraulic.kz/parts/engines-complete/cummins/n855-nt855-nta855/',
             'engine product needs a self canonical'
           );
           const engineProductSchema=await page.locator('script[type="application/ld+json"]').evaluateAll(nodes=>nodes.map(node=>{try{return JSON.parse(node.textContent||'{}')}catch{return null}}).find(value=>value?.['@type']==='Product'));
-          assert.equal(engineProductSchema?.model,'NTA855-C360S10','engine product schema must expose the confirmed model');
+          assert.equal(engineProductSchema?.model,'N855 / NT855 / NTA855','engine product schema must expose the family model');
           assert.equal(engineProductSchema?.offers,undefined,'engine product schema must not invent price or availability');
+          assert.equal(await page.locator('[data-engine-case]').count(),1,'verified Shantui case must appear on N855 family only');
           await page.goto(origin+'/parts/engines-complete/cummins/',{waitUntil:'networkidle'});
           await page.locator('[data-cummins-engine-card]').first().waitFor();
           assert.equal(await page.locator('[data-cummins-engine-card]').count(),25,'Cummins catalogue must publish 25 engine-family cards');
@@ -206,6 +207,10 @@ try {
           await page.waitForFunction(()=>[...document.querySelectorAll('[data-cummins-engine-image]')].every(node=>node.complete&&node.naturalWidth>0));
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Cummins catalogue must not overflow mobile viewport');
           assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://acahydraulic.kz/parts/engines-complete/cummins/','Cummins catalogue needs a self canonical');
+          await page.goto(origin+'/parts/engines-complete/cummins/qsb6-7/',{waitUntil:'networkidle'});
+          await page.getByRole('heading',{level:1,name:/QSB6\.7/}).waitFor();
+          assert.equal(await page.locator('[data-engine-case]').count(),0,'unverified engine families must not show a case');
+          assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'engine product must not overflow mobile viewport');
         }
         assert.deepEqual(errors,[],'runtime errors');
         results.push({engine:engineName,width,languages:3,categoryLabels:'pass',bannerLayout:'pass',navigation:'pass'});

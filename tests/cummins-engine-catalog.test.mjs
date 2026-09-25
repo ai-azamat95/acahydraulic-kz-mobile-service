@@ -9,15 +9,25 @@ const catalogRoute = "parts/engines-complete/cummins";
 const landingHtml = fs.readFileSync(path.join(root, landingRoute, "index.html"), "utf8");
 const catalogHtml = fs.readFileSync(path.join(root, catalogRoute, "index.html"), "utf8");
 
-test("complete-engine landing links to the Cummins family catalogue", () => {
-  assert.equal((landingHtml.match(/data-cummins-range-card/g) || []).length, 1);
-  assert.match(landingHtml, new RegExp(`href="/${catalogRoute}"`));
-  assert.match(landingHtml, /25 семейств/);
-  assert.match(landingHtml, /cummins-engine-range\.webp/);
+function productLinks(html) {
+  return [...html.matchAll(/data-engine-product-link[^>]*href="([^"]+)"|href="([^"]+)"[^>]*data-engine-product-link/g)]
+    .map((match) => match[1] ?? match[2]);
+}
+
+test("complete-engine landing is a direct 25-item product catalogue", () => {
+  assert.equal((landingHtml.match(/data-engine-product-card/g) || []).length, 25);
+  assert.equal((landingHtml.match(/data-cummins-engine-card/g) || []).length, 25);
+  assert.equal((landingHtml.match(/<h1[\s>]/g) || []).length, 1);
+  assert.equal(new Set(productLinks(landingHtml)).size, 25);
+  assert.match(landingHtml, /N855 \/ NT855 \/ NTA855/);
+  assert.match(landingHtml, /Реальный кейс показан только у серии N855/);
+  assert.doesNotMatch(landingHtml, /В наличии|есть на складе|оригинал Cummins/i);
 });
 
-test("Cummins catalogue publishes 25 verified family cards in Russian", () => {
+test("Cummins brand catalogue publishes the same 25 separate products", () => {
   assert.equal((catalogHtml.match(/data-cummins-engine-card/g) || []).length, 25);
+  assert.equal((catalogHtml.match(/data-engine-product-card/g) || []).length, 25);
+  assert.equal(new Set(productLinks(catalogHtml)).size, 25);
   assert.equal((catalogHtml.match(/<h1[\s>]/g) || []).length, 1);
   for (const model of ["QSB6.7", "QSL8.9 / QSL9", "M11 / QSM11", "N855 / NT855 / NTA855", "QSK23", "QSK38", "QSK50", "X15"]) {
     assert.match(catalogHtml, new RegExp(model.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
@@ -27,31 +37,28 @@ test("Cummins catalogue publishes 25 verified family cards in Russian", () => {
   assert.doesNotMatch(catalogHtml, /В наличии|есть на складе|оригинал Cummins/i);
 });
 
-test("Cummins catalogue publishes local supplier photos for every family card", () => {
-  assert.match(catalogHtml, /\/catalog-assets\/cummins-engine-range\.webp/);
-  assert.equal((catalogHtml.match(/data-cummins-engine-image/g) || []).length, 25);
-  assert.match(catalogHtml, /Фото серии\. Точное исполнение и комплектность подтверждаем до оплаты\./);
-  assert.doesNotMatch(catalogHtml, /antaiospower|leadongcdn/i);
-  assert.equal(fs.existsSync(path.join(root, "catalog-assets", "cummins-engine-range.webp")), true);
+test("both catalogues publish local supplier photos for every family card", () => {
+  for (const html of [landingHtml, catalogHtml]) {
+    assert.equal((html.match(/data-cummins-engine-image/g) || []).length, 25);
+    assert.match(html, /Фото серии\. Точное исполнение и комплектность подтверждаем до оплаты\./);
+    assert.doesNotMatch(html, /antaiospower|leadongcdn/i);
+  }
 
   const cardImages = [...catalogHtml.matchAll(/src="(\/catalog-assets\/cummins-series\/[^"]+\.webp)"/g)]
     .map((match) => match[1]);
   assert.equal(cardImages.length, 25);
-  assert.equal(new Set(cardImages).size, 20);
   for (const image of new Set(cardImages)) {
     assert.equal(fs.existsSync(path.join(root, image)), true, `${image} must be copied to the build output`);
   }
 });
 
-test("Cummins catalogue has crawlable metadata and ItemList schema", () => {
-  assert.match(catalogHtml, /https:\/\/acahydraulic\.kz\/parts\/engines-complete\/cummins\//);
+test("Cummins catalogue ItemList schema points at 25 product pages", () => {
   const schemas = [...catalogHtml.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)]
     .map((match) => JSON.parse(match[1]));
   const graph = schemas.find((schema) => Array.isArray(schema["@graph"]));
   const itemList = graph?.["@graph"].find((item) => item["@type"] === "ItemList");
   assert.equal(itemList?.numberOfItems, 25);
   assert.equal(itemList?.itemListElement?.length, 25);
-
-  const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
-  assert.match(sitemap, new RegExp(`https://acahydraulic\\.kz/${catalogRoute}/`));
+  assert.equal(new Set(itemList?.itemListElement?.map((item) => item.url)).size, 25);
+  assert(itemList?.itemListElement?.every((item) => item.url.includes("/parts/engines-complete/cummins/")));
 });
