@@ -10,6 +10,8 @@ import DiagnosisArticle from "../client/src/pages/blog/KakOpredelitNeispravnost"
 import PumpRepairArticle from "../client/src/pages/blog/RemonGidronasosaCat";
 import MotorCostArticle from "../client/src/pages/blog/StoimostRemonGidromotora";
 import Cat432ePumpSale from "../client/src/pages/cases/Cat432ePumpSale";
+import ShantuiSD32EngineSupply from "../client/src/pages/cases/ShantuiSD32EngineSupply";
+import CompleteEngines from "../client/src/pages/CompleteEngines";
 import Cases from "../client/src/pages/Cases";
 
 const { HelmetProvider } = helmetPackage;
@@ -22,6 +24,8 @@ const pages: Record<string, React.ComponentType> = {
   "cases/sany-sy365h-gidravlika-na-goryachuyu": SanyCase,
   "cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami": HitachiCase,
   "cases/cat-432e-postavka-gidronasosa-267-2755": Cat432ePumpSale,
+  "cases/shantui-sd32-postavka-dvigatelya-cummins-nta855": ShantuiSD32EngineSupply,
+  "parts/engines-complete": CompleteEngines,
   cases: Cases,
 };
 

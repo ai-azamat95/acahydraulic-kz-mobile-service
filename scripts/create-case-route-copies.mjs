@@ -25,6 +25,10 @@ const routes = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)]
 
 const caseMeta = {
   [catSale.casePath.slice(1)]: { title: `${catSale.caseTitle} | ACA Hydraulic`, description: catSale.caseDescription },
+  'cases/shantui-sd32-postavka-dvigatelya-cummins-nta855': {
+    title: 'Shantui SD32: двигатель Cummins NTA855 за 12 860 000 ₸ | ACA Hydraulic',
+    description: 'Реальный кейс: новый комплектный Cummins NTA855 для Shantui SD32 за 12 860 000 ₸ без монтажа. Перенос гидротрансформатора, установка и запуск.',
+  },
   'cases/postavka-zamena-gidronasosa': {
     title: 'Гидронасос с доставкой и заменой: SANY и Hitachi ZX160W | ACA Hydraulic',
     description: 'SANY SY365H: поставили K5V160DT, заменили насос и запустили экскаватор. Заказ HANDOK для Hitachi ZX160W ожидает поставки. Фото, видео, варианты насосов и расчёт работ.',

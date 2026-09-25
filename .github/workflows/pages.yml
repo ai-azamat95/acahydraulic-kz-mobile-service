@@ -51,6 +51,7 @@ jobs:
         run: |
           node scripts/create-case-route-copies.mjs
           node --test tests/pump-case-publication.test.mjs
+          node --test tests/shantui-engine-publication.test.mjs
 
       - name: Publish video pages and legacy redirects
         run: |

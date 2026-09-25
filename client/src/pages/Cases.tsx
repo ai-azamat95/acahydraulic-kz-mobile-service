@@ -123,8 +123,8 @@ export default function Cases() {
     <div className="min-h-screen bg-[#0a0a0a] text-white font-roboto">
       <SEO
         title="Реальные кейсы ремонта спецтехники с видео | ACA Hydraulic"
-        description="Реальные выездные ремонты ACA Hydraulic: Caterpillar, Hitachi 330-5G, SANY SY365H, XCMG XZ360E. Диагностика, ремонт и результат на видео. Выезд по Казахстану."
-        keywords="реальный ремонт экскаватора, выездной ремонт спецтехники, Caterpillar ремонт, Hitachi 330 5G ремонт, SANY SY365H ремонт, диагностика гидравлики экскаватора"
+        description="Реальные ремонты и поставки ACA Hydraulic: двигатель Cummins NTA855 для Shantui SD32, гидронасосы CAT и SANY, диагностика Hitachi. Фото, видео и подтверждённый результат."
+        keywords="реальный ремонт спецтехники, поставка двигателя Shantui SD32, Cummins NTA855, выездной ремонт спецтехники, поставка гидронасоса"
         canonical="/cases"
         schema={cat325VideoSchema}
       />
@@ -146,6 +146,17 @@ export default function Cases() {
 
       <Cat325VideoCase />
       <PumpCaseTeaser />
+      <section className="border-b border-white/10 bg-[#101010] py-10">
+        <div className="container mx-auto grid items-center gap-6 px-4 md:grid-cols-[220px_1fr]">
+          <img src="/media/shantui-sd32-engine/new-engine.webp" alt="Новый комплектный двигатель Cummins NTA855 для Shantui SD32" width={900} height={1600} loading="lazy" className="h-64 w-full rounded-lg object-contain" />
+          <div>
+            <p className="text-sm font-bold text-[#FFC000]">Поставка двигателя · монтаж · запуск</p>
+            <h2 className="mt-3 text-3xl font-bold text-white">Shantui SD32: новый Cummins NTA855</h2>
+            <p className="my-4 max-w-3xl text-gray-300">Комплектный двигатель с навесным оборудованием — 12 860 000 ₸ без монтажа. Перенесли гидротрансформатор со старого двигателя, установили новый и запустили бульдозер.</p>
+            <Link href="/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855/" className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black">Фото, видео и состав поставки</Link>
+          </div>
+        </div>
+      </section>
       <section className="border-b border-white/10 bg-[#151515] py-10"><div className="container mx-auto grid items-center gap-6 px-4 md:grid-cols-[220px_1fr]"><img src="/media/cat-432e/cat-432e.jpg" alt="CAT 432E из кейса продажи нового гидронасоса" width={562} height={1280} loading="lazy" className="h-56 w-full rounded-lg object-contain" /><div><p className="text-sm font-bold text-[#FFC000]">Выполненная продажа запчасти</p><h2 className="mt-3 text-3xl font-bold text-white">CAT 432E: новый гидронасос 267-2755</h2><p className="my-4 text-gray-300">Продали новый основной насос. Клиент доволен покупкой. Цена — 1 230 000 ₸. Фото и видео из заказа.</p><Link href="/cases/cat-432e-postavka-gidronasosa-267-2755/" className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black">Посмотреть кейс и насос</Link></div></div></section>
 
       <section className="py-7 border-b border-white/5 bg-[#0d0d0d]">

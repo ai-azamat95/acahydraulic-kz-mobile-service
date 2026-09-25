@@ -530,6 +530,13 @@ export default function Catalog() {
               {copy.backToService}
             </SiteHomeLink>
 
+            <Link
+              href="/parts/engines-complete/"
+              className="mb-5 ml-3 inline-flex min-h-10 items-center rounded-full border border-[#FFC000]/40 bg-[#FFC000]/10 px-4 py-2 text-sm font-bold text-[#FFD24A] hover:bg-[#FFC000]/20"
+            >
+              {language === "ru" ? "Новые двигатели в сборе" : language === "kz" ? "Жаңа қозғалтқыштар жинағы" : "New complete engines"}
+            </Link>
+
             <div className="aca-catalog-lead grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
               <div className="aca-catalog-search-column">
                 <div className={`max-w-3xl${isLandingPage ? " aca-landing-heading" : ""}`}>
