@@ -532,7 +532,7 @@ export default function Catalog() {
 
             <Link
               href="/parts/engines-complete/"
-              className="mb-5 ml-3 inline-flex min-h-10 items-center rounded-full border border-[#FFC000]/40 bg-[#FFC000]/10 px-4 py-2 text-sm font-bold text-[#FFD24A] hover:bg-[#FFC000]/20"
+              className="mb-5 ml-3 inline-flex min-h-10 items-center rounded-full border border-[#FFC000]/40 bg-[#FFC000]/10 px-4 py-2 text-sm font-bold text-[#FFD24A] hover:bg-[#FFC000]/20 md:min-h-0 md:py-0"
             >
               {language === "ru" ? "Новые двигатели в сборе" : language === "kz" ? "Жаңа қозғалтқыштар жинағы" : "New complete engines"}
             </Link>
