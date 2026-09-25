@@ -14,6 +14,8 @@ import ShantuiSD32EngineSupply from "../client/src/pages/cases/ShantuiSD32Engine
 import CompleteEngines from "../client/src/pages/CompleteEngines";
 import CompleteEngineProduct from "../client/src/pages/CompleteEngineProduct";
 import CumminsEngineCatalog from "../client/src/pages/CumminsEngineCatalog";
+import { CumminsEngineProductPage } from "../client/src/pages/CumminsEngineProduct";
+import { cumminsEngineFamilies } from "../client/src/data/cumminsEngineFamilies";
 import Cases from "../client/src/pages/Cases";
 
 const { HelmetProvider } = helmetPackage;
@@ -32,6 +34,12 @@ const pages: Record<string, React.ComponentType> = {
   "parts/engines-complete/cummins": CumminsEngineCatalog,
   cases: Cases,
 };
+
+for (const engine of cumminsEngineFamilies) {
+  pages[`parts/engines-complete/cummins/${engine.slug}`] = () => (
+    <CumminsEngineProductPage engine={engine} />
+  );
+}
 
 // Use the actual page component, so the HTML read by crawlers matches the UI.
 export function renderStaticPage(requestedRoute: string) {

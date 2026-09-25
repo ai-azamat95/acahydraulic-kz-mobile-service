@@ -1,9 +1,9 @@
 import { Link } from "wouter";
 import { CheckCircle2, Factory, Gauge, MessageCircle, ShieldCheck, Truck } from "lucide-react";
 
+import { CumminsEngineCard } from "@/components/engines/CumminsEngineCard";
 import { SEO } from "@/components/SEO";
-import { cumminsEngineFamilies, cumminsEngineGroups, type CumminsEngineFamily } from "@/data/cumminsEngineFamilies";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { cumminsEngineFamilies, cumminsEngineGroups, cumminsEnginePath } from "@/data/cumminsEngineFamilies";
 
 export const cumminsEngineCatalogPath = "/parts/engines-complete/cummins";
 const heroImage = "/catalog-assets/cummins-engine-range.webp";
@@ -25,16 +25,11 @@ const pageSchema = {
         "@type": "ListItem",
         position: index + 1,
         name: `Двигатель ${engine.name}`,
-        url: `https://acahydraulic.kz${cumminsEngineCatalogPath}/#${engine.id}`,
+        url: `https://acahydraulic.kz${cumminsEnginePath(engine)}/`,
       })),
     },
   ],
 };
-
-function whatsappUrl(engine: CumminsEngineFamily) {
-  const text = `Здравствуйте! Нужен двигатель ${engine.name} в сборе.\nТехника и модель: \nПолный индекс двигателя: \nСерийный номер: \nГород поставки: \nНужен монтаж и запуск: да / нет\nФото шильдика пришлю следующим сообщением.\nhttps://acahydraulic.kz${cumminsEngineCatalogPath}/#${engine.id}`;
-  return `https://wa.me/77714177925?text=${encodeURIComponent(text)}`;
-}
 
 const generalWhatsappUrl = `https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте! Нужен двигатель Cummins в сборе.
 Техника и модель: 
@@ -44,50 +39,6 @@ const generalWhatsappUrl = `https://wa.me/77714177925?text=${encodeURIComponent(
 Нужен монтаж и запуск: да / нет
 Фото шильдика пришлю следующим сообщением.
 https://acahydraulic.kz${cumminsEngineCatalogPath}/`)}`;
-
-function EngineCard({ engine }: { engine: CumminsEngineFamily }) {
-  return (
-    <article id={engine.id} data-cummins-engine-card className="flex min-h-full scroll-mt-24 flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-[0_6px_20px_rgba(15,23,42,0.06)]">
-      <figure className="mb-5 overflow-hidden rounded-lg border border-gray-100 bg-white">
-        <img
-          src={engine.image}
-          alt={`Двигатель ${engine.name} в сборе`}
-          width={480}
-          height={480}
-          loading="lazy"
-          decoding="async"
-          data-cummins-engine-image
-          className="aspect-[4/3] w-full object-contain p-3"
-        />
-        <figcaption className="border-t border-gray-100 px-3 py-2 text-xs leading-5 text-gray-500">
-          Фото серии. Точное исполнение и комплектность подтверждаем до оплаты.
-        </figcaption>
-      </figure>
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8a5b00]">Двигатель в сборе</p>
-          <h3 className="mt-2 text-2xl font-extrabold leading-tight text-[#111827]">{engine.name}</h3>
-        </div>
-        <span className="shrink-0 rounded-full border border-[#f1c40f] bg-[#fff8dc] px-3 py-1 text-xs font-bold text-[#704900]">{engine.powerKw}</span>
-      </div>
-      <p className="mt-4 flex-1 leading-relaxed text-gray-600">{engine.application}. Точный индекс, производителя, комплектацию и применяемость подтверждаем до оплаты.</p>
-      <div className="mt-5 border-t border-gray-100 pt-4 text-sm leading-6 text-gray-500">
-        <p><strong className="text-gray-800">Цена и срок:</strong> по запросу</p>
-        <p><strong className="text-gray-800">Проверка:</strong> шильдик и серийный номер</p>
-      </div>
-      <div className="mt-5 grid gap-2">
-        {engine.detailPath && <Link href={engine.detailPath} className="inline-flex min-h-11 items-center justify-center rounded border border-gray-300 px-4 font-bold text-gray-900 hover:border-[#b97800] hover:text-[#7a5000]">Смотреть выполненную поставку</Link>}
-        <a
-          href={whatsappUrl(engine)}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => trackCatalogEvent("cummins_engine_quote_click", { item_id: engine.id, source: "cummins-engine-catalog" })}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded bg-[#FFC000] px-4 font-extrabold text-black hover:bg-[#eab000]"
-        ><MessageCircle className="h-4 w-4" aria-hidden="true" />Запросить подбор</a>
-      </div>
-    </article>
-  );
-}
 
 export default function CumminsEngineCatalog() {
   return (
@@ -144,7 +95,7 @@ export default function CumminsEngineCatalog() {
               <p className="mt-3 leading-relaxed text-gray-600">{group.description}</p>
             </div>
             <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {group.engines.map((engine) => <EngineCard key={engine.id} engine={engine} />)}
+              {group.engines.map((engine) => <CumminsEngineCard key={engine.id} engine={engine} source="cummins-engine-catalog" />)}
             </div>
           </section>
         ))}
