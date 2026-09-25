@@ -200,8 +200,10 @@ try {
           await page.locator('[data-cummins-engine-card]').first().waitFor();
           assert.equal(await page.locator('[data-cummins-engine-card]').count(),25,'Cummins catalogue must publish 25 engine-family cards');
           assert(await page.locator('img[src="/catalog-assets/cummins-engine-range.webp"]').evaluate(node=>node.complete&&node.naturalWidth>0),'Cummins catalogue visual must load');
-          assert.equal(await page.locator('[data-cummins-engine-image]').count(),25,'Every Cummins card must have a supplier photo');
-          assert(await page.locator('[data-cummins-engine-image]').evaluateAll(nodes=>nodes.every(node=>node.complete&&node.naturalWidth>0)),'Every Cummins card photo must load');
+          const cumminsImages=page.locator('[data-cummins-engine-image]');
+          assert.equal(await cumminsImages.count(),25,'Every Cummins card must have a supplier photo');
+          for(const image of await cumminsImages.all())await image.scrollIntoViewIfNeeded();
+          await page.waitForFunction(()=>[...document.querySelectorAll('[data-cummins-engine-image]')].every(node=>node.complete&&node.naturalWidth>0));
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Cummins catalogue must not overflow mobile viewport');
           assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://acahydraulic.kz/parts/engines-complete/cummins/','Cummins catalogue needs a self canonical');
         }
