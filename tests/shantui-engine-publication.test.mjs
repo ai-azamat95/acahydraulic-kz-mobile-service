@@ -35,9 +35,11 @@ test("engine pages have canonical URLs, sitemap entries and real media", () => {
   assert.ok(fs.readFileSync(path.join(root, "sitemap.xml"), "utf8").includes(`/${landingRoute}/`));
 
   const media = path.join(root, "media/shantui-sd32-engine");
-  for (const file of ["new-engine.webp", "old-engine.webp", "torque-converter.webp", "installation.webp", "og.webp", "walkaround.mp4", "installation.mp4"]) {
+  for (const file of ["new-engine.webp", "old-engine.webp", "torque-converter.webp", "installation.webp", "og.webp", "shantui-sd32-hero.webp", "walkaround.mp4", "installation.mp4"]) {
     assert.ok(fs.statSync(path.join(media, file)).size > 10_000, file);
   }
+  assert.match(caseHtml, /shantui-sd32-hero\.webp/);
+  assert.match(caseHtml, /Иллюстративный фон Shantui SD32/);
   const videos = [...caseHtml.matchAll(/<video\b[^>]*>/g)].map(match => match[0]);
   assert.equal(videos.length, 2);
   assert.ok(videos.every(video => /preload="none"/.test(video) && !/autoplay/.test(video)));

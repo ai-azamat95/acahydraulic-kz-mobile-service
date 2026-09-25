@@ -17,7 +17,7 @@ const faq = [
 
 export default function ShantuiSD32EngineSupply() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] py-10 text-white md:py-16">
+    <main className="min-h-screen bg-[#0a0a0a] text-white">
       <SEO
         title="Shantui SD32: поставка двигателя Cummins NTA855 за 12 860 000 ₸"
         description="Реальный кейс ACA Hydraulic: новый комплектный Cummins NTA855 для Shantui SD32 за 12 860 000 ₸ без монтажа. Перенос гидротрансформатора, установка и запуск бульдозера."
@@ -42,25 +42,43 @@ export default function ShantuiSD32EngineSupply() {
         }}
       />
 
-      <div className="container mx-auto max-w-6xl px-4">
-        <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm"><Link href="/cases/" className="font-bold text-[#FFC000] underline">Все кейсы</Link><Link href={enginePath} className="text-gray-300 underline">Новые двигатели в сборе</Link></nav>
-
-        <section className="mt-7 grid items-start gap-10 lg:grid-cols-[1.12fr_0.88fr]">
-          <div>
+      <section className="relative isolate min-h-[720px] overflow-hidden border-b border-white/10">
+        <img
+          src={`${mediaRoot}/shantui-sd32-hero.webp`}
+          alt=""
+          aria-hidden="true"
+          width={1920}
+          height={720}
+          fetchPriority="high"
+          className="absolute inset-0 -z-30 h-full w-full object-cover object-[64%_center]"
+        />
+        <div className="absolute inset-0 -z-20 bg-black/35" aria-hidden="true" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#08090b] via-[#08090b]/90 to-[#08090b]/15" aria-hidden="true" />
+        <div className="container mx-auto flex min-h-[720px] max-w-6xl flex-col px-4 py-10 md:py-16">
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm"><Link href="/cases/" className="font-bold text-[#FFC000] underline">Все кейсы</Link><Link href={enginePath} className="text-gray-200 underline">Новые двигатели в сборе</Link></nav>
+          <div className="my-auto max-w-3xl py-12">
             <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Выполненный заказ · поставка и установка</p>
-            <h1 className="mt-4 font-bebas text-5xl leading-none md:text-7xl">Shantui SD32: новый Cummins NTA855, установка и запуск</h1>
-            <p className="mt-6 text-lg leading-relaxed text-gray-300">Для бульдозера поставили новый комплектный двигатель Cummins серии NTA855 с навесным оборудованием. Гидротрансформатор перенесли со старого двигателя, двигатель установили и бульдозер запустили.</p>
-            <div className="mt-7 rounded-xl border border-[#FFC000]/30 bg-[#151515] p-6">
-              <p className="text-sm text-gray-400">Стоимость двигателя в этом заказе</p>
+            <h1 className="mt-4 max-w-3xl font-bebas text-5xl leading-none drop-shadow-2xl md:text-7xl">Shantui SD32: новый Cummins NTA855, установка и запуск</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-200 drop-shadow-lg">Для бульдозера поставили новый комплектный двигатель Cummins серии NTA855 с навесным оборудованием. Гидротрансформатор перенесли со старого двигателя, двигатель установили и бульдозер запустили.</p>
+            <div className="mt-7 max-w-xl rounded-xl border border-[#FFC000]/40 bg-black/65 p-6 backdrop-blur-sm">
+              <p className="text-sm text-gray-300">Стоимость двигателя в этом заказе</p>
               <p className="mt-2 text-4xl font-bold text-[#FFC000]">12 860 000 ₸</p>
-              <p className="mt-3 leading-6 text-gray-300">Новый комплектный двигатель с навесным оборудованием.</p>
-              <p className="mt-3 text-sm leading-6 text-gray-400">Монтаж не входил в указанную цену. Это цена конкретной завершённой поставки, а не действующий универсальный прайс.</p>
+              <p className="mt-3 leading-6 text-gray-200">Новый комплектный двигатель с навесным оборудованием.</p>
+              <p className="mt-3 text-sm leading-6 text-gray-300">Монтаж не входил в указанную цену. Это цена конкретной завершённой поставки, а не действующий универсальный прайс.</p>
             </div>
           </div>
-          <figure>
-            <img src={`${mediaRoot}/new-engine.webp`} alt="Новый комплектный двигатель Cummins NTA855 для бульдозера Shantui SD32" width={900} height={1600} fetchPriority="high" className="max-h-[650px] w-full rounded-xl bg-[#151515] object-contain" />
-            <figcaption className="mt-3 text-sm leading-6 text-gray-400">Двигатель перед установкой. На имеющихся материалах подтверждается серия NTA855; полное исполнение для каждого нового заказа сверяем по шильдику.</figcaption>
-          </figure>
+          <p className="text-xs leading-5 text-gray-300">Иллюстративный фон Shantui SD32. Реальные фото и видео поставки — ниже.</p>
+        </div>
+      </section>
+
+      <div className="container mx-auto max-w-6xl px-4 pb-10 md:pb-16">
+        <section className="mt-8 grid items-center gap-5 rounded-xl border border-white/10 bg-[#141414] p-5 sm:grid-cols-[180px_1fr]">
+          <img src={`${mediaRoot}/new-engine.webp`} alt="Реальный комплектный двигатель Cummins NTA855 из поставки для Shantui SD32" width={900} height={1600} className="h-44 w-full rounded-lg object-cover" />
+          <div>
+            <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Реальный двигатель из кейса</p>
+            <h2 className="mt-2 text-2xl font-bold">Комплектный Cummins NTA855 перед установкой</h2>
+            <p className="mt-3 leading-relaxed text-gray-300">На материалах поставки подтверждается серия NTA855. Полное исполнение каждого нового заказа сверяем по шильдику, серийному номеру и комплектации до оплаты.</p>
+          </div>
         </section>
 
         <section className="mt-14 grid gap-5 md:grid-cols-3">
