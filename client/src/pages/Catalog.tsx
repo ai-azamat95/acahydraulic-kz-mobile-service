@@ -794,6 +794,13 @@ export default function Catalog() {
                       data-complete-engine-category
                     >
                       <span className="aca-category-media">
+                        <img
+                          src="/catalog-assets/complete-engine-category.webp"
+                          alt="Новый комплектный двигатель для спецтехники"
+                          width="640"
+                          height="640"
+                          loading="lazy"
+                        />
                         <Cog className="aca-category-fallback" aria-hidden="true" />
                       </span>
                       <span className="aca-category-copy">

@@ -98,7 +98,7 @@ export default function CompleteEngines() {
           <img src="/media/shantui-sd32-engine/installation.webp" alt="Монтаж двигателя Cummins NTA855 на бульдозер Shantui SD32" width={900} height={1600} loading="lazy" className="max-h-[620px] w-full rounded-xl object-contain" />
           <div>
             <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Выполненный заказ</p>
-            <h2 className="mt-4 font-bebas text-4xl leading-tight md:text-6xl">Shantui SD32: поставка Cummins NTA855, установка и запуск</h2>
+            <h2 className="mt-4 text-3xl font-extrabold leading-[1.12] tracking-tight text-white md:text-5xl">Shantui SD32: поставка Cummins NTA855, установка и запуск</h2>
             <p className="mt-5 text-lg leading-relaxed text-gray-300">Поставили новый комплектный двигатель с навесным оборудованием. Гидротрансформатор перенесли со старого двигателя, затем установили двигатель на бульдозер и выполнили запуск.</p>
             <div className="mt-6 rounded-lg border border-[#FFC000]/30 bg-black/20 p-6">
               <p className="text-sm text-gray-400">Стоимость двигателя в этом заказе</p>

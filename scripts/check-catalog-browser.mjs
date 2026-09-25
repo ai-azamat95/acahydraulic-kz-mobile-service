@@ -46,6 +46,11 @@ try {
           assert.equal(await page.locator('.aca-category-card:visible').count(),20);
           assert.equal(await page.locator('.aca-category-count:visible').count(),20);
           assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
+          assert.equal(
+            new URL(await page.locator('[data-complete-engine-category] img').getAttribute('src'),origin).pathname,
+            '/catalog-assets/complete-engine-category.webp',
+            'complete engine category must use the generated engine image'
+          );
           assert.equal(await page.locator('.aca-category-card').nth(1).getAttribute('href'),'/parts/engines-complete/');
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page overflow '+engineName+' '+width+' '+lang);
           const clipped=await page.locator('.aca-category-label').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1).map(n=>n.textContent));
@@ -83,9 +88,10 @@ try {
         await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
-        assert.equal(categoryImages.length,19,'each category needs a product image');
+        assert.equal(categoryImages.length,20,'each category needs a product image');
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
-        assert.equal(categoryImages[6].path,'/catalog-assets/final-drive-category.jpg');
+        assert.equal(categoryImages[1].path,'/catalog-assets/complete-engine-category.webp');
+        assert.equal(categoryImages[7].path,'/catalog-assets/final-drive-category.jpg');
         if(width===1440){
           assert.equal(await page.locator('.aca-category-card').first().getAttribute('href'),'/catalog/category/hydraulic-pumps','category cards must be crawlable links');
           await page.locator('.aca-category-card').first().click();
