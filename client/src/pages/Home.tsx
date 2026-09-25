@@ -396,8 +396,15 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Step 1 */}
-              <div className="bg-[#111111]/80 backdrop-blur-sm p-8 rounded border border-white/5 hover:border-[#FFC000]/30 transition-all group">
-                <div className="flex items-start gap-4">
+              <div className="bg-[#111111]/80 backdrop-blur-sm rounded border border-white/5 hover:border-[#FFC000]/30 transition-all group overflow-hidden">
+                <img
+                  src="/images/hydraulic-diagnostics-process.webp"
+                  alt="Подключение манометров для диагностики гидравлической системы спецтехники"
+                  className="h-40 md:h-44 w-full object-cover object-center"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="flex items-start gap-4 p-6 md:p-8">
                   <div className="w-12 h-12 rounded bg-[#FFC000]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#FFC000] transition-colors">
                     <Scan className="w-6 h-6 text-[#FFC000] group-hover:text-black transition-colors" />
                   </div>
