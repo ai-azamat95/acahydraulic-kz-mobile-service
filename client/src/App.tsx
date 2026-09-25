@@ -26,6 +26,7 @@ const PumpGuide = lazy(() => import("./pages/PumpGuide"));
 const Catalog = lazy(() => import("./pages/Catalog"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CompleteEngines = lazy(() => import("./pages/CompleteEngines"));
+const CompleteEngineProduct = lazy(() => import("./pages/CompleteEngineProduct"));
 const CatalogProduct = lazy(() => import("./pages/CatalogProduct"));
 const IndustrialAI = lazy(() => import("./pages/IndustrialAI"));
 
@@ -103,6 +104,7 @@ function AppRoutes() {
         <Route path="/delivery-and-returns" component={DeliveryAndReturns} />
         <Route path="/industrial-ai" component={IndustrialAI} />
         <Route path="/parts" component={Catalog} />
+        <Route path="/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10" component={CompleteEngineProduct} />
         <Route path="/parts/engines-complete" component={CompleteEngines} />
         <Route path="/parts/:slug" component={ProductPage} />
         <Route path={"/services/mobile-repair"} component={MobileRepair} />
