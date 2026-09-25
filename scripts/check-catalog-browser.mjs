@@ -179,7 +179,7 @@ try {
         await page.screenshot({path:'catalog-ui-check/'+engineName+'-'+width+'.png'});
         if(width===390){
           await page.goto(origin+'/parts/engines-complete/',{waitUntil:'networkidle'});
-          await page.locator('[data-engine-product-card]').waitFor();
+          await page.locator('[data-engine-product-card]').first().waitFor();
           assert.equal(await page.locator('[data-engine-product-card]').count(),25,'engine landing must expose all 25 product cards');
           assert.equal(
             await page.locator('#n855 [data-engine-product-link]').getAttribute('href'),

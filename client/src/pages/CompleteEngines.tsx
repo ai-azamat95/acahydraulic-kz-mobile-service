@@ -62,8 +62,8 @@ export default function CompleteEngines() {
           <div>
             <Link href="/catalog/" className="text-sm font-bold text-[#FFC000] underline underline-offset-4">Каталог запчастей</Link>
             <p className="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-[#FFC000]">25 серий Cummins в отдельном товарном каталоге</p>
-            <h1 className="mt-4 font-bebas text-5xl leading-none md:text-7xl">Двигатели в сборе — <span className="text-[#FFC000]">поставка и монтаж</span></h1>
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300">Выберите серию двигателя и откройте полноценную карточку. Точное исполнение подбираем по полному индексу, серийному номеру и шильдику; цену, срок и комплектацию подтверждаем до оплаты.</p>
+            <h1 className="mt-4 font-bebas text-5xl leading-none md:text-7xl">Новые двигатели в сборе — <span className="text-[#FFC000]">поставка и монтаж</span></h1>
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300">Выберите серию двигателя и откройте полноценную карточку. Точное исполнение подбираем по полному индексу, серийному номеру и шильдику; цену, срок и комплектацию подтверждаем до оплаты, гарантийные условия фиксируем в договоре.</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
                 href={`https://wa.me/77714177925?text=${encodeURIComponent(message)}`}
@@ -74,7 +74,7 @@ export default function CompleteEngines() {
               ><MessageCircle className="h-5 w-5" aria-hidden="true" />Подобрать двигатель</a>
               <a href="#engine-catalog" className="inline-flex min-h-12 items-center justify-center rounded border border-white/20 px-6 py-3 font-bold hover:border-[#FFC000] hover:text-[#FFC000]">Смотреть все {cumminsEngineFamilies.length} серий</a>
             </div>
-            <p className="mt-4 text-sm leading-6 text-gray-400">Не нашли нужную серию — отправьте фото шильдика. Каталог будет пополняться другими марками.</p>
+            <p className="mt-4 text-sm leading-6 text-gray-400">Для расчёта нужны модель техники, полный индекс двигателя, фото шильдика, город и требуемый срок. Каталог будет пополняться другими марками.</p>
           </div>
           <figure>
             <img src="/catalog-assets/cummins-engine-range.webp" alt="Линейка промышленных двигателей Cummins в сборе" width={1600} height={900} fetchPriority="high" className="w-full rounded-xl bg-white object-contain" />

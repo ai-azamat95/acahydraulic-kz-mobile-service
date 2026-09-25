@@ -6,14 +6,15 @@ import path from "node:path";
 const root = "dist/public";
 const landingRoute = "parts/engines-complete";
 const productRoute = "parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
+const familyRoute = "parts/engines-complete/cummins/n855-nt855-nta855";
 const landingHtml = fs.readFileSync(path.join(root, landingRoute, "index.html"), "utf8");
 const productHtml = fs.readFileSync(path.join(root, productRoute, "index.html"), "utf8");
 
-test("complete-engine landing exposes one crawlable Shantui SD32 product card", () => {
-  assert.equal((landingHtml.match(/data-engine-product-card/g) || []).length, 1);
-  assert.match(landingHtml, /Cummins NTA855-C360S10/);
-  assert.match(landingHtml, new RegExp(`href="/${productRoute}"`));
-  assert.match(landingHtml, /Цена по запросу/);
+test("complete-engine landing exposes the N855 family inside the 25-product catalogue", () => {
+  assert.equal((landingHtml.match(/data-engine-product-card/g) || []).length, 25);
+  assert.match(landingHtml, /N855 \/ NT855 \/ NTA855/);
+  assert.match(landingHtml, new RegExp(`href="/${familyRoute}"`));
+  assert.match(landingHtml, /Цена и срок:<\/strong> по запросу/);
   assert.doesNotMatch(landingHtml, /В наличии|есть на складе/i);
 });
 
