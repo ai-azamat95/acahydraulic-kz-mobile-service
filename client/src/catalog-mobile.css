@@ -22,9 +22,9 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
 .aca-category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}
 .aca-category-card{position:relative;display:grid;grid-template-columns:minmax(84px,42%) minmax(0,1fr);align-items:center;gap:12px;min-width:0;min-height:136px;padding:12px 26px 12px 12px;border:1px solid #e1e5ea;border-radius:14px;background:#fff;color:#111827;text-align:left;box-shadow:0 4px 16px rgb(15 23 42 / 5%);transition:border-color .15s,box-shadow .15s,transform .15s}
 .aca-category-card:hover,.aca-category-card[aria-current="page"]{border-color:#ffc000;box-shadow:0 0 0 1px #ffc000,0 8px 24px rgb(15 23 42 / 9%);transform:translateY(-1px)}
-.aca-engine-category-card{border-color:#b97800;background:#151719;color:#fff;box-shadow:0 8px 24px rgb(15 23 42 / 16%)}
-.aca-engine-category-card:hover{border-color:#ffc000;background:#101214;box-shadow:0 0 0 1px #ffc000,0 10px 28px rgb(15 23 42 / 22%)}
-.aca-engine-category-card .aca-category-media{border:1px solid rgb(255 192 0 / 28%);border-radius:10px;background:rgb(255 192 0 / 8%)}
+.aca-engine-category-card{border-color:#b97800;background:linear-gradient(90deg,rgb(10 12 14 / 96%),rgb(10 12 14 / 68%)),url("/media/shantui-sd32-engine/shantui-sd32-hero.webp");background-position:67% center;background-size:cover;color:#fff;box-shadow:0 8px 24px rgb(15 23 42 / 16%)}
+.aca-engine-category-card:hover{border-color:#ffc000;background:linear-gradient(90deg,rgb(10 12 14 / 92%),rgb(10 12 14 / 58%)),url("/media/shantui-sd32-engine/shantui-sd32-hero.webp");background-position:67% center;background-size:cover;box-shadow:0 0 0 1px #ffc000,0 10px 28px rgb(15 23 42 / 22%)}
+.aca-engine-category-card .aca-category-media{border:1px solid rgb(255 192 0 / 28%);border-radius:10px;background:rgb(10 12 14 / 72%)}
 .aca-engine-category-card .aca-category-fallback,.aca-engine-category-card .aca-category-arrow{color:#ffc000}
 .aca-engine-category-card .aca-category-label{color:#fff}
 .aca-engine-category-card .aca-category-count{color:#ffd45a;font-weight:700}

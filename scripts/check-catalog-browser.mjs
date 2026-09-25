@@ -46,6 +46,11 @@ try {
           assert.equal(await page.locator('.aca-category-card:visible').count(),20);
           assert.equal(await page.locator('.aca-category-count:visible').count(),20);
           assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
+          assert.match(
+            await page.locator('[data-complete-engine-category]').evaluate((node)=>getComputedStyle(node).backgroundImage),
+            /shantui-sd32-hero\.webp/,
+            'complete engine category must use the Shantui SD32 background'
+          );
           assert.equal(await page.locator('.aca-category-card').nth(1).getAttribute('href'),'/parts/engines-complete/');
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page overflow '+engineName+' '+width+' '+lang);
           const clipped=await page.locator('.aca-category-label').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1).map(n=>n.textContent));
