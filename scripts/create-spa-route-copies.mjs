@@ -58,6 +58,10 @@ const explicitMeta = {
     title: 'Двигатель Cummins NTA855-C360S10 для Shantui SD32 | ACA Hydraulic',
     description: 'Новый двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32: проверка по шильдику, поставка по Казахстану, монтаж и запуск.',
   },
+  'parts/engines-complete/cummins': {
+    title: 'Двигатели Cummins в сборе: QSB, N855, K19, QSK и X15 | ACA Hydraulic',
+    description: 'Каталог двигателей Cummins в сборе для спецтехники: QSB, QSL, QSC, QSM11, N855, K19, QSK и X15. Подбор по шильдику и поставка по Казахстану.',
+  },
   '': {
     title: 'Ремонт гидравлики в Астане — выездной сервис | ACA Hydraulic',
     description: 'Ремонт гидравлики в Астане: экскаваторы, погрузчики и буровые. Диагностика от 200 000 ₸, выезд на объект. База: трасса Астана–Караганда, 81.',
