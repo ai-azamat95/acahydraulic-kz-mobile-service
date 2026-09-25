@@ -50,6 +50,10 @@ const explicitMeta = {
   privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
   terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
   'delivery-and-returns': { title: deliveryPolicy.title + ' | ACA Hydraulic', description: deliveryPolicy.description },
+  'parts/engines-complete': {
+    title: 'Новые двигатели в сборе для спецтехники с установкой | ACA Hydraulic',
+    description: 'Поставка новых двигателей в сборе по Казахстану: проверка по шильдику, комплектация, гарантия по договору, монтаж и запуск. Реальный кейс Cummins NTA855 для Shantui SD32.',
+  },
   '': {
     title: 'Ремонт гидравлики в Астане — выездной сервис | ACA Hydraulic',
     description: 'Ремонт гидравлики в Астане: экскаваторы, погрузчики и буровые. Диагностика от 200 000 ₸, выезд на объект. База: трасса Астана–Караганда, 81.',

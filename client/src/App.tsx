@@ -25,6 +25,7 @@ const Blog = lazy(() => import("./pages/Blog"));
 const PumpGuide = lazy(() => import("./pages/PumpGuide"));
 const Catalog = lazy(() => import("./pages/Catalog"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
+const CompleteEngines = lazy(() => import("./pages/CompleteEngines"));
 const CatalogProduct = lazy(() => import("./pages/CatalogProduct"));
 const IndustrialAI = lazy(() => import("./pages/IndustrialAI"));
 
@@ -35,6 +36,7 @@ const Hitachi330FloatingPressure = lazy(() => import("./pages/cases/Hitachi330Fl
 const Cat432ePumpSale = lazy(() => import("./pages/cases/Cat432ePumpSale"));
 const PumpSupplyInstallation = lazy(() => import("./pages/cases/PumpSupplyInstallation"));
 const VideoCase = lazy(() => import("./pages/cases/VideoCase"));
+const ShantuiSD32EngineSupply = lazy(() => import("./pages/cases/ShantuiSD32EngineSupply"));
 
 // Service sub-pages (lazy loaded)
 const MobileRepair = lazy(() => import("./pages/services/MobileRepair"));
@@ -101,6 +103,7 @@ function AppRoutes() {
         <Route path="/delivery-and-returns" component={DeliveryAndReturns} />
         <Route path="/industrial-ai" component={IndustrialAI} />
         <Route path="/parts" component={Catalog} />
+        <Route path="/parts/engines-complete" component={CompleteEngines} />
         <Route path="/parts/:slug" component={ProductPage} />
         <Route path={"/services/mobile-repair"} component={MobileRepair} />
         <Route path={"/services/hydraulic-pumps"} component={HydraulicPumps} />
@@ -138,6 +141,7 @@ function AppRoutes() {
         <Route path="/cases/sany-sy365h-zamena-gidronasosa-video" component={VideoCase} />
         <Route path="/cases/cat-432e-postavka-gidronasosa-267-2755" component={Cat432ePumpSale} />
         <Route path="/cases/postavka-zamena-gidronasosa" component={PumpSupplyInstallation} />
+        <Route path="/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855" component={ShantuiSD32EngineSupply} />
         <Route path="/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu" component={Cat330DLHotPowerLoss} />
         <Route path="/cases/sany-sy365h-gidravlika-na-goryachuyu" component={SanySY365HHotHydraulics} />
         <Route path="/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami" component={Hitachi330FloatingPressure} />
