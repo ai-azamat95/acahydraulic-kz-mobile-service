@@ -13,6 +13,7 @@ import Cat432ePumpSale from "../client/src/pages/cases/Cat432ePumpSale";
 import ShantuiSD32EngineSupply from "../client/src/pages/cases/ShantuiSD32EngineSupply";
 import CompleteEngines from "../client/src/pages/CompleteEngines";
 import CompleteEngineProduct from "../client/src/pages/CompleteEngineProduct";
+import CumminsEngineCatalog from "../client/src/pages/CumminsEngineCatalog";
 import Cases from "../client/src/pages/Cases";
 
 const { HelmetProvider } = helmetPackage;
@@ -28,6 +29,7 @@ const pages: Record<string, React.ComponentType> = {
   "cases/shantui-sd32-postavka-dvigatelya-cummins-nta855": ShantuiSD32EngineSupply,
   "parts/engines-complete": CompleteEngines,
   "parts/engines-complete/shantui-sd32-cummins-nta855-c360s10": CompleteEngineProduct,
+  "parts/engines-complete/cummins": CumminsEngineCatalog,
   cases: Cases,
 };
 

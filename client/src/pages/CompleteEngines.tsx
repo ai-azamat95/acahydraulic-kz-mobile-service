@@ -6,6 +6,7 @@ import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 const pagePath = "/parts/engines-complete";
 const casePath = "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855";
 const productPath = "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
+const cumminsCatalogPath = "/parts/engines-complete/cummins";
 const message = `Здравствуйте! Нужен новый двигатель в сборе для спецтехники.\nМарка и модель техники: \nМодель двигателя: \nСерийный номер техники/двигателя: \nГород поставки: \nКоличество: \nНужен монтаж и запуск: да / нет\nТребуемый срок: \nФото шильдика пришлю следующим сообщением.\nhttps://acahydraulic.kz${pagePath}/`;
 
 const faq = [
@@ -84,6 +85,20 @@ export default function CompleteEngines() {
         <div className="container mx-auto max-w-6xl px-4">
           <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#FFC000]">Каталог двигателей</p>
           <h2 id="engine-products-title" className="mt-3 text-3xl font-extrabold md:text-4xl">Двигатели в сборе</h2>
+          <article data-cummins-range-card className="mt-7 grid overflow-hidden rounded-xl border border-gray-200 bg-white text-[#111827] shadow-[0_12px_35px_rgba(0,0,0,0.22)] lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="flex flex-col justify-center p-6 md:p-8">
+              <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
+                <span className="rounded-full bg-[#111827] px-3 py-1 text-white">25 семейств</span>
+                <span className="rounded-full border border-[#FFC000] bg-[#fff8dc] px-3 py-1 text-[#7a5200]">Под заказ</span>
+              </div>
+              <h3 className="mt-4 text-3xl font-extrabold leading-tight">Двигатели Cummins: QSB, QSL, QSM11, N855, K19, QSK и X15</h3>
+              <p className="mt-4 leading-relaxed text-gray-600">Каталог компактных, тяжёлых, генераторных и морских серий. Диапазоны мощности — ориентир; точное исполнение, производителя, цену и срок подтверждаем по шильдику.</p>
+              <Link href={cumminsCatalogPath} className="mt-6 inline-flex min-h-12 items-center justify-center rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#eab000] sm:self-start">Открыть каталог Cummins</Link>
+            </div>
+            <Link href={cumminsCatalogPath} className="group order-first block bg-white p-3 lg:order-last" aria-label="Каталог двигателей Cummins в сборе">
+              <img src="/catalog-assets/cummins-engine-range.webp" alt="Линейка промышленных дизельных двигателей в сборе" width={1600} height={900} loading="lazy" className="aspect-video h-full max-h-[360px] w-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-[1.015]" />
+            </Link>
+          </article>
           <article data-engine-product-card className="mt-7 grid overflow-hidden rounded-xl border border-gray-200 bg-white text-[#111827] shadow-[0_12px_35px_rgba(0,0,0,0.22)] md:grid-cols-[280px_1fr]">
             <Link href={productPath} className="group block bg-white p-3" aria-label="Двигатель Cummins NTA855-C360S10 для Shantui SD32">
               <img
