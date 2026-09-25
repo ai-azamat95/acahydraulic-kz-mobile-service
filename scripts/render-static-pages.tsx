@@ -12,6 +12,7 @@ import MotorCostArticle from "../client/src/pages/blog/StoimostRemonGidromotora"
 import Cat432ePumpSale from "../client/src/pages/cases/Cat432ePumpSale";
 import ShantuiSD32EngineSupply from "../client/src/pages/cases/ShantuiSD32EngineSupply";
 import CompleteEngines from "../client/src/pages/CompleteEngines";
+import CompleteEngineProduct from "../client/src/pages/CompleteEngineProduct";
 import Cases from "../client/src/pages/Cases";
 
 const { HelmetProvider } = helmetPackage;
@@ -26,6 +27,7 @@ const pages: Record<string, React.ComponentType> = {
   "cases/cat-432e-postavka-gidronasosa-267-2755": Cat432ePumpSale,
   "cases/shantui-sd32-postavka-dvigatelya-cummins-nta855": ShantuiSD32EngineSupply,
   "parts/engines-complete": CompleteEngines,
+  "parts/engines-complete/shantui-sd32-cummins-nta855-c360s10": CompleteEngineProduct,
   cases: Cases,
 };
 

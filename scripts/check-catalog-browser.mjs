@@ -51,6 +51,11 @@ try {
             '/catalog-assets/complete-engine-category.webp',
             'complete engine category must use the generated engine image'
           );
+          assert.equal(
+            await page.locator('[data-complete-engine-category]').evaluate((node)=>getComputedStyle(node).backgroundColor),
+            'rgb(255, 255, 255)',
+            'complete engine category must use the same white surface as the other categories'
+          );
           assert.equal(await page.locator('.aca-category-card').nth(1).getAttribute('href'),'/parts/engines-complete/');
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page overflow '+engineName+' '+width+' '+lang);
           const clipped=await page.locator('.aca-category-label').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1).map(n=>n.textContent));
@@ -172,6 +177,26 @@ try {
         }
         await page.evaluate(()=>window.scrollTo(0,0));
         await page.screenshot({path:'catalog-ui-check/'+engineName+'-'+width+'.png'});
+        if(width===390){
+          await page.goto(origin+'/parts/engines-complete/',{waitUntil:'networkidle'});
+          await page.locator('[data-engine-product-card]').waitFor();
+          assert.equal(await page.locator('[data-engine-product-card]').count(),1,'engine landing must expose one product card');
+          assert.equal(
+            await page.locator('[data-engine-product-card] a').first().getAttribute('href'),
+            '/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10',
+            'engine card must link to the dedicated product page'
+          );
+          await page.locator('[data-engine-product-card] a').first().click();
+          await page.getByRole('heading',{level:1,name:/NTA855-C360S10/}).waitFor();
+          assert.equal(
+            await page.locator('link[rel="canonical"]').getAttribute('href'),
+            'https://acahydraulic.kz/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10/',
+            'engine product needs a self canonical'
+          );
+          const engineProductSchema=await page.locator('script[type="application/ld+json"]').evaluateAll(nodes=>nodes.map(node=>{try{return JSON.parse(node.textContent||'{}')}catch{return null}}).find(value=>value?.['@type']==='Product'));
+          assert.equal(engineProductSchema?.model,'NTA855-C360S10','engine product schema must expose the confirmed model');
+          assert.equal(engineProductSchema?.offers,undefined,'engine product schema must not invent price or availability');
+        }
         assert.deepEqual(errors,[],'runtime errors');
         results.push({engine:engineName,width,languages:3,categoryLabels:'pass',bannerLayout:'pass',navigation:'pass'});
         console.log(JSON.stringify(results.at(-1)));

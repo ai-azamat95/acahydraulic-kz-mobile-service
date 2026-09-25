@@ -5,6 +5,7 @@ import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 
 const pagePath = "/parts/engines-complete";
 const casePath = "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855";
+const productPath = "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
 const message = `Здравствуйте! Нужен новый двигатель в сборе для спецтехники.\nМарка и модель техники: \nМодель двигателя: \nСерийный номер техники/двигателя: \nГород поставки: \nКоличество: \nНужен монтаж и запуск: да / нет\nТребуемый срок: \nФото шильдика пришлю следующим сообщением.\nhttps://acahydraulic.kz${pagePath}/`;
 
 const faq = [
@@ -76,6 +77,39 @@ export default function CompleteEngines() {
             <img src="/media/shantui-sd32-engine/new-engine.webp" alt="Новый комплектный двигатель Cummins NTA855 перед установкой на Shantui SD32" width={900} height={1600} fetchPriority="high" className="max-h-[650px] w-full rounded-xl bg-[#181818] object-contain" />
             <figcaption className="mt-3 text-sm leading-6 text-gray-400">Реальный двигатель из выполненной поставки для бульдозера Shantui SD32.</figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section className="border-b border-white/10 bg-[#0d0d0d] py-12 md:py-16" aria-labelledby="engine-products-title">
+        <div className="container mx-auto max-w-6xl px-4">
+          <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#FFC000]">Каталог двигателей</p>
+          <h2 id="engine-products-title" className="mt-3 text-3xl font-extrabold md:text-4xl">Двигатели в сборе</h2>
+          <article data-engine-product-card className="mt-7 grid overflow-hidden rounded-xl border border-gray-200 bg-white text-[#111827] shadow-[0_12px_35px_rgba(0,0,0,0.22)] md:grid-cols-[280px_1fr]">
+            <Link href={productPath} className="group block bg-white p-3" aria-label="Двигатель Cummins NTA855-C360S10 для Shantui SD32">
+              <img
+                src="/media/shantui-sd32-engine/new-engine.webp"
+                alt="Двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32"
+                width={900}
+                height={1600}
+                loading="lazy"
+                className="h-64 w-full rounded-lg object-contain transition-transform duration-300 group-hover:scale-[1.025]"
+              />
+            </Link>
+            <div className="flex flex-col p-5 md:p-7">
+              <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
+                <span className="rounded-full bg-[#111827] px-3 py-1 text-white">Новый</span>
+                <span className="rounded-full border border-[#FFC000] bg-[#fff8dc] px-3 py-1 text-[#7a5200]">Цена по запросу</span>
+              </div>
+              <h3 className="mt-4 text-2xl font-extrabold leading-tight">
+                <Link href={productPath} className="hover:text-[#9a6500]">Двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32</Link>
+              </h3>
+              <p className="mt-3 leading-relaxed text-gray-600">Комплектный двигатель для бульдозера Shantui SD32. Совместимость, навесное оборудование, цену и срок подтверждаем по шильдику и серийному номеру техники.</p>
+              <div className="mt-auto grid gap-3 pt-6 sm:grid-cols-2">
+                <Link href={productPath} className="inline-flex min-h-11 items-center justify-center rounded border border-gray-300 px-4 font-bold hover:border-[#b97800] hover:text-[#8a5b00]">Открыть карточку</Link>
+                <a href={`https://wa.me/77714177925?text=${encodeURIComponent("Здравствуйте! Интересует двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32. Пришлю фото шильдика следующим сообщением.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded bg-[#FFC000] px-4 font-extrabold text-black hover:bg-[#eab000]"><MessageCircle className="h-4 w-4" aria-hidden="true" />Запросить цену</a>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
