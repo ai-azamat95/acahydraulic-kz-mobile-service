@@ -5,7 +5,7 @@ import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/componen
 import { pumpCasePath } from "@/content/pumpCases";
 import { catalogSearchHref } from "@/lib/catalogLinks";
 import { catalogMatchesQuery } from "@/lib/catalogSearch";
-import { FormEvent, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, Fragment, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useParams, useSearch } from "wouter";
 import {
   ArrowLeft,
@@ -71,6 +71,11 @@ const WHATSAPP_NUMBER = "77714177925";
 const DEFAULT_VISIBLE_PRODUCTS = 24;
 const HYDRAULIC_PUMP_VISIBLE_PRODUCTS = 800;
 const HYDRAULIC_PUMP_LOAD_MORE_BATCH = 200;
+const completeEngineCategoryCopy: Record<CatalogLanguage, { title: string; subtitle: string }> = {
+  ru: { title: "Двигатели в сборе", subtitle: "Поставка и монтаж" },
+  kz: { title: "Қозғалтқыштар жинағы", subtitle: "Жеткізу және орнату" },
+  en: { title: "Complete engines", subtitle: "Supply and installation" },
+};
 // Local representative product photos keep category navigation fast and consistent.
 const categoryImageOverrides: Record<string, string> = {
   "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
@@ -530,13 +535,6 @@ export default function Catalog() {
               {copy.backToService}
             </SiteHomeLink>
 
-            <Link
-              href="/parts/engines-complete/"
-              className="mb-5 ml-3 inline-flex min-h-10 items-center rounded-full border border-[#FFC000]/40 bg-[#FFC000]/10 px-4 py-2 text-sm font-bold text-[#FFD24A] hover:bg-[#FFC000]/20 md:min-h-0 md:py-0"
-            >
-              {language === "ru" ? "Новые двигатели в сборе" : language === "kz" ? "Жаңа қозғалтқыштар жинағы" : "New complete engines"}
-            </Link>
-
             <div className="aca-catalog-lead grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
               <div className="aca-catalog-search-column">
                 <div className={`max-w-3xl${isLandingPage ? " aca-landing-heading" : ""}`}>
@@ -752,42 +750,60 @@ export default function Catalog() {
           </div>
 
           <div className="aca-category-grid">
-            {partCategories.map((item) => {
+            {partCategories.map((item, index) => {
               const Icon = categoryIcons[item.id];
               const active = category === item.id;
               const stat = categoryStats[item.id];
               const imageUrl = categoryImageOverrides[item.id] || stat?.imageUrl;
               return (
-                <Link
-                  key={item.id}
-                  href={catalogSearchHref(partQuery, active ? undefined : item.id)}
-                  onClick={() => chooseCategory(item.id)}
-                  aria-current={active ? "page" : undefined}
-                  className="aca-category-card"
-                >
-                  <span className="aca-category-media">
-                    <Icon className="aca-category-fallback" aria-hidden="true" />
-                    {imageUrl && (
-                      <img
-                        key={imageUrl}
-                        src={categoryThumbnail(imageUrl)}
-                        alt=""
-                        width="240"
-                        height="160"
-                        loading="lazy"
-                        decoding="async"
-                        onError={(event) => { event.currentTarget.style.display = "none"; }}
-                      />
-                    )}
-                  </span>
-                  <span className="aca-category-copy">
-                    <span className="aca-category-label">{item[language]}</span>
-                    <span className="aca-category-count">
-                      {categoryCountLabel(stat?.count || 0, language)}
+                <Fragment key={item.id}>
+                  <Link
+                    href={catalogSearchHref(partQuery, active ? undefined : item.id)}
+                    onClick={() => chooseCategory(item.id)}
+                    aria-current={active ? "page" : undefined}
+                    className="aca-category-card"
+                  >
+                    <span className="aca-category-media">
+                      <Icon className="aca-category-fallback" aria-hidden="true" />
+                      {imageUrl && (
+                        <img
+                          key={imageUrl}
+                          src={categoryThumbnail(imageUrl)}
+                          alt=""
+                          width="240"
+                          height="160"
+                          loading="lazy"
+                          decoding="async"
+                          onError={(event) => { event.currentTarget.style.display = "none"; }}
+                        />
+                      )}
                     </span>
-                  </span>
-                  <ChevronRight className="aca-category-arrow" aria-hidden="true" />
-                </Link>
+                    <span className="aca-category-copy">
+                      <span className="aca-category-label">{item[language]}</span>
+                      <span className="aca-category-count">
+                        {categoryCountLabel(stat?.count || 0, language)}
+                      </span>
+                    </span>
+                    <ChevronRight className="aca-category-arrow" aria-hidden="true" />
+                  </Link>
+                  {index === 0 && (
+                    <Link
+                      href="/parts/engines-complete/"
+                      onClick={() => trackCatalogEvent("complete_engine_category_click", { source: "catalog-category-grid", language })}
+                      className="aca-category-card aca-engine-category-card"
+                      data-complete-engine-category
+                    >
+                      <span className="aca-category-media">
+                        <Cog className="aca-category-fallback" aria-hidden="true" />
+                      </span>
+                      <span className="aca-category-copy">
+                        <span className="aca-category-label">{completeEngineCategoryCopy[language].title}</span>
+                        <span className="aca-category-count">{completeEngineCategoryCopy[language].subtitle}</span>
+                      </span>
+                      <ChevronRight className="aca-category-arrow" aria-hidden="true" />
+                    </Link>
+                  )}
+                </Fragment>
               );
             })}
           </div>

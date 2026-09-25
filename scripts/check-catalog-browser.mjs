@@ -43,8 +43,10 @@ try {
         await page.locator('.aca-category-card').first().waitFor();
         for(const lang of ['RU','KZ','EN']){
           await page.getByRole('button',{name:lang,exact:true}).click();
-          assert.equal(await page.locator('.aca-category-card:visible').count(),19);
-          assert.equal(await page.locator('.aca-category-count:visible').count(),19);
+          assert.equal(await page.locator('.aca-category-card:visible').count(),20);
+          assert.equal(await page.locator('.aca-category-count:visible').count(),20);
+          assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
+          assert.equal(await page.locator('.aca-category-card').nth(1).getAttribute('href'),'/parts/engines-complete/');
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page overflow '+engineName+' '+width+' '+lang);
           const clipped=await page.locator('.aca-category-label').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1).map(n=>n.textContent));
           assert.deepEqual(clipped,[],'clipped labels '+width+' '+lang);
@@ -66,7 +68,7 @@ try {
             const hero=await page.locator('.aca-catalog-hero').boundingBox();
             assert(hero.height<820,'desktop hero should reveal categories in the first viewport');
             assert.equal(await page.locator('.aca-desktop-nav:visible').count(),1,'desktop navigation must be visible');
-            assert.deepEqual(await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{}))),[5,5,5,4],'desktop categories should use four balanced rows');
+            assert.deepEqual(await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{}))),[5,5,5,5],'desktop categories should use four balanced rows');
             assert.equal(await page.locator('.aca-product-card').evaluateAll(nodes=>nodes.filter(node=>Math.abs(node.getBoundingClientRect().top-nodes[0].getBoundingClientRect().top)<2).length),5,'desktop product grid should show five cards per row');
             assert.equal(await page.locator('.aca-desktop-banner:visible').count(),2,'desktop must show both promotional banners');
             const desktopBannerImages=await page.locator('.aca-desktop-banner img').evaluateAll(nodes=>nodes.map(node=>({loaded:node.complete&&node.naturalWidth>0,ratio:node.clientWidth/node.clientHeight,natural:node.naturalWidth/node.naturalHeight})));
