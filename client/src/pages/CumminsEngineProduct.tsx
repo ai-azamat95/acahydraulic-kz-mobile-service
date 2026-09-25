@@ -74,24 +74,6 @@ export function CumminsEngineProductPage({ engine }: { engine: CumminsEngineFami
     },
   ];
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: productName,
-    description,
-    image: `https://acahydraulic.kz${engine.image}`,
-    url: `https://acahydraulic.kz${productPath}/`,
-    sku: engine.name,
-    model: engine.name,
-    category: "Двигатели Cummins в сборе",
-    brand: { "@type": "Brand", name: "Cummins" },
-    additionalProperty: [
-      { "@type": "PropertyValue", name: "Ориентир мощности семейства", value: engine.powerKw },
-      { "@type": "PropertyValue", name: "Применение", value: engine.application },
-      { "@type": "PropertyValue", name: "Проверка совместимости", value: "По полному индексу, шильдику и серийному номеру" },
-    ],
-  };
-
   return (
     <main className="min-h-screen bg-[#f4f5f7] text-[#111827]">
       <SEO
@@ -100,7 +82,13 @@ export function CumminsEngineProductPage({ engine }: { engine: CumminsEngineFami
         keywords={`двигатель Cummins ${engine.name} купить, Cummins ${engine.name} цена, двигатель ${engine.name} в сборе Казахстан, поставка двигателя Cummins`}
         canonical={productPath}
         ogImage={engine.image}
-        schema={schema}
+        pageType="service"
+        serviceSchema={{
+          serviceName: `Подбор и поставка двигателя Cummins ${engine.name} в сборе`,
+          serviceDescription: description,
+          serviceUrl: productPath,
+          areaServed: ["Казахстан"],
+        }}
         breadcrumbs={[
           { name: "Каталог", url: "/catalog/" },
           { name: "Двигатели в сборе", url: `${categoryPath}/` },

@@ -33,13 +33,14 @@ test("all 25 Cummins family pages are statically rendered and indexable", () => 
     const route = `${baseRoute}/${slug}`;
     const html = fs.readFileSync(path.join(root, route, "index.html"), "utf8");
     const canonical = `https://acahydraulic.kz/${route}/`;
-    const product = schemas(html).find((item) => item?.["@type"] === "Product");
+    const service = schemas(html).find((item) => item?.["@type"] === "Service");
 
     assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${slug} must have one h1`);
     assert.match(html, new RegExp(`<link[^>]+rel="canonical"[^>]+href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"|<link[^>]+href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[^>]+rel="canonical"`));
-    assert.equal(product?.model, model, `${slug} Product model`);
-    assert.equal(product?.offers, undefined, `${slug} must not claim price or stock`);
-    assert.match(product?.image ?? "", /^https:\/\/acahydraulic\.kz\/catalog-assets\/cummins-series\//);
+    assert.equal(service?.name, `Подбор и поставка двигателя Cummins ${model} в сборе`, `${slug} Service name`);
+    assert.equal(service?.url, canonical.slice(0, -1), `${slug} Service URL`);
+    assert.equal(schemas(html).some((item) => item?.["@type"] === "Product"), false, `${slug} must not publish an invalid Product without price or verified reviews`);
+    assert.doesNotMatch(html, /"offers"|"aggregateRating"|"review"/);
     assert.match(html, /wa\.me\/77714177925/);
     assert.match(html, /href="\/parts\/engines-complete\/"/);
     assert.match(html, /href="\/parts\/engines-complete\/cummins\/"/);
