@@ -27,10 +27,20 @@ test("Cummins catalogue publishes 25 verified family cards in Russian", () => {
   assert.doesNotMatch(catalogHtml, /В наличии|есть на складе|оригинал Cummins/i);
 });
 
-test("Cummins catalogue uses only the original local visual", () => {
+test("Cummins catalogue publishes local supplier photos for every family card", () => {
   assert.match(catalogHtml, /\/catalog-assets\/cummins-engine-range\.webp/);
+  assert.equal((catalogHtml.match(/data-cummins-engine-image/g) || []).length, 25);
+  assert.match(catalogHtml, /Фото серии\. Точное исполнение и комплектность подтверждаем до оплаты\./);
   assert.doesNotMatch(catalogHtml, /antaiospower|leadongcdn/i);
   assert.equal(fs.existsSync(path.join(root, "catalog-assets", "cummins-engine-range.webp")), true);
+
+  const cardImages = [...catalogHtml.matchAll(/src="(\/catalog-assets\/cummins-series\/[^"]+\.webp)"/g)]
+    .map((match) => match[1]);
+  assert.equal(cardImages.length, 25);
+  assert.equal(new Set(cardImages).size, 20);
+  for (const image of new Set(cardImages)) {
+    assert.equal(fs.existsSync(path.join(root, image)), true, `${image} must be copied to the build output`);
+  }
 });
 
 test("Cummins catalogue has crawlable metadata and ItemList schema", () => {

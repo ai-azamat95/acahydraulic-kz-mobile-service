@@ -48,6 +48,21 @@ https://acahydraulic.kz${cumminsEngineCatalogPath}/`)}`;
 function EngineCard({ engine }: { engine: CumminsEngineFamily }) {
   return (
     <article id={engine.id} data-cummins-engine-card className="flex min-h-full scroll-mt-24 flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-[0_6px_20px_rgba(15,23,42,0.06)]">
+      <figure className="mb-5 overflow-hidden rounded-lg border border-gray-100 bg-white">
+        <img
+          src={engine.image}
+          alt={`Двигатель ${engine.name} в сборе`}
+          width={480}
+          height={480}
+          loading="lazy"
+          decoding="async"
+          data-cummins-engine-image
+          className="aspect-[4/3] w-full object-contain p-3"
+        />
+        <figcaption className="border-t border-gray-100 px-3 py-2 text-xs leading-5 text-gray-500">
+          Фото серии. Точное исполнение и комплектность подтверждаем до оплаты.
+        </figcaption>
+      </figure>
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#8a5b00]">Двигатель в сборе</p>
