@@ -167,7 +167,7 @@ const blogNames = {
   'stoimost-remonta-gidromotora-komatsu': 'Стоимость ремонта гидромотора Komatsu',
   'kak-opredelit-neispravnost-gidravliki': 'Как определить неисправность гидравлики',
   'remont-gidravliki-frezy-wirtgen-1500': 'Ремонт гидравлики фрезы Wirtgen 1500',
-  'kapitalnyy-remont-shantui-sd32': 'Капитальный ремонт гидравлики Shantui SD32',
+  'kapitalnyy-remont-shantui-sd32': 'Ремонт SHANTUI SD32: диагностика гидравлики',
   'remont-gidravliki-liebherr-r950': 'Ремонт гидравлики Liebherr R950',
   'vosstanovlenie-gidromotora-volvo-ec380': 'Восстановление гидромотора Volvo EC380',
 };
@@ -180,10 +180,12 @@ const staticBlogArticles = {
     dateModified: '2026-09-12',
   },
   'blog/kapitalnyy-remont-shantui-sd32': {
-    headline: 'SHANTUI SD32: что входит в диагностику и капитальный ремонт гидравлики',
-    description: 'Практическое руководство ACA Hydraulic по диагностике и подготовке капитального ремонта SHANTUI SD32: давление, насосы, гидромоторы, цилиндры, распределитель и загрязнение системы.',
+    schemaType: 'BlogPosting',
+    headline: 'Ремонт SHANTUI SD32: диагностика гидравлики перед капитальным ремонтом',
+    description: 'Ремонт SHANTUI SD32: что проверить до заказа деталей — давление, насосы, гидромоторы, распределитель, цилиндры и загрязнение гидросистемы.',
     image: '/webdev-static-assets/shantui-sd32-6.webp',
-    dateModified: '2026-09-12',
+    datePublished: '2026-03-18',
+    dateModified: '2026-09-26',
   },
   'blog/remont-gidravliki-liebherr-r950': {
     headline: 'Liebherr R950 теряет мощность: как диагностировать гидросистему и главный насос',
@@ -200,11 +202,12 @@ const staticBlogArticles = {
 function staticBlogArticleSchema(article, canonical) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': article.schemaType ?? 'Article',
     '@id': `${canonical}#article`,
     headline: article.headline,
     description: article.description,
     image: article.image ? new URL(article.image, baseUrl).href : undefined,
+    datePublished: article.datePublished,
     dateModified: article.dateModified,
     author: { '@id': `${baseUrl}/#business` },
     publisher: { '@id': `${baseUrl}/#business` },
@@ -216,6 +219,13 @@ function staticBlogArticleSchema(article, canonical) {
 function metaForRoute(route) {
   const article = articleForRoute(route);
   if (article) return { title: `${article.title} | ACA Hydraulic`, description: article.description };
+  const staticBlogArticle = staticBlogArticles[route];
+  if (staticBlogArticle) {
+    return {
+      title: `${staticBlogArticle.headline} | ACA Hydraulic`,
+      description: staticBlogArticle.description,
+    };
+  }
   if (route === 'services') return serviceDirectory;
   if (serviceContent['/' + route]) return serviceContent['/' + route];
   if (explicitMeta[route]) return explicitMeta[route];
@@ -257,6 +267,17 @@ function metaForRoute(route) {
 function setTag(html, regex, replacement, beforeHead = '') {
   if (regex.test(html)) return html.replace(regex, replacement);
   return html.replace('</head>', `${beforeHead || replacement}\n</head>`);
+}
+
+function replaceRootContent(html, content) {
+  const root = `<div id="root">${content}</div>`;
+  if (html.includes('<div id="root"></div>')) {
+    return html.replace('<div id="root"></div>', root);
+  }
+  return html.replace(
+    /<div id="root">[\s\S]*?<\/div>\s*(?=<!-- Contact-intent tracker\.)/,
+    `${root}\n\n    `,
+  );
 }
 
 function escapeAttr(value) {
@@ -367,22 +388,21 @@ function withRouteHead(html, route) {
     out = out.replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, '')
       .replace(/<meta(?=[^>]*\b(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi, '')
       .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
-      .replace('</head>', `${renderedArticle.head.replace('<script ', '<script data-static-page-schema ')}\n</head>`)
-      .replace('<div id="root"></div>', `<div id="root">${renderedArticle.body}</div>`);
-    return out;
+      .replace('</head>', `${renderedArticle.head.replace('<script ', '<script data-static-page-schema ')}\n</head>`);
+    return replaceRootContent(out, renderedArticle.body);
   }
   if (route === '404') {
-    out = setTag(out, /<meta\s+name=["']robots["'][^>]*>/i, '<meta name="robots" content="noindex, follow">');
+    out = setTag(out, /<meta(?=[^>]*\bname=["']robots["'])[^>]*>/i, '<meta name="robots" content="noindex, follow">');
   }
   out = setTag(out, /<title[^>]*>.*?<\/title>/is, `<title>${t}</title>`);
-  out = setTag(out, /<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${d}">`, `<meta name="description" content="${d}">`);
+  out = setTag(out, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${d}">`, `<meta name="description" content="${d}">`);
   out = out.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
   out = out.replace('</head>', `<link data-rh="true" rel="canonical" href="${c}">\n</head>`);
-  out = setTag(out, /<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${c}">`);
-  out = setTag(out, /<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${t}">`);
-  out = setTag(out, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${d}">`);
-  out = setTag(out, /<meta\s+(?:name|property)=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${t}">`);
-  out = setTag(out, /<meta\s+(?:name|property)=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${d}">`);
+  out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:url["'])[^>]*>/i, `<meta property="og:url" content="${c}">`);
+  out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i, `<meta property="og:title" content="${t}">`);
+  out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${d}">`);
+  out = setTag(out, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${t}">`);
+  out = setTag(out, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${d}">`);
   const article = articleForRoute(route);
   const staticBlogArticle = staticBlogArticles[route];
   const articleImage = article?.image || staticBlogArticle?.image;
@@ -402,7 +422,7 @@ function withRouteHead(html, route) {
     isPartOf: { '@id': `${baseUrl}/#website` },
   });
   out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema${article || staticBlogArticle ? ' data-rh="true"' : ''}>${pageSchema}</script>\n</head>`);
-  out = out.replace('<div id="root"></div>', `<div id="root">${staticFallback(route, { title, description }, canonical)}</div>`);
+  out = replaceRootContent(out, staticFallback(route, { title, description }, canonical));
   out = out.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);
     return managed && !/\bdata-rh=/i.test(attrs) ? `<${name} data-rh="true"${attrs}>` : tag;

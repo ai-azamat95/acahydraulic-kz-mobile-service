@@ -99,8 +99,6 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
       (window as any).gtag?.('event', 'generate_lead', qualifiedParams);
       (window as any).gtag?.('event', 'conversion', {
         send_to: GOOGLE_ADS_QUALIFIED_LEAD,
-        value: DIAGNOSTIC_VALUE,
-        currency: 'KZT',
       });
       (window as any).ttq?.track?.('SubmitForm', {
         content_type: 'service',
