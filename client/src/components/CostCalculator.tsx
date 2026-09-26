@@ -15,15 +15,15 @@ const DIAGNOSTIC_VALUE = 200000;
 const GOOGLE_ADS_QUALIFIED_LEAD = "AW-17847190636/JZkfCOu_84McEOyImr5C";
 
 const equipmentTypes = [
-  { id: "excavator", label: "Экскаватор", image: "/icons/excavator.svg" },
-  { id: "loader", label: "Погрузчик", image: "/icons/loader.svg" },
-  { id: "bulldozer", label: "Бульдозер", image: "/icons/bulldozer.svg" },
-  { id: "grader", label: "Грейдер", image: "/icons/grader.svg" },
-  { id: "mining_loader", label: "Шахтный погрузчик", image: "/icons/mining_loader.svg" },
-  { id: "milling", label: "Дорожная фреза", image: "/icons/milling.svg" },
-  { id: "hdd", label: "ГНБ установка", image: "/icons/hdd.svg" },
-  { id: "piling", label: "Буровая / сваебойная", image: "/icons/piling.svg" },
-  { id: "other", label: "Другая техника", image: "/icons/excavator.svg" },
+  { id: "excavator", label: "Экскаватор", image: "/images/calculator/excavator.webp", alt: "Гусеничный гидравлический экскаватор на промышленном объекте" },
+  { id: "loader", label: "Погрузчик", image: "/images/calculator/loader.webp", alt: "Фронтальный погрузчик с поднятым ковшом в карьере" },
+  { id: "bulldozer", label: "Бульдозер", image: "/images/calculator/bulldozer.webp", alt: "Гусеничный бульдозер с отвалом на земляных работах" },
+  { id: "grader", label: "Грейдер", image: "/images/calculator/grader.webp", alt: "Автогрейдер с центральным отвалом на дорожных работах" },
+  { id: "mining_loader", label: "Шахтный погрузчик", image: "/images/calculator/mining-loader.webp", alt: "Низкопрофильный шахтный погрузчик в подземной выработке" },
+  { id: "milling", label: "Дорожная фреза", image: "/images/calculator/road-milling-machine.webp", alt: "Дорожная фреза снимает асфальт на закрытом участке дороги" },
+  { id: "hdd", label: "ГНБ установка", image: "/images/calculator/hdd-rig.webp", alt: "Установка горизонтально направленного бурения на объекте" },
+  { id: "piling", label: "Буровая / сваебойная", image: "/images/calculator/drilling-piling-rig.webp", alt: "Гусеничная буровая установка для устройства свай" },
+  { id: "other", label: "Другая техника", image: "/images/calculator/other-equipment.webp", alt: "Телескопический погрузчик с гидравлическим оборудованием" },
 ];
 
 const brands = [
@@ -297,7 +297,7 @@ export default function CostCalculator() {
   };
 
   const cardClass = (selected: boolean) =>
-    `group relative flex flex-col items-center justify-center p-4 md:p-6 rounded-xl border-2 transition-all duration-200 min-h-[112px] bg-[#1F1F1F] ${
+    `group relative flex w-full min-w-0 flex-col items-stretch justify-start overflow-hidden rounded-xl border-2 bg-[#1F1F1F] text-left transition-all duration-200 ${
       selected
         ? "border-[#FFB800] shadow-[0_0_25px_rgba(255,184,0,0.32)]"
         : "border-[#3A3A3A] hover:border-[#FFB800] hover:shadow-[0_0_20px_rgba(255,184,0,0.15)]"
@@ -347,15 +347,21 @@ export default function CostCalculator() {
                     update("equipment", item.id);
                     setTimeout(goNext, 80);
                   }}
+                  aria-pressed={selection.equipment === item.id}
                   className={cardClass(selection.equipment === item.id)}
                 >
                   <img
                     src={item.image}
-                    alt={item.label}
-                    className="w-12 h-12 md:w-16 md:h-16 object-contain mb-3"
-                    style={{ filter: "brightness(0) saturate(100%) invert(76%) sepia(93%) saturate(1815%) hue-rotate(359deg) brightness(102%) contrast(101%)" }}
+                    alt={item.alt}
+                    width={768}
+                    height={512}
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] md:aspect-[3/2]"
                   />
-                  <span className="text-sm md:text-lg font-semibold text-white text-center">{item.label}</span>
+                  <span className="flex min-h-16 items-center justify-center px-2 py-3 text-center text-xs font-semibold leading-tight text-white sm:text-sm md:text-base">
+                    {item.label}
+                  </span>
                 </button>
               ))}
             </div>
