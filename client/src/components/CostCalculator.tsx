@@ -283,8 +283,6 @@ export default function CostCalculator() {
     if (typeof window !== "undefined") {
       (window as any).gtag?.("event", "conversion", {
         send_to: GOOGLE_ADS_QUALIFIED_LEAD,
-        value: DIAGNOSTIC_VALUE,
-        currency: "KZT",
       });
     }
 
