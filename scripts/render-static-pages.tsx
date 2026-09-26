@@ -3,6 +3,7 @@ import { renderToString } from "react-dom/server";
 import helmetPackage from "react-helmet-async";
 import { Router } from "wouter";
 import PressureArticle from "../client/src/pages/blog/PadaetDavlenieGidravliki";
+import ShantuiRepairArticle from "../client/src/pages/blog/KapitalnyiRemonShantuiSD32";
 import CatCase from "../client/src/pages/cases/Cat330DLHotPowerLoss";
 import SanyCase from "../client/src/pages/cases/SanySY365HHotHydraulics";
 import HitachiCase from "../client/src/pages/cases/Hitachi330FloatingPressure";
@@ -24,6 +25,7 @@ const pages: Record<string, React.ComponentType> = {
   "blog/remont-gidronasosa-cat": PumpRepairArticle,
   "blog/stoimost-remonta-gidromotora-komatsu": MotorCostArticle,
   "blog/padaet-davlenie-gidravliki-ekskavatora": PressureArticle,
+  "blog/kapitalnyy-remont-shantui-sd32": ShantuiRepairArticle,
   "cases/cat-330dl-teryaet-moshchnost-na-goryachuyu": CatCase,
   "cases/sany-sy365h-gidravlika-na-goryachuyu": SanyCase,
   "cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami": HitachiCase,
