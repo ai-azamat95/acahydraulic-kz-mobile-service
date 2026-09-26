@@ -180,6 +180,7 @@ const staticBlogArticles = {
     dateModified: '2026-09-12',
   },
   'blog/kapitalnyy-remont-shantui-sd32': {
+    schemaType: 'BlogPosting',
     headline: 'Ремонт SHANTUI SD32: диагностика гидравлики перед капитальным ремонтом',
     description: 'Ремонт SHANTUI SD32: что проверить до заказа деталей — давление, насосы, гидромоторы, распределитель, цилиндры и загрязнение гидросистемы.',
     image: '/webdev-static-assets/shantui-sd32-6.webp',
@@ -201,7 +202,7 @@ const staticBlogArticles = {
 function staticBlogArticleSchema(article, canonical) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': article.schemaType ?? 'Article',
     '@id': `${canonical}#article`,
     headline: article.headline,
     description: article.description,

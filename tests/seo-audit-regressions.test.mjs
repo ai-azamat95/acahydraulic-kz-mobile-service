@@ -21,14 +21,15 @@ test('pressure article contains actual diagnosis content before JavaScript runs'
   assert.equal(schemas(html).filter(s => s['@type'] === 'BlogPosting').length, 1);
 });
 
-test('technical blog articles expose Article schema before JavaScript runs', () => {
+test('technical blog articles expose an article schema before JavaScript runs', () => {
   for (const route of [
     'remont-gidravliki-frezy-wirtgen-1500',
     'kapitalnyy-remont-shantui-sd32',
     'remont-gidravliki-liebherr-r950',
     'vosstanovlenie-gidromotora-volvo-ec380',
   ]) {
-    const article = schemas(read(`blog/${route}/`)).find(schema => schema['@type'] === 'Article');
+    const expectedType = route === 'kapitalnyy-remont-shantui-sd32' ? 'BlogPosting' : 'Article';
+    const article = schemas(read(`blog/${route}/`)).find(schema => schema['@type'] === expectedType);
     assert.ok(article, route);
     assert.equal(article.mainEntityOfPage, `https://acahydraulic.kz/blog/${route}/`);
     assert.equal(article.publisher['@id'], 'https://acahydraulic.kz/#business');

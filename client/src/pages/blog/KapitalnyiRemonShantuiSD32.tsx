@@ -23,7 +23,7 @@ export default function KapitalnyiRemonShantuiSD32() {
     dateModified: "2026-09-26",
     author: { "@type": "Organization", name: "ACA Hydraulic" },
     publisher: { "@id": "https://acahydraulic.kz/#business" },
-    mainEntityOfPage: { "@type": "WebPage", "@id": "https://acahydraulic.kz/blog/kapitalnyy-remont-shantui-sd32" },
+    mainEntityOfPage: "https://acahydraulic.kz/blog/kapitalnyy-remont-shantui-sd32/",
     image: SHANTUI_PHOTOS[0].url,
   };
 

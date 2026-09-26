@@ -32,7 +32,8 @@ test("Static route metadata stays aligned with the Shantui article", () => {
   assert.match(shantuiStaticEntry, /headline: 'Ремонт SHANTUI SD32: диагностика гидравлики/);
   assert.match(shantuiStaticEntry, /datePublished: '2026-03-18'/);
   assert.match(shantuiStaticEntry, /dateModified: '2026-09-26'/);
-  assert.match(routeCopies, /'@type': 'BlogPosting'/);
+  assert.match(shantuiStaticEntry, /schemaType: 'BlogPosting'/);
+  assert.match(routeCopies, /'@type': article\.schemaType \?\? 'Article'/);
   assert.match(routeCopies, /const staticBlogArticle = staticBlogArticles\[route\];[\s\S]*?description: staticBlogArticle\.description/);
   assert.match(routeCopies, /function replaceRootContent\(html, content\)/);
   assert.match(routeCopies, /return replaceRootContent\(out, renderedArticle\.body\)/);
