@@ -34,3 +34,21 @@ test('owner product is inserted into every public catalogue representation witho
     fs.rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('browser fixture can add owner products without an ignored category summary', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'aca-owner-products-browser-'));
+  try {
+    fs.writeFileSync(path.join(dir, 'manifest.json'), JSON.stringify({ productCount: 1, pageSize: 250, chunkCount: 1 }));
+    fs.writeFileSync(path.join(dir, 'product-map.json'), JSON.stringify({ supplier: 1 }));
+    fs.writeFileSync(path.join(dir, 'products-001.json'), JSON.stringify([{ id: 'supplier', handle: 'supplier', category: 'hydraulic-pumps' }]));
+    fs.writeFileSync(path.join(dir, 'search-index-001.json'), JSON.stringify([{ id: 'supplier', handle: 'supplier', category: 'hydraulic-pumps', chunk: 1 }]));
+
+    applyOwnerCatalogProducts(dir, { updateCategorySummary: false });
+
+    assert.equal(fs.existsSync(path.join(dir, 'category-summary.json')), false);
+    assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'manifest.json'), 'utf8')).productCount, 2);
+    assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'product-map.json'), 'utf8'))[ownerCatalogProducts[0].handle], 1);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});

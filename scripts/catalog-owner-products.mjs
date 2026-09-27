@@ -20,13 +20,15 @@ function toIndexProduct(product, chunk) {
   return { ...indexProduct, chunk };
 }
 
-export function applyOwnerCatalogProducts(catalogDir) {
+export function applyOwnerCatalogProducts(catalogDir, { updateCategorySummary = true } = {}) {
   const manifestPath = path.join(catalogDir, 'manifest.json');
   const mapPath = path.join(catalogDir, 'product-map.json');
   const summaryPath = path.join(catalogDir, 'category-summary.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   const productMap = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
-  const categorySummary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
+  const categorySummary = updateCategorySummary
+    ? JSON.parse(fs.readFileSync(summaryPath, 'utf8'))
+    : null;
   const existingHandles = new Set(Object.keys(productMap));
   const targetChunk = 1;
   const targetSuffix = String(targetChunk).padStart(3, '0');
@@ -50,14 +52,16 @@ export function applyOwnerCatalogProducts(catalogDir) {
   for (const product of ownerCatalogProducts) {
     if (!existingHandles.has(product.handle)) added += 1;
     productMap[product.handle] = targetChunk;
-    const summary = categorySummary[product.category] || { count: 0, imageUrl: null };
-    if (!existingHandles.has(product.handle)) summary.count += 1;
-    summary.imageUrl ||= product.imageUrl;
-    categorySummary[product.category] = summary;
+    if (categorySummary) {
+      const summary = categorySummary[product.category] || { count: 0, imageUrl: null };
+      if (!existingHandles.has(product.handle)) summary.count += 1;
+      summary.imageUrl ||= product.imageUrl;
+      categorySummary[product.category] = summary;
+    }
   }
   manifest.productCount += added;
   fs.writeFileSync(mapPath, JSON.stringify(productMap));
-  fs.writeFileSync(summaryPath, JSON.stringify(categorySummary));
+  if (categorySummary) fs.writeFileSync(summaryPath, JSON.stringify(categorySummary));
   fs.writeFileSync(manifestPath, JSON.stringify(manifest));
 
   const representations = [
