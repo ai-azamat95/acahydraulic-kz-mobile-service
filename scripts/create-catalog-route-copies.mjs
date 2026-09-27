@@ -38,6 +38,13 @@ function formatPrice(value) {
   return Number.isFinite(value) ? `${new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(Number(value))} ₸` : 'по запросу';
 }
 
+function schemaAvailability(value) {
+  if (value === 'preorder') return 'https://schema.org/PreOrder';
+  if (value === 'backorder') return 'https://schema.org/BackOrder';
+  if (value === 'out_of_stock') return 'https://schema.org/OutOfStock';
+  return 'https://schema.org/InStock';
+}
+
 function setTag(html, regex, replacement) {
   if (regex.test(html)) return html.replace(regex, replacement);
   return html.replace('</head>', `${replacement}\n</head>`);
@@ -80,6 +87,7 @@ function productPage(product) {
     description,
     image: images.length ? images : undefined,
     sku: product.sku || product.id,
+    category: merchantOffer ? merchantPumps.productType : productCategories[0]?.title,
     itemCondition: (product.approvedSale || product.ownerSale) ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
     additionalProperty: product.fitment ? [{
@@ -101,7 +109,7 @@ function productPage(product) {
                 transitTime: { "@type": "QuantitativeValue", minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: "DAY" },
               },
             } : undefined,
-      availability: merchantOffer ? 'https://schema.org/InStock' : undefined,
+      availability: merchantOffer ? schemaAvailability(merchantOffer.availability) : undefined,
       lowPrice: (product.approvedSale || product.ownerSale) ? undefined : product.minPriceKzt,
       highPrice: (product.approvedSale || product.ownerSale) ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
       url: canonical,
