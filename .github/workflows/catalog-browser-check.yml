@@ -41,6 +41,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm catalog:prepare-public
       - run: pnpm build
       - name: Install browser runtime
         run: |
