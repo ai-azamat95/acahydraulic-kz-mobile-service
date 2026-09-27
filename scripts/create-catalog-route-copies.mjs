@@ -87,7 +87,7 @@ function productPage(product) {
     description,
     image: images.length ? images : undefined,
     sku: product.sku || product.id,
-    category: merchantOffer ? merchantPumps.productType : productCategories[0]?.title,
+    category: merchantOffer ? merchantPumps.productType : undefined,
     itemCondition: (product.approvedSale || product.ownerSale) ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
     additionalProperty: product.fitment ? [{

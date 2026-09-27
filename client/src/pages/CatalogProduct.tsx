@@ -139,7 +139,7 @@ export default function CatalogProduct() {
           description: seoDescription,
           image: gallery.map(image => new URL(image, "https://acahydraulic.kz").href),
           sku: mainSku,
-          category: merchantOffer ? merchantPumps.productType : productCategories[0]?.title,
+          category: merchantOffer ? merchantPumps.productType : undefined,
           itemCondition: (product.approvedSale || product.ownerSale) ? "https://schema.org/NewCondition" : undefined,
           additionalProperty: product.fitment ? [{
             "@type": "PropertyValue",
