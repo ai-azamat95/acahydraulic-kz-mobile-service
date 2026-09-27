@@ -134,7 +134,7 @@ try {
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedMainControlValveCount),'all main control valves must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedMainControlValveCount,'all main control valves must render as real product cards');
             const overlappingValve = page.locator('.aca-product-card').filter({hasText:'Control Valve Assy for Kobelco Excavator SK250LC'});
-            assert.equal(await overlappingValve.locator('.aca-product-code').textContent(),'main-control-valves','overlapping products must show the active category badge');
+            assert.equal(await overlappingValve.locator('.aca-product-code').textContent(),'Основные гидрораспределители','overlapping products must show the localized active category badge');
           }
           if(expectedWiringHarnessCount>0){
             await page.goto(origin+'/catalog/category/wiring-harnesses',{waitUntil:'networkidle'});
@@ -239,7 +239,10 @@ try {
       await journey.locator('#catalog-search input').first().fill('HANDOK');
       await journey.locator('[data-supply-offer="handok-h5v80dtp"]').waitFor();
       await journey.locator('[data-supply-offer="sany-k5v160dt"]').waitFor({state:'detached'});
-      await journey.locator('[data-supply-offer="handok-h5v80dtp"]').getByRole('link',{name:'Насос и история заказа',exact:true}).click();
+      await journey.locator('[data-supply-offer="handok-h5v80dtp"]').getByRole('link',{name:'Открыть предложение: HANDOK H5V80DTP-12T',exact:true}).click();
+      await journey.getByRole('heading',{name:'Гидронасос HANDOK H5V80DTP-12T / K5V80DTP YKSKR-9K00 — корейский аналог',exact:true}).waitFor();
+      assert.equal(new URL(journey.url()).pathname,'/catalog/handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump/');
+      await journey.getByRole('link',{name:'Реальный заказ HANDOK для Hitachi ZX160W',exact:true}).click();
       await journey.getByRole('heading',{name:'Hitachi ZX160W: клиент выбрал корейский HANDOK',exact:true}).waitFor();
       assert.equal(new URL(journey.url()).hash,'#hitachi-order');
       await journey.waitForFunction(() => {

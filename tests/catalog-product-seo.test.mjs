@@ -4,17 +4,21 @@ import test from 'node:test';
 import fs from 'node:fs';
 import reviewedCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
 import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
+import ownerProducts from '../shared/catalog-owner-products.json' with { type: 'json' };
 import { catalogProductName, catalogProductSeo, catalogProductCategories, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 
 const copy = { ...reviewedCopy, ...merchantCopy };
 
 const dir = 'client/public/catalog-data';
-const products = fs.readdirSync(dir).filter(file => /^search-index-\d+\.json$/.test(file))
-  .flatMap(file => JSON.parse(fs.readFileSync(`${dir}/${file}`, 'utf8')));
+const products = [
+  ...fs.readdirSync(dir).filter(file => /^search-index-\d+\.json$/.test(file))
+    .flatMap(file => JSON.parse(fs.readFileSync(`${dir}/${file}`, 'utf8'))),
+  ...ownerProducts,
+];
 const codes = text => text.toUpperCase().match(/\b[A-Z0-9]+(?:[-.][A-Z0-9]+)*\b/g)?.filter(word => /\d/.test(word)) || [];
 
 test('reviewed Russian names preserve every source part number and equipment model', () => {
-  assert.equal(Object.keys(copy).length, 14);
+  assert.equal(Object.keys(copy).length, 15);
   for (const [handle, content] of Object.entries(copy)) {
     const imported = products.find(item => item.handle === handle);
     const product = imported && applyOwnerSale(imported);

@@ -41,6 +41,9 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Add ACA-owned products to the browser fixture
+        run: |
+          node --input-type=module -e "import { applyOwnerCatalogProducts } from './scripts/catalog-owner-products.mjs'; applyOwnerCatalogProducts('client/public/catalog-data', { updateCategorySummary: false });"
       - run: pnpm build
       - name: Install browser runtime
         run: |

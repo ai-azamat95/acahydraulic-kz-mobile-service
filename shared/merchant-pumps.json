@@ -1,5 +1,5 @@
 {
-  "confirmedAt": "2026-09-18",
+  "confirmedAt": "2026-09-27",
   "availability": "in_stock",
   "googleProductCategory": 1795,
   "productType": "Запчасти для спецтехники > Гидравлика > Гидронасосы",
@@ -58,6 +58,41 @@
       "identifierExists": false,
       "customLabels": ["high_ticket", "hydraulic_pump", "confirmed_price", "in_stock", "compatibility_check"],
       "handle": "hydraulic-pump-assembly-yf10v00006f1-yf10v00006f3-yn10v00043f1-fits-for-kobelco-sk235srlc-k5v80dtp"
+    },
+    {
+      "model": "H5V80DTP-12T",
+      "id": "ACA-HANDOK-H5V80DTP-12T-YKSKR-9K00",
+      "title": "HANDOK H5V80DTP-12T YKSKR-9K00 — новый корейский гидронасос",
+      "description": "Новый гидронасос HANDOK H5V80DTP-12T в сборе, номер детали YKSKR-9K00, производство Южная Корея. Корейский аналог для подбора вместо исполнений серии K5V80DTP. До оплаты ACA Hydraulic сверяет шильдик старого насоса, модель и серийный номер техники, вал, фланец, порты, регулятор и разъёмы. Цена включает доставку по Казахстану.",
+      "link": "https://acahydraulic.kz/catalog/handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump/",
+      "image_link": "https://acahydraulic.kz/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-main.webp",
+      "additional_image_links": [
+        "https://acahydraulic.kz/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-rear-right.webp",
+        "https://acahydraulic.kz/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-front-left.webp",
+        "https://acahydraulic.kz/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-shaft.webp",
+        "https://acahydraulic.kz/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-side.webp",
+        "https://acahydraulic.kz/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-flange.webp",
+        "https://acahydraulic.kz/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-nameplate.webp",
+        "https://acahydraulic.kz/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-packing-label.webp"
+      ],
+      "price": "2530000 KZT",
+      "condition": "new",
+      "availability": "in_stock",
+      "brand": "HANDOK",
+      "mpn": "YKSKR-9K00",
+      "identifierExists": true,
+      "shippingPriceKzt": 0,
+      "handlingMinDays": null,
+      "handlingMaxDays": null,
+      "transitMinDays": null,
+      "transitMaxDays": null,
+      "terms": {
+        "ru": "Цена 2 530 000 ₸ включает доставку по Казахстану. Насос новый, в сборе. Бренд HANDOK, модель H5V80DTP-12T и номер YKSKR-9K00 подтверждены шильдиком на сфотографированном товаре. Наличие, срок, комплектацию и совместимость с конкретной машиной подтверждаем до оплаты.",
+        "kz": "2 530 000 ₸ бағасына Қазақстан бойынша жеткізу кіреді. Сорғы жаңа, жинақта. HANDOK бренді, H5V80DTP-12T моделі және YKSKR-9K00 нөмірі суреттегі тауар тақтайшасымен расталған. Қолда барын, мерзімін, жинақтамасын және нақты техникаға сәйкестігін төлемге дейін растаймыз.",
+        "en": "The KZT 2,530,000 price includes delivery across Kazakhstan. New complete pump assembly. The HANDOK brand, H5V80DTP-12T model and YKSKR-9K00 part number are confirmed by the photographed nameplate. Availability, lead time, configuration and exact machine fitment are confirmed before payment."
+      },
+      "customLabels": ["high_ticket", "hydraulic_pump", "confirmed_price", "shipping_included", "korean_aftermarket"],
+      "handle": "handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump"
     }
   ]
 }

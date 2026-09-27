@@ -45,6 +45,8 @@ jobs:
         run: node scripts/create-spa-route-copies.mjs
       - name: Create approved pump feed
         run: node scripts/create-merchant-feed.mjs
+      - name: Verify owner catalogue products
+        run: node --test tests/catalog-owner-products.test.mjs
       - name: Create Industrial AI route copy
         run: node scripts/create-industrial-ai-route.mjs
       - name: Create static case route copies
@@ -64,6 +66,8 @@ jobs:
           pnpm catalog:routes
           pnpm catalog:landing-routes
           node scripts/check-cat-432e-sale.mjs
+          node --test tests/merchant-publication.test.mjs
+          node --test tests/handok-product-publication.test.mjs
       - name: Verify catalog SEO and sitemaps
         run: |
           pnpm catalog:verify-seo

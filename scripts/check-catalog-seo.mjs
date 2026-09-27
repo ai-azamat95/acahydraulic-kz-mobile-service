@@ -6,6 +6,8 @@ import reviewedProductCopy from '../shared/catalog-product-copy.json' with { typ
 import merchantProductCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
 
 const productCopy = { ...reviewedProductCopy, ...merchantProductCopy };
+const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
+const merchantHandles = new Set(merchantPumps.products.map(product => product.handle));
 
 const publicDir = path.resolve(process.argv[2] || 'dist/public');
 const catalogDir = path.join(publicDir, 'catalog-data');
@@ -24,7 +26,7 @@ const productsWithFitment = products.filter((product) => product.fitment);
 const fitmentCoverage = productsWithFitment.length / products.length;
 assert(fitmentCoverage >= 0.75, `explicit fitment coverage is too low: ${(fitmentCoverage * 100).toFixed(1)}%`);
 
-for (const product of [productsWithFitment[0], products.find((item) => !item.fitment)].filter(Boolean)) {
+for (const product of [productsWithFitment.find(item => !merchantHandles.has(item.handle)), products.find((item) => !item.fitment && !merchantHandles.has(item.handle))].filter(Boolean)) {
   const htmlPath = path.join(publicDir, 'catalog', product.handle, 'index.html');
   const html = fs.readFileSync(htmlPath, 'utf8');
   assert(!/с наценкой\s+50%/i.test(html), 'public SEO copy must not expose commercial markup');
@@ -42,7 +44,6 @@ for (const product of [productsWithFitment[0], products.find((item) => !item.fit
   assert(Array.isArray(schema.image) && schema.image.length > 0, 'Product JSON-LD needs an image');
 }
 
-const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
 for (const pump of merchantPumps.products) {
   const html = fs.readFileSync(path.join(publicDir, 'catalog', pump.handle, 'index.html'), 'utf8');
   const schema = JSON.parse(html.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s)[1]);
@@ -50,11 +51,17 @@ for (const pump of merchantPumps.products) {
   const shipping = schema.offers.shippingDetails;
   assert.equal(shipping['@type'], 'OfferShippingDetails');
   assert.equal(shipping.shippingDestination.addressCountry, 'KZ');
-  assert.deepEqual(shipping.shippingRate, { '@type': 'MonetaryAmount', value: merchantPumps.shippingPriceKzt, currency: 'KZT' });
-  for (const [field, min, max] of [
-    ['handlingTime', merchantPumps.handlingMinDays, merchantPumps.handlingMaxDays],
-    ['transitTime', merchantPumps.transitMinDays, merchantPumps.transitMaxDays],
-  ]) assert.deepEqual(shipping.deliveryTime[field], { '@type': 'QuantitativeValue', minValue: min, maxValue: max, unitCode: 'DAY' });
+  const shippingPriceKzt = Object.hasOwn(pump, 'shippingPriceKzt') ? pump.shippingPriceKzt : merchantPumps.shippingPriceKzt;
+  assert.deepEqual(shipping.shippingRate, { '@type': 'MonetaryAmount', value: shippingPriceKzt, currency: 'KZT' });
+  const itemHasNoPublishedTimes = pump.handlingMinDays === null || pump.handlingMaxDays === null || pump.transitMinDays === null || pump.transitMaxDays === null;
+  if (itemHasNoPublishedTimes) {
+    assert.equal(shipping.deliveryTime, undefined);
+  } else {
+    for (const [field, min, max] of [
+      ['handlingTime', pump.handlingMinDays ?? merchantPumps.handlingMinDays, pump.handlingMaxDays ?? merchantPumps.handlingMaxDays],
+      ['transitTime', pump.transitMinDays ?? merchantPumps.transitMinDays, pump.transitMaxDays ?? merchantPumps.transitMaxDays],
+    ]) assert.deepEqual(shipping.deliveryTime[field], { '@type': 'QuantitativeValue', minValue: min, maxValue: max, unitCode: 'DAY' });
+  }
   assert.equal(schema.review, undefined, 'do not invent product reviews');
   assert.equal(schema.aggregateRating, undefined, 'do not invent product ratings');
 }
