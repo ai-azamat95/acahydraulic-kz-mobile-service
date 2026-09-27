@@ -17,6 +17,13 @@ import { catalogProductSeo, catalogProductCategories, catalogProductSelection } 
 
 const WHATSAPP_NUMBER = "77714177925";
 
+function schemaAvailability(value?: string) {
+  if (value === "preorder") return "https://schema.org/PreOrder";
+  if (value === "backorder") return "https://schema.org/BackOrder";
+  if (value === "out_of_stock") return "https://schema.org/OutOfStock";
+  return "https://schema.org/InStock";
+}
+
 function formatKzt(value: number, language: CatalogLanguage) {
   const amount = new Intl.NumberFormat(language === "en" ? "en-US" : "ru-RU", {
     maximumFractionDigits: 0,
@@ -57,7 +64,10 @@ export default function CatalogProduct() {
     });
   }, [product]);
 
-  const requestProduct = (purpose: "part" | "nameplate" | "invoice" = "part") => {
+  const requestProduct = (
+    purpose: "part" | "nameplate" | "invoice" = "part",
+    source = "product_page",
+  ) => {
     if (!product) return;
     const message = [
       copy.whatsappIntro,
@@ -71,7 +81,7 @@ export default function CatalogProduct() {
       purpose === "invoice" ? (language === "ru" ? "Прошу подготовить счёт после согласования детали и поставки. Реквизиты приложу файлом в этом чате." : language === "kz" ? "Бөлшек пен жеткізу келісілгеннен кейін шот дайындауыңызды сұраймын. Деректемелер файлын осы чатқа тіркеймін." : "Please prepare an invoice after confirming the part and delivery. I will attach company details in this chat.") : "",
     ].filter(Boolean).join("\n");
     trackCatalogEvent("catalog_whatsapp_click", {
-      catalog_source: "product_page",
+      catalog_source: source,
       catalog_request_type: purpose,
       item_id: product.id,
       item_category: product.category,
@@ -116,7 +126,7 @@ export default function CatalogProduct() {
   const seoDescription = productSeo.description;
 
   return (
-    <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
+    <div className="min-h-[100dvh] bg-[#101010] pb-20 text-white font-roboto lg:pb-0">
       <SEO
         title={productSeo.title}
         description={seoDescription}
@@ -129,6 +139,7 @@ export default function CatalogProduct() {
           description: seoDescription,
           image: gallery.map(image => new URL(image, "https://acahydraulic.kz").href),
           sku: mainSku,
+          category: merchantOffer ? merchantPumps.productType : undefined,
           itemCondition: (product.approvedSale || product.ownerSale) ? "https://schema.org/NewCondition" : undefined,
           additionalProperty: product.fitment ? [{
             "@type": "PropertyValue",
@@ -149,7 +160,7 @@ export default function CatalogProduct() {
                 transitTime: { "@type": "QuantitativeValue", minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: "DAY" },
               },
             } : undefined,
-            availability: merchantOffer ? "https://schema.org/InStock" : undefined,
+            availability: merchantOffer ? schemaAvailability(merchantOffer.availability) : undefined,
             lowPrice: (product.approvedSale || product.ownerSale) ? undefined : product.minPriceKzt,
             highPrice: (product.approvedSale || product.ownerSale) ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
             offerCount: (product.approvedSale || product.ownerSale) ? undefined : product.variants.length,
@@ -360,6 +371,21 @@ export default function CatalogProduct() {
         </section>
         {product.category === "hydraulic-pumps" && <div className="mt-12"><PumpCaseTeaser /></div>}
       </main>
+
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#101010]/95 p-3 shadow-[0_-12px_30px_rgba(0,0,0,0.45)] backdrop-blur lg:hidden">
+        <button
+          type="button"
+          onClick={() => requestProduct("nameplate", "product_page_sticky")}
+          className="mx-auto flex min-h-12 w-full max-w-md items-center justify-between gap-3 rounded bg-[#FFC000] px-4 py-3 font-extrabold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          aria-label={`${language === "ru" ? "Подобрать по шильдику" : language === "kz" ? "Шильдик бойынша таңдау" : "Match by nameplate"}: ${displayedPrice}`}
+        >
+          <span className="inline-flex items-center gap-2">
+            <MessageCircle className="h-5 w-5" aria-hidden="true" />
+            {language === "ru" ? "Подобрать по шильдику" : language === "kz" ? "Шильдик бойынша таңдау" : "Match by nameplate"}
+          </span>
+          <span className="whitespace-nowrap text-sm">{displayedPrice}</span>
+        </button>
+      </div>
     </div>
   );
 }
