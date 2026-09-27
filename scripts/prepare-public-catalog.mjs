@@ -13,7 +13,7 @@ if (!fs.existsSync(manifestPath)) {
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 const approvedPrices = applyApprovedCatalogPrices(catalogDir);
 applyOwnerCatalogSales(catalogDir);
-const privateFiles = [manifest.catalogAuditFile, manifest.pumpAuditFile, manifest.strictCategoryAuditFile].filter(Boolean);
+const privateFiles = [manifest.catalogAuditFile, manifest.pumpAuditFile, manifest.strictCategoryAuditFile, manifest.controllerAuditFile].filter(Boolean);
 
 for (const fileName of privateFiles) {
   const filePath = path.join(catalogDir, fileName);
