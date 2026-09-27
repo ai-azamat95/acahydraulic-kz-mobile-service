@@ -12,6 +12,7 @@ const privateFiles = [
   'strict-category-import-audit.json',
   'controller-import-audit.json',
   'monitor-import-audit.json',
+  'wiring-harness-import-audit.json',
 ];
 
 assert(fs.existsSync(manifestPath), `missing public manifest in ${catalogDir}`);
@@ -55,6 +56,7 @@ for (const key of [
   'strictCategoryAuditFile',
   'controllerAuditFile',
   'monitorAuditFile',
+  'wiringHarnessAuditFile',
 ]) {
   assert.equal(key in manifest, false, `private manifest field leaked: ${key}`);
 }
@@ -89,13 +91,38 @@ assert(
   'pump parts must use the local unbranded catalogue image',
 );
 assert(
+  wiringHarnesses.every((product) => Array.isArray(product.gallery) && product.imageUrl === (product.gallery[0] || null)),
+  'every wiring harness primary image must be the first image from its own ordered gallery',
+);
+assert(
   wiringHarnesses.every(
     (product) =>
-      product.imageUrl === '/catalog-assets/category-wiring-harness.jpg' &&
-      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-wiring-harness.jpg']),
+      product.imageUrl !== '/catalog-assets/category-wiring-harness.jpg' &&
+      !product.gallery.includes('/catalog-assets/category-wiring-harness.jpg'),
   ),
-  'wiring harnesses must use the local unbranded catalogue image',
+  'wiring harnesses must not use the shared category placeholder',
 );
+assert(
+  wiringHarnesses.every((product) =>
+    product.gallery.every(
+      (imageUrl) =>
+        /^https:\/\/(?:[^/]+\.)?(?:sinocmp\.com|shopify\.com)\//i.test(imageUrl) ||
+        /^\/catalog-assets\/wiring-harnesses\/[0-9]+-[0-9]{2}\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(imageUrl),
+    ),
+  ),
+  'wiring harness galleries must contain only approved Shopify URLs or product-scoped local images',
+);
+const wiringHarnessesWithImages = wiringHarnesses.filter((product) => product.gallery.length > 0);
+const uniqueWiringHarnessGalleries = new Set(wiringHarnessesWithImages.map((product) => JSON.stringify(product.gallery)));
+assert.equal(wiringHarnessesWithImages.length, wiringHarnesses.length, 'every wiring harness must have at least one source image');
+assert.equal(uniqueWiringHarnessGalleries.size, wiringHarnessesWithImages.length, 'wiring harness products must not share the same complete gallery');
+for (const product of wiringHarnesses) {
+  for (const imageUrl of product.gallery.filter((value) => value.startsWith('/catalog-assets/wiring-harnesses/'))) {
+    const filePath = path.join(catalogDir, '..', imageUrl.replace(/^\//, ''));
+    assert(fs.existsSync(filePath), `missing locally mirrored wiring harness image for ${product.id}: ${imageUrl}`);
+    assert(fs.statSync(filePath).size > 0, `empty locally mirrored wiring harness image for ${product.id}: ${imageUrl}`);
+  }
+}
 assert(
   fuelInjectors.every(
     (product) =>
@@ -129,6 +156,12 @@ console.log(
       products: products.length,
       pumpParts: pumpParts.length,
       wiringHarnesses: wiringHarnesses.length,
+      wiringHarnessImages: wiringHarnesses.reduce((total, product) => total + product.gallery.length, 0),
+      uniqueWiringHarnessGalleries: uniqueWiringHarnessGalleries.size,
+      locallyMirroredWiringHarnessImages: wiringHarnesses.reduce(
+        (total, product) => total + product.gallery.filter((imageUrl) => imageUrl.startsWith('/catalog-assets/wiring-harnesses/')).length,
+        0,
+      ),
       fuelInjectors: fuelInjectors.length,
       fuelPumps: fuelPumps.length,
       engineRebuildKits: engineRebuildKits.length,

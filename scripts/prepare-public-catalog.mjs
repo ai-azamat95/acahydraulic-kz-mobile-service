@@ -22,6 +22,7 @@ const privateFiles = [
   manifest.strictCategoryAuditFile,
   manifest.controllerAuditFile,
   manifest.monitorAuditFile,
+  manifest.wiringHarnessAuditFile,
 ].filter(Boolean);
 
 for (const fileName of privateFiles) {
