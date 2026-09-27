@@ -6,6 +6,7 @@ const catalogDir = path.resolve('client/public/catalog-data');
 const manifest = JSON.parse(fs.readFileSync(path.join(catalogDir, 'manifest.json'), 'utf8'));
 const audit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.catalogAuditFile), 'utf8'));
 const strictCategoryAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.strictCategoryAuditFile), 'utf8'));
+const controllerAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.controllerAuditFile), 'utf8'));
 const categorySummary = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.categorySummaryFile), 'utf8'));
 const products = [];
 
@@ -18,6 +19,8 @@ assert.equal(audit.passed, true, 'full supplier comparison must pass');
 assert.equal(audit.failures.length, 0, 'full supplier comparison must have no failures');
 assert.equal(audit.marketCurrency, 'KZT', 'source market must return KZT prices');
 assert.equal(audit.markup, 1.5, 'catalog markup must be exactly 50 percent');
+assert.equal(audit.controllerMarkup, 1.8, 'controller collection markup must be exactly 80 percent');
+assert.equal(audit.controllerCollection, 'controller', 'controller pricing must use the exact supplier collection');
 assert.equal(audit.uniqueSourceProducts, audit.expectedPublishedProducts, 'all currently published supplier products must be fetched');
 assert.equal(audit.importedProducts, audit.uniqueSourceProducts, 'every supplier product must be imported');
 assert.equal(audit.exactTitleAndHandleMatches, audit.uniqueSourceProducts, 'all titles and handles must match');
@@ -25,6 +28,11 @@ assert.equal(audit.exactSkuMatches, audit.uniqueSourceProducts, 'all SKU lists m
 assert.equal(audit.exactGalleryMatches, audit.uniqueSourceProducts, 'all image galleries must match');
 assert.equal(audit.priceOnRequestThresholdKzt, 10_000_000, 'high supplier placeholder prices must require a quote');
 assert.equal(audit.exactMarkupPrices + audit.priceOnRequestVariants, audit.sourceVariantCount, 'every source price must be checked');
+assert.equal(
+  audit.exactControllerMarkupPrices + audit.controllerPriceOnRequestVariants,
+  audit.controllerSourceVariantCount,
+  'every controller source price must use the controller-specific markup',
+);
 assert.equal(products.length, audit.uniqueSourceProducts, 'published product data must match the audited source count');
 assert.equal(new Set(products.map((product) => product.id)).size, products.length, 'source product IDs must be unique');
 assert.equal(new Set(products.map((product) => product.handle)).size, products.length, 'product handles must be unique');
@@ -87,6 +95,25 @@ assert.deepEqual(engineRebuildKitAudit.missingProductIds, [], 'no supplier engin
 assert.deepEqual(engineRebuildKitAudit.unexpectedProductIds, [], 'no keyword-only products may enter the engine rebuild kit category');
 assert.equal(categorySummary['engine-rebuild-kits'].count, engineRebuildKitAudit.sourceProducts, 'rendered engine rebuild kit count must match the supplier collection');
 
+assert.equal(controllerAudit.passed, true, 'controller collection comparison must pass');
+assert.equal(controllerAudit.collection, 'controller');
+assert.equal(controllerAudit.markup, 1.8, 'controller prices must be source price plus 80 percent');
+assert(controllerAudit.sourceProducts > 0, 'controller collection must not be empty');
+assert.equal(controllerAudit.importedProducts, controllerAudit.sourceProducts, 'every supplier controller must be imported');
+assert.equal(controllerAudit.failures.length, 0, 'controller import must have no failures');
+assert.equal(
+  controllerAudit.exactMarkupPrices + controllerAudit.priceOnRequestVariants,
+  controllerAudit.sourceVariantCount,
+  'every controller variant price must be checked',
+);
+const controllerIds = new Set(controllerAudit.sourceProductIds);
+const controllers = products.filter((product) => controllerIds.has(product.id));
+assert.equal(controllers.length, controllerAudit.sourceProducts, 'rendered controller count must match the supplier collection');
+assert(
+  controllers.every((product) => (product.categories || [product.category]).includes('controllers-monitors')),
+  'every exact controller collection product must appear in the controllers category',
+);
+
 const engineCylinderBlock = products.find((product) => product.handle === '04294187-d7e-engine-cylinder-block');
 assert(engineCylinderBlock, 'known engine cylinder block must be present');
 assert.equal(engineCylinderBlock.category, 'engine-fuel', 'engine cylinder block must not be classified as a pump part');
@@ -102,6 +129,9 @@ console.log(
       exactGalleries: audit.exactGalleryMatches,
       exactMarkupPrices: audit.exactMarkupPrices,
       priceOnRequestVariants: audit.priceOnRequestVariants,
+      controllers: controllerAudit.sourceProducts,
+      controllerVariants: controllerAudit.sourceVariantCount,
+      controllerMarkup: controllerAudit.markup,
       productsWithoutSourceImages: audit.productsWithoutSourceImages,
       categoryCounts: Object.fromEntries(Object.entries(categorySummary).map(([category, summary]) => [category, summary.count])),
     },

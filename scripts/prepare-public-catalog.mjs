@@ -16,7 +16,7 @@ const approvedPrices = applyApprovedCatalogPrices(catalogDir);
 applyOwnerCatalogSales(catalogDir);
 const ownerProducts = applyOwnerCatalogProducts(catalogDir);
 const preparedManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-const privateFiles = [manifest.catalogAuditFile, manifest.pumpAuditFile, manifest.strictCategoryAuditFile].filter(Boolean);
+const privateFiles = [manifest.catalogAuditFile, manifest.pumpAuditFile, manifest.strictCategoryAuditFile, manifest.controllerAuditFile].filter(Boolean);
 
 for (const fileName of privateFiles) {
   const filePath = path.join(catalogDir, fileName);
