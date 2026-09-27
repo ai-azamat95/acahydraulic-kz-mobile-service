@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ACA-HANDOK-H5V80DTP-12T-YKSKR-9K00",
+    "handle": "handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump",
+    "title": "HANDOK H5V80DTP-12T YKSKR-9K00 hydraulic pump",
+    "catalogTitle": "Корейский гидронасос HANDOK H5V80DTP-12T, номер детали YKSKR-9K00",
+    "fitment": "Корейский аналог серии K5V80DTP. Точное исполнение для конкретной машины подтверждаем по шильдику старого насоса, модели и серийному номеру техники, валу, фланцу, портам, регулятору и разъёмам.",
+    "sku": "YKSKR-9K00",
+    "brand": "HANDOK",
+    "model": "H5V80DTP-12T",
+    "mpn": "YKSKR-9K00",
+    "category": "hydraulic-pumps",
+    "categories": ["hydraulic-pumps"],
+    "productType": "Гидронасос в сборе",
+    "tags": ["HANDOK", "H5V80DTP-12T", "H5V80DTP", "K5V80DTP", "YKSKR-9K00", "корейский аналог", "Made in Korea"],
+    "available": true,
+    "minPriceKzt": 2530000,
+    "maxPriceKzt": 2530000,
+    "imageUrl": "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-main.webp",
+    "gallery": [
+      "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-main.webp",
+      "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-rear-right.webp",
+      "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-front-left.webp",
+      "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-shaft.webp",
+      "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-side.webp",
+      "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-flange.webp",
+      "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-nameplate.webp",
+      "/catalog-assets/handok-h5v80dtp-12t/handok-h5v80dtp-12t-packing-label.webp"
+    ],
+    "ownerProduct": {
+      "condition": "new",
+      "confirmedOn": "2026-09-27",
+      "originCountry": "KR",
+      "shippingIncluded": true
+    },
+    "variants": [
+      {
+        "id": "ACA-HANDOK-H5V80DTP-12T-YKSKR-9K00",
+        "title": "HANDOK H5V80DTP-12T / YKSKR-9K00",
+        "sku": "YKSKR-9K00",
+        "available": true,
+        "priceKzt": 2530000,
+        "options": ["Новый", "Корейский аналог", "Доставка по Казахстану включена"]
+      }
+    ]
+  }
+]

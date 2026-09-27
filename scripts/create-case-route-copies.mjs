@@ -125,7 +125,7 @@ function setMeta(html, route) {
       <nav aria-label="Продолжить подбор запчастей"><ul>
         <li><a href="/catalog/category/hydraulic-pumps?q=K5V160DT">Найти K5V160DT в запчастях</a></li>
         <li><a href="/catalog?q=K5V80DTP">Запчасти K5V80DTP</a></li>
-        <li><a href="/catalog?q=HANDOK">Запчасти HANDOK</a></li>
+        <li><a href="/catalog/handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump/">HANDOK H5V80DTP-12T — цена и реальные фото</a></li>
         <li><a href="/catalog?q=ZX160W">Запчасти Hitachi ZX160W</a></li>
         <li><a href="/catalog/brand/sany/">Запчасти SANY</a></li>
         <li><a href="/catalog/category/pump-parts/">Запчасти гидронасосов</a></li>

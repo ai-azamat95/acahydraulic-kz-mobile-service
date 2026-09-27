@@ -65,15 +65,34 @@ const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pum
 
 function productPage(product) {
   const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
+  const fixedOffer = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct);
+  const merchantShippingPriceKzt = merchantOffer && Object.hasOwn(merchantOffer, 'shippingPriceKzt')
+    ? merchantOffer.shippingPriceKzt
+    : merchantPumps.shippingPriceKzt;
+  const merchantTerms = merchantOffer?.terms?.ru || merchantPumps.terms.ru;
+  const merchantDeliveryTime = merchantOffer
+    && [merchantOffer.handlingMinDays, merchantOffer.handlingMaxDays, merchantOffer.transitMinDays, merchantOffer.transitMaxDays].every(Number.isFinite)
+    ? {
+        '@type': 'ShippingDeliveryTime',
+        handlingTime: { '@type': 'QuantitativeValue', minValue: merchantOffer.handlingMinDays, maxValue: merchantOffer.handlingMaxDays, unitCode: 'DAY' },
+        transitTime: { '@type': 'QuantitativeValue', minValue: merchantOffer.transitMinDays, maxValue: merchantOffer.transitMaxDays, unitCode: 'DAY' },
+      }
+    : merchantOffer && !Object.hasOwn(merchantOffer, 'handlingMinDays')
+      ? {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: { '@type': 'QuantitativeValue', minValue: merchantPumps.handlingMinDays, maxValue: merchantPumps.handlingMaxDays, unitCode: 'DAY' },
+          transitTime: { '@type': 'QuantitativeValue', minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: 'DAY' },
+        }
+      : undefined;
   const canonical = `${baseUrl}/catalog/${product.handle}/`;
   const productSeo = catalogProductSeo(product);
   const productCategories = catalogProductCategories(product);
   const title = `${productSeo.title} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
   const fitmentLabel = product.approvedSale ? 'Применяемость этого исполнения' : 'Применяемость';
-  const seriesNote = product.approvedSale ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
-  const price = Number.isFinite(product.minPriceKzt) ? `Цена ${(product.approvedSale || product.ownerSale) ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
-  const saleTerms = merchantOffer ? merchantPumps.terms.ru : product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
+  const seriesNote = (product.approvedSale || product.ownerProduct) ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
+  const price = Number.isFinite(product.minPriceKzt) ? `Цена ${fixedOffer ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
+  const saleTerms = merchantOffer ? merchantTerms : product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
   const description = productSeo.description;
   const gallery = product.ownerSale?.casePath === catSale.casePath ? catSale.gallery : (product.gallery ?? []);
   const images = [...new Set([product.imageUrl, ...gallery]
@@ -88,7 +107,9 @@ function productPage(product) {
     image: images.length ? images : undefined,
     sku: product.sku || product.id,
     category: merchantOffer ? merchantPumps.productType : undefined,
-    itemCondition: (product.approvedSale || product.ownerSale) ? 'https://schema.org/NewCondition' : undefined,
+    brand: merchantOffer?.brand ? { '@type': 'Brand', name: merchantOffer.brand } : undefined,
+    mpn: merchantOffer?.mpn,
+    itemCondition: fixedOffer ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
     additionalProperty: product.fitment ? [{
       '@type': 'PropertyValue',
@@ -96,22 +117,18 @@ function productPage(product) {
       value: product.fitment,
     }] : undefined,
     offers: Number.isFinite(product.minPriceKzt) ? {
-      '@type': (product.approvedSale || product.ownerSale) ? 'Offer' : 'AggregateOffer',
-      price: (product.approvedSale || product.ownerSale) ? product.minPriceKzt : undefined,
+      '@type': fixedOffer ? 'Offer' : 'AggregateOffer',
+      price: fixedOffer ? product.minPriceKzt : undefined,
       priceCurrency: 'KZT',
       shippingDetails: merchantOffer ? {
               "@type": "OfferShippingDetails",
-              shippingRate: { "@type": "MonetaryAmount", value: merchantPumps.shippingPriceKzt, currency: "KZT" },
+              shippingRate: { "@type": "MonetaryAmount", value: merchantShippingPriceKzt, currency: "KZT" },
               shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
-              deliveryTime: {
-                "@type": "ShippingDeliveryTime",
-                handlingTime: { "@type": "QuantitativeValue", minValue: merchantPumps.handlingMinDays, maxValue: merchantPumps.handlingMaxDays, unitCode: "DAY" },
-                transitTime: { "@type": "QuantitativeValue", minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: "DAY" },
-              },
+              deliveryTime: merchantDeliveryTime,
             } : undefined,
       availability: merchantOffer ? schemaAvailability(merchantOffer.availability) : undefined,
-      lowPrice: (product.approvedSale || product.ownerSale) ? undefined : product.minPriceKzt,
-      highPrice: (product.approvedSale || product.ownerSale) ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
+      lowPrice: fixedOffer ? undefined : product.minPriceKzt,
+      highPrice: fixedOffer ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
       url: canonical,
     } : undefined,
   });
@@ -128,6 +145,7 @@ function productPage(product) {
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
   ${product.ownerSale ? `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>` : ''}
+  ${product.ownerProduct ? `<section><h2>Подтверждено по реальному товару</h2><ul><li>HANDOK HYDRAULIC, модель H5V80DTP-12T.</li><li>Номер детали YKSKR-9K00, маркировка Made in Korea.</li><li>Цена 2 530 000 ₸, доставка по Казахстану включена.</li></ul><p><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">Как проверить H5V80DTP и K5V80DTP перед заказом</a></p></section>` : ''}
   ${saleTerms ? `<p>${escapeHtml(saleTerms)}</p>` : ''}
   <section data-product-selection><h2>Что прислать для подбора этой запчасти</h2>
   <p>${escapeHtml(catalogProductSelection(product))}</p>

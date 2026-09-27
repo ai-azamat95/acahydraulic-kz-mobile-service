@@ -73,7 +73,7 @@ export default function CatalogProduct() {
       copy.whatsappIntro,
       `${copy.whatsappPart}: ${product.title}`,
       `${copy.whatsappCategory}: ${categoryName}`,
-      `${copy.price}: ${product.minPriceKzt !== null ? `${(product.approvedSale || product.ownerSale) ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
+      `${copy.price}: ${product.minPriceKzt !== null ? `${(product.approvedSale || product.ownerSale || product.ownerProduct) ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
       `Ссылка: ${window.location.href}`,
       copy.whatsappPhoto,
       language === "ru" ? "Поставка под заказ. Прошу подтвердить цену и срок." : language === "kz" ? "Тапсырыс бойынша жеткізу. Баға мен мерзімді растауыңызды сұраймын." : "Please confirm price and lead time for supply to order.",
@@ -109,16 +109,35 @@ export default function CatalogProduct() {
     );
   }
 
+  const fixedOffer = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct);
   const displayedPrice = product.minPriceKzt !== null
-    ? `${(product.approvedSale || product.ownerSale) ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
+    ? `${fixedOffer ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
   const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
+  const merchantShippingPriceKzt = merchantOffer && Object.hasOwn(merchantOffer, "shippingPriceKzt")
+    ? merchantOffer.shippingPriceKzt
+    : merchantPumps.shippingPriceKzt;
+  const merchantTerms = merchantOffer?.terms?.[language] || merchantPumps.terms[language];
+  const merchantDeliveryTime = merchantOffer
+    && [merchantOffer.handlingMinDays, merchantOffer.handlingMaxDays, merchantOffer.transitMinDays, merchantOffer.transitMaxDays].every(Number.isFinite)
+    ? {
+        "@type": "ShippingDeliveryTime",
+        handlingTime: { "@type": "QuantitativeValue", minValue: merchantOffer.handlingMinDays, maxValue: merchantOffer.handlingMaxDays, unitCode: "DAY" },
+        transitTime: { "@type": "QuantitativeValue", minValue: merchantOffer.transitMinDays, maxValue: merchantOffer.transitMaxDays, unitCode: "DAY" },
+      }
+    : merchantOffer && !Object.hasOwn(merchantOffer, "handlingMinDays")
+      ? {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: { "@type": "QuantitativeValue", minValue: merchantPumps.handlingMinDays, maxValue: merchantPumps.handlingMaxDays, unitCode: "DAY" },
+          transitTime: { "@type": "QuantitativeValue", minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: "DAY" },
+        }
+      : undefined;
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
   const fitmentText = product.fitment || copy.fitmentUnknown;
-  const fitmentLabel = product.approvedSale
+  const fitmentLabel = (product.approvedSale || product.ownerProduct)
     ? language === "ru" ? "Применяемость этого исполнения" : language === "kz" ? "Осы нұсқаның қолданылуы" : "Applications of this configuration"
     : copy.fitmentLabel;
-  const seriesNote = product.approvedSale
+  const seriesNote = (product.approvedSale || product.ownerProduct)
     ? language === "ru" ? "Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Для вашей техники подберём подходящий вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно." : language === "kz" ? "Бұл сериядағы сорғылар әртүрлі маркалы техникада қолданылады. Мұнда нұсқалардың бірі көрсетілген. Техникаңызға сәйкес нұсқаны тақтайша, білік, фланец, порттар және реттегіш бойынша таңдаймыз. Сорғы моделінің сәйкес келуі жеткіліксіз." : "This pump series is used on equipment from different brands. This page lists one configuration. We select the correct version for your machine using the nameplate, shaft, flange, ports and regulator. A matching pump model alone does not confirm compatibility."
     : "";
   const productSeo = catalogProductSeo(product, language);
@@ -140,30 +159,28 @@ export default function CatalogProduct() {
           image: gallery.map(image => new URL(image, "https://acahydraulic.kz").href),
           sku: mainSku,
           category: merchantOffer ? merchantPumps.productType : undefined,
-          itemCondition: (product.approvedSale || product.ownerSale) ? "https://schema.org/NewCondition" : undefined,
+          brand: merchantOffer?.brand ? { "@type": "Brand", name: merchantOffer.brand } : undefined,
+          mpn: merchantOffer?.mpn,
+          itemCondition: fixedOffer ? "https://schema.org/NewCondition" : undefined,
           additionalProperty: product.fitment ? [{
             "@type": "PropertyValue",
             name: fitmentLabel,
             value: product.fitment,
           }] : undefined,
           offers: product.minPriceKzt !== null ? {
-            "@type": (product.approvedSale || product.ownerSale) ? "Offer" : "AggregateOffer",
-            price: (product.approvedSale || product.ownerSale) ? product.minPriceKzt : undefined,
+            "@type": fixedOffer ? "Offer" : "AggregateOffer",
+            price: fixedOffer ? product.minPriceKzt : undefined,
             priceCurrency: "KZT",
             shippingDetails: merchantOffer ? {
               "@type": "OfferShippingDetails",
-              shippingRate: { "@type": "MonetaryAmount", value: merchantPumps.shippingPriceKzt, currency: "KZT" },
+              shippingRate: { "@type": "MonetaryAmount", value: merchantShippingPriceKzt, currency: "KZT" },
               shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
-              deliveryTime: {
-                "@type": "ShippingDeliveryTime",
-                handlingTime: { "@type": "QuantitativeValue", minValue: merchantPumps.handlingMinDays, maxValue: merchantPumps.handlingMaxDays, unitCode: "DAY" },
-                transitTime: { "@type": "QuantitativeValue", minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: "DAY" },
-              },
+              deliveryTime: merchantDeliveryTime,
             } : undefined,
             availability: merchantOffer ? schemaAvailability(merchantOffer.availability) : undefined,
-            lowPrice: (product.approvedSale || product.ownerSale) ? undefined : product.minPriceKzt,
-            highPrice: (product.approvedSale || product.ownerSale) ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
-            offerCount: (product.approvedSale || product.ownerSale) ? undefined : product.variants.length,
+            lowPrice: fixedOffer ? undefined : product.minPriceKzt,
+            highPrice: fixedOffer ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
+            offerCount: fixedOffer ? undefined : product.variants.length,
             url: `https://acahydraulic.kz/catalog/${product.handle}/`,
           } : undefined,
         }}
@@ -273,7 +290,7 @@ export default function CatalogProduct() {
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">{productSeo.name}</h1>
             {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
-            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{product.ownerSale ? seoDescription : copy.productDescription}</p>
+            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct) ? seoDescription : copy.productDescription}</p>
 
             <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
               <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{fitmentLabel}</h2>
@@ -292,8 +309,8 @@ export default function CatalogProduct() {
                 {product.available ? copy.available : copy.checkAvailability}
               </div>
               {product.ownerSale && <p className="mt-3 text-sm leading-6 text-gray-300">{catSale.terms[language]}</p>}
-              {product.approvedSale && <p className="mt-3 text-sm leading-6 text-gray-300">
-                {merchantOffer ? merchantPumps.terms[language] : language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу — 3–14 күн. Жеткізу — кг үшін 3 АҚШ долларынан бастап, бөлек төленеді. Алдын ала төлем 100%. Жеткізудің толық құны төлемге дейін келісіледі. Ақау болса — сервис орталығы арқылы ауыстыру. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan in 3–14 days. Shipping from USD 3 per kg, charged separately. 100% prepayment. Final shipping cost agreed before payment. Defective units replaced through our service center. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
+              {(product.approvedSale || product.ownerProduct) && <p className="mt-3 text-sm leading-6 text-gray-300">
+                {merchantOffer ? merchantTerms : language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу — 3–14 күн. Жеткізу — кг үшін 3 АҚШ долларынан бастап, бөлек төленеді. Алдын ала төлем 100%. Жеткізудің толық құны төлемге дейін келісіледі. Ақау болса — сервис орталығы арқылы ауыстыру. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan in 3–14 days. Shipping from USD 3 per kg, charged separately. 100% prepayment. Final shipping cost agreed before payment. Defective units replaced through our service center. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
               </p>}
               <button
                 type="button"
@@ -316,6 +333,7 @@ export default function CatalogProduct() {
             </div>
 
             {product.ownerSale && <section className="mt-8"><h2 className="text-2xl font-bold">Этот насос уже покупали в ACA Hydraulic</h2><p className="my-4 text-gray-300">Продали новый насос для CAT 432E. По обратной связи клиента, он остался доволен покупкой.</p><Cat432eSaleMedia /><Link href={catSale.casePath} className="mt-4 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline">Кейс продажи: CAT 432E и насос 267-2755</Link></section>}
+            {product.ownerProduct && <section className="mt-8 rounded-lg border border-[#FFC000]/30 bg-[#FFC000]/5 p-5"><h2 className="text-xl font-bold">Подтверждено по реальному товару</h2><ul className="mt-4 grid gap-2 text-sm leading-6 text-gray-300"><li>HANDOK HYDRAULIC, модель H5V80DTP-12T.</li><li>Номер детали YKSKR-9K00, маркировка Made in Korea.</li><li>Цена 2 530 000 ₸, доставка по Казахстану включена.</li></ul><Link href="/blog/k5v80dtp-handok-hitachi-zx160w/" className="mt-4 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Как проверить H5V80DTP и K5V80DTP перед заказом</Link></section>}
             {product.tags.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-2">
                 {product.tags.slice(0, 8).map((tag) => (
