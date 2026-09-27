@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { isExcludedCatalogImage } from './lib/catalog-image-hygiene.mjs';
+
 const catalogDir = path.resolve(process.argv[2] || 'client/public/catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
 const forbiddenBrand = /sinocmp/i;
@@ -114,8 +116,11 @@ assert(
 );
 const wiringHarnessesWithImages = wiringHarnesses.filter((product) => product.gallery.length > 0);
 const uniqueWiringHarnessGalleries = new Set(wiringHarnessesWithImages.map((product) => JSON.stringify(product.gallery)));
-assert.equal(wiringHarnessesWithImages.length, wiringHarnesses.length, 'every wiring harness must have at least one source image');
 assert.equal(uniqueWiringHarnessGalleries.size, wiringHarnessesWithImages.length, 'wiring harness products must not share the same complete gallery');
+assert(
+  products.every((product) => product.gallery.every((imageUrl) => !isExcludedCatalogImage(product.id, imageUrl))),
+  'visible supplier marks and verified duplicate images must not be published',
+);
 for (const product of wiringHarnesses) {
   for (const imageUrl of product.gallery.filter((value) => value.startsWith('/catalog-assets/wiring-harnesses/'))) {
     const filePath = path.join(catalogDir, '..', imageUrl.replace(/^\//, ''));
@@ -157,6 +162,7 @@ console.log(
       pumpParts: pumpParts.length,
       wiringHarnesses: wiringHarnesses.length,
       wiringHarnessImages: wiringHarnesses.reduce((total, product) => total + product.gallery.length, 0),
+      wiringHarnessesWithoutImages: wiringHarnesses.length - wiringHarnessesWithImages.length,
       uniqueWiringHarnessGalleries: uniqueWiringHarnessGalleries.size,
       locallyMirroredWiringHarnessImages: wiringHarnesses.reduce(
         (total, product) => total + product.gallery.filter((imageUrl) => imageUrl.startsWith('/catalog-assets/wiring-harnesses/')).length,

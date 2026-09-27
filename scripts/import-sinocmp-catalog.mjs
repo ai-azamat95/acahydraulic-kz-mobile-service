@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { extractFitment } from './lib/catalog-fitment.mjs';
+import { catalogImageExclusionReason, isExcludedCatalogImage } from './lib/catalog-image-hygiene.mjs';
 
 const SOURCE_ORIGIN = 'https://sinocmp.com';
 const KAZAKHSTAN_MARKET_COOKIE = 'localization=KZ; _shopify_country=KZ; cart_currency=KZT';
@@ -312,7 +313,7 @@ async function mirrorSupplierNamedWiringHarnessImages(collectionProducts) {
     const productId = String(product.id);
     const gallery = sourceOrderedProductGallery(product);
     gallery.forEach((imageUrl, index) => {
-      if (!containsSupplierBrand(imageUrl)) return;
+      if (!containsSupplierBrand(imageUrl) || isExcludedCatalogImage(productId, imageUrl)) return;
       downloads.push({ productId, imageUrl, index });
     });
   }
@@ -348,6 +349,7 @@ function publicProductGallery(product, categories) {
   if (categoryList.includes('pump-parts')) return [PUMP_PARTS_PLACEHOLDER];
   if (categoryList.includes('wiring-harnesses')) {
     return sourceOrderedProductGallery(product)
+      .filter((imageUrl) => !isExcludedCatalogImage(product.id, imageUrl))
       .map((imageUrl) => {
         if (!containsSupplierBrand(imageUrl)) return imageUrl;
         return wiringHarnessMirroredImages.get(mirroredWiringHarnessImageKey(String(product.id), imageUrl)) || null;
@@ -357,7 +359,9 @@ function publicProductGallery(product, categories) {
   if (categoryList.includes('fuel-injectors')) return [FUEL_INJECTOR_PLACEHOLDER];
   if (categoryList.includes('fuel-pumps')) return [FUEL_PUMP_PLACEHOLDER];
   if (categoryList.includes('engine-rebuild-kits')) return [ENGINE_REBUILD_KIT_PLACEHOLDER];
-  return productGallery(product).filter((imageUrl) => !containsSupplierBrand(imageUrl));
+  return productGallery(product).filter(
+    (imageUrl) => !containsSupplierBrand(imageUrl) && !isExcludedCatalogImage(product.id, imageUrl),
+  );
 }
 
 function normalizeProduct(
@@ -814,7 +818,11 @@ function verifyWiringHarnessImport(collectionProducts, importedProducts) {
   let exactSkuMatches = 0;
   let mirroredImages = 0;
   let productsWithoutSourceImages = 0;
+  let excludedVisibleSupplierMarkImages = 0;
+  let excludedVerifiedDuplicateImages = 0;
+  let productsWithoutPublishedImages = 0;
   const productsWithoutSourceImagesList = [];
+  const productsWithoutPublishedImagesList = [];
 
   for (const product of collectionProducts) {
     const id = String(product.id);
@@ -823,10 +831,24 @@ function verifyWiringHarnessImport(collectionProducts, importedProducts) {
     const expectedGallery = publicProductGallery(product, ['wiring-harnesses']);
     const expectedSkus = (product.variants || []).map((variant) => publicSku(variant.sku, variant.id));
     rawSourceImages += rawGallery.length;
+    for (const imageUrl of rawGallery) {
+      const reason = catalogImageExclusionReason(id, imageUrl);
+      if (reason === 'visible-supplier-mark') excludedVisibleSupplierMarkImages += 1;
+      if (reason === 'verified-duplicate') excludedVerifiedDuplicateImages += 1;
+    }
     mirroredImages += expectedGallery.filter((imageUrl) => imageUrl.startsWith('/catalog-assets/wiring-harnesses/')).length;
     if (rawGallery.length === 0) {
       productsWithoutSourceImages += 1;
       productsWithoutSourceImagesList.push({
+        id,
+        handle: publicHandle(product.handle, product.id),
+        title: publicText(product.title),
+        skus: expectedSkus,
+      });
+    }
+    if (expectedGallery.length === 0) {
+      productsWithoutPublishedImages += 1;
+      productsWithoutPublishedImagesList.push({
         id,
         handle: publicHandle(product.handle, product.id),
         title: publicText(product.title),
@@ -870,9 +892,15 @@ function verifyWiringHarnessImport(collectionProducts, importedProducts) {
     exactSkuMatches,
     productsWithoutSourceImages,
     productsWithoutSourceImagesList,
+    excludedVisibleSupplierMarkImages,
+    excludedVerifiedDuplicateImages,
+    productsWithoutPublishedImages,
+    productsWithoutPublishedImagesList,
     unexpectedProducts: unexpectedProductIds.length,
     failures: failures.slice(0, 50),
-    passed: failures.length === 0 && publishedImages === rawSourceImages,
+    passed:
+      failures.length === 0 &&
+      publishedImages === rawSourceImages - excludedVisibleSupplierMarkImages - excludedVerifiedDuplicateImages,
   };
 
   if (!report.passed) {
