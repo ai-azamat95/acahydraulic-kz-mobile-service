@@ -6,12 +6,14 @@ import { extractFitment } from './lib/catalog-fitment.mjs';
 const SOURCE_ORIGIN = 'https://sinocmp.com';
 const KAZAKHSTAN_MARKET_COOKIE = 'localization=KZ; _shopify_country=KZ; cart_currency=KZT';
 const OUTPUT_DIR = path.resolve('client/public/catalog-data');
+const WIRING_HARNESS_ASSET_DIR = path.resolve('client/public/catalog-assets/wiring-harnesses');
 const PAGE_SIZE = 250;
 const MARKUP = 1.5;
 const CONTROLLER_MARKUP = 1.8;
 const CONTROLLER_COLLECTION = 'controller';
 const MONITOR_MARKUP = 1.5;
 const MONITOR_COLLECTION = 'monitor';
+const WIRING_HARNESS_COLLECTION = 'wiring-harness';
 const PRICE_ON_REQUEST_THRESHOLD_KZT = 10_000_000;
 const CONCURRENCY = 2;
 const COLLECTION_CONCURRENCY = 3;
@@ -62,10 +64,10 @@ const STRICT_CATEGORY_COLLECTIONS = [
   ['engine-rebuild-kits', 'engine-overhaul-rebuild-kit'],
 ];
 const PUMP_PARTS_PLACEHOLDER = '/catalog-assets/category-pump-parts.jpg';
-const WIRING_HARNESS_PLACEHOLDER = '/catalog-assets/category-wiring-harness.jpg';
 const FUEL_INJECTOR_PLACEHOLDER = '/catalog-assets/category-fuel-injector.jpg';
 const FUEL_PUMP_PLACEHOLDER = '/catalog-assets/category-fuel-pump.jpg';
 const ENGINE_REBUILD_KIT_PLACEHOLDER = '/catalog-assets/category-engine-rebuild-kit.jpg';
+const wiringHarnessMirroredImages = new Map();
 
 const categoryRules = [
   ['pump-parts', ['pump spare', 'pump parts', 'valve plate', 'piston shoe', 'swash plate']],
@@ -101,6 +103,27 @@ async function fetchJson(url, attempt = 1) {
     return fetchJson(url, attempt + 1);
   }
   throw new Error(`Catalog request failed: ${response.status} ${url}`);
+}
+
+async function fetchBinary(url, attempt = 1) {
+  const response = await fetch(url, {
+    headers: {
+      accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+      'user-agent': 'ACA-Hydraulic-Catalog-Sync/1.4 (+https://acahydraulic.kz/catalog/)',
+    },
+  });
+  if (response.ok) {
+    return {
+      contents: Buffer.from(await response.arrayBuffer()),
+      contentType: response.headers.get('content-type') || '',
+    };
+  }
+  if ((response.status === 429 || response.status >= 500) && attempt < MAX_RETRIES) {
+    const retryAfter = Number(response.headers.get('retry-after')) || Math.min(30, 2 ** attempt);
+    await sleep(retryAfter * 1000 + Math.floor(Math.random() * 750));
+    return fetchBinary(url, attempt + 1);
+  }
+  throw new Error(`Catalog image request failed: ${response.status} ${url}`);
 }
 
 function normalizeSearchText(value) {
@@ -239,10 +262,98 @@ function productGallery(product) {
   ];
 }
 
+function sourceOrderedProductGallery(product) {
+  const variantImages = Array.isArray(product.variants) ? product.variants.map((variant) => variant.featured_image).filter(Boolean) : [];
+  const sourceImages = Array.isArray(product.images) ? product.images : [];
+  const candidates = [...sourceImages, product.image, product.featured_image, ...variantImages];
+
+  return [
+    ...new Set(
+      candidates
+        .filter((value) => imageBelongsToProduct(product, value))
+        .map(normalizeImageUrl)
+        .filter(Boolean),
+    ),
+  ];
+}
+
+function mirroredWiringHarnessImageKey(productId, imageUrl) {
+  return `${productId}:${imageUrl}`;
+}
+
+function imageFileExtension(imageUrl, contentType = '') {
+  const contentTypeExtensions = {
+    'image/avif': '.avif',
+    'image/gif': '.gif',
+    'image/jpeg': '.jpg',
+    'image/png': '.png',
+    'image/svg+xml': '.svg',
+    'image/webp': '.webp',
+  };
+  const normalizedContentType = contentType.split(';')[0].trim().toLowerCase();
+  if (contentTypeExtensions[normalizedContentType]) return contentTypeExtensions[normalizedContentType];
+  try {
+    const extension = path.extname(new URL(imageUrl).pathname).toLowerCase();
+    if (['.avif', '.gif', '.jpeg', '.jpg', '.png', '.svg', '.webp'].includes(extension)) return extension;
+  } catch {
+    // The source URL has already been validated. Use a safe fallback extension.
+  }
+  return '.jpg';
+}
+
+async function mirrorSupplierNamedWiringHarnessImages(collectionProducts) {
+  const stagingAssetDir = `${WIRING_HARNESS_ASSET_DIR}.tmp`;
+  fs.rmSync(stagingAssetDir, { recursive: true, force: true });
+  fs.mkdirSync(stagingAssetDir, { recursive: true });
+  wiringHarnessMirroredImages.clear();
+  const downloads = [];
+
+  for (const product of collectionProducts) {
+    const productId = String(product.id);
+    const gallery = sourceOrderedProductGallery(product);
+    gallery.forEach((imageUrl, index) => {
+      if (!containsSupplierBrand(imageUrl)) return;
+      downloads.push({ productId, imageUrl, index });
+    });
+  }
+
+  let nextDownload = 0;
+  async function worker() {
+    while (nextDownload < downloads.length) {
+      const { productId, imageUrl, index } = downloads[nextDownload++];
+      const { contents, contentType } = await fetchBinary(imageUrl);
+      if (contents.length === 0) throw new Error(`Downloaded an empty wiring harness image: ${imageUrl}`);
+      const extension = imageFileExtension(imageUrl, contentType);
+      const fileName = `${productId}-${String(index + 1).padStart(2, '0')}${extension}`;
+      const publicPath = `/catalog-assets/wiring-harnesses/${fileName}`;
+      wiringHarnessMirroredImages.set(mirroredWiringHarnessImageKey(productId, imageUrl), publicPath);
+      fs.writeFileSync(path.join(stagingAssetDir, fileName), contents);
+    }
+  }
+
+  try {
+    await Promise.all(Array.from({ length: Math.min(4, downloads.length || 1) }, () => worker()));
+    fs.rmSync(WIRING_HARNESS_ASSET_DIR, { recursive: true, force: true });
+    fs.renameSync(stagingAssetDir, WIRING_HARNESS_ASSET_DIR);
+    return downloads.length;
+  } catch (error) {
+    fs.rmSync(stagingAssetDir, { recursive: true, force: true });
+    wiringHarnessMirroredImages.clear();
+    throw error;
+  }
+}
+
 function publicProductGallery(product, categories) {
   const categoryList = Array.isArray(categories) ? categories : [categories];
   if (categoryList.includes('pump-parts')) return [PUMP_PARTS_PLACEHOLDER];
-  if (categoryList.includes('wiring-harnesses')) return [WIRING_HARNESS_PLACEHOLDER];
+  if (categoryList.includes('wiring-harnesses')) {
+    return sourceOrderedProductGallery(product)
+      .map((imageUrl) => {
+        if (!containsSupplierBrand(imageUrl)) return imageUrl;
+        return wiringHarnessMirroredImages.get(mirroredWiringHarnessImageKey(String(product.id), imageUrl)) || null;
+      })
+      .filter(Boolean);
+  }
   if (categoryList.includes('fuel-injectors')) return [FUEL_INJECTOR_PLACEHOLDER];
   if (categoryList.includes('fuel-pumps')) return [FUEL_PUMP_PLACEHOLDER];
   if (categoryList.includes('engine-rebuild-kits')) return [ENGINE_REBUILD_KIT_PLACEHOLDER];
@@ -691,6 +802,85 @@ function verifyPricedCollectionImport(collectionProducts, importedProducts, { co
   return report;
 }
 
+function verifyWiringHarnessImport(collectionProducts, importedProducts) {
+  const failures = [];
+  const sourceIds = new Set(collectionProducts.map((product) => String(product.id)));
+  const importedHarnesses = [...importedProducts.values()].filter((product) =>
+    (product.categories || [product.category]).includes('wiring-harnesses'),
+  );
+  let rawSourceImages = 0;
+  let publishedImages = 0;
+  let exactGalleryMatches = 0;
+  let exactSkuMatches = 0;
+  let mirroredImages = 0;
+  let productsWithoutSourceImages = 0;
+  const productsWithoutSourceImagesList = [];
+
+  for (const product of collectionProducts) {
+    const id = String(product.id);
+    const imported = importedProducts.get(id);
+    const rawGallery = sourceOrderedProductGallery(product);
+    const expectedGallery = publicProductGallery(product, ['wiring-harnesses']);
+    const expectedSkus = (product.variants || []).map((variant) => publicSku(variant.sku, variant.id));
+    rawSourceImages += rawGallery.length;
+    mirroredImages += expectedGallery.filter((imageUrl) => imageUrl.startsWith('/catalog-assets/wiring-harnesses/')).length;
+    if (rawGallery.length === 0) {
+      productsWithoutSourceImages += 1;
+      productsWithoutSourceImagesList.push({
+        id,
+        handle: publicHandle(product.handle, product.id),
+        title: publicText(product.title),
+        skus: expectedSkus,
+      });
+    }
+
+    if (!imported) {
+      failures.push({ id, reason: 'missing-product', handle: publicHandle(product.handle, product.id) });
+      continue;
+    }
+
+    publishedImages += imported.gallery.length;
+    const importedSkus = imported.variants.map((variant) => variant.sku || '');
+    if (exactList(importedSkus) === exactList(expectedSkus)) exactSkuMatches += 1;
+    else failures.push({ id, reason: 'sku-mismatch', expected: expectedSkus, imported: importedSkus });
+
+    if (exactList(imported.gallery) === exactList(expectedGallery)) exactGalleryMatches += 1;
+    else failures.push({ id, reason: 'gallery-mismatch', expected: expectedGallery, imported: imported.gallery });
+
+    if (imported.imageUrl !== (expectedGallery[0] || null)) {
+      failures.push({ id, reason: 'primary-image-mismatch', expected: expectedGallery[0] || null, imported: imported.imageUrl });
+    }
+  }
+
+  const unexpectedProductIds = importedHarnesses.map((product) => product.id).filter((id) => !sourceIds.has(id));
+  if (unexpectedProductIds.length) {
+    failures.push({ reason: 'unexpected-products', ids: unexpectedProductIds.slice(0, 20), count: unexpectedProductIds.length });
+  }
+
+  const report = {
+    checkedAt: new Date().toISOString(),
+    collection: WIRING_HARNESS_COLLECTION,
+    category: 'wiring-harnesses',
+    sourceProducts: collectionProducts.length,
+    importedProducts: importedHarnesses.length,
+    rawSourceImages,
+    publishedImages,
+    mirroredImages,
+    exactGalleryMatches,
+    exactSkuMatches,
+    productsWithoutSourceImages,
+    productsWithoutSourceImagesList,
+    unexpectedProducts: unexpectedProductIds.length,
+    failures: failures.slice(0, 50),
+    passed: failures.length === 0 && publishedImages === rawSourceImages,
+  };
+
+  if (!report.passed) {
+    throw new Error(`Wiring harness import verification failed: ${JSON.stringify(report)}`);
+  }
+  return report;
+}
+
 async function run() {
   fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -713,6 +903,10 @@ async function run() {
   const monitorCollection = categoryCollections.find((item) => item.handle === MONITOR_COLLECTION);
   if (!monitorCollection) throw new Error('Monitor collection was not fetched');
   const monitorProductIds = new Set(monitorCollection.products.map((product) => String(product.id)));
+  const wiringHarnessCollection = categoryCollections.find((item) => item.handle === WIRING_HARNESS_COLLECTION);
+  if (!wiringHarnessCollection) throw new Error('Wiring harness collection was not fetched');
+  const mirroredWiringHarnessImages = await mirrorSupplierNamedWiringHarnessImages(wiringHarnessCollection.products);
+  console.log(`Mirrored ${mirroredWiringHarnessImages} supplier-named wiring harness images`);
   const collectionCategoryByProductId = new Map();
   for (const [category, handles] of CATEGORY_COLLECTIONS) {
     for (const handle of handles) {
@@ -866,6 +1060,8 @@ async function run() {
     category: 'monitors',
   });
   writeJson('monitor-import-audit.json', monitorAudit);
+  const wiringHarnessAudit = verifyWiringHarnessImport(wiringHarnessCollection.products, importedCatalogProducts);
+  writeJson('wiring-harness-import-audit.json', wiringHarnessAudit);
   writeJson('manifest.json', {
     importedAt,
     productCount: searchIndex.length,
@@ -883,7 +1079,8 @@ async function run() {
     strictCategoryAuditFile: 'strict-category-import-audit.json',
     controllerAuditFile: 'controller-import-audit.json',
     monitorAuditFile: 'monitor-import-audit.json',
-    imagePolicy: 'Product images are published without visible supplier identity in customer-facing catalogue data.',
+    wiringHarnessAuditFile: 'wiring-harness-import-audit.json',
+    imagePolicy: 'Product images are published without visible supplier identity in customer-facing catalogue data. Wiring harness galleries preserve the source product association and source image order.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);
 }

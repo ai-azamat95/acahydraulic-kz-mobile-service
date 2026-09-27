@@ -8,6 +8,7 @@ const audit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.catalogA
 const strictCategoryAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.strictCategoryAuditFile), 'utf8'));
 const controllerAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.controllerAuditFile), 'utf8'));
 const monitorAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.monitorAuditFile), 'utf8'));
+const wiringHarnessGalleryAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.wiringHarnessAuditFile), 'utf8'));
 const categorySummary = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.categorySummaryFile), 'utf8'));
 const products = [];
 
@@ -72,6 +73,17 @@ assert.equal(wiringHarnessAudit.importedProducts, wiringHarnessAudit.sourceProdu
 assert.deepEqual(wiringHarnessAudit.missingProductIds, [], 'no supplier wiring harnesses may be missing');
 assert.deepEqual(wiringHarnessAudit.unexpectedProductIds, [], 'no keyword-only products may enter the wiring harness category');
 assert.equal(categorySummary['wiring-harnesses'].count, wiringHarnessAudit.sourceProducts, 'rendered wiring harness count must match the supplier collection');
+assert.equal(wiringHarnessGalleryAudit.passed, true, 'wiring harness gallery comparison must pass');
+assert.equal(wiringHarnessGalleryAudit.collection, 'wiring-harness');
+assert.equal(wiringHarnessGalleryAudit.category, 'wiring-harnesses');
+assert.equal(wiringHarnessGalleryAudit.sourceProducts, wiringHarnessAudit.sourceProducts, 'gallery audit must cover every source wiring harness');
+assert.equal(wiringHarnessGalleryAudit.importedProducts, wiringHarnessAudit.importedProducts, 'gallery audit must cover every imported wiring harness');
+assert.equal(wiringHarnessGalleryAudit.exactGalleryMatches, wiringHarnessGalleryAudit.sourceProducts, 'every wiring harness gallery must match its source product');
+assert.equal(wiringHarnessGalleryAudit.exactSkuMatches, wiringHarnessGalleryAudit.sourceProducts, 'every wiring harness SKU list must match its source product');
+assert.equal(wiringHarnessGalleryAudit.publishedImages, wiringHarnessGalleryAudit.rawSourceImages, 'every source wiring harness image must be published');
+assert(wiringHarnessGalleryAudit.mirroredImages > 0, 'supplier-named wiring harness images must be mirrored locally');
+assert.equal(wiringHarnessGalleryAudit.productsWithoutSourceImages, 0, 'every source wiring harness must have at least one image');
+assert.equal(wiringHarnessGalleryAudit.failures.length, 0, 'wiring harness gallery audit must have no failures');
 
 const fuelInjectorAudit = strictCategoryAudit.categories['fuel-injectors'];
 assert(fuelInjectorAudit, 'fuel injector collection audit must be present');
@@ -155,6 +167,10 @@ console.log(
       monitors: monitorAudit.sourceProducts,
       monitorVariants: monitorAudit.sourceVariantCount,
       monitorMarkup: monitorAudit.markup,
+      wiringHarnesses: wiringHarnessGalleryAudit.sourceProducts,
+      wiringHarnessImages: wiringHarnessGalleryAudit.publishedImages,
+      locallyMirroredWiringHarnessImages: wiringHarnessGalleryAudit.mirroredImages,
+      wiringHarnessesWithoutImages: wiringHarnessGalleryAudit.productsWithoutSourceImages,
       productsWithoutSourceImages: audit.productsWithoutSourceImages,
       categoryCounts: Object.fromEntries(Object.entries(categorySummary).map(([category, summary]) => [category, summary.count])),
     },
