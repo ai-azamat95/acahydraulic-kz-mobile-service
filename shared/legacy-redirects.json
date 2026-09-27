@@ -7,5 +7,6 @@
   "/remont-frontalnogo-pogruzchika": "/services/loader-repair/",
   "/remont-greydera": "/services/grader-repair/",
   "/remont-buldozerov": "/services/bulldozer-repair/",
-  "/projects": "/cases/"
+  "/projects": "/cases/",
+  "/catalog/category/controllers-monitors": "/catalog/category/controllers/"
 }

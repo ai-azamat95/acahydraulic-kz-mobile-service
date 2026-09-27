@@ -10,13 +10,15 @@ const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap-catalog-landings.x
 const robots = fs.readFileSync(path.join(publicDir, 'robots.txt'), 'utf8');
 const homeSource = fs.readFileSync(path.resolve('client/src/pages/Home.tsx'), 'utf8');
 const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
+const legacyRedirects = JSON.parse(fs.readFileSync(path.resolve('shared/legacy-redirects.json'), 'utf8'));
+const catalogRedirects = Object.fromEntries(Object.entries(legacyRedirects).filter(([from]) => from.startsWith('/catalog/')));
 const pages = [
   ...landingIndex.categories.map((page) => ({ type: 'category', slug: page.id, count: page.count })),
   ...landingIndex.brands.map((page) => ({ type: 'brand', slug: page.slug, count: page.count })),
   ...landingIndex.models.map((page) => ({ type: 'model', slug: page.slug, count: page.count })),
 ];
 
-assert.equal(landingIndex.categories.length, 19, 'all 19 catalogue categories need landing pages');
+assert.equal(landingIndex.categories.length, 20, 'all 20 catalogue categories need landing pages');
 assert.deepEqual(landingIndex.categories.map((item) => item.id), catalogCategoryLandings.map((item) => item.id), 'category landing list must match UI categories');
 assert.deepEqual(Object.keys(categorySeoContent).sort(), catalogCategoryLandings.map((item) => item.id).sort(), 'every category needs SEO selection content');
 assert(homeSource.includes('href={`/catalog/category/${item.id}`}'), 'home category cards must use direct landing-page links');
@@ -57,7 +59,27 @@ for (const page of pages) {
   descriptions.add(description);
 }
 
-for (const slug of ['hydraulic-pumps', 'gear-pumps', 'piston-pumps', 'pump-parts', 'hydraulic-motors', 'main-control-valves', 'fuel-injectors', 'fuel-pumps', 'engine-rebuild-kits', 'wiring-harnesses']) {
+for (const [from, to] of Object.entries(catalogRedirects)) {
+  const html = fs.readFileSync(path.join(publicDir, from, 'index.html'), 'utf8');
+  assert(html.includes(`http-equiv="refresh" content="0;url=${to}"`), `${from} needs a static redirect to ${to}`);
+  assert(html.includes(`rel="canonical" href="https://acahydraulic.kz${to}"`), `${from} needs the destination canonical`);
+  assert(!sitemap.includes(`<loc>https://acahydraulic.kz${from}/</loc>`), `${from} must not remain in the landing sitemap`);
+}
+
+for (const slug of [
+  'hydraulic-pumps',
+  'gear-pumps',
+  'piston-pumps',
+  'pump-parts',
+  'hydraulic-motors',
+  'main-control-valves',
+  'fuel-injectors',
+  'fuel-pumps',
+  'engine-rebuild-kits',
+  'wiring-harnesses',
+  'controllers',
+  'monitors',
+]) {
   assert(homeSource.includes(`id: "${slug}"`), `home page must link directly to ${slug}`);
 }
 

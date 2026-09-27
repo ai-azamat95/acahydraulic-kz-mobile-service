@@ -7,6 +7,7 @@ import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 const out = 'dist/public';
 const cases = JSON.parse(fs.readFileSync('shared/video-cases.json', 'utf8'));
 const redirects = JSON.parse(fs.readFileSync('shared/legacy-redirects.json', 'utf8'));
+const pageRedirects = Object.fromEntries(Object.entries(redirects).filter(([from]) => !from.startsWith('/catalog/')));
 const read = route => fs.readFileSync(path.join(out, route, 'index.html'), 'utf8');
 const schemas = html => [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
 
@@ -53,12 +54,12 @@ test('watch pages are discoverable from video sitemap, cases sitemap and existin
 });
 
 test('old service URLs redirect only to existing relevant pages, without redirect loops', () => {
-  for (const [from, to] of Object.entries(redirects)) {
+  for (const [from, to] of Object.entries(pageRedirects)) {
     const html = read(from);
     assert.ok(html.includes(`http-equiv="refresh" content="0;url=${to}"`));
     assert.ok(html.includes(`rel="canonical" href="https://acahydraulic.kz${to}"`));
     assert.ok(read(to).includes('<h1'));
-    assert.ok(!Object.hasOwn(redirects, to.replace(/\/$/, '')));
+    assert.ok(!Object.hasOwn(pageRedirects, to.replace(/\/$/, '')));
     assert.notEqual(to, '/');
   }
 });

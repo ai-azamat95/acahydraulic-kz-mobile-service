@@ -10,6 +10,8 @@ const PAGE_SIZE = 250;
 const MARKUP = 1.5;
 const CONTROLLER_MARKUP = 1.8;
 const CONTROLLER_COLLECTION = 'controller';
+const MONITOR_MARKUP = 1.5;
+const MONITOR_COLLECTION = 'monitor';
 const PRICE_ON_REQUEST_THRESHOLD_KZT = 10_000_000;
 const CONCURRENCY = 2;
 const COLLECTION_CONCURRENCY = 3;
@@ -31,7 +33,8 @@ const CATEGORY_COLLECTIONS = [
   ['hydraulic-motors', ['hydraulic-motor']],
   ['diagnostic-tools', ['diagnostic-tool', 'pressure-test-kit']],
   ['air-conditioning', ['air-conditioning']],
-  ['controllers-monitors', ['controller', 'monitor', 'joystick-controller']],
+  ['controllers', ['controller', 'joystick-controller']],
+  ['monitors', ['monitor']],
   ['seals-filters', ['filters', 'seal-kits', 'engine-gasket-kit', 'consumable-parts']],
   ['engine-fuel', ['fuel-parts', 'engine-parts']],
   ['electrical', ['electrical-parts']],
@@ -52,6 +55,7 @@ const PUMP_COLLECTIONS = ['hydraulic-pump-assembly', 'piston-pump', 'gear-pump']
 const STRICT_CATEGORY_COLLECTIONS = [
   ['hydraulic-motors', 'hydraulic-motor'],
   ['main-control-valves', 'main-control-valve'],
+  ['monitors', 'monitor'],
   ['wiring-harnesses', 'wiring-harness'],
   ['fuel-injectors', 'fuel-injector'],
   ['fuel-pumps', 'fuel-pump'],
@@ -69,7 +73,8 @@ const categoryRules = [
   ['control-valves', ['control valve', 'main valve', 'relief valve', 'pilot valve', 'flow valve']],
   ['diagnostic-tools', ['diagnostic tool', 'pressure test', 'gauge kit']],
   ['hydraulic-motors', ['hydraulic motor', 'swing motor', 'travel motor', 'orbit motor']],
-  ['controllers-monitors', ['controller', 'monitor', 'display', 'ecu', 'ecm']],
+  ['monitors', ['monitor', 'display']],
+  ['controllers', ['controller', 'ecu', 'ecm']],
   ['seals-filters', ['seal kit', 'gasket kit', 'filter']],
   ['air-conditioning', ['compressor', 'air conditioning', 'a/c ', 'blower motor', 'radiator']],
   ['engine-fuel', ['fuel injector', 'fuel pump', 'common rail', 'turbocharger', 'water pump', 'oil pump', 'engine']],
@@ -152,7 +157,12 @@ function detectCategory(product, collectionCategoryByProductId = new Map()) {
   const textCategory = detectCategoryFromText(haystack);
   const collectionCategory = collectionCategoryByProductId.get(String(product.id));
 
-  if (['hydraulic-pumps', 'gear-pumps', 'piston-pumps', 'hydraulic-motors', 'main-control-valves'].includes(collectionCategory)) return collectionCategory;
+  if (
+    ['hydraulic-pumps', 'gear-pumps', 'piston-pumps', 'hydraulic-motors', 'main-control-valves', 'controllers', 'monitors'].includes(
+      collectionCategory,
+    )
+  )
+    return collectionCategory;
 
   // A small set of precise product phrases is more reliable than collection
   // membership when a supplier assigns a valve to the Hydraulic Motor collection.
@@ -163,6 +173,7 @@ function detectCategory(product, collectionCategoryByProductId = new Map()) {
   // Keep exact supplier collection categories free of products that only
   // happen to contain the category phrase in their title or tags.
   if (textCategory === 'hydraulic-motors') return collectionCategory || 'other-parts';
+  if (textCategory === 'monitors') return collectionCategory || 'other-parts';
 
   return collectionCategory || textCategory || 'other-parts';
 }
@@ -173,8 +184,11 @@ function markedUpPrice(price, markup = MARKUP) {
   return Math.round(numeric * markup * 100) / 100;
 }
 
-function productMarkup(productId, controllerProductIds) {
-  return controllerProductIds.has(String(productId)) ? CONTROLLER_MARKUP : MARKUP;
+function productMarkup(productId, controllerProductIds, monitorProductIds) {
+  const id = String(productId);
+  if (controllerProductIds.has(id)) return CONTROLLER_MARKUP;
+  if (monitorProductIds.has(id)) return MONITOR_MARKUP;
+  return MARKUP;
 }
 
 function rawImageUrl(value) {
@@ -235,10 +249,17 @@ function publicProductGallery(product, categories) {
   return productGallery(product).filter((imageUrl) => !containsSupplierBrand(imageUrl));
 }
 
-function normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId, controllerProductIds) {
+function normalizeProduct(
+  product,
+  page,
+  collectionCategoryByProductId,
+  strictCategoryMembershipsByProductId,
+  controllerProductIds,
+  monitorProductIds,
+) {
   const category = detectCategory(product, collectionCategoryByProductId);
   const title = publicText(product.title);
-  const markup = productMarkup(product.id, controllerProductIds);
+  const markup = productMarkup(product.id, controllerProductIds, monitorProductIds);
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
     title: variant.title === 'Default Title' ? '' : publicText(variant.title),
@@ -310,7 +331,13 @@ function pumpSourceSnapshot(product, collectionCategoryByProductId, strictCatego
   };
 }
 
-function catalogSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId, controllerProductIds) {
+function catalogSourceSnapshot(
+  product,
+  collectionCategoryByProductId,
+  strictCategoryMembershipsByProductId,
+  controllerProductIds,
+  monitorProductIds,
+) {
   const category = detectCategory(product, collectionCategoryByProductId);
   const categories = [...new Set([category, ...(strictCategoryMembershipsByProductId.get(String(product.id)) || [])])];
   return {
@@ -319,7 +346,7 @@ function catalogSourceSnapshot(product, collectionCategoryByProductId, strictCat
     title: publicText(product.title),
     skus: (product.variants || []).map((variant) => publicSku(variant.sku, variant.id)),
     sourcePricesKzt: (product.variants || []).map((variant) => Number(variant.price)),
-    markup: productMarkup(product.id, controllerProductIds),
+    markup: productMarkup(product.id, controllerProductIds, monitorProductIds),
     gallery: publicProductGallery(product, categories),
   };
 }
@@ -599,21 +626,21 @@ function verifyStrictCategoryImports(categoryCollections, importedProducts) {
   return report;
 }
 
-function verifyControllerImport(controllerProducts, importedProducts) {
+function verifyPricedCollectionImport(collectionProducts, importedProducts, { collection, markup, category }) {
   const failures = [];
   let sourceVariantCount = 0;
   let exactMarkupPrices = 0;
   let priceOnRequestVariants = 0;
 
-  for (const product of controllerProducts) {
+  for (const product of collectionProducts) {
     const id = String(product.id);
     const imported = importedProducts.get(id);
     if (!imported) {
       failures.push({ id, reason: 'missing-product', title: publicText(product.title) });
       continue;
     }
-    if (!(imported.categories || [imported.category]).includes('controllers-monitors')) {
-      failures.push({ id, reason: 'missing-controller-category', importedCategory: imported.category });
+    if (!(imported.categories || [imported.category]).includes(category)) {
+      failures.push({ id, reason: 'missing-collection-category', category, importedCategory: imported.category });
     }
     if (imported.variants.length !== (product.variants || []).length) {
       failures.push({
@@ -627,12 +654,12 @@ function verifyControllerImport(controllerProducts, importedProducts) {
 
     sourceVariantCount += product.variants.length;
     product.variants.forEach((variant, index) => {
-      const expectedPriceKzt = markedUpPrice(variant.price, CONTROLLER_MARKUP);
+      const expectedPriceKzt = markedUpPrice(variant.price, markup);
       const importedVariant = imported.variants[index];
       if (importedVariant.priceKzt !== expectedPriceKzt) {
         failures.push({
           id,
-          reason: 'controller-price-markup-mismatch',
+          reason: 'collection-price-markup-mismatch',
           sku: importedVariant.sku,
           sourcePriceKzt: Number(variant.price),
           expectedPriceKzt,
@@ -645,20 +672,21 @@ function verifyControllerImport(controllerProducts, importedProducts) {
 
   const report = {
     checkedAt: new Date().toISOString(),
-    collection: CONTROLLER_COLLECTION,
-    markup: CONTROLLER_MARKUP,
-    sourceProducts: controllerProducts.length,
-    importedProducts: controllerProducts.length - failures.filter((failure) => failure.reason === 'missing-product').length,
+    collection,
+    category,
+    markup,
+    sourceProducts: collectionProducts.length,
+    importedProducts: collectionProducts.length - failures.filter((failure) => failure.reason === 'missing-product').length,
     sourceVariantCount,
     exactMarkupPrices,
     priceOnRequestVariants,
-    sourceProductIds: controllerProducts.map((product) => String(product.id)),
+    sourceProductIds: collectionProducts.map((product) => String(product.id)),
     failures: failures.slice(0, 50),
     passed: failures.length === 0,
   };
 
   if (!report.passed) {
-    throw new Error(`Controller import verification failed: ${JSON.stringify(report)}`);
+    throw new Error(`${collection} import verification failed: ${JSON.stringify(report)}`);
   }
   return report;
 }
@@ -682,6 +710,9 @@ async function run() {
   const controllerCollection = categoryCollections.find((item) => item.handle === CONTROLLER_COLLECTION);
   if (!controllerCollection) throw new Error('Controller collection was not fetched');
   const controllerProductIds = new Set(controllerCollection.products.map((product) => String(product.id)));
+  const monitorCollection = categoryCollections.find((item) => item.handle === MONITOR_COLLECTION);
+  if (!monitorCollection) throw new Error('Monitor collection was not fetched');
+  const monitorProductIds = new Set(monitorCollection.products.map((product) => String(product.id)));
   const collectionCategoryByProductId = new Map();
   for (const [category, handles] of CATEGORY_COLLECTIONS) {
     for (const handle of handles) {
@@ -705,7 +736,12 @@ async function run() {
   }
   for (const productId of controllerProductIds) {
     const memberships = strictCategoryMembershipsByProductId.get(productId) || [];
-    memberships.push('controllers-monitors');
+    memberships.push('controllers');
+    strictCategoryMembershipsByProductId.set(productId, memberships);
+  }
+  for (const productId of monitorProductIds) {
+    const memberships = strictCategoryMembershipsByProductId.get(productId) || [];
+    memberships.push('monitors');
     strictCategoryMembershipsByProductId.set(productId, memberships);
   }
 
@@ -743,11 +779,24 @@ async function run() {
       for (const product of products) {
         sourceCatalogProducts.set(
           String(product.id),
-          catalogSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId, controllerProductIds),
+          catalogSourceSnapshot(
+            product,
+            collectionCategoryByProductId,
+            strictCategoryMembershipsByProductId,
+            controllerProductIds,
+            monitorProductIds,
+          ),
         );
       }
       const normalized = products.map((product) =>
-        normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId, controllerProductIds),
+        normalizeProduct(
+          product,
+          page,
+          collectionCategoryByProductId,
+          strictCategoryMembershipsByProductId,
+          controllerProductIds,
+          monitorProductIds,
+        ),
       );
       writeJson(`products-${String(page).padStart(3, '0')}.json`, normalized);
       const pageIndex = [];
@@ -805,8 +854,18 @@ async function run() {
   writeJson('pump-import-audit.json', pumpAudit);
   const strictCategoryAudit = verifyStrictCategoryImports(categoryCollections, importedCatalogProducts);
   writeJson('strict-category-import-audit.json', strictCategoryAudit);
-  const controllerAudit = verifyControllerImport(controllerCollection.products, importedCatalogProducts);
+  const controllerAudit = verifyPricedCollectionImport(controllerCollection.products, importedCatalogProducts, {
+    collection: CONTROLLER_COLLECTION,
+    markup: CONTROLLER_MARKUP,
+    category: 'controllers',
+  });
   writeJson('controller-import-audit.json', controllerAudit);
+  const monitorAudit = verifyPricedCollectionImport(monitorCollection.products, importedCatalogProducts, {
+    collection: MONITOR_COLLECTION,
+    markup: MONITOR_MARKUP,
+    category: 'monitors',
+  });
+  writeJson('monitor-import-audit.json', monitorAudit);
   writeJson('manifest.json', {
     importedAt,
     productCount: searchIndex.length,
@@ -814,6 +873,7 @@ async function run() {
     chunkCount: Math.ceil(searchIndex.length / PAGE_SIZE),
     markup: MARKUP,
     controllerMarkup: CONTROLLER_MARKUP,
+    monitorMarkup: MONITOR_MARKUP,
     priceOnRequestThresholdKzt: PRICE_ON_REQUEST_THRESHOLD_KZT,
     currency: 'KZT',
     indexFile: 'search-index.json',
@@ -822,6 +882,7 @@ async function run() {
     pumpAuditFile: 'pump-import-audit.json',
     strictCategoryAuditFile: 'strict-category-import-audit.json',
     controllerAuditFile: 'controller-import-audit.json',
+    monitorAuditFile: 'monitor-import-audit.json',
     imagePolicy: 'Product images are published without visible supplier identity in customer-facing catalogue data.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);

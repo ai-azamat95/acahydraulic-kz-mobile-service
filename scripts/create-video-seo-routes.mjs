@@ -6,6 +6,7 @@ const out = path.resolve('dist/public');
 const base = 'https://acahydraulic.kz';
 const cases = JSON.parse(fs.readFileSync(new URL('../shared/video-cases.json', import.meta.url), 'utf8'));
 const redirects = JSON.parse(fs.readFileSync(new URL('../shared/legacy-redirects.json', import.meta.url), 'utf8'));
+const pageRedirects = Object.fromEntries(Object.entries(redirects).filter(([from]) => !from.startsWith('/catalog/')));
 const catalogCaseVideo = {
   slug: catSale.casePath.replace(/^\/cases\/|\/$/g, ''),
   title: 'Основной гидронасос 267-2755 для CAT 432E: обзор проданного узла',
@@ -85,7 +86,7 @@ fs.writeFileSync(catalogCaseFile, catalogCaseHtml);
 
 // GitHub Pages has no server redirect rules. A zero-delay meta refresh and
 // matching canonical provide a static redirect; do not claim an HTTP 301.
-for (const [from, to] of Object.entries(redirects)) {
+for (const [from, to] of Object.entries(pageRedirects)) {
   if (!fs.existsSync(path.join(out, to, 'index.html'))) throw new Error(`Redirect destination missing: ${to}`);
   writeRoute(from, `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Страница переехала | ACA Hydraulic</title><meta http-equiv="refresh" content="0;url=${to}"><link rel="canonical" href="${base}${to}"></head><body><p>Страница переехала: <a href="${to}">перейти на актуальную страницу ACA Hydraulic</a>.</p></body></html>`);
 }
@@ -104,4 +105,4 @@ for (const route of ['cases', 'projects', 'cases/postavka-zamena-gidronasosa']) 
   html = html.replace('</main>', `${links}</main>`);
   fs.writeFileSync(file, html);
 }
-console.log(`Published ${cases.length} video watch pages, ${sitemapVideos.length} video sitemap entries and ${Object.keys(redirects).length} legacy redirects.`);
+console.log(`Published ${cases.length} video watch pages, ${sitemapVideos.length} video sitemap entries and ${Object.keys(pageRedirects).length} legacy redirects.`);

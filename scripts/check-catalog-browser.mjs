@@ -18,6 +18,8 @@ const expectedWiringHarnessCount = catalogProducts.filter((product) => (product.
 const expectedFuelInjectorCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('fuel-injectors')).length;
 const expectedFuelPumpCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('fuel-pumps')).length;
 const expectedEngineRebuildKitCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits')).length;
+const expectedControllerCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('controllers')).length;
+const expectedMonitorCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('monitors')).length;
 const server = http.createServer((req,res) => {
   let file = path.join(root,decodeURIComponent(req.url.split('?')[0]));
   if(!file.startsWith(root + path.sep) && file !== root){res.writeHead(403).end();return;}
@@ -43,8 +45,8 @@ try {
         await page.locator('.aca-category-card').first().waitFor();
         for(const lang of ['RU','KZ','EN']){
           await page.getByRole('button',{name:lang,exact:true}).click();
-          assert.equal(await page.locator('.aca-category-card:visible').count(),20);
-          assert.equal(await page.locator('.aca-category-count:visible').count(),20);
+          assert.equal(await page.locator('.aca-category-card:visible').count(),21);
+          assert.equal(await page.locator('.aca-category-count:visible').count(),21);
           assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
           assert.equal(
             new URL(await page.locator('[data-complete-engine-category] img').getAttribute('src'),origin).pathname,
@@ -78,7 +80,7 @@ try {
             const hero=await page.locator('.aca-catalog-hero').boundingBox();
             assert(hero.height<820,'desktop hero should reveal categories in the first viewport');
             assert.equal(await page.locator('.aca-desktop-nav:visible').count(),1,'desktop navigation must be visible');
-            assert.deepEqual(await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{}))),[5,5,5,5],'desktop categories should use four balanced rows');
+            assert.deepEqual(await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{}))),[7,7,7],'desktop categories should use three balanced rows');
             assert.equal(await page.locator('.aca-product-card').evaluateAll(nodes=>nodes.filter(node=>Math.abs(node.getBoundingClientRect().top-nodes[0].getBoundingClientRect().top)<2).length),5,'desktop product grid should show five cards per row');
             assert.equal(await page.locator('.aca-desktop-banner:visible').count(),2,'desktop must show both promotional banners');
             const desktopBannerImages=await page.locator('.aca-desktop-banner img').evaluateAll(nodes=>nodes.map(node=>({loaded:node.complete&&node.naturalWidth>0,ratio:node.clientWidth/node.clientHeight,natural:node.naturalWidth/node.naturalHeight})));
@@ -93,7 +95,7 @@ try {
         await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
-        assert.equal(categoryImages.length,20,'each category needs a product image');
+        assert.equal(categoryImages.length,21,'each category needs a product image');
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
         assert.equal(categoryImages[1].path,'/catalog-assets/complete-engine-category.webp');
         assert.equal(categoryImages[7].path,'/catalog-assets/final-drive-category.jpg');
@@ -163,6 +165,12 @@ try {
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedEngineRebuildKitCount),'engine rebuild kit URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedEngineRebuildKitCount),'all engine rebuild kits must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedEngineRebuildKitCount,'all engine rebuild kits must render as real product cards');
+          }
+          for (const [slug, expected] of [['controllers', expectedControllerCount], ['monitors', expectedMonitorCount]]) {
+            await page.goto(`${origin}/catalog/category/${slug}`, { waitUntil: 'networkidle' });
+            await page.waitForFunction((count) => document.querySelector('[data-result-count]')?.getAttribute('data-result-count') === String(count), expected);
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(expected), `all ${slug} must be visible without pagination`);
+            assert.equal(await page.locator('.aca-product-card').count(), expected, `all ${slug} must render real product cards`);
           }
           await page.goto(origin+'/catalog/category/control-valves',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
