@@ -89,7 +89,7 @@ const categoryImageOverrides: Record<string, string> = {
   "control-valves": "/catalog-assets/category-control-valve.jpg",
   "electrical": "/catalog-assets/category-electrical.jpg",
   "wiring-harnesses": "/catalog-assets/category-wiring-harness.jpg",
-  controllers: "/catalog-assets/category-monitor.jpg",
+  controllers: "/catalog-assets/category-controller.jpg",
   monitors: "/catalog-assets/category-monitor.jpg",
   "seals-filters": "/catalog-assets/category-seals-filters.jpg",
   "engine-fuel": "/catalog-assets/category-engine-fuel.jpg",

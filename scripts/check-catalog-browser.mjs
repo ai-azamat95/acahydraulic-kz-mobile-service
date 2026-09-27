@@ -99,6 +99,8 @@ try {
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
         assert.equal(categoryImages[1].path,'/catalog-assets/complete-engine-category.webp');
         assert.equal(categoryImages[7].path,'/catalog-assets/final-drive-category.jpg');
+        assert.equal(await page.locator('.aca-category-card[href="/catalog/category/controllers"] img').getAttribute('src'),'/catalog-assets/category-controller.jpg','controller category must use a real controller image');
+        assert.equal(await page.locator('.aca-category-card[href="/catalog/category/monitors"] img').getAttribute('src'),'/catalog-assets/category-monitor.jpg','monitor category must keep the monitor image');
         if(width===1440){
           assert.equal(await page.locator('.aca-category-card').first().getAttribute('href'),'/catalog/category/hydraulic-pumps','category cards must be crawlable links');
           await page.locator('.aca-category-card').first().click();
