@@ -80,10 +80,25 @@ assert.equal(wiringHarnessGalleryAudit.sourceProducts, wiringHarnessAudit.source
 assert.equal(wiringHarnessGalleryAudit.importedProducts, wiringHarnessAudit.importedProducts, 'gallery audit must cover every imported wiring harness');
 assert.equal(wiringHarnessGalleryAudit.exactGalleryMatches, wiringHarnessGalleryAudit.sourceProducts, 'every wiring harness gallery must match its source product');
 assert.equal(wiringHarnessGalleryAudit.exactSkuMatches, wiringHarnessGalleryAudit.sourceProducts, 'every wiring harness SKU list must match its source product');
-assert.equal(wiringHarnessGalleryAudit.publishedImages, wiringHarnessGalleryAudit.rawSourceImages, 'every source wiring harness image must be published');
+assert.equal(
+  wiringHarnessGalleryAudit.publishedImages,
+  wiringHarnessGalleryAudit.rawSourceImages -
+    wiringHarnessGalleryAudit.excludedVisibleSupplierMarkImages -
+    wiringHarnessGalleryAudit.excludedVerifiedDuplicateImages,
+  'every clean, unique source wiring harness image must be published',
+);
+assert(wiringHarnessGalleryAudit.excludedVisibleSupplierMarkImages > 0, 'visible supplier marks must be excluded');
+assert(wiringHarnessGalleryAudit.excludedVerifiedDuplicateImages > 0, 'verified duplicate wiring harness images must be excluded');
 assert(wiringHarnessGalleryAudit.mirroredImages > 0, 'supplier-named wiring harness images must be mirrored locally');
 assert.equal(wiringHarnessGalleryAudit.productsWithoutSourceImages, 0, 'every source wiring harness must have at least one image');
 assert.equal(wiringHarnessGalleryAudit.failures.length, 0, 'wiring harness gallery audit must have no failures');
+
+const wiring1931 = products.find((product) => product.handle === '0001931-external-wiring-harness-fits-hitachi-excavator-ex200-5');
+assert(wiring1931, '0001931 wiring harness must be present');
+assert.equal(wiring1931.gallery.length, 4, '0001931 must retain four clean detail images');
+const wiring2104 = products.find((product) => product.handle === '0002104-external-wiring-harness-fits-hitachi-excavator-ex200-5');
+assert(wiring2104, '0002104 wiring harness must be present');
+assert.equal(wiring2104.gallery.length, 5, '0002104 must retain five clean, unique detail images');
 
 const fuelInjectorAudit = strictCategoryAudit.categories['fuel-injectors'];
 assert(fuelInjectorAudit, 'fuel injector collection audit must be present');
@@ -171,6 +186,9 @@ console.log(
       wiringHarnessImages: wiringHarnessGalleryAudit.publishedImages,
       locallyMirroredWiringHarnessImages: wiringHarnessGalleryAudit.mirroredImages,
       wiringHarnessesWithoutImages: wiringHarnessGalleryAudit.productsWithoutSourceImages,
+      excludedVisibleSupplierMarkImages: wiringHarnessGalleryAudit.excludedVisibleSupplierMarkImages,
+      excludedVerifiedDuplicateWiringHarnessImages: wiringHarnessGalleryAudit.excludedVerifiedDuplicateImages,
+      wiringHarnessesWithoutPublishedImages: wiringHarnessGalleryAudit.productsWithoutPublishedImages,
       productsWithoutSourceImages: audit.productsWithoutSourceImages,
       categoryCounts: Object.fromEntries(Object.entries(categorySummary).map(([category, summary]) => [category, summary.count])),
     },
