@@ -7,6 +7,7 @@ const manifest = JSON.parse(fs.readFileSync(path.join(catalogDir, 'manifest.json
 const audit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.catalogAuditFile), 'utf8'));
 const strictCategoryAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.strictCategoryAuditFile), 'utf8'));
 const controllerAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.controllerAuditFile), 'utf8'));
+const monitorAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.monitorAuditFile), 'utf8'));
 const categorySummary = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.categorySummaryFile), 'utf8'));
 const products = [];
 
@@ -21,6 +22,7 @@ assert.equal(audit.marketCurrency, 'KZT', 'source market must return KZT prices'
 assert.equal(audit.markup, 1.5, 'catalog markup must be exactly 50 percent');
 assert.equal(audit.controllerMarkup, 1.8, 'controller collection markup must be exactly 80 percent');
 assert.equal(audit.controllerCollection, 'controller', 'controller pricing must use the exact supplier collection');
+assert.equal(manifest.monitorMarkup, 1.5, 'monitor collection markup must be exactly 50 percent');
 assert.equal(audit.uniqueSourceProducts, audit.expectedPublishedProducts, 'all currently published supplier products must be fetched');
 assert.equal(audit.importedProducts, audit.uniqueSourceProducts, 'every supplier product must be imported');
 assert.equal(audit.exactTitleAndHandleMatches, audit.uniqueSourceProducts, 'all titles and handles must match');
@@ -110,9 +112,27 @@ const controllerIds = new Set(controllerAudit.sourceProductIds);
 const controllers = products.filter((product) => controllerIds.has(product.id));
 assert.equal(controllers.length, controllerAudit.sourceProducts, 'rendered controller count must match the supplier collection');
 assert(
-  controllers.every((product) => (product.categories || [product.category]).includes('controllers-monitors')),
+  controllers.every((product) => (product.categories || [product.category]).includes('controllers')),
   'every exact controller collection product must appear in the controllers category',
 );
+
+assert.equal(monitorAudit.passed, true, 'monitor collection comparison must pass');
+assert.equal(monitorAudit.collection, 'monitor');
+assert.equal(monitorAudit.category, 'monitors');
+assert.equal(monitorAudit.markup, 1.5, 'monitor prices must be source price plus 50 percent');
+assert(monitorAudit.sourceProducts > 0, 'monitor collection must not be empty');
+assert.equal(monitorAudit.importedProducts, monitorAudit.sourceProducts, 'every supplier monitor must be imported');
+assert.equal(monitorAudit.failures.length, 0, 'monitor import must have no failures');
+assert.equal(
+  monitorAudit.exactMarkupPrices + monitorAudit.priceOnRequestVariants,
+  monitorAudit.sourceVariantCount,
+  'every monitor variant price must be checked',
+);
+const monitorIds = new Set(monitorAudit.sourceProductIds);
+const monitors = products.filter((product) => monitorIds.has(product.id));
+assert.equal(monitors.length, monitorAudit.sourceProducts, 'rendered monitor count must match the supplier collection');
+assert(monitors.every((product) => (product.categories || [product.category]).includes('monitors')), 'every monitor must appear in the monitors category');
+assert.equal(categorySummary.monitors.count, monitorAudit.sourceProducts, 'monitor category must match the exact supplier collection');
 
 const engineCylinderBlock = products.find((product) => product.handle === '04294187-d7e-engine-cylinder-block');
 assert(engineCylinderBlock, 'known engine cylinder block must be present');
@@ -132,6 +152,9 @@ console.log(
       controllers: controllerAudit.sourceProducts,
       controllerVariants: controllerAudit.sourceVariantCount,
       controllerMarkup: controllerAudit.markup,
+      monitors: monitorAudit.sourceProducts,
+      monitorVariants: monitorAudit.sourceVariantCount,
+      monitorMarkup: monitorAudit.markup,
       productsWithoutSourceImages: audit.productsWithoutSourceImages,
       categoryCounts: Object.fromEntries(Object.entries(categorySummary).map(([category, summary]) => [category, summary.count])),
     },

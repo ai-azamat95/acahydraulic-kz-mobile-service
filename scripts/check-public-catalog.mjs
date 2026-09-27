@@ -6,7 +6,13 @@ const catalogDir = path.resolve(process.argv[2] || 'client/public/catalog-data')
 const manifestPath = path.join(catalogDir, 'manifest.json');
 const forbiddenBrand = /sinocmp/i;
 const forbiddenKeys = new Set(['sourceUrl', 'sourcePriceKzt', 'sourceUpdatedAt']);
-const privateFiles = ['catalog-import-audit.json', 'pump-import-audit.json', 'strict-category-import-audit.json', 'controller-import-audit.json'];
+const privateFiles = [
+  'catalog-import-audit.json',
+  'pump-import-audit.json',
+  'strict-category-import-audit.json',
+  'controller-import-audit.json',
+  'monitor-import-audit.json',
+];
 
 assert(fs.existsSync(manifestPath), `missing public manifest in ${catalogDir}`);
 for (const fileName of privateFiles) {
@@ -42,11 +48,13 @@ for (const key of [
   'source',
   'markup',
   'controllerMarkup',
+  'monitorMarkup',
   'priceOnRequestThresholdKzt',
   'catalogAuditFile',
   'pumpAuditFile',
   'strictCategoryAuditFile',
   'controllerAuditFile',
+  'monitorAuditFile',
 ]) {
   assert.equal(key in manifest, false, `private manifest field leaked: ${key}`);
 }
@@ -63,13 +71,15 @@ const wiringHarnesses = products.filter((product) => (product.categories || [pro
 const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
 const fuelPumps = products.filter((product) => (product.categories || [product.category]).includes('fuel-pumps'));
 const engineRebuildKits = products.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits'));
-const controllers = products.filter((product) => (product.categories || [product.category]).includes('controllers-monitors'));
+const controllers = products.filter((product) => (product.categories || [product.category]).includes('controllers'));
+const monitors = products.filter((product) => (product.categories || [product.category]).includes('monitors'));
 assert(pumpParts.length > 0, 'pump parts category must not be empty');
 assert(wiringHarnesses.length > 0, 'wiring harness category must not be empty');
 assert(fuelInjectors.length > 0, 'fuel injector category must not be empty');
 assert(fuelPumps.length > 0, 'fuel pump category must not be empty');
 assert(engineRebuildKits.length > 0, 'engine rebuild kit category must not be empty');
-assert(controllers.length > 0, 'controllers and monitors category must not be empty');
+assert(controllers.length > 0, 'controllers category must not be empty');
+assert(monitors.length > 0, 'monitors category must not be empty');
 assert(
   pumpParts.every(
     (product) =>
@@ -123,6 +133,7 @@ console.log(
       fuelPumps: fuelPumps.length,
       engineRebuildKits: engineRebuildKits.length,
       controllers: controllers.length,
+      monitors: monitors.length,
       supplierBrandOccurrences: 0,
       sensitiveSupplierFields: 0,
     },

@@ -27,6 +27,8 @@ const popularCatalogCategories = [
   { id: "fuel-pumps", title: "Топливные насосы", text: "ТНВД и насосы низкого давления для двигателей спецтехники." },
   { id: "engine-rebuild-kits", title: "Комплекты капремонта ДВС", text: "Комплекты по модели и серийному номеру двигателя." },
   { id: "wiring-harnesses", title: "Жгуты проводки", text: "Проводка двигателя, кабины и оборудования по разъёмам." },
+  { id: "controllers", title: "Контроллеры", text: "Блоки управления и ECU по номеру, разъёмам и версии исполнения." },
+  { id: "monitors", title: "Мониторы", text: "Дисплеи и панели приборов по OEM, корпусу и разъёмам." },
 ] as const;
 
 export default function Home() {

@@ -29,6 +29,8 @@ const products = Array.from({ length: manifest.chunkCount }, (_, index) => {
 }).flat();
 const lastmod = String(manifest.importedAt || new Date().toISOString()).slice(0, 10);
 const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
+const legacyRedirects = JSON.parse(fs.readFileSync(path.resolve('shared/legacy-redirects.json'), 'utf8'));
+const catalogRedirects = Object.fromEntries(Object.entries(legacyRedirects).filter(([from]) => from.startsWith('/catalog/')));
 
 function escapeAttr(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
@@ -174,6 +176,17 @@ for (const page of pages) {
   written.push(rendered);
 }
 
+for (const [from, to] of Object.entries(catalogRedirects)) {
+  const destination = path.join(outDir, to.replace(/^\/+/, ''), 'index.html');
+  if (!fs.existsSync(destination)) throw new Error(`Catalog redirect destination missing: ${to}`);
+  const pageDir = path.join(outDir, from.replace(/^\/+/, ''));
+  fs.mkdirSync(pageDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(pageDir, 'index.html'),
+    `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Раздел каталога переехал | ACA Hydraulic</title><meta http-equiv="refresh" content="0;url=${escapeAttr(to)}"><link rel="canonical" href="${baseUrl}${escapeAttr(to)}"></head><body><p>Раздел каталога переехал: <a href="${escapeAttr(to)}">перейти на актуальную страницу</a>.</p></body></html>`,
+  );
+}
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${written.map((page) => `  <url><loc>${baseUrl}${page.pathName}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>${page.pathName.includes('/category/') ? '0.8' : '0.7'}</priority></url>`).join('\n')}
@@ -185,4 +198,4 @@ fs.writeFileSync(path.join(catalogDir, 'landing-pages.json'), JSON.stringify({
   brands: brandPages,
   models: modelPages,
 }));
-console.log(`Created ${written.length} catalogue landing pages (${catalogCategoryLandings.length} categories, ${brandPages.length} brands, ${modelPages.length} models)`);
+console.log(`Created ${written.length} catalogue landing pages (${catalogCategoryLandings.length} categories, ${brandPages.length} brands, ${modelPages.length} models) and ${Object.keys(catalogRedirects).length} catalog redirects`);
