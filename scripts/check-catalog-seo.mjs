@@ -2,7 +2,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { catalogProductSeo, catalogProductCategories } from '../shared/catalog-product-seo.mjs';
-import productCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
+import reviewedProductCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
+import merchantProductCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
+
+const productCopy = { ...reviewedProductCopy, ...merchantProductCopy };
 
 const publicDir = path.resolve(process.argv[2] || 'dist/public');
 const catalogDir = path.join(publicDir, 'catalog-data');
@@ -43,7 +46,7 @@ const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pum
 for (const pump of merchantPumps.products) {
   const html = fs.readFileSync(path.join(publicDir, 'catalog', pump.handle, 'index.html'), 'utf8');
   const schema = JSON.parse(html.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s)[1]);
-  assert.equal(schema.category, undefined);
+  assert.equal(schema.category, merchantPumps.productType);
   const shipping = schema.offers.shippingDetails;
   assert.equal(shipping['@type'], 'OfferShippingDetails');
   assert.equal(shipping.shippingDestination.addressCountry, 'KZ');
