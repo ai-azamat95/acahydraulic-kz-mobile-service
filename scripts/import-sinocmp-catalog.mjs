@@ -8,6 +8,8 @@ const KAZAKHSTAN_MARKET_COOKIE = 'localization=KZ; _shopify_country=KZ; cart_cur
 const OUTPUT_DIR = path.resolve('client/public/catalog-data');
 const PAGE_SIZE = 250;
 const MARKUP = 1.5;
+const CONTROLLER_MARKUP = 1.8;
+const CONTROLLER_COLLECTION = 'controller';
 const PRICE_ON_REQUEST_THRESHOLD_KZT = 10_000_000;
 const CONCURRENCY = 2;
 const COLLECTION_CONCURRENCY = 3;
@@ -165,10 +167,14 @@ function detectCategory(product, collectionCategoryByProductId = new Map()) {
   return collectionCategory || textCategory || 'other-parts';
 }
 
-function markedUpPrice(price) {
+function markedUpPrice(price, markup = MARKUP) {
   const numeric = Number(price);
   if (!Number.isFinite(numeric) || numeric <= 0 || numeric >= PRICE_ON_REQUEST_THRESHOLD_KZT) return null;
-  return Math.round(numeric * MARKUP * 100) / 100;
+  return Math.round(numeric * markup * 100) / 100;
+}
+
+function productMarkup(productId, controllerProductIds) {
+  return controllerProductIds.has(String(productId)) ? CONTROLLER_MARKUP : MARKUP;
 }
 
 function rawImageUrl(value) {
@@ -229,15 +235,16 @@ function publicProductGallery(product, categories) {
   return productGallery(product).filter((imageUrl) => !containsSupplierBrand(imageUrl));
 }
 
-function normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId) {
+function normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId, controllerProductIds) {
   const category = detectCategory(product, collectionCategoryByProductId);
   const title = publicText(product.title);
+  const markup = productMarkup(product.id, controllerProductIds);
   const variants = (product.variants || []).map((variant) => ({
     id: String(variant.id),
     title: variant.title === 'Default Title' ? '' : publicText(variant.title),
     sku: publicSku(variant.sku, variant.id),
     available: Boolean(variant.available),
-    priceKzt: markedUpPrice(variant.price),
+    priceKzt: markedUpPrice(variant.price, markup),
     options: [variant.option1, variant.option2, variant.option3]
       .filter((value) => value && value !== 'Default Title')
       .map(publicText),
@@ -303,7 +310,7 @@ function pumpSourceSnapshot(product, collectionCategoryByProductId, strictCatego
   };
 }
 
-function catalogSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId) {
+function catalogSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId, controllerProductIds) {
   const category = detectCategory(product, collectionCategoryByProductId);
   const categories = [...new Set([category, ...(strictCategoryMembershipsByProductId.get(String(product.id)) || [])])];
   return {
@@ -312,6 +319,7 @@ function catalogSourceSnapshot(product, collectionCategoryByProductId, strictCat
     title: publicText(product.title),
     skus: (product.variants || []).map((variant) => publicSku(variant.sku, variant.id)),
     sourcePricesKzt: (product.variants || []).map((variant) => Number(variant.price)),
+    markup: productMarkup(product.id, controllerProductIds),
     gallery: publicProductGallery(product, categories),
   };
 }
@@ -322,8 +330,11 @@ function verifyCatalogImport(sourceProducts, importedProducts, marketCurrency, e
   let exactSkuMatches = 0;
   let exactGalleryMatches = 0;
   let exactMarkupPrices = 0;
+  let exactControllerMarkupPrices = 0;
   let priceOnRequestVariants = 0;
+  let controllerPriceOnRequestVariants = 0;
   let sourceVariantCount = 0;
+  let controllerSourceVariantCount = 0;
   const productsWithoutSourceImages = [];
 
   for (const [id, source] of sourceProducts) {
@@ -380,9 +391,10 @@ function verifyCatalogImport(sourceProducts, importedProducts, marketCurrency, e
     }
 
     sourceVariantCount += source.sourcePricesKzt.length;
+    if (source.markup === CONTROLLER_MARKUP) controllerSourceVariantCount += source.sourcePricesKzt.length;
     source.sourcePricesKzt.forEach((sourcePriceKzt, index) => {
       const importedVariant = imported.variants[index];
-      const expectedPriceKzt = markedUpPrice(sourcePriceKzt);
+      const expectedPriceKzt = markedUpPrice(sourcePriceKzt, source.markup);
       if (importedVariant.priceKzt !== expectedPriceKzt) {
         failures.push({
           id,
@@ -392,8 +404,13 @@ function verifyCatalogImport(sourceProducts, importedProducts, marketCurrency, e
           expectedPriceKzt,
           importedPriceKzt: importedVariant.priceKzt,
         });
-      } else if (expectedPriceKzt === null) priceOnRequestVariants += 1;
-      else exactMarkupPrices += 1;
+      } else if (expectedPriceKzt === null) {
+        priceOnRequestVariants += 1;
+        if (source.markup === CONTROLLER_MARKUP) controllerPriceOnRequestVariants += 1;
+      } else {
+        exactMarkupPrices += 1;
+        if (source.markup === CONTROLLER_MARKUP) exactControllerMarkupPrices += 1;
+      }
     });
   }
 
@@ -410,16 +427,21 @@ function verifyCatalogImport(sourceProducts, importedProducts, marketCurrency, e
     checkedAt: new Date().toISOString(),
     marketCurrency,
     markup: MARKUP,
+    controllerMarkup: CONTROLLER_MARKUP,
+    controllerCollection: CONTROLLER_COLLECTION,
     expectedPublishedProducts,
     uniqueSourceProducts: sourceProducts.size,
     importedProducts: importedProducts.size,
     sourceVariantCount,
+    controllerSourceVariantCount,
     exactTitleAndHandleMatches: exactTitleMatches,
     exactSkuMatches,
     exactGalleryMatches,
     exactMarkupPrices,
+    exactControllerMarkupPrices,
     priceOnRequestThresholdKzt: PRICE_ON_REQUEST_THRESHOLD_KZT,
     priceOnRequestVariants,
+    controllerPriceOnRequestVariants,
     productsWithoutSourceImages: productsWithoutSourceImages.length,
     productsWithoutSourceImagesList: productsWithoutSourceImages,
     unexpectedProducts: unexpectedProductIds.length,
@@ -577,6 +599,70 @@ function verifyStrictCategoryImports(categoryCollections, importedProducts) {
   return report;
 }
 
+function verifyControllerImport(controllerProducts, importedProducts) {
+  const failures = [];
+  let sourceVariantCount = 0;
+  let exactMarkupPrices = 0;
+  let priceOnRequestVariants = 0;
+
+  for (const product of controllerProducts) {
+    const id = String(product.id);
+    const imported = importedProducts.get(id);
+    if (!imported) {
+      failures.push({ id, reason: 'missing-product', title: publicText(product.title) });
+      continue;
+    }
+    if (!(imported.categories || [imported.category]).includes('controllers-monitors')) {
+      failures.push({ id, reason: 'missing-controller-category', importedCategory: imported.category });
+    }
+    if (imported.variants.length !== (product.variants || []).length) {
+      failures.push({
+        id,
+        reason: 'variant-count-mismatch',
+        source: (product.variants || []).length,
+        imported: imported.variants.length,
+      });
+      continue;
+    }
+
+    sourceVariantCount += product.variants.length;
+    product.variants.forEach((variant, index) => {
+      const expectedPriceKzt = markedUpPrice(variant.price, CONTROLLER_MARKUP);
+      const importedVariant = imported.variants[index];
+      if (importedVariant.priceKzt !== expectedPriceKzt) {
+        failures.push({
+          id,
+          reason: 'controller-price-markup-mismatch',
+          sku: importedVariant.sku,
+          sourcePriceKzt: Number(variant.price),
+          expectedPriceKzt,
+          importedPriceKzt: importedVariant.priceKzt,
+        });
+      } else if (expectedPriceKzt === null) priceOnRequestVariants += 1;
+      else exactMarkupPrices += 1;
+    });
+  }
+
+  const report = {
+    checkedAt: new Date().toISOString(),
+    collection: CONTROLLER_COLLECTION,
+    markup: CONTROLLER_MARKUP,
+    sourceProducts: controllerProducts.length,
+    importedProducts: controllerProducts.length - failures.filter((failure) => failure.reason === 'missing-product').length,
+    sourceVariantCount,
+    exactMarkupPrices,
+    priceOnRequestVariants,
+    sourceProductIds: controllerProducts.map((product) => String(product.id)),
+    failures: failures.slice(0, 50),
+    passed: failures.length === 0,
+  };
+
+  if (!report.passed) {
+    throw new Error(`Controller import verification failed: ${JSON.stringify(report)}`);
+  }
+  return report;
+}
+
 async function run() {
   fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -593,6 +679,9 @@ async function run() {
   }
 
   const categoryCollections = await fetchCategoryCollections();
+  const controllerCollection = categoryCollections.find((item) => item.handle === CONTROLLER_COLLECTION);
+  if (!controllerCollection) throw new Error('Controller collection was not fetched');
+  const controllerProductIds = new Set(controllerCollection.products.map((product) => String(product.id)));
   const collectionCategoryByProductId = new Map();
   for (const [category, handles] of CATEGORY_COLLECTIONS) {
     for (const handle of handles) {
@@ -613,6 +702,11 @@ async function run() {
       memberships.push(category);
       strictCategoryMembershipsByProductId.set(id, memberships);
     }
+  }
+  for (const productId of controllerProductIds) {
+    const memberships = strictCategoryMembershipsByProductId.get(productId) || [];
+    memberships.push('controllers-monitors');
+    strictCategoryMembershipsByProductId.set(productId, memberships);
   }
 
   const pumpCollections = categoryCollections.filter(({ handle }) => PUMP_COLLECTIONS.includes(handle)).map(({ handle, products }) => [handle, products]);
@@ -649,10 +743,12 @@ async function run() {
       for (const product of products) {
         sourceCatalogProducts.set(
           String(product.id),
-          catalogSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId),
+          catalogSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId, controllerProductIds),
         );
       }
-      const normalized = products.map((product) => normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId));
+      const normalized = products.map((product) =>
+        normalizeProduct(product, page, collectionCategoryByProductId, strictCategoryMembershipsByProductId, controllerProductIds),
+      );
       writeJson(`products-${String(page).padStart(3, '0')}.json`, normalized);
       const pageIndex = [];
       for (const product of normalized) {
@@ -709,12 +805,15 @@ async function run() {
   writeJson('pump-import-audit.json', pumpAudit);
   const strictCategoryAudit = verifyStrictCategoryImports(categoryCollections, importedCatalogProducts);
   writeJson('strict-category-import-audit.json', strictCategoryAudit);
+  const controllerAudit = verifyControllerImport(controllerCollection.products, importedCatalogProducts);
+  writeJson('controller-import-audit.json', controllerAudit);
   writeJson('manifest.json', {
     importedAt,
     productCount: searchIndex.length,
     pageSize: PAGE_SIZE,
     chunkCount: Math.ceil(searchIndex.length / PAGE_SIZE),
     markup: MARKUP,
+    controllerMarkup: CONTROLLER_MARKUP,
     priceOnRequestThresholdKzt: PRICE_ON_REQUEST_THRESHOLD_KZT,
     currency: 'KZT',
     indexFile: 'search-index.json',
@@ -722,6 +821,7 @@ async function run() {
     catalogAuditFile: 'catalog-import-audit.json',
     pumpAuditFile: 'pump-import-audit.json',
     strictCategoryAuditFile: 'strict-category-import-audit.json',
+    controllerAuditFile: 'controller-import-audit.json',
     imagePolicy: 'Product images are published without visible supplier identity in customer-facing catalogue data.',
   });
   console.log(`Catalog import complete: ${searchIndex.length} products at ${importedAt}`);
