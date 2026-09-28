@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 test('static error pages are noindex while sitemap pages remain indexable', () => {
-  for (const file of ['dist/public/404.html', 'dist/public/404/index.html']) {
+  for (const file of ['dist/public/404.html', 'dist/public/404/index.html', 'dist/public/cart/index.html', 'dist/public/checkout/index.html']) {
     assert.match(fs.readFileSync(file, 'utf8'), /<meta[^>]*name="robots"[^>]*content="noindex, follow"/);
   }
   for (const [, url] of fs.readFileSync('dist/public/sitemap.xml', 'utf8').matchAll(/<loc>(.*?)<\/loc>/g)) {

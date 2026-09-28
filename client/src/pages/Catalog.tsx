@@ -26,11 +26,14 @@ import {
   ScanLine,
   Settings,
   ShieldCheck,
+  SlidersHorizontal,
   Truck,
   Wrench,
 } from "lucide-react";
 
 import { SEO } from "@/components/SEO";
+import { CartButton } from "@/components/cart/CartButton";
+import { CatalogLanguageControl } from "@/components/catalog/CatalogLanguageControl";
 import { ProductResults } from "@/components/catalog/ProductResults";
 import { catalogCopy, partCategories, supportedBrands, type CatalogLanguage } from "@/content/partsCatalog";
 import { useCatalogIndex } from "@/hooks/useCatalogProducts";
@@ -255,6 +258,7 @@ export default function Catalog() {
   const [searchMode, setSearchMode] = useState<SearchMode>("part");
   const [supplyOption, setSupplyOption] = useState("");
   const [formError, setFormError] = useState("");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(() => initialVisibleProducts(category));
   const resultsRef = useRef<HTMLDivElement>(null);
   const trackedLandingRef = useRef("");
@@ -532,20 +536,9 @@ export default function Catalog() {
             </a>
           </nav>
 
-          <div className="flex items-center gap-2" aria-label="Language">
-            {(["ru", "kz", "en"] as CatalogLanguage[]).map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => setLanguage(item)}
-                aria-pressed={language === item}
-                className={`min-h-10 min-w-10 rounded px-3 text-sm font-bold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] ${
-                  language === item ? "bg-[#FFC000] text-black" : "text-gray-300 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                {item.toUpperCase()}
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            <CartButton />
+            <CatalogLanguageControl language={language} onChange={setLanguage} />
           </div>
         </div>
       </header>
@@ -620,7 +613,18 @@ export default function Catalog() {
                     </section>
                   )}
 
-                  <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
+                  <button
+                    type="button"
+                    onClick={() => setFiltersOpen((open) => !open)}
+                    aria-expanded={filtersOpen}
+                    aria-controls="catalog-refine-fields"
+                    className="aca-refine-toggle mt-3 hidden min-h-11 w-full items-center justify-between rounded border border-gray-300 bg-white px-3 text-sm font-bold text-gray-800"
+                  >
+                    <span className="inline-flex items-center gap-2"><SlidersHorizontal className="h-4 w-4" aria-hidden="true" />{language === "ru" ? "Уточнить поиск" : language === "kz" ? "Іздеуді нақтылау" : "Refine search"}</span>
+                    <span className="text-xs text-gray-500">{[brand, category, machineModel].filter(Boolean).length || ""}</span>
+                  </button>
+
+                  <div id="catalog-refine-fields" className="aca-refine-fields mt-4 grid grid-cols-2 gap-3 md:grid-cols-3" data-open={filtersOpen ? "true" : "false"}>
                     <label className="grid gap-2 text-xs font-medium text-gray-300 md:text-sm">
                       {copy.brandLabel}
                       <select
@@ -688,14 +692,6 @@ export default function Catalog() {
                 </form>
               </div>
 
-              <div className="aca-mobile-promos">
-                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>
-                  <img src="/catalog-assets/promo-first-order.jpg" width="900" height="300" alt={ui.promos[0].text} fetchPriority="high" />
-                </a>
-                <a href="#catalog-delivery" aria-label={copy.deliveryTitle}>
-                  <img src="/catalog-assets/promo-china-delivery.jpg" width="900" height="300" alt={copy.deliveryTitle} loading="lazy" decoding="async" />
-                </a>
-              </div>
               <aside className="aca-desktop-promo" aria-label={ui.promoTitle}>
                 <a className="aca-desktop-banner" href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>
                   <img src="/catalog-assets/promo-first-order.jpg" width="900" height="300" alt={ui.promos[0].text} fetchPriority="high" />
@@ -846,6 +842,16 @@ export default function Catalog() {
               );
             })}
           </div>}
+          {!isLandingPage && (
+            <aside className="aca-mobile-promos" aria-label={ui.promoTitle}>
+              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>
+                <img src="/catalog-assets/promo-first-order.jpg" width="900" height="300" alt={ui.promos[0].text} loading="lazy" decoding="async" />
+              </a>
+              <a href="#catalog-delivery" aria-label={copy.deliveryTitle}>
+                <img src="/catalog-assets/promo-china-delivery.jpg" width="900" height="300" alt={copy.deliveryTitle} loading="lazy" decoding="async" />
+              </a>
+            </aside>
+          )}
           {showResults && <div
             id="catalog-results"
             ref={resultsRef}

@@ -4,14 +4,19 @@ import merchantPumps from "../../../shared/merchant-pumps.json";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { toast } from "sonner";
 import { Link, useParams } from "wouter";
-import { ArrowLeft, Check, ImageIcon, MessageCircle, Package, ShieldCheck, ZoomIn } from "lucide-react";
+import { ArrowLeft, Check, ImageIcon, MessageCircle, Package, ShieldCheck, ShoppingCart, ZoomIn } from "lucide-react";
 
 import { SEO } from "@/components/SEO";
+import { CartButton } from "@/components/cart/CartButton";
+import { CatalogLanguageControl } from "@/components/catalog/CatalogLanguageControl";
 import { catalogCopy, partCategories, type CatalogLanguage } from "@/content/partsCatalog";
+import { useCart } from "@/contexts/CartContext";
 import { useCatalogProduct } from "@/hooks/useCatalogProducts";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
 import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { cartItemFromProduct, preferredCartItem } from "@/lib/cart";
 
 import { catalogProductSeo, catalogProductCategories, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
 
@@ -38,6 +43,7 @@ export default function CatalogProduct() {
   const [imageFailed, setImageFailed] = useState(false);
   const trackedProductRef = useRef("");
   const { product, loading, error } = useCatalogProduct(handle);
+  const { addItem } = useCart();
   const fireContact = useTikTokContact();
   const copy = catalogCopy[language];
   const category = product ? partCategories.find((item) => item.id === product.category) : null;
@@ -143,6 +149,10 @@ export default function CatalogProduct() {
   const productSeo = catalogProductSeo(product, language);
   const productCategories = catalogProductCategories(product);
   const seoDescription = productSeo.description;
+  const addProductToCart = () => {
+    addItem(preferredCartItem(product));
+    toast.success(language === "ru" ? "Товар добавлен в корзину" : language === "kz" ? "Тауар себетке қосылды" : "Added to cart");
+  };
 
   return (
     <div className="min-h-[100dvh] bg-[#101010] pb-20 text-white font-roboto lg:pb-0">
@@ -206,18 +216,9 @@ export default function CatalogProduct() {
               <span className="mt-0.5 text-[11px] tracking-wider">HYDRAULIC</span>
             </span>
           </SiteHomeLink>
-          <div className="flex items-center gap-2" aria-label="Language">
-            {(["ru", "kz", "en"] as CatalogLanguage[]).map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => setLanguage(item)}
-                aria-pressed={language === item}
-                className={`min-h-10 min-w-10 rounded px-3 text-sm font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] ${language === item ? "bg-[#FFC000] text-black" : "text-gray-300 hover:bg-white/10"}`}
-              >
-                {item.toUpperCase()}
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            <CartButton />
+            <CatalogLanguageControl language={language} onChange={setLanguage} />
           </div>
         </div>
       </header>
@@ -312,14 +313,24 @@ export default function CatalogProduct() {
               {(product.approvedSale || product.ownerProduct) && <p className="mt-3 text-sm leading-6 text-gray-300">
                 {merchantOffer ? merchantTerms : language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу — 3–14 күн. Жеткізу — кг үшін 3 АҚШ долларынан бастап, бөлек төленеді. Алдын ала төлем 100%. Жеткізудің толық құны төлемге дейін келісіледі. Ақау болса — сервис орталығы арқылы ауыстыру. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan in 3–14 days. Shipping from USD 3 per kg, charged separately. 100% prepayment. Final shipping cost agreed before payment. Defective units replaced through our service center. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
               </p>}
-              <button
-                type="button"
-                onClick={() => requestProduct()}
-                className="mt-6 inline-flex min-h-13 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3.5 text-base font-extrabold text-black transition-colors hover:bg-[#E6AC00] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:w-auto"
-              >
-                <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                {copy.requestButton}
-              </button>
+              <div className="mt-6 grid gap-2 sm:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={addProductToCart}
+                  className="inline-flex min-h-13 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3.5 text-base font-extrabold text-black transition-colors hover:bg-[#E6AC00] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
+                >
+                  <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+                  {language === "ru" ? "В корзину" : language === "kz" ? "Себетке" : "Add to cart"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => requestProduct()}
+                  className="inline-flex min-h-13 w-full items-center justify-center gap-2 rounded border border-[#FFC000]/60 px-6 py-3.5 text-base font-bold text-[#FFC000] transition-colors hover:bg-[#FFC000]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
+                >
+                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  {copy.requestButton}
+                </button>
+              </div>
               <p className="mt-3 text-sm text-gray-500">{copy.requestNote}</p>
               <div className="mt-4 flex flex-col items-start gap-3 text-sm">
                 <button type="button" onClick={() => requestProduct("nameplate")} className="min-h-11 text-[#FFC000] underline underline-offset-4">
@@ -374,6 +385,17 @@ export default function CatalogProduct() {
                     </dd>
                   </div>
                 </dl>
+                <button
+                  type="button"
+                  onClick={() => {
+                    addItem(cartItemFromProduct(product, variant));
+                    toast.success(language === "ru" ? "Исполнение добавлено в корзину" : language === "kz" ? "Нұсқа себетке қосылды" : "Variant added to cart");
+                  }}
+                  className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-4 font-extrabold text-black hover:bg-[#E6AC00]"
+                >
+                  <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                  {language === "ru" ? "Добавить это исполнение" : language === "kz" ? "Осы нұсқаны қосу" : "Add this variant"}
+                </button>
               </article>
             ))}
           </div>
@@ -391,18 +413,16 @@ export default function CatalogProduct() {
       </main>
 
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#101010]/95 p-3 shadow-[0_-12px_30px_rgba(0,0,0,0.45)] backdrop-blur lg:hidden">
-        <button
-          type="button"
-          onClick={() => requestProduct("nameplate", "product_page_sticky")}
-          className="mx-auto flex min-h-12 w-full max-w-md items-center justify-between gap-3 rounded bg-[#FFC000] px-4 py-3 font-extrabold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          aria-label={`${language === "ru" ? "Подобрать по шильдику" : language === "kz" ? "Шильдик бойынша таңдау" : "Match by nameplate"}: ${displayedPrice}`}
-        >
-          <span className="inline-flex items-center gap-2">
+        <div className="mx-auto grid w-full max-w-lg grid-cols-2 gap-2">
+          <button type="button" onClick={addProductToCart} className="flex min-h-12 items-center justify-center gap-2 rounded bg-[#FFC000] px-3 py-3 text-sm font-extrabold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+            <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+            {language === "ru" ? "В корзину" : language === "kz" ? "Себетке" : "Add"}
+          </button>
+          <button type="button" onClick={() => requestProduct("nameplate", "product_page_sticky")} className="flex min-h-12 items-center justify-center gap-2 rounded border border-[#FFC000] px-3 py-3 text-sm font-bold text-[#FFC000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
-            {language === "ru" ? "Подобрать по шильдику" : language === "kz" ? "Шильдик бойынша таңдау" : "Match by nameplate"}
-          </span>
-          <span className="whitespace-nowrap text-sm">{displayedPrice}</span>
-        </button>
+            {language === "ru" ? "Проверить" : language === "kz" ? "Тексеру" : "Check fit"}
+          </button>
+        </div>
       </div>
     </div>
   );
