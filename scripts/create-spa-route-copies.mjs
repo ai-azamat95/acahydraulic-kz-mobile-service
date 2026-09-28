@@ -1,45 +1,94 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { build } from 'esbuild';
-import { createRequire } from 'node:module';
-import { articles, articleForRoute, articleList, articleSchema, renderArticle } from './seo-article-content.mjs';
+import fs from "node:fs";
+import path from "node:path";
+import { build } from "esbuild";
+import { createRequire } from "node:module";
+import {
+  articles,
+  articleForRoute,
+  articleList,
+  articleSchema,
+  renderArticle,
+} from "./seo-article-content.mjs";
 
-const outDir = path.resolve('dist/public');
-const indexPath = path.join(outDir, 'index.html');
-const sitemapPath = path.join(outDir, 'sitemap.xml');
-const baseUrl = 'https://acahydraulic.kz';
+const outDir = path.resolve("dist/public");
+const indexPath = path.join(outDir, "index.html");
+const sitemapPath = path.join(outDir, "sitemap.xml");
+const baseUrl = "https://acahydraulic.kz";
 await build({
-  entryPoints: ['scripts/render-static-pages.tsx'],
-  outfile: 'dist/seo-page-renderer.mjs',
-  bundle: true, platform: 'node', format: 'esm', jsx: 'automatic',
+  entryPoints: ["scripts/render-static-pages.tsx"],
+  outfile: "dist/seo-page-renderer.mjs",
+  bundle: true,
+  platform: "node",
+  format: "esm",
+  jsx: "automatic",
   // Keep one React instance, but bundle Helmet's private dependencies for pnpm.
-  banner: { js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);' },
-  external: ['react', 'react-dom/*', 'wouter'],
-  alias: {
-    '@': path.resolve('client/src'),
-    'react-helmet-async': createRequire(import.meta.url).resolve('react-helmet-async'),
+  banner: {
+    js: 'import { createRequire } from "node:module"; const require = createRequire(import.meta.url);',
   },
-  define: { 'import.meta.env.BASE_URL': '"/"' },
+  external: ["react", "react-dom/*", "wouter"],
+  alias: {
+    "@": path.resolve("client/src"),
+    "react-helmet-async": createRequire(import.meta.url).resolve(
+      "react-helmet-async"
+    ),
+  },
+  define: { "import.meta.env.BASE_URL": '"/"' },
 });
-const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
-const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-repair-content.json', import.meta.url), 'utf8'));
-const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
-const serviceDirectory = JSON.parse(fs.readFileSync(new URL('../shared/service-directory.json', import.meta.url), 'utf8'));
-const catalogHomeSeo = JSON.parse(fs.readFileSync(new URL('../shared/catalog-home-seo.json', import.meta.url), 'utf8'));
-const catalogLandings = JSON.parse(fs.readFileSync(new URL('../shared/catalog-landings.json', import.meta.url), 'utf8'));
-const deliveryPolicy = JSON.parse(fs.readFileSync(new URL('../shared/delivery-and-returns.json', import.meta.url), 'utf8'));
+const { renderStaticPage } = await import(
+  path.resolve("dist/seo-page-renderer.mjs")
+);
+const localRepairContent = JSON.parse(
+  fs.readFileSync(
+    new URL("../shared/local-repair-content.json", import.meta.url),
+    "utf8"
+  )
+);
+const serviceContent = JSON.parse(
+  fs.readFileSync(
+    new URL("../shared/service-content.json", import.meta.url),
+    "utf8"
+  )
+);
+const serviceDirectory = JSON.parse(
+  fs.readFileSync(
+    new URL("../shared/service-directory.json", import.meta.url),
+    "utf8"
+  )
+);
+const catalogHomeSeo = JSON.parse(
+  fs.readFileSync(
+    new URL("../shared/catalog-home-seo.json", import.meta.url),
+    "utf8"
+  )
+);
+const catalogLandings = JSON.parse(
+  fs.readFileSync(
+    new URL("../shared/catalog-landings.json", import.meta.url),
+    "utf8"
+  )
+);
+const deliveryPolicy = JSON.parse(
+  fs.readFileSync(
+    new URL("../shared/delivery-and-returns.json", import.meta.url),
+    "utf8"
+  )
+);
 
 if (!fs.existsSync(indexPath)) {
   throw new Error(`Missing ${indexPath}. Run build first.`);
 }
 
-const indexHtml = fs.readFileSync(indexPath, 'utf8');
-const sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
-const locs = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)].map((m) => m[1]);
-const routes = new Set(['404', 'privacy', 'terms', 'delivery-and-returns']);
+const indexHtml = fs.readFileSync(indexPath, "utf8");
+const sitemap = fs.existsSync(sitemapPath)
+  ? fs.readFileSync(sitemapPath, "utf8")
+  : "";
+const locs = [
+  ...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g),
+].map(m => m[1]);
+const routes = new Set(["404", "privacy", "terms", "delivery-and-returns"]);
 
 for (const raw of locs) {
-  const route = raw.replace(/^\/+|\/+$/g, '');
+  const route = raw.replace(/^\/+|\/+$/g, "");
   if (!route) continue;
   if (/\.[a-z0-9]+$/i.test(route)) continue;
   routes.add(route);
@@ -49,180 +98,268 @@ for (const raw of locs) {
 // static HTML. Add them even before a newly generated sitemap is deployed.
 for (const article of articles) routes.add(`blog/${article.slug}`);
 
+const missingArticleEntries = articles
+  .filter(
+    article => !sitemap.includes(`<loc>${baseUrl}/blog/${article.slug}/</loc>`)
+  )
+  .map(
+    article =>
+      `<url><loc>${baseUrl}/blog/${article.slug}/</loc><lastmod>${article.publishedDate}</lastmod></url>`
+  )
+  .join("\n");
+if (missingArticleEntries && sitemap.includes("</urlset>")) {
+  fs.writeFileSync(
+    sitemapPath,
+    sitemap.replace("</urlset>", `${missingArticleEntries}\n</urlset>`)
+  );
+}
+
 const explicitMeta = {
-  '404': { title: 'Страница не найдена | ACA Hydraulic', description: 'Эта страница отсутствует. Перейдите на главную ACA Hydraulic.' },
-  privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
-  terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
-  'delivery-and-returns': { title: deliveryPolicy.title + ' | ACA Hydraulic', description: deliveryPolicy.description },
-  'parts/engines-complete': {
-    title: 'Новые двигатели в сборе для спецтехники с установкой | ACA Hydraulic',
-    description: 'Поставка новых двигателей в сборе по Казахстану: проверка по шильдику, комплектация, гарантия по договору, монтаж и запуск. Реальный кейс Cummins NTA855 для Shantui SD32.',
+  404: {
+    title: "Страница не найдена | ACA Hydraulic",
+    description:
+      "Эта страница отсутствует. Перейдите на главную ACA Hydraulic.",
   },
-  'parts/engines-complete/shantui-sd32-cummins-nta855-c360s10': {
-    title: 'Двигатель Cummins NTA855-C360S10 для Shantui SD32 | ACA Hydraulic',
-    description: 'Новый двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32: проверка по шильдику, поставка по Казахстану, монтаж и запуск.',
+  privacy: {
+    title: "Политика конфиденциальности | ACA Hydraulic",
+    description: "Обработка обращений и аналитика сайта ACA Hydraulic.",
   },
-  'parts/engines-complete/cummins': {
-    title: 'Двигатели Cummins в сборе: QSB, N855, K19, QSK и X15 | ACA Hydraulic',
-    description: 'Каталог двигателей Cummins в сборе для спецтехники: QSB, QSL, QSC, QSM11, N855, K19, QSK и X15. Подбор по шильдику и поставка по Казахстану.',
+  terms: {
+    title: "Условия использования | ACA Hydraulic",
+    description:
+      "Информация об услугах, расчёте стоимости и заявках на ремонт.",
   },
-  '': {
-    title: 'Ремонт гидравлики в Астане — выездной сервис | ACA Hydraulic',
-    description: 'Ремонт гидравлики в Астане: экскаваторы, погрузчики и буровые. Диагностика от 200 000 ₸, выезд на объект. База: трасса Астана–Караганда, 81.',
+  "delivery-and-returns": {
+    title: deliveryPolicy.title + " | ACA Hydraulic",
+    description: deliveryPolicy.description,
   },
-  'regions/astana': {
-    title: 'Ремонт гидравлики в Астане — база и выезд | ACA Hydraulic',
-    description: 'Выездная диагностика гидравлики в Астане от 200 000 ₸. Ремонт экскаваторов, погрузчиков и буровых на объекте. База: трасса Астана–Караганда, 81.',
+  "parts/engines-complete": {
+    title:
+      "Новые двигатели в сборе для спецтехники с установкой | ACA Hydraulic",
+    description:
+      "Поставка новых двигателей в сборе по Казахстану: проверка по шильдику, комплектация, гарантия по договору, монтаж и запуск. Реальный кейс Cummins NTA855 для Shantui SD32.",
   },
-  'services/excavator-repair': {
-    title: 'Ремонт экскаваторов в Астане — гидравлика и ДВС | ACA Hydraulic',
-    description: 'Выездной ремонт экскаваторов CAT, Komatsu, Hitachi, Hyundai и SANY в Астане. Диагностика от 200 000 ₸. Гидравлика, двигатель, проверка под нагрузкой.',
+  "parts/engines-complete/shantui-sd32-cummins-nta855-c360s10": {
+    title: "Двигатель Cummins NTA855-C360S10 для Shantui SD32 | ACA Hydraulic",
+    description:
+      "Новый двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32: проверка по шильдику, поставка по Казахстану, монтаж и запуск.",
+  },
+  "parts/engines-complete/cummins": {
+    title:
+      "Двигатели Cummins в сборе: QSB, N855, K19, QSK и X15 | ACA Hydraulic",
+    description:
+      "Каталог двигателей Cummins в сборе для спецтехники: QSB, QSL, QSC, QSM11, N855, K19, QSK и X15. Подбор по шильдику и поставка по Казахстану.",
+  },
+  "": {
+    title: "Ремонт гидравлики в Астане — выездной сервис | ACA Hydraulic",
+    description:
+      "Ремонт гидравлики в Астане: экскаваторы, погрузчики и буровые. Диагностика от 200 000 ₸, выезд на объект. База: трасса Астана–Караганда, 81.",
+  },
+  "regions/astana": {
+    title: "Ремонт гидравлики в Астане — база и выезд | ACA Hydraulic",
+    description:
+      "Выездная диагностика гидравлики в Астане от 200 000 ₸. Ремонт экскаваторов, погрузчиков и буровых на объекте. База: трасса Астана–Караганда, 81.",
+  },
+  "services/excavator-repair": {
+    title: "Ремонт экскаваторов в Астане — гидравлика и ДВС | ACA Hydraulic",
+    description:
+      "Выездной ремонт экскаваторов CAT, Komatsu, Hitachi, Hyundai и SANY в Астане. Диагностика от 200 000 ₸. Гидравлика, двигатель, проверка под нагрузкой.",
   },
   services: {
-    title: 'Услуги ремонта гидравлики спецтехники | ACA Hydraulic',
-    description: 'Ремонт гидронасосов, гидромоторов, распределителей, цилиндров и выездной сервис спецтехники по Казахстану.',
+    title: "Услуги ремонта гидравлики спецтехники | ACA Hydraulic",
+    description:
+      "Ремонт гидронасосов, гидромоторов, распределителей, цилиндров и выездной сервис спецтехники по Казахстану.",
   },
   catalog: {
     title: `${catalogHomeSeo.title} | ACA Hydraulic`,
     description: catalogHomeSeo.description,
   },
   about: {
-    title: 'О компании ACA Hydraulic | Гидравлический сервис',
-    description: 'ACA Hydraulic — сервис по ремонту гидравлики спецтехники с выездом на объект, документами для юрлиц и гарантией на работы.',
+    title: "О компании ACA Hydraulic | Гидравлический сервис",
+    description:
+      "ACA Hydraulic — сервис по ремонту гидравлики спецтехники с выездом на объект, документами для юрлиц и гарантией на работы.",
   },
   projects: {
-    title: 'Проекты ремонта гидравлики спецтехники | ACA Hydraulic',
-    description: 'Реальные проекты ACA Hydraulic: ремонт гидравлики фрез, бульдозеров, экскаваторов, буровых установок и промышленной техники.',
+    title: "Проекты ремонта гидравлики спецтехники | ACA Hydraulic",
+    description:
+      "Реальные проекты ACA Hydraulic: ремонт гидравлики фрез, бульдозеров, экскаваторов, буровых установок и промышленной техники.",
   },
   cases: {
-    title: 'Кейсы ремонта спецтехники | ACA Hydraulic',
-    description: 'Примеры диагностики и ремонта гидравлических систем спецтехники: причины поломок, решения, сроки и результаты.',
+    title: "Кейсы ремонта спецтехники | ACA Hydraulic",
+    description:
+      "Примеры диагностики и ремонта гидравлических систем спецтехники: причины поломок, решения, сроки и результаты.",
   },
   reviews: {
-    title: 'Отзывы клиентов ACA Hydraulic | Ремонт гидравлики',
-    description: 'Отзывы компаний и владельцев спецтехники о выездном ремонте гидравлики ACA Hydraulic в Казахстане.',
+    title: "Отзывы клиентов ACA Hydraulic | Ремонт гидравлики",
+    description:
+      "Отзывы компаний и владельцев спецтехники о выездном ремонте гидравлики ACA Hydraulic в Казахстане.",
   },
   blog: {
-    title: 'Блог о ремонте гидравлики спецтехники | ACA Hydraulic',
-    description: 'Практические статьи о диагностике, ремонте и обслуживании гидравлики экскаваторов, погрузчиков, буровых и дорожной техники.',
+    title: "Блог о ремонте гидравлики спецтехники | ACA Hydraulic",
+    description:
+      "Практические статьи о диагностике, ремонте и обслуживании гидравлики экскаваторов, погрузчиков, буровых и дорожной техники.",
   },
   contacts: {
-    title: 'Контакты ACA Hydraulic | Вызвать ремонт гидравлики',
-    description: 'ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Телефон и WhatsApp +7 (771) 417-79-25. Диагностика и ремонт гидравлики с выездом.',
+    title: "Контакты ACA Hydraulic | Вызвать ремонт гидравлики",
+    description:
+      "ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Телефон и WhatsApp +7 (771) 417-79-25. Диагностика и ремонт гидравлики с выездом.",
   },
   corporate: {
-    title: 'Корпоративное обслуживание спецтехники | ACA Hydraulic',
-    description: 'B2B обслуживание парка спецтехники: диагностика, выездной ремонт гидравлики, договор, НДС, приоритетный сервис.',
+    title: "Корпоративное обслуживание спецтехники | ACA Hydraulic",
+    description:
+      "B2B обслуживание парка спецтехники: диагностика, выездной ремонт гидравлики, договор, НДС, приоритетный сервис.",
   },
-  'services/mobile-repair': {
-    title: 'Выездной ремонт гидравлики спецтехники по согласованию | ACA Hydraulic',
-    description: 'Мобильный ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Выезд по Казахстану, диагностика, договор с НДС.',
+  "services/mobile-repair": {
+    title:
+      "Выездной ремонт гидравлики спецтехники по согласованию | ACA Hydraulic",
+    description:
+      "Мобильный ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Выезд по Казахстану, диагностика, договор с НДС.",
   },
-  'services/emergency-service': {
-    title: 'Срочный ремонт гидравлики по согласованию | ACA Hydraulic',
-    description: 'Экстренный выезд на аварийный ремонт гидравлики спецтехники. Помогаем сократить простой экскаваторов, буровых и дорожной техники.',
+  "services/emergency-service": {
+    title: "Срочный ремонт гидравлики по согласованию | ACA Hydraulic",
+    description:
+      "Экстренный выезд на аварийный ремонт гидравлики спецтехники. Помогаем сократить простой экскаваторов, буровых и дорожной техники.",
   },
-  'services/hydraulic-pumps': {
-    title: 'Ремонт гидронасосов спецтехники | ACA Hydraulic',
-    description: 'Диагностика, ремонт и восстановление гидронасосов CAT, Komatsu, Hitachi, Kawasaki, Rexroth и Sauer для спецтехники.',
+  "services/hydraulic-pumps": {
+    title: "Ремонт гидронасосов спецтехники | ACA Hydraulic",
+    description:
+      "Диагностика, ремонт и восстановление гидронасосов CAT, Komatsu, Hitachi, Kawasaki, Rexroth и Sauer для спецтехники.",
   },
-  'services/hydraulic-motors': {
-    title: 'Ремонт гидромоторов спецтехники | ACA Hydraulic',
-    description: 'Ремонт гидромоторов хода, поворота и привода для экскаваторов, погрузчиков, буровых и промышленной техники.',
+  "services/hydraulic-motors": {
+    title: "Ремонт гидромоторов спецтехники | ACA Hydraulic",
+    description:
+      "Ремонт гидромоторов хода, поворота и привода для экскаваторов, погрузчиков, буровых и промышленной техники.",
   },
-  'services/hydraulic-valves': {
-    title: 'Ремонт гидрораспределителей и клапанов | ACA Hydraulic',
-    description: 'Диагностика и ремонт гидрораспределителей, клапанов, секций управления и гидравлических блоков спецтехники.',
+  "services/hydraulic-valves": {
+    title: "Ремонт гидрораспределителей и клапанов | ACA Hydraulic",
+    description:
+      "Диагностика и ремонт гидрораспределителей, клапанов, секций управления и гидравлических блоков спецтехники.",
   },
-  'services/gnb-repair': {
-    title: 'Ремонт ГНБ установок и гидравлики буровых | ACA Hydraulic',
-    description: 'Ремонт гидравлики ГНБ установок, буровых машин, насосов, моторов и распределителей с выездом на объект.',
+  "services/gnb-repair": {
+    title: "Ремонт ГНБ установок и гидравлики буровых | ACA Hydraulic",
+    description:
+      "Ремонт гидравлики ГНБ установок, буровых машин, насосов, моторов и распределителей с выездом на объект.",
   },
 };
 
 const serviceNames = {
-  'b2b-maintenance': 'Обслуживание парка спецтехники',
-  'industrial-service': 'Промышленный гидравлический сервис',
-  'excavator-repair': 'Ремонт гидравлики экскаваторов',
-  'bulldozer-repair': 'Ремонт гидравлики бульдозеров',
-  'loader-repair': 'Ремонт гидравлики погрузчиков',
-  'grader-repair': 'Ремонт гидравлики автогрейдеров',
-  'mining-loader-repair': 'Ремонт гидравлики шахтных погрузчиков',
-  'mining-truck-repair': 'Ремонт гидравлики карьерных самосвалов',
-  'manipulator-repair': 'Ремонт гидравлики манипуляторов',
-  'wirtgen-repair': 'Ремонт гидравлики дорожных фрез Wirtgen',
-  'drilling-repair': 'Ремонт гидравлики буровых установок',
-  'piledriver-repair': 'Ремонт гидравлики сваебойных установок',
-  'press-repair': 'Ремонт гидравлических прессов',
-  'railway-repair': 'Ремонт гидравлики железнодорожной техники',
+  "b2b-maintenance": "Обслуживание парка спецтехники",
+  "industrial-service": "Промышленный гидравлический сервис",
+  "excavator-repair": "Ремонт гидравлики экскаваторов",
+  "bulldozer-repair": "Ремонт гидравлики бульдозеров",
+  "loader-repair": "Ремонт гидравлики погрузчиков",
+  "grader-repair": "Ремонт гидравлики автогрейдеров",
+  "mining-loader-repair": "Ремонт гидравлики шахтных погрузчиков",
+  "mining-truck-repair": "Ремонт гидравлики карьерных самосвалов",
+  "manipulator-repair": "Ремонт гидравлики манипуляторов",
+  "wirtgen-repair": "Ремонт гидравлики дорожных фрез Wirtgen",
+  "drilling-repair": "Ремонт гидравлики буровых установок",
+  "piledriver-repair": "Ремонт гидравлики сваебойных установок",
+  "press-repair": "Ремонт гидравлических прессов",
+  "railway-repair": "Ремонт гидравлики железнодорожной техники",
 };
 
 const cityNames = {
-  astana: 'Астана', almaty: 'Алматы', karaganda: 'Караганда', atyrau: 'Атырау', aktau: 'Актау', shymkent: 'Шымкент', petropavlovsk: 'Петропавловск', semey: 'Семей', 'pavlodar-ekibastuz': 'Павлодар — Экибастуз', 'zhezkazgan-balkhash': 'Жезказган — Балхаш', kokshetau: 'Кокшетау', kostanay: 'Костанай',
+  astana: "Астана",
+  almaty: "Алматы",
+  karaganda: "Караганда",
+  atyrau: "Атырау",
+  aktau: "Актау",
+  shymkent: "Шымкент",
+  petropavlovsk: "Петропавловск",
+  semey: "Семей",
+  "pavlodar-ekibastuz": "Павлодар — Экибастуз",
+  "zhezkazgan-balkhash": "Жезказган — Балхаш",
+  kokshetau: "Кокшетау",
+  kostanay: "Костанай",
 };
 
 const brandNames = {
-  cat: 'Caterpillar CAT', komatsu: 'Komatsu', hitachi: 'Hitachi', hyundai: 'Hyundai', wirtgen: 'Wirtgen', shantui: 'Shantui', liebherr: 'Liebherr', volvo: 'Volvo',
+  cat: "Caterpillar CAT",
+  komatsu: "Komatsu",
+  hitachi: "Hitachi",
+  hyundai: "Hyundai",
+  wirtgen: "Wirtgen",
+  shantui: "Shantui",
+  liebherr: "Liebherr",
+  volvo: "Volvo",
 };
 
 const blogNames = {
-  'remont-gidronasosa-cat': 'Ремонт гидронасоса CAT: пошаговое руководство',
-  'padaet-davlenie-gidravliki-ekskavatora': 'Падает давление гидравлики экскаватора',
-  'stoimost-remonta-gidromotora-komatsu': 'Стоимость ремонта гидромотора Komatsu',
-  'kak-opredelit-neispravnost-gidravliki': 'Как определить неисправность гидравлики',
-  'remont-gidravliki-frezy-wirtgen-1500': 'Ремонт гидравлики фрезы Wirtgen 1500',
-  'kapitalnyy-remont-shantui-sd32': 'Ремонт SHANTUI SD32: диагностика гидравлики',
-  'remont-gidravliki-liebherr-r950': 'Ремонт гидравлики Liebherr R950',
-  'vosstanovlenie-gidromotora-volvo-ec380': 'Восстановление гидромотора Volvo EC380',
+  "remont-gidronasosa-cat": "Ремонт гидронасоса CAT: пошаговое руководство",
+  "padaet-davlenie-gidravliki-ekskavatora":
+    "Падает давление гидравлики экскаватора",
+  "stoimost-remonta-gidromotora-komatsu":
+    "Стоимость ремонта гидромотора Komatsu",
+  "kak-opredelit-neispravnost-gidravliki":
+    "Как определить неисправность гидравлики",
+  "remont-gidravliki-frezy-wirtgen-1500":
+    "Ремонт гидравлики фрезы Wirtgen 1500",
+  "kapitalnyy-remont-shantui-sd32":
+    "Ремонт SHANTUI SD32: диагностика гидравлики",
+  "remont-gidravliki-liebherr-r950": "Ремонт гидравлики Liebherr R950",
+  "vosstanovlenie-gidromotora-volvo-ec380":
+    "Восстановление гидромотора Volvo EC380",
 };
 
 const staticBlogArticles = {
-  'blog/remont-gidravliki-frezy-wirtgen-1500': {
-    headline: 'Wirtgen 1500 не едет: выездная диагностика хода и гидросистемы',
-    description: 'Реальный выезд ACA Hydraulic на Wirtgen 1500: отсутствие нормального хода, проверка давления, электроклапанов, датчиков скорости и гидросистемы.',
-    image: '/webdev-static-assets/wirtgen-1500-1.webp',
-    dateModified: '2026-09-12',
+  "blog/remont-gidravliki-frezy-wirtgen-1500": {
+    headline: "Wirtgen 1500 не едет: выездная диагностика хода и гидросистемы",
+    description:
+      "Реальный выезд ACA Hydraulic на Wirtgen 1500: отсутствие нормального хода, проверка давления, электроклапанов, датчиков скорости и гидросистемы.",
+    image: "/webdev-static-assets/wirtgen-1500-1.webp",
+    dateModified: "2026-09-12",
   },
-  'blog/kapitalnyy-remont-shantui-sd32': {
-    schemaType: 'BlogPosting',
-    headline: 'Ремонт SHANTUI SD32: диагностика гидравлики перед капитальным ремонтом',
-    description: 'Ремонт SHANTUI SD32: что проверить до заказа деталей — давление, насосы, гидромоторы, распределитель, цилиндры и загрязнение гидросистемы.',
-    image: '/webdev-static-assets/shantui-sd32-6.webp',
-    datePublished: '2026-03-18',
-    dateModified: '2026-09-26',
+  "blog/kapitalnyy-remont-shantui-sd32": {
+    schemaType: "BlogPosting",
+    headline:
+      "Ремонт SHANTUI SD32: диагностика гидравлики перед капитальным ремонтом",
+    description:
+      "Ремонт SHANTUI SD32: что проверить до заказа деталей — давление, насосы, гидромоторы, распределитель, цилиндры и загрязнение гидросистемы.",
+    image: "/webdev-static-assets/shantui-sd32-6.webp",
+    datePublished: "2026-03-18",
+    dateModified: "2026-09-26",
   },
-  'blog/remont-gidravliki-liebherr-r950': {
-    headline: 'Liebherr R950 теряет мощность: как диагностировать гидросистему и главный насос',
-    description: 'Практическое руководство ACA Hydraulic: что проверять, если Liebherr R950 медленно работает, теряет усилие ковша или давление гидросистемы нестабильно.',
-    dateModified: '2026-09-12',
+  "blog/remont-gidravliki-liebherr-r950": {
+    headline:
+      "Liebherr R950 теряет мощность: как диагностировать гидросистему и главный насос",
+    description:
+      "Практическое руководство ACA Hydraulic: что проверять, если Liebherr R950 медленно работает, теряет усилие ковша или давление гидросистемы нестабильно.",
+    dateModified: "2026-09-12",
   },
-  'blog/vosstanovlenie-gidromotora-volvo-ec380': {
-    headline: 'Volvo EC380 не едет: как диагностировать гидромотор хода и гидросистему',
-    description: 'Практическое руководство ACA Hydraulic: что проверять, если Volvo EC380 потерял ход, одна гусеница слабее или движение ухудшается после прогрева.',
-    dateModified: '2026-09-12',
+  "blog/vosstanovlenie-gidromotora-volvo-ec380": {
+    headline:
+      "Volvo EC380 не едет: как диагностировать гидромотор хода и гидросистему",
+    description:
+      "Практическое руководство ACA Hydraulic: что проверять, если Volvo EC380 потерял ход, одна гусеница слабее или движение ухудшается после прогрева.",
+    dateModified: "2026-09-12",
   },
 };
 
 function staticBlogArticleSchema(article, canonical) {
   return {
-    '@context': 'https://schema.org',
-    '@type': article.schemaType ?? 'Article',
-    '@id': `${canonical}#article`,
+    "@context": "https://schema.org",
+    "@type": article.schemaType ?? "Article",
+    "@id": `${canonical}#article`,
     headline: article.headline,
     description: article.description,
     image: article.image ? new URL(article.image, baseUrl).href : undefined,
     datePublished: article.datePublished,
     dateModified: article.dateModified,
-    author: { '@id': `${baseUrl}/#business` },
-    publisher: { '@id': `${baseUrl}/#business` },
+    author: { "@id": `${baseUrl}/#business` },
+    publisher: { "@id": `${baseUrl}/#business` },
     mainEntityOfPage: canonical,
-    inLanguage: 'ru-KZ',
+    inLanguage: "ru-KZ",
   };
 }
 
 function metaForRoute(route) {
   const article = articleForRoute(route);
-  if (article) return { title: `${article.title} | ACA Hydraulic`, description: article.description };
+  if (article)
+    return {
+      title: `${article.title} | ACA Hydraulic`,
+      description: article.description,
+    };
   const staticBlogArticle = staticBlogArticles[route];
   if (staticBlogArticle) {
     return {
@@ -230,47 +367,47 @@ function metaForRoute(route) {
       description: staticBlogArticle.description,
     };
   }
-  if (route === 'services') return serviceDirectory;
-  if (serviceContent['/' + route]) return serviceContent['/' + route];
+  if (route === "services") return serviceDirectory;
+  if (serviceContent["/" + route]) return serviceContent["/" + route];
   if (explicitMeta[route]) return explicitMeta[route];
-  if (route.startsWith('services/')) {
-    const key = route.split('/')[1];
-    const name = serviceNames[key] ?? 'Ремонт гидравлики спецтехники';
+  if (route.startsWith("services/")) {
+    const key = route.split("/")[1];
+    const name = serviceNames[key] ?? "Ремонт гидравлики спецтехники";
     return {
       title: `${name} | ACA Hydraulic`,
       description: `${name}: диагностика, выездной ремонт и восстановление гидравлических систем спецтехники по Казахстану. Работаем с юрлицами, НДС, гарантия.`,
     };
   }
-  if (route.startsWith('regions/')) {
-    const key = route.split('/')[1];
+  if (route.startsWith("regions/")) {
+    const key = route.split("/")[1];
     const city = cityNames[key] ?? key;
     return {
       title: `Ремонт гидравлики ${city} | Выездной сервис ACA Hydraulic`,
       description: `Ремонт гидравлики спецтехники в регионе ${city}: выездная диагностика, ремонт насосов, моторов, распределителей и аварийный сервис.`,
     };
   }
-  if (route.startsWith('brands/')) {
-    const key = route.split('/')[1];
+  if (route.startsWith("brands/")) {
+    const key = route.split("/")[1];
     const brand = brandNames[key] ?? key.toUpperCase();
     return {
       title: `Ремонт гидравлики ${brand} | ACA Hydraulic`,
       description: `Диагностика и ремонт гидравлики спецтехники ${brand}: насосы, гидромоторы, распределители, цилиндры. Выездной сервис по Казахстану.`,
     };
   }
-  if (route.startsWith('blog/')) {
-    const key = route.split('/')[1];
-    const name = blogNames[key] ?? 'Статья о ремонте гидравлики';
+  if (route.startsWith("blog/")) {
+    const key = route.split("/")[1];
+    const name = blogNames[key] ?? "Статья о ремонте гидравлики";
     return {
       title: `${name} | ACA Hydraulic`,
       description: `${name}: практические рекомендации ACA Hydraulic по диагностике, ремонту и обслуживанию гидравлики спецтехники.`,
     };
   }
-  return explicitMeta[''];
+  return explicitMeta[""];
 }
 
-function setTag(html, regex, replacement, beforeHead = '') {
+function setTag(html, regex, replacement, beforeHead = "") {
   if (regex.test(html)) return html.replace(regex, replacement);
-  return html.replace('</head>', `${beforeHead || replacement}\n</head>`);
+  return html.replace("</head>", `${beforeHead || replacement}\n</head>`);
 }
 
 function replaceRootContent(html, content) {
@@ -280,98 +417,167 @@ function replaceRootContent(html, content) {
   }
   return html.replace(
     /<div id="root">[\s\S]*?<\/div>\s*(?=<!-- Contact-intent tracker\.)/,
-    `${root}\n\n    `,
+    `${root}\n\n    `
   );
 }
 
 function escapeAttr(value) {
-  return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;");
 }
 
 function escapeHtml(value) {
   return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function fallbackLinks(route) {
-  if (route.startsWith('blog/')) {
+  if (route.startsWith("blog/")) {
     return [
-      ['Ремонт гидронасосов', '/services/hydraulic-pumps/'],
-      ['Ремонт гидромоторов', '/services/hydraulic-motors/'],
-      ['Выездной ремонт гидравлики', '/services/mobile-repair/'],
-      ['Контакты ACA Hydraulic', '/contacts/'],
+      ["Ремонт гидронасосов", "/services/hydraulic-pumps/"],
+      ["Ремонт гидромоторов", "/services/hydraulic-motors/"],
+      ["Выездной ремонт гидравлики", "/services/mobile-repair/"],
+      ["Контакты ACA Hydraulic", "/contacts/"],
     ];
   }
-  if (route.startsWith('regions/')) {
+  if (route.startsWith("regions/")) {
     return [
-      ['Выездной ремонт гидравлики', '/services/mobile-repair/'],
-      ['Ремонт гидронасосов', '/services/hydraulic-pumps/'],
-      ['Ремонт гидромоторов', '/services/hydraulic-motors/'],
-      ['Все услуги', '/services/'],
+      ["Выездной ремонт гидравлики", "/services/mobile-repair/"],
+      ["Ремонт гидронасосов", "/services/hydraulic-pumps/"],
+      ["Ремонт гидромоторов", "/services/hydraulic-motors/"],
+      ["Все услуги", "/services/"],
     ];
   }
   return [
-    ['Выездной ремонт гидравлики', '/services/mobile-repair/'],
-    ['Ремонт гидронасосов', '/services/hydraulic-pumps/'],
-    ['Ремонт гидромоторов', '/services/hydraulic-motors/'],
-    ['Контакты ACA Hydraulic', '/contacts/'],
+    ["Выездной ремонт гидравлики", "/services/mobile-repair/"],
+    ["Ремонт гидронасосов", "/services/hydraulic-pumps/"],
+    ["Ремонт гидромоторов", "/services/hydraulic-motors/"],
+    ["Контакты ACA Hydraulic", "/contacts/"],
   ];
 }
 
 function staticFallback(route, meta, canonical) {
-  if (route === 'catalog') {
+  if (route === "catalog") {
     return `<main aria-label="Каталог запчастей"><a href="/">ACA Hydraulic</a>
       <h1>${escapeHtml(catalogHomeSeo.title)}</h1><p>${escapeHtml(catalogHomeSeo.description)}</p>
       <section><h2>Что нужно для точного подбора</h2><p>${escapeHtml(catalogHomeSeo.selection)}</p></section>
-      <nav aria-label="Все разделы каталога"><h2>Каталог запчастей по узлам</h2><ul>${catalogLandings.categories.map(item => `<li><a href="/catalog/category/${item.id}/">${escapeHtml(item.title)}</a><p>${escapeHtml(item.intro)}</p></li>`).join('')}</ul></nav>
+      <nav aria-label="Все разделы каталога"><h2>Каталог запчастей по узлам</h2><ul>${catalogLandings.categories.map(item => `<li><a href="/catalog/category/${item.id}/">${escapeHtml(item.title)}</a><p>${escapeHtml(item.intro)}</p></li>`).join("")}</ul></nav>
       <p><a href="/delivery-and-returns/">Доставка, оплата и возврат</a></p>
       <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a> · <a href="tel:+77714177925">+7 (771) 417-79-25</a></p></main>`;
   }
   const article = articleForRoute(route);
   if (article) return renderArticle(article);
-  if (route === 'delivery-and-returns') {
-    return `<main><a href="/catalog/">Каталог запчастей</a><h1>${escapeHtml(deliveryPolicy.title)}</h1><p>${escapeHtml(deliveryPolicy.description)}</p>${deliveryPolicy.sections.map(section => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.text)}</p></section>`).join('')}<p><a href="tel:+77714177925">+7 771 417 79 25</a> · <a href="mailto:info@acahydraulic.kz">info@acahydraulic.kz</a></p></main>`;
+  if (route === "delivery-and-returns") {
+    return `<main><a href="/catalog/">Каталог запчастей</a><h1>${escapeHtml(deliveryPolicy.title)}</h1><p>${escapeHtml(deliveryPolicy.description)}</p>${deliveryPolicy.sections.map(section => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.text)}</p></section>`).join("")}<p><a href="tel:+77714177925">+7 771 417 79 25</a> · <a href="mailto:info@acahydraulic.kz">info@acahydraulic.kz</a></p></main>`;
   }
-  const directoryHtml = route === 'services' ? serviceDirectory.categories.map(category => {
-    const items = category.subcategories.length ? category.subcategories : [{ name: category.title, link: category.link }];
-    const links = items.map(item => item.link && item.link !== '#'
-      ? '<li><a href="' + escapeAttr(item.link) + '">' + escapeHtml(item.name) + '</a></li>'
-      : '<li>' + escapeHtml(item.name) + '</li>').join('');
-    return '<section><h2>' + escapeHtml(category.title) + '</h2><p>' + escapeHtml(category.description) + '</p><ul>' + links + '</ul></section>';
-  }).join('') : '';
-  const local = localRepairContent['/' + route];
-  const localHtml = local ? '<section><h2>' + escapeHtml(local.title) + '</h2>' +
-    local.paragraphs.map(text => '<p>' + escapeHtml(text) + '</p>').join('') +
-    '<nav aria-label="Услуги и примеры ремонта"><ul>' + local.links.map(link =>
-      '<li><a href="' + escapeAttr(link.href) + '">' + escapeHtml(link.label) + '</a></li>'
-    ).join('') + '</ul></nav></section>' : '';
-  const content = serviceContent['/' + route];
-  const details = content ? content.sections.map(section =>
-    '<section><h2>' + escapeHtml(section.title) + '</h2><p>' + escapeHtml(section.text) + '</p></section>'
-  ).join('') + '<section><h2>Вопросы перед ремонтом</h2>' + content.faq.map(item =>
-    '<details><summary>' + escapeHtml(item.question) + '</summary><p>' + escapeHtml(item.answer) + '</p></details>'
-  ).join('') + '</section><nav aria-label="Связанные услуги и материалы"><ul>' + content.related.map(link =>
-    '<li><a href="' + escapeAttr(link.href) + '">' + escapeHtml(link.label) + '</a></li>'
-  ).join('') + '</ul></nav>' : '';
+  const directoryHtml =
+    route === "services"
+      ? serviceDirectory.categories
+          .map(category => {
+            const items = category.subcategories.length
+              ? category.subcategories
+              : [{ name: category.title, link: category.link }];
+            const links = items
+              .map(item =>
+                item.link && item.link !== "#"
+                  ? '<li><a href="' +
+                    escapeAttr(item.link) +
+                    '">' +
+                    escapeHtml(item.name) +
+                    "</a></li>"
+                  : "<li>" + escapeHtml(item.name) + "</li>"
+              )
+              .join("");
+            return (
+              "<section><h2>" +
+              escapeHtml(category.title) +
+              "</h2><p>" +
+              escapeHtml(category.description) +
+              "</p><ul>" +
+              links +
+              "</ul></section>"
+            );
+          })
+          .join("")
+      : "";
+  const local = localRepairContent["/" + route];
+  const localHtml = local
+    ? "<section><h2>" +
+      escapeHtml(local.title) +
+      "</h2>" +
+      local.paragraphs.map(text => "<p>" + escapeHtml(text) + "</p>").join("") +
+      '<nav aria-label="Услуги и примеры ремонта"><ul>' +
+      local.links
+        .map(
+          link =>
+            '<li><a href="' +
+            escapeAttr(link.href) +
+            '">' +
+            escapeHtml(link.label) +
+            "</a></li>"
+        )
+        .join("") +
+      "</ul></nav></section>"
+    : "";
+  const content = serviceContent["/" + route];
+  const details = content
+    ? content.sections
+        .map(
+          section =>
+            "<section><h2>" +
+            escapeHtml(section.title) +
+            "</h2><p>" +
+            escapeHtml(section.text) +
+            "</p></section>"
+        )
+        .join("") +
+      "<section><h2>Вопросы перед ремонтом</h2>" +
+      content.faq
+        .map(
+          item =>
+            "<details><summary>" +
+            escapeHtml(item.question) +
+            "</summary><p>" +
+            escapeHtml(item.answer) +
+            "</p></details>"
+        )
+        .join("") +
+      '</section><nav aria-label="Связанные услуги и материалы"><ul>' +
+      content.related
+        .map(
+          link =>
+            '<li><a href="' +
+            escapeAttr(link.href) +
+            '">' +
+            escapeHtml(link.label) +
+            "</a></li>"
+        )
+        .join("") +
+      "</ul></nav>"
+    : "";
   const links = fallbackLinks(route)
-    .map(([label, href]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`)
-    .join('');
+    .map(
+      ([label, href]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`
+    )
+    .join("");
   const trail = route
     ? `<p><a href="/">ACA Hydraulic</a> / ${escapeHtml(meta.title)}</p>`
-    : '';
+    : "";
   return `<main aria-label="${escapeAttr(meta.title)}">
   ${trail}
-  <h1>${escapeHtml(meta.title.replace(/ \| ACA Hydraulic$/, ''))}</h1>
+  <h1>${escapeHtml(meta.title.replace(/ \| ACA Hydraulic$/, ""))}</h1>
   <p>${escapeHtml(meta.description)}</p>
   <p>ACA Hydraulic выполняет диагностику и ремонт гидравлических систем спецтехники. Условия, сроки выезда и стоимость согласовываются после получения информации о технике и неисправности.</p>
   ${details}
   ${directoryHtml}
   ${localHtml}
-  ${route === 'blog' ? articleList() : ''}
+  ${route === "blog" ? articleList() : ""}
   <p>Адрес ACA Hydraulic: г. Астана, трасса Астана–Караганда, 81. Перед приездом позвоните для согласования.</p>
   <nav aria-label="Основные услуги"><ul>${links}</ul></nav>
   <p><a href="tel:+77714177925">Позвонить: +7 (771) 417-79-25</a> · <a href="https://wa.me/77714177925">Написать в WhatsApp</a></p>
@@ -379,8 +585,9 @@ function staticFallback(route, meta, canonical) {
 }
 
 function withRouteHead(html, route) {
-  const routePath = route ? `/${route}` : '/';
-  const canonical = routePath === '/' ? `${baseUrl}/` : `${baseUrl}${routePath}/`;
+  const routePath = route ? `/${route}` : "/";
+  const canonical =
+    routePath === "/" ? `${baseUrl}/` : `${baseUrl}${routePath}/`;
   const { title, description } = metaForRoute(route);
   const t = escapeAttr(title);
   const d = escapeAttr(description);
@@ -389,60 +596,134 @@ function withRouteHead(html, route) {
   let out = html;
   const renderedArticle = renderStaticPage(route);
   if (renderedArticle) {
-    out = out.replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, '')
-      .replace(/<meta(?=[^>]*\b(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi, '')
-      .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
-      .replace('</head>', `${renderedArticle.head.replace('<script ', '<script data-static-page-schema ')}\n</head>`);
+    out = out
+      .replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, "")
+      .replace(
+        /<meta(?=[^>]*\b(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi,
+        ""
+      )
+      .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, "")
+      .replace(
+        "</head>",
+        `${renderedArticle.head.replace("<script ", "<script data-static-page-schema ")}\n</head>`
+      );
     return replaceRootContent(out, renderedArticle.body);
   }
-  if (route === '404') {
-    out = setTag(out, /<meta(?=[^>]*\bname=["']robots["'])[^>]*>/i, '<meta name="robots" content="noindex, follow">');
+  if (route === "404") {
+    out = setTag(
+      out,
+      /<meta(?=[^>]*\bname=["']robots["'])[^>]*>/i,
+      '<meta name="robots" content="noindex, follow">'
+    );
   }
   out = setTag(out, /<title[^>]*>.*?<\/title>/is, `<title>${t}</title>`);
-  out = setTag(out, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${d}">`, `<meta name="description" content="${d}">`);
-  out = out.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
-  out = out.replace('</head>', `<link data-rh="true" rel="canonical" href="${c}">\n</head>`);
-  out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:url["'])[^>]*>/i, `<meta property="og:url" content="${c}">`);
-  out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i, `<meta property="og:title" content="${t}">`);
-  out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${d}">`);
-  out = setTag(out, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${t}">`);
-  out = setTag(out, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${d}">`);
+  out = setTag(
+    out,
+    /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i,
+    `<meta name="description" content="${d}">`,
+    `<meta name="description" content="${d}">`
+  );
+  out = out.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, "");
+  out = out.replace(
+    "</head>",
+    `<link data-rh="true" rel="canonical" href="${c}">\n</head>`
+  );
+  out = setTag(
+    out,
+    /<meta(?=[^>]*\bproperty=["']og:url["'])[^>]*>/i,
+    `<meta property="og:url" content="${c}">`
+  );
+  out = setTag(
+    out,
+    /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i,
+    `<meta property="og:title" content="${t}">`
+  );
+  out = setTag(
+    out,
+    /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i,
+    `<meta property="og:description" content="${d}">`
+  );
+  out = setTag(
+    out,
+    /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i,
+    `<meta name="twitter:title" content="${t}">`
+  );
+  out = setTag(
+    out,
+    /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i,
+    `<meta name="twitter:description" content="${d}">`
+  );
   const article = articleForRoute(route);
   const staticBlogArticle = staticBlogArticles[route];
   const articleImage = article?.image || staticBlogArticle?.image;
   if (articleImage) {
     const image = escapeAttr(new URL(articleImage, baseUrl).href);
-    out = setTag(out, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${image}">`);
-    out = setTag(out, /<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${image}">`);
+    out = setTag(
+      out,
+      /<meta\s+property=["']og:image["'][^>]*>/i,
+      `<meta property="og:image" content="${image}">`
+    );
+    out = setTag(
+      out,
+      /<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i,
+      `<meta name="twitter:image" content="${image}">`
+    );
   }
-  const pageSchema = JSON.stringify(article ? articleSchema(article) : staticBlogArticle ? staticBlogArticleSchema(staticBlogArticle, canonical) : {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    '@id': `${canonical}#webpage`,
-    url: canonical,
-    name: title,
-    description,
-    inLanguage: 'ru-KZ',
-    isPartOf: { '@id': `${baseUrl}/#website` },
-  });
-  out = out.replace('</head>', `<script type="application/ld+json" data-static-page-schema${article || staticBlogArticle ? ' data-rh="true"' : ''}>${pageSchema}</script>\n</head>`);
-  out = replaceRootContent(out, staticFallback(route, { title, description }, canonical));
+  const pageSchema = JSON.stringify(
+    article
+      ? articleSchema(article)
+      : staticBlogArticle
+        ? staticBlogArticleSchema(staticBlogArticle, canonical)
+        : {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${canonical}#webpage`,
+            url: canonical,
+            name: title,
+            description,
+            inLanguage: "ru-KZ",
+            isPartOf: { "@id": `${baseUrl}/#website` },
+          }
+  );
+  out = out.replace(
+    "</head>",
+    `<script type="application/ld+json" data-static-page-schema${article || staticBlogArticle ? ' data-rh="true"' : ""}>${pageSchema}</script>\n</head>`
+  );
+  out = replaceRootContent(
+    out,
+    staticFallback(route, { title, description }, canonical)
+  );
   out = out.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
-    const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);
-    return managed && !/\bdata-rh=/i.test(attrs) ? `<${name} data-rh="true"${attrs}>` : tag;
+    const managed =
+      name.toLowerCase() === "title" ||
+      /(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["']/i.test(
+        attrs
+      ) ||
+      /rel=["']canonical["']/i.test(attrs);
+    return managed && !/\bdata-rh=/i.test(attrs)
+      ? `<${name} data-rh="true"${attrs}>`
+      : tag;
   });
   return out;
 }
 
 // Root index also gets the optimized static head.
-fs.writeFileSync(indexPath, withRouteHead(indexHtml, ''));
+fs.writeFileSync(indexPath, withRouteHead(indexHtml, ""));
 
 for (const route of routes) {
   const dir = path.join(outDir, route);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'index.html'), withRouteHead(indexHtml, route));
+  fs.writeFileSync(
+    path.join(dir, "index.html"),
+    withRouteHead(indexHtml, route)
+  );
 }
 
 // GitHub Pages SPA fallback for unknown routes.
-fs.writeFileSync(path.join(outDir, '404.html'), withRouteHead(indexHtml, '404'));
-console.log(`Created ${routes.size} route copies from sitemap with SEO head metadata.`);
+fs.writeFileSync(
+  path.join(outDir, "404.html"),
+  withRouteHead(indexHtml, "404")
+);
+console.log(
+  `Created ${routes.size} route copies from sitemap with SEO head metadata.`
+);

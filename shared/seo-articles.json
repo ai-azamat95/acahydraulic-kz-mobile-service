@@ -530,6 +530,7 @@
       }
     ],
     "related": [
+      { "href": "/catalog/", "label": "Все запчасти для спецтехники" },
       {
         "href": "/parts/engines-complete/",
         "label": "Каталог двигателей в сборе"
@@ -623,6 +624,7 @@
       }
     ],
     "related": [
+      { "href": "/catalog/", "label": "Все запчасти для спецтехники" },
       {
         "href": "/parts/engines-complete/",
         "label": "Подобрать двигатель в сборе"
@@ -710,6 +712,7 @@
       }
     ],
     "related": [
+      { "href": "/catalog/", "label": "Все запчасти для спецтехники" },
       {
         "href": "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10/",
         "label": "Карточка Cummins NTA855-C360S10 для Shantui SD32"
