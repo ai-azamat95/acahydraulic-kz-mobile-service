@@ -1,0 +1,9 @@
+{
+  "generatedAt": "2026-09-28T19:41:21Z",
+  "scanner": "Apple Vision full small-text pass plus targeted accurate confirmation",
+  "imageCount": 31807,
+  "forbiddenTextMatches": 0,
+  "decodeFailures": 0,
+  "visualTemplateMatchesResolved": 8,
+  "manifestSha256": "50e3fd8515ef102266f5988bf313e05f6b59b7fc050285253296e63684756d1b"
+}

@@ -6,6 +6,13 @@ on:
       - "scripts/import-sinocmp-catalog.mjs"
       - "scripts/fetch-public-catalog-snapshot.mjs"
       - "scripts/mirror-catalog-images.mjs"
+      - "scripts/rebuild-catalog-image-manifest.mjs"
+      - "scripts/check-catalog-image-availability.mjs"
+      - "scripts/check-catalog-image-audit.mjs"
+      - "scripts/recover-missing-catalog-images.mjs"
+      - "scripts/audit-catalog-image-text.swift"
+      - "scripts/clean-catalog-supplier-marks.py"
+      - "scripts/image-audit-requirements.txt"
       - "scripts/check-public-catalog.mjs"
       - "scripts/lib/catalog-fitment.mjs"
       - "scripts/check-catalog-import.mjs"
@@ -27,6 +34,10 @@ on:
       - "package.json"
       - ".github/workflows/catalog-import-check.yml"
       - ".github/workflows/catalog-refresh.yml"
+      - ".github/workflows/catalog-integrity.yml"
+      - "tests/catalog-image-manifest-rebuild.test.mjs"
+      - "CATALOG_INDEPENDENCE.md"
+      - "catalog-image-text-audit.json"
       - "client/public/catalog-data/**"
   workflow_dispatch:
 
@@ -47,7 +58,9 @@ jobs:
       - name: Verify committed ACA catalogue snapshot
         run: pnpm catalog:verify-public
       - name: Test product-scoped image mirroring
-        run: node --test tests/catalog-image-mirror.test.mjs
+        run: node --test tests/catalog-image-mirror.test.mjs tests/catalog-image-manifest-rebuild.test.mjs
+      - name: Verify current pixel audit
+        run: node scripts/check-catalog-image-audit.mjs
       - name: Verify reviewed product names and selection copy
         run: node --test tests/catalog-product-seo.test.mjs
       - name: Build fitment-aware product pages

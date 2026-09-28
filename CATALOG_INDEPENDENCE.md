@@ -6,7 +6,7 @@ The public ACA Hydraulic catalogue is a versioned snapshot. Normal GitHub Pages 
 
 - Product JSON is committed under `client/public/catalog-data`.
 - Every remote gallery image uses one explicit ACA-controlled `CATALOG_IMAGE_BASE_URL`; supplier hosts are rejected.
-- Object keys are deterministic and product-scoped: `catalog/v1/{productId}/{galleryPosition}-{sourceHash}`.
+- Object keys are deterministic and product-scoped: `catalog/v2/{productId}/{galleryPosition}-{sourceHash}.webp`.
 - `catalog-image-manifest.json` records the product ID, gallery position, object key, source hash, content hash, byte size and content type. It does not expose supplier URLs.
 - `pnpm catalog:verify-public` rejects supplier names, supplier hosts, missing image-manifest entries and galleries outside ACA-managed storage.
 
@@ -30,4 +30,18 @@ For the zero-cost bootstrap, the filesystem backend can publish optimized WebP f
 
 Object paths include a hash of the source URL. Re-running a failed refresh checks existing objects and skips matches, while changed source images receive a new key. Catalog JSON is rewritten only after every selected upload succeeds, preventing partially migrated galleries.
 
-The completed first migration published 31,676 product-scoped gallery files for 10,393 products. The optimized image payload is 732,304,996 bytes; the integrity manifest and catalogue checks report no missing or unreferenced managed files.
+The current snapshot publishes 31,807 product-scoped gallery files for 10,393 products. The optimized image payload is 735,698,822 bytes; the integrity manifest and catalogue checks report no missing or unreferenced managed files.
+
+## Pixel-level supplier hygiene
+
+- `scripts/audit-catalog-image-text.swift` scans real catalogue images with Apple Vision OCR. `--small-text` is the full-catalog gate; `--accurate` is used for targeted confirmation.
+- `scripts/clean-catalog-supplier-marks.py` removes only OCR-confirmed rectangles from the original photo with classical OpenCV inpainting or a sampled background fill. It does not generate replacement product imagery.
+- The initial full audit covered 31,807 images. Every OCR match was cleaned and a second full `--small-text` scan completed with zero supplier-text matches and zero decode failures.
+- A separate visual-template scan removed the repeated small circular supplier seal that text OCR could not reliably read.
+- `scripts/rebuild-catalog-image-manifest.mjs` recalculates every content hash and byte size after approved image edits.
+- `.github/workflows/catalog-integrity.yml` verifies all stored files weekly and checks a deterministic live GitHub Pages sample.
+
+Two products intentionally remain without images because their exact source records contain no image or video preview. Do not substitute a similar part or generate a replacement image:
+
+- `4063712 / 6743-81-9141` fuel shutoff solenoid;
+- `PVQ10-A2R-SE1S-20-CM7D-12` Vickers hydraulic pump.
