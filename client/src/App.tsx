@@ -5,6 +5,7 @@ import { Route, Router as WouterRouter, Switch, Redirect } from "wouter";
 import legacyRedirects from "../../shared/legacy-redirects.json";
 import seoArticles from "../../shared/seo-articles.json";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { CookieConsent } from "./components/CookieConsent";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { lazy, Suspense } from "react";
 
@@ -189,6 +190,7 @@ function App() {
           <Toaster />
           <WouterRouter base={routerBase}>
             <AppRoutes />
+            <CookieConsent />
           </WouterRouter>
         </TooltipProvider>
       </ThemeProvider>

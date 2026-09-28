@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
+import { openCookieSettings } from '@/lib/cookieConsent';
 
 export default function Legal() {
   const [location] = useLocation();
@@ -17,7 +18,9 @@ export default function Legal() {
         <h2 className="text-xl font-bold">Отправка через WhatsApp</h2>
         <p>Форма подготавливает сообщение и открывает WhatsApp. Открытие ссылки передаёт подготовленные сведения сервису WhatsApp; чтобы обращение поступило менеджеру, необходимо отправить сообщение. До этого сайт не подтверждает получение заявки. К работе WhatsApp применяются правила его поставщика.</p>
         <h2 className="text-xl font-bold">Аналитика</h2>
-        <p>На сайте подключены Google Analytics и Google Ads, Яндекс Метрика и TikTok Pixel. Они могут использовать cookie и сведения о посещении страниц, устройстве и действиях на сайте. Рекламные клики не означают подтверждённый заказ. Настройки cookie и блокировки отслеживания доступны в вашем браузере.</p>
+        <p>С вашего согласия сайт использует Google Analytics и Яндекс Метрику для анализа посещений, а Google Ads и TikTok Pixel — для измерения эффективности рекламы. До получения соответствующего согласия эти системы не загружаются. Текст сообщений WhatsApp в аналитику не передаётся. Рекламные клики не означают подтверждённый заказ.</p>
+        <p>Выбор сохраняется на срок до 12 месяцев. Его можно изменить или отозвать в любое время:</p>
+        <button type="button" onClick={openCookieSettings} className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#FFC000] px-4 py-2 font-semibold text-[#FFC000] transition-colors hover:bg-[#FFC000] hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">Открыть настройки cookie</button>
         <h2 className="text-xl font-bold">Вопросы и исправление сведений</h2>
         <p>Для уточнения, исправления или запроса удаления переданных сведений обратитесь по указанным контактам и укажите, к какому обращению относится запрос. Не передавайте через форму пароли, платёжные данные и сведения, не требующиеся для ремонта.</p>
       </> : <>
