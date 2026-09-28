@@ -6,8 +6,10 @@ import { catalogImageExclusionReason, isExcludedCatalogImage } from './lib/catal
 
 const SOURCE_ORIGIN = 'https://sinocmp.com';
 const KAZAKHSTAN_MARKET_COOKIE = 'localization=KZ; _shopify_country=KZ; cart_currency=KZT';
-const OUTPUT_DIR = path.resolve('client/public/catalog-data');
-const WIRING_HARNESS_ASSET_DIR = path.resolve('client/public/catalog-assets/wiring-harnesses');
+const OUTPUT_DIR = path.resolve(process.env.CATALOG_OUTPUT_DIR || 'client/public/catalog-data');
+const WIRING_HARNESS_ASSET_DIR = path.resolve(
+  process.env.CATALOG_ASSET_DIR || 'client/public/catalog-assets/wiring-harnesses',
+);
 const PAGE_SIZE = 250;
 const MARKUP = 1.5;
 const CONTROLLER_MARKUP = 1.8;

@@ -1,0 +1,100 @@
+name: Refresh ACA catalog snapshot
+
+on:
+  workflow_dispatch:
+    inputs:
+      open_pull_request:
+        description: Push the refreshed snapshot and open a review pull request
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: catalog-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Checkout ACA image storage
+        uses: actions/checkout@v4
+        with:
+          repository: ai-azamat95/acahydraulic-catalog-images
+          path: .catalog-images
+          token: ${{ secrets.CATALOG_IMAGES_TOKEN }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Install WebP encoder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
+
+      - name: Import supplier data into an isolated refresh run
+        run: pnpm catalog:sync
+      - name: Verify source import before publication
+        run: |
+          pnpm catalog:verify
+          pnpm catalog:verify-pumps
+      - name: Mirror every external product image to ACA storage
+        run: pnpm catalog:mirror-images
+        env:
+          CATALOG_IMAGE_BACKEND: filesystem
+          CATALOG_IMAGE_LOCAL_DIR: .catalog-images
+          CATALOG_IMAGE_BASE_URL: https://ai-azamat95.github.io/acahydraulic-catalog-images
+          CATALOG_IMAGE_ALLOW_NON_ACA_HOST: "1"
+          CATALOG_IMAGE_WEBP_SIZE: "1000"
+          CATALOG_IMAGE_WEBP_QUALITY: "70"
+          CATALOG_IMAGE_CONCURRENCY: "12"
+      - name: Publish changed images before catalog URLs
+        run: |
+          cp client/public/catalog-data/catalog-image-manifest.json .catalog-images/catalog-image-manifest.json
+          git -C .catalog-images config user.name "github-actions[bot]"
+          git -C .catalog-images config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C .catalog-images add -A
+          if ! git -C .catalog-images diff --cached --quiet; then
+            git -C .catalog-images commit -m "Refresh ACA catalog images"
+            git -C .catalog-images push origin main
+          fi
+      - name: Remove private supplier audit data
+        run: pnpm catalog:prepare-public
+      - name: Verify independent public snapshot
+        run: |
+          pnpm catalog:verify-public
+          node --test tests/catalog-image-mirror.test.mjs
+          pnpm check
+          pnpm build
+
+      - name: Save refresh evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-refresh-${{ github.run_id }}
+          path: |
+            client/public/catalog-data/manifest.json
+            client/public/catalog-data/catalog-image-manifest.json
+          retention-days: 30
+
+      - name: Push review branch and open pull request
+        if: ${{ inputs.open_pull_request }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REFRESH_BRANCH: catalog/refresh-${{ github.run_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$REFRESH_BRANCH"
+          git add -A client/public/catalog-data client/public/catalog-assets/wiring-harnesses
+          git commit -m "Refresh independent catalog snapshot"
+          git push origin "$REFRESH_BRANCH"
+          gh pr create --base main --head "$REFRESH_BRANCH" --title "Refresh independent catalog snapshot" --body "Automated catalog refresh. Product data was verified before publication; all external gallery images were mirrored to ACA-managed storage; the public snapshot contains no supplier host or supplier identity. Review the product/image counts and checks before merging."

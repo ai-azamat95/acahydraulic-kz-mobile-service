@@ -4,7 +4,7 @@ import { applyOwnerCatalogProducts } from './catalog-owner-products.mjs';
 import path from 'node:path';
 import { applyApprovedCatalogPrices } from './catalog-approved-prices.mjs';
 
-const catalogDir = path.resolve('client/public/catalog-data');
+const catalogDir = path.resolve(process.env.CATALOG_DIR || 'client/public/catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
 
 if (!fs.existsSync(manifestPath)) {
@@ -38,6 +38,11 @@ const publicManifest = {
   currency: preparedManifest.currency,
   indexFile: preparedManifest.indexFile,
   categorySummaryFile: preparedManifest.categorySummaryFile,
+  imageBaseUrl: preparedManifest.imageBaseUrl,
+  imageManifestFile: preparedManifest.imageManifestFile,
+  imageOwnership: preparedManifest.imageOwnership,
+  mirroredImageCount: preparedManifest.mirroredImageCount,
+  mirroredProductCount: preparedManifest.mirroredProductCount,
   imagePolicy: preparedManifest.imagePolicy,
 };
 

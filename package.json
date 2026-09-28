@@ -11,6 +11,8 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "catalog:sync": "node scripts/import-sinocmp-catalog.mjs",
+    "catalog:snapshot": "node scripts/fetch-public-catalog-snapshot.mjs",
+    "catalog:mirror-images": "node scripts/mirror-catalog-images.mjs",
     "catalog:verify": "node scripts/check-catalog-import.mjs",
     "catalog:verify-pumps": "node scripts/check-pump-import.mjs",
     "catalog:prepare-public": "node scripts/prepare-public-catalog.mjs",
