@@ -7,9 +7,19 @@ import { Link } from "wouter";
 import { publicAsset } from "@/lib/assets";
 import seoArticles from "../../../shared/seo-articles.json";
 const articles = [
-  ...seoArticles.map((article, index) => ({ id: 100 + index, title: article.title, excerpt: article.description,
-    date: article.publishedDate, displayDate: article.publishedDate.split("-").reverse().join("."), author: "ACA Hydraulic", category: article.category,
-    image: article.image, imageAlt: article.imageAlt, slug: article.slug, readTime: article.readTime })),
+  ...seoArticles.map((article, index) => ({
+    id: 100 + index,
+    title: article.title,
+    excerpt: article.description,
+    date: article.publishedDate,
+    displayDate: article.publishedDate.split("-").reverse().join("."),
+    author: "ACA Hydraulic",
+    category: article.category,
+    image: article.image,
+    imageAlt: article.imageAlt,
+    slug: article.slug,
+    readTime: article.readTime,
+  })),
   {
     id: 1,
     title: "Ремонт гидронасоса CAT: пошаговое руководство и стоимость",
@@ -64,7 +74,8 @@ const articles = [
   },
   {
     id: 5,
-    title: "Ремонт гидравлики дорожной фрезы Wirtgen 1500: потеря хода при нагреве",
+    title:
+      "Ремонт гидравлики дорожной фрезы Wirtgen 1500: потеря хода при нагреве",
     excerpt:
       "Реальный кейс ACA Hydraulic: фреза Wirtgen 1500 теряла ход после прогрева. Диагностика выявила износ уплотнений гидромоторов. Ремонт за 2 дня. Фото с объекта.",
     date: "2026-03-18",
@@ -128,7 +139,7 @@ const blogListSchema = {
   publisher: {
     "@id": "https://acahydraulic.kz/#business",
   },
-  blogPost: articles.map((a) => ({
+  blogPost: articles.map(a => ({
     "@type": "BlogPosting",
     headline: a.title,
     description: a.excerpt,
@@ -145,9 +156,9 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-[#111111] text-white font-roboto pt-20">
       <SEO
-        title="Блог о ремонте гидравлики спецтехники | ACA Hydraulic"
-        description="Полезные статьи о ремонте гидравлики экскаваторов CAT, Komatsu, Hitachi. Цены, диагностика, советы экспертов. Реальные кейсы из практики ACA Hydraulic в Казахстане."
-        keywords="блог ремонт гидравлики, ремонт гидронасоса CAT, ремонт гидромотора Komatsu, диагностика гидравлики экскаватора, давление гидравлики"
+        title="Подбор двигателей, гидронасосов и запчастей | ACA Hydraulic"
+        description="Практические статьи ACA Hydraulic: как подобрать двигатель в сборе, гидронасос и запчасти для спецтехники, проверить совместимость и сравнить ремонт с заменой."
+        keywords="купить двигатель для спецтехники, подобрать гидронасос, запчасти для спецтехники, ремонт гидравлики, диагностика экскаватора"
         canonical="/blog"
         breadcrumbs={[{ name: "Блог", url: "/blog" }]}
         schema={blogListSchema}
@@ -171,8 +182,9 @@ export default function Blog() {
               <span className="text-[#FFC000]">ACA Hydraulic</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Делимся опытом ремонта, даём советы по эксплуатации и рассказываем
-              о нюансах обслуживания спецтехники в условиях Казахстана.
+              Помогаем подобрать двигатель, гидронасос и запчасти без заказа
+              неподходящего исполнения. Показываем реальные кейсы и объясняем,
+              какие данные нужны для расчёта ремонта или поставки.
             </p>
           </div>
         </div>
@@ -182,7 +194,7 @@ export default function Blog() {
       <section className="py-16 bg-[#111]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {articles.map((article) => (
+            {articles.map(article => (
               <article
                 key={article.id}
                 className="group bg-[#1a1a1a] border border-white/5 rounded-lg overflow-hidden hover:border-[#FFC000]/50 transition-all duration-300 flex flex-col h-full"
@@ -191,7 +203,9 @@ export default function Blog() {
                 <div className="h-52 overflow-hidden relative">
                   <img
                     src={article.image}
-                    alt={"imageAlt" in article ? article.imageAlt : article.title}
+                    alt={
+                      "imageAlt" in article ? article.imageAlt : article.title
+                    }
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
@@ -248,13 +262,34 @@ export default function Blog() {
           </h2>
           <div className="flex flex-wrap gap-3 justify-center max-w-3xl mx-auto">
             {[
-              { label: "Ремонт гидронасосов", href: "/services/hydraulic-pumps" },
-              { label: "Ремонт гидромоторов", href: "/services/hydraulic-motors" },
-              { label: "Ремонт экскаваторов", href: "/services/excavator-repair" },
-              { label: "Ремонт гидрораспределителей", href: "/services/hydraulic-valves" },
+              { label: "Двигатели в сборе", href: "/parts/engines-complete/" },
+              {
+                label: "Каталог гидронасосов",
+                href: "/catalog/category/hydraulic-pumps/",
+              },
+              { label: "Все запчасти", href: "/catalog/" },
+              {
+                label: "Ремонт гидронасосов",
+                href: "/services/hydraulic-pumps",
+              },
+              {
+                label: "Ремонт гидромоторов",
+                href: "/services/hydraulic-motors",
+              },
+              {
+                label: "Ремонт экскаваторов",
+                href: "/services/excavator-repair",
+              },
+              {
+                label: "Ремонт гидрораспределителей",
+                href: "/services/hydraulic-valves",
+              },
               { label: "Выездной ремонт", href: "/services/mobile-repair" },
-              { label: "Промышленный сервис", href: "/services/industrial-service/" },
-            ].map((link) => (
+              {
+                label: "Промышленный сервис",
+                href: "/services/industrial-service/",
+              },
+            ].map(link => (
               <Link key={link.href} href={link.href}>
                 <span className="inline-block px-4 py-2 bg-[#1a1a1a] border border-white/10 rounded text-sm text-gray-300 hover:border-[#FFC000]/50 hover:text-[#FFC000] transition-colors cursor-pointer">
                   {link.label}
