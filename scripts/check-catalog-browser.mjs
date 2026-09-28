@@ -239,10 +239,10 @@ try {
             await page.locator('link[rel="canonical"]').getAttribute('href'),
             'https://acahydraulic.kz/parts/engines-complete/cummins/n855-nt855-nta855/',
             'engine product needs a self canonical'
-          );
-          const engineSchemas=await page.locator('script[type="application/ld+json"]').evaluateAll(nodes=>nodes.map(node=>{try{return JSON.parse(node.textContent||'{}')}catch{return null}}));
-          const engineServiceSchema=engineSchemas.find(value=>value?.['@type']==='Service');
-          assert.equal(engineServiceSchema?.name,'Подбор и поставка двигателя Cummins N855 / NT855 / NTA855 в сборе','engine page must expose an honest service schema');
+        );
+        const engineSchemas=await page.locator('script[type="application/ld+json"]').evaluateAll(nodes=>nodes.map(node=>{try{return JSON.parse(node.textContent||'{}')}catch{return null}}));
+        const engineServiceSchema=engineSchemas.find(value=>value?.['@type']==='Service'&&value?.name==='Подбор и поставка двигателя Cummins N855 / NT855 / NTA855 в сборе');
+        assert(engineServiceSchema,'engine page must expose an honest service schema');
           assert.equal(engineSchemas.some(value=>value?.['@type']==='Product'),false,'engine page must not publish an invalid Product without price or verified reviews');
           assert.equal(await page.locator('[data-engine-case]').count(),1,'verified Shantui case must appear on N855 family only');
           await page.goto(origin+'/parts/engines-complete/cummins/',{waitUntil:'networkidle'});
