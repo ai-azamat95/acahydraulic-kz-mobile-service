@@ -23,8 +23,9 @@ test('reviewed Russian names preserve every source part number and equipment mod
     const imported = products.find(item => item.handle === handle);
     const product = imported && applyOwnerSale(imported);
     assert(product, `${handle} must exist in the current catalog`);
-    for (const code of codes(product.title)) assert(codes(content.name).includes(code), `${handle} lost ${code}`);
-    for (const code of codes(content.name)) assert(codes(product.title).includes(code), `${handle} invented ${code}`);
+    const productIdentity = [product.title, product.catalogTitle, product.fitment].filter(Boolean).join(' ');
+    for (const code of codes(productIdentity)) assert(codes(content.name).includes(code), `${handle} lost ${code}`);
+    for (const code of codes(content.name)) assert(codes(productIdentity).includes(code), `${handle} invented ${code}`);
     assert(/[а-яё]/i.test(content.name));
     assert(content.title.length <= 65, handle);
     assert(content.description.length >= 110 && content.description.length <= 180, handle);

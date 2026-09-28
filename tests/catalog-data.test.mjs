@@ -13,7 +13,8 @@ test('catalog contains a unique complete product index', () => {
   assert.equal(index.length, manifest.productCount);
   assert.equal(new Set(index.map((product) => product.handle)).size, index.length);
   assert(index.length > 10_000);
-  assert.equal(manifest.markup, 1.5);
+  assert.equal(manifest.imageOwnership, 'aca-managed');
+  assert.equal('markup' in manifest, false, 'private pricing policy must not be published');
 });
 
 test('catalog prices use the Kazakhstan source market currency', () => {
@@ -21,7 +22,7 @@ test('catalog prices use the Kazakhstan source market currency', () => {
   assert.equal(manifest.currency, 'KZT');
 });
 
-test('every published numeric price uses the 50 percent markup', () => {
+test('every published numeric price is valid without exposing source cost', () => {
   const files = fs.readdirSync(dataDir).filter((file) => /^products-\d+\.json$/.test(file));
   assert(files.length > 40);
   let variantCount = 0;
@@ -31,7 +32,8 @@ test('every published numeric price uses the 50 percent markup', () => {
       for (const variant of product.variants) {
         variantCount += 1;
         if (variant.priceKzt === null) continue;
-        assert(Math.abs(variant.priceKzt - variant.sourcePriceKzt * 1.5) < 0.011, `${product.handle}: ${variant.sourcePriceKzt} -> ${variant.priceKzt}`);
+        assert(Number.isFinite(variant.priceKzt) && variant.priceKzt > 0, `${product.handle}: invalid public price`);
+        assert.equal('sourcePriceKzt' in variant, false, `${product.handle}: source cost must remain private`);
       }
     }
   }
