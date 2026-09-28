@@ -183,6 +183,14 @@ try {
             const initiallyVisible = Math.min(48, expected);
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(initiallyVisible), `${slug} must start with a scannable 48-card batch`);
             assert.equal(await page.locator('.aca-product-card').count(), initiallyVisible, `${slug} must render the initial 48-card batch`);
+            if (expected > initiallyVisible) {
+              assert.equal(await page.locator('[data-show-all-products]').getAttribute('data-show-all-products'), String(expected), `${slug} must offer an explicit show-all action`);
+              if (slug === 'controllers') {
+                await page.locator('[data-show-all-products]').click();
+                assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(expected), 'show-all must expose every controller card');
+                assert.equal(await page.locator('.aca-product-card').count(), expected, 'show-all must render every controller card');
+              }
+            }
           }
           await page.goto(origin+'/catalog/category/control-valves',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);

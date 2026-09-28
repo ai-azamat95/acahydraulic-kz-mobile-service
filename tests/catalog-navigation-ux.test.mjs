@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const catalogPage = fs.readFileSync('client/src/pages/Catalog.tsx', 'utf8');
 const catalogHook = fs.readFileSync('client/src/hooks/useCatalogProducts.ts', 'utf8');
+const productResults = fs.readFileSync('client/src/components/catalog/ProductResults.tsx', 'utf8');
 const supplyOffers = fs.readFileSync('client/src/components/catalog/PumpSupplyOffers.tsx', 'utf8');
 
 test('catalog navigation opens dedicated category pages without mixing the home product feed', () => {
@@ -21,6 +22,16 @@ test('catalog category counts use the complete published summary immediately', (
   assert.match(catalogHook, /Complete catalog index unavailable; loading chunks/);
   assert.match(catalogPage, /Object\.keys\(categorySummary\)\.length > 0/);
   assert.match(catalogPage, /const ELECTRONICS_VISIBLE_PRODUCTS = 48/);
+  assert.match(catalogPage, /data-expected-count=\{expectedResultCount\}/);
+  assert.match(catalogPage, /data-index-complete=\{complete \? "true" : "false"\}/);
+  assert.match(catalogPage, /catalogProgressLabel\(filteredProducts\.length, expectedResultCount, language\)/);
+});
+
+test('catalog offers an explicit show-all action after the complete index loads', () => {
+  assert.match(productResults, /data-show-all-products=\{total\}/);
+  assert.match(productResults, /onClick=\{onShowAll\}/);
+  assert.match(catalogPage, /showAllLabel=\{showAllProductsLabel\(filteredProducts\.length, language\)\}/);
+  assert.match(catalogPage, /onShowAll=\{\(\) => setVisibleCount\(filteredProducts\.length\)\}/);
 });
 
 test('featured product links use a client-routable product URL', () => {
