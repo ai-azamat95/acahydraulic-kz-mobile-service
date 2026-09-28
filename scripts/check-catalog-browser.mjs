@@ -34,6 +34,14 @@ const server = http.createServer((req,res) => {
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const origin='http://127.0.0.1:'+server.address().port;
+async function selectCatalogLanguage(page, language) {
+  const mobileSelect = page.getByRole('combobox', { name: 'Язык каталога' });
+  if (await mobileSelect.isVisible()) {
+    await mobileSelect.selectOption(language.toLowerCase());
+    return;
+  }
+  await page.getByRole('button', { name: language, exact: true }).click();
+}
 fs.mkdirSync('catalog-ui-check',{recursive:true});
 const results=[];
 try {
@@ -52,7 +60,7 @@ try {
           expectedControllerCount,
         );
         for(const lang of ['RU','KZ','EN']){
-          await page.getByRole('button',{name:lang,exact:true}).click();
+          await selectCatalogLanguage(page, lang);
           assert.equal(await page.locator('.aca-category-card:visible').count(),21);
           assert.equal(await page.locator('.aca-category-count:visible').count(),21);
           assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
@@ -77,8 +85,8 @@ try {
             const promoPaths=await page.locator('.aca-mobile-promos img').evaluateAll(nodes=>nodes.map(n=>new URL(n.src).pathname));
             assert.deepEqual(promoPaths,['/catalog-assets/promo-first-order.jpg','/catalog-assets/promo-china-delivery.jpg'],'approved local banner assets');
             const promo=await page.locator('.aca-mobile-promos').boundingBox();
-            const form=await page.locator('#catalog-search').boundingBox();
-            assert(promo.y+promo.height<=form.y,'banner overlaps search');
+            const categories=await page.locator('.aca-category-grid').boundingBox();
+            assert(promo.y>=categories.y+categories.height-1,'promotions must remain secondary after categories on mobile');
             assert(await page.locator('.aca-mobile-nav').isVisible());
             await page.locator('.aca-mobile-nav a[href="#catalog-delivery"]').click();
             const delivery=await page.locator('#catalog-delivery').boundingBox();
@@ -98,7 +106,7 @@ try {
             assert.equal(await page.locator('#catalog-search label').first().evaluate(node=>getComputedStyle(node).color),'rgb(55, 65, 81)','desktop form labels need readable contrast');
           }
         }
-        await page.getByRole('button',{name:'RU',exact:true}).click();
+        await selectCatalogLanguage(page, 'RU');
         assert.equal(await page.locator('.aca-product-fitment').count(),await page.locator('.aca-product-card').count(),'every product card needs a fitment description');
         await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
