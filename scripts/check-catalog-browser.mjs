@@ -302,7 +302,13 @@ try {
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'ZX160W');
       await journey.waitForFunction(() => Number(document.querySelector('[data-result-count]')?.getAttribute('data-result-count')) > 0);
       await journey.waitForLoadState('networkidle');
-      await journey.locator('.aca-product-card > a').first().click();
+      const journeyProductLink = journey.locator('.aca-product-card > a').first();
+      const journeyProductPath = await journeyProductLink.getAttribute('href');
+      assert(journeyProductPath?.startsWith('/catalog/'), 'search result must link to a catalog product');
+      await journeyProductLink.scrollIntoViewIfNeeded();
+      await journey.waitForTimeout(500);
+      await journeyProductLink.click();
+      await journey.waitForURL((url) => url.pathname === journeyProductPath);
       await journey.locator('.aca-product-fitment-detail').waitFor();
       await journey.goBack({waitUntil:'networkidle'});
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'ZX160W','return from product preserves model');
