@@ -42,6 +42,12 @@ async function selectCatalogLanguage(page, language) {
   }
   await page.getByRole('button', { name: language, exact: true }).click();
 }
+async function acceptEssentialCookies(page) {
+  const essentialCookiesButton = page.getByRole('button', { name: 'Только обязательные' });
+  if (await essentialCookiesButton.isVisible()) {
+    await essentialCookiesButton.click();
+  }
+}
 fs.mkdirSync('catalog-ui-check',{recursive:true});
 const results=[];
 try {
@@ -54,6 +60,7 @@ try {
         page.on('pageerror',e=>errors.push(e.message));
         await page.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
         await page.goto(origin+'/catalog',{waitUntil:'networkidle'});
+        await acceptEssentialCookies(page);
         await page.locator('.aca-category-card').first().waitFor();
         await page.waitForFunction(
           (expected) => document.querySelector('.aca-category-card[href="/catalog/category/controllers"] .aca-category-count')?.textContent?.replace(/\s/g, '').includes(String(expected)),
@@ -194,7 +201,11 @@ try {
             if (expected > initiallyVisible) {
               assert.equal(await page.locator('[data-show-all-products]').getAttribute('data-show-all-products'), String(expected), `${slug} must offer an explicit show-all action`);
               if (slug === 'controllers') {
-                await page.locator('[data-show-all-products]').click();
+                const showAllButton = page.locator('[data-show-all-products]');
+                await showAllButton.scrollIntoViewIfNeeded();
+                await page.waitForTimeout(500);
+                await showAllButton.click();
+                await page.waitForFunction((count) => document.querySelector('[data-visible-count]')?.getAttribute('data-visible-count') === String(count), expected);
                 assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(expected), 'show-all must expose every controller card');
                 assert.equal(await page.locator('.aca-product-card').count(), expected, 'show-all must render every controller card');
               }
@@ -259,6 +270,7 @@ try {
       journey.on('pageerror', error => journeyErrors.push(error.message));
       await journey.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
       await journey.goto(origin+'/cases/postavka-zamena-gidronasosa',{waitUntil:'networkidle'});
+      await acceptEssentialCookies(journey);
       await journey.getByRole('link',{name:'Найти K5V160DT в запчастях',exact:true}).click();
       await journey.locator('[data-supply-offer="sany-k5v160dt"]').waitFor();
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT');
