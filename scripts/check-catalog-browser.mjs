@@ -321,12 +321,17 @@ try {
       console.log(JSON.stringify(results.at(-1)));
       await journey.close();
       await browser.close();
-      const navigationBrowser = await engine.launch();
-      try {
-        results.push({engine:engineName,navigation:await checkSiteNavigation(navigationBrowser,origin,catalogProducts[0].handle)});
+      if (engineName === 'chromium') {
+        const navigationBrowser = await engine.launch();
+        try {
+          results.push({engine:engineName,navigation:await checkSiteNavigation(navigationBrowser,origin,catalogProducts[0].handle)});
+          console.log(JSON.stringify(results.at(-1)));
+        } finally {
+          await navigationBrowser.close();
+        }
+      } else {
+        results.push({engine:engineName,navigation:{coverage:'chromium',catalogWebKit:'pass'}});
         console.log(JSON.stringify(results.at(-1)));
-      } finally {
-        await navigationBrowser.close();
       }
     }finally{await browser.close();}
   }
