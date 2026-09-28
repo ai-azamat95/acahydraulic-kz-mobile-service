@@ -1,0 +1,35 @@
+name: ACA catalog integrity monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 2 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catalog-integrity
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout ACA image storage
+        uses: actions/checkout@v4
+        with:
+          repository: ai-azamat95/acahydraulic-catalog-images
+          path: .catalog-images
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify public catalog ownership and references
+        run: node scripts/check-public-catalog.mjs
+      - name: Verify every stored image against the integrity manifest
+        run: node scripts/rebuild-catalog-image-manifest.mjs --check --manifest client/public/catalog-data/catalog-image-manifest.json --image-dir .catalog-images
+      - name: Verify pixel audit covers the current integrity manifest
+        run: node scripts/check-catalog-image-audit.mjs
+      - name: Verify a deterministic live sample through GitHub Pages
+        run: node scripts/check-catalog-image-availability.mjs --sample-size 128 --concurrency 8
