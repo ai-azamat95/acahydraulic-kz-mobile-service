@@ -139,10 +139,18 @@ assert(
 assert(
   fuelPumps.every(
     (product) =>
-      product.imageUrl === '/catalog-assets/category-fuel-pump.jpg' &&
-      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-fuel-pump.jpg']),
+      Array.isArray(product.gallery) &&
+      product.gallery.length > 0 &&
+      product.imageUrl === product.gallery[0] &&
+      product.imageUrl !== '/catalog-assets/category-fuel-pump.jpg' &&
+      product.gallery.every((imageUrl) => /^https:\/\/(?:[^/]+\.)?(?:sinocmp\.com|shopify\.com)\//i.test(imageUrl)),
   ),
-  'fuel pumps must use the local unbranded catalogue image',
+  'fuel pumps must use their own supplier product gallery instead of a shared placeholder',
+);
+assert.equal(
+  new Set(fuelPumps.map((product) => product.imageUrl)).size,
+  fuelPumps.length,
+  'every fuel pump must have a distinct primary image',
 );
 assert(
   engineRebuildKits.every(
