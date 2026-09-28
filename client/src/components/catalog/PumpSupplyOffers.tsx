@@ -28,7 +28,7 @@ export const supplyPumpOffers: SupplyPumpOffer[] = [
     status: { ru: "Китайский насос · поставка под заказ", kz: "Қытай сорғысы · тапсырыс бойынша", en: "Chinese pump · supplied to order" } },
   { id: pumpOptions[1].id, name: pumpOptions[1].name, image: pumpOptions[1].image, price: pumpOptions[1].price,
     brands: ["hitachi"], tags: ["HANDOK", "H5V80DTP", "K5V80DTP", "Hitachi", "ZX160W", "hydraulic pump"],
-    caseAnchor: "hitachi-order", query: "HANDOK", href: "/catalog/handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump/",
+    caseAnchor: "hitachi-order", query: "HANDOK", href: "/catalog/handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump",
     status: { ru: "Корейский аналог · доставка по Казахстану включена", kz: "Корея баламасы · Қазақстан бойынша жеткізу кіреді", en: "Korean alternative · Kazakhstan delivery included" } },
 ];
 

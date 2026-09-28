@@ -6,9 +6,13 @@ import { checkSiteNavigation } from './check-site-navigation.mjs';
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
 const catalogDir = path.join(root, 'catalog-data');
-const catalogProducts = fs.readdirSync(catalogDir)
-  .filter((file) => /^search-index-\d+\.json$/.test(file))
-  .flatMap((file) => JSON.parse(fs.readFileSync(path.join(catalogDir, file), 'utf8')));
+const catalogManifest = JSON.parse(fs.readFileSync(path.join(catalogDir, 'manifest.json'), 'utf8'));
+const completeIndexPath = catalogManifest.indexFile ? path.join(catalogDir, catalogManifest.indexFile) : null;
+const catalogProducts = completeIndexPath && fs.existsSync(completeIndexPath)
+  ? JSON.parse(fs.readFileSync(completeIndexPath, 'utf8'))
+  : fs.readdirSync(catalogDir)
+      .filter((file) => /^search-index-\d+\.json$/.test(file))
+      .flatMap((file) => JSON.parse(fs.readFileSync(path.join(catalogDir, file), 'utf8')));
 const expectedControlValveCount = catalogProducts.filter((product) => product.category === 'control-valves').length;
 const expectedGearPumpCount = catalogProducts.filter((product) => product.category === 'gear-pumps').length;
 const expectedPistonPumpCount = catalogProducts.filter((product) => product.category === 'piston-pumps').length;
@@ -43,6 +47,10 @@ try {
         await page.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
         await page.goto(origin+'/catalog',{waitUntil:'networkidle'});
         await page.locator('.aca-category-card').first().waitFor();
+        await page.waitForFunction(
+          (expected) => document.querySelector('.aca-category-card[href="/catalog/category/controllers"] .aca-category-count')?.textContent?.replace(/\s/g, '').includes(String(expected)),
+          expectedControllerCount,
+        );
         for(const lang of ['RU','KZ','EN']){
           await page.getByRole('button',{name:lang,exact:true}).click();
           assert.equal(await page.locator('.aca-category-card:visible').count(),21);
@@ -81,7 +89,7 @@ try {
             assert(hero.height<820,'desktop hero should reveal categories in the first viewport');
             assert.equal(await page.locator('.aca-desktop-nav:visible').count(),1,'desktop navigation must be visible');
             assert.deepEqual(await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{}))),[7,7,7],'desktop categories should use three balanced rows');
-            assert.equal(await page.locator('.aca-product-card').evaluateAll(nodes=>nodes.filter(node=>Math.abs(node.getBoundingClientRect().top-nodes[0].getBoundingClientRect().top)<2).length),5,'desktop product grid should show five cards per row');
+            assert.equal(await page.locator('.aca-product-card').count(),0,'catalog home must start with category choices instead of a mixed product list');
             assert.equal(await page.locator('.aca-desktop-banner:visible').count(),2,'desktop must show both promotional banners');
             const desktopBannerImages=await page.locator('.aca-desktop-banner img').evaluateAll(nodes=>nodes.map(node=>({loaded:node.complete&&node.naturalWidth>0,ratio:node.clientWidth/node.clientHeight,natural:node.naturalWidth/node.naturalHeight})));
             assert(desktopBannerImages.every(image=>image.loaded&&Math.abs(image.ratio-image.natural)<.05),'desktop banners must load without distortion');
@@ -101,17 +109,18 @@ try {
         assert.equal(categoryImages[7].path,'/catalog-assets/final-drive-category.jpg');
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/controllers"] img').getAttribute('src'),'/catalog-assets/category-controller.jpg','controller category must use a real controller image');
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/monitors"] img').getAttribute('src'),'/catalog-assets/category-monitor.jpg','monitor category must keep the monitor image');
+        assert.match(await page.locator('.aca-category-card[href="/catalog/category/controllers"] .aca-category-count').textContent(),new RegExp(expectedControllerCount.toLocaleString('ru-RU').replace(/\s/g,'\\s?')),'controller count must use the complete category summary');
+        assert.match(await page.locator('.aca-category-card[href="/catalog/category/monitors"] .aca-category-count').textContent(),new RegExp(expectedMonitorCount.toLocaleString('ru-RU').replace(/\s/g,'\\s?')),'monitor count must use the complete category summary');
         if(width===1440){
           assert.equal(await page.locator('.aca-category-card').first().getAttribute('href'),'/catalog/category/hydraulic-pumps','category cards must be crawlable links');
           await page.locator('.aca-category-card').first().click();
-          assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-current'),'page');
+          await page.locator('#catalog-results').waitFor();
+          assert.equal(await page.locator('.aca-category-grid').count(),0,'category page must not repeat the full category grid above products');
           assert.equal(new URL(page.url()).pathname,'/catalog/category/hydraulic-pumps','category click must create a clean shareable URL');
           assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://acahydraulic.kz/catalog/category/hydraulic-pumps/','category needs a self canonical');
           assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),'800','hydraulic pump category must expose at least 800 cards immediately');
           assert.equal(await page.locator('.aca-product-card').count(),800,'hydraulic pump category must render 800 real product cards');
-          await page.locator('.aca-category-card').first().click();
-          assert.equal(await page.locator('.aca-category-card').first().getAttribute('aria-current'),null);
-          assert.equal(new URL(page.url()).pathname,'/catalog','clearing a category must return to the catalogue');
+          await page.goto(origin+'/catalog',{waitUntil:'networkidle'});
           if(expectedGearPumpCount>0){
             await page.goto(origin+'/catalog/category/gear-pumps',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedGearPumpCount);
@@ -171,12 +180,13 @@ try {
           for (const [slug, expected] of [['controllers', expectedControllerCount], ['monitors', expectedMonitorCount]]) {
             await page.goto(`${origin}/catalog/category/${slug}`, { waitUntil: 'networkidle' });
             await page.waitForFunction((count) => document.querySelector('[data-result-count]')?.getAttribute('data-result-count') === String(count), expected);
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(expected), `all ${slug} must be visible without pagination`);
-            assert.equal(await page.locator('.aca-product-card').count(), expected, `all ${slug} must render real product cards`);
+            const initiallyVisible = Math.min(48, expected);
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(initiallyVisible), `${slug} must start with a scannable 48-card batch`);
+            assert.equal(await page.locator('.aca-product-card').count(), initiallyVisible, `${slug} must render the initial 48-card batch`);
           }
           await page.goto(origin+'/catalog/category/control-valves',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedControlValveCount);
-          assert.equal(await page.locator('.aca-category-card[aria-current="page"]').count(),1,'URL category must select exactly one category');
+          assert.equal(await page.locator('.aca-category-grid').count(),0,'URL category must lead directly to products without repeating category choices');
           assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedControlValveCount),'URL category must filter product results');
           const detailProduct=catalogProducts[0];
           await page.goto(origin+'/catalog/'+detailProduct.handle,{waitUntil:'networkidle'});
@@ -243,7 +253,7 @@ try {
       await journey.waitForLoadState('networkidle');
       await journey.reload({waitUntil:'networkidle'});
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT','URL search survives reload');
-      await journey.locator('.aca-category-card[href="/catalog?q=K5V160DT"]').click();
+      await journey.locator('[data-catalog-back][href="/catalog?q=K5V160DT"]').click();
       assert.equal(new URL(journey.url()).searchParams.get('q'),'K5V160DT','category navigation preserves query');
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT');
       await journey.locator('#catalog-search input').first().fill('HANDOK');
@@ -251,7 +261,7 @@ try {
       await journey.locator('[data-supply-offer="sany-k5v160dt"]').waitFor({state:'detached'});
       await journey.locator('[data-supply-offer="handok-h5v80dtp"]').getByRole('link',{name:'Открыть предложение: HANDOK H5V80DTP-12T',exact:true}).click();
       await journey.getByRole('heading',{name:'Гидронасос HANDOK H5V80DTP-12T / K5V80DTP YKSKR-9K00 — корейский аналог',exact:true}).waitFor();
-      assert.equal(new URL(journey.url()).pathname,'/catalog/handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump/');
+      assert.equal(new URL(journey.url()).pathname,'/catalog/handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump');
       await journey.getByRole('link',{name:'Реальный заказ HANDOK для Hitachi ZX160W',exact:true}).click();
       await journey.getByRole('heading',{name:'Hitachi ZX160W: клиент выбрал корейский HANDOK',exact:true}).waitFor();
       assert.equal(new URL(journey.url()).hash,'#hitachi-order');

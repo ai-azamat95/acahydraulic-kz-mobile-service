@@ -70,6 +70,7 @@ const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge>
 };
 const WHATSAPP_NUMBER = "77714177925";
 const DEFAULT_VISIBLE_PRODUCTS = 24;
+const ELECTRONICS_VISIBLE_PRODUCTS = 48;
 const HYDRAULIC_PUMP_VISIBLE_PRODUCTS = 800;
 const HYDRAULIC_PUMP_LOAD_MORE_BATCH = 200;
 const completeEngineCategoryCopy: Record<CatalogLanguage, { title: string; subtitle: string }> = {
@@ -124,6 +125,7 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 }
 
 function initialVisibleProducts(category: string) {
+  if (["controllers", "monitors"].includes(category)) return ELECTRONICS_VISIBLE_PRODUCTS;
   if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves", "wiring-harnesses", "fuel-injectors", "fuel-pumps", "engine-rebuild-kits"].includes(category)) return Number.MAX_SAFE_INTEGER;
   return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
 }
@@ -165,7 +167,7 @@ const enhancementCopy = {
     supplyTitle: "Какой вариант нужен?",
     supplyText: "Выберите предпочтение — оно попадёт в заявку менеджеру.",
     supplyOptions: ["Оригинал OEM", "Китайский аналог", "Корейский аналог", "Проверенный аналог"],
-    categoriesHint: "Нажмите категорию — сразу покажем подходящие товары ниже.",
+    categoriesHint: "Выберите категорию — откроется отдельная страница со всеми товарами раздела.",
     showAll: "Все товары",
     searchType: "Тип поиска",
     supplyType: "Вариант поставки",
@@ -189,7 +191,7 @@ const enhancementCopy = {
     supplyTitle: "Қай нұсқа қажет?",
     supplyText: "Қалауыңызды таңдаңыз — ол менеджерге өтініммен бірге түседі.",
     supplyOptions: ["Түпнұсқа OEM", "Қытай баламасы", "Корея баламасы", "Тексерілген балама"],
-    categoriesHint: "Санатты басыңыз — төменде сәйкес тауарлар бірден көрсетіледі.",
+    categoriesHint: "Санатты таңдаңыз — бөлімдегі барлық тауарлар жеке бетте ашылады.",
     showAll: "Барлық тауарлар",
     searchType: "Іздеу түрі",
     supplyType: "Жеткізу нұсқасы",
@@ -213,7 +215,7 @@ const enhancementCopy = {
     supplyTitle: "Which supply option do you need?",
     supplyText: "Choose a preference and it will be included in the sourcing request.",
     supplyOptions: ["Genuine OEM", "Chinese alternative", "Korean alternative", "Verified aftermarket"],
-    categoriesHint: "Tap a category and we will jump straight to matching products below.",
+    categoriesHint: "Choose a category to open a dedicated page with all products in that section.",
     showAll: "All products",
     searchType: "Search type",
     supplyType: "Supply option",
@@ -241,7 +243,7 @@ export default function Catalog() {
   const trackedLandingRef = useRef("");
   const copy = catalogCopy[language];
   const ui = enhancementCopy[language];
-  const { products, loading, error, complete } = useCatalogIndex();
+  const { products, productCount, categorySummary, loading, error, complete } = useCatalogIndex();
   const fireContact = useTikTokContact();
   const deferredQuery = useDeferredValue(`${searchMode === "vin" ? "" : partQuery} ${machineModel}`.trim().toLowerCase());
   const activeSearchMode = ui.searchModes.find((item) => item.id === searchMode) || ui.searchModes[0];
@@ -252,6 +254,7 @@ export default function Catalog() {
     setBrand(routeBrand?.name || "");
     setMachineModel(routeModel?.label || "");
     setVisibleCount(initialVisibleProducts(nextCategory));
+    window.scrollTo(0, 0);
   }, [params.brandSlug, params.categoryId, params.modelSlug, routeBrand?.name, routeCategory, routeModel?.label]);
 
   const selectedCategory = useMemo(
@@ -269,17 +272,23 @@ export default function Catalog() {
 
   const categoryStats = useMemo(() => {
     const stats: Record<string, { count: number; imageUrl: string | null }> = {};
-    for (const item of partCategories) stats[item.id] = { count: 0, imageUrl: null };
-    for (const product of products) {
-      for (const categoryId of product.categories || [product.category]) {
-        const stat = stats[categoryId];
-        if (!stat) continue;
-        stat.count += 1;
-        if (!stat.imageUrl && product.imageUrl) stat.imageUrl = product.imageUrl;
+    const hasPublishedSummary = Object.keys(categorySummary).length > 0;
+    for (const item of partCategories) {
+      const summary = categorySummary[item.id];
+      stats[item.id] = { count: summary?.count || 0, imageUrl: summary?.imageUrl || null };
+    }
+    if (!hasPublishedSummary) {
+      for (const product of products) {
+        for (const categoryId of product.categories || [product.category]) {
+          const stat = stats[categoryId];
+          if (!stat) continue;
+          stat.count += 1;
+          if (!stat.imageUrl && product.imageUrl) stat.imageUrl = product.imageUrl;
+        }
       }
     }
     return stats;
-  }, [products]);
+  }, [categorySummary, products]);
 
   const brandStats = useMemo(() => {
     const stats = new Map<string, number>();
@@ -346,6 +355,7 @@ export default function Catalog() {
     || (routeModel ? `Запчасти для ${routeModel.brand} ${routeModel.label}: поиск по OEM-номеру и узлу, проверка исполнения и совместимости, поставка по Казахстану.` : "")
     || catalogHomeSeo.description;
   const isLandingPage = Boolean(categoryLanding || routeBrand || routeModel);
+  const showResults = isLandingPage || Boolean(urlQuery);
 
   useEffect(() => {
     if (!complete) return;
@@ -430,33 +440,22 @@ export default function Catalog() {
     if (submittedResultCount === 0) {
       trackCatalogEvent("catalog_no_results", analyticsParams);
     }
-    scrollToResults();
-  };
-
-  const chooseCategory = (categoryId: string) => {
-    const nextCategory = category === categoryId ? "" : categoryId;
-    setCategory(nextCategory);
-    setBrand("");
+    const submittedText = `${partQuery} ${machineModel}`.trim();
+    const brandLanding = catalogBrandLandings.find((item) => item.name === brand);
+    const querySuffix = submittedText ? `?q=${encodeURIComponent(submittedText)}` : "";
+    const destination = category
+      ? catalogSearchHref(submittedText, category)
+      : brandLanding
+        ? `/catalog/brand/${brandLanding.slug}${querySuffix}`
+        : catalogSearchHref(submittedText);
+    setPartQuery(submittedText);
     setMachineModel("");
-    navigate(catalogSearchHref(partQuery, nextCategory || undefined));
-    setVisibleCount(initialVisibleProducts(nextCategory));
-    setFormError("");
-    scrollToResults();
-  };
-
-  const chooseBrand = (brandName: string) => {
-    const landing = catalogBrandLandings.find((item) => item.name === brandName);
-    const nextBrand = routeBrand?.name === brandName ? "" : brandName;
-    setBrand(nextBrand);
-    setCategory("");
-    setMachineModel("");
-    navigate((nextBrand && landing ? `/catalog/brand/${landing.slug}` : "/catalog") + (partQuery.trim() ? `?q=${encodeURIComponent(partQuery.trim())}` : ""));
-    setVisibleCount(initialVisibleProducts(""));
-    scrollToResults();
+    navigate(destination);
+    window.setTimeout(scrollToResults, 0);
   };
 
   return (
-    <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
+    <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto" data-catalog-landing={isLandingPage ? "true" : undefined}>
       <SEO
         title={landingTitle}
         description={landingDescription}
@@ -604,7 +603,11 @@ export default function Catalog() {
                       {copy.brandLabel}
                       <select
                         value={brand}
-                        onChange={(event) => chooseBrand(event.target.value)}
+                        onChange={(event) => {
+                          setBrand(event.target.value);
+                          setCategory("");
+                          setVisibleCount(initialVisibleProducts(""));
+                        }}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-2 text-sm text-white focus:border-[#FFC000] focus:outline-none"
                       >
                         <option value="">{copy.brandPlaceholder}</option>
@@ -620,8 +623,6 @@ export default function Catalog() {
                           const nextCategory = event.target.value;
                           setCategory(nextCategory);
                           setBrand("");
-                          setMachineModel("");
-                          navigate(catalogSearchHref(partQuery, nextCategory || undefined));
                           setVisibleCount(initialVisibleProducts(nextCategory));
                         }}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-2 text-sm text-white focus:border-[#FFC000] focus:outline-none"
@@ -682,7 +683,7 @@ export default function Catalog() {
                 </a>
                 <div className="aca-promo-proof" aria-label={language === "ru" ? "Преимущества каталога" : language === "kz" ? "Каталог артықшылықтары" : "Catalogue benefits"}>
                   <div>
-                    <strong>{products.length > 0 ? products.length.toLocaleString(language === "en" ? "en-US" : "ru-RU") : "10 000+"}</strong>
+                    <strong>{(productCount || products.length) > 0 ? (productCount || products.length).toLocaleString(language === "en" ? "en-US" : "ru-RU") : "10 000+"}</strong>
                     <span>{language === "ru" ? "позиций в каталоге" : language === "kz" ? "каталогтағы позиция" : "catalogue items"}</span>
                   </div>
                   <div>
@@ -736,33 +737,40 @@ export default function Catalog() {
         <section className="aca-catalog-content mx-auto max-w-[1600px] px-4 py-10 md:py-14" aria-labelledby="categories-title">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h2 id="categories-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{copy.categoriesTitle}</h2>
-              <p className="mt-2 max-w-2xl leading-relaxed text-gray-400">{ui.categoriesHint}</p>
+              <h2 id="categories-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{isLandingPage ? landingTitle : copy.categoriesTitle}</h2>
+              <p className="mt-2 max-w-2xl leading-relaxed text-gray-400">
+                {isLandingPage
+                  ? language === "ru"
+                    ? "Товары раздела показаны ниже. Для другого узла вернитесь ко всем категориям."
+                    : language === "kz"
+                      ? "Бөлім тауарлары төменде көрсетілген. Басқа торап үшін барлық санаттарға оралыңыз."
+                      : "Products in this section are shown below. Return to all categories to choose another section."
+                  : ui.categoriesHint}
+              </p>
             </div>
-            {matchingSupplyOffers.length > 0 && <button type="button" onClick={scrollToResults} className="min-h-11 text-sm font-bold text-[#8a6100] underline underline-offset-4">{pumpSupplyLabels[language].title}</button>}
-            {category && (
+            {isLandingPage ? (
               <Link
                 href={catalogSearchHref(partQuery)}
-                onClick={() => chooseCategory(category)}
-                className="min-h-10 rounded border border-white/15 bg-[#151515] px-4 text-sm font-bold text-gray-200 hover:border-[#FFC000]/50 hover:text-[#FFC000]"
+                data-catalog-back
+                className="inline-flex min-h-11 items-center gap-2 rounded border border-gray-300 bg-white px-4 text-sm font-bold text-gray-800 hover:border-[#FFC000] hover:text-[#8a6100]"
               >
-                {ui.showAll}
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                {copy.categoriesTitle}
               </Link>
+            ) : (
+              matchingSupplyOffers.length > 0 && <button type="button" onClick={scrollToResults} className="min-h-11 text-sm font-bold text-[#8a6100] underline underline-offset-4">{pumpSupplyLabels[language].title}</button>
             )}
           </div>
 
-          <div className="aca-category-grid">
+          {!isLandingPage && <div className="aca-category-grid">
             {partCategories.map((item, index) => {
               const Icon = categoryIcons[item.id];
-              const active = category === item.id;
               const stat = categoryStats[item.id];
               const imageUrl = categoryImageOverrides[item.id] || stat?.imageUrl;
               return (
                 <Fragment key={item.id}>
                   <Link
-                    href={catalogSearchHref(partQuery, active ? undefined : item.id)}
-                    onClick={() => chooseCategory(item.id)}
-                    aria-current={active ? "page" : undefined}
+                    href={catalogSearchHref(partQuery, item.id)}
                     className="aca-category-card"
                   >
                     <span className="aca-category-media">
@@ -815,12 +823,38 @@ export default function Catalog() {
                 </Fragment>
               );
             })}
-          </div>
-
-
+          </div>}
+          {showResults && <div
+            id="catalog-results"
+            ref={resultsRef}
+            className="mt-12 scroll-mt-24 border-t border-white/10 pt-8"
+            aria-live="polite"
+            data-result-count={filteredProducts.length}
+            data-visible-count={Math.min(visibleCount, filteredProducts.length)}
+          >
+            <PumpSupplyOffers offers={matchingSupplyOffers} language={language} />
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{matchingSupplyOffers.length ? pumpSupplyLabels[language].more : copy.resultsTitle}</h2>
+                {selectedCategory && <p className="mt-1 text-sm font-medium text-[#FFC000]">{selectedCategory[language]}</p>}
+              </div>
+              {!loading && !error && <p className="text-sm text-gray-400">{visibleProductsLabel(visibleCount, filteredProducts.length, language)}</p>}
+            </div>
+            <ProductResults
+              copy={matchingSupplyOffers.length ? { ...copy, noResults: pumpSupplyLabels[language].empty } : copy}
+              language={language}
+              products={filteredProducts.slice(0, visibleCount)}
+              activeCategory={category || undefined}
+              total={filteredProducts.length}
+              loading={loading}
+              error={error}
+              canLoadMore={visibleCount < filteredProducts.length}
+              onLoadMore={() => setVisibleCount((count) => count + (category === "hydraulic-pumps" ? HYDRAULIC_PUMP_LOAD_MORE_BATCH : ["controllers", "monitors"].includes(category) ? ELECTRONICS_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS))}
+            />
+          </div>}
 
           {isLandingPage && (
-            <section className="aca-landing-intro mt-8 border-l-2 border-[#FFC000] bg-[#151515] p-5 md:p-7" aria-label="О разделе каталога">
+            <section className="aca-landing-intro mt-12 border-l-2 border-[#FFC000] bg-[#151515] p-5 md:p-7" aria-label="О разделе каталога">
               <h2 className="text-xl font-bold text-white">{landingTitle}</h2>
               <p className="mt-3 max-w-5xl leading-relaxed text-gray-300">{categoryLanding?.intro || landingDescription}</p>
               <p className="mt-3 max-w-5xl text-sm leading-relaxed text-gray-400">Цена, наличие и срок подтверждаются после проверки OEM-номера, модели, серийного номера и исполнения детали.</p>
@@ -849,35 +883,6 @@ export default function Catalog() {
               )}
             </section>
           )}
-
-          <div
-            id="catalog-results"
-            ref={resultsRef}
-            className="mt-12 scroll-mt-24 border-t border-white/10 pt-8"
-            aria-live="polite"
-            data-result-count={filteredProducts.length}
-            data-visible-count={Math.min(visibleCount, filteredProducts.length)}
-          >
-            <PumpSupplyOffers offers={matchingSupplyOffers} language={language} />
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <div>
-                <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{matchingSupplyOffers.length ? pumpSupplyLabels[language].more : copy.resultsTitle}</h2>
-                {selectedCategory && <p className="mt-1 text-sm font-medium text-[#FFC000]">{selectedCategory[language]}</p>}
-              </div>
-              {!loading && !error && <p className="text-sm text-gray-400">{visibleProductsLabel(visibleCount, filteredProducts.length, language)}</p>}
-            </div>
-            <ProductResults
-              copy={matchingSupplyOffers.length ? { ...copy, noResults: pumpSupplyLabels[language].empty } : copy}
-              language={language}
-              products={filteredProducts.slice(0, visibleCount)}
-              activeCategory={category || undefined}
-              total={filteredProducts.length}
-              loading={loading}
-              error={error}
-              canLoadMore={visibleCount < filteredProducts.length}
-              onLoadMore={() => setVisibleCount((count) => count + (category === "hydraulic-pumps" ? HYDRAULIC_PUMP_LOAD_MORE_BATCH : DEFAULT_VISIBLE_PRODUCTS))}
-            />
-          </div>
         </section>
 
         <section className="border-y border-white/10 bg-[#151515]">
@@ -896,7 +901,6 @@ export default function Catalog() {
                     <Link
                       key={item}
                       href={(routeBrand?.name === item ? "/catalog" : `/catalog/brand/${landing?.slug || ""}`) + (partQuery.trim() ? `?q=${encodeURIComponent(partQuery.trim())}` : "")}
-                      onClick={() => chooseBrand(item)}
                       aria-current={routeBrand?.name === item ? "page" : undefined}
                       className={`min-h-10 rounded border px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] ${
                         routeBrand?.name === item ? "border-[#FFC000] bg-[#FFC000] text-black" : "border-white/15 bg-[#0e0e0e] text-gray-200 hover:border-white/35"
