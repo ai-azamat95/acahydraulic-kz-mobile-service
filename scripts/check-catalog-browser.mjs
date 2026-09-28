@@ -320,8 +320,14 @@ try {
       results.push({engine:engineName,caseCatalogJourney:'pass',queryPersistence:'pass',caseAnchor:'pass'});
       console.log(JSON.stringify(results.at(-1)));
       await journey.close();
-      results.push({engine:engineName,navigation:await checkSiteNavigation(browser,origin,catalogProducts[0].handle)});
-      console.log(JSON.stringify(results.at(-1)));
+      await browser.close();
+      const navigationBrowser = await engine.launch();
+      try {
+        results.push({engine:engineName,navigation:await checkSiteNavigation(navigationBrowser,origin,catalogProducts[0].handle)});
+        console.log(JSON.stringify(results.at(-1)));
+      } finally {
+        await navigationBrowser.close();
+      }
     }finally{await browser.close();}
   }
 }finally{
