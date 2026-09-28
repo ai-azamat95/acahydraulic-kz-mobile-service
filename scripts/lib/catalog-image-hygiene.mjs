@@ -17,6 +17,13 @@ const VISIBLE_SUPPLIER_MARK_KEYS_BY_PRODUCT_ID = new Map([
     ]),
   ],
   ['7102543757474', new Set(['6'])],
+  [
+    '7102671487138',
+    new Set([
+      '14390248voe14390248volvoecucontroller01',
+      '14390248voe14390248volvoecucontroller02',
+    ]),
+  ],
 ]);
 
 const VERIFIED_DUPLICATE_IMAGE_PATHS = new Set([

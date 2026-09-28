@@ -24,6 +24,24 @@ test('visible supplier marks are excluded per audited product', () => {
   assert.equal(isExcludedCatalogImage('different-product', marked), false);
 });
 
+test('Volvo 14390248 controller excludes both SinoCMP-labelled views only', () => {
+  const labelledViews = [
+    'https://cdn.shopify.com/s/files/1/0594/4046/4034/files/14390248-VOE14390248-Volvo-ECU-Controller_01.jpg?v=1775146522',
+    'https://cdn.shopify.com/s/files/1/0594/4046/4034/files/14390248-VOE14390248-Volvo-ECU-Controller_02.jpg?v=1775146522',
+  ];
+  const cleanViews = [
+    'https://cdn.shopify.com/s/files/1/0594/4046/4034/files/14390248-VOE14390248-Volvo-ECU-Controller_03.jpg?v=1775146523',
+    'https://cdn.shopify.com/s/files/1/0594/4046/4034/files/14390248-VOE14390248-Volvo-ECU-Controller_04.jpg?v=1775146524',
+  ];
+
+  for (const imageUrl of labelledViews) {
+    assert.equal(catalogImageExclusionReason('7102671487138', imageUrl), 'visible-supplier-mark');
+  }
+  for (const imageUrl of cleanViews) {
+    assert.equal(isExcludedCatalogImage('7102671487138', imageUrl), false);
+  }
+});
+
 test('only perceptually verified duplicate files are excluded', () => {
   const duplicate = 'https://cdn.shopify.com/s/files/1/0594/4046/4034/files/IMG_2227.jpg?v=1764777907';
   const cleanOriginal = 'https://cdn.shopify.com/s/files/1/0594/4046/4034/files/IMG_2227-min.jpg?v=1767371743';
