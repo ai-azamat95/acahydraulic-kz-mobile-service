@@ -8,7 +8,11 @@ type CatalogManifest = {
   importedAt?: string;
   chunkCount: number;
   indexFile?: string;
+  productCount?: number;
+  categorySummaryFile?: string;
 };
+
+export type CatalogCategorySummary = Record<string, { count: number; imageUrl?: string | null }>;
 
 async function fetchJson<T>(
   url: string,
@@ -31,6 +35,8 @@ function versioned(url: string, importedAt?: string) {
 
 export function useCatalogIndex() {
   const [products, setProducts] = useState<CatalogIndexProduct[]>([]);
+  const [productCount, setProductCount] = useState(0);
+  const [categorySummary, setCategorySummary] = useState<CatalogCategorySummary>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [complete, setComplete] = useState(false);
@@ -45,12 +51,29 @@ export function useCatalogIndex() {
         setLoading(true);
         setError(false);
         setComplete(false);
+        setProductCount(0);
+        setCategorySummary({});
 
         const manifest = await fetchJson<CatalogManifest>(
           "/catalog-data/manifest.json",
           controller.signal,
           "no-cache",
         );
+
+        if (!controller.signal.aborted) setProductCount(manifest.productCount || 0);
+
+        const categorySummaryFile = manifest.categorySummaryFile || "category-summary.json";
+        void fetchJson<CatalogCategorySummary>(
+          versioned(`/catalog-data/${categorySummaryFile}`, manifest.importedAt),
+          controller.signal,
+          "force-cache",
+        )
+          .then((summary) => {
+            if (!controller.signal.aborted) setCategorySummary(summary);
+          })
+          .catch((summaryError) => {
+            if (!controller.signal.aborted) console.warn("Catalog category summary unavailable", summaryError);
+          });
 
         const firstChunkUrl = versioned(
           "/catalog-data/search-index-001.json",
@@ -76,9 +99,10 @@ export function useCatalogIndex() {
 
         const loadFullIndex = async () => {
           try {
-            if (manifest.indexFile) {
+            const indexFile = manifest.indexFile || "search-index.json";
+            try {
               const index = await fetchJson<CatalogIndexProduct[]>(
-                versioned(`/catalog-data/${manifest.indexFile}`, manifest.importedAt),
+                versioned(`/catalog-data/${indexFile}`, manifest.importedAt),
                 controller.signal,
                 "force-cache",
               );
@@ -87,6 +111,9 @@ export function useCatalogIndex() {
                 setComplete(true);
               }
               return;
+            } catch (fullIndexError) {
+              if (controller.signal.aborted) return;
+              console.warn("Complete catalog index unavailable; loading chunks", fullIndexError);
             }
 
             const collected: CatalogIndexProduct[] = [];
@@ -137,7 +164,7 @@ export function useCatalogIndex() {
     };
   }, []);
 
-  return { products, loading, error, complete };
+  return { products, productCount, categorySummary, loading, error, complete };
 }
 
 export function useCatalogProduct(handle: string) {
