@@ -7,11 +7,17 @@ dist/
 build/
 *.dist
 
-# Generated catalog indexes and audit reports (rebuilt during deploy)
+# Private catalog audit reports (generated only by the supplier refresh job)
 client/public/catalog-data/catalog-import-audit.json
-client/public/catalog-data/category-summary.json
 client/public/catalog-data/pump-import-audit.json
-client/public/catalog-data/search-index.json
+client/public/catalog-data/strict-category-import-audit.json
+client/public/catalog-data/controller-import-audit.json
+client/public/catalog-data/monitor-import-audit.json
+client/public/catalog-data/wiring-harness-import-audit.json
+
+# Local catalogue migration cache. Public snapshots and integrity manifests
+# live in client/public/catalog-data and are intentionally versioned.
+.catalog-cache/
 
 # Environment variables
 .env

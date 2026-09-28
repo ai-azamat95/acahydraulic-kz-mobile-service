@@ -7,6 +7,7 @@ import { isExcludedCatalogImage } from './lib/catalog-image-hygiene.mjs';
 const catalogDir = path.resolve(process.argv[2] || 'client/public/catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
 const forbiddenBrand = /sinocmp/i;
+const forbiddenSupplierHost = /https:\/\/(?:[^/]+\.)?(?:sinocmp\.com|shopify\.com)\//i;
 const forbiddenKeys = new Set(['sourceUrl', 'sourcePriceKzt', 'sourceUpdatedAt']);
 const privateFiles = [
   'catalog-import-audit.json',
@@ -41,12 +42,20 @@ for (const fileName of jsonFiles) {
   const raw = fs.readFileSync(path.join(catalogDir, fileName), 'utf8');
   assert.equal(forbiddenBrand.test(raw), false, `supplier brand leaked in ${fileName}`);
   forbiddenBrand.lastIndex = 0;
+  assert.equal(forbiddenSupplierHost.test(raw), false, `supplier image host leaked in ${fileName}`);
+  forbiddenSupplierHost.lastIndex = 0;
   inspectKeys(JSON.parse(raw), fileName);
 }
 
 assert.deepEqual(sensitiveKeyHits, [], `sensitive supplier fields leaked: ${sensitiveKeyHits.slice(0, 10).join(', ')}`);
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+assert.equal(manifest.imageOwnership, 'aca-managed', 'catalogue images must be stored in ACA-managed storage');
+assert.match(manifest.imageBaseUrl || '', /^https:\/\//i, 'ACA-managed image base URL must use HTTPS');
+assert.equal(forbiddenSupplierHost.test(manifest.imageBaseUrl), false, 'ACA-managed image base URL cannot use a supplier host');
+forbiddenSupplierHost.lastIndex = 0;
+assert.equal(typeof manifest.imageManifestFile, 'string', 'catalog image integrity manifest is required');
+assert.equal(Number.isInteger(manifest.mirroredImageCount), true, 'mirrored image count is required');
 for (const key of [
   'source',
   'markup',
@@ -77,6 +86,24 @@ const fuelPumps = products.filter((product) => (product.categories || [product.c
 const engineRebuildKits = products.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits'));
 const controllers = products.filter((product) => (product.categories || [product.category]).includes('controllers'));
 const monitors = products.filter((product) => (product.categories || [product.category]).includes('monitors'));
+const imageBaseUrl = new URL(manifest.imageBaseUrl);
+const imageBasePath = `${imageBaseUrl.pathname.replace(/\/+$/, '')}/`;
+function managedImageKey(imageUrl) {
+  if (typeof imageUrl !== 'string' || !imageUrl) return null;
+  if (imageUrl.startsWith('/')) return `local:${imageUrl}`;
+  const parsed = new URL(imageUrl);
+  if (parsed.origin !== imageBaseUrl.origin || !parsed.pathname.startsWith(imageBasePath)) return null;
+  return decodeURIComponent(parsed.pathname.slice(imageBasePath.length));
+}
+assert(
+  products.every(
+    (product) =>
+      (!product.imageUrl || managedImageKey(product.imageUrl)) &&
+      Array.isArray(product.gallery) &&
+      product.gallery.every((imageUrl) => managedImageKey(imageUrl)),
+  ),
+  'every product image must use a local asset or ACA-managed image storage',
+);
 assert(pumpParts.length > 0, 'pump parts category must not be empty');
 assert(wiringHarnesses.length > 0, 'wiring harness category must not be empty');
 assert(fuelInjectors.length > 0, 'fuel injector category must not be empty');
@@ -106,13 +133,9 @@ assert(
 );
 assert(
   wiringHarnesses.every((product) =>
-    product.gallery.every(
-      (imageUrl) =>
-        /^https:\/\/(?:[^/]+\.)?(?:sinocmp\.com|shopify\.com)\//i.test(imageUrl) ||
-        /^\/catalog-assets\/wiring-harnesses\/[0-9]+-[0-9]{2}\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(imageUrl),
-    ),
+    product.gallery.every((imageUrl) => Boolean(managedImageKey(imageUrl))),
   ),
-  'wiring harness galleries must contain only approved Shopify URLs or product-scoped local images',
+  'wiring harness galleries must contain only ACA-managed or product-scoped local images',
 );
 const wiringHarnessesWithImages = wiringHarnesses.filter((product) => product.gallery.length > 0);
 const uniqueWiringHarnessGalleries = new Set(wiringHarnessesWithImages.map((product) => JSON.stringify(product.gallery)));
@@ -143,15 +166,28 @@ assert(
       product.gallery.length > 0 &&
       product.imageUrl === product.gallery[0] &&
       product.imageUrl !== '/catalog-assets/category-fuel-pump.jpg' &&
-      product.gallery.every((imageUrl) => /^https:\/\/(?:[^/]+\.)?(?:sinocmp\.com|shopify\.com)\//i.test(imageUrl)),
+      product.gallery.every((imageUrl) => Boolean(managedImageKey(imageUrl))),
   ),
-  'fuel pumps must use their own supplier product gallery instead of a shared placeholder',
+  'fuel pumps must use their own ACA-managed product gallery instead of a shared placeholder',
 );
 assert.equal(
   new Set(fuelPumps.map((product) => product.imageUrl)).size,
   fuelPumps.length,
   'every fuel pump must have a distinct primary image',
 );
+
+const imageManifestPath = path.join(catalogDir, manifest.imageManifestFile);
+assert(fs.existsSync(imageManifestPath), `missing image integrity manifest: ${manifest.imageManifestFile}`);
+const imageManifest = JSON.parse(fs.readFileSync(imageManifestPath, 'utf8'));
+assert.equal(imageManifest.imageBaseUrl, manifest.imageBaseUrl, 'image base URL must match the image integrity manifest');
+assert.equal(imageManifest.imageCount, manifest.mirroredImageCount, 'mirrored image count must match the image integrity manifest');
+assert.equal(imageManifest.entries.length, imageManifest.imageCount, 'image integrity entry count must match');
+const imageManifestKeys = new Set(imageManifest.entries.map((entry) => entry.key));
+assert.equal(imageManifestKeys.size, imageManifest.entries.length, 'image integrity keys must be unique');
+const managedRemoteKeys = new Set(
+  products.flatMap((product) => product.gallery.map(managedImageKey).filter((key) => key && !key.startsWith('local:'))),
+);
+assert.deepEqual(managedRemoteKeys, imageManifestKeys, 'every ACA-managed gallery image must have exactly one integrity entry');
 assert(
   engineRebuildKits.every(
     (product) =>

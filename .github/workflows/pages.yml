@@ -29,15 +29,7 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Sync catalog with Sinocmp
-        run: pnpm catalog:sync
-      - name: Verify complete catalog import
-        run: pnpm catalog:verify
-      - name: Verify hydraulic pump import
-        run: pnpm catalog:verify-pumps
-      - name: Remove private supplier data from the public catalogue
-        run: pnpm catalog:prepare-public
-      - name: Verify public catalogue privacy
+      - name: Verify committed ACA catalogue snapshot
         run: pnpm catalog:verify-public
       - name: Build
         run: pnpm build
