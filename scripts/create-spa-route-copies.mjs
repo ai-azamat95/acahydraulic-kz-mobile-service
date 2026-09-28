@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { build } from 'esbuild';
 import { createRequire } from 'node:module';
-import { articleForRoute, articleList, articleSchema, renderArticle } from './seo-article-content.mjs';
+import { articles, articleForRoute, articleList, articleSchema, renderArticle } from './seo-article-content.mjs';
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
@@ -44,6 +44,10 @@ for (const raw of locs) {
   if (/\.[a-z0-9]+$/i.test(route)) continue;
   routes.add(route);
 }
+
+// JSON-backed guides are a source of truth for both the client router and
+// static HTML. Add them even before a newly generated sitemap is deployed.
+for (const article of articles) routes.add(`blog/${article.slug}`);
 
 const explicitMeta = {
   '404': { title: 'Страница не найдена | ACA Hydraulic', description: 'Эта страница отсутствует. Перейдите на главную ACA Hydraulic.' },
