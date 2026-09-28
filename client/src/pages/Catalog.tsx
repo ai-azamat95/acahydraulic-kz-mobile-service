@@ -139,6 +139,23 @@ function visibleProductsLabel(visible: number, total: number, language: CatalogL
   return `Показано ${shown} из ${available} товаров`;
 }
 
+function catalogProgressLabel(loaded: number, total: number, language: CatalogLanguage) {
+  const locale = language === "kz" ? "kk-KZ" : language === "en" ? "en-US" : "ru-RU";
+  const ready = loaded.toLocaleString(locale);
+  const available = total.toLocaleString(locale);
+  if (language === "kz") return `${ready} / ${available} тауар жүктелді — қалғаны жүктелуде…`;
+  if (language === "en") return `Loaded ${ready} of ${available} products — loading the rest…`;
+  return `Загружено ${ready} из ${available} товаров — загружаем остальные…`;
+}
+
+function showAllProductsLabel(total: number, language: CatalogLanguage) {
+  const locale = language === "kz" ? "kk-KZ" : language === "en" ? "en-US" : "ru-RU";
+  const available = total.toLocaleString(locale);
+  if (language === "kz") return `Барлық ${available} тауарды көрсету`;
+  if (language === "en") return `Show all ${available} products`;
+  return `Показать все ${available} товаров`;
+}
+
 type SearchMode = "part" | "oem" | "vin";
 
 function categoryFromUrl() {
@@ -356,6 +373,11 @@ export default function Catalog() {
     || catalogHomeSeo.description;
   const isLandingPage = Boolean(categoryLanding || routeBrand || routeModel);
   const showResults = isLandingPage || Boolean(urlQuery);
+  const hasActiveProductFilters = Boolean(deferredQuery || brand || routeBrand || routeModel);
+  const expectedResultCount = !complete && category && !hasActiveProductFilters
+    ? Math.max(filteredProducts.length, categoryStats[category]?.count || 0)
+    : filteredProducts.length;
+  const isFullIndexLoading = !complete;
 
   useEffect(() => {
     if (!complete) return;
@@ -830,6 +852,8 @@ export default function Catalog() {
             className="mt-12 scroll-mt-24 border-t border-white/10 pt-8"
             aria-live="polite"
             data-result-count={filteredProducts.length}
+            data-expected-count={expectedResultCount}
+            data-index-complete={complete ? "true" : "false"}
             data-visible-count={Math.min(visibleCount, filteredProducts.length)}
           >
             <PumpSupplyOffers offers={matchingSupplyOffers} language={language} />
@@ -838,18 +862,28 @@ export default function Catalog() {
                 <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{matchingSupplyOffers.length ? pumpSupplyLabels[language].more : copy.resultsTitle}</h2>
                 {selectedCategory && <p className="mt-1 text-sm font-medium text-[#FFC000]">{selectedCategory[language]}</p>}
               </div>
-              {!loading && !error && <p className="text-sm text-gray-400">{visibleProductsLabel(visibleCount, filteredProducts.length, language)}</p>}
+              {!loading && !error && (
+                <p className="text-sm text-gray-400" role={isFullIndexLoading ? "status" : undefined}>
+                  {isFullIndexLoading
+                    ? expectedResultCount > filteredProducts.length
+                      ? catalogProgressLabel(filteredProducts.length, expectedResultCount, language)
+                      : copy.loadingProducts
+                    : visibleProductsLabel(visibleCount, filteredProducts.length, language)}
+                </p>
+              )}
             </div>
             <ProductResults
               copy={matchingSupplyOffers.length ? { ...copy, noResults: pumpSupplyLabels[language].empty } : copy}
               language={language}
               products={filteredProducts.slice(0, visibleCount)}
               activeCategory={category || undefined}
-              total={filteredProducts.length}
-              loading={loading}
+              total={complete ? filteredProducts.length : expectedResultCount}
+              loading={loading || (!complete && filteredProducts.length === 0)}
               error={error}
-              canLoadMore={visibleCount < filteredProducts.length}
+              canLoadMore={complete && visibleCount < filteredProducts.length}
               onLoadMore={() => setVisibleCount((count) => count + (category === "hydraulic-pumps" ? HYDRAULIC_PUMP_LOAD_MORE_BATCH : ["controllers", "monitors"].includes(category) ? ELECTRONICS_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS))}
+              showAllLabel={showAllProductsLabel(filteredProducts.length, language)}
+              onShowAll={() => setVisibleCount(filteredProducts.length)}
             />
           </div>}
 
