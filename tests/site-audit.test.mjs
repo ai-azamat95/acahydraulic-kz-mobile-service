@@ -24,12 +24,31 @@ const tracker = html.split('<!-- Contact-intent tracker.')[1].match(/<script>([\
 test('contact intent is tracked once; only phone immediately converts; no personal query data', () => {
   for (const href of ['tel:+77714177925', 'https://wa.me/77714177925?text=PRIVATE_CLIENT_DATA']) {
     let listener; const calls = [];
-    vm.runInNewContext(tracker, {document:{addEventListener:(_, fn) => listener = fn}, window:{gtag:(...args) => calls.push(args)}});
+    vm.runInNewContext(tracker, {document:{addEventListener:(_, fn) => listener = fn}, window:{gtag:(...args) => calls.push(args), __ACA_COOKIE_CONSENT__:{analytics:true, marketing:true}}});
     listener({target:{closest:() => ({getAttribute:() => href})}});
     const isPhone = href.startsWith('tel:');
     assert.equal(calls.length, isPhone ? 2 : 1);
     assert.equal(calls.filter(c => c[1] === 'conversion').length, isPhone ? 1 : 0);
     assert.ok(!JSON.stringify(calls).includes('PRIVATE_CLIENT_DATA'));
+  }
+});
+test('contact intent respects analytics and marketing consent categories', () => {
+  for (const [consent, expectedEvents] of [
+    [{analytics:false, marketing:false}, []],
+    [{analytics:true, marketing:false}, ['acahydraulic_phone_click']],
+    [{analytics:false, marketing:true}, ['conversion']],
+  ]) {
+    let listener;
+    const events = [];
+    vm.runInNewContext(tracker, {
+      document:{addEventListener:(_, fn) => listener = fn},
+      window:{
+        gtag:(command, eventName) => events.push(eventName),
+        __ACA_COOKIE_CONSENT__:consent,
+      },
+    });
+    listener({target:{closest:() => ({getAttribute:() => 'tel:+77714177925'})}});
+    assert.deepEqual(events, expectedEvents);
   }
 });
 test('blocked or throwing analytics cannot cancel a contact click', () => {
