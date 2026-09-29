@@ -24,7 +24,8 @@ await build({
 const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
 const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-repair-content.json', import.meta.url), 'utf8'));
 const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
-const serviceDirectory = JSON.parse(fs.readFileSync(new URL('../shared/service-directory.json', import.meta.url), 'utf8'));
+const serviceShowcase = JSON.parse(fs.readFileSync(new URL('../shared/service-showcase.json', import.meta.url), 'utf8'));
+const serviceAssessment = JSON.parse(fs.readFileSync(new URL('../shared/service-assessment.json', import.meta.url), 'utf8'));
 const catalogHomeSeo = JSON.parse(fs.readFileSync(new URL('../shared/catalog-home-seo.json', import.meta.url), 'utf8'));
 const catalogLandings = JSON.parse(fs.readFileSync(new URL('../shared/catalog-landings.json', import.meta.url), 'utf8'));
 const deliveryPolicy = JSON.parse(fs.readFileSync(new URL('../shared/delivery-and-returns.json', import.meta.url), 'utf8'));
@@ -240,7 +241,13 @@ function metaForRoute(route) {
       description: staticBlogArticle.description,
     };
   }
-  if (route === 'services') return serviceDirectory;
+  if (route === 'services') return {
+    title: 'Ремонт гидравлики и спецтехники в Астане — услуги ACA Hydraulic',
+    description: 'Найдите сервис по типу спецтехники или гидравлическому узлу. Выездная диагностика, ремонт по согласованной смете и реальные примеры работ ACA Hydraulic.',
+  };
+  if (route.startsWith('services/') && serviceShowcase[route.split('/')[1]]) {
+    return serviceShowcase[route.split('/')[1]];
+  }
   if (serviceContent['/' + route]) return serviceContent['/' + route];
   if (explicitMeta[route]) return explicitMeta[route];
   if (route.startsWith('services/')) {
@@ -346,13 +353,11 @@ function staticFallback(route, meta, canonical) {
   if (route === 'delivery-and-returns') {
     return `<main><a href="/catalog/">Каталог запчастей</a><h1>${escapeHtml(deliveryPolicy.title)}</h1><p>${escapeHtml(deliveryPolicy.description)}</p>${deliveryPolicy.sections.map(section => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.text)}</p></section>`).join('')}<p><a href="tel:+77714177925">+7 771 417 79 25</a> · <a href="mailto:info@acahydraulic.kz">info@acahydraulic.kz</a></p></main>`;
   }
-  const directoryHtml = route === 'services' ? serviceDirectory.categories.map(category => {
-    const items = category.subcategories.length ? category.subcategories : [{ name: category.title, link: category.link }];
-    const links = items.map(item => item.link && item.link !== '#'
-      ? '<li><a href="' + escapeAttr(item.link) + '">' + escapeHtml(item.name) + '</a></li>'
-      : '<li>' + escapeHtml(item.name) + '</li>').join('');
-    return '<section><h2>' + escapeHtml(category.title) + '</h2><p>' + escapeHtml(category.description) + '</p><ul>' + links + '</ul></section>';
-  }).join('') : '';
+  const directoryHtml = route === 'services'
+    ? '<section><h2>Услуги по типу техники и гидравлическому узлу</h2><ul>' + Object.entries(serviceShowcase).map(([slug, item]) =>
+      '<li><a href="/services/' + escapeAttr(slug) + '/">' + escapeHtml(item.label) + '</a> — ' + escapeHtml(item.summary) + '</li>'
+    ).join('') + '</ul></section>'
+    : '';
   const local = localRepairContent['/' + route];
   const localHtml = local ? '<section><h2>' + escapeHtml(local.title) + '</h2>' +
     local.paragraphs.map(text => '<p>' + escapeHtml(text) + '</p>').join('') +
@@ -360,6 +365,15 @@ function staticFallback(route, meta, canonical) {
       '<li><a href="' + escapeAttr(link.href) + '">' + escapeHtml(link.label) + '</a></li>'
     ).join('') + '</ul></nav></section>' : '';
   const content = serviceContent['/' + route];
+  const service = route.startsWith('services/') ? serviceShowcase[route.split('/')[1]] : null;
+  const diagnostic = route.startsWith('services/') ? serviceAssessment[route.split('/')[1]] : null;
+  const serviceEvidence = service ? '<section><h2>Подход к диагностике</h2><p>' + escapeHtml(service.summary) + '</p><p>Для предварительной оценки укажите модель и серийный номер техники, приложите фото шильдика и видео неисправности.</p></section>' +
+    (diagnostic ? '<section><h2>Что важно проверить по этой технике</h2><p>' + escapeHtml(diagnostic.intro) + '</p><ul>' + diagnostic.checks.map(check => '<li>' + escapeHtml(check) + '</li>').join('') + '</ul></section>' : '') +
+    (service.cases.length ? '<section><h2>Реальные примеры работ по этой технике</h2><ul>' + service.cases.map(item =>
+      '<li>' + escapeHtml(item.model + ': ' + item.work) +
+      (item.href ? ' — <a href="' + escapeAttr(item.href) + '">Кейс</a>' : '') +
+      (item.video ? ' — <a href="' + escapeAttr(item.video) + '">Видео в TikTok</a>' : '') + '</li>'
+    ).join('') + '</ul></section>' : '') : '';
   const details = content ? content.sections.map(section =>
     '<section><h2>' + escapeHtml(section.title) + '</h2><p>' + escapeHtml(section.text) + '</p></section>'
   ).join('') + '<section><h2>Вопросы перед ремонтом</h2>' + content.faq.map(item =>
@@ -379,6 +393,7 @@ function staticFallback(route, meta, canonical) {
   <p>${escapeHtml(meta.description)}</p>
   <p>ACA Hydraulic выполняет диагностику и ремонт гидравлических систем спецтехники. Условия, сроки выезда и стоимость согласовываются после получения информации о технике и неисправности.</p>
   ${details}
+  ${serviceEvidence}
   ${directoryHtml}
   ${localHtml}
   ${route === 'blog' ? articleList() : ''}
@@ -419,7 +434,12 @@ function withRouteHead(html, route) {
   out = setTag(out, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${d}">`);
   const article = articleForRoute(route);
   const staticBlogArticle = staticBlogArticles[route];
-  const articleImage = article?.image || staticBlogArticle?.image;
+  const serviceImage = route === 'services'
+    ? '/images/services/field-diagnostics-illustration.webp'
+    : route.startsWith('services/') && serviceShowcase[route.split('/')[1]]
+      ? `/images/services/${serviceShowcase[route.split('/')[1]].image}`
+      : null;
+  const articleImage = article?.image || staticBlogArticle?.image || serviceImage;
   if (articleImage) {
     const image = escapeAttr(new URL(articleImage, baseUrl).href);
     out = setTag(out, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${image}">`);

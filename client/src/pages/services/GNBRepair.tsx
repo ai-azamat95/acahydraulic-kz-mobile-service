@@ -116,7 +116,7 @@ export default function GNBRepair() {
                 </div>
                 <div>
                   <h3 className="font-bebas text-2xl mb-2">Диагностика на объекте</h3>
-                  <p className="text-gray-400">Выезд инженера с диагностическим оборудованием. Определение причины неисправности за 2-4 часа.</p>
+                  <p className="text-gray-400">Проверяем установку и условия проявления неисправности. Порядок и сроки диагностики согласуем по модели и месту работы.</p>
                 </div>
               </div>
             </div>
@@ -243,7 +243,7 @@ export default function GNBRepair() {
             </p>
             <Button 
               onClick={() => setIsFormOpen(true)}
-              className="bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold text-xl h-16 px-12 rounded uppercase tracking-wide"
+              className="bg-[#FFC000] hover:bg-[#E6AC00] text-black font-bebas font-bold text-lg min-h-14 h-auto w-full max-w-full whitespace-normal px-5 py-3 text-center rounded uppercase tracking-wide sm:w-auto sm:px-12"
             >
               Оставить заявку на диагностику
             </Button>

@@ -1,13 +1,14 @@
 import { Toaster } from "@/components/ui/sonner";
 import { useTikTokPageView } from "@/hooks/useTikTokEvents";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Route, Router as WouterRouter, Switch, Redirect } from "wouter";
+import { Route, Router as WouterRouter, Switch, Redirect, useLocation } from "wouter";
 import legacyRedirects from "../../shared/legacy-redirects.json";
 import seoArticles from "../../shared/seo-articles.json";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { CookieConsent } from "./components/CookieConsent";
 import { CartDrawer } from "./components/cart/CartDrawer";
 import { CartProvider } from "./contexts/CartContext";
+import ServiceShowcase from "./components/ServiceShowcase";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { lazy, Suspense } from "react";
 
@@ -102,7 +103,10 @@ function PageLoader() {
 
 function AppRoutes() {
   useTikTokPageView();
+  const [location] = useLocation();
+  const isServiceDetail = /^\/services\/[^/]+\/?$/.test(location);
   return (
+    <div className={isServiceDetail ? "service-detail-page" : "contents"}>
     <Suspense fallback={<PageLoader />}>
       <Switch>
         {Object.entries(legacyRedirects).map(([from, to]) => <Route key={from} path={from}><Redirect to={to} /></Route>)}
@@ -182,7 +186,9 @@ function AppRoutes() {
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
+      <ServiceShowcase />
     </Suspense>
+    </div>
   );
 }
 

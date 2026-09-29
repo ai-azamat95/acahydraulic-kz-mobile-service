@@ -3,11 +3,13 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
 const content = JSON.parse(fs.readFileSync('shared/service-content.json', 'utf8'));
+const showcase = JSON.parse(fs.readFileSync('shared/service-showcase.json', 'utf8'));
 
 test('priority services publish the same useful content and metadata without JavaScript', () => {
   for (const [route, page] of Object.entries(content)) {
     const html = fs.readFileSync('dist/public' + route + '/index.html', 'utf8');
-    assert.ok(html.includes('<title data-rh="true">' + page.title + '</title>'), route);
+    const slug = route.split('/')[2];
+    assert.ok(html.includes('<title data-rh="true">' + showcase[slug].title + '</title>'), route);
     for (const section of page.sections) {
       assert.ok(html.includes(section.title), route);
       assert.ok(html.includes(section.text), route);
@@ -44,7 +46,7 @@ test('specialized mining and piling pages have distinct copy and self canonicals
     assert.match(source.toLowerCase(), new RegExp(subject));
     assert.ok(source.includes(`canonical="${route}"`), route);
     assert.doesNotMatch(source, /Ремонт экскаваторов всех марок/);
-    assert.ok(html.includes(`<title data-rh="true">${page.title}</title>`), route);
+    assert.ok(html.includes(`<title data-rh="true">${showcase[slug].title}</title>`), route);
     assert.ok(html.includes(`rel="canonical" href="https://acahydraulic.kz${route}/"`), route);
 
     titles.add(page.title);
