@@ -194,4 +194,14 @@ div[class*="manus-badge"],
   pointer-events: none !important;
   visibility: hidden !important;
 }
+/* The refreshed service detail pages share one footer after their verified work examples. */
+.service-detail-page footer:not([data-service-footer]) {
+  display: none;
+}
 
+/* Lift the legacy service-page dark surfaces without changing the rest of the site. */
+.service-detail-page :is(section, div)[class*="bg-[#0a0a0a]"],
+.service-detail-page :is(section, div)[class*="bg-[#111111]"],
+.service-detail-page :is(section, div)[class*="bg-[#111]"] {
+  background-color: #1c2824;
+}

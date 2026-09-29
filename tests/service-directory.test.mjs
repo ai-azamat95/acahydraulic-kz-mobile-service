@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
 const directory = JSON.parse(fs.readFileSync('shared/service-directory.json', 'utf8'));
+const showcase = JSON.parse(fs.readFileSync('shared/service-showcase.json', 'utf8'));
 const html = fs.readFileSync('dist/public/services/index.html', 'utf8');
 
 test('service directory links resolve to published pages and real application routes', () => {
@@ -23,15 +24,12 @@ test('service directory links resolve to published pages and real application ro
   }
 });
 
-test('HTML service directory exposes the same categories and metadata as the client', () => {
-  assert.ok(html.includes(directory.title));
-  assert.ok(html.includes(directory.description));
+test('HTML service directory exposes every redesigned service entry without JavaScript', () => {
+  assert.ok(html.includes('Ремонт гидравлики и спецтехники в Астане — услуги ACA Hydraulic'));
   assert.equal([...html.matchAll(/<h1\b/g)].length, 1);
-  assert.ok(html.includes('<h1>' + directory.heading + '</h1>'));
-  for (const category of directory.categories) {
-    assert.ok(html.includes(category.title));
-    assert.ok(html.includes(category.description));
-    for (const item of category.subcategories) assert.ok(html.includes(item.name));
+  for (const [slug, service] of Object.entries(showcase)) {
+    assert.ok(html.includes(`href="/services/${slug}/"`), slug);
+    assert.ok(html.includes(service.summary), slug);
   }
   assert.doesNotMatch(html, /href="#"|\/services\/dump-truck-repair|\/services\/hydraulic-distributors/);
 });

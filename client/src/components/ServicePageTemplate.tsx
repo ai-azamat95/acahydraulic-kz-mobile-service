@@ -56,11 +56,11 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
         } : undefined}
       />
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-[#f6f5f0] text-[#17242b]">
         <section className="relative min-h-[500px] py-16 flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img src={heroImage} alt={title} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/75" />
+            <div className="absolute inset-0 bg-[#152923]/65" />
           </div>
 
           <div className="container relative z-10 px-4 md:px-6">
@@ -92,18 +92,18 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
           </div>
         </section>
 
-        {content && <ServiceDetails content={content} />}
+        {content && <ServiceDetails content={content} light />}
 
-        <section className="py-20 bg-zinc-50 dark:bg-zinc-900/50">
+        <section className="py-14 md:py-20 bg-[#eaf0e9]">
           <div className="container px-4 md:px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl font-bold mb-8 flex items-center gap-3"><AlertTriangle className="text-[#FFB800] w-8 h-8" />Типичные проблемы</h2>
-                <ul className="space-y-4">{problems.map((prob, idx) => <li key={idx} className="flex items-start gap-3 p-4 bg-white dark:bg-zinc-900 rounded-lg border border-red-100 dark:border-red-900/30 shadow-sm"><div className="w-2 h-2 mt-2 rounded-full bg-red-500 shrink-0"/><span className="text-lg">{prob}</span></li>)}</ul>
+                <ul className="space-y-4">{problems.map((prob, idx) => <li key={idx} className="flex items-start gap-3 p-4 bg-white rounded-lg border border-[#d6dfd6] shadow-sm"><div className="w-2 h-2 mt-2 rounded-full bg-[#b77b16] shrink-0"/><span className="text-base md:text-lg">{prob}</span></li>)}</ul>
               </div>
               <div>
                 <h2 className="text-3xl font-bold mb-8 flex items-center gap-3"><CheckCircle2 className="text-green-500 w-8 h-8" />Наше решение</h2>
-                <ul className="space-y-4">{solutions.map((sol, idx) => <li key={idx} className="flex items-start gap-3 p-4 bg-white dark:bg-zinc-900 rounded-lg border border-green-100 dark:border-green-900/30 shadow-sm"><div className="w-2 h-2 mt-2 rounded-full bg-green-500 shrink-0"/><span className="text-lg">{sol}</span></li>)}</ul>
+                <ul className="space-y-4">{solutions.map((sol, idx) => <li key={idx} className="flex items-start gap-3 p-4 bg-white rounded-lg border border-[#d6dfd6] shadow-sm"><div className="w-2 h-2 mt-2 rounded-full bg-[#58826a] shrink-0"/><span className="text-base md:text-lg">{sol}</span></li>)}</ul>
               </div>
             </div>
           </div>
@@ -112,18 +112,18 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
         <section className="py-20">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Почему с нами работают <span className="text-[#FFB800]">крупные компании</span></h2>
-            <div className="grid md:grid-cols-3 gap-8">{benefits.map((benefit, idx) => <Card key={idx} className="bg-zinc-50 dark:bg-zinc-900 border-none shadow-lg hover:shadow-xl transition-shadow"><CardContent className="p-8"><h3 className="text-xl font-bold mb-4 text-[#FFB800]">{benefit.title}</h3><p className="text-muted-foreground leading-relaxed">{benefit.desc}</p></CardContent></Card>)}</div>
+            <div className="grid md:grid-cols-3 gap-5">{benefits.map((benefit, idx) => <Card key={idx} className="bg-white border border-[#d8e0d8] shadow-sm"><CardContent className="p-6 md:p-8"><h3 className="text-xl font-bold mb-4 text-[#7d5d0b]">{benefit.title}</h3><p className="text-[#52635b] leading-relaxed">{benefit.desc}</p></CardContent></Card>)}</div>
           </div>
         </section>
 
-        <section className="py-20 bg-zinc-900 text-white">
+        <section className="py-14 md:py-20 bg-[#203831] text-white">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Этапы работы</h2>
             <div className="grid md:grid-cols-4 gap-8">{processSteps.map((step, idx) => <div key={idx} className="relative"><div className="text-6xl font-bold text-[#FFB800]/20 mb-4">0{idx + 1}</div><h3 className="text-xl font-bold mb-2">{step.title}</h3><p className="text-gray-400 text-sm">{step.desc}</p>{idx < processSteps.length - 1 && <ArrowRight className="hidden md:block absolute top-8 -right-4 text-gray-600"/>}</div>)}</div>
           </div>
         </section>
 
-        {faq && faq.length > 0 && <ServiceFAQ items={faq} />}
+        {faq && faq.length > 0 && <ServiceFAQ items={faq} light />}
 
         <section id="service-request" className="py-20 bg-[#FFB800] scroll-mt-8">
           <div className="container px-4 md:px-6 text-center">

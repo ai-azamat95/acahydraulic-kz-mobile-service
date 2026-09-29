@@ -23,7 +23,7 @@ const brands = [
   ["LIEBHERR", "liebherr"], ["VOLVO CE", "volvo"],
 ];
 
-export default function MobileSiteMenu() {
+export default function MobileSiteMenu({ light = false }: { light?: boolean }) {
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
   const { t } = useTranslation();
@@ -32,7 +32,7 @@ export default function MobileSiteMenu() {
 
   return <Sheet open={open} onOpenChange={setOpen}>
     <SheetTrigger asChild>
-      <Button aria-label="Открыть меню" variant="ghost" size="icon" className="h-11 w-11 shrink-0 text-white hover:bg-white/10 hover:text-[#FFC000] xl:hidden">
+      <Button aria-label="Открыть меню" variant="ghost" size="icon" className={`h-11 w-11 shrink-0 xl:hidden ${light ? "text-[#17242b] hover:bg-[#edf1ec] hover:text-[#8a6607]" : "text-white hover:bg-white/10 hover:text-[#FFC000]"}`}>
         <Menu aria-hidden="true" className="h-7 w-7" />
       </Button>
     </SheetTrigger>

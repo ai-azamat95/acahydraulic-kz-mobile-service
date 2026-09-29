@@ -1,332 +1,144 @@
-import SiteHomeLink from "@/components/SiteHomeLink";
-import { Button } from "@/components/ui/button";
-import { SEO } from "@/components/SEO";
-import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Drill, Factory, Gauge, FileText, CheckCircle2, Building2, MapPin } from "lucide-react";
+import { useMemo, useState } from "react";
 import { Link } from "wouter";
-import { useState } from "react";
+import { ArrowRight, ClipboardList, MessageCircle, Phone, Search, Wrench } from "lucide-react";
+import { SEO } from "@/components/SEO";
 import MobileSiteMenu from "@/components/MobileSiteMenu";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import serviceDirectory from "../../../shared/service-directory.json";
-import B2BLeadForm from "@/components/B2BLeadForm";
+import SiteHomeLink from "@/components/SiteHomeLink";
+import showcase from "../../../shared/service-showcase.json";
+
+type Service = (typeof showcase)[keyof typeof showcase];
+type ServiceEntry = { slug: string; service: Service; category: string };
+
+const categorySlugs: Record<string, string[]> = {
+  "Ремонт спецтехники": ["excavator-repair", "bulldozer-repair", "loader-repair", "grader-repair", "mining-truck-repair", "mining-loader-repair", "manipulator-repair", "wirtgen-repair", "railway-repair"],
+  "Буровые и ГНБ": ["gnb-repair", "drilling-repair", "piledriver-repair"],
+  "Гидравлические узлы": ["hydraulic-pumps", "hydraulic-motors", "hydraulic-valves"],
+  "Выезд и предприятия": ["mobile-repair", "emergency-service", "industrial-service", "press-repair", "b2b-maintenance"],
+};
+
+const entries: ServiceEntry[] = Object.entries(categorySlugs).flatMap(([category, slugs]) =>
+  slugs.map((slug) => ({ slug, service: showcase[slug as keyof typeof showcase], category })),
+);
+
+const normalize = (value: string) => value.toLocaleLowerCase("ru-RU").replace(/ё/g, "е").trim();
 
 export default function Services() {
-  const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
-
-  const serviceCategories = serviceDirectory.categories;
+  const [query, setQuery] = useState("");
+  const filtered = useMemo(() => {
+    const term = normalize(query);
+    return term
+      ? entries.filter(({ service, category }) => normalize(`${service.label} ${service.summary} ${service.description} ${category}`).includes(term))
+      : entries;
+  }, [query]);
 
   return (
-    <div className="min-h-[100dvh] bg-background text-white font-roboto flex flex-col overflow-x-hidden">
-      <SEO 
-        title={serviceDirectory.title}
-        description={serviceDirectory.description}
-        keywords="выездной сервис гидравлики, ремонт экскаваторов, ремонт ГНБ, ремонт буровых установок, промышленная гидравлика, ремонт спецтехники"
+    <div className="min-h-screen overflow-x-hidden bg-[#f6f5f0] pb-8 text-[#17242b]">
+      <SEO
+        title="Ремонт гидравлики и спецтехники в Астане — услуги ACA Hydraulic"
+        description="Найдите сервис по типу спецтехники или гидравлическому узлу. Выездная диагностика, ремонт по согласованной смете и реальные примеры работ ACA Hydraulic."
+        canonical="/services"
+        ogImage="/images/services/field-diagnostics-illustration.webp"
+        breadcrumbs={[{ name: "Услуги", url: "/services" }]}
       />
-      
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-transparent pt-2 pb-2 px-4 md:pt-6 md:pb-8">
-        <div className="container mx-auto flex items-center justify-between">
-          {/* Logo */}
+      <header className="relative z-30 border-b border-[#dce1de] bg-white/95 px-4 py-3 backdrop-blur md:py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           <SiteHomeLink aria-label="ACA Hydraulic — главная">
-            <div className="flex items-center gap-3 cursor-pointer">
-              <div className="flex gap-[3px] h-[28px]">
-                <div className="w-[10px] h-full bg-[#FFC000]"></div>
-                <div className="flex flex-col justify-between h-full">
-                  <div className="w-[10px] h-[12.5px] bg-[#FFC000]"></div>
-                  <div className="w-[10px] h-[12.5px] bg-[#FFC000]"></div>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center">
-                <span className="font-sans font-bold text-[18px] text-white leading-none tracking-wide">ACA</span>
-                <span className="font-sans font-medium text-[11px] text-white leading-none tracking-wider mt-[2px]">HYDRAULIC</span>
-              </div>
-            </div>
+            <span className="flex items-center gap-3 font-bold tracking-wide text-[#17242b]">
+              <span className="flex h-9 gap-[3px]" aria-hidden="true"><span className="w-[11px] bg-[#f4bc2a]" /><span className="flex flex-col justify-between"><span className="h-[16px] w-[11px] bg-[#f4bc2a]" /><span className="h-[16px] w-[11px] bg-[#f4bc2a]" /></span></span>
+              <span className="leading-tight">ACA <span className="block text-[11px] tracking-[0.2em]">HYDRAULIC</span></span>
+            </span>
           </SiteHomeLink>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center gap-6">
-            <Link href="/" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Главная</Link>
-            <Link href="/services" className="text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors border-b border-[#FFC000]">Услуги</Link>
-            <Link href="/catalog" className="text-white/80 hover:text-[#FFC000] text-sm uppercase tracking-wider">Запчасти</Link>
-            <Link href="/about" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">О компании</Link>
-            <Link href="/projects" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Проекты</Link>
-            <Link href="/reviews" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Отзывы</Link>
-            <Link href="/blog" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Блог</Link>
-            <Link href="/contacts" className="text-white/80 hover:text-[#FFC000] font-roboto text-sm uppercase tracking-wider transition-colors">Контакты</Link>
+          <nav className="hidden items-center gap-6 text-sm font-medium lg:flex" aria-label="Основная навигация">
+            <Link href="/services" className="text-[#936800]">Услуги</Link>
+            <Link href="/catalog" className="hover:text-[#936800]">Запчасти</Link>
+            <Link href="/cases" className="hover:text-[#936800]">Кейсы</Link>
+            <Link href="/contacts" className="hover:text-[#936800]">Контакты</Link>
           </nav>
-
-          {/* Mobile Menu */}
-          <MobileSiteMenu />
+          <div className="flex items-center gap-3">
+            <a href="tel:+77714177925" className="hidden rounded-lg border border-[#cad1ce] px-4 py-2 text-sm font-semibold transition hover:border-[#a27500] sm:inline-flex">+7 (771) 417-79-25</a>
+            <MobileSiteMenu light />
+          </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 md:pt-40 pb-16 md:pb-24 px-4 bg-cover bg-center bg-no-repeat" style={{backgroundImage: "url('https://files.manuscdn.com/user_upload_by_module/session_file/310419663029800642/VdtuJNADOaHFcqkW.jpg')"}}>
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/40"></div>
-        <div className="container mx-auto relative z-10">
-          <div className="max-w-4xl">
-            <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-white leading-tight mb-6 drop-shadow-lg">
-              {serviceDirectory.heading}
-            </h1>
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl drop-shadow-md">
-              Профессиональный ремонт и восстановление гидравлических систем спецтехники. Работаем с юридическими лицами по договору с НДС.
-            </p>
+      <main>
+        <section className="relative overflow-hidden border-b border-[#dce1de] bg-[#eaf0eb]">
+          <div className="absolute inset-0 opacity-15 lg:inset-y-0 lg:left-auto lg:right-0 lg:w-[48%] lg:opacity-100">
+            <img src="/images/services/field-diagnostics-illustration.webp" alt="" role="presentation" className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#eaf0eb] via-[#eaf0eb]/30 to-transparent" />
           </div>
-        </div>
-      </section>
-
-      {/* Service Categories */}
-      <section className="py-16 md:py-24 px-4 bg-background">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-            {serviceCategories.map((category) => {
-              return (
-                <div
-                  key={category.id}
-                  className="group relative bg-card border border-border hover:border-[#FFC000] rounded-lg p-8 md:p-10 transition-all duration-300 hover:shadow-xl hover:shadow-[#FFC000]/20"
-                >
-                  {/* Icon */}
-                  <div className="mb-6">
-                    <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center transition-transform group-hover:scale-105">
-                      <img 
-                        src={category.iconUrl} 
-                        alt={category.title}
-                        className="w-12 h-12 md:w-16 md:h-16 object-contain brightness-0 invert"
-                        style={{ filter: 'brightness(0) saturate(100%) invert(77%) sepia(66%) saturate(604%) hue-rotate(358deg) brightness(102%) contrast(101%)' }}
-                      />
-                    </div>
-                  </div>             {/* Title */}
-                  <h2 className="font-sans font-bold text-2xl md:text-3xl text-white mb-4 leading-tight">
-                    {category.title}
-                  </h2>
-
-                  {/* Description */}
-                  <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6">
-                    {category.description}
-                  </p>
-
-                  {/* Subcategories or Link */}
-                  {category.subcategories.length > 0 ? (
-                    <div className="space-y-3">
-                      {category.subcategories.map((sub, idx) => (
-                        sub.link && sub.link !== "#" ? (
-                          <Link key={idx} href={sub.link}>
-                            <div className="flex items-center gap-3 text-white/70 hover:text-[#FFC000] transition-colors cursor-pointer group/sub">
-                              <div className="w-1 h-1 bg-[#FFC000] group-hover/sub:w-2 transition-all"></div>
-                              <span className="text-sm md:text-base font-roboto uppercase tracking-wide">{sub.name}</span>
-                            </div>
-                          </Link>
-                        ) : (
-                          <div key={idx} className="flex items-center gap-3 text-white/30 cursor-not-allowed">
-                            <div className="w-1 h-1 bg-gray-300"></div>
-                            <span className="text-sm md:text-base font-roboto uppercase tracking-wide">{sub.name}</span>
-                          </div>
-                        )
-                      ))}
-                    </div>
-                  ) : (
-                    category.link && category.link !== "#" ? (
-                      <Link href={category.link}>
-                        <Button
-                          className="mt-4 bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black font-roboto uppercase tracking-wider px-8 py-6 text-sm transition-all"
-                        >
-                          Подробнее
-                        </Button>
-                      </Link>
-                    ) : null
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Block */}
-      <section className="py-16 md:py-24 px-4 bg-card border-t border-border">
-        <div className="container mx-auto">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="font-sans font-bold text-3xl md:text-4xl text-white text-center mb-12">
-              Работаем с юридическими лицами
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Trust Item 1 */}
-              <div className="flex items-start gap-4 p-6 bg-background border border-border rounded-lg">
-                <div className="w-12 h-12 bg-[#FFC000]/10 flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-6 h-6 text-[#FFC000]" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="font-sans font-bold text-lg text-white mb-2">Договор</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Официальное оформление с юридическими лицами
-                  </p>
-                </div>
-              </div>
-
-              {/* Trust Item 2 */}
-              <div className="flex items-start gap-4 p-6 bg-background border border-border rounded-lg">
-                <div className="w-12 h-12 bg-[#FFC000]/10 flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 className="w-6 h-6 text-[#FFC000]" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="font-sans font-bold text-lg text-white mb-2">НДС</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Работаем с НДС для корпоративных клиентов
-                  </p>
-                </div>
-              </div>
-
-              {/* Trust Item 3 */}
-              <div className="flex items-start gap-4 p-6 bg-background border border-border rounded-lg">
-                <div className="w-12 h-12 bg-[#FFC000]/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-[#FFC000]" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="font-sans font-bold text-lg text-white mb-2">Выезд по Казахстану</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Инженерный сервис на объектах заказчика
-                  </p>
-                </div>
-              </div>
-
-              {/* Trust Item 4 */}
-              <div className="flex items-start gap-4 p-6 bg-background border border-border rounded-lg">
-                <div className="w-12 h-12 bg-[#FFC000]/10 flex items-center justify-center flex-shrink-0">
-                  <Wrench className="w-6 h-6 text-[#FFC000]" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="font-sans font-bold text-lg text-white mb-2">Инженерная диагностика</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Профессиональная оценка состояния оборудования
-                  </p>
-                </div>
-              </div>
-
-              {/* Trust Item 5 */}
-              <div className="flex items-start gap-4 p-6 bg-background border border-border rounded-lg">
-                <div className="w-12 h-12 bg-[#FFC000]/10 flex items-center justify-center flex-shrink-0">
-                  <ShieldCheck className="w-6 h-6 text-[#FFC000]" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="font-sans font-bold text-lg text-white mb-2">Гарантия качества</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Документированная гарантия на выполненные работы
-                  </p>
-                </div>
-              </div>
-
-              {/* Trust Item 6 */}
-              <div className="flex items-start gap-4 p-6 bg-background border border-border rounded-lg">
-                <div className="w-12 h-12 bg-[#FFC000]/10 flex items-center justify-center flex-shrink-0">
-                  <Building2 className="w-6 h-6 text-[#FFC000]" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="font-sans font-bold text-lg text-white mb-2">Опыт с крупными проектами</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Работа с промышленными предприятиями
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 md:py-24 px-4">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-sans font-bold text-3xl md:text-5xl text-white mb-6">
-              Нужна консультация инженера?
-            </h2>
-            <p className="text-lg md:text-xl text-white/70 mb-8 leading-relaxed">
-              Оставьте заявку, и наш специалист свяжется с вами для обсуждения технических деталей
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                onClick={() => setIsLeadFormOpen(true)}
-                className="bg-[#FFC000] text-black hover:bg-[#FFD700] font-roboto uppercase tracking-wider px-8 py-6 text-base transition-all"
-              >
-                Оставить заявку
-              </Button>
-              <a href="tel:+77714177925">
-                <Button className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black font-roboto uppercase tracking-wider px-8 py-6 text-base transition-all">
-                  <Phone className="w-5 h-5 mr-2" />
-                  +7 (771) 417-79-25
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-black/50 border-t border-white/10 py-12 px-4 mt-auto">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* Company Info */}
+          <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-12 md:py-20 lg:grid-cols-2 lg:py-24">
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex gap-[3px] h-[28px]">
-                  <div className="w-[10px] h-full bg-[#FFC000]"></div>
-                  <div className="flex flex-col justify-between h-full">
-                    <div className="w-[10px] h-[12.5px] bg-[#FFC000]"></div>
-                    <div className="w-[10px] h-[12.5px] bg-[#FFC000]"></div>
-                  </div>
-                </div>
-                <div className="flex flex-col justify-center">
-                  <span className="font-sans font-bold text-[18px] text-white leading-none tracking-wide">ACA</span>
-                  <span className="font-sans font-medium text-[11px] text-white leading-none tracking-wider mt-[2px]">HYDRAULIC</span>
-                </div>
-              </div>
-              <p className="text-white/60 text-sm leading-relaxed">
-                Профессиональный ремонт гидравлических систем спецтехники
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h3 className="font-sans font-bold text-white text-lg mb-4">Навигация</h3>
-              <div className="flex flex-col gap-2">
-                <Link href="/" className="text-white/60 hover:text-[#FFC000] text-sm transition-colors">Главная</Link>
-                <Link href="/services" className="text-white/60 hover:text-[#FFC000] text-sm transition-colors">Услуги</Link>
-                <Link href="/about" className="text-white/60 hover:text-[#FFC000] text-sm transition-colors">О компании</Link>
-                <Link href="/contacts" className="text-white/60 hover:text-[#FFC000] text-sm transition-colors">Контакты</Link>
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h3 className="font-sans font-bold text-white text-lg mb-4">Контакты</h3>
-              <div className="flex flex-col gap-3">
-                <a href="tel:+77714177925" className="flex items-center gap-2 text-white/60 hover:text-[#FFC000] text-sm transition-colors">
-                  <Phone size={16} />
-                  +7 (771) 417-79-25
-                </a>
-                <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/60 hover:text-[#FFC000] text-sm transition-colors">
-                  <MessageCircle size={16} />
-                  WhatsApp
-                </a>
+              <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#c8d1cb] bg-white/80 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#55685c]">
+                <Wrench size={14} /> ACA Hydraulic · сервис спецтехники
+              </span>
+              <h1 className="max-w-2xl font-sans text-4xl font-extrabold leading-[1.08] tracking-tight md:text-6xl">Найдём причину. <span className="text-[#a37500]">Вернём технику в работу.</span></h1>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-[#465957] md:text-lg">Выберите технику или гидравлический узел. Если причина поломки неизвестна — начнём с диагностики и согласуем ремонт после проверки.</p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a href="#service-search" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#f4bc2a] px-6 font-bold text-[#17242b] transition hover:bg-[#e9ae13]">Выбрать услугу <ArrowRight size={18} /></a>
+                <a href="https://wa.me/77714177925?text=%D0%9D%D1%83%D0%B6%D0%BD%D0%B0%20%D0%B4%D0%B8%D0%B0%D0%B3%D0%BD%D0%BE%D1%81%D1%82%D0%B8%D0%BA%D0%B0%20%D0%B3%D0%B8%D0%B4%D1%80%D0%B0%D0%B2%D0%BB%D0%B8%D0%BA%D0%B8" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-[#aab9b0] bg-white/75 px-6 font-semibold transition hover:bg-white"><MessageCircle size={18} /> Написать инженеру</a>
               </div>
             </div>
           </div>
+        </section>
 
-          <div className="border-t border-white/10 pt-8 text-center text-white/40 text-sm">
-            <p>&copy; {new Date().getFullYear()} ACA Hydraulic. Все права защищены.</p>
+        <section id="service-search" className="mx-auto max-w-7xl scroll-mt-6 px-4 py-12 md:py-16">
+          <div className="mb-8 grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
+            <div>
+              <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#97710b]">Каталог услуг</p>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">По технике или узлу</h2>
+              <p className="mt-3 text-[#50605c]">Введите «экскаватор», «ГНБ», «насос» или выберите раздел ниже.</p>
+            </div>
+            <label className="flex min-h-12 items-center gap-3 rounded-xl border border-[#bdcac3] bg-white px-4 shadow-sm focus-within:border-[#b88b14] focus-within:ring-2 focus-within:ring-[#f4bc2a]/30 md:w-80">
+              <Search size={19} className="shrink-0 text-[#697b72]" />
+              <span className="sr-only">Поиск услуги</span>
+              <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Например, ГНБ или насос" className="w-full bg-transparent py-3 text-[#17242b] outline-none placeholder:text-[#74827c]" />
+            </label>
           </div>
-        </div>
-      </footer>
 
-      {/* Lead Form Dialog */}
-      <Dialog open={isLeadFormOpen} onOpenChange={setIsLeadFormOpen}>
-        <DialogContent className="bg-[#1a1a1a] border border-white/10 text-white max-w-md">
-          <DialogHeader>
-            <DialogTitle className="font-sans font-bold text-2xl text-white">Оставить заявку</DialogTitle>
-          </DialogHeader>
-          <B2BLeadForm onSuccess={() => setIsLeadFormOpen(false)} />
-        </DialogContent>
-      </Dialog>
+          {filtered.length === 0 ? (
+            <div className="rounded-2xl border border-[#d9e0da] bg-white p-7">
+              <h3 className="text-xl font-bold">Не нашли точное название?</h3>
+              <p className="mt-2 text-[#52615c]">Напишите модель техники, фото шильдика и симптомы — подскажем, с чего начать проверку.</p>
+              <a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center font-bold text-[#815f00] underline underline-offset-4">Отправить данные в WhatsApp</a>
+            </div>
+          ) : Object.entries(categorySlugs).map(([category]) => {
+            const items = filtered.filter((entry) => entry.category === category);
+            if (!items.length) return null;
+            return (
+              <section key={category} className="mb-10">
+                <h3 className="mb-4 border-b border-[#cdd7ce] pb-3 text-xl font-bold md:text-2xl">{category}</h3>
+                <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                  {items.map(({ slug, service }) => (
+                    <Link key={slug} href={`/services/${slug}/`} className="group flex min-h-32 flex-col justify-between rounded-2xl border border-[#d7dfd8] bg-white p-5 shadow-[0_3px_16px_rgba(15,31,23,0.04)] transition hover:-translate-y-0.5 hover:border-[#cba544] hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a47808]">
+                      <span className="flex items-start justify-between gap-3"><span className="text-lg font-bold leading-snug">{service.label}</span><ArrowRight size={19} className="shrink-0 text-[#a47908] transition group-hover:translate-x-1" /></span>
+                      <span className="mt-4 text-sm leading-relaxed text-[#53645d]">{service.summary}</span>
+                      {service.cases.length > 0 && <span className="mt-4 text-xs font-semibold text-[#87640a]">Есть реальные примеры работ</span>}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </section>
+
+        <section className="border-y border-[#d6dfd8] bg-white px-4 py-12 md:py-16">
+          <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1fr_1.5fr] md:items-center">
+            <div><p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#97710b]">Если модель уже известна</p><h2 className="text-2xl font-bold md:text-3xl">Быстрый запрос без лишней формы</h2><p className="mt-3 text-[#53645d]">Инженеру нужны данные, чтобы отделить неисправность узла от проблемы в системе.</p></div>
+            <ol className="grid gap-3 sm:grid-cols-3">
+              {["Модель и серийный номер техники", "Фото шильдика неисправного узла", "Видео симптома и место работы"].map((item, index) => <li key={item} className="rounded-xl bg-[#f1f5f1] p-4 text-sm font-medium"><span className="mb-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#f4bc2a] font-bold">{index + 1}</span>{item}</li>)}
+            </ol>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-12 md:py-16">
+          <div className="grid gap-7 rounded-2xl bg-[#203831] p-6 text-white md:grid-cols-[1fr_auto] md:items-center md:p-10">
+            <div><ClipboardList className="mb-4 text-[#f4bc2a]" /><h2 className="text-2xl font-bold md:text-3xl">Не знаете, какой узел вышел из строя?</h2><p className="mt-3 max-w-xl text-[#d2ded5]">Опишите симптом. Предложим порядок диагностики и согласуем условия выезда, работ и запчастей до начала ремонта.</p></div>
+            <div className="flex flex-col gap-3 sm:flex-row md:flex-col"><a href="https://wa.me/77714177925" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#f4bc2a] px-6 font-bold text-[#17242b]">WhatsApp <ArrowRight size={17} /></a><a href="tel:+77714177925" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/45 px-6 font-semibold"><Phone size={17} /> Позвонить</a></div>
+          </div>
+        </section>
+      </main>
+      <footer className="border-t border-[#d4ded6] px-4 py-7 text-sm text-[#51625a]"><div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3"><span>ACA Hydraulic · Астана, Казахстан</span><span><Link href="/contacts" className="underline underline-offset-4">Контакты</Link> · <Link href="/cases" className="underline underline-offset-4">Кейсы</Link></span></div></footer>
     </div>
   );
 }
