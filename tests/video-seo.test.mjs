@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
+import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
 
 const out = 'dist/public';
 const cases = JSON.parse(fs.readFileSync('shared/video-cases.json', 'utf8'));
@@ -47,6 +48,9 @@ test('watch pages are discoverable from video sitemap, cases sitemap and existin
   }
   assert.ok(videoMap.includes(`<loc>https://acahydraulic.kz${catSale.casePath}/</loc>`));
   assert.ok(videoMap.includes(`<video:content_loc>https://acahydraulic.kz${catSale.video}</video:content_loc>`));
+  const xcmgInstallationVideo = xcmgSale.videos.find(video => video.id === 'installation');
+  assert.ok(videoMap.includes(`<loc>https://acahydraulic.kz${xcmgSale.casePath}/</loc>`));
+  assert.ok(videoMap.includes(`<video:content_loc>https://acahydraulic.kz${xcmgInstallationVideo.src}</video:content_loc>`));
   const catalogCaseSchemas = schemas(read(catSale.casePath.slice(1)));
   const catalogVideo = catalogCaseSchemas.find(schema => schema['@type'] === 'VideoObject');
   assert.equal(catalogVideo.contentUrl, `https://acahydraulic.kz${catSale.video}`);

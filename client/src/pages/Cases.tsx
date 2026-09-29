@@ -123,8 +123,8 @@ export default function Cases() {
     <div className="min-h-screen bg-[#0a0a0a] text-white font-roboto">
       <SEO
         title="Реальные кейсы ремонта спецтехники с видео | ACA Hydraulic"
-        description="Реальные ремонты и поставки ACA Hydraulic: двигатель Cummins NTA855 для Shantui SD32, гидронасосы CAT и SANY, диагностика Hitachi. Фото, видео и подтверждённый результат."
-        keywords="реальный ремонт спецтехники, поставка двигателя Shantui SD32, Cummins NTA855, выездной ремонт спецтехники, поставка гидронасоса"
+        description="Реальные ремонты и поставки ACA Hydraulic: гидронасос XCMG 803001730 для ГНБ XZ200, двигатель Cummins NTA855, насосы CAT и SANY. Фото, видео и подтверждённый результат."
+        keywords="XCMG 803001730, гидронасос XZ200, насос XZ200E, реальный ремонт спецтехники, Cummins NTA855, поставка гидронасоса"
         canonical="/cases"
         schema={cat325VideoSchema}
       />
@@ -158,6 +158,31 @@ export default function Cases() {
         </div>
       </section>
       <section className="border-b border-white/10 bg-[#151515] py-10"><div className="container mx-auto grid items-center gap-6 px-4 md:grid-cols-[220px_1fr]"><img src="/media/cat-432e/cat-432e.jpg" alt="CAT 432E из кейса продажи нового гидронасоса" width={562} height={1280} loading="lazy" className="h-56 w-full rounded-lg object-contain" /><div><p className="text-sm font-bold text-[#FFC000]">Выполненная продажа запчасти</p><h2 className="mt-3 text-3xl font-bold text-white">CAT 432E: новый гидронасос 267-2755</h2><p className="my-4 text-gray-300">Продали новый основной насос. Клиент доволен покупкой. Цена — 1 230 000 ₸. Фото и видео из заказа.</p><Link href="/cases/cat-432e-postavka-gidronasosa-267-2755/" className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black">Посмотреть кейс и насос</Link></div></div></section>
+      <section className="border-b border-white/10 bg-[#101010] py-10">
+        <div className="container mx-auto grid items-center gap-6 px-4 md:grid-cols-[220px_1fr]">
+          <img
+            src="/catalog-assets/xcmg-803001730/xcmg-803001730-main.webp"
+            alt="Новый гидронасос XCMG 803001730 для буровой ГНБ"
+            width={1200}
+            height={1200}
+            loading="lazy"
+            className="h-60 w-full rounded-lg bg-white object-contain"
+          />
+          <div>
+            <p className="text-sm font-bold text-[#FFC000]">ГНБ · продажа · установка у клиента</p>
+            <h2 className="mt-3 text-3xl font-bold text-white">XCMG XZ200: гидронасос 803001730</h2>
+            <p className="my-4 max-w-3xl text-gray-300">
+              Поставили новый насос за 1 350 000 ₸ и выполнили монтаж на буровой установке клиента. В кейсе — белые карточки товара, шильдик и три реальных видео.
+            </p>
+            <Link
+              href="/cases/xcmg-xz200-ustanovka-gidronasosa-803001730/"
+              className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black"
+            >
+              Посмотреть поставку и установку
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <section className="py-7 border-b border-white/5 bg-[#0d0d0d]">
         <div className="container mx-auto px-4">

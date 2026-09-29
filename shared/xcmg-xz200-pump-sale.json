@@ -1,0 +1,50 @@
+{
+  "id": "ACA-XCMG-803001730-XZ200E",
+  "handle": "803001730-hydraulic-pump-xcmg-xz200-xz200e-hdd",
+  "name": "Гидравлический насос 803001730 для XCMG XZ200 / XZ200E",
+  "priceKzt": 1350000,
+  "condition": "new",
+  "confirmedOn": "2026-09-29",
+  "casePath": "/cases/xcmg-xz200-ustanovka-gidronasosa-803001730",
+  "image": "/catalog-assets/xcmg-803001730/xcmg-803001730-main.webp",
+  "gallery": [
+    "/catalog-assets/xcmg-803001730/xcmg-803001730-main.webp",
+    "/catalog-assets/xcmg-803001730/xcmg-803001730-detail.webp",
+    "/catalog-assets/xcmg-803001730/xcmg-803001730-nameplate.webp"
+  ],
+  "nameplateImage": "/catalog-assets/xcmg-803001730/xcmg-803001730-nameplate.webp",
+  "ogImage": "/media/xcmg-xz200-pump/xcmg-803001730-og.webp",
+  "videos": [
+    {
+      "id": "new-pump",
+      "src": "/media/xcmg-xz200-pump/new-pump.mp4",
+      "poster": "/media/xcmg-xz200-pump/new-pump-poster.webp",
+      "duration": "PT16S",
+      "title": "Новый гидронасос XCMG 803001730 перед установкой",
+      "caption": "Реальный новый насос из заказа: корпус, порты и комплектация перед монтажом."
+    },
+    {
+      "id": "installation",
+      "src": "/media/xcmg-xz200-pump/installation.mp4",
+      "poster": "/media/xcmg-xz200-pump/installation-poster.webp",
+      "duration": "PT26S",
+      "title": "Установка гидронасоса на буровую XCMG XZ200",
+      "caption": "Кадры установки нового насоса на буровую установку клиента."
+    },
+    {
+      "id": "machine",
+      "src": "/media/xcmg-xz200-pump/after-installation.mp4",
+      "poster": "/media/xcmg-xz200-pump/machine-poster.webp",
+      "duration": "PT23S",
+      "title": "Буровая установка XCMG XZ200 после установки насоса",
+      "caption": "Внешний осмотр техники после монтажа; на шильдике установки видна модель XZ200."
+    }
+  ],
+  "caseTitle": "XCMG XZ200: продажа и установка гидронасоса 803001730",
+  "caseDescription": "Реальный кейс ACA Hydraulic: новый гидронасос XCMG 803001730 за 1 350 000 ₸, поставка и установка на буровую ГНБ XZ200. Фото, шильдик и три видео.",
+  "terms": {
+    "ru": "Цена насоса в этом заказе — 1 350 000 ₸. Установка в указанную цену не включена. Для нового заказа наличие, исполнение, доставку, срок и гарантийные условия согласуем до оплаты. Совместимость проверяем по шильдику, валу, фланцу, портам и подключениям.",
+    "kz": "Осы тапсырыстағы сорғы бағасы — 1 350 000 ₸. Орнату көрсетілген бағаға кірмейді. Жаңа тапсырыс үшін қолжетімділікті, орындалуын, жеткізу мерзімін және кепілдік шарттарын төлемге дейін келісеміз. Сәйкестігін тақтайша, білік, фланец, порттар және қосылымдар бойынша тексереміз.",
+    "en": "Pump price in this completed order: KZT 1,350,000. Installation was not included in that price. Availability, configuration, shipping, lead time and warranty terms are agreed before a new order. Fitment is checked against the nameplate, shaft, flange, ports and connections."
+  }
+}

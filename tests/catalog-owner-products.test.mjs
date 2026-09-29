@@ -28,8 +28,8 @@ test('owner product is inserted into every public catalogue representation witho
     assert.equal(fullProduct.minPriceKzt, 2530000);
     assert.equal(fullProduct.ownerProduct.shippingIncluded, true);
     assert.equal(fullProduct.gallery.length, 8);
-    assert.equal(JSON.parse(second[0]).productCount, 2);
-    assert.equal(JSON.parse(second[2])['hydraulic-pumps'].count, 2);
+    assert.equal(JSON.parse(second[0]).productCount, 1 + ownerCatalogProducts.length);
+    assert.equal(JSON.parse(second[2])['hydraulic-pumps'].count, 1 + ownerCatalogProducts.length);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
@@ -46,7 +46,7 @@ test('browser fixture can add owner products without an ignored category summary
     applyOwnerCatalogProducts(dir, { updateCategorySummary: false });
 
     assert.equal(fs.existsSync(path.join(dir, 'category-summary.json')), false);
-    assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'manifest.json'), 'utf8')).productCount, 2);
+    assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'manifest.json'), 'utf8')).productCount, 1 + ownerCatalogProducts.length);
     assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'product-map.json'), 'utf8'))[ownerCatalogProducts[0].handle], 1);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });

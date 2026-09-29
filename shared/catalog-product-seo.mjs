@@ -8,7 +8,7 @@ const productCopy = { ...reviewedProductCopy, ...merchantProductCopy };
 // Keep OEM numbers and the supplier's original title in the product data.
 // Only reviewed, handle-specific translations replace the public Russian name.
 export function catalogProductName(product, language = 'ru') {
-  return (language === 'ru' && productCopy[product.handle]?.name) || product.title;
+  return (language === 'ru' && (productCopy[product.handle]?.name || product.catalogTitle)) || product.title;
 }
 
 export function catalogProductSeo(product, language = 'ru') {
