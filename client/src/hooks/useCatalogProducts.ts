@@ -170,14 +170,16 @@ export function useCatalogIndex() {
 export function useCatalogProduct(handle: string) {
   const [product, setProduct] = useState<CatalogProduct | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<"not-found" | "load-failed" | null>(null);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
     async function loadProduct() {
       try {
         setLoading(true);
-        setError(false);
+        setError(null);
+        setProduct(null);
 
         const manifest = await fetchJson<CatalogManifest>(
           "/catalog-data/manifest.json",
@@ -190,7 +192,7 @@ export function useCatalogProduct(handle: string) {
           "force-cache",
         );
         const chunk = productMap[handle];
-        if (!chunk) throw new Error("Product not found");
+        if (chunk === undefined) throw new Error("Product not found");
         const products = await fetchJson<CatalogProduct[]>(
           versioned(
             `/catalog-data/products-${String(chunk).padStart(3, "0")}.json`,
@@ -204,14 +206,16 @@ export function useCatalogProduct(handle: string) {
         setProduct(match);
       } catch (requestError) {
         if (requestError instanceof DOMException && requestError.name === "AbortError") return;
-        setError(true);
+        const notFound = requestError instanceof Error && requestError.message === "Product not found";
+        if (!notFound) console.error("Catalog product failed to load", requestError);
+        setError(notFound ? "not-found" : "load-failed");
       } finally {
         if (!controller.signal.aborted) setLoading(false);
       }
     }
     void loadProduct();
     return () => controller.abort();
-  }, [handle]);
+  }, [attempt, handle]);
 
-  return { product, loading, error };
+  return { product, loading, error, retry: () => setAttempt(value => value + 1) };
 }

@@ -8,7 +8,7 @@ import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Link, useParams } from "wouter";
-import { ArrowLeft, Check, ImageIcon, MessageCircle, Package, ShieldCheck, ShoppingCart, ZoomIn } from "lucide-react";
+import { ArrowLeft, Check, ImageIcon, MessageCircle, Package, RotateCcw, ShieldCheck, ShoppingCart, ZoomIn } from "lucide-react";
 
 import { SEO } from "@/components/SEO";
 import { CartButton } from "@/components/cart/CartButton";
@@ -44,7 +44,7 @@ export default function CatalogProduct() {
   const [selectedImage, setSelectedImage] = useState("");
   const [imageFailed, setImageFailed] = useState(false);
   const trackedProductRef = useRef("");
-  const { product, loading, error } = useCatalogProduct(handle);
+  const { product, loading, error, retry } = useCatalogProduct(handle);
   const { addItem } = useCart();
   const fireContact = useTikTokContact();
   const copy = catalogCopy[language];
@@ -107,7 +107,17 @@ export default function CatalogProduct() {
       <div className="grid min-h-[100dvh] place-items-center bg-[#101010] px-4 text-white">
         <div className="max-w-lg border border-white/10 bg-[#151515] p-8 text-center">
           <Package className="mx-auto h-9 w-9 text-[#FFC000]" aria-hidden="true" />
-          <p className="mt-5 text-gray-300">{copy.noResults}</p>
+          <p className="mt-5 text-gray-300">{error === "load-failed" ? copy.loadError : copy.noResults}</p>
+          {error === "load-failed" && (
+            <button
+              type="button"
+              onClick={retry}
+              className="mt-6 inline-flex min-h-11 items-center gap-2 bg-[#FFC000] px-5 font-bold text-black hover:bg-[#e6ad00]"
+            >
+              <RotateCcw className="h-4 w-4" aria-hidden="true" />
+              {language === "ru" ? "Повторить загрузку" : language === "kz" ? "Қайта жүктеу" : "Try again"}
+            </button>
+          )}
           <Link href="/catalog" className="mt-6 inline-flex min-h-11 items-center gap-2 font-bold text-[#FFC000] underline underline-offset-4">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             {copy.backToCatalog}
