@@ -7,8 +7,11 @@ import { HelmetProvider } from "react-helmet-async";
 import superjson from "superjson";
 import App from "./App";
 import { getLoginUrl } from "./const";
+import { installVitePreloadRecovery } from "./lib/vitePreloadRecovery";
 import "./index.css";
 import "./i18n";
+
+installVitePreloadRecovery();
 
 const queryClient = new QueryClient();
 

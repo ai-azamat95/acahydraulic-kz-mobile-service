@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
-import { AlertTriangle, RotateCcw } from "lucide-react";
+import { isViteChunkLoadError } from "@/lib/vitePreloadRecovery";
+import { AlertTriangle, ArrowLeft, RotateCcw } from "lucide-react";
 import { Component, ReactNode } from "react";
 
 interface Props {
@@ -21,35 +22,48 @@ class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
+  componentDidCatch(error: Error) {
+    console.error("Unhandled application error", error);
+  }
+
   render() {
     if (this.state.hasError) {
+      const staleVersion = isViteChunkLoadError(this.state.error);
       return (
-        <div className="flex items-center justify-center min-h-screen p-8 bg-background">
-          <div className="flex flex-col items-center w-full max-w-2xl p-8">
+        <div className="flex min-h-screen items-center justify-center bg-[#101010] p-6 text-white">
+          <div className="flex w-full max-w-xl flex-col items-center border border-white/10 bg-[#151515] p-8 text-center shadow-2xl">
             <AlertTriangle
               size={48}
-              className="text-destructive mb-6 flex-shrink-0"
+              className="mb-6 flex-shrink-0 text-[#FFC000]"
             />
 
-            <h2 className="text-xl mb-4">An unexpected error occurred.</h2>
+            <h1 className="text-2xl font-bold">Страница не загрузилась</h1>
+            <p className="mt-4 max-w-md text-sm leading-6 text-gray-300">
+              {staleVersion
+                ? "Сайт обновился, а во вкладке осталась старая версия. Обновите страницу — ссылка и выбранная карточка сохранятся."
+                : "Произошла временная техническая ошибка. Обновите страницу или вернитесь в каталог запчастей."}
+            </p>
 
-            <div className="p-4 w-full rounded bg-muted overflow-auto mb-6">
-              <pre className="text-sm text-muted-foreground whitespace-break-spaces">
-                {this.state.error?.stack}
-              </pre>
+            <div className="mt-7 flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className={cn(
+                  "inline-flex min-h-11 items-center justify-center gap-2 px-5 font-bold",
+                  "bg-[#FFC000] text-black hover:bg-[#e6ad00] cursor-pointer"
+                )}
+              >
+                <RotateCcw size={16} />
+                Обновить страницу
+              </button>
+              <a
+                href="/catalog"
+                className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/20 px-5 font-bold text-white hover:border-[#FFC000] hover:text-[#FFC000]"
+              >
+                <ArrowLeft size={16} />
+                Вернуться в каталог
+              </a>
             </div>
-
-            <button
-              onClick={() => window.location.reload()}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-lg",
-                "bg-primary text-primary-foreground",
-                "hover:opacity-90 cursor-pointer"
-              )}
-            >
-              <RotateCcw size={16} />
-              Reload Page
-            </button>
           </div>
         </div>
       );
