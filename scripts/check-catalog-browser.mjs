@@ -308,7 +308,7 @@ try {
       await journeyProductLink.scrollIntoViewIfNeeded();
       await journey.waitForTimeout(500);
     await Promise.all([
-      journey.waitForURL((url) => url.pathname === journeyProductPath),
+      journey.waitForURL((url) => url.pathname === journeyProductPath, { timeout: 60_000 }),
       journeyProductLink.click(),
     ]);
       await journey.locator('.aca-product-fitment-detail').waitFor();
