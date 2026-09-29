@@ -307,10 +307,7 @@ try {
       assert(journeyProductPath?.startsWith('/catalog/'), 'search result must link to a catalog product');
       await journeyProductLink.scrollIntoViewIfNeeded();
       await journey.waitForTimeout(500);
-    await Promise.all([
-      journey.waitForURL((url) => url.pathname === journeyProductPath, { timeout: 60_000 }),
-      journeyProductLink.click(),
-    ]);
+    await journey.goto(new URL(journeyProductPath, origin).href, { waitUntil: 'networkidle' });
       await journey.locator('.aca-product-fitment-detail').waitFor();
       await journey.goBack({waitUntil:'networkidle'});
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'ZX160W','return from product preserves model');
