@@ -51,8 +51,8 @@ export default function MobileRepair() {
       <section className="relative py-16 md:py-24 border-b border-white/10 overflow-hidden">
         <div className="absolute inset-0 bg-[#1a1a1a]">
            <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/85 to-black/70 z-10"></div>
-           {/* Placeholder for industrial background */}
-           <div className="absolute inset-0 opacity-40 bg-cover bg-center" style={{backgroundImage: "url('https://private-us-east-1.manuscdn.com/sessionFile/qTqqkhQQWHtkSbR4kERHSj/sandbox/E5cf2giz0crfm3TbfcErdU-img-2_1771348812000_na1fn_YmctbW9iaWxlLXNlcnZpY2U.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvcVRxcWtoUVFXSHRrU2JSNGtFUkhTai9zYW5kYm94L0U1Y2YyZ2l6MGNyZm0zVGJmY0VyZFUtaW1nLTJfMTc3MTM0ODgxMjAwMF9uYTFmbl9ZbWN0Ylc5aWFXeGxMWE5sY25acFkyVS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=veU6CSJTvgYEabEFBghJvAD8AjwdFTGvIWvEbulzzhzHBnrcndTt1y8-yj4RS3z-mhCQYXTie~Jp3fIgww4XfZ9viG4SwMWeWZ3h~arcy1VvXDYJIfdE2SW1ugExwXbF285VclDh1VvgHjxABX32ZIFel2wNPZA1PDmFatuQEP2gHoWR1cpFmoWZHV-QVBkrX28yNgX9DofXBpurcTlRTWSKMwCDFrKX42SukO3nC8HZebv~q~mMF~VhAZ-DXLI78WqJxg-AWMAyuM8hIg74kHZBQUZ6CFBbwXSNmIW5xusEa6xwHKhHKMUu2ZGDK2Mzc6~Hy~OKcj92Y3E-sXalXQ__')"}}></div>
+           {/* Фото из реального кейса Hitachi 330-5G */}
+           <div className="absolute inset-0 opacity-40 bg-cover bg-center" style={{ backgroundImage: "url('/images/cases/hitachi-330/main-new.webp')" }}></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-20">
@@ -62,12 +62,12 @@ export default function MobileRepair() {
               Для юридических лиц
             </div>
             <h1 className="font-bebas font-bold text-4xl md:text-6xl leading-[0.95] mb-6 uppercase">
-              Выездная диагностика гидравлики <br/>
+              Выездной ремонт гидравлики <br/>
               <span className="text-[#FFC000]">по Казахстану</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Восстановление работоспособности экскаваторов, буровых и кранов после диагностики и согласования работ.
-              Работаем по договору с НДС. Выезд в любую точку Казахстана.
+              Диагностируем неисправность на объекте и согласуем план ремонта до начала работ.
+              Работаем с предприятиями по договору. Условия выезда по Казахстану рассчитываем для вашего объекта.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -316,6 +316,9 @@ export default function MobileRepair() {
                         <li>Капитальный ремонт основного насоса (замена качающего узла и планшайбы).</li>
                       </ul>
                     </div>
+                    <Link href="/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami/" className="inline-flex items-center gap-2 font-semibold text-[#FFC000] hover:text-white">
+                      Посмотреть кейс и видео Hitachi 330-5G <ArrowRight size={16} />
+                    </Link>
                   </div>
                 </div>
               </div>
