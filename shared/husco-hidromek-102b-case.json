@@ -1,0 +1,50 @@
+{
+  "id": "ACA-HUSCO-C16E303-HIDROMEK-102B",
+  "handle": "husco-c16e303-main-control-valve-hidromek-hmk-102b",
+  "casePath": "/cases/hidromek-102b-zamena-gidroraspredelitelya-husco-c16e303",
+  "caseTitle": "HIDROMEK HMK 102B: замена заднего гидрораспределителя HUSCO C16E303",
+  "caseDescription": "Реальный кейс ACA Hydraulic: поставка и установка заднего гидрораспределителя HUSCO C16E303 на экскаватор-погрузчик HIDROMEK HMK 102B. Шильдик, монтаж и проверка движения задней стрелы на видео.",
+  "confirmedOn": "2026-09-29",
+  "machine": "HIDROMEK HMK 102B",
+  "manufacturer": "HUSCO",
+  "model": "C16E303",
+  "additionalMarkings": ["F18/22233", "6600-E163 A00"],
+  "originMarking": "Made in England",
+  "image": "/catalog-assets/husco-c16e303/husco-c16e303-main.webp",
+  "gallery": [
+    "/catalog-assets/husco-c16e303/husco-c16e303-main.webp",
+    "/catalog-assets/husco-c16e303/husco-c16e303-nameplate.webp",
+    "/catalog-assets/husco-c16e303/husco-c16e303-service.webp"
+  ],
+  "nameplateImage": "/catalog-assets/husco-c16e303/husco-c16e303-nameplate.webp",
+  "ogImage": "/media/hidromek-102b-husco-c16e303/hidromek-102b-husco-c16e303-og.webp",
+  "videos": [
+    {
+      "id": "removed-unit",
+      "src": "/media/hidromek-102b-husco-c16e303/removed-unit.mp4",
+      "poster": "/media/hidromek-102b-husco-c16e303/removed-unit-poster.webp",
+      "duration": "PT11S",
+      "seconds": 11,
+      "title": "Снятый гидрораспределитель HUSCO C16E303 рядом с HIDROMEK 102B",
+      "caption": "Снятый узел и техника клиента во время замены заднего гидрораспределителя."
+    },
+    {
+      "id": "installation",
+      "src": "/media/hidromek-102b-husco-c16e303/installation.mp4",
+      "poster": "/media/hidromek-102b-husco-c16e303/installation-poster.webp",
+      "duration": "PT12S",
+      "seconds": 12,
+      "title": "Подключение гидролиний к распределителю HIDROMEK 102B",
+      "caption": "Работа с гидролиниями и соединениями при установке распределителя на машину."
+    },
+    {
+      "id": "functional-test",
+      "src": "/media/hidromek-102b-husco-c16e303/functional-test.mp4",
+      "poster": "/media/hidromek-102b-husco-c16e303/functional-test-poster.webp",
+      "duration": "PT38S",
+      "seconds": 38,
+      "title": "Проверка задней стрелы HIDROMEK 102B после установки распределителя",
+      "caption": "После установки оператор проверяет подъём, опускание и движение заднего рабочего оборудования."
+    }
+  ]
+}

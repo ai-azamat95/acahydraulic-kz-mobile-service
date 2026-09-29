@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
+import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
 
 const out = 'dist/public';
 const cases = JSON.parse(fs.readFileSync('shared/video-cases.json', 'utf8'));
@@ -51,6 +52,9 @@ test('watch pages are discoverable from video sitemap, cases sitemap and existin
   const xcmgInstallationVideo = xcmgSale.videos.find(video => video.id === 'installation');
   assert.ok(videoMap.includes(`<loc>https://acahydraulic.kz${xcmgSale.casePath}/</loc>`));
   assert.ok(videoMap.includes(`<video:content_loc>https://acahydraulic.kz${xcmgInstallationVideo.src}</video:content_loc>`));
+  const huscoFunctionalVideo = huscoCase.videos.find(video => video.id === 'functional-test');
+  assert.ok(videoMap.includes(`<loc>https://acahydraulic.kz${huscoCase.casePath}/</loc>`));
+  assert.ok(videoMap.includes(`<video:content_loc>https://acahydraulic.kz${huscoFunctionalVideo.src}</video:content_loc>`));
   const catalogCaseSchemas = schemas(read(catSale.casePath.slice(1)));
   const catalogVideo = catalogCaseSchemas.find(schema => schema['@type'] === 'VideoObject');
   assert.equal(catalogVideo.contentUrl, `https://acahydraulic.kz${catSale.video}`);

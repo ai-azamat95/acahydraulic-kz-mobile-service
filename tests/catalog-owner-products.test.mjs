@@ -29,7 +29,10 @@ test('owner product is inserted into every public catalogue representation witho
     assert.equal(fullProduct.ownerProduct.shippingIncluded, true);
     assert.equal(fullProduct.gallery.length, 8);
     assert.equal(JSON.parse(second[0]).productCount, 1 + ownerCatalogProducts.length);
-    assert.equal(JSON.parse(second[2])['hydraulic-pumps'].count, 1 + ownerCatalogProducts.length);
+    const categorySummary = JSON.parse(second[2]);
+    const hydraulicPumpOwners = ownerCatalogProducts.filter(product => product.category === 'hydraulic-pumps').length;
+    assert.equal(categorySummary['hydraulic-pumps'].count, 1 + hydraulicPumpOwners);
+    assert.equal(categorySummary['main-control-valves'].count, ownerCatalogProducts.filter(product => product.category === 'main-control-valves').length);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }

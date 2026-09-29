@@ -18,7 +18,7 @@ const products = [
 const codes = text => text.toUpperCase().match(/\b[A-Z0-9]+(?:[-.][A-Z0-9]+)*\b/g)?.filter(word => /\d/.test(word)) || [];
 
 test('reviewed Russian names preserve every source part number and equipment model', () => {
-  assert.equal(Object.keys(copy).length, 15);
+  assert.equal(Object.keys(copy).length, 16);
   for (const [handle, content] of Object.entries(copy)) {
     const imported = products.find(item => item.handle === handle);
     const product = imported && applyOwnerSale(imported);

@@ -14,6 +14,7 @@ export type CatalogIndexProduct = {
   available: boolean;
   minPriceKzt: number | null;
   ownerSale?: { condition: "new"; confirmedOn: string; casePath: string };
+  ownerCase?: { confirmedOn: string; casePath: string };
   ownerProduct?: {
     condition: "new";
     confirmedOn: string;

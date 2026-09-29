@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
+import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
 
 const out = path.resolve('dist/public');
 const base = 'https://acahydraulic.kz';
@@ -30,7 +31,19 @@ const xcmgCaseVideo = {
   seconds: 26,
   uploadDate: '2026-09-29T00:00:00+05:00',
 };
-const sitemapVideos = [...cases, catalogCaseVideo, xcmgCaseVideo];
+const huscoFunctionalVideo = huscoCase.videos.find(video => video.id === 'functional-test');
+if (!huscoFunctionalVideo) throw new Error('Missing HUSCO functional test video');
+const huscoCaseVideo = {
+  slug: huscoCase.casePath.replace(/^\/cases\/|\/$/g, ''),
+  title: huscoFunctionalVideo.title,
+  description: huscoFunctionalVideo.caption,
+  video: huscoFunctionalVideo.src,
+  poster: huscoFunctionalVideo.poster,
+  duration: huscoFunctionalVideo.duration,
+  seconds: huscoFunctionalVideo.seconds,
+  uploadDate: '2026-09-29T00:00:00+05:00',
+};
+const sitemapVideos = [...cases, catalogCaseVideo, xcmgCaseVideo, huscoCaseVideo];
 const template = fs.readFileSync(path.join(out, 'index.html'), 'utf8');
 const escape = text => String(text).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const videoSchema = item => {

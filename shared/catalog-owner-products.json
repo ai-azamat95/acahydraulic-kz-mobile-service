@@ -81,5 +81,59 @@
         "options": ["Новый", "Уточнить наличие", "Проверка совместимости по шильдику"]
       }
     ]
+  },
+  {
+    "id": "ACA-HUSCO-C16E303-HIDROMEK-102B",
+    "handle": "husco-c16e303-main-control-valve-hidromek-hmk-102b",
+    "title": "HUSCO C16E303 main control valve for HIDROMEK HMK 102B backhoe loader",
+    "catalogTitle": "Задний гидрораспределитель HUSCO C16E303 для HIDROMEK HMK 102B",
+    "fitment": "В показанном кейсе узел с маркировкой HUSCO C16E303 заменили на экскаваторе-погрузчике HIDROMEK HMK 102B. Для другой машины сверяем C16E303, дополнительные номера F18/22233 и 6600-E163 A00, конфигурацию секций, порты, электромагниты и разъёмы.",
+    "sku": "C16E303",
+    "brand": "HUSCO",
+    "model": "C16E303",
+    "mpn": "C16E303",
+    "category": "main-control-valves",
+    "categories": [
+      "main-control-valves",
+      "control-valves"
+    ],
+    "productType": "Основной гидрораспределитель",
+    "tags": [
+      "HUSCO",
+      "C16E303",
+      "F18/22233",
+      "6600-E163",
+      "HIDROMEK",
+      "HMK 102B",
+      "гидрораспределитель",
+      "задний распределитель"
+    ],
+    "available": false,
+    "minPriceKzt": null,
+    "maxPriceKzt": null,
+    "imageUrl": "/catalog-assets/husco-c16e303/husco-c16e303-main.webp",
+    "gallery": [
+      "/catalog-assets/husco-c16e303/husco-c16e303-main.webp",
+      "/catalog-assets/husco-c16e303/husco-c16e303-nameplate.webp",
+      "/catalog-assets/husco-c16e303/husco-c16e303-service.webp"
+    ],
+    "ownerCase": {
+      "confirmedOn": "2026-09-29",
+      "casePath": "/cases/hidromek-102b-zamena-gidroraspredelitelya-husco-c16e303"
+    },
+    "variants": [
+      {
+        "id": "ACA-HUSCO-C16E303-HIDROMEK-102B",
+        "title": "HUSCO C16E303 / F18/22233 / 6600-E163 A00",
+        "sku": "C16E303",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена и наличие по запросу",
+          "Проверка по шильдику",
+          "Совместимость подтверждаем до оплаты"
+        ]
+      }
+    ]
   }
 ]
