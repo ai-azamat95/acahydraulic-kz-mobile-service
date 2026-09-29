@@ -43,5 +43,43 @@
         "options": ["Новый", "Корейский аналог", "Доставка по Казахстану включена"]
       }
     ]
+  },
+  {
+    "id": "ACA-XCMG-803001730-XZ200E",
+    "handle": "803001730-hydraulic-pump-xcmg-xz200-xz200e-hdd",
+    "title": "XCMG 803001730 hydraulic pump for XZ200 XZ200E HDD drilling rig",
+    "catalogTitle": "Гидравлический насос XCMG 803001730 для буровой установки ГНБ XZ200 / XZ200E",
+    "fitment": "Предназначен для буровой установки ГНБ XCMG XZ200E. В материалах выполненной установки модель техники на шильдике — XZ200. Перед заказом сверяем модель и серийный номер техники, номер старого насоса, вал, фланец, порты и подключения.",
+    "sku": "803001730",
+    "brand": "XCMG",
+    "mpn": "803001730",
+    "category": "hydraulic-pumps",
+    "categories": ["hydraulic-pumps"],
+    "productType": "Гидравлический насос для буровой установки ГНБ",
+    "tags": ["XCMG", "XZ200", "XZ200E", "803001730", "ГНБ", "буровая установка", "гидронасос"],
+    "available": false,
+    "minPriceKzt": 1350000,
+    "maxPriceKzt": 1350000,
+    "imageUrl": "/catalog-assets/xcmg-803001730/xcmg-803001730-main.webp",
+    "gallery": [
+      "/catalog-assets/xcmg-803001730/xcmg-803001730-main.webp",
+      "/catalog-assets/xcmg-803001730/xcmg-803001730-detail.webp",
+      "/catalog-assets/xcmg-803001730/xcmg-803001730-nameplate.webp"
+    ],
+    "ownerSale": {
+      "condition": "new",
+      "confirmedOn": "2026-09-29",
+      "casePath": "/cases/xcmg-xz200-ustanovka-gidronasosa-803001730"
+    },
+    "variants": [
+      {
+        "id": "ACA-XCMG-803001730-XZ200E",
+        "title": "XCMG 803001730 / XZ200 / XZ200E",
+        "sku": "803001730",
+        "available": false,
+        "priceKzt": 1350000,
+        "options": ["Новый", "Уточнить наличие", "Проверка совместимости по шильдику"]
+      }
+    ]
   }
 ]

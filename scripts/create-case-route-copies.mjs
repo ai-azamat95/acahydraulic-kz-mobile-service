@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
+import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
 import path from 'node:path';
 const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
 
@@ -25,6 +26,7 @@ const routes = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)]
 
 const caseMeta = {
   [catSale.casePath.slice(1)]: { title: `${catSale.caseTitle} | ACA Hydraulic`, description: catSale.caseDescription },
+  [xcmgSale.casePath.slice(1)]: { title: `${xcmgSale.caseTitle} | ACA Hydraulic`, description: xcmgSale.caseDescription },
   'cases/shantui-sd32-postavka-dvigatelya-cummins-nta855': {
     title: 'Shantui SD32: двигатель Cummins NTA855 за 12 860 000 ₸ | ACA Hydraulic',
     description: 'Реальный кейс: новый комплектный Cummins NTA855 для Shantui SD32 за 12 860 000 ₸ без монтажа. Перенос гидротрансформатора, установка и запуск.',

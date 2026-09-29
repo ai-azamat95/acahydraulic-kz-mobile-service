@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
+import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
 
 const out = path.resolve('dist/public');
 const base = 'https://acahydraulic.kz';
@@ -17,7 +18,19 @@ const catalogCaseVideo = {
   seconds: 10,
   uploadDate: '2026-09-22T00:00:00+05:00',
 };
-const sitemapVideos = [...cases, catalogCaseVideo];
+const xcmgInstallationVideo = xcmgSale.videos.find(video => video.id === 'installation');
+if (!xcmgInstallationVideo) throw new Error('Missing XCMG installation video');
+const xcmgCaseVideo = {
+  slug: xcmgSale.casePath.replace(/^\/cases\/|\/$/g, ''),
+  title: xcmgInstallationVideo.title,
+  description: xcmgInstallationVideo.caption,
+  video: xcmgInstallationVideo.src,
+  poster: xcmgInstallationVideo.poster,
+  duration: xcmgInstallationVideo.duration,
+  seconds: 26,
+  uploadDate: '2026-09-29T00:00:00+05:00',
+};
+const sitemapVideos = [...cases, catalogCaseVideo, xcmgCaseVideo];
 const template = fs.readFileSync(path.join(out, 'index.html'), 'utf8');
 const escape = text => String(text).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const videoSchema = item => {

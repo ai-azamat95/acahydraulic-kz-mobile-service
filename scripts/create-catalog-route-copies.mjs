@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
+import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
 import path from 'node:path';
 import { catalogProductSeo, catalogProductCategories, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 
@@ -90,9 +91,16 @@ function productPage(product) {
   const title = `${productSeo.title} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
   const fitmentLabel = product.approvedSale ? 'Применяемость этого исполнения' : 'Применяемость';
-  const seriesNote = (product.approvedSale || product.ownerProduct) ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
+  const seriesNote = (product.approvedSale || product.ownerSale || product.ownerProduct) ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
   const price = Number.isFinite(product.minPriceKzt) ? `Цена ${fixedOffer ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
-  const saleTerms = merchantOffer ? merchantTerms : product.approvedSale ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.' : '';
+  const isXcmgOwnerSale = product.ownerSale?.casePath === xcmgSale.casePath;
+  const saleTerms = merchantOffer
+    ? merchantTerms
+    : isXcmgOwnerSale
+      ? xcmgSale.terms.ru
+      : product.approvedSale
+        ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.'
+        : '';
   const description = productSeo.description;
   const gallery = product.ownerSale?.casePath === catSale.casePath ? catSale.gallery : (product.gallery ?? []);
   const images = [...new Set([product.imageUrl, ...gallery]
@@ -107,8 +115,8 @@ function productPage(product) {
     image: images.length ? images : undefined,
     sku: product.sku || product.id,
     category: merchantOffer ? merchantPumps.productType : undefined,
-    brand: merchantOffer?.brand ? { '@type': 'Brand', name: merchantOffer.brand } : undefined,
-    mpn: merchantOffer?.mpn,
+    brand: (merchantOffer?.brand || product.brand) ? { '@type': 'Brand', name: merchantOffer?.brand || product.brand } : undefined,
+    mpn: merchantOffer?.mpn || product.mpn,
     itemCondition: fixedOffer ? 'https://schema.org/NewCondition' : undefined,
     url: canonical,
     additionalProperty: product.fitment ? [{
@@ -144,7 +152,10 @@ function productPage(product) {
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
-  ${product.ownerSale ? `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>` : ''}
+  ${product.ownerSale ? (isXcmgOwnerSale
+    ? `<section><h2>Реальная поставка и установка этого насоса</h2><p>${escapeHtml(xcmgSale.terms.ru)}</p><p><a href="${xcmgSale.casePath}/">Кейс XCMG XZ200: насос 803001730</a></p>${xcmgSale.videos.map(video => `<video controls preload="none" poster="${video.poster}" width="720" height="1280"><source src="${video.src}" type="video/mp4"></video>`).join('')}</section>`
+    : `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>`
+  ) : ''}
   ${product.ownerProduct ? `<section><h2>Подтверждено по реальному товару</h2><ul><li>HANDOK HYDRAULIC, модель H5V80DTP-12T.</li><li>Номер детали YKSKR-9K00, маркировка Made in Korea.</li><li>Цена 2 530 000 ₸, доставка по Казахстану включена.</li></ul><p><a href="/cases/postavka-zamena-gidronasosa/#hitachi-order">Реальный заказ HANDOK для Hitachi ZX160W</a></p><p><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">Как проверить H5V80DTP и K5V80DTP перед заказом</a></p></section>` : ''}
   ${saleTerms ? `<p>${escapeHtml(saleTerms)}</p>` : ''}
   <section data-product-selection><h2>Что прислать для подбора этой запчасти</h2>

@@ -5,14 +5,32 @@ export type CatalogIndexProduct = {
   catalogTitle?: string;
   fitment: string | null;
   sku: string;
+  brand?: string;
+  model?: string;
+  mpn?: string;
   category: string;
   categories?: string[];
   tags: string[];
   available: boolean;
   minPriceKzt: number | null;
-  ownerSale?: { condition: 'new'; confirmedOn: string; casePath: string };
-  ownerProduct?: { condition: 'new'; confirmedOn: string; originCountry: string; shippingIncluded: boolean };
-  approvedSale?: { model: string; condition: 'new'; assembly: 'complete'; confirmedOn: string; deliveryMinDays: number; deliveryMaxDays: number; shippingFromUsdPerKg: number; defectResolution: 'replacement-at-service-center'; prepaymentPercent: number };
+  ownerSale?: { condition: "new"; confirmedOn: string; casePath: string };
+  ownerProduct?: {
+    condition: "new";
+    confirmedOn: string;
+    originCountry: string;
+    shippingIncluded: boolean;
+  };
+  approvedSale?: {
+    model: string;
+    condition: "new";
+    assembly: "complete";
+    confirmedOn: string;
+    deliveryMinDays: number;
+    deliveryMaxDays: number;
+    shippingFromUsdPerKg: number;
+    defectResolution: "replacement-at-service-center";
+    prepaymentPercent: number;
+  };
   maxPriceKzt: number | null;
   imageUrl: string | null;
   chunk: number;

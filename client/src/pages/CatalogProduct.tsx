@@ -1,5 +1,7 @@
 import catSale from "../../../shared/cat-432e-sale.json";
 import Cat432eSaleMedia from "@/components/Cat432eSaleMedia";
+import xcmgSale from "../../../shared/xcmg-xz200-pump-sale.json";
+import XcmgXz200PumpMedia from "@/components/XcmgXz200PumpMedia";
 import merchantPumps from "../../../shared/merchant-pumps.json";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
@@ -115,6 +117,8 @@ export default function CatalogProduct() {
     );
   }
 
+  const isXcmgOwnerSale = product.ownerSale?.casePath === xcmgSale.casePath;
+  const ownerSaleTerms = isXcmgOwnerSale ? xcmgSale.terms[language] : catSale.terms[language];
   const fixedOffer = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct);
   const displayedPrice = product.minPriceKzt !== null
     ? `${fixedOffer ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
@@ -140,10 +144,10 @@ export default function CatalogProduct() {
       : undefined;
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
   const fitmentText = product.fitment || copy.fitmentUnknown;
-  const fitmentLabel = (product.approvedSale || product.ownerProduct)
+  const fitmentLabel = (product.approvedSale || product.ownerSale || product.ownerProduct)
     ? language === "ru" ? "Применяемость этого исполнения" : language === "kz" ? "Осы нұсқаның қолданылуы" : "Applications of this configuration"
     : copy.fitmentLabel;
-  const seriesNote = (product.approvedSale || product.ownerProduct)
+  const seriesNote = (product.approvedSale || product.ownerSale || product.ownerProduct)
     ? language === "ru" ? "Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Для вашей техники подберём подходящий вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно." : language === "kz" ? "Бұл сериядағы сорғылар әртүрлі маркалы техникада қолданылады. Мұнда нұсқалардың бірі көрсетілген. Техникаңызға сәйкес нұсқаны тақтайша, білік, фланец, порттар және реттегіш бойынша таңдаймыз. Сорғы моделінің сәйкес келуі жеткіліксіз." : "This pump series is used on equipment from different brands. This page lists one configuration. We select the correct version for your machine using the nameplate, shaft, flange, ports and regulator. A matching pump model alone does not confirm compatibility."
     : "";
   const productSeo = catalogProductSeo(product, language);
@@ -169,8 +173,8 @@ export default function CatalogProduct() {
           image: gallery.map(image => new URL(image, "https://acahydraulic.kz").href),
           sku: mainSku,
           category: merchantOffer ? merchantPumps.productType : undefined,
-          brand: merchantOffer?.brand ? { "@type": "Brand", name: merchantOffer.brand } : undefined,
-          mpn: merchantOffer?.mpn,
+          brand: (merchantOffer?.brand || product.brand) ? { "@type": "Brand", name: merchantOffer?.brand || product.brand } : undefined,
+          mpn: merchantOffer?.mpn || product.mpn,
           itemCondition: fixedOffer ? "https://schema.org/NewCondition" : undefined,
           additionalProperty: product.fitment ? [{
             "@type": "PropertyValue",
@@ -309,7 +313,7 @@ export default function CatalogProduct() {
                 <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
                 {product.available ? copy.available : copy.checkAvailability}
               </div>
-              {product.ownerSale && <p className="mt-3 text-sm leading-6 text-gray-300">{catSale.terms[language]}</p>}
+              {product.ownerSale && <p className="mt-3 text-sm leading-6 text-gray-300">{ownerSaleTerms}</p>}
               {(product.approvedSale || product.ownerProduct) && <p className="mt-3 text-sm leading-6 text-gray-300">
                 {merchantOffer ? merchantTerms : language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу — 3–14 күн. Жеткізу — кг үшін 3 АҚШ долларынан бастап, бөлек төленеді. Алдын ала төлем 100%. Жеткізудің толық құны төлемге дейін келісіледі. Ақау болса — сервис орталығы арқылы ауыстыру. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan in 3–14 days. Shipping from USD 3 per kg, charged separately. 100% prepayment. Final shipping cost agreed before payment. Defective units replaced through our service center. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
               </p>}
@@ -343,7 +347,16 @@ export default function CatalogProduct() {
               </div>
             </div>
 
-            {product.ownerSale && <section className="mt-8"><h2 className="text-2xl font-bold">Этот насос уже покупали в ACA Hydraulic</h2><p className="my-4 text-gray-300">Продали новый насос для CAT 432E. По обратной связи клиента, он остался доволен покупкой.</p><Cat432eSaleMedia /><Link href={catSale.casePath} className="mt-4 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline">Кейс продажи: CAT 432E и насос 267-2755</Link></section>}
+            {product.ownerSale && (isXcmgOwnerSale ? (
+              <section className="mt-8">
+                <h2 className="text-2xl font-bold">Этот насос поставили и установили через ACA Hydraulic</h2>
+                <p className="my-4 text-gray-300">Новый насос XCMG 803001730 продан за 1 350 000 ₸ и установлен на буровую установку клиента. В карточке использованы реальные фото и видео заказа.</p>
+                <XcmgXz200PumpMedia />
+                <Link href={xcmgSale.casePath} className="mt-4 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline">Кейс: XCMG XZ200 и насос 803001730</Link>
+              </section>
+            ) : (
+              <section className="mt-8"><h2 className="text-2xl font-bold">Этот насос уже покупали в ACA Hydraulic</h2><p className="my-4 text-gray-300">Продали новый насос для CAT 432E. По обратной связи клиента, он остался доволен покупкой.</p><Cat432eSaleMedia /><Link href={catSale.casePath} className="mt-4 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline">Кейс продажи: CAT 432E и насос 267-2755</Link></section>
+            ))}
             {product.ownerProduct && <section className="mt-8 rounded-lg border border-[#FFC000]/30 bg-[#FFC000]/5 p-5"><h2 className="text-xl font-bold">Подтверждено по реальному товару</h2><ul className="mt-4 grid gap-2 text-sm leading-6 text-gray-300"><li>HANDOK HYDRAULIC, модель H5V80DTP-12T.</li><li>Номер детали YKSKR-9K00, маркировка Made in Korea.</li><li>Цена 2 530 000 ₸, доставка по Казахстану включена.</li></ul><div className="mt-4 flex flex-col items-start gap-2"><Link href="/cases/postavka-zamena-gidronasosa/#hitachi-order" className="inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Реальный заказ HANDOK для Hitachi ZX160W</Link><Link href="/blog/k5v80dtp-handok-hitachi-zx160w/" className="inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Как проверить H5V80DTP и K5V80DTP перед заказом</Link></div></section>}
             {product.tags.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-2">
