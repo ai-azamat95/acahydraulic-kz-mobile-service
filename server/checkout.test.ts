@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { checkoutWhatsappText, validateCheckout, type CheckoutCustomer } from "@/lib/checkout";
+import { CHECKOUT_PAYMENT_PROVIDER, checkoutWhatsappText, createPayment, validateCheckout, type CheckoutCustomer } from "@/lib/checkout";
 import type { CartItem } from "@/lib/cart";
 
 const customer: CheckoutCustomer = {
@@ -30,6 +30,11 @@ const item: CartItem = {
 };
 
 describe("checkout", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllEnvs();
+  });
+
   it("accepts a complete order and requires an address for delivery", () => {
     expect(validateCheckout(customer, [item])).toEqual({});
     expect(validateCheckout({ ...customer, deliveryAddress: "" }, [item])).toHaveProperty("deliveryAddress");
@@ -46,5 +51,30 @@ describe("checkout", () => {
     expect(text).toContain("Гидронасос");
     expect(text).toContain("2 шт.");
     expect(text).toContain("подтвердить совместимость, наличие, итоговую цену и срок");
+  });
+
+  it("identifies Kaspi to the protected backend without sending a browser-calculated amount", async () => {
+    vi.stubEnv("VITE_CHECKOUT_API_URL", "https://checkout-api.example.kz");
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({
+      orderId: "ACA-2026-000001",
+      paymentUrl: "https://pay.example.kz/session",
+    }), { status: 200, headers: { "content-type": "application/json" } }));
+    const { consent: _consent, ...customerPayload } = customer;
+
+    await createPayment({
+      provider: CHECKOUT_PAYMENT_PROVIDER,
+      cartVersion: 1,
+      items: [{ productId: item.productId, productHandle: item.productHandle, quantity: item.quantity }],
+      customer: customerPayload,
+      returnUrl: "https://acahydraulic.kz/checkout?payment=return",
+    });
+
+    expect(fetchMock).toHaveBeenCalledOnce();
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe("https://checkout-api.example.kz/payments");
+    const payload = JSON.parse(String(init?.body));
+    expect(payload.provider).toBe("kaspi-webpay");
+    expect(payload).not.toHaveProperty("amount");
+    expect(payload).not.toHaveProperty("total");
   });
 });

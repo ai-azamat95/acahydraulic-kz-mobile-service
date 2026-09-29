@@ -16,7 +16,12 @@ export type CheckoutCustomer = {
 
 export type CheckoutErrors = Partial<Record<keyof CheckoutCustomer | "cart", string>>;
 
+export const CHECKOUT_PAYMENT_PROVIDER = "kaspi-webpay" as const;
+
+export type CheckoutPaymentProvider = typeof CHECKOUT_PAYMENT_PROVIDER;
+
 export type PaymentRequest = {
+  provider: CheckoutPaymentProvider;
   cartVersion: 1;
   items: Array<Pick<CartItem, "productId" | "productHandle" | "variantId" | "quantity">>;
   customer: Omit<CheckoutCustomer, "consent">;

@@ -7,6 +7,7 @@ import { SEO } from "@/components/SEO";
 import { useCart } from "@/contexts/CartContext";
 import { formatKzt } from "@/lib/cart";
 import {
+  CHECKOUT_PAYMENT_PROVIDER,
   checkoutWhatsappText,
   createPayment,
   paymentApiUrl,
@@ -69,6 +70,7 @@ export default function Checkout() {
     try {
       const { consent: _consent, ...customerPayload } = customer;
       const payment = await createPayment({
+        provider: CHECKOUT_PAYMENT_PROVIDER,
         cartVersion: 1,
         items: items.map(({ productId, productHandle, variantId, quantity }) => ({ productId, productHandle, variantId, quantity })),
         customer: customerPayload,
@@ -76,7 +78,7 @@ export default function Checkout() {
       });
       window.location.assign(payment.paymentUrl);
     } catch {
-      setPaymentError("Не удалось создать платёж. Корзина не списана — отправьте заказ менеджеру или попробуйте позже.");
+      setPaymentError("Не удалось создать оплату через Kaspi.kz. Корзина не списана — отправьте заказ менеджеру или попробуйте позже.");
     } finally {
       setPaymentLoading(false);
     }
@@ -185,11 +187,11 @@ export default function Checkout() {
                 aria-describedby="payment-status"
               >
                 {paymentLoading ? <LockKeyhole className="h-5 w-5 animate-pulse" aria-hidden="true" /> : <CreditCard className="h-5 w-5" aria-hidden="true" />}
-                {paymentLoading ? "Создаём безопасный платёж…" : "Оплатить онлайн"}
+                {paymentLoading ? "Создаём оплату в Kaspi.kz…" : providerConfigured ? "Оплатить через Kaspi.kz" : "Kaspi.kz — подключение"}
               </button>
               <div id="payment-status" className="mt-3 flex items-start gap-2 text-xs leading-5 text-gray-400">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#FFC000]" aria-hidden="true" />
-                <span>{!providerConfigured ? "Онлайн-оплата подготовлена, но ещё не подключена: нужен договор эквайринга и защищённый платёжный сервер." : summary.quoteLineCount > 0 ? "Сначала менеджер подтвердит цены всех позиций и сформирует сумму." : "Платёж создаётся сервером после повторной проверки цен. Реквизиты карты ACA Hydraulic не получает."}</span>
+                <span>{!providerConfigured ? "Kaspi выбран для онлайн-оплаты. Для запуска нужны договор Kaspi, выданные параметры интеграции и защищённый платёжный сервер." : summary.quoteLineCount > 0 ? "Сначала менеджер подтвердит цены всех позиций и сформирует сумму для Kaspi." : "Оплата Kaspi создаётся сервером после повторной проверки цен. Секреты Kaspi и платёжные данные не попадают в браузер."}</span>
               </div>
               {paymentError && <p className="mt-3 text-sm text-[#FFD24A]" role="alert">{paymentError}</p>}
             </aside>

@@ -1,8 +1,10 @@
 # ACA Hydraulic checkout and payment boundary
 
-The catalogue UI supports a persisted cart, checkout data collection, a WhatsApp order handoff, and a provider-neutral online-payment step.
+The catalogue UI supports a persisted cart, checkout data collection, a WhatsApp order handoff, and a protected online-payment step. ACA selected `kaspi-webpay` as the intended provider.
 
 Online payment is intentionally disabled until `VITE_CHECKOUT_API_URL` points to a protected backend. GitHub Pages must never contain acquiring credentials or decide the charge amount.
+
+Kaspi's official public onboarding page is <https://kaspi.kz/webpay/partnership>. It describes three onboarding steps: submit an application, sign the agreement, and start accepting payments. The public page does not expose the technical API contract, signature algorithm, test endpoint, or credential names. Implement those details only from the integration package issued to ACA after approval; do not infer them from third-party examples.
 
 ## Browser request
 
@@ -10,6 +12,7 @@ Online payment is intentionally disabled until `VITE_CHECKOUT_API_URL` points to
 
 ```json
 {
+  "provider": "kaspi-webpay",
   "cartVersion": 1,
   "items": [
     {
@@ -40,6 +43,8 @@ No client-supplied price or total is sent. The backend must:
 3. Recalculate the KZT amount and delivery server-side.
 4. Store an idempotent order before calling the selected acquiring provider.
 5. Return an HTTPS payment URL and verify the provider webhook signature before marking the order paid.
+
+For Kaspi, the backend adapter remains blocked until ACA receives the official merchant identifier, test/production endpoints, credentials or certificates, request-signing rules, callback requirements, and payment-status semantics. See [`KASPI_WEBPAY_ONBOARDING.md`](./KASPI_WEBPAY_ONBOARDING.md).
 
 ## Browser response
 
