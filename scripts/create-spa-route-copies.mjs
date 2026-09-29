@@ -36,7 +36,7 @@ if (!fs.existsSync(indexPath)) {
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 const sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
 const locs = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)].map((m) => m[1]);
-const routes = new Set(['404', 'privacy', 'terms', 'delivery-and-returns']);
+const routes = new Set(['404', 'privacy', 'terms', 'delivery-and-returns', 'cart', 'checkout']);
 
 for (const raw of locs) {
   const route = raw.replace(/^\/+|\/+$/g, '');
@@ -62,6 +62,8 @@ const explicitMeta = {
   privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
   terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
   'delivery-and-returns': { title: deliveryPolicy.title + ' | ACA Hydraulic', description: deliveryPolicy.description },
+  cart: { title: 'Корзина | ACA Hydraulic', description: 'Корзина запчастей ACA Hydraulic.' },
+  checkout: { title: 'Оформление заказа | ACA Hydraulic', description: 'Оформление заказа запчастей ACA Hydraulic.' },
   'parts/engines-complete': {
     title: 'Новые двигатели в сборе для спецтехники с установкой | ACA Hydraulic',
     description: 'Поставка новых двигателей в сборе по Казахстану: проверка по шильдику, комплектация, гарантия по договору, монтаж и запуск. Реальный кейс Cummins NTA855 для Shantui SD32.',
@@ -403,7 +405,7 @@ function withRouteHead(html, route) {
       .replace('</head>', `${renderedArticle.head.replace('<script ', '<script data-static-page-schema ')}\n</head>`);
     return replaceRootContent(out, renderedArticle.body);
   }
-  if (route === '404') {
+  if (route === '404' || route === 'cart' || route === 'checkout') {
     out = setTag(out, /<meta(?=[^>]*\bname=["']robots["'])[^>]*>/i, '<meta name="robots" content="noindex, follow">');
   }
   out = setTag(out, /<title[^>]*>.*?<\/title>/is, `<title>${t}</title>`);

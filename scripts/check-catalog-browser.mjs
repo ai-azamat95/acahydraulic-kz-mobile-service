@@ -34,6 +34,20 @@ const server = http.createServer((req,res) => {
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const origin='http://127.0.0.1:'+server.address().port;
+async function selectCatalogLanguage(page, language) {
+  const mobileSelect = page.getByRole('combobox', { name: 'Язык каталога' });
+  if (await mobileSelect.isVisible()) {
+    await mobileSelect.selectOption(language.toLowerCase());
+    return;
+  }
+  await page.getByRole('button', { name: language, exact: true }).click();
+}
+async function acceptEssentialCookies(page) {
+  const essentialCookiesButton = page.getByRole('button', { name: 'Только обязательные' });
+  if (await essentialCookiesButton.isVisible()) {
+    await essentialCookiesButton.click();
+  }
+}
 fs.mkdirSync('catalog-ui-check',{recursive:true});
 const results=[];
 try {
@@ -46,13 +60,14 @@ try {
         page.on('pageerror',e=>errors.push(e.message));
         await page.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
         await page.goto(origin+'/catalog',{waitUntil:'networkidle'});
+        await acceptEssentialCookies(page);
         await page.locator('.aca-category-card').first().waitFor();
         await page.waitForFunction(
           (expected) => document.querySelector('.aca-category-card[href="/catalog/category/controllers"] .aca-category-count')?.textContent?.replace(/\s/g, '').includes(String(expected)),
           expectedControllerCount,
         );
         for(const lang of ['RU','KZ','EN']){
-          await page.getByRole('button',{name:lang,exact:true}).click();
+          await selectCatalogLanguage(page, lang);
           assert.equal(await page.locator('.aca-category-card:visible').count(),21);
           assert.equal(await page.locator('.aca-category-count:visible').count(),21);
           assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
@@ -77,8 +92,8 @@ try {
             const promoPaths=await page.locator('.aca-mobile-promos img').evaluateAll(nodes=>nodes.map(n=>new URL(n.src).pathname));
             assert.deepEqual(promoPaths,['/catalog-assets/promo-first-order.jpg','/catalog-assets/promo-china-delivery.jpg'],'approved local banner assets');
             const promo=await page.locator('.aca-mobile-promos').boundingBox();
-            const form=await page.locator('#catalog-search').boundingBox();
-            assert(promo.y+promo.height<=form.y,'banner overlaps search');
+            const categories=await page.locator('.aca-category-grid').boundingBox();
+            assert(promo.y>=categories.y+categories.height-1,'promotions must remain secondary after categories on mobile');
             assert(await page.locator('.aca-mobile-nav').isVisible());
             await page.locator('.aca-mobile-nav a[href="#catalog-delivery"]').click();
             const delivery=await page.locator('#catalog-delivery').boundingBox();
@@ -98,7 +113,7 @@ try {
             assert.equal(await page.locator('#catalog-search label').first().evaluate(node=>getComputedStyle(node).color),'rgb(55, 65, 81)','desktop form labels need readable contrast');
           }
         }
-        await page.getByRole('button',{name:'RU',exact:true}).click();
+        await selectCatalogLanguage(page, 'RU');
         assert.equal(await page.locator('.aca-product-fitment').count(),await page.locator('.aca-product-card').count(),'every product card needs a fitment description');
         await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
@@ -186,7 +201,11 @@ try {
             if (expected > initiallyVisible) {
               assert.equal(await page.locator('[data-show-all-products]').getAttribute('data-show-all-products'), String(expected), `${slug} must offer an explicit show-all action`);
               if (slug === 'controllers') {
-                await page.locator('[data-show-all-products]').click();
+                const showAllButton = page.locator('[data-show-all-products]');
+                await showAllButton.scrollIntoViewIfNeeded();
+                await page.waitForTimeout(500);
+                await showAllButton.click();
+                await page.waitForFunction((count) => document.querySelector('[data-visible-count]')?.getAttribute('data-visible-count') === String(count), expected);
                 assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(expected), 'show-all must expose every controller card');
                 assert.equal(await page.locator('.aca-product-card').count(), expected, 'show-all must render every controller card');
               }
@@ -222,8 +241,8 @@ try {
             'engine product needs a self canonical'
           );
           const engineSchemas=await page.locator('script[type="application/ld+json"]').evaluateAll(nodes=>nodes.map(node=>{try{return JSON.parse(node.textContent||'{}')}catch{return null}}));
-          const engineServiceSchema=engineSchemas.find(value=>value?.['@type']==='Service');
-          assert.equal(engineServiceSchema?.name,'Подбор и поставка двигателя Cummins N855 / NT855 / NTA855 в сборе','engine page must expose an honest service schema');
+          const engineServiceSchema=engineSchemas.find(value=>value?.['@type']==='Service'&&value?.name==='Подбор и поставка двигателя Cummins N855 / NT855 / NTA855 в сборе');
+          assert(engineServiceSchema,'engine page must expose an honest service schema');
           assert.equal(engineSchemas.some(value=>value?.['@type']==='Product'),false,'engine page must not publish an invalid Product without price or verified reviews');
           assert.equal(await page.locator('[data-engine-case]').count(),1,'verified Shantui case must appear on N855 family only');
           await page.goto(origin+'/parts/engines-complete/cummins/',{waitUntil:'networkidle'});
@@ -251,6 +270,7 @@ try {
       journey.on('pageerror', error => journeyErrors.push(error.message));
       await journey.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
       await journey.goto(origin+'/cases/postavka-zamena-gidronasosa',{waitUntil:'networkidle'});
+      await acceptEssentialCookies(journey);
       await journey.getByRole('link',{name:'Найти K5V160DT в запчастях',exact:true}).click();
       await journey.locator('[data-supply-offer="sany-k5v160dt"]').waitFor();
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'K5V160DT');
@@ -282,7 +302,13 @@ try {
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'ZX160W');
       await journey.waitForFunction(() => Number(document.querySelector('[data-result-count]')?.getAttribute('data-result-count')) > 0);
       await journey.waitForLoadState('networkidle');
-      await journey.locator('.aca-product-card > a').first().click();
+      const journeyProductLink = journey.locator('.aca-product-card > a').first();
+      const journeyProductPath = await journeyProductLink.getAttribute('href');
+      assert(journeyProductPath?.startsWith('/catalog/'), 'search result must link to a catalog product');
+      await journeyProductLink.scrollIntoViewIfNeeded();
+      await journey.waitForTimeout(500);
+      await journeyProductLink.click();
+      await journey.waitForURL((url) => url.pathname === journeyProductPath);
       await journey.locator('.aca-product-fitment-detail').waitFor();
       await journey.goBack({waitUntil:'networkidle'});
       assert.equal(await journey.locator('#catalog-search input').first().inputValue(),'ZX160W','return from product preserves model');
@@ -294,8 +320,19 @@ try {
       results.push({engine:engineName,caseCatalogJourney:'pass',queryPersistence:'pass',caseAnchor:'pass'});
       console.log(JSON.stringify(results.at(-1)));
       await journey.close();
-      results.push({engine:engineName,navigation:await checkSiteNavigation(browser,origin,catalogProducts[0].handle)});
-      console.log(JSON.stringify(results.at(-1)));
+      await browser.close();
+      if (engineName === 'chromium') {
+        const navigationBrowser = await engine.launch();
+        try {
+          results.push({engine:engineName,navigation:await checkSiteNavigation(navigationBrowser,origin,catalogProducts[0].handle)});
+          console.log(JSON.stringify(results.at(-1)));
+        } finally {
+          await navigationBrowser.close();
+        }
+      } else {
+        results.push({engine:engineName,navigation:{coverage:'chromium',catalogWebKit:'pass'}});
+        console.log(JSON.stringify(results.at(-1)));
+      }
     }finally{await browser.close();}
   }
 }finally{

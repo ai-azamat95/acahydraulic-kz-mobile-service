@@ -6,6 +6,8 @@ import legacyRedirects from "../../shared/legacy-redirects.json";
 import seoArticles from "../../shared/seo-articles.json";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { CookieConsent } from "./components/CookieConsent";
+import { CartDrawer } from "./components/cart/CartDrawer";
+import { CartProvider } from "./contexts/CartContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { lazy, Suspense } from "react";
 
@@ -31,6 +33,8 @@ const CompleteEngineProduct = lazy(() => import("./pages/CompleteEngineProduct")
 const CumminsEngineCatalog = lazy(() => import("./pages/CumminsEngineCatalog"));
 const CumminsEngineProduct = lazy(() => import("./pages/CumminsEngineProduct"));
 const CatalogProduct = lazy(() => import("./pages/CatalogProduct"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
 const IndustrialAI = lazy(() => import("./pages/IndustrialAI"));
 
 // Real repair case pages
@@ -159,6 +163,8 @@ function AppRoutes() {
         <Route path="/catalog/brand/:brandSlug" component={Catalog} />
         <Route path="/catalog/model/:modelSlug" component={Catalog} />
         <Route path="/catalog/:handle" component={CatalogProduct} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/checkout" component={Checkout} />
         <Route path="/blog/remont-gidronasosa-cat" component={RemonGidronasosaCat} />
         <Route path="/blog/padaet-davlenie-gidravliki-ekskavatora" component={PadaetDavlenieGidravliki} />
         <Route path="/blog/stoimost-remonta-gidromotora-komatsu" component={StoimostRemonGidromotora} />
@@ -189,8 +195,11 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <WouterRouter base={routerBase}>
-            <AppRoutes />
-            <CookieConsent />
+            <CartProvider>
+              <AppRoutes />
+              <CartDrawer />
+              <CookieConsent />
+            </CartProvider>
           </WouterRouter>
         </TooltipProvider>
       </ThemeProvider>

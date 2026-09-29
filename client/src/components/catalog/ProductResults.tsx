@@ -1,11 +1,14 @@
 import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Link } from "wouter";
-import { ChevronRight, MessageCircle, Package, SearchX } from "lucide-react";
+import { ChevronRight, MessageCircle, Package, SearchX, ShoppingCart } from "lucide-react";
 
 import type { CatalogCopy, CatalogLanguage } from "@/content/partsCatalog";
 import { partCategories } from "@/content/partsCatalog";
+import { useCart } from "@/contexts/CartContext";
 import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { cartItemFromProduct } from "@/lib/cart";
 import type { CatalogIndexProduct } from "@/types/catalog";
 
 type ProductResultsProps = {
@@ -78,6 +81,7 @@ function ProductImage({ product, name }: { product: CatalogIndexProduct; name: s
 }
 
 export function ProductResults({ copy, language, products, activeCategory, total, loading, error, canLoadMore, onLoadMore, showAllLabel, onShowAll }: ProductResultsProps) {
+  const { addItem } = useCart();
   if (loading) {
     return <div className="mt-8 min-h-40 border border-white/10 bg-[#151515] p-6 text-gray-300" role="status">{copy.loadingProducts}</div>;
   }
@@ -152,10 +156,21 @@ export function ProductResults({ copy, language, products, activeCategory, total
                     {formatPrice(product, copy, language)}
                   </p>
 
-                  <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        addItem(cartItemFromProduct(product));
+                        toast.success(language === "ru" ? "Товар добавлен в корзину" : language === "kz" ? "Тауар себетке қосылды" : "Added to cart");
+                      }}
+                      className="col-span-2 inline-flex min-h-11 items-center justify-center gap-2 rounded bg-[#FFC000] px-3 text-sm font-extrabold text-black transition-colors hover:bg-[#E6AC00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
+                    >
+                      <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                      {language === "ru" ? "В корзину" : language === "kz" ? "Себетке" : "Add to cart"}
+                    </button>
                     <Link
                       href={`/catalog/${product.handle}`}
-                      className="inline-flex min-h-10 items-center justify-center gap-1 rounded border border-white/15 bg-[#0f0f0f] px-2 text-xs font-bold text-white transition-colors hover:border-[#FFC000] hover:text-[#FFC000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:min-h-11 sm:text-sm"
+                      className="inline-flex min-h-11 items-center justify-center gap-1 rounded border border-white/15 bg-[#0f0f0f] px-2 text-xs font-bold text-white transition-colors hover:border-[#FFC000] hover:text-[#FFC000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:text-sm"
                     >
                       {copy.viewPart}
                       <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -169,7 +184,7 @@ export function ProductResults({ copy, language, products, activeCategory, total
                         item_id: product.id,
                         item_category: activeCategory || product.category,
                       })}
-                      className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded bg-[#FFC000] px-2 text-xs font-extrabold text-black transition-colors hover:bg-[#E6AC00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:min-h-11 sm:text-sm"
+                      className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded border border-gray-300 bg-white px-2 text-xs font-bold text-gray-800 transition-colors hover:border-[#b97800] hover:text-[#8a6100] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b97800] sm:text-sm"
                     >
                       <MessageCircle className="h-4 w-4" aria-hidden="true" />
                       WhatsApp
