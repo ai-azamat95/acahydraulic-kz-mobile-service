@@ -6,11 +6,13 @@ import path from "node:path";
 const root = "dist/public";
 const caseRoute = "cases/shantui-sd32-postavka-dvigatelya-cummins-nta855";
 const landingRoute = "parts/engines-complete";
+const productRoute = "parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
 const caseHtml = fs.readFileSync(path.join(root, caseRoute, "index.html"), "utf8");
 const landingHtml = fs.readFileSync(path.join(root, landingRoute, "index.html"), "utf8");
 
 test("Shantui case separates the historical engine price from installation", () => {
   assert.equal((caseHtml.match(/<h1[\s>]/g) || []).length, 1);
+  assert.match(caseHtml, /<title[^>]*>Shantui SD32: продали и установили Cummins NTA855/);
   assert.match(caseHtml, /12 860 000 ₸/);
   assert.match(caseHtml, /Монтаж не входил в указанную цену/);
   assert.match(caseHtml, /гидротрансформатор/i);
@@ -33,13 +35,14 @@ test("engine pages have canonical URLs, sitemap entries and real media", () => {
   assert.match(landingHtml, new RegExp(`https://acahydraulic\\.kz/${landingRoute}/`));
   assert.ok(fs.readFileSync(path.join(root, "sitemap-cases.xml"), "utf8").includes(`/${caseRoute}/`));
   assert.ok(fs.readFileSync(path.join(root, "sitemap.xml"), "utf8").includes(`/${landingRoute}/`));
+  assert.match(caseHtml, new RegExp(`href="/${productRoute}/?"`));
 
   const media = path.join(root, "media/shantui-sd32-engine");
   for (const file of ["new-engine.webp", "old-engine.webp", "torque-converter.webp", "installation.webp", "og.webp", "shantui-sd32-hero.webp", "walkaround.mp4", "installation.mp4"]) {
     assert.ok(fs.statSync(path.join(media, file)).size > 10_000, file);
   }
-  assert.match(caseHtml, /shantui-sd32-hero\.webp/);
-  assert.match(caseHtml, /Иллюстративный фон Shantui SD32/);
+  assert.match(caseHtml, /alt="Реальная установка двигателя Cummins NTA855 на бульдозер Shantui SD32"/);
+  assert.doesNotMatch(caseHtml, /Иллюстративный фон Shantui SD32/);
   const videos = [...caseHtml.matchAll(/<video\b[^>]*>/g)].map(match => match[0]);
   assert.equal(videos.length, 2);
   assert.ok(videos.every(video => /preload="none"/.test(video) && !/autoplay/.test(video)));

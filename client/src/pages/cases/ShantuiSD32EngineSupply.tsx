@@ -5,6 +5,7 @@ import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 
 const casePath = "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855";
 const enginePath = "/parts/engines-complete";
+const engineProductPath = "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
 const mediaRoot = "/media/shantui-sd32-engine";
 const message = `Здравствуйте! Нужен двигатель в сборе для спецтехники.\nМарка и модель техники: \nПолный индекс двигателя: \nСерийный номер: \nГород: \nНужен монтаж и запуск: да / нет\nФото шильдика пришлю следующим сообщением.\nhttps://acahydraulic.kz${casePath}/`;
 
@@ -19,8 +20,8 @@ export default function ShantuiSD32EngineSupply() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       <SEO
-        title="Shantui SD32: поставка двигателя Cummins NTA855 за 12 860 000 ₸"
-        description="Реальный кейс ACA Hydraulic: новый комплектный Cummins NTA855 для Shantui SD32 за 12 860 000 ₸ без монтажа. Перенос гидротрансформатора, установка и запуск бульдозера."
+        title="Shantui SD32: продали и установили Cummins NTA855 | кейс"
+        description="Фото и видео выполненного заказа: продали комплектный Cummins NTA855, перенесли гидротрансформатор и установили на Shantui SD32. Историческая цена двигателя — 12 860 000 ₸ без монтажа."
         keywords="двигатель Cummins NTA855 Shantui SD32, купить двигатель Shantui SD32, двигатель в сборе спецтехника Казахстан, установка двигателя бульдозера"
         canonical={casePath}
         ogImage={`${mediaRoot}/og.webp`}
@@ -42,32 +43,33 @@ export default function ShantuiSD32EngineSupply() {
         }}
       />
 
-      <section className="relative isolate min-h-[720px] overflow-hidden border-b border-white/10">
-        <img
-          src={`${mediaRoot}/shantui-sd32-hero.webp`}
-          alt=""
-          aria-hidden="true"
-          width={1920}
-          height={720}
-          fetchPriority="high"
-          className="absolute inset-0 -z-30 h-full w-full object-cover object-[64%_center]"
-        />
-        <div className="absolute inset-0 -z-20 bg-black/35" aria-hidden="true" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#08090b] via-[#08090b]/90 to-[#08090b]/15" aria-hidden="true" />
-        <div className="container mx-auto flex min-h-[720px] max-w-6xl flex-col px-4 py-10 md:py-16">
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm"><Link href="/cases/" className="font-bold text-[#FFC000] underline">Все кейсы</Link><Link href={enginePath} className="text-gray-200 underline">Новые двигатели в сборе</Link></nav>
-          <div className="my-auto max-w-3xl py-12">
-            <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Выполненный заказ · поставка и установка</p>
-            <h1 className="mt-4 max-w-3xl font-bebas text-5xl leading-none drop-shadow-2xl md:text-7xl">Shantui SD32: новый Cummins NTA855, установка и запуск</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-200 drop-shadow-lg">Для бульдозера поставили новый комплектный двигатель Cummins серии NTA855 с навесным оборудованием. Гидротрансформатор перенесли со старого двигателя, двигатель установили и бульдозер запустили.</p>
-            <div className="mt-7 max-w-xl rounded-xl border border-[#FFC000]/40 bg-black/65 p-6 backdrop-blur-sm">
-              <p className="text-sm text-gray-300">Стоимость двигателя в этом заказе</p>
-              <p className="mt-2 text-4xl font-bold text-[#FFC000]">12 860 000 ₸</p>
-              <p className="mt-3 leading-6 text-gray-200">Новый комплектный двигатель с навесным оборудованием.</p>
-              <p className="mt-3 text-sm leading-6 text-gray-300">Монтаж не входил в указанную цену. Это цена конкретной завершённой поставки, а не действующий универсальный прайс.</p>
+      <section className="border-b border-white/10 bg-[#101010]">
+        <div className="container mx-auto max-w-6xl px-4 py-10 md:py-16">
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm"><Link href="/cases/" className="font-bold text-[#FFC000] underline">Все кейсы</Link><Link href={engineProductPath} className="text-gray-200 underline">Карточка двигателя NTA855</Link></nav>
+          <div className="mt-8 grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Выполненный заказ · поставка и установка</p>
+              <h1 className="mt-4 max-w-3xl font-bebas text-5xl leading-none md:text-7xl">Shantui SD32: продали и установили Cummins NTA855</h1>
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-200 drop-shadow-lg">Для бульдозера поставили новый комплектный двигатель Cummins серии NTA855 с навесным оборудованием. Гидротрансформатор перенесли со старого двигателя, двигатель установили и бульдозер запустили.</p>
+              <div className="mt-7 max-w-xl rounded-xl border border-[#FFC000]/40 bg-black/65 p-6">
+                <p className="text-sm text-gray-300">Стоимость двигателя в этом заказе</p>
+                <p className="mt-2 text-4xl font-bold text-[#FFC000]">12 860 000 ₸</p>
+                <p className="mt-3 leading-6 text-gray-200">Новый комплектный двигатель с навесным оборудованием.</p>
+                <p className="mt-3 text-sm leading-6 text-gray-300">Монтаж не входил в указанную цену. Это цена конкретной завершённой поставки, а не действующий универсальный прайс.</p>
+              </div>
             </div>
+            <figure className="order-first overflow-hidden rounded-xl border border-white/10 bg-black lg:order-last">
+              <img
+                src={`${mediaRoot}/installation.webp`}
+                alt="Реальная установка двигателя Cummins NTA855 на бульдозер Shantui SD32"
+                width={900}
+                height={1600}
+                fetchPriority="high"
+                className="h-64 w-full object-cover object-center sm:h-[440px] lg:h-[620px]"
+              />
+              <figcaption className="px-4 py-3 text-sm text-gray-300">Фото монтажа из этого заказа. Видео установки — ниже.</figcaption>
+            </figure>
           </div>
-          <p className="text-xs leading-5 text-gray-300">Иллюстративный фон Shantui SD32. Реальные фото и видео поставки — ниже.</p>
         </div>
       </section>
 
@@ -130,7 +132,7 @@ export default function ShantuiSD32EngineSupply() {
         </section>
 
         <section className="mt-12"><h2 className="font-bebas text-4xl md:text-5xl">Вопросы по кейсу</h2><div className="mt-5 divide-y divide-white/10">{faq.map(item => <details key={item.question} className="py-5"><summary className="cursor-pointer text-lg font-bold">{item.question}</summary><p className="mt-4 leading-relaxed text-gray-300">{item.answer}</p></details>)}</div></section>
-        <section className="mt-12 rounded-xl bg-[#151515] p-7 md:p-9"><h2 className="text-3xl font-bold">Поставка двигателя под договор</h2><p className="mt-4 max-w-3xl leading-relaxed text-gray-300">Согласуем точное исполнение, комплектацию, стоимость, логистику, монтаж и гарантийные условия. Историческая цена этого кейса используется только как подтверждение опыта поставки.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-[#FFC000] underline"><Link href={enginePath}>Новые двигатели в сборе</Link><Link href="/catalog/category/engine-fuel/">Запчасти двигателя</Link><Link href="/services/bulldozer-repair/">Сервис бульдозеров</Link></div></section>
+        <section className="mt-12 rounded-xl bg-[#151515] p-7 md:p-9"><h2 className="text-3xl font-bold">Поставка двигателя под договор</h2><p className="mt-4 max-w-3xl leading-relaxed text-gray-300">Согласуем точное исполнение, комплектацию, стоимость, логистику, монтаж и гарантийные условия. Историческая цена этого кейса используется только как подтверждение опыта поставки.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-[#FFC000] underline"><Link href={engineProductPath}>Карточка двигателя NTA855-C360S10</Link><Link href={enginePath}>Новые двигатели в сборе</Link><Link href="/catalog/category/engine-fuel/">Запчасти двигателя</Link><Link href="/services/bulldozer-repair/">Сервис бульдозеров</Link></div></section>
       </div>
     </main>
   );
