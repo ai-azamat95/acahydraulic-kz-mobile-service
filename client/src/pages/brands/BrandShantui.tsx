@@ -99,6 +99,28 @@ export default function BrandShantui() {
         </div>
       </section>
 
+      <section className="border-y border-white/10 bg-[#131313] py-12">
+        <div className="container mx-auto grid max-w-6xl items-center gap-8 px-4 md:grid-cols-[220px_1fr]">
+          <img
+            src="/media/shantui-sd32-engine/installation.webp"
+            alt="Установка двигателя Cummins NTA855 на бульдозер Shantui SD32"
+            width={900}
+            height={1600}
+            loading="lazy"
+            className="h-64 w-full rounded-lg object-cover object-center"
+          />
+          <div>
+            <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Выполненный заказ · фото и видео</p>
+            <h2 className="mt-3 text-2xl font-bold md:text-3xl">Shantui SD32: поставили и установили двигатель Cummins NTA855</h2>
+            <p className="mt-4 max-w-3xl leading-relaxed text-white/70">Показываем двигатель до монтажа и его установку на бульдозер. Историческая цена заказа указана в кейсе отдельно от стоимости монтажа; новое предложение рассчитываем по шильдику и комплектации.</p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href="/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855/" className="inline-flex min-h-11 items-center rounded bg-[#FFC000] px-5 py-2 font-bold text-black">Смотреть кейс установки</Link>
+              <Link href="/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10/" className="inline-flex min-h-11 items-center rounded border border-[#FFC000] px-5 py-2 font-bold text-[#FFC000]">Карточка двигателя</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-12 bg-[#1a1a1a]"><div className="container mx-auto px-4"><div className="grid grid-cols-1 md:grid-cols-3 gap-6">{[
         { icon: <Gauge className="w-6 h-6 text-[#FFC000]"/>, title: "Диагностика под нагрузкой", desc: "Измеряем давление и работу контуров в момент проявления дефекта" },
         { icon: <Shield className="w-6 h-6 text-[#FFC000]"/>, title: "Гарантия по условиям работ", desc: "До 6 месяцев при соблюдении согласованных рекомендаций и условий эксплуатации" },
