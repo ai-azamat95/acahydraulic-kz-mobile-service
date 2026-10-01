@@ -143,7 +143,7 @@ export function CookieConsent() {
       aria-describedby="cookie-consent-description"
       aria-labelledby="cookie-consent-title"
       aria-modal="false"
-      className="fixed inset-x-3 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-[80] mx-auto max-h-[calc(100dvh-10rem)] max-w-4xl overflow-y-auto rounded-lg border border-white/15 bg-[#171717] text-gray-200 shadow-2xl md:bottom-4"
+      className="fixed inset-x-3 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-[80] mx-auto max-h-[calc(100dvh-12rem)] max-w-4xl overflow-y-auto rounded-lg border border-white/15 bg-[#171717] text-gray-200 shadow-2xl md:bottom-4"
       role="dialog"
     >
       <div className="p-4 sm:p-5">
