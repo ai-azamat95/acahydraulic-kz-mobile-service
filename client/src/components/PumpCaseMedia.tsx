@@ -5,9 +5,11 @@ import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 
 export function PumpPhoto({ file, alt, caption }: { file: string; alt: string; caption: string }) {
   const src = publicAsset(`media/pump-cases/${file}`);
+  const [failed, setFailed] = useState(false);
   return <figure className="min-w-0">
     <a href={src} target="_blank" rel="noopener noreferrer" aria-label={`Открыть фото: ${alt}`} className="block rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">
-      <img src={src} width={900} height={1200} alt={alt} loading="lazy" className="h-64 w-full rounded-lg bg-[#202020] object-contain" />
+      {failed ? <span className="flex h-64 items-center justify-center rounded-lg bg-[#202020] p-4 text-center text-sm font-semibold text-[#FFC000] underline">Фото не загрузилось — открыть файл</span>
+        : <img src={src} width={900} height={1200} alt={alt} loading="eager" decoding="async" onError={() => setFailed(true)} className="h-64 w-full rounded-lg bg-[#202020] object-contain" />}
     </a>
     <figcaption className="mt-3 text-sm leading-relaxed text-gray-400">{caption}</figcaption>
   </figure>;

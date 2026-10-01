@@ -1,4 +1,5 @@
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
+import CaseImage from "@/components/CaseImage";
 import { Button } from "@/components/ui/button";
 import { Phone, CheckCircle2, Wrench, Truck, Clock, FileText, ShieldCheck, HardHat, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
@@ -209,7 +210,7 @@ export default function MobileRepair() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {/* Image Gallery */}
                 <div className="h-64 md:h-auto bg-gray-800 relative overflow-hidden">
-                  <img src="/images/cases/cat-336/main.webp" alt="Caterpillar 336 D2" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <CaseImage src="/images/cases/cat-336/main.webp" alt="Caterpillar 336 D2" fetchPriority="high" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute top-4 left-4 bg-[#FFC000] text-black px-3 py-1 text-xs font-bold uppercase tracking-wider">Кейс</div>
                 </div>
 
@@ -221,16 +222,16 @@ export default function MobileRepair() {
 
                   <div className="grid grid-cols-4 gap-2 mb-6">
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/cat-336/hydraulics.webp" alt="Гидравлика" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <CaseImage src="/images/cases/cat-336/hydraulics.webp" alt="Гидравлика" fetchPriority="low" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/cat-336/repair.webp" alt="Ремонт" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <CaseImage src="/images/cases/cat-336/repair.webp" alt="Ремонт" fetchPriority="low" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/cat-336/rear.webp" alt="Вид сзади" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <CaseImage src="/images/cases/cat-336/rear.webp" alt="Вид сзади" fetchPriority="low" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/cat-336/side.webp" alt="Вид сбоку" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <CaseImage src="/images/cases/cat-336/side.webp" alt="Вид сбоку" fetchPriority="low" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                   </div>
 
@@ -267,7 +268,7 @@ export default function MobileRepair() {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {/* Image Gallery */}
                 <div className="h-64 md:h-auto bg-gray-800 relative overflow-hidden">
-                  <img src="/images/cases/hitachi-330/main-new.webp" alt="Hitachi 330 5G" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <CaseImage src="/images/cases/hitachi-330/main-new.webp" alt="Hitachi 330 5G" fetchPriority="low" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute top-4 left-4 bg-[#FFC000] text-black px-3 py-1 text-xs font-bold uppercase tracking-wider">Кейс</div>
                 </div>
 
@@ -279,16 +280,16 @@ export default function MobileRepair() {
 
                   <div className="grid grid-cols-4 gap-2 mb-6">
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/hitachi-330/display.webp" alt="Диагностика" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <CaseImage src="/images/cases/hitachi-330/display.webp" alt="Диагностика" fetchPriority="low" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/hitachi-330/repair1.webp" alt="Ремонт насоса" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <CaseImage src="/images/cases/hitachi-330/repair1.webp" alt="Ремонт насоса" fetchPriority="low" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/hitachi-330/parts.webp" alt="Запчасти" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <CaseImage src="/images/cases/hitachi-330/parts.webp" alt="Запчасти" fetchPriority="low" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div className="aspect-square overflow-hidden rounded border border-white/10 cursor-pointer hover:border-[#FFC000] transition-colors">
-                      <img src="/images/cases/hitachi-330/repair1.webp" alt="Процесс" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <CaseImage src="/images/cases/hitachi-330/repair1.webp" alt="Процесс" fetchPriority="low" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                   </div>
 

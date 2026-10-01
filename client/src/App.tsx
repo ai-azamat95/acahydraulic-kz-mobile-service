@@ -9,6 +9,7 @@ import { CookieConsent } from "./components/CookieConsent";
 import { CartDrawer } from "./components/cart/CartDrawer";
 import { CartProvider } from "./contexts/CartContext";
 import ServiceShowcase from "./components/ServiceShowcase";
+import SiteQuickNav from "./components/SiteQuickNav";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { lazy, Suspense } from "react";
 
@@ -204,7 +205,10 @@ function App() {
           <Toaster />
           <WouterRouter base={routerBase}>
             <CartProvider>
-              <AppRoutes />
+              <SiteQuickNav />
+              <div className="site-quick-nav-offset pt-12">
+                <AppRoutes />
+              </div>
               <CartDrawer />
               <CookieConsent />
             </CartProvider>
