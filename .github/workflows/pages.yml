@@ -48,6 +48,7 @@ jobs:
           node --test tests/shantui-engine-publication.test.mjs
           node --test tests/shantui-engine-product.test.mjs
           node --test tests/cummins-engine-catalog.test.mjs
+          node --test tests/cummins-engine-products.test.mjs
 
       - name: Publish video pages and legacy redirects
         run: |
