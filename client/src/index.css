@@ -205,3 +205,7 @@ div[class*="manus-badge"],
 .service-detail-page :is(section, div)[class*="bg-[#111]"] {
   background-color: #1c2824;
 }
+.site-quick-nav-offset header.fixed.top-0,
+.site-quick-nav-offset header.sticky.top-0 {
+  top: 3rem;
+}
