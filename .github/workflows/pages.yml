@@ -29,6 +29,9 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Verify TikTok attribution and consent
+        # Keep consent and attribution regressions out of production.
+        run: pnpm exec vitest run client/src/lib/tiktokAttribution.test.ts server/analyticsGate.test.ts
       - name: Verify committed ACA catalogue snapshot
         run: pnpm catalog:verify-public
       - name: Build

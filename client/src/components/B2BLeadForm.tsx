@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { toast } from 'sonner';
+import { attributionMessage, trackTikTokContact } from '@/lib/tiktokAttribution';
 
 interface B2BLeadFormProps {
   onSuccess?: () => void;
@@ -77,7 +78,8 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
       formData.equipmentType ? `Тип техники: ${labels[formData.equipmentType] || formData.equipmentType}` : '',
       formData.urgency ? `Срочность: ${labels[formData.urgency] || formData.urgency}` : '',
       formData.problem ? `Проблема: ${formData.problem}` : '',
-      `Страница: ${window.location.href}`,
+      `Страница: ${window.location.origin}${window.location.pathname}`,
+      attributionMessage(),
       '',
       'Могу отправить фото шильдика и видео работы техники.',
     ].filter(Boolean);
@@ -100,12 +102,7 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
       (window as any).gtag?.('event', 'conversion', {
         send_to: GOOGLE_ADS_QUALIFIED_LEAD,
       });
-      (window as any).ttq?.track?.('SubmitForm', {
-        content_type: 'service',
-        content_name: 'Квалифицированная B2B заявка на выездную диагностику',
-        value: DIAGNOSTIC_VALUE,
-        currency: 'KZT',
-      });
+      trackTikTokContact('whatsapp_b2b_form');
     }
 
     const whatsappUrl = `https://wa.me/77714177925?text=${encodeURIComponent(messageLines.join('\n'))}`;
