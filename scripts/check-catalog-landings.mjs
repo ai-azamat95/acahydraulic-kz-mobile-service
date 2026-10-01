@@ -28,6 +28,7 @@ assert(landingIndex.models.every((item) => item.count >= 8), 'thin model pages m
 assert(robots.includes('Sitemap: https://acahydraulic.kz/sitemap-catalog-landings.xml'), 'robots.txt must announce the landing sitemap');
 
 const catalogHome = fs.readFileSync(path.join(publicDir, 'catalog/index.html'), 'utf8');
+assert(catalogHome.includes('href="/parts/engines-complete/"'), 'catalog home must link directly to engines before JavaScript');
 for (const category of catalogCategoryLandings) {
   assert(catalogHome.includes(`href="/catalog/category/${category.id}/"`), `catalog home must link to ${category.id} before JavaScript`);
 }
