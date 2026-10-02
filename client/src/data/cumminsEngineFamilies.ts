@@ -7,6 +7,7 @@ export type CumminsEngineFamily = {
   image: string;
   casePath?: string;
   caseTitle?: string;
+  variants?: string[];
 };
 
 export type CumminsEngineGroup = {
@@ -27,7 +28,7 @@ export const cumminsEngineGroups: CumminsEngineGroup[] = [
       { id: "6bt-bta59", slug: "6bt-bta5-9", name: "6BT / BTA5.9", powerKw: "92–132 кВт", application: "Погрузчики, экскаваторы и промышленное оборудование", image: "/catalog-assets/cummins-series/6bt-bta59.webp" },
       { id: "qsb59", slug: "qsb5-9", name: "QSB5.9", powerKw: "96–154 кВт", application: "Дорожная и строительная техника", image: "/catalog-assets/cummins-series/qsb59.webp" },
       { id: "qsb67", slug: "qsb6-7", name: "QSB6.7", powerKw: "99–194 кВт", application: "Экскаваторы, погрузчики и генераторные применения", image: "/catalog-assets/cummins-series/qsb67.webp" },
-      { id: "c83", slug: "c8-3", name: "C8.3", powerKw: "151–194 кВт", application: "Средняя и тяжёлая строительная техника", image: "/catalog-assets/cummins-series/c83.webp" },
+      { id: "c83", slug: "c8-3", name: "C8.3", variants: ["6CT8.3", "6CTA8.3"], powerKw: "151–194 кВт", application: "Средняя и тяжёлая строительная техника", image: "/catalog-assets/cummins-series/c83.webp" },
       { id: "qsc83", slug: "qsc8-3", name: "QSC8.3", powerKw: "160–194 кВт", application: "Строительная и карьерная техника", image: "/catalog-assets/cummins-series/qsc83.webp" },
       { id: "qsl9", slug: "qsl8-9-qsl9", name: "QSL8.9 / QSL9", powerKw: "160–264 кВт", application: "Экскаваторы, погрузчики и промышленное оборудование", image: "/catalog-assets/cummins-series/qsl9.webp" },
     ],
@@ -40,7 +41,7 @@ export const cumminsEngineGroups: CumminsEngineGroup[] = [
       { id: "qsm11", slug: "m11-qsm11", name: "M11 / QSM11", powerKw: "228–298 кВт", application: "Тяжёлая строительная и карьерная техника", image: "/catalog-assets/cummins-series/qsm11.webp" },
       { id: "n855", slug: "n855-nt855-nta855", name: "N855 / NT855 / NTA855", powerKw: "187–385 кВт", application: "Бульдозеры, карьерная и промышленная техника", image: "/catalog-assets/cummins-series/nta855.webp", casePath: "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855/", caseTitle: "Shantui SD32: поставка Cummins NTA855, установка и запуск" },
       { id: "qsnt-n14", slug: "qsnt-n14", name: "QSNT / N14", powerKw: "По исполнению", application: "Тяжёлая спецтехника и промышленные установки", image: "/catalog-assets/cummins-series/nta855.webp" },
-      { id: "k19", slug: "k19", name: "K19", powerKw: "335–522 кВт", application: "Карьерная техника и стационарные установки", image: "/catalog-assets/cummins-series/k19.webp" },
+      { id: "k19", slug: "k19", name: "K19", variants: ["KT19", "KTA19", "KTTA19"], powerKw: "335–522 кВт", application: "Карьерная техника и стационарные установки", image: "/catalog-assets/cummins-series/k19.webp" },
       { id: "qsk19", slug: "qsk19", name: "QSK19", powerKw: "340–597 кВт", application: "Карьерные машины и тяжёлые силовые установки", image: "/catalog-assets/cummins-series/qsk19.webp" },
       { id: "qsk23", slug: "qsk23", name: "QSK23", powerKw: "567–708 кВт", application: "Горная техника и крупные промышленные машины", image: "/catalog-assets/cummins-series/qsk23.webp" },
       { id: "k38", slug: "k38", name: "K38", powerKw: "690–1007 кВт", application: "Карьерное и энергетическое оборудование", image: "/catalog-assets/cummins-series/qsk19.webp" },
