@@ -358,5 +358,21 @@ try {
   }
 }finally{
   fs.writeFileSync('catalog-ui-check/results.json',JSON.stringify(results,null,2));
+  // Preserve the actual CI-built static site for independent contrast retesting.
+  if (process.env.CI) {
+    const event = process.env.GITHUB_EVENT_PATH
+      ? JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8')) : {};
+    const manifest = {
+      sourceHead: event.pull_request?.head?.sha || process.env.GITHUB_SHA,
+      checkoutSha: process.env.GITHUB_SHA,
+      runId: process.env.GITHUB_RUN_ID,
+      builtAt: new Date().toISOString(),
+      fixture: 'ACA-owned products applied by catalog-browser workflow',
+      purpose: 'Independent QA of catalogue guide contrast; not a production deployment',
+    };
+    fs.cpSync(root, 'catalog-ui-check/exact-build', {recursive:true});
+    fs.writeFileSync('catalog-ui-check/exact-build/qa-build-manifest.json', JSON.stringify(manifest,null,2));
+  }
+
   server.close();
 }
