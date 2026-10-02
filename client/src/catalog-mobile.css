@@ -4,6 +4,8 @@ body:has(section[aria-labelledby="categories-title"])>#root>div{background:#fff!
 body:has(section[aria-labelledby="categories-title"]) header{background:#0d0f11!important;border-color:#202328!important;color:#fff!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type{background:#fff!important;border-color:#eef0f2!important;color:#111827!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type h1,section[aria-labelledby="categories-title"] h2{color:#111827!important}
+/* The nested landing guide has its own dark surface, including on mobile. */
+section[aria-labelledby="categories-title"] .aca-landing-intro h2{color:#fff!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type p.text-gray-300,body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type p.text-gray-400{color:#6b7280!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form{background:#fff!important;border-color:#dde1e6!important;color:#111827!important}
 body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form input,body:has(section[aria-labelledby="categories-title"]) main>section:first-of-type form select{background:#fff!important;color:#111827!important;border-color:#ccd2da!important}

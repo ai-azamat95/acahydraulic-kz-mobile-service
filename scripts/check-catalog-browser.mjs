@@ -265,6 +265,28 @@ try {
         console.log(JSON.stringify(results.at(-1)));
         await page.close();
       }
+      for (const width of [390, 1440]) {
+        const landing = await browser.newPage({viewport:{width,height:900},locale:'ru-RU'});
+        await landing.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
+        await landing.goto(origin + '/catalog/category/hydraulic-pumps/', {waitUntil:'networkidle'});
+        const heading = landing.locator('.aca-landing-intro h2').first();
+        await heading.waitFor();
+        const contrast = await heading.evaluate(element => {
+          const luminance = color => {
+            const channels = color.match(/[\d.]+/g).slice(0,3).map(Number).map(value => {
+              const normalized = value / 255;
+              return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+            });
+            return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+          };
+          const text = luminance(getComputedStyle(element).color);
+          const surface = luminance(getComputedStyle(element.closest('.aca-landing-intro')).backgroundColor);
+          return (Math.max(text,surface) + 0.05) / (Math.min(text,surface) + 0.05);
+        });
+        assert(contrast >= 4.5, `${engineName} ${width}px category guide heading contrast: ${contrast}`);
+        results.push({engine:engineName,width,categoryGuideHeadingContrast:contrast});
+        await landing.close();
+      }
       const journey = await browser.newPage({viewport:{width:390,height:844},locale:'ru-RU'});
       const journeyErrors = [];
       journey.on('pageerror', error => journeyErrors.push(error.message));
