@@ -13,6 +13,12 @@ export type CatalogIndexProduct = {
   tags: string[];
   available: boolean;
   minPriceKzt: number | null;
+  ownerEvidence?: {
+    heading: string;
+    facts: string[];
+    photoCaption: string;
+    selection: string;
+  };
   ownerSale?: { condition: "new"; confirmedOn: string; casePath: string };
   ownerProduct?: {
     condition: "new";

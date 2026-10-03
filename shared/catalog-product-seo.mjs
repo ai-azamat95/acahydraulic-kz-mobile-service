@@ -32,6 +32,7 @@ export function catalogProductCategories(product) {
 }
 
 export function catalogProductSelection(product) {
+  if (product.ownerEvidence?.selection) return product.ownerEvidence.selection;
   // Imported categories can be broad; use technical instructions only for reviewed products.
   const category = productCopy[product.handle]?.selectionCategory || ((product.approvedSale || product.ownerSale || product.ownerProduct) ? 'hydraulic-pumps' : 'other-parts');
   return productCopy[product.handle]?.selection || selectionCopy[category].selection;

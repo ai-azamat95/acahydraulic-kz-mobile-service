@@ -272,10 +272,12 @@ export default function CatalogProduct() {
               {selectedImage && !imageFailed && (
                 <span className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1 rounded bg-black/70 px-2.5 py-1 text-xs font-medium text-white">
                   <ZoomIn className="h-3.5 w-3.5" aria-hidden="true" />
-                  Фото товара
+                  {product.ownerEvidence ? "Пример маркировки узла" : "Фото товара"}
                 </span>
               )}
             </div>
+
+            {product.ownerEvidence && <p className="mt-3 text-sm leading-6 text-gray-400">{product.ownerEvidence.photoCaption}</p>}
 
             {gallery.length > 1 && (
               <div className="mt-3 grid grid-cols-5 gap-2 sm:grid-cols-6 md:grid-cols-8">
@@ -368,6 +370,7 @@ export default function CatalogProduct() {
               <section className="mt-8"><h2 className="text-2xl font-bold">Этот насос уже покупали в ACA Hydraulic</h2><p className="my-4 text-gray-300">Продали новый насос для CAT 432E. По обратной связи клиента, он остался доволен покупкой.</p><Cat432eSaleMedia /><Link href={catSale.casePath} className="mt-4 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline">Кейс продажи: CAT 432E и насос 267-2755</Link></section>
             ))}
             {product.ownerProduct && <section className="mt-8 rounded-lg border border-[#FFC000]/30 bg-[#FFC000]/5 p-5"><h2 className="text-xl font-bold">Подтверждено по реальному товару</h2><ul className="mt-4 grid gap-2 text-sm leading-6 text-gray-300"><li>HANDOK HYDRAULIC, модель H5V80DTP-12T.</li><li>Номер детали YKSKR-9K00, маркировка Made in Korea.</li><li>Цена 2 530 000 ₸, доставка по Казахстану включена.</li></ul><div className="mt-4 flex flex-col items-start gap-2"><Link href="/cases/postavka-zamena-gidronasosa/#hitachi-order" className="inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Реальный заказ HANDOK для Hitachi ZX160W</Link><Link href="/blog/k5v80dtp-handok-hitachi-zx160w/" className="inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Как проверить H5V80DTP и K5V80DTP перед заказом</Link></div></section>}
+            {product.ownerEvidence && <section className="mt-8 rounded-lg border border-[#FFC000]/30 bg-[#FFC000]/5 p-5"><h2 className="text-xl font-bold">{product.ownerEvidence.heading}</h2><ul className="mt-4 grid gap-2 text-sm leading-6 text-gray-300">{product.ownerEvidence.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></section>}
             {product.tags.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-2">
                 {product.tags.slice(0, 8).map((tag) => (

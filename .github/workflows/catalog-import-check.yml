@@ -23,6 +23,11 @@ on:
       - "scripts/lib/catalog-landings.mjs"
       - "shared/catalog-landings.json"
       - "shared/catalog-product-*"
+      - "shared/catalog-owner-products.json"
+      - "scripts/catalog-owner-products.mjs"
+      - "tests/catalog-owner-products.test.mjs"
+      - "tests/husco-owner-product.test.mjs"
+      - "client/public/catalog-assets/husco-6600-f163-a00/**"
       - "shared/cat-432e-sale.json"
       - "scripts/catalog-owner-sales.mjs"
       - "scripts/prepare-public-catalog.mjs"
@@ -61,6 +66,10 @@ jobs:
         run: node --test tests/catalog-image-mirror.test.mjs tests/catalog-image-manifest-rebuild.test.mjs
       - name: Verify current pixel audit
         run: node scripts/check-catalog-image-audit.mjs
+      - name: Verify ACA-owned catalogue products and HUSCO evidence
+        run: |
+          node --test tests/catalog-owner-products.test.mjs tests/husco-owner-product.test.mjs
+          node scripts/prepare-public-catalog.mjs
       - name: Verify reviewed product names and selection copy
         run: node --test tests/catalog-product-seo.test.mjs
       - name: Build fitment-aware product pages
