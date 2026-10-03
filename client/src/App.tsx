@@ -29,6 +29,7 @@ const Corporate = lazy(() => import("./pages/Corporate"));
 const Blog = lazy(() => import("./pages/Blog"));
 const PumpGuide = lazy(() => import("./pages/PumpGuide"));
 const Catalog = lazy(() => import("./pages/Catalog"));
+const GnbPartsCatalog = lazy(() => import("./pages/GnbPartsCatalog"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CompleteEngines = lazy(() => import("./pages/CompleteEngines"));
 const CompleteEngineProduct = lazy(() => import("./pages/CompleteEngineProduct"));
@@ -169,6 +170,7 @@ function AppRoutes() {
         <Route path="/catalog/category/:categoryId" component={Catalog} />
         <Route path="/catalog/brand/:brandSlug" component={Catalog} />
         <Route path="/catalog/model/:modelSlug" component={Catalog} />
+        <Route path="/catalog/gnb-parts" component={GnbPartsCatalog} />
         <Route path="/catalog/:handle" component={CatalogProduct} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />

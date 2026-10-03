@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { gnbParts, renderGnbPartsPage } from './lib/gnb-parts-page.mjs';
 import path from 'node:path';
 import { catalogProductName } from '../shared/catalog-product-seo.mjs';
 
@@ -176,6 +177,12 @@ for (const page of pages) {
   fs.writeFileSync(path.join(pageDir, 'index.html'), rendered.html);
   written.push(rendered);
 }
+
+const gnbPage = renderGnbPartsPage(indexHtml);
+const gnbDir = path.join(outDir, gnbParts.path);
+fs.mkdirSync(gnbDir, {recursive:true});
+fs.writeFileSync(path.join(gnbDir, 'index.html'), gnbPage.html);
+written.push(gnbPage);
 
 for (const [from, to] of Object.entries(catalogRedirects)) {
   const destination = path.join(outDir, to.replace(/^\/+/, ''), 'index.html');

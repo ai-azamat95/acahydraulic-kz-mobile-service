@@ -3,6 +3,7 @@ import path from 'node:path';
 import http from 'node:http';
 import assert from 'node:assert/strict';
 import { checkSiteNavigation } from './check-site-navigation.mjs';
+import { checkGnbParts } from './check-gnb-parts-browser.mjs';
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
 const catalogDir = path.join(root, 'catalog-data');
@@ -383,6 +384,9 @@ try {
         console.log(JSON.stringify(results.at(-1)));
         await huscoPage.close();
       }
+      const gnbResults = await checkGnbParts(browser, origin, engineName);
+      results.push(...gnbResults);
+      gnbResults.forEach(result => console.log(JSON.stringify(result)));
       await browser.close();
       if (engineName === 'chromium') {
         const navigationBrowser = await engine.launch();

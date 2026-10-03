@@ -1,4 +1,5 @@
 import catalogHomeSeo from "@shared/catalog-home-seo.json";
+import gnbParts from "@shared/gnb-parts.json";
 import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/components/catalog/PumpSupplyOffers";
@@ -544,6 +545,9 @@ export default function Catalog() {
       </header>
 
       <main id="catalog-top">
+        <nav className="mx-auto max-w-[1600px] px-4 py-3" aria-label="Запчасти для буровых установок">
+          <Link href={gnbParts.path} className="inline-flex min-h-11 items-center text-[#FFC000] underline underline-offset-4">{gnbParts.title}</Link>
+        </nav>
         <section className="aca-catalog-hero overflow-hidden border-b border-white/10 bg-[#151515]">
           <div className="aca-catalog-hero-inner mx-auto max-w-[1600px] px-4 py-7 md:py-11">
             <SiteHomeLink className="mb-5 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-[#FFC000]">
