@@ -53,10 +53,12 @@ export function applyOwnerCatalogProducts(catalogDir, { updateCategorySummary = 
     if (!existingHandles.has(product.handle)) added += 1;
     productMap[product.handle] = targetChunk;
     if (categorySummary) {
-      const summary = categorySummary[product.category] || { count: 0, imageUrl: null };
-      if (!existingHandles.has(product.handle)) summary.count += 1;
-      summary.imageUrl ||= product.imageUrl;
-      categorySummary[product.category] = summary;
+      for (const category of new Set(product.categories?.length ? product.categories : [product.category])) {
+        const summary = categorySummary[category] || { count: 0, imageUrl: null };
+        if (!existingHandles.has(product.handle)) summary.count += 1;
+        summary.imageUrl ||= product.imageUrl;
+        categorySummary[category] = summary;
+      }
     }
   }
   manifest.productCount += added;

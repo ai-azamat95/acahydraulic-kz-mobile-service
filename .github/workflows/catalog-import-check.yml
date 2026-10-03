@@ -23,6 +23,14 @@ on:
       - "scripts/lib/catalog-landings.mjs"
       - "shared/catalog-landings.json"
       - "shared/catalog-product-*"
+      - "shared/catalog-owner-products.json"
+      - ".github/workflows/pages.yml"
+      - "scripts/check-owner-catalog-inputs.mjs"
+      - "tests/owner-catalog-deployment.test.mjs"
+      - "scripts/catalog-owner-products.mjs"
+      - "tests/catalog-owner-products.test.mjs"
+      - "tests/husco-owner-product.test.mjs"
+      - "client/public/catalog-assets/husco-6600-f163-a00/**"
       - "shared/cat-432e-sale.json"
       - "scripts/catalog-owner-sales.mjs"
       - "scripts/prepare-public-catalog.mjs"
@@ -61,14 +69,22 @@ jobs:
         run: node --test tests/catalog-image-mirror.test.mjs tests/catalog-image-manifest-rebuild.test.mjs
       - name: Verify current pixel audit
         run: node scripts/check-catalog-image-audit.mjs
+      - name: Verify ACA-owned catalogue products and HUSCO evidence
+        run: |
+          node --test tests/catalog-owner-products.test.mjs tests/husco-owner-product.test.mjs tests/owner-catalog-deployment.test.mjs
+          node scripts/prepare-public-catalog.mjs
+          node scripts/check-owner-catalog-inputs.mjs client/public/catalog-data
       - name: Verify reviewed product names and selection copy
         run: node --test tests/catalog-product-seo.test.mjs
+      - name: Type-check the site
+        run: pnpm check
       - name: Build fitment-aware product pages
         run: |
           pnpm build
           node scripts/create-spa-route-copies.mjs
           pnpm catalog:routes
           pnpm catalog:landing-routes
+          node scripts/check-owner-catalog-inputs.mjs dist/public/catalog-data --routes
       - name: Verify product and landing-page SEO
         run: |
           pnpm catalog:verify-seo

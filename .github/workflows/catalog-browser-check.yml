@@ -22,6 +22,10 @@ on:
       - 'client/src/content/partsCatalog.ts'
       - 'client/src/lib/catalogLandings.ts'
       - 'client/src/hooks/useCatalogProducts.ts'
+      - 'shared/catalog-owner-products.json'
+      - 'scripts/prepare-public-catalog.mjs'
+      - 'scripts/check-owner-catalog-inputs.mjs'
+      - '.github/workflows/pages.yml'
       - 'shared/catalog-landings.json'
       - 'client/src/types/catalog.ts'
       - 'client/src/catalog-*.css'
@@ -41,9 +45,10 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Add ACA-owned products to the browser fixture
+      - name: Prepare production catalogue inputs
         run: |
-          node --input-type=module -e "import { applyOwnerCatalogProducts } from './scripts/catalog-owner-products.mjs'; applyOwnerCatalogProducts('client/public/catalog-data', { updateCategorySummary: false });"
+          node scripts/prepare-public-catalog.mjs
+          node scripts/check-owner-catalog-inputs.mjs client/public/catalog-data
       - run: pnpm build
       - name: Install browser runtime
         run: |

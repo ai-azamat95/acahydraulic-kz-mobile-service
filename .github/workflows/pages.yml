@@ -31,6 +31,10 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Verify committed ACA catalogue snapshot
         run: pnpm catalog:verify-public
+      - name: Prepare and verify ACA-owned catalogue inputs
+        run: |
+          node scripts/prepare-public-catalog.mjs
+          node scripts/check-owner-catalog-inputs.mjs client/public/catalog-data
       - name: Build
         run: pnpm build
       - name: Create static route copies
@@ -57,6 +61,7 @@ jobs:
         run: |
           pnpm catalog:routes
           pnpm catalog:landing-routes
+          node scripts/check-owner-catalog-inputs.mjs dist/public/catalog-data --routes
           node scripts/check-cat-432e-sale.mjs
           node --test tests/merchant-publication.test.mjs
           node --test tests/handok-product-publication.test.mjs

@@ -157,6 +157,7 @@ function productPage(product) {
     : `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>`
   ) : ''}
   ${product.ownerProduct ? `<section><h2>Подтверждено по реальному товару</h2><ul><li>HANDOK HYDRAULIC, модель H5V80DTP-12T.</li><li>Номер детали YKSKR-9K00, маркировка Made in Korea.</li><li>Цена 2 530 000 ₸, доставка по Казахстану включена.</li></ul><p><a href="/cases/postavka-zamena-gidronasosa/#hitachi-order">Реальный заказ HANDOK для Hitachi ZX160W</a></p><p><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">Как проверить H5V80DTP и K5V80DTP перед заказом</a></p></section>` : ''}
+  ${product.ownerEvidence ? `<section data-owner-evidence><h2>${escapeHtml(product.ownerEvidence.heading)}</h2><figure>${image ? `<img src="${escapeAttr(image)}" alt="${escapeAttr(product.ownerEvidence.photoAlt || productSeo.name)}" width="900" height="655" loading="lazy">` : ''}<figcaption>${escapeHtml(product.ownerEvidence.photoCaption)}</figcaption></figure><ul>${product.ownerEvidence.facts.map(fact => `<li>${escapeHtml(fact)}</li>`).join('')}</ul></section>` : ''}
   ${saleTerms ? `<p>${escapeHtml(saleTerms)}</p>` : ''}
   <section data-product-selection><h2>Что прислать для подбора этой запчасти</h2>
   <p>${escapeHtml(catalogProductSelection(product))}</p>
