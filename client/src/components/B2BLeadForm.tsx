@@ -12,8 +12,7 @@ interface B2BLeadFormProps {
   onSuccess?: () => void;
 }
 
-const DIAGNOSTIC_PRICE = 'от 200 000 ₸';
-const DIAGNOSTIC_VALUE = 200000;
+const DIAGNOSTIC_TERMS = 'Стоимость согласуем до выезда';
 const GOOGLE_ADS_QUALIFIED_LEAD = 'AW-17847190636/JZkfCOu_84McEOyImr5C';
 
 const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
@@ -37,7 +36,7 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
     e.preventDefault();
 
     if (!budgetAccepted) {
-      toast.error('Подтвердите стоимость выездной диагностики');
+      toast.error('Подтвердите условия платной диагностики');
       return;
     }
 
@@ -64,7 +63,7 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
 
     const messageLines = [
       'Здравствуйте! Нужна выездная диагностика ACA Hydraulic.',
-      `Стоимость диагностики ${DIAGNOSTIC_PRICE}: ПОДТВЕРЖДЕНА`,
+      'Понимаю, что диагностика платная. Прошу согласовать полную стоимость до выезда.',
       '',
       `Контактное лицо: ${formData.name}`,
       `Телефон: ${formData.phone}`,
@@ -84,10 +83,8 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
 
     const qualifiedParams = {
       lead_type: 'qualified_b2b_form',
-      diagnostic_price: DIAGNOSTIC_VALUE,
-      value: DIAGNOSTIC_VALUE,
-      currency: 'KZT',
-      budget_confirmed: true,
+      paid_diagnostics_acknowledged: true,
+      price_agreement_pending: true,
       equipment_type: formData.equipmentType || 'unknown',
       model: formData.model,
       location: formData.location,
@@ -103,16 +100,16 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
       (window as any).ttq?.track?.('SubmitForm', {
         content_type: 'service',
         content_name: 'Квалифицированная B2B заявка на выездную диагностику',
-        value: DIAGNOSTIC_VALUE,
-        currency: 'KZT',
+        paid_diagnostics_acknowledged: true,
+        price_agreement_pending: true,
       });
     }
 
     const whatsappUrl = `https://wa.me/77714177925?text=${encodeURIComponent(messageLines.join('\n'))}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
-    toast.info('Квалифицированная заявка подготовлена', {
-      description: 'Отправьте сообщение в WhatsApp. В нём уже отмечено подтверждение стоимости диагностики.',
+    toast.info('Заявка подготовлена', {
+      description: 'Отправьте сообщение в WhatsApp. Стоимость диагностики и выезда согласуем заранее.',
     });
     setIsSubmitting(false);
     onSuccess?.();
@@ -130,11 +127,11 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
         </CardDescription>
         <div className="mt-3 rounded-lg border border-[#FFB800]/40 bg-[#FFB800]/10 p-4">
           <div className="flex items-center justify-between gap-3 flex-wrap">
-            <span className="font-semibold text-zinc-900 dark:text-white">Выездная комплексная диагностика</span>
-            <strong className="text-xl text-[#B87900] dark:text-[#FFB800]">{DIAGNOSTIC_PRICE}</strong>
+            <span className="font-semibold text-zinc-900 dark:text-white">Выездная диагностика спецтехники</span>
+            <strong className="text-xl text-[#B87900] dark:text-[#FFB800]">{DIAGNOSTIC_TERMS}</strong>
           </div>
           <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2">
-            Стоимость зависит от местонахождения и характера неисправности. Выезд за пределы города, ремонт и запчасти согласуются отдельно.
+            Диагностика платная. Стоимость зависит от местонахождения и характера неисправности. Стоимость диагностики и выезда согласуем заранее; ремонт и запчасти — отдельно.
           </p>
         </div>
       </CardHeader>
@@ -194,9 +191,9 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
             <div>
               <div className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
                 {budgetAccepted ? <CheckCircle2 className="w-5 h-5 text-green-600" /> : <AlertTriangle className="w-5 h-5 text-amber-600" />}
-                Стоимость диагностики мне понятна
+                Условия платной диагностики мне понятны
               </div>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Подтверждаю, что выездная комплексная диагностика начинается {DIAGNOSTIC_PRICE}. Ремонт, запчасти и дополнительные расходы согласуются отдельно.</p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Понимаю, что диагностика платная. Стоимость диагностики и выезда согласуем заранее. Ремонт, запчасти и дополнительные расходы согласуются отдельно.</p>
             </div>
           </label>
 
@@ -204,7 +201,7 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
             {isSubmitting ? 'Подготовка...' : <span className="flex items-center gap-2">ПОДТВЕРДИТЬ И ПЕРЕЙТИ В WHATSAPP <Send className="w-5 h-5" /></span>}
           </Button>
 
-          {!budgetAccepted && <p className="text-xs text-center text-amber-700 dark:text-amber-400">Чтобы продолжить, подтвердите минимальную стоимость диагностики.</p>}
+          {!budgetAccepted && <p className="text-xs text-center text-amber-700 dark:text-amber-400">Чтобы продолжить, подтвердите условия платной диагностики.</p>}
           <p className="text-xs text-center text-muted-foreground">Заявка считается отправленной после отправки подготовленного сообщения в WhatsApp.</p>
           <p className="text-xs text-center text-muted-foreground">Нажимая кнопку, вы передаёте указанные сведения в WhatsApp для обработки обращения. <a href="/privacy/" className="underline">Политика конфиденциальности</a>.</p>
         </form>

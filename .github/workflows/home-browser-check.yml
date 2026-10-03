@@ -54,7 +54,9 @@ jobs:
               await page.getByRole('heading', { name: 'Реальные выездные ремонты' }).waitFor();
               assert.equal(await page.locator('h1').count(), 1);
               assert.equal(await page.locator('section[aria-labelledby="repair-cases-title"] article').count(), 3);
-              assert(await page.getByText('Диагностика от 200 000 ₸', { exact: true }).isVisible());
+              assert(await page.getByText('Выездная диагностика спецтехники', { exact: true }).first().isVisible());
+              assert.match(await page.locator('body').innerText(), /Диагностика платная\. Стоимость диагностики и выезда согласуем заранее/);
+              assert.doesNotMatch(await page.locator('body').innerText(), /200\s*000\s*₸/);
               assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Page overflows at ' + width);
               assert.equal(await page.getByRole('link', { name: 'Вызвать специалиста', exact: true }).getAttribute('href'), 'tel:+77714177925');
               for (const link of await page.locator('section[aria-labelledby="repair-cases-title"] article a').all()) {

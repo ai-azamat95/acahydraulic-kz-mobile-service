@@ -280,7 +280,7 @@ export default function PadaetDavlenieGidravliki() {
         <div className="bg-[#1a1a1a] border border-[#FFC000]/40 rounded-xl p-6 md:p-8 text-center">
           <div className="text-sm uppercase tracking-widest text-gray-500 mb-2">ACA Hydraulic · выезд по Казахстану</div>
           <h3 className="font-bebas text-3xl mb-3">
-            Нужна диагностика? <span className="text-[#FFC000]">Стоимость от 200 000 ₸</span>
+            Нужна диагностика? <span className="text-[#FFC000]">Стоимость согласуем до выезда</span>
           </h3>
           <p className="text-gray-400 mb-2 text-sm">
             Проверяем гидросистему под нагрузкой, насосы и регуляторы, управляющее давление, клапаны, датчики, соленоиды и электропроводку — в зависимости от симптома и конструкции машины.

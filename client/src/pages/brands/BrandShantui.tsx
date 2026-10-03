@@ -38,7 +38,7 @@ export default function BrandShantui() {
     }
     window.open(
       `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-        "Здравствуйте! Нужна выездная диагностика SHANTUI. Понимаю, что комплексная диагностика начинается от 200 000 ₸. Могу отправить модель, местонахождение и видео неисправности."
+        "Здравствуйте! Нужна выездная диагностика SHANTUI. Понимаю, что диагностика платная. Прошу согласовать стоимость до выезда. Могу отправить модель, местонахождение и видео неисправности."
       )}`,
       "_blank"
     );
@@ -48,7 +48,7 @@ export default function BrandShantui() {
     <div className="min-h-screen bg-[#111111] text-white font-roboto">
       <SEO
         title="Диагностика и ремонт гидравлики SHANTUI | ACA Hydraulic"
-        description="Выездная диагностика гидравлики SHANTUI SD16, SD22, SD32 и другой спецтехники. Давление, насосы, гидромоторы, распределители и цилиндры. Диагностика от 200 000 ₸."
+        description="Выездная диагностика гидравлики SHANTUI SD16, SD22, SD32 и другой спецтехники. Давление, насосы, гидромоторы, распределители и цилиндры. Диагностика платная, стоимость согласуем до выезда."
         keywords="ремонт гидравлики SHANTUI, диагностика SHANTUI SD32, ремонт SHANTUI SD16, ремонт гидронасоса SHANTUI, ремонт бульдозера SHANTUI Казахстан"
         canonical="/brands/shantui"
         breadcrumbs={[{ name: "Бренды", url: "/services" }, { name: "SHANTUI", url: "/brands/shantui" }]}
@@ -61,7 +61,7 @@ export default function BrandShantui() {
         faq={[
           {
             question: "Сколько стоит диагностика гидравлики SHANTUI?",
-            answer: "Выездная комплексная диагностика начинается от 200 000 ₸. Точная стоимость зависит от местонахождения техники, модели и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.",
+            answer: "Выездная диагностика платная; стоимость согласуем до выезда. Точная стоимость зависит от местонахождения техники, модели и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.",
           },
           {
             question: "Можно ли назвать стоимость ремонта SHANTUI SD32 до диагностики?",
@@ -93,7 +93,7 @@ export default function BrandShantui() {
             <div className="inline-flex items-center gap-2 bg-[#FFC000]/10 border border-[#FFC000]/30 rounded-full px-4 py-2 mb-6"><Wrench className="w-4 h-4 text-[#FFC000]"/><span className="text-[#FFC000] text-sm font-medium">Выездная диагностика SHANTUI</span></div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">Диагностика и ремонт гидравлики <span className="text-[#FFC000]">SHANTUI</span></h1>
             <p className="text-xl text-white/70 mb-5 max-w-3xl">Если бульдозер или другая техника SHANTUI теряет тягу, плохо работает после прогрева, не держит давление или отдельные операции стали медленными — сначала проверяем систему под нагрузкой и определяем фактическую причину.</p>
-            <div className="inline-flex items-center gap-3 bg-[#FFC000]/10 border border-[#FFC000]/30 px-5 py-3 rounded-lg mb-8"><span className="text-white/80">Выездная комплексная диагностика</span><strong className="text-[#FFC000] text-xl">от 200 000 ₸</strong></div>
+            <div className="inline-flex flex-wrap items-center gap-3 bg-[#FFC000]/10 border border-[#FFC000]/30 px-5 py-3 rounded-lg mb-8"><span className="text-white/80">Выездная комплексная диагностика</span><strong className="text-[#FFC000] text-xl">Стоимость согласуем до выезда</strong></div>
             <div className="flex flex-wrap gap-4"><button onClick={handleWhatsApp} className="flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500"><MessageCircle className="w-5 h-5"/>Отправить данные</button><button onClick={() => setIsLeadFormOpen(true)} className="border border-white/30 px-6 py-3 rounded-lg font-semibold hover:border-[#FFC000] hover:text-[#FFC000]">Оставить заявку</button></div>
           </div>
         </div>
@@ -138,7 +138,7 @@ export default function BrandShantui() {
 
       <section className="py-16 bg-[#1a1a1a]"><div className="container mx-auto px-4"><h2 className="text-3xl font-bold mb-10">Модели <span className="text-[#FFC000]">SHANTUI</span>, с которыми работаем</h2><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">{shantuiModels.map((item,i)=><div key={i} className="bg-[#222] rounded-xl p-5 border border-white/5 hover:border-[#FFC000]/30"><h3 className="font-bold text-[#FFC000] mb-2">{item.model}</h3><p className="text-white/60 text-sm">{item.desc}</p></div>)}</div></div></section>
 
-      <section className="py-16 bg-[#FFC000]"><div className="container mx-auto px-4 text-center max-w-3xl"><h2 className="text-3xl font-bold text-black mb-4">Проблема с гидравликой SHANTUI?</h2><p className="text-black/70 mb-3 text-lg">Сначала подтверждаем причину неисправности. После диагностики отдельно рассчитываем ремонт и необходимые запчасти.</p><p className="text-black font-bold text-xl mb-8">Комплексная диагностика — от 200 000 ₸.</p><div className="flex flex-wrap justify-center gap-4"><button onClick={handleWhatsApp} className="flex items-center gap-2 bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-900"><MessageCircle className="w-6 h-6"/>WhatsApp</button><a href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`} className="flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100"><Phone className="w-6 h-6"/>{PHONE_NUMBER}</a></div></div></section>
+      <section className="py-16 bg-[#FFC000]"><div className="container mx-auto px-4 text-center max-w-3xl"><h2 className="text-3xl font-bold text-black mb-4">Проблема с гидравликой SHANTUI?</h2><p className="text-black/70 mb-3 text-lg">Сначала подтверждаем причину неисправности. После диагностики отдельно рассчитываем ремонт и необходимые запчасти.</p><p className="text-black font-bold text-xl mb-8">Диагностика платная — стоимость согласуем до выезда.</p><div className="flex flex-wrap justify-center gap-4"><button onClick={handleWhatsApp} className="flex items-center gap-2 bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-900"><MessageCircle className="w-6 h-6"/>WhatsApp</button><a href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`} className="flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100"><Phone className="w-6 h-6"/>{PHONE_NUMBER}</a></div></div></section>
 
       <section className="py-12 bg-[#111111]"><div className="container mx-auto px-4"><h2 className="text-xl font-bold mb-6 text-white/80">Другие бренды</h2><div className="flex flex-wrap gap-3">{[{name:"Caterpillar (CAT)",href:"/brands/cat"},{name:"Komatsu",href:"/brands/komatsu"},{name:"Hitachi",href:"/brands/hitachi"},{name:"Hyundai",href:"/brands/hyundai"},{name:"Wirtgen",href:"/brands/wirtgen"}].map((brand)=><Link key={brand.href} href={brand.href}><span className="flex items-center gap-2 bg-[#1a1a1a] border border-white/10 hover:border-[#FFC000]/50 text-white/70 hover:text-[#FFC000] px-4 py-2 rounded-lg text-sm">{brand.name}<ArrowRight className="w-3 h-3"/></span></Link>)}</div></div></section>
 
