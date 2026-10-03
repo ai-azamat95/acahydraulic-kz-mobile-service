@@ -13,3 +13,11 @@ Implementation: existing owner-catalogue source, indexed into chunk 001, full se
 Validation: initial local Node v26.8.2 run passed 5 tests: existing owner product refresh tests plus HUSCO metadata, repeat-prepare/category/search/map and generated route/canonical/sitemap/JSON-LD checks. Repeat local testing was interrupted; subsequent writes failed with No space left on device. Full app build, TypeScript and interactive browser verification are not completed locally. PR workflow prepares owner data, runs focused tests and builds/validates catalogue routes. Treat CI results separately from the initial local result.
 
 No merge or deployment is authorized by this draft. No other cloud media was downloaded. The earlier failed publishing attempt was not located in the two related readable Codex threads, so its cause remains unknown.
+
+## Production pipeline correction
+
+Independent review confirmed that the original pages workflow built the committed 10,394-product snapshot without applying the owner dataset. Prior PR/browser checks had prepared/injected data and therefore did not establish production publication readiness. The browser fixture also skipped category-summary updates.
+
+Production now runs the normal prepare-public-catalog script before Vite build. Source input assertions compare every owner field across product map, item chunk, chunk search, full index and all category-summary counts. After normal route generation, the same assertions inspect dist/public plus owner canonical URLs, sitemap entries, category links and JSON-LD. Browser CI uses the same normal preparation including summaries, rather than an injected fixture. Regression tests reject unprepared inputs, preserve a legacy row and price, verify repeat preparation, and enforce workflow ordering. Snapshot CI also runs the repository's pnpm check type check.
+
+This correction must pass current-head CI before acceptance; earlier green checks alone were insufficient. No production deployment or merge was performed.

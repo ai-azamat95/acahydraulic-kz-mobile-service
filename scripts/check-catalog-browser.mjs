@@ -402,7 +402,7 @@ try {
       checkoutSha: process.env.GITHUB_SHA,
       runId: process.env.GITHUB_RUN_ID,
       builtAt: new Date().toISOString(),
-      fixture: 'ACA-owned products applied by catalog-browser workflow',
+      fixture: 'Normal prepare-public-catalog production inputs, including category summaries',
       purpose: 'Independent QA of catalogue guide contrast; not a production deployment',
     };
     fs.cpSync(root, 'catalog-ui-check/exact-build', {recursive:true});
