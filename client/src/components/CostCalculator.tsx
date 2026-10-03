@@ -1,3 +1,4 @@
+import { attributionMessage, trackTikTokEvent } from '@/lib/tiktokAttribution';
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -168,11 +169,6 @@ function track(eventName: string, params: Record<string, unknown> = {}) {
   (window as any).gtag?.("event", eventName, params);
 }
 
-function trackTikTok(eventName: string, params: Record<string, unknown> = {}) {
-  if (typeof window === "undefined") return;
-  (window as any).ttq?.track?.(eventName, params);
-}
-
 export default function CostCalculator() {
   const [step, setStep] = useState(1);
   const [selection, setSelection] = useState<Selection>(initialSelection);
@@ -223,11 +219,9 @@ export default function CostCalculator() {
       city: selection.city,
       diagnostic_price: DIAGNOSTIC_VALUE,
     });
-    trackTikTok("ViewContent", {
+    trackTikTokEvent("ViewContent", {
       content_type: "service",
       content_name: "Выездная диагностика гидравлики",
-      value: DIAGNOSTIC_VALUE,
-      currency: "KZT",
     });
     goNext();
   };
@@ -258,6 +252,7 @@ export default function CostCalculator() {
     selection.phone ? `Телефон: ${selection.phone}` : "",
     "",
     "Могу отправить фото шильдика и видео работы техники.",
+    attributionMessage(),
   ]
     .filter(Boolean)
     .join("\n");
@@ -285,13 +280,6 @@ export default function CostCalculator() {
         send_to: GOOGLE_ADS_QUALIFIED_LEAD,
       });
     }
-
-    trackTikTok("SubmitForm", {
-      content_type: "service",
-      content_name: "Квалифицированная заявка на выездную диагностику",
-      value: DIAGNOSTIC_VALUE,
-      currency: "KZT",
-    });
   };
 
   const cardClass = (selected: boolean) =>
