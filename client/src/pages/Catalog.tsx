@@ -854,6 +854,22 @@ export default function Catalog() {
               </a>
             </aside>
           )}
+          {isLandingPage && selectionGuide && (
+            <section className="mt-6 rounded-lg border border-white/15 bg-[#151515] p-4 md:p-5" data-catalog-selection-guide>
+              <h2 className="text-lg font-bold text-white">{selectionGuide.heading}</h2>
+              <details className="mt-2">
+                <summary className="min-h-11 cursor-pointer py-2 text-sm font-medium text-[#FFC000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">Проверка перед заказом и полезные ссылки</summary>
+                <p className="mt-3 max-w-5xl leading-relaxed text-gray-300">{selectionGuide.text}</p>
+                <nav className="mt-4" aria-label="Подбор, диагностика и связанные запчасти">
+                  <ul className="grid gap-2 sm:grid-cols-2">
+                    {selectionGuide.links.map(({ href, label }) => (
+                      <li key={href}><Link href={href} className="inline-flex min-h-11 items-center text-sm text-[#FFC000] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">{label}</Link></li>
+                    ))}
+                  </ul>
+                </nav>
+              </details>
+            </section>
+          )}
           {showResults && <div
             id="catalog-results"
             ref={resultsRef}
@@ -928,19 +944,6 @@ export default function Catalog() {
                     </details>
                   </div>
                 </div>
-              )}
-              {selectionGuide && (
-                <section className="mt-6 border-t border-white/10 pt-5" data-catalog-selection-guide>
-                  <h3 className="text-lg font-bold text-white">{selectionGuide.heading}</h3>
-                  <p className="mt-3 max-w-5xl leading-relaxed text-gray-300">{selectionGuide.text}</p>
-                  <nav className="mt-4" aria-label="Подбор, диагностика и связанные запчасти">
-                    <ul className="grid gap-2 sm:grid-cols-2">
-                      {selectionGuide.links.map(({ href, label }) => (
-                        <li key={href}><Link href={href} className="inline-flex min-h-11 items-center text-sm text-[#FFC000] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">{label}</Link></li>
-                      ))}
-                    </ul>
-                  </nav>
-                </section>
               )}
             </section>
           )}
