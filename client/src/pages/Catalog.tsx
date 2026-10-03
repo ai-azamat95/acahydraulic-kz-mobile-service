@@ -43,6 +43,7 @@ import {
   catalogBrandLandings,
   catalogCategoryLandings,
   categorySeoContent,
+  categorySelectionGuide,
   extractBrandSlugs,
   extractModelLandings,
   landingSearchText,
@@ -360,6 +361,7 @@ export default function Catalog() {
 
   const categoryLanding = catalogCategoryLandings.find((item) => item.id === category);
   const categorySeo = categorySeoContent(categoryLanding?.id);
+  const selectionGuide = categorySelectionGuide(categoryLanding?.id);
   const landingPath = categoryLanding
     ? `/catalog/category/${categoryLanding.id}`
     : routeBrand
@@ -926,6 +928,19 @@ export default function Catalog() {
                     </details>
                   </div>
                 </div>
+              )}
+              {selectionGuide && (
+                <section className="mt-6 border-t border-white/10 pt-5" data-catalog-selection-guide>
+                  <h3 className="text-lg font-bold text-white">{selectionGuide.heading}</h3>
+                  <p className="mt-3 max-w-5xl leading-relaxed text-gray-300">{selectionGuide.text}</p>
+                  <nav className="mt-4" aria-label="Подбор, диагностика и связанные запчасти">
+                    <ul className="grid gap-2 sm:grid-cols-2">
+                      {selectionGuide.links.map(({ href, label }) => (
+                        <li key={href}><Link href={href} className="inline-flex min-h-11 items-center text-sm text-[#FFC000] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">{label}</Link></li>
+                      ))}
+                    </ul>
+                  </nav>
+                </section>
               )}
             </section>
           )}
