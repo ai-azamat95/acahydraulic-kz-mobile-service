@@ -1,0 +1,97 @@
+{
+  "permission": {
+    "confirmedBy": "user",
+    "confirmedAt": "2026-10-03",
+    "scope": "User confirmed permission from the source site to copy these product photos into the ACA Hydraulic catalog"
+  },
+  "products": [
+    {
+      "id": "ACA-HUSCO-JCB-332-F8152",
+      "assetDirectory": "husco-332-f8152",
+      "sourcePage": "https://jcbpro.ru/catalog/gidroraspredelitel_peredniy_332_f8152_n_jcb/",
+      "images": [
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/982/365m1bdvo946w60mx28m7kqxfr6f8drh.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/536/9l2y3lz6e94cpikqw6o39hnosnn9bey3.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/b4a/2audpzfx9gba1c1i360q3qdbe8qcicy2.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/01e/dl63l4iihjfx1yfo8xv89tdvj7yy3n1f.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/dfa/nvgw9cmrur1amvhec5tmjdvq5h4yr4rh.webp"
+      ]
+    },
+    {
+      "id": "ACA-HUSCO-HIDROMEK-544S0555",
+      "assetDirectory": "husco-544s0555",
+      "sourcePage": "https://jcbpro.ru/catalog/gidroraspredelitel_peredniy_hidromek_mst_f25_21125_f25_21120_544s0555_oem/",
+      "images": [
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/959/5xguyes6sedp1rd1482fx3v33q85dmtj.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/6d2/wr1l3mt1cug3cuax8v9hszguwaz7nl5r.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/7fe/1aax7ams64bmrm7hrsmzljlez36asx7m.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/4c8/3oh5ga621xvq7h5qqs7s1a6djyfry6nj.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/1e7/mw3blu9md4zun6sz367zkf88r02h0p2d.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/e97/qhpu9haemaj5szaahnu4aftwl4h0wphz.webp"
+      ]
+    },
+    {
+      "id": "ACA-HUSCO-JCB-332-Y3028",
+      "assetDirectory": "husco-332-y3028",
+      "sourcePage": "https://jcbpro.ru/catalog/gidroraspredelitel_zadniy_3dx_bez_g_m_332_y3028_jcb/",
+      "images": [
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/33a/pmfzarsxnimwuooghjzn8zlrf92putfb.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/fb6/764nnmytwq1s60n1lnqgm6pjpetkua4s.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/796/oywrbpf48c1c2agt5w9nif8x4g07fg93.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/7a0/jio6pp3uvizt08zo18wqrfmawa50b3vu.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/98e/fsmuzzf64nxd6w5tvuk4y4wl25s5fr54.webp"
+      ]
+    },
+    {
+      "id": "ACA-HUSCO-JCB-334-F6978",
+      "assetDirectory": "husco-334-f6978",
+      "sourcePage": "https://jcbpro.ru/catalog/gidroraspredelitel_128_g5234_334_f6978_jcb/",
+      "images": [
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/1ef/reyr87m2ro1ytlmsurlx8ru4e16uxwt9.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/376/52pf8ypycvt51h8rkfe5b6d9grtt19px.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/e1f/0sq07m47mfn69fcyr897nxdisinrzei5.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/ca8/w81tx6hdqeq2obljj7m92h62103d0r6w.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/eb1/1u5si5sj1qtmok7mpygsbt31e3z965d4.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/068/antt9mz1wpodyamsvtf4hw7ipn3ww7z4.webp"
+      ]
+    },
+    {
+      "id": "ACA-HUSCO-JCB-332-F6665",
+      "assetDirectory": "husco-332-f6665",
+      "sourcePage": "https://jcbpro.ru/catalog/gidroraspredelitel_zadniy_25_222930_332_f6665_jcb/",
+      "images": [
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/63f/c5p481026obf36jzo29eex2d4cq6igcs.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/4eb/tutru1kojz3u0mh2vedj8f4uijv0ngiq.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/fc9/213epzgwu1qu13p6nmp41opr2817es7d.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/ebf/yu9u2lwc7zi5o0bcd5wdxex20hvsi30d.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/e5e/isvunhrv5big9qsjutv847tng97zcy85.webp"
+      ]
+    },
+    {
+      "id": "ACA-HUSCO-JCB-25-624300",
+      "assetDirectory": "husco-25-624300",
+      "sourcePage": "https://jcbpro.ru/catalog/gidroraspredelitel_zadniy_25_624300_oem/",
+      "images": [
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/610/5sbbod8cyv0bxt6k8pjxljhcqmm6sxmp.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/24a/4ozttlad5r1byuham0s3u8u0lnvpcits.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/b80/0qd85wupar8e5egu0jjmf3wifrrah3at.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/810/sm2ck60abqdi5k0kge8qglcreyeyspwd.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/43b/f427kk6913kikgahhzno3nry5i5wo6vs.webp"
+      ]
+    },
+    {
+      "id": "ACA-HUSCO-JCB-25-222579",
+      "assetDirectory": "husco-25-222579",
+      "sourcePage": "https://jcbpro.ru/catalog/gidroraspredelitel_peredniy_25_624000_25_222579_25_221129_oem/",
+      "images": [
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/546/pl9m8hvvbi7wg0fasd269gij8zzgg10r.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/8d7/dxkjfu759nvvmkqccf6i0sux2hgreurd.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/164/wy2lhd19fgtcg3oqtn2rlxv49r3t41x1.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/d18/8guo7xmq4hardk3njwtsvtqj9hka8x7r.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/2d0/2vmmpv34f41u3kzlkhu03a3c2nmf0501.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/524/2gxxxzkd3hv2ngw6pk8ptuivn4wc2aof.webp",
+        "https://jcbpro.ru/upload/cssinliner_webp/iblock/ce7/1gvtejy6xzb6rcsmz7pfpj9j2sl3s2kb.webp"
+      ]
+    }
+  ]
+}

@@ -15,30 +15,44 @@ const requestedProducts = [
   {
     handle: 'husco-jcb-332-f8152-front-hydraulic-control-valve',
     refs: ['332/F8152', '332F8152', '3CX', '4CX'],
+    assetDirectory: 'husco-332-f8152',
+    imageCount: 5,
   },
   {
     handle: 'husco-hidromek-544s0555-f25-21125-f25-21120-control-valve',
     refs: ['544S0555', 'F25/21125', 'F25/21120', 'HMK 102B'],
+    assetDirectory: 'husco-544s0555',
+    imageCount: 6,
   },
   {
     handle: 'husco-jcb-332-y3028-rear-hydraulic-control-valve-3dx',
     refs: ['332/Y3028', '332Y3028', '3DX', 'без гидромолота'],
+    assetDirectory: 'husco-332-y3028',
+    imageCount: 5,
   },
   {
     handle: 'husco-jcb-334-f6978-128-g5234-hydraulic-control-valve',
     refs: ['334/F6978', '334F6978', '128/G5234', '128G5234'],
+    assetDirectory: 'husco-334-f6978',
+    imageCount: 6,
   },
   {
     handle: 'husco-jcb-332-f6665-25-222930-rear-hydraulic-control-valve',
     refs: ['332/F6665', '332F6665', '25/222930', '25222930'],
+    assetDirectory: 'husco-332-f6665',
+    imageCount: 5,
   },
   {
     handle: 'husco-jcb-25-624300-25-615600-rear-hydraulic-control-valve',
     refs: ['25/624300', '25624300', '25/615600', '25615600'],
+    assetDirectory: 'husco-25-624300',
+    imageCount: 5,
   },
   {
     handle: 'husco-jcb-25-222579-25-221129-25-624000-front-control-valve',
     refs: ['25/222579', '25222579', '25/221129', '25/624000'],
+    assetDirectory: 'husco-25-222579',
+    imageCount: 7,
   },
 ];
 
@@ -50,8 +64,15 @@ test('seven HUSCO control-valve listings are searchable without invented commerc
     assert.equal(product.available, false);
     assert.equal(product.minPriceKzt, null);
     assert.equal(product.maxPriceKzt, null);
-    assert.equal(product.imageUrl, null);
-    assert.deepEqual(product.gallery, []);
+    assert.equal(product.imageUrl, `/catalog-assets/${expected.assetDirectory}/01.webp`);
+    assert.equal(product.gallery.length, expected.imageCount);
+    assert.equal(product.gallery[0], product.imageUrl);
+    for (const image of product.gallery) {
+      assert.match(image, new RegExp(`^/catalog-assets/${expected.assetDirectory}/\\d{2}\\.webp$`));
+      const bytes = fs.readFileSync(path.join(root, 'client/public', image));
+      assert.equal(bytes.subarray(0, 4).toString('ascii'), 'RIFF');
+      assert.equal(bytes.subarray(8, 12).toString('ascii'), 'WEBP');
+    }
     assert.equal(product.ownerProduct, undefined);
     assert.equal(product.ownerSale, undefined);
     assert.equal(product.approvedSale, undefined);
@@ -116,7 +137,12 @@ test('prepared catalogue and static routes publish each requested product once w
       const schema = JSON.parse(html.match(/data-static-product-schema[^>]*>([\s\S]*?)<\/script>/)[1]);
       assert.equal(schema.offers, undefined);
       assert.equal(schema.itemCondition, undefined);
-      assert.equal(schema.image, undefined);
+      assert.deepEqual(
+        schema.image,
+        Array.from({ length: expected.imageCount }, (_, index) =>
+          `https://acahydraulic.kz/catalog-assets/${expected.assetDirectory}/${String(index + 1).padStart(2, '0')}.webp`,
+        ),
+      );
       assert(sitemap.includes(`/catalog/${expected.handle}/`));
     }
   } finally {
