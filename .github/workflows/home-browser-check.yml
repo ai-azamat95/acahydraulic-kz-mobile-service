@@ -68,7 +68,7 @@ jobs:
               await page.getByRole('button', { name: 'Описать поломку', exact: true }).click();
               await page.getByRole('dialog').waitFor({ state: 'visible' });
               assert(await page.getByRole('dialog').locator('form').isVisible());
-              await page.screenshot({ path: 'ui-check/form-' + width + '.png' });
+              await page.screenshot({ path: 'ui-check/form-' + width + '.png', animations: 'disabled' });
               await page.keyboard.press('Escape');
               await page.getByRole('dialog').waitFor({ state: 'hidden' });
               if (width < 1280) {
