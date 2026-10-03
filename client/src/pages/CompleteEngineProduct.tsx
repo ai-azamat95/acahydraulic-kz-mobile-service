@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import { CheckCircle2, MessageCircle, ShieldCheck, Truck, Wrench } from "lucide-react";
 
 import { SEO } from "@/components/SEO";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 import { shantuiEngineOffer } from "@/data/shantuiEngineOffer";
 
 export const completeEngineProductPath = shantuiEngineOffer.path;
@@ -10,13 +9,9 @@ export const completeEngineProductPath = shantuiEngineOffer.path;
 const productName = shantuiEngineOffer.name;
 const imagePath = shantuiEngineOffer.image;
 const casePath = shantuiEngineOffer.casePath;
-const requestText = `Здравствуйте! Интересует двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32.
-Цена двигателя: ${shantuiEngineOffer.priceLabel}, без монтажа.
-Серийный номер бульдозера: 
-Фото шильдика техники: пришлю следующим сообщением
-Город поставки: 
-Нужен монтаж и запуск: да / нет
-Требуемый срок: 
+const requestText = `Здравствуйте. Нужна цена и срок на Cummins NTA855-C360S10 в сборе для Shantui SD32.
+Техника: ____
+Фото шильдика пришлю в чате.
 https://acahydraulic.kz${completeEngineProductPath}/`;
 
 const productSchema = {
@@ -83,7 +78,7 @@ export default function CompleteEngineProduct() {
             Двигатели в сборе
           </Link>
           <div className="mt-6 grid items-start gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-            <figure className="overflow-hidden rounded-xl bg-white p-3">
+            <figure className="order-last overflow-hidden rounded-xl bg-white p-3 lg:order-first">
               <img src={imagePath} alt={productName} width={900} height={1600} fetchPriority="high" className="max-h-[680px] w-full object-contain" />
               <figcaption className="px-2 pb-2 pt-3 text-sm leading-6 text-gray-600">
                 Реальный двигатель из выполненной поставки для Shantui SD32.
@@ -93,6 +88,19 @@ export default function CompleteEngineProduct() {
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#FFC000]">Новый двигатель в сборе</p>
               <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">{productName}</h1>
+              <a
+                href={`https://wa.me/77714177925?text=${encodeURIComponent(requestText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-aca-contact-event="catalog_whatsapp_click"
+                data-aca-contact-source="engine_product_page"
+                data-aca-item-id="nta855-c360s10"
+                data-aca-item-category="engines-complete"
+                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#eab000] sm:w-auto"
+              >
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                Получить цену и срок
+              </a>
               <p className="mt-5 text-lg leading-relaxed text-gray-300">
                 Поставка по Казахстану с согласованием комплектации. Монтаж и запуск рассчитываются отдельно. До заказа проверяем двигатель и технику по шильдикам — одного названия серии NTA855 недостаточно.
               </p>
@@ -105,16 +113,7 @@ export default function CompleteEngineProduct() {
                 <p className="mt-3 text-sm leading-6 text-gray-300">{shantuiEngineOffer.shippingLabel}. Дату поставки согласуем до заказа; совместимость и комплектность фиксируем после проверки шильдика.</p>
               </div>
 
-              <a
-                href={`https://wa.me/77714177925?text=${encodeURIComponent(requestText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackCatalogEvent("engine_product_whatsapp_click", { item_id: "nta855-c360s10", source: "engine-product-page" })}
-                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#eab000] sm:w-auto"
-              >
-                <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                Заказать двигатель — уточнить поставку
-              </a>
+
             </div>
           </div>
         </div>

@@ -7,7 +7,6 @@ import { ChevronRight, MessageCircle, Package, SearchX, ShoppingCart } from "luc
 import type { CatalogCopy, CatalogLanguage } from "@/content/partsCatalog";
 import { partCategories } from "@/content/partsCatalog";
 import { useCart } from "@/contexts/CartContext";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 import { cartItemFromProduct } from "@/lib/cart";
 import type { CatalogIndexProduct } from "@/types/catalog";
 
@@ -180,11 +179,10 @@ export function ProductResults({ copy, language, products, activeCategory, total
                       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappText}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => trackCatalogEvent("catalog_whatsapp_click", {
-                        catalog_source: "product_card",
-                        item_id: product.id,
-                        item_category: activeCategory || product.category,
-                      })}
+                      data-aca-contact-event="catalog_whatsapp_click"
+                      data-aca-contact-source="product_card"
+                      data-aca-item-id={product.id}
+                      data-aca-item-category={activeCategory || product.category}
                       className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded border border-gray-300 bg-white px-2 text-xs font-bold text-gray-800 transition-colors hover:border-[#b97800] hover:text-[#8a6100] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b97800] sm:text-sm"
                     >
                       <MessageCircle className="h-4 w-4" aria-hidden="true" />

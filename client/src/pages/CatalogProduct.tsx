@@ -78,14 +78,10 @@ export default function CatalogProduct() {
   ) => {
     if (!product) return;
     const message = [
-      copy.whatsappIntro,
-      `${copy.whatsappPart}: ${product.title}`,
-      `${copy.whatsappCategory}: ${categoryName}`,
-      `${copy.price}: ${product.minPriceKzt !== null ? `${(product.approvedSale || product.ownerSale || product.ownerProduct) ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}` : copy.priceOnRequest}`,
+      language === "ru" ? `Здравствуйте. Нужна цена и срок на ${product.catalogTitle || product.title}.` : `${copy.whatsappIntro}\n${copy.whatsappPart}: ${product.catalogTitle || product.title}`,
+      language === "ru" ? "Техника: ____" : language === "kz" ? "Техника: ____" : "Machine: ____",
       `Ссылка: ${window.location.href}`,
       copy.whatsappPhoto,
-      language === "ru" ? "Поставка под заказ. Прошу подтвердить цену и срок." : language === "kz" ? "Тапсырыс бойынша жеткізу. Баға мен мерзімді растауыңызды сұраймын." : "Please confirm price and lead time for supply to order.",
-      language === "ru" ? "Город: \nКоличество: \nНужна к дате: " : language === "kz" ? "Қала: \nСаны: \nҚажетті күні: " : "City: \nQuantity: \nRequired by: ",
       purpose === "invoice" ? (language === "ru" ? "Прошу подготовить счёт после согласования детали и поставки. Реквизиты приложу файлом в этом чате." : language === "kz" ? "Бөлшек пен жеткізу келісілгеннен кейін шот дайындауыңызды сұраймын. Деректемелер файлын осы чатқа тіркеймін." : "Please prepare an invoice after confirming the part and delivery. I will attach company details in this chat.") : "",
     ].filter(Boolean).join("\n");
     trackCatalogEvent("catalog_whatsapp_click", {
@@ -130,6 +126,7 @@ export default function CatalogProduct() {
   const isXcmgOwnerSale = product.ownerSale?.casePath === xcmgSale.casePath;
   const ownerSaleTerms = isXcmgOwnerSale ? xcmgSale.terms[language] : catSale.terms[language];
   const fixedOffer = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct);
+  const commercialContactFirst = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerEvidence);
   const displayedPrice = product.minPriceKzt !== null
     ? `${fixedOffer ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
@@ -250,7 +247,7 @@ export default function CatalogProduct() {
         </nav>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1fr] xl:grid-cols-[1.08fr_0.92fr]">
-          <section aria-label="Product photos" className="min-w-0">
+          <section aria-label="Product photos" className={commercialContactFirst ? "order-last min-w-0 lg:order-first" : "min-w-0"}>
             <div className="relative aspect-square overflow-hidden rounded-lg border border-white/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
               {selectedImage && !imageFailed ? (
                 <img
@@ -307,6 +304,13 @@ export default function CatalogProduct() {
               <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-gray-400">SKU: {mainSku}</span>
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight [overflow-wrap:anywhere] md:text-5xl">{productSeo.name}</h1>
+            {commercialContactFirst && <div className="mt-4">
+              <p className="text-sm leading-6 text-gray-300">{language === "ru" ? "Под заказ · поставка по Казахстану. Исполнение, цену и срок подтвердим по шильдику." : language === "kz" ? "Тапсырыс бойынша · Қазақстанға жеткізу. Нұсқа, баға мен мерзімді тақтайша бойынша растаймыз." : "Supply to order across Kazakhstan. Configuration, price and lead time are confirmed using the nameplate."}</p>
+              <button type="button" onClick={() => requestProduct()} className="mt-4 inline-flex min-h-12 items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#E6AC00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                {language === "ru" ? "Получить цену и срок" : language === "kz" ? "Баға мен мерзімді білу" : "Get price and lead time"}
+              </button>
+            </div>}
             {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
             <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct) ? seoDescription : copy.productDescription}</p>
 
