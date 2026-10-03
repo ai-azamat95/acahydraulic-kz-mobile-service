@@ -3,13 +3,15 @@ import { CheckCircle2, MessageCircle, ShieldCheck, Truck, Wrench } from "lucide-
 
 import { SEO } from "@/components/SEO";
 import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { shantuiEngineOffer } from "@/data/shantuiEngineOffer";
 
-export const completeEngineProductPath = "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
+export const completeEngineProductPath = shantuiEngineOffer.path;
 
-const productName = "Двигатель в сборе Cummins NTA855-C360S10 для Shantui SD32";
-const imagePath = "/media/shantui-sd32-engine/new-engine.webp";
+const productName = shantuiEngineOffer.name;
+const imagePath = shantuiEngineOffer.image;
 const casePath = "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855";
 const requestText = `Здравствуйте! Интересует двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32.
+Цена двигателя: ${shantuiEngineOffer.priceLabel}, без монтажа.
 Серийный номер бульдозера: 
 Фото шильдика техники: пришлю следующим сообщением
 Город поставки: 
@@ -21,7 +23,7 @@ const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   name: productName,
-  description: "Новый комплектный двигатель Cummins NTA855-C360S10 для бульдозера Shantui SD32. Комплектация, совместимость, цена и срок подтверждаются по шильдику и серийному номеру техники.",
+  description: "Новый двигатель Cummins NTA855-C360S10 в сборе с навесным оборудованием для Shantui SD32. Цена 12 860 000 ₸ без монтажа. Совместимость проверяем по шильдику; условия доставки согласуем отдельно.",
   image: `https://acahydraulic.kz${imagePath}`,
   url: `https://acahydraulic.kz${completeEngineProductPath}/`,
   sku: "NTA855-C360S10",
@@ -29,6 +31,14 @@ const productSchema = {
   model: "NTA855-C360S10",
   category: "Двигатели в сборе для спецтехники",
   brand: { "@type": "Brand", name: "Cummins" },
+  offers: {
+    "@type": "Offer",
+    price: shantuiEngineOffer.price,
+    priceCurrency: shantuiEngineOffer.priceCurrency,
+    url: `https://acahydraulic.kz${completeEngineProductPath}/`,
+    itemCondition: "https://schema.org/NewCondition",
+    seller: { "@type": "Organization", name: "ACA Hydraulic" },
+  },
   additionalProperty: [
     { "@type": "PropertyValue", name: "Техника", value: "Shantui SD32" },
     { "@type": "PropertyValue", name: "Состояние", value: "Новый" },
@@ -49,7 +59,7 @@ export default function CompleteEngineProduct() {
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       <SEO
         title="Двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32"
-        description="Новый двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32: проверка по шильдику, согласование комплектации, поставка по Казахстану, монтаж и запуск."
+        description="Купить Cummins NTA855-C360S10 для Shantui SD32: 12 860 000 ₸ за новый двигатель в сборе с навесным оборудованием, без монтажа. Реальный кейс. Доставка по согласованию."
         keywords="Cummins NTA855-C360S10, двигатель Shantui SD32, купить двигатель в сборе Shantui, двигатель NTA855 Казахстан"
         canonical={completeEngineProductPath}
         ogImage={imagePath}
@@ -82,9 +92,10 @@ export default function CompleteEngineProduct() {
               </p>
 
               <div className="mt-7 rounded-xl border border-[#FFC000]/35 bg-[#171717] p-6">
-                <p className="text-sm text-gray-400">Актуальная цена и срок</p>
-                <p className="mt-2 text-3xl font-extrabold text-[#FFC000]">По запросу</p>
-                <p className="mt-3 text-sm leading-6 text-gray-400">Подтверждаем после проверки шильдика, комплектации, города поставки и требуемого срока.</p>
+                <p className="text-sm text-gray-400">Цена нового двигателя в сборе</p>
+                <p className="mt-2 text-3xl font-extrabold text-[#FFC000]">{shantuiEngineOffer.priceLabel}</p>
+                <p className="mt-3 text-sm leading-6 text-gray-300">С навесным оборудованием, без монтажа и запуска. Гидротрансформатор не входит: в выполненном заказе его перенесли со старого двигателя.</p>
+                <p className="mt-3 text-sm leading-6 text-gray-400">Наличие, срок отгрузки и стоимость доставки уточняем до заказа. Совместимость и комплектность фиксируем после проверки шильдика.</p>
               </div>
 
               <a
@@ -95,7 +106,7 @@ export default function CompleteEngineProduct() {
                 className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#eab000] sm:w-auto"
               >
                 <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                Запросить цену и срок
+                Заказать двигатель — уточнить поставку
               </a>
             </div>
           </div>
