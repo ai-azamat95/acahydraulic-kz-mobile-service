@@ -10,8 +10,7 @@ import {
 } from "lucide-react";
 
 const WHATSAPP_NUMBER = "77714177925";
-const DIAGNOSTIC_PRICE = "от 200 000 ₸";
-const DIAGNOSTIC_VALUE = 200000;
+const DIAGNOSTIC_TERMS = "Стоимость согласуем до выезда";
 const GOOGLE_ADS_QUALIFIED_LEAD = "AW-17847190636/JZkfCOu_84McEOyImr5C";
 
 const equipmentTypes = [
@@ -221,13 +220,14 @@ export default function CostCalculator() {
       brand: selection.brand,
       model: selection.model,
       city: selection.city,
-      diagnostic_price: DIAGNOSTIC_VALUE,
+      paid_diagnostics_acknowledged: true,
+      price_agreement_pending: true,
     });
     trackTikTok("ViewContent", {
       content_type: "service",
       content_name: "Выездная диагностика гидравлики",
-      value: DIAGNOSTIC_VALUE,
-      currency: "KZT",
+      paid_diagnostics_acknowledged: true,
+      price_agreement_pending: true,
     });
     goNext();
   };
@@ -239,7 +239,8 @@ export default function CostCalculator() {
       equipment: selectedEquipment,
       brand: selection.brand,
       city: selection.city,
-      diagnostic_price: DIAGNOSTIC_VALUE,
+      paid_diagnostics_acknowledged: false,
+      price_agreement_pending: true,
     });
   };
 
@@ -253,7 +254,7 @@ export default function CostCalculator() {
     `Симптомы: ${selectedSymptoms || "не указаны"}`,
     selection.details ? `Описание: ${selection.details}` : "",
     `Местонахождение: ${selection.city}${selection.locationDetails ? `, ${selection.locationDetails}` : ""}`,
-    `Стоимость диагностики ${DIAGNOSTIC_PRICE}: ПОДТВЕРЖДЕНА`,
+    "Понимаю, что диагностика платная. Прошу согласовать полную стоимость до выезда.",
     selection.name ? `Контактное лицо: ${selection.name}` : "",
     selection.phone ? `Телефон: ${selection.phone}` : "",
     "",
@@ -269,11 +270,9 @@ export default function CostCalculator() {
       model: selection.model,
       city: selection.city,
       component: selection.component || "unknown",
-      diagnostic_price: DIAGNOSTIC_VALUE,
-      value: DIAGNOSTIC_VALUE,
-      currency: "KZT",
       lead_type: "qualified_mobile_service",
-      budget_confirmed: true,
+      paid_diagnostics_acknowledged: true,
+      price_agreement_pending: true,
     };
 
     track("calculator_whatsapp_click", leadParams);
@@ -289,8 +288,8 @@ export default function CostCalculator() {
     trackTikTok("SubmitForm", {
       content_type: "service",
       content_name: "Квалифицированная заявка на выездную диагностику",
-      value: DIAGNOSTIC_VALUE,
-      currency: "KZT",
+      paid_diagnostics_acknowledged: true,
+      price_agreement_pending: true,
     });
   };
 
@@ -310,7 +309,7 @@ export default function CostCalculator() {
               <FileText size={24} className="text-[#1F1F1F]" strokeWidth={2.5} />
             </div>
             <div>
-              <h3 className="font-bold text-lg md:text-2xl text-white tracking-tight">Рассчитать выездную диагностику</h3>
+              <h3 className="font-bold text-lg md:text-2xl text-white tracking-tight">Согласовать выездную диагностику</h3>
               <p className="text-sm text-gray-400">Заполните данные о технике — это займёт около минуты</p>
             </div>
           </div>
@@ -326,8 +325,8 @@ export default function CostCalculator() {
         </div>
 
         <div className="mt-4 rounded-lg border border-[#FFB800]/35 bg-[#FFB800]/10 px-4 py-3 flex flex-wrap items-center justify-between gap-2">
-          <span className="text-white text-sm md:text-base font-medium">Выездная комплексная диагностика</span>
-          <span className="text-[#FFB800] text-xl md:text-2xl font-extrabold">{DIAGNOSTIC_PRICE}</span>
+          <span className="text-white text-sm md:text-base font-medium">Выездная диагностика спецтехники</span>
+          <span className="text-[#FFB800] text-xl md:text-2xl font-extrabold">{DIAGNOSTIC_TERMS}</span>
         </div>
       </div>
 
@@ -496,7 +495,7 @@ export default function CostCalculator() {
               <Button variant="ghost" onClick={goBack} className="text-gray-400 hover:text-white hover:bg-[#3A3A3A]">← Назад</Button>
               <Button
                 onClick={() => {
-                  track("calculator_price_gate_view", { city: selection.city, diagnostic_price: DIAGNOSTIC_VALUE });
+                  track("calculator_price_gate_view", { city: selection.city, price_agreement_pending: true });
                   goNext();
                 }}
                 disabled={!selection.city}
@@ -513,8 +512,8 @@ export default function CostCalculator() {
             <div className="w-20 h-20 bg-[#FFB800]/15 rounded-full flex items-center justify-center mx-auto mb-5 border-2 border-[#FFB800]/50">
               <CheckCircle2 className="w-10 h-10 text-[#FFB800]" strokeWidth={2.5} />
             </div>
-            <h4 className="text-2xl md:text-4xl font-bold text-white mb-3">Выездная комплексная диагностика</h4>
-            <div className="text-4xl md:text-6xl font-extrabold text-[#FFB800] my-6">{DIAGNOSTIC_PRICE}</div>
+            <h4 className="text-2xl md:text-4xl font-bold text-white mb-3">Выездная диагностика спецтехники</h4>
+            <div className="text-2xl md:text-3xl font-extrabold text-[#FFB800] my-6">{DIAGNOSTIC_TERMS}</div>
 
             <div className="text-left bg-[#1F1F1F] border-2 border-[#3A3A3A] rounded-xl p-5 md:p-7 mb-6">
               <p className="text-white font-semibold mb-4">Это не просто подключение сканера. В зависимости от неисправности проверяем:</p>
@@ -527,7 +526,7 @@ export default function CostCalculator() {
                 <div>✓ причину отказа до замены дорогих узлов</div>
               </div>
               <p className="text-gray-400 text-sm mt-5 border-t border-white/10 pt-4">
-                Точная стоимость выезда зависит от местонахождения техники. Ремонт, запчасти, доставка и дополнительные работы рассчитываются отдельно после диагностики.
+                Диагностика платная. Стоимость диагностики и выезда зависит от местонахождения и характера неисправности; согласуем её заранее. Ремонт, запчасти, доставка и дополнительные работы рассчитываются отдельно после диагностики.
               </p>
             </div>
 
@@ -546,7 +545,7 @@ export default function CostCalculator() {
                 onClick={acceptBudget}
                 className="bg-[#FFB800] text-[#1F1F1F] hover:bg-[#FFC000] font-extrabold px-7 py-6 h-auto text-base md:text-lg"
               >
-                Стоимость понятна и подходит →
+                Условия понятны →
               </Button>
               <Button
                 variant="outline"
@@ -575,7 +574,7 @@ export default function CostCalculator() {
                 <span className="text-gray-500">Техника</span><span className="text-white font-medium">{selectedEquipment}</span>
                 <span className="text-gray-500">Марка / модель</span><span className="text-white font-medium">{selection.brand} {selection.model}</span>
                 <span className="text-gray-500">Где находится</span><span className="text-white font-medium">{selection.city}{selection.locationDetails ? `, ${selection.locationDetails}` : ""}</span>
-                <span className="text-gray-500">Диагностика</span><span className="text-[#FFB800] font-bold">{DIAGNOSTIC_PRICE} — подтверждено</span>
+                <span className="text-gray-500">Диагностика</span><span className="text-[#FFB800] font-bold">Платная. {DIAGNOSTIC_TERMS}</span>
               </div>
             </div>
 
@@ -617,7 +616,7 @@ export default function CostCalculator() {
               </Button>
             </a>
 
-            <p className="text-xs text-gray-500 text-center mt-3">Нажимая кнопку, клиент отправляет уже заполненные данные по технике и подтверждение стоимости диагностики.</p>
+            <p className="text-xs text-gray-500 text-center mt-3">Кнопка откроет подготовленное сообщение в WhatsApp. Отправьте его, чтобы согласовать стоимость диагностики и выезда.</p>
 
             <div className="mt-7 flex flex-wrap justify-between gap-3">
               <Button variant="ghost" onClick={goBack} className="text-gray-400 hover:text-white hover:bg-[#3A3A3A]">← Назад</Button>

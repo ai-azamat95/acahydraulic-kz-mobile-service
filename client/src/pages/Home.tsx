@@ -187,8 +187,8 @@ export default function Home() {
             </p>
 
             <div className="mb-5 max-w-xl">
-              <p className="text-xl md:text-2xl font-bold text-white">Диагностика от 200 000 ₸</p>
-              <p className="mt-1 text-sm leading-relaxed text-gray-300">Ремонт, запчасти и расходы на выезд — отдельно.</p>
+              <p className="text-xl md:text-2xl font-bold text-white">Выездная диагностика спецтехники</p>
+              <p className="mt-1 text-sm leading-relaxed text-gray-300">Диагностика платная. Стоимость диагностики и выезда согласуем заранее. Ремонт и запчасти — отдельно.</p>
             </div>
             <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto items-start">
               <a 

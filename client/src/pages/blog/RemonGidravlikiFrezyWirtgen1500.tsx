@@ -45,7 +45,7 @@ export default function RemonGidravlikiFrezyWirtgen1500() {
           },
           {
             question: "Сколько стоит выездная диагностика Wirtgen?",
-            answer: "Комплексная выездная диагностика начинается от 200 000 ₸. Ремонт, запчасти и дополнительные расходы рассчитываются отдельно после подтверждения причины неисправности.",
+            answer: "Комплексная выездная диагностика платная; стоимость согласуем до выезда. Ремонт, запчасти и дополнительные расходы рассчитываются отдельно после подтверждения причины неисправности.",
           },
         ]}
       />
@@ -85,8 +85,8 @@ export default function RemonGidravlikiFrezyWirtgen1500() {
         <section className="bg-[#FFC000] text-black rounded-xl p-6 md:p-8 mb-10">
           <h2 className="font-bebas text-3xl uppercase mb-3">Выездная диагностика Wirtgen</h2>
           <p className="text-black/75 mb-3">Перед выездом отправьте модель, местонахождение, фото шильдика и видео неисправности.</p>
-          <p className="font-bold text-xl mb-6">Комплексная диагностика — от 200 000 ₸. Ремонт и запчасти отдельно.</p>
-          <div className="flex flex-wrap gap-3"><a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Здравствуйте! Wirtgen: проблема с ходом. Стоимость диагностики от 200 000 ₸ понимаю. Могу отправить видео и шильдик.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg font-bold"><MessageCircle className="w-5 h-5"/>WhatsApp</a><a href="tel:+77714177925" className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-lg font-bold"><Phone className="w-5 h-5"/>Позвонить</a></div>
+          <p className="font-bold text-xl mb-6">Диагностика платная — стоимость согласуем до выезда. Ремонт и запчасти отдельно.</p>
+          <div className="flex flex-wrap gap-3"><a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Здравствуйте! Wirtgen: проблема с ходом. Понимаю, что диагностика платная. Прошу согласовать стоимость до выезда. Могу отправить видео и шильдик.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg font-bold"><MessageCircle className="w-5 h-5"/>WhatsApp</a><a href="tel:+77714177925" className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-lg font-bold"><Phone className="w-5 h-5"/>Позвонить</a></div>
         </section>
 
         <div className="border-t border-white/10 pt-8 flex flex-wrap gap-4"><Link href="/brands/wirtgen" className="text-[#FFC000] hover:underline">Диагностика Wirtgen</Link><Link href="/projects" className="text-[#FFC000] hover:underline">Реальные видеокейсы</Link></div>

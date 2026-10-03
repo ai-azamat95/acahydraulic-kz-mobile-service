@@ -73,7 +73,7 @@ export default function SanySY365HHotHydraulics() {
 
             <aside className="lg:sticky lg:top-24 h-fit bg-[#141414] border border-white/10 rounded-xl p-6">
               <div className="text-xs uppercase tracking-widest text-gray-500 mb-2">Выездная диагностика</div>
-              <div className="font-bebas text-4xl text-[#FFC000] mb-3">от 200 000 ₸</div>
+              <div className="font-bebas text-2xl text-[#FFC000] mb-3">Стоимость согласуем до выезда</div>
               <p className="text-sm text-gray-400 leading-relaxed mb-6">Для сложных неисправностей гидравлики и электрики. Цена выезда зависит от города и модели техники. Запчасти и ремонт — отдельно после диагностики.</p>
               <Link href="/contacts"><Button className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 font-bold mb-3">Отправить модель и видео</Button></Link>
               <a href="https://wa.me/77714177925?text=SANY%20SY365H%20проблема%20с%20гидравликой%20на%20горячую" target="_blank" rel="noopener noreferrer"><Button className="w-full bg-transparent border border-white/20 hover:border-[#25D366] h-12"><MessageCircle className="w-5 h-5 mr-2"/>WhatsApp</Button></a>

@@ -37,7 +37,7 @@ export default function VosstanovlenieGidromotoraVolvoEC380() {
           },
           {
             question: "Сколько стоит выездная диагностика?",
-            answer: "Выездная комплексная диагностика ACA Hydraulic начинается от 200 000 ₸. Ремонт, запчасти и дополнительные расходы рассчитываются отдельно после диагностики.",
+            answer: "Выездная диагностика ACA Hydraulic платная; стоимость согласуем до выезда. Ремонт, запчасти и дополнительные расходы рассчитываются отдельно после диагностики.",
           },
         ]}
       />
@@ -94,8 +94,8 @@ export default function VosstanovlenieGidromotoraVolvoEC380() {
         <section className="mb-12 bg-[#FFC000] text-black rounded-xl p-6 md:p-8">
           <h2 className="font-bebas text-3xl uppercase mb-3">Выездная диагностика Volvo CE</h2>
           <p className="text-black/75 mb-3">ACA Hydraulic проверяет гидросистему непосредственно на объекте. Перед выездом желательно отправить модель, фото шильдика, местонахождение и короткое видео неисправности.</p>
-          <p className="font-bold text-xl mb-6">Комплексная диагностика — от 200 000 ₸. Ремонт и запчасти отдельно.</p>
-          <div className="flex flex-wrap gap-3"><a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Здравствуйте! Volvo EC380: проблема с ходом. Стоимость диагностики от 200 000 ₸ понимаю. Могу отправить видео и шильдик.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg font-bold"><MessageCircle className="w-5 h-5"/>WhatsApp</a><a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-lg font-bold"><Phone className="w-5 h-5"/>Позвонить</a></div>
+          <p className="font-bold text-xl mb-6">Диагностика платная — стоимость согласуем до выезда. Ремонт и запчасти отдельно.</p>
+          <div className="flex flex-wrap gap-3"><a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Здравствуйте! Volvo EC380: проблема с ходом. Понимаю, что диагностика платная. Прошу согласовать стоимость до выезда. Могу отправить видео и шильдик.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg font-bold"><MessageCircle className="w-5 h-5"/>WhatsApp</a><a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-lg font-bold"><Phone className="w-5 h-5"/>Позвонить</a></div>
         </section>
 
         <div className="border-t border-white/10 pt-8 flex flex-wrap gap-4"><Link href="/brands/volvo" className="text-[#FFC000] hover:underline">Диагностика Volvo CE</Link><Link href="/services/hydraulic-motors" className="text-[#FFC000] hover:underline">Диагностика гидромоторов</Link><Link href="/projects" className="text-[#FFC000] hover:underline">Реальные видеокейсы ACA Hydraulic</Link></div>
