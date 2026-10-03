@@ -26,6 +26,7 @@ const localRepairContent = JSON.parse(fs.readFileSync(new URL('../shared/local-r
 const serviceContent = JSON.parse(fs.readFileSync(new URL('../shared/service-content.json', import.meta.url), 'utf8'));
 const serviceShowcase = JSON.parse(fs.readFileSync(new URL('../shared/service-showcase.json', import.meta.url), 'utf8'));
 const serviceAssessment = JSON.parse(fs.readFileSync(new URL('../shared/service-assessment.json', import.meta.url), 'utf8'));
+const gnbParts = JSON.parse(fs.readFileSync(new URL('../shared/gnb-parts.json', import.meta.url), 'utf8'));
 const catalogHomeSeo = JSON.parse(fs.readFileSync(new URL('../shared/catalog-home-seo.json', import.meta.url), 'utf8'));
 const catalogLandings = JSON.parse(fs.readFileSync(new URL('../shared/catalog-landings.json', import.meta.url), 'utf8'));
 const deliveryPolicy = JSON.parse(fs.readFileSync(new URL('../shared/delivery-and-returns.json', import.meta.url), 'utf8'));
@@ -343,6 +344,7 @@ function staticFallback(route, meta, canonical) {
   if (route === 'catalog') {
     return `<main aria-label="Каталог запчастей"><a href="/">ACA Hydraulic</a>
       <h1>${escapeHtml(catalogHomeSeo.title)}</h1><p>${escapeHtml(catalogHomeSeo.description)}</p>
+      <nav aria-label="Запчасти для буровых установок"><a href="${escapeHtml(gnbParts.path)}">${escapeHtml(gnbParts.title)}</a></nav>
       <section><h2>Что нужно для точного подбора</h2><p>${escapeHtml(catalogHomeSeo.selection)}</p></section>
       <nav aria-label="Все разделы каталога"><h2>Каталог запчастей по узлам</h2><ul>${catalogLandings.categories.map(item => `<li><a href="/catalog/category/${item.id}/">${escapeHtml(item.title)}</a><p>${escapeHtml(item.intro)}</p></li>`).join('')}</ul></nav>
       <section><h2>Двигатели в сборе для спецтехники</h2><p><a href="/parts/engines-complete/">Каталог двигателей Cummins в сборе</a> — подбор по полному индексу и шильдику, поставка и монтаж по согласованию.</p></section>

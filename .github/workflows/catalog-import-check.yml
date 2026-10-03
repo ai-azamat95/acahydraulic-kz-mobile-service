@@ -21,6 +21,10 @@ on:
       - "scripts/create-catalog-route-copies.mjs"
       - "scripts/create-catalog-landing-routes.mjs"
       - "scripts/lib/catalog-landings.mjs"
+      - "shared/gnb-parts.json"
+      - "scripts/lib/gnb-parts-page.mjs"
+      - "tests/gnb-parts-landing.test.mjs"
+      - "client/src/pages/GnbPartsCatalog.tsx"
       - "shared/catalog-landings.json"
       - "shared/catalog-product-*"
       - "shared/catalog-owner-products.json"
@@ -89,3 +93,4 @@ jobs:
         run: |
           pnpm catalog:verify-seo
           pnpm catalog:verify-landings
+          node --test tests/gnb-parts-landing.test.mjs
