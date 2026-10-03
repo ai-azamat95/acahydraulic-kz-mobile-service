@@ -11,6 +11,7 @@ export function ShantuiEngineOfferCard() {
         <h3 className="mt-5 text-2xl font-extrabold leading-tight text-[#111827] group-hover:text-[#7a5000]">Cummins NTA855-C360S10 для Shantui SD32</h3>
       </Link>
       <p className="mt-3 flex-1 leading-relaxed text-gray-600">Новый двигатель в сборе с навесным оборудованием. Есть реальный кейс поставки, монтажа и запуска.</p>
+      <Link href={shantuiEngineOffer.casePath} data-engine-case-link className="mt-3 min-h-11 py-2 text-sm font-bold leading-6 text-[#7a5000] underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b97800] focus-visible:ring-offset-2">Продали и установили на Shantui SD32 — фото и видео</Link>
       <div className="mt-5 border-t border-gray-100 pt-4">
         <p className="text-2xl font-extrabold text-[#111827]">{shantuiEngineOffer.priceLabel}</p>
         <p className="mt-2 text-sm font-bold leading-6 text-gray-800">{shantuiEngineOffer.availabilityLabel}. {shantuiEngineOffer.leadTimeLabel}.</p>
