@@ -255,7 +255,7 @@ export default function CatalogProduct() {
               {selectedImage && !imageFailed ? (
                 <img
                   src={selectedImage}
-                  alt={productSeo.name}
+                  alt={product.ownerEvidence?.photoAlt || productSeo.name}
                   decoding="async"
                   referrerPolicy="no-referrer-when-downgrade"
                   onError={() => setImageFailed(true)}

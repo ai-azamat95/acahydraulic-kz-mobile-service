@@ -355,14 +355,21 @@ try {
         await huscoPage.getByRole('heading',{level:1,name:'Гидрораспределитель HUSCO 6600-F163 A00 — C16E303, F18/22233',exact:true}).waitFor();
         assert.equal(await huscoPage.locator('link[rel="canonical"]').getAttribute('href'),'https://acahydraulic.kz/catalog/husco-6600-f163-a00-c16e303-f18-22233-hydraulic-control-valve/');
         assert(await huscoPage.getByText('Цена по запросу',{exact:false}).count() > 0);
-        await huscoPage.getByText('Маркировка проверена по фото снятого узла. Комплектация поставки согласуется.',{exact:true}).waitFor();
+        await huscoPage.getByText('Фото снятого узла из выполненной работы; комплектация и состояние поставляемого изделия согласуются отдельно.',{exact:true}).waitFor();
         await huscoPage.getByRole('heading',{name:'Маркировка узла из выполненной работы',exact:true}).waitFor();
         const schema = await huscoPage.locator('script[type="application/ld+json"]').evaluateAll(nodes => nodes.map(node => JSON.parse(node.textContent)).find(value => value['@type'] === 'Product'));
         assert.equal(schema.brand.name,'HUSCO');
         assert.equal(schema.mpn,'C16E303');
         assert.equal(schema.offers,undefined,'price-on-request HUSCO must not invent an Offer');
         assert.equal(schema.itemCondition,undefined,'job evidence must not imply a new supplied product');
-        assert.equal(await huscoPage.locator('img[src*="husco-6600-f163-a00"]').count(),0,'unapproved job photo must not be requested');
+        const nameplate = huscoPage.getByRole('img',{name:"Шильдик снятого гидрораспределителя HUSCO 6600-F163 A00, C16E303, F18/22233",exact:true});
+        await nameplate.waitFor({state:'visible'});
+        assert.equal(await nameplate.count(),1,'Only the authorized nameplate photo is used');
+        await nameplate.evaluate(image => image.decode());
+        assert(await nameplate.evaluate(image => image.complete && image.naturalWidth === 900 && image.naturalHeight > 0),'Authorized nameplate photo must decode');
+        const imageResponse = await huscoPage.request.get(origin + "/catalog-assets/husco-6600-f163-a00/husco-6600-f163-a00-nameplate.jpg");
+        assert.equal(imageResponse.status(),200,'Photo URL must resolve in the built site');
+        assert(schema.image.includes('https://acahydraulic.kz' + "/catalog-assets/husco-6600-f163-a00/husco-6600-f163-a00-nameplate.jpg"),'Product schema must reference the authorized image');
         await huscoPage.screenshot({path:`catalog-ui-check/husco-${engineName}-${width}.png`,fullPage:true});
         const huscoLayout = await huscoPage.evaluate(() => ({viewport:innerWidth,width:document.documentElement.scrollWidth,overflow:[...document.querySelectorAll('main *')].filter(node => node.getBoundingClientRect().right > innerWidth + 1).slice(0,8).map(node => ({tag:node.tagName,class:node.className,text:node.textContent?.slice(0,100)}))}));
         assert(huscoLayout.width <= huscoLayout.viewport,'HUSCO detail must fit viewport: ' + JSON.stringify(huscoLayout));
@@ -372,7 +379,7 @@ try {
           assert.equal(await huscoPage.locator('.aca-product-card').count(),1,'HUSCO must appear once in each matching category');
         }
         assert.deepEqual(huscoErrors,[],'HUSCO search-to-product runtime errors');
-        results.push({engine:engineName,width,huscoSearchProductCategories:'pass',priceOnRequest:'pass',unapprovedPhotoAbsent:'pass'});
+        results.push({engine:engineName,width,huscoSearchProductCategories:'pass',priceOnRequest:'pass',authorizedNameplatePhoto:'pass'});
         console.log(JSON.stringify(results.at(-1)));
         await huscoPage.close();
       }

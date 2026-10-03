@@ -26,14 +26,28 @@ test('HUSCO records nameplate evidence without inventing an offer or machine fit
   assert.equal(product.ownerSale, undefined);
   assert.equal(product.approvedSale, undefined);
   assert.match(product.ownerEvidence.facts.join(' '), /F18\/22233/);
-  assert.match(product.ownerEvidence.photoCaption, /Маркировка проверена по фото снятого узла/);
+  assert.match(product.ownerEvidence.photoCaption, /Фото снятого узла из выполненной работы/);
+  assert.match(product.ownerEvidence.photoAlt, /Шильдик снятого гидрораспределителя HUSCO/);
   assert.match(product.fitment, /материалах выполненной работы/);
   assert.match(catalogProductSelection(product), /серийный номер/);
   assert.match(catalogProductSelection(product), /состояние предлагаемого изделия/);
   assert.match(catalogProductSeo(product).description, /Цена по запросу/);
   assert.deepEqual(catalogProductCategories(product).map(item => item.id).sort(), ['control-valves', 'main-control-valves']);
-  assert.equal(product.imageUrl, null);
-  assert.deepEqual(product.gallery, []);
+  assert.deepEqual(product.gallery, [product.imageUrl]);
+  const image = fs.readFileSync(path.join(root, 'client/public', product.imageUrl));
+  assert.equal(image[0], 0xff);
+  assert.equal(image[1], 0xd8);
+  let offset = 2;
+  while (offset < image.length) {
+    assert.equal(image[offset++], 0xff);
+    while (image[offset] === 0xff) offset++;
+    const marker = image[offset++];
+    if (marker === 0xda || marker === 0xd9) break;
+    assert(![0xe1, 0xed, 0xfe].includes(marker), 'Published photo must not include EXIF/XMP/IPTC/comments');
+    const size = image.readUInt16BE(offset);
+    assert(size >= 2);
+    offset += size;
+  }
 });
 
 test('HUSCO survives prepare refresh in full/chunk search, map and both categories exactly once', () => {
@@ -80,6 +94,8 @@ test('generated HUSCO route has a self canonical, category links and evidence ca
     assert(html.includes(`rel="canonical" href="${canonical}"`));
     assert.match(html, /Цена по запросу/);
     assert(html.includes(product.ownerEvidence.photoCaption));
+    assert(html.includes(product.ownerEvidence.photoAlt));
+    assert(html.includes(product.imageUrl));
     for (const category of product.categories) assert(html.includes(`/catalog/category/${category}/`));
     const schema = JSON.parse(html.match(/data-static-product-schema[^>]*>([\s\S]*?)<\/script>/)[1]);
     assert.equal(schema.brand.name, 'HUSCO');

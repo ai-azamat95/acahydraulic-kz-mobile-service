@@ -26,8 +26,8 @@ test('deployment inputs reject an unprepared catalogue and preserve legacy produ
     assert(husco);
     assert.equal(husco.minPriceKzt,null);
     assert.equal(husco.variants[0].priceKzt,null);
-    assert.equal(husco.imageUrl,null);
-    assert.deepEqual(husco.gallery,[]);
+    assert(husco.imageUrl.startsWith('/catalog-assets/husco-6600-f163-a00/'));
+    assert.deepEqual(husco.gallery,[husco.imageUrl]);
     const snapshot = fs.readdirSync(dir).map(file => [file,fs.readFileSync(path.join(dir,file),'utf8')]);
     applyOwnerCatalogProducts(dir);
     assert.equal(verifyOwnerCatalogInputs(dir).passed,true);

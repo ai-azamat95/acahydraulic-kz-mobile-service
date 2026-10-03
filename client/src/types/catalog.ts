@@ -17,6 +17,7 @@ export type CatalogIndexProduct = {
     heading: string;
     facts: string[];
     photoCaption: string;
+    photoAlt: string;
     selection: string;
   };
   ownerSale?: { condition: "new"; confirmedOn: string; casePath: string };
