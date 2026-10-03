@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { applyOwnerCatalogProducts, ownerCatalogProductByHandle } from '../scripts/catalog-owner-products.mjs';
+import { applyOwnerCatalogProducts, ownerCatalogProductByHandle, ownerCatalogProducts } from '../scripts/catalog-owner-products.mjs';
 import { catalogProductCategories, catalogProductSelection, catalogProductSeo } from '../shared/catalog-product-seo.mjs';
 
 const handle = 'husco-6600-f163-a00-c16e303-f18-22233-hydraulic-control-valve';
@@ -73,7 +73,10 @@ test('HUSCO survives prepare refresh in full/chunk search, map and both categori
       }
     }
     assert.equal(read('product-map.json')[handle], 1);
-    for (const category of product.categories) assert.equal(read('category-summary.json')[category].count, 1);
+    for (const category of product.categories) {
+      const expected = ownerCatalogProducts.filter(candidate => (candidate.categories || [candidate.category]).includes(category)).length;
+      assert.equal(read('category-summary.json')[category].count, expected);
+    }
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }

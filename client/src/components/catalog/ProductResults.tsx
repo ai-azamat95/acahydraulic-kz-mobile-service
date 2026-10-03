@@ -72,7 +72,8 @@ function ProductImage({ product, name }: { product: CatalogIndexProduct; name: s
         <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_50%_40%,#fff,#f4f4f4)] text-gray-400">
           <div className="text-center">
             <Package className="mx-auto h-12 w-12" aria-hidden="true" />
-            <span className="mt-2 block text-xs font-medium">ACA Hydraulic</span>
+            <span className="mt-2 block text-xs font-semibold text-gray-500">Фото по запросу</span>
+            <span className="mt-1 block text-[10px] font-medium text-gray-400">ACA Hydraulic</span>
           </div>
         </div>
       )}

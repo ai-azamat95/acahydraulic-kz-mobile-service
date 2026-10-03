@@ -265,7 +265,8 @@ export default function CatalogProduct() {
                 <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_50%_42%,#fff,#f1f1f1)] text-gray-400">
                   <div className="text-center">
                     <ImageIcon className="mx-auto h-16 w-16" aria-hidden="true" />
-                    <p className="mt-3 text-sm font-semibold">ACA Hydraulic</p>
+                    <p className="mt-3 text-sm font-semibold text-gray-500">Фото товара по запросу</p>
+                    <p className="mt-1 text-xs text-gray-400">Отправим актуальные фотографии перед согласованием поставки</p>
                   </div>
                 </div>
               )}
