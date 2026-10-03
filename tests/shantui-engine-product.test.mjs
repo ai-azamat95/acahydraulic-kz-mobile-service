@@ -18,7 +18,7 @@ test("complete-engine landing exposes the N855 family inside the 25-product cata
   assert.doesNotMatch(landingHtml, /В наличии|есть на складе/i);
 });
 
-test("engine product route publishes the confirmed price without invented fulfillment", () => {
+test("engine product route publishes confirmed price, backorder and included delivery", () => {
   assert.equal((productHtml.match(/<h1[\s>]/g) || []).length, 1);
   assert.match(productHtml, /Shantui SD32/);
   assert.match(productHtml, /NTA855-C360S10/);
@@ -38,8 +38,15 @@ test("engine product route publishes the confirmed price without invented fulfil
   assert.equal(product?.offers?.priceCurrency, "KZT");
   assert.equal(product?.offers?.url, `https://acahydraulic.kz/${productRoute}/`);
   assert.equal(product?.offers?.itemCondition, "https://schema.org/NewCondition");
-  assert.equal(product?.offers?.availability, undefined);
-  assert.equal(product?.offers?.shippingDetails, undefined);
+  assert.equal(product?.offers?.availability, "https://schema.org/BackOrder");
+  assert.equal(product?.offers?.shippingDetails?.shippingRate?.value, 0);
+  assert.equal(product?.offers?.shippingDetails?.shippingRate?.currency, "KZT");
+  assert.equal(product?.offers?.shippingDetails?.shippingDestination?.addressCountry, "KZ");
+  assert.equal(product?.offers?.shippingDetails?.deliveryTime, undefined);
+  assert.equal(product?.offers?.availabilityStarts, undefined);
+  assert.match(productHtml, /Под заказ — на складе нет/);
+  assert.match(productHtml, /Ориентировочное ожидание: 3–14 дней/);
+  assert.match(productHtml, /Доставка по Казахстану включена в цену/);
   assert.equal(product?.offers?.priceValidUntil, undefined);
 });
 
@@ -50,7 +57,9 @@ test("both engine catalogues expose one exact engine with price", () => {
     assert.match(html, new RegExp(`href="/${productRoute}"`));
     assert.match(html, /new-engine\.webp/);
     assert.match(html, /12 860 000 ₸/);
-    assert.match(html, /Наличие, срок и стоимость доставки уточняем/);
+    assert.match(html, /Под заказ — на складе нет/);
+    assert.match(html, /Ориентировочное ожидание: 3–14 дней/);
+    assert.match(html, /Доставка по Казахстану включена в цену/);
     assert.equal((html.match(/data-engine-product-card/g) || []).length, 25);
   }
 });

@@ -71,7 +71,7 @@ const explicitMeta = {
   },
   'parts/engines-complete/shantui-sd32-cummins-nta855-c360s10': {
     title: 'Двигатель Cummins NTA855-C360S10 для Shantui SD32 | ACA Hydraulic',
-    description: 'Купить Cummins NTA855-C360S10 для Shantui SD32: 12 860 000 ₸ за новый двигатель в сборе с навесным оборудованием, без монтажа. Реальный кейс. Доставка по согласованию.',
+    description: 'Cummins NTA855-C360S10 для Shantui SD32 — 12 860 000 ₸ с доставкой по Казахстану. Новый двигатель в сборе под заказ, ожидание 3–14 дней. Монтаж отдельно. Реальный кейс.',
   },
   'parts/engines-complete/cummins': {
     title: 'Двигатели Cummins в сборе: QSB, N855, K19, QSK и X15 | ACA Hydraulic',

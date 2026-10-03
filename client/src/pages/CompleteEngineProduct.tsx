@@ -23,7 +23,7 @@ const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   name: productName,
-  description: "Новый двигатель Cummins NTA855-C360S10 в сборе с навесным оборудованием для Shantui SD32. Цена 12 860 000 ₸ без монтажа. Совместимость проверяем по шильдику; условия доставки согласуем отдельно.",
+  description: "Новый двигатель Cummins NTA855-C360S10 в сборе с навесным оборудованием для Shantui SD32. Под заказ, ожидание 3–14 дней. Цена 12 860 000 ₸ с доставкой по Казахстану, без монтажа. Совместимость проверяем по шильдику.",
   image: `https://acahydraulic.kz${imagePath}`,
   url: `https://acahydraulic.kz${completeEngineProductPath}/`,
   sku: "NTA855-C360S10",
@@ -37,6 +37,12 @@ const productSchema = {
     priceCurrency: shantuiEngineOffer.priceCurrency,
     url: `https://acahydraulic.kz${completeEngineProductPath}/`,
     itemCondition: "https://schema.org/NewCondition",
+    availability: "https://schema.org/BackOrder",
+    shippingDetails: {
+      "@type": "OfferShippingDetails",
+      shippingRate: { "@type": "MonetaryAmount", value: 0, currency: "KZT" },
+      shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
+    },
     seller: { "@type": "Organization", name: "ACA Hydraulic" },
   },
   additionalProperty: [
@@ -59,7 +65,7 @@ export default function CompleteEngineProduct() {
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       <SEO
         title="Двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32"
-        description="Купить Cummins NTA855-C360S10 для Shantui SD32: 12 860 000 ₸ за новый двигатель в сборе с навесным оборудованием, без монтажа. Реальный кейс. Доставка по согласованию."
+        description="Cummins NTA855-C360S10 для Shantui SD32 — 12 860 000 ₸ с доставкой по Казахстану. Новый двигатель в сборе под заказ, ожидание 3–14 дней. Монтаж отдельно. Реальный кейс."
         keywords="Cummins NTA855-C360S10, двигатель Shantui SD32, купить двигатель в сборе Shantui, двигатель NTA855 Казахстан"
         canonical={completeEngineProductPath}
         ogImage={imagePath}
@@ -95,7 +101,8 @@ export default function CompleteEngineProduct() {
                 <p className="text-sm text-gray-400">Цена нового двигателя в сборе</p>
                 <p className="mt-2 text-3xl font-extrabold text-[#FFC000]">{shantuiEngineOffer.priceLabel}</p>
                 <p className="mt-3 text-sm leading-6 text-gray-300">С навесным оборудованием, без монтажа и запуска. Гидротрансформатор не входит: в выполненном заказе его перенесли со старого двигателя.</p>
-                <p className="mt-3 text-sm leading-6 text-gray-400">Наличие, срок отгрузки и стоимость доставки уточняем до заказа. Совместимость и комплектность фиксируем после проверки шильдика.</p>
+                <p className="mt-3 text-sm font-bold leading-6 text-white">{shantuiEngineOffer.availabilityLabel}. {shantuiEngineOffer.leadTimeLabel}.</p>
+                <p className="mt-3 text-sm leading-6 text-gray-300">{shantuiEngineOffer.shippingLabel}. Дату поставки согласуем до заказа; совместимость и комплектность фиксируем после проверки шильдика.</p>
               </div>
 
               <a

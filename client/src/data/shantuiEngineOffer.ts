@@ -6,4 +6,7 @@ export const shantuiEngineOffer = {
   price: 12860000,
   priceCurrency: "KZT",
   priceLabel: "12 860 000 ₸",
+  availabilityLabel: "Под заказ — на складе нет",
+  leadTimeLabel: "Ориентировочное ожидание: 3–14 дней",
+  shippingLabel: "Доставка по Казахстану включена в цену",
 } as const;

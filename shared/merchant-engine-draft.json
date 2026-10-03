@@ -1,0 +1,23 @@
+{
+  "publicationStatus": "awaiting_availability_date",
+  "blocker": "Google requires an expected calendar availability_date and the same date visible on the landing page for backorder. Do not infer an absolute restock date from a relative 3–14 day wait.",
+  "confirmedByOwnerOn": "2026-10-03",
+  "expectedWaitDays": { "min": 3, "max": 14 },
+  "shippingPriceKzt": 0,
+  "product": {
+    "id": "ACA-CUMMINS-NTA855-C360S10-SD32",
+    "title": "Двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32",
+    "description": "Новый двигатель Cummins NTA855-C360S10 в сборе с навесным оборудованием для бульдозера Shantui SD32. Поставка под заказ, на складе нет. Ориентировочное ожидание 3–14 дней; дату поставки согласуем до заказа. Цена 12 860 000 ₸ включает доставку по Казахстану. Монтаж и запуск оплачиваются отдельно; гидротрансформатор не входит. Совместимость и комплектацию проверяем по шильдику и серийному номеру техники.",
+    "link": "https://acahydraulic.kz/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10/",
+    "image_link": "https://acahydraulic.kz/media/shantui-sd32-engine/new-engine.webp",
+    "price": "12860000 KZT",
+    "condition": "new",
+    "availability": "backorder",
+    "availability_date": null,
+    "brand": "Cummins",
+    "mpn": "NTA855-C360S10",
+    "identifierExists": true,
+    "productType": "Запчасти для спецтехники > Двигатели > Двигатели в сборе",
+    "shipping": { "country": "KZ", "price": "0 KZT" }
+  }
+}
