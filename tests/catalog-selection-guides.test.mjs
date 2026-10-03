@@ -30,6 +30,8 @@ test('selection content is visible before JavaScript, with resolvable links and 
     assert.ok(html.includes('data-catalog-selection-guide'), route);
     assert.ok(html.includes(guide.heading), route);
     assert.ok(html.includes(guide.text), route);
+    assert.ok(html.indexOf('data-catalog-selection-guide') < html.indexOf('<h2>Товары раздела</h2>'), route);
+    assert.ok(html.includes('<summary>Проверка перед заказом и полезные ссылки</summary>'), route);
     assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, route);
     for (const link of guide.links) {
       assert.ok(html.includes(`href="${link.href}"`), link.href);
@@ -61,6 +63,8 @@ test('React uses the same selection data as the static catalogue pages', () => {
   for (const field of ['selectionGuide.heading', 'selectionGuide.text', 'selectionGuide.links.map']) {
     assert.ok(ui.includes(field), field);
   }
+  assert.ok(ui.indexOf('data-catalog-selection-guide') < ui.indexOf('id="catalog-results"'));
+  assert.ok(ui.includes('isLandingPage && selectionGuide'));
 });
 
 test('commercial pump and motor metadata is distinct and honest about ordering', () => {
