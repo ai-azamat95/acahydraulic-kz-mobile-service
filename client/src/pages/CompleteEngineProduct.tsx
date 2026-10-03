@@ -9,7 +9,7 @@ export const completeEngineProductPath = shantuiEngineOffer.path;
 
 const productName = shantuiEngineOffer.name;
 const imagePath = shantuiEngineOffer.image;
-const casePath = "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855";
+const casePath = shantuiEngineOffer.casePath;
 const requestText = `Здравствуйте! Интересует двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32.
 Цена двигателя: ${shantuiEngineOffer.priceLabel}, без монтажа.
 Серийный номер бульдозера: 
@@ -155,7 +155,7 @@ export default function CompleteEngineProduct() {
               <h2 className="mt-3 text-2xl font-bold">Поставка и запуск двигателя на Shantui SD32</h2>
               <p className="mt-4 leading-relaxed text-gray-400">В выполненном заказе поставили новый комплектный двигатель, перенесли гидротрансформатор со старого двигателя, установили и запустили бульдозер.</p>
               <Link href={casePath} className="mt-6 inline-flex min-h-11 items-center rounded border border-[#FFC000] px-5 py-2 font-bold text-[#FFC000] hover:bg-[#FFC000] hover:text-black">
-                Смотреть фото и видео
+                Продали и установили на Shantui SD32 — фото и видео
               </Link>
             </aside>
           </div>

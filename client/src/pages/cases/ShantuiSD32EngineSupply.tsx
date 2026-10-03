@@ -2,37 +2,43 @@ import { Link } from "wouter";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { shantuiEngineOffer } from "@/data/shantuiEngineOffer";
 
-const casePath = "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855";
+const casePath = shantuiEngineOffer.casePath;
+const caseTitle = "Двигатель Shantui SD32 Cummins NTA855: поставка и установка";
+const caseDescription = "Реальная продажа двигателя Cummins NTA855 для Shantui SD32: поставили в сборе с навесным оборудованием, установили и запустили бульдозер. Фото и видео ACA Hydraulic.";
 const enginePath = "/parts/engines-complete";
 const engineProductPath = "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
 const mediaRoot = "/media/shantui-sd32-engine";
-const message = `Здравствуйте! Нужен двигатель в сборе для спецтехники.\nМарка и модель техники: \nПолный индекс двигателя: \nСерийный номер: \nГород: \nНужен монтаж и запуск: да / нет\nФото шильдика пришлю следующим сообщением.\nhttps://acahydraulic.kz${casePath}/`;
+const message = `Здравствуйте! Посмотрел кейс ACA Hydraulic по поставке и установке Cummins NTA855 на Shantui SD32. Нужен расчёт двигателя в сборе.\nМарка и модель моей техники: \nПолный индекс двигателя: \nСерийный номер: \nГород: \nНужен монтаж и запуск: да / нет\nФото шильдика пришлю следующим сообщением.\nhttps://acahydraulic.kz${casePath}/`;
 
 const faq = [
+  { question: "ACA Hydraulic только поставила двигатель или выполнила установку?", answer: "В этом заказе мы продали и поставили новый двигатель Cummins серии NTA855 в сборе с навесным оборудованием, перенесли гидротрансформатор со старого двигателя, установили двигатель на Shantui SD32 и запустили бульдозер. На странице опубликованы реальные фото и видео этой работы." },
   { question: "Что вошло в цену 12 860 000 ₸?", answer: "Это стоимость нового комплектного двигателя с навесным оборудованием в данном выполненном заказе. Монтаж в цену не входил." },
   { question: "Что перенесли со старого двигателя?", answer: "Со старого двигателя на новый перенесли гидротрансформатор. Остальная согласованная комплектация поставлялась вместе с двигателем." },
   { question: "Как заказать такой двигатель для другой машины?", answer: "Нужны модель техники, полный индекс и серийный номер двигателя, фото шильдика, город и требуемый срок. Совместимость нельзя подтверждать только по базовой серии NTA855." },
   { question: "Какая гарантия действует?", answer: "Для нового заказа срок и условия гарантии на двигатель и монтаж фиксируются в договоре после подтверждения комплектации и состава работ." },
+  { question: "Можно ли заказать Cummins NTA855 для Shantui SD32 с монтажом?", answer: "Да, запрос можно направить на двигатель в сборе, поставку, монтаж и запуск. До оплаты сверяем полный индекс, серийный номер, шильдик техники и комплектацию. Стоимость двигателя и состав работ согласуем отдельно; наличие и условия конкретного предложения указаны в карточке товара." },
 ];
 
 export default function ShantuiSD32EngineSupply() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       <SEO
-        title="Shantui SD32: продали и установили Cummins NTA855 | кейс"
-        description="Фото и видео выполненного заказа: продали комплектный Cummins NTA855, перенесли гидротрансформатор и установили на Shantui SD32. Историческая цена двигателя — 12 860 000 ₸ без монтажа."
+        title={caseTitle}
+        description={caseDescription}
         keywords="двигатель Cummins NTA855 Shantui SD32, купить двигатель Shantui SD32, двигатель в сборе спецтехника Казахстан, установка двигателя бульдозера"
         canonical={casePath}
         ogImage={`${mediaRoot}/og.webp`}
         pageType="article"
         publishedDate="2026-09-25"
-        modifiedDate="2026-09-25"
+        modifiedDate="2026-10-03"
         breadcrumbs={[{ name: "Кейсы", url: "/cases/" }, { name: "Двигатель Shantui SD32", url: casePath }]}
         faq={faq}
         schema={{
           "@context": "https://schema.org",
           "@type": "VideoObject",
+          "@id": `https://acahydraulic.kz${casePath}/#installation-video`,
           name: "Установка двигателя Cummins NTA855 на Shantui SD32",
           description: "Реальные кадры поставки и установки комплектного двигателя на бульдозер Shantui SD32.",
           thumbnailUrl: [`https://acahydraulic.kz${mediaRoot}/installation.webp`],
@@ -40,6 +46,7 @@ export default function ShantuiSD32EngineSupply() {
           uploadDate: "2026-09-25T00:00:00+05:00",
           duration: "PT48S",
           inLanguage: "ru",
+          isPartOf: { "@id": `https://acahydraulic.kz${casePath}/#article` },
         }}
       />
 
@@ -49,8 +56,9 @@ export default function ShantuiSD32EngineSupply() {
           <div className="mt-8 grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
             <div className="max-w-3xl">
               <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Выполненный заказ · поставка и установка</p>
-              <h1 className="mt-4 max-w-3xl font-bebas text-5xl leading-none md:text-7xl">Shantui SD32: продали и установили Cummins NTA855</h1>
+              <h1 className="mt-4 max-w-3xl text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">Двигатель Cummins NTA855 для Shantui SD32: продали, установили и запустили</h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-200 drop-shadow-lg">Для бульдозера поставили новый комплектный двигатель Cummins серии NTA855 с навесным оборудованием. Гидротрансформатор перенесли со старого двигателя, двигатель установили и бульдозер запустили.</p>
+              <a href="#case-installation-video" className="mt-5 inline-flex min-h-11 items-center rounded border border-[#FFC000] px-5 py-2 font-bold text-[#FFC000] hover:bg-[#FFC000] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC000] focus-visible:ring-offset-2 focus-visible:ring-offset-black">Посмотреть видео установки двигателя</a>
               <div className="mt-7 max-w-xl rounded-xl border border-[#FFC000]/40 bg-black/65 p-6">
                 <p className="text-sm text-gray-300">Стоимость двигателя в этом заказе</p>
                 <p className="mt-2 text-4xl font-bold text-[#FFC000]">12 860 000 ₸</p>
@@ -83,6 +91,14 @@ export default function ShantuiSD32EngineSupply() {
           </div>
         </section>
 
+        <section className="mt-10 rounded-xl border border-white/10 bg-[#141414] p-6 md:p-8" aria-labelledby="case-result-title">
+          <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Результат выполненного заказа</p>
+          <h2 id="case-result-title" className="mt-3 text-2xl font-extrabold leading-tight md:text-3xl">Новый двигатель установлен — бульдозер Shantui SD32 запущен</h2>
+          <p className="mt-4 max-w-4xl leading-relaxed text-gray-300">ACA Hydraulic выполнила продажу и поставку двигателя Cummins NTA855 в сборе, перенос гидротрансформатора, монтаж и запуск. Реальные материалы ниже показывают двигатель до установки, старый двигатель, переносимый узел и процесс монтажа. Это завершённый заказ, а не изображение из каталога поставщика.</p>
+          <p className="mt-4 max-w-4xl leading-relaxed text-gray-300">Если вы подбираете двигатель для Shantui SD32, этот кейс показывает опыт поставки и установки. Для нового заказа отдельно проверяем точное исполнение, навесное оборудование и совместимость по шильдикам; базовое обозначение NTA855 не заменяет такую проверку.</p>
+          <Link href={engineProductPath} className="mt-5 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Cummins NTA855-C360S10 для Shantui SD32 — актуальная цена и условия заказа</Link>
+        </section>
+
         <section className="mt-14 grid gap-5 md:grid-cols-3">
           {[
             ["1. Поставка", "Новый двигатель в сборе поступил с согласованным навесным оборудованием."],
@@ -99,7 +115,7 @@ export default function ShantuiSD32EngineSupply() {
             </video>
             <p className="mt-3 text-sm text-gray-400">Реальные кадры двигателя перед установкой, 21 секунда.</p>
           </div>
-          <div>
+          <div id="case-installation-video" className="scroll-mt-20">
             <h2 className="font-bebas text-4xl md:text-5xl">Установка на Shantui SD32</h2>
             <video controls playsInline preload="none" poster={`${mediaRoot}/installation.webp`} className="mt-5 aspect-[9/16] max-h-[680px] w-full rounded-xl bg-black object-contain">
               <source src={`${mediaRoot}/installation.mp4`} type="video/mp4" />
