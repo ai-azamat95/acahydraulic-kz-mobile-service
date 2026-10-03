@@ -79,3 +79,15 @@ test('commercial pump and motor metadata is distinct and honest about ordering',
     assert.doesNotMatch(item.description, /в наличии|бесплатн|гарантия \d/i);
   }
 });
+
+test('selection guide uses dark text on a light surface independently of catalogue heading overrides', () => {
+  const ui = fs.readFileSync('client/src/pages/Catalog.tsx', 'utf8');
+  const start = ui.indexOf('isLandingPage && selectionGuide');
+  const end = ui.indexOf('id="catalog-results"', start);
+  const guide = ui.slice(start, end);
+  assert.ok(guide.includes('bg-white'));
+  assert.ok(guide.includes('text-[#17242b]'));
+  assert.ok(guide.includes('text-gray-700'));
+  assert.ok(guide.includes('text-[#795809]'));
+  assert.ok(!guide.includes('text-white'));
+});
