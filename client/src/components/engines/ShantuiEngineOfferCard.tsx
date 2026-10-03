@@ -13,7 +13,8 @@ export function ShantuiEngineOfferCard() {
       <p className="mt-3 flex-1 leading-relaxed text-gray-600">Новый двигатель в сборе с навесным оборудованием. Есть реальный кейс поставки, монтажа и запуска.</p>
       <div className="mt-5 border-t border-gray-100 pt-4">
         <p className="text-2xl font-extrabold text-[#111827]">{shantuiEngineOffer.priceLabel}</p>
-        <p className="mt-2 text-sm leading-6 text-gray-600">Без монтажа. Наличие, срок и стоимость доставки уточняем до заказа. Совместимость проверяем по шильдику.</p>
+        <p className="mt-2 text-sm font-bold leading-6 text-gray-800">{shantuiEngineOffer.availabilityLabel}. {shantuiEngineOffer.leadTimeLabel}.</p>
+        <p className="mt-2 text-sm leading-6 text-gray-600">{shantuiEngineOffer.shippingLabel}. Без монтажа и запуска. Совместимость проверяем по шильдику.</p>
       </div>
       <Link href={shantuiEngineOffer.path} className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded bg-[#FFC000] px-4 font-extrabold text-black hover:bg-[#eab000] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b97800] focus-visible:ring-offset-2">
         Открыть карточку <ArrowRight className="h-4 w-4" aria-hidden="true" />
