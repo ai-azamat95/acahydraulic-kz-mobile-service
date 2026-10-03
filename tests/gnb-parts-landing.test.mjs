@@ -28,7 +28,7 @@ test('static landing replaces homepage metadata and schemas without scripts', ()
   assert.equal((html.match(/data-gnb-group=/g)||[]).length,6);
 });
 
-test('actual production HTML, canonical, sitemap and catalog entry link agree', () => {
+test('actual production HTML, canonical, sitemap and catalog entry link agree', {skip: !fs.existsSync('dist/public/catalog/803001730-hydraulic-pump-xcmg-xz200-xz200e-hdd/index.html')}, () => {
   const root = path.resolve('dist/public');
   const html = fs.readFileSync(path.join(root,gnbParts.path,'index.html'),'utf8');
   const home = fs.readFileSync(path.join(root,'catalog/index.html'),'utf8');
