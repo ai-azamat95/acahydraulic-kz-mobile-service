@@ -26,7 +26,8 @@ test("complete-engine landing qualifies a B2B request without claiming stock or 
   assert.match(landingHtml, /Новые двигатели в сборе/);
   assert.match(landingHtml, /гарантийные условия фиксируем в договоре/);
   assert.match(landingHtml, /модель техники, полный индекс двигателя, фото шильдика/i);
-  assert.match(landingHtml, /Историческая цена конкретной поставки/);
+  assert.match(landingHtml, /Историческая стоимость выполненной поставки без монтажа/);
+  assert.match(landingHtml, /Текущая цена NTA855-C360S10/);
   assert.doesNotMatch(landingHtml, /в наличии/i);
 });
 
