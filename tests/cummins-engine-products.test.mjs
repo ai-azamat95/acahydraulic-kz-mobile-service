@@ -19,6 +19,21 @@ const products = [
 
 const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
 
+test("specific engine variants are discoverable without promising interchangeability", () => {
+  for (const [slug, variants] of [["k19", ["KT19", "KTA19", "KTTA19"]], ["c8-3", ["6CT8.3", "6CTA8.3"]]]) {
+    const html = fs.readFileSync(path.join(root, baseRoute, slug, "index.html"), "utf8");
+    const title = html.match(/<title[^>]*>(.*?)<\/title>/s)?.[1];
+    for (const variant of variants) assert.ok(title?.includes(variant), `${slug} title must include ${variant}`);
+    assert.match(html, /data-engine-variants/);
+    assert.match(html, /не автоматически взаимозаменяемые/);
+    assert.match(html, /ESN/);
+    assert.match(html, /CPL/);
+    const whatsapp = [...html.matchAll(/href="(https:\/\/wa\.me\/[^"\s]+)"/g)]
+      .map(match => decodeURIComponent(match[1]));
+    assert.ok(whatsapp.some(url => url.includes("ESN") && url.includes("CPL")), `${slug} request must collect exact identifiers`);
+  }
+});
+
 function schemas(html) {
   return [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)]
     .flatMap((match) => {

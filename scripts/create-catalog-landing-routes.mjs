@@ -94,6 +94,7 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   });
   const seo = type === 'category' ? categorySeoContent[slug] : null;
   const selectionGuide = seo ? `<section data-category-selection><h2>Как подобрать запчасть без ошибки</h2><p>${escapeHtml(seo.selection)}</p><p>Также ищут: ${seo.queries.map(escapeHtml).join(' · ')}.</p>
+  ${slug === 'hydraulic-pumps' ? '<nav aria-label="Подтверждённые кейсы поставки насосов"><a href="/cases/cat-432e-postavka-gidronasosa-267-2755/">CAT 432E: продажа насоса 267-2755</a> · <a href="/cases/xcmg-xz200-ustanovka-gidronasosa-803001730/">XCMG XZ200: поставка и установка насоса 803001730</a></nav>' : ''}
   <h2>Частые вопросы по подбору</h2>
   <details><summary>Какие данные нужны для подбора?</summary><p>${escapeHtml(seo.selection)}</p></details>
   <details><summary>Как подтверждается совместимость?</summary><p>Сопоставляем OEM-номер, модель и серийный номер техники, исполнение и фотографии узла. Совпадение только по внешнему виду не считается подтверждением.</p></details>

@@ -37,7 +37,9 @@ function requestUrl(engine: CumminsEngineFamily) {
   const text = `Здравствуйте! Интересует двигатель Cummins ${engine.name} в сборе.
 Техника и модель: 
 Полный индекс двигателя: 
-Серийный номер двигателя/техники: 
+ESN (серийный номер двигателя):
+CPL (код комплектации, если указан):
+Модель и серийный номер техники:
 Город поставки: 
 Нужен монтаж и запуск: да / нет
 Требуемый срок: 
@@ -58,11 +60,13 @@ export function CumminsEngineProductPage({ engine }: { engine: CumminsEngineFami
   const group = cumminsEngineGroupFor(engine);
   const selectionChecks = selectionByGroup[group?.id ?? "compact-medium"];
   const productName = `Двигатель Cummins ${engine.name} в сборе`;
-  const description = `${productName} под заказ для спецтехники и промышленного оборудования. Подбор по полному индексу и шильдику, поставка по Казахстану, монтаж и запуск по согласованию.`;
+  const variantNames = engine.variants?.join(" / ");
+  const seoName = variantNames ? `Cummins ${engine.name}: ${variantNames}` : `Cummins ${engine.name}`;
+  const description = `${seoName} в сборе под заказ. Подбор по полному индексу, ESN, CPL и шильдику; поставка по Казахстану, монтаж и запуск по согласованию.`;
   const faq = [
     {
       question: `Можно ли заказать Cummins ${engine.name} только по названию серии?`,
-      answer: `Нет. Название ${engine.name} обозначает семейство. Перед расчётом сверяем полный индекс, серийный номер, шильдик техники, навесное оборудование и подключения.`,
+      answer: `Нет. Название ${engine.name} обозначает семейство. Перед расчётом сверяем полный индекс, ESN (серийный номер двигателя), CPL (код комплектации, если указан), шильдик техники, навесное оборудование и подключения.`,
     },
     {
       question: `Сколько стоит двигатель Cummins ${engine.name}?`,
@@ -77,7 +81,7 @@ export function CumminsEngineProductPage({ engine }: { engine: CumminsEngineFami
   return (
     <main className="min-h-screen bg-[#f4f5f7] text-[#111827]">
       <SEO
-        title={`${productName} — купить с поставкой по Казахстану`}
+        title={`${seoName} в сборе — поставка по Казахстану`}
         description={description}
         keywords={`двигатель Cummins ${engine.name} купить, Cummins ${engine.name} цена, двигатель ${engine.name} в сборе Казахстан, поставка двигателя Cummins`}
         canonical={productPath}
@@ -117,6 +121,12 @@ export function CumminsEngineProductPage({ engine }: { engine: CumminsEngineFami
               <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#8a5b00]">Двигатель Cummins в сборе</p>
               <h1 className="mt-4 text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">{productName}</h1>
               <p className="mt-5 text-lg leading-relaxed text-gray-600">{engine.application}. Диапазон <strong className="text-gray-900">{engine.powerKw}</strong> указан как ориентир по семейству; конкретное исполнение подбираем по шильдику и серийному номеру.</p>
+              {variantNames && (
+                <section data-engine-variants className="mt-5 rounded-lg border border-gray-200 p-4">
+                  <h2 className="font-bold">Исполнения {variantNames}</h2>
+                  <p className="mt-2 leading-relaxed text-gray-600">Это разные исполнения семейства, а не автоматически взаимозаменяемые двигатели. Для подбора пришлите полный индекс, ESN (серийный номер двигателя), CPL (код комплектации, если указан) и фото шильдика. Сверяем назначение, крепления, навесное оборудование и подключения до согласования заказа.</p>
+                </section>
+              )}
 
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-lg border border-gray-200 bg-[#f8fafc] p-4">

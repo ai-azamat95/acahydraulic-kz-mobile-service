@@ -904,6 +904,12 @@ export default function Catalog() {
                     <h3 className="text-lg font-bold text-white">Как подобрать запчасть без ошибки</h3>
                     <p className="mt-2 leading-relaxed text-gray-300">{categorySeo.selection}</p>
                     <p className="mt-3 text-sm leading-relaxed text-gray-400">Также ищут: {categorySeo.queries.join(" · ")}.</p>
+                    {categoryLanding?.id === "hydraulic-pumps" && (
+                      <nav className="mt-4 grid gap-2 text-sm text-[#FFC000] underline" aria-label="Подтверждённые кейсы поставки насосов">
+                        <Link href="/cases/cat-432e-postavka-gidronasosa-267-2755/">CAT 432E: продажа насоса 267-2755</Link>
+                        <Link href="/cases/xcmg-xz200-ustanovka-gidronasosa-803001730/">XCMG XZ200: поставка и установка насоса 803001730</Link>
+                      </nav>
+                    )}
                   </div>
                   <div className="grid gap-2" aria-label="Частые вопросы по подбору">
                     <details className="rounded border border-white/10 bg-[#0f0f0f] p-4">
