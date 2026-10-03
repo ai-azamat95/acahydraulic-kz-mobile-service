@@ -41,7 +41,9 @@
     "related": [
       { "label": "Выездная диагностика и ремонт", "href": "/services/mobile-repair/" },
       { "label": "Ремонт гидрораспределителей", "href": "/services/hydraulic-valves/" },
-      { "label": "Почему падает давление гидравлики экскаватора", "href": "/blog/padaet-davlenie-gidravliki-ekskavatora/" }
+      { "label": "Почему падает давление гидравлики экскаватора", "href": "/blog/padaet-davlenie-gidravliki-ekskavatora/" },
+      { "label": "Гидронасосы в сборе: подбор по OEM и исполнению", "href": "/catalog/category/hydraulic-pumps/" },
+      { "label": "Запчасти гидронасоса по результатам дефектовки", "href": "/catalog/category/pump-parts/" }
     ]
   },
   "/services/hydraulic-motors": {
@@ -86,7 +88,9 @@
     "related": [
       { "label": "Выездной ремонт гидравлики", "href": "/services/mobile-repair/" },
       { "label": "Ремонт гидравлики экскаваторов", "href": "/services/excavator-repair/" },
-      { "label": "Как определяется стоимость ремонта гидромотора", "href": "/blog/stoimost-remonta-gidromotora-komatsu/" }
+      { "label": "Как определяется стоимость ремонта гидромотора", "href": "/blog/stoimost-remonta-gidromotora-komatsu/" },
+      { "label": "Гидромоторы под заказ: проверка исполнения и совместимости", "href": "/catalog/category/hydraulic-motors/" },
+      { "label": "Бортовые редукторы и передачи хода в каталоге", "href": "/catalog/category/final-drives/" }
     ]
   },
   "/services/mining-loader-repair": {
