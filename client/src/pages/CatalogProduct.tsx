@@ -250,7 +250,7 @@ export default function CatalogProduct() {
         </nav>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1fr] xl:grid-cols-[1.08fr_0.92fr]">
-          <section aria-label="Product photos">
+          <section aria-label="Product photos" className="min-w-0">
             <div className="relative aspect-square overflow-hidden rounded-lg border border-white/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
               {selectedImage && !imageFailed ? (
                 <img
@@ -300,12 +300,12 @@ export default function CatalogProduct() {
             )}
           </section>
 
-          <div className="lg:py-3">
+          <div className="min-w-0 lg:py-3">
             <div className="flex flex-wrap items-center gap-2">
               <p className="text-sm font-bold text-[#FFC000]">{categoryName}</p>
               <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-gray-400">SKU: {mainSku}</span>
             </div>
-            <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">{productSeo.name}</h1>
+            <h1 className="mt-4 text-3xl font-bold leading-tight [overflow-wrap:anywhere] md:text-5xl">{productSeo.name}</h1>
             {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
             <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct) ? seoDescription : copy.productDescription}</p>
 

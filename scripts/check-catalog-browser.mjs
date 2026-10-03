@@ -363,8 +363,9 @@ try {
         assert.equal(schema.offers,undefined,'price-on-request HUSCO must not invent an Offer');
         assert.equal(schema.itemCondition,undefined,'job evidence must not imply a new supplied product');
         assert.equal(await huscoPage.locator('img[src*="husco-6600-f163-a00"]').count(),0,'unapproved job photo must not be requested');
-        assert(await huscoPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth),'HUSCO detail must fit viewport');
         await huscoPage.screenshot({path:`catalog-ui-check/husco-${engineName}-${width}.png`,fullPage:true});
+        const huscoLayout = await huscoPage.evaluate(() => ({viewport:innerWidth,width:document.documentElement.scrollWidth,overflow:[...document.querySelectorAll('main *')].filter(node => node.getBoundingClientRect().right > innerWidth + 1).slice(0,8).map(node => ({tag:node.tagName,class:node.className,text:node.textContent?.slice(0,100)}))}));
+        assert(huscoLayout.width <= huscoLayout.viewport,'HUSCO detail must fit viewport: ' + JSON.stringify(huscoLayout));
         for (const category of ['main-control-valves','control-valves']) {
           await huscoPage.goto(origin + '/catalog/category/' + category + '?q=C16E303',{waitUntil:'networkidle'});
           await huscoPage.locator('.aca-product-card').filter({hasText:'C16E303'}).waitFor();
