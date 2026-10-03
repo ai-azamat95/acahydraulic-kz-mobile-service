@@ -51,6 +51,9 @@ jobs:
               page.on('pageerror', error => errors.push(error.message));
               await page.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
               await page.goto(origin, { waitUntil: 'networkidle' });
+              const cookieDialog = page.getByRole('dialog', { name: 'Управление файлами cookie' });
+              await cookieDialog.getByRole('button', { name: 'Только обязательные', exact: true }).click();
+              await cookieDialog.waitFor({ state: 'hidden' });
               await page.getByRole('heading', { name: 'Реальные выездные ремонты' }).waitFor();
               assert.equal(await page.locator('h1').count(), 1);
               assert.equal(await page.locator('section[aria-labelledby="repair-cases-title"] article').count(), 3);
