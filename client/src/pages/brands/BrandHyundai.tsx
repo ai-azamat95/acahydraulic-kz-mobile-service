@@ -35,14 +35,14 @@ export default function BrandHyundai() {
     if (typeof window !== "undefined" && (window as any).gtag_whatsapp_conversion) {
       (window as any).gtag_whatsapp_conversion();
     }
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Здравствуйте! Нужна выездная диагностика Hyundai. Понимаю, что комплексная диагностика начинается от 200 000 ₸. Могу отправить модель, город и видео неисправности.")}`, "_blank");
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Здравствуйте! Нужна выездная диагностика Hyundai. Понимаю, что диагностика платная. Прошу согласовать стоимость до выезда. Могу отправить модель, город и видео неисправности.")}`, "_blank");
   };
 
   return (
     <div className="min-h-screen bg-[#111111] text-white font-roboto">
       <SEO
         title="Диагностика и ремонт гидравлики Hyundai | ACA Hydraulic"
-        description="Выездная диагностика Hyundai R300LC-9S и другой спецтехники: давление, ход, насосы, распределители, электрика. Реальный ремонт на видео. Диагностика от 200 000 ₸."
+        description="Выездная диагностика Hyundai R300LC-9S и другой спецтехники: давление, ход, насосы, распределители, электрика. Реальный ремонт на видео. Диагностика платная, стоимость согласуем до выезда."
         keywords="ремонт Hyundai R300LC-9S, Hyundai сбрасывает обороты, ремонт гидравлики Hyundai, диагностика экскаватора Hyundai, выездной ремонт Hyundai Казахстан"
         canonical="/brands/hyundai"
         breadcrumbs={[{ name: "Бренды", url: "/services" }, { name: "Hyundai", url: "/brands/hyundai" }]}
@@ -55,7 +55,7 @@ export default function BrandHyundai() {
         faq={[
           {
             question: "Сколько стоит диагностика гидравлики Hyundai?",
-            answer: "Выездная комплексная диагностика начинается от 200 000 ₸. Точная стоимость зависит от местоположения техники, модели и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.",
+            answer: "Выездная диагностика платная; стоимость согласуем до выезда. Точная стоимость зависит от местоположения техники, модели и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.",
           },
           {
             question: "Что проверяете, если Hyundai сбрасывает обороты под нагрузкой?",
@@ -82,7 +82,7 @@ export default function BrandHyundai() {
             <div className="inline-flex items-center gap-2 bg-[#FFC000]/10 border border-[#FFC000]/30 rounded-full px-4 py-2 mb-6"><Wrench className="w-4 h-4 text-[#FFC000]" /><span className="text-[#FFC000] text-sm font-medium">Выездная диагностика Hyundai</span></div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">Диагностика и ремонт гидравлики <span className="text-[#FFC000]">Hyundai</span></h1>
             <p className="text-xl text-white/70 mb-5 max-w-3xl">Если экскаватор сбрасывает обороты при движении, теряет мощность, плохо едет или нестабильно работает гидравлика — проверяем систему непосредственно под рабочей нагрузкой.</p>
-            <div className="inline-flex items-center gap-3 bg-[#FFC000]/10 border border-[#FFC000]/30 px-5 py-3 rounded-lg mb-8"><span className="text-white/80">Выездная комплексная диагностика</span><strong className="text-[#FFC000] text-xl">от 200 000 ₸</strong></div>
+            <div className="inline-flex flex-wrap items-center gap-3 bg-[#FFC000]/10 border border-[#FFC000]/30 px-5 py-3 rounded-lg mb-8"><span className="text-white/80">Выездная комплексная диагностика</span><strong className="text-[#FFC000] text-xl">Стоимость согласуем до выезда</strong></div>
             <div className="flex flex-wrap gap-4"><button onClick={handleWhatsApp} className="flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500"><MessageCircle className="w-5 h-5" />Отправить данные</button><a href={HYUNDAI_VIDEO} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 border border-[#FFC000] text-[#FFC000] px-6 py-3 rounded-lg font-semibold hover:bg-[#FFC000] hover:text-black"><PlayCircle className="w-5 h-5" />Hyundai R300LC-9S <ExternalLink className="w-4 h-4" /></a><button onClick={() => setIsLeadFormOpen(true)} className="border border-white/30 px-6 py-3 rounded-lg font-semibold hover:border-[#FFC000] hover:text-[#FFC000]">Оставить заявку</button></div>
           </div>
         </div>
@@ -100,7 +100,7 @@ export default function BrandHyundai() {
 
       <section className="py-16 bg-[#1a1a1a]"><div className="container mx-auto px-4"><h2 className="text-3xl font-bold mb-10">Модели <span className="text-[#FFC000]">Hyundai</span>, с которыми работаем</h2><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">{hyundaiModels.map((item,i)=><div key={i} className="bg-[#222] rounded-xl p-5 border border-white/5 hover:border-[#FFC000]/30"><h3 className="font-bold text-[#FFC000] mb-2">{item.model}</h3><p className="text-white/60 text-sm">{item.desc}</p></div>)}</div></div></section>
 
-      <section className="py-16 bg-[#FFC000]"><div className="container mx-auto px-4 text-center max-w-3xl"><h2 className="text-3xl font-bold text-black mb-4">Похожая проблема на Hyundai?</h2><p className="text-black/70 mb-3 text-lg">Сначала определяем причину под нагрузкой, затем отдельно рассчитываем ремонт и запчасти.</p><p className="text-black font-bold text-xl mb-8">Комплексная диагностика — от 200 000 ₸.</p><div className="flex flex-wrap justify-center gap-4"><button onClick={handleWhatsApp} className="flex items-center gap-2 bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-900"><MessageCircle className="w-6 h-6"/>WhatsApp</button><a href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`} className="flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100"><Phone className="w-6 h-6"/>{PHONE_NUMBER}</a></div></div></section>
+      <section className="py-16 bg-[#FFC000]"><div className="container mx-auto px-4 text-center max-w-3xl"><h2 className="text-3xl font-bold text-black mb-4">Похожая проблема на Hyundai?</h2><p className="text-black/70 mb-3 text-lg">Сначала определяем причину под нагрузкой, затем отдельно рассчитываем ремонт и запчасти.</p><p className="text-black font-bold text-xl mb-8">Диагностика платная — стоимость согласуем до выезда.</p><div className="flex flex-wrap justify-center gap-4"><button onClick={handleWhatsApp} className="flex items-center gap-2 bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-900"><MessageCircle className="w-6 h-6"/>WhatsApp</button><a href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`} className="flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100"><Phone className="w-6 h-6"/>{PHONE_NUMBER}</a></div></div></section>
 
       <section className="py-12 bg-[#111111]"><div className="container mx-auto px-4"><h2 className="text-xl font-bold mb-6 text-white/80">Другие бренды</h2><div className="flex flex-wrap gap-3">{[{name:"Caterpillar (CAT)",href:"/brands/cat"},{name:"Komatsu",href:"/brands/komatsu"},{name:"Hitachi",href:"/brands/hitachi"}].map((brand)=><Link key={brand.href} href={brand.href}><span className="flex items-center gap-2 bg-[#1a1a1a] border border-white/10 hover:border-[#FFC000]/50 text-white/70 hover:text-[#FFC000] px-4 py-2 rounded-lg text-sm">{brand.name}<ArrowRight className="w-3 h-3"/></span></Link>)}</div></div></section>
 

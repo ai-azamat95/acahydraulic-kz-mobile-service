@@ -48,6 +48,7 @@ jobs:
       - name: Create static case route copies
         run: |
           node scripts/create-case-route-copies.mjs
+          node --test tests/diagnostic-terms.test.mjs
           node --test tests/pump-case-publication.test.mjs
           node --test tests/shantui-engine-publication.test.mjs
           node --test tests/shantui-engine-product.test.mjs

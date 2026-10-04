@@ -72,7 +72,7 @@ export default function Hitachi330FloatingPressure() {
 
             <aside className="lg:sticky lg:top-24 h-fit bg-[#141414] border border-white/10 rounded-xl p-6">
               <div className="text-xs uppercase tracking-widest text-gray-500 mb-2">Выездная диагностика</div>
-              <div className="font-bebas text-4xl text-[#FFC000] mb-3">от 200 000 ₸</div>
+              <div className="font-bebas text-2xl text-[#FFC000] mb-3">Стоимость согласуем до выезда</div>
               <p className="text-sm text-gray-400 leading-relaxed mb-6">Стоимость зависит от города, модели техники и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.</p>
               <Link href="/contacts"><Button className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 font-bold mb-3">Отправить данные техники</Button></Link>
               <a href="https://wa.me/77714177925?text=Hitachi%20330-5G%20плавает%20давление%2C%20стрела%20идёт%20рывками" target="_blank" rel="noopener noreferrer">

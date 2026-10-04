@@ -2,26 +2,23 @@ import { Link } from "wouter";
 import { CheckCircle2, MessageCircle, ShieldCheck, Truck, Wrench } from "lucide-react";
 
 import { SEO } from "@/components/SEO";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { shantuiEngineOffer } from "@/data/shantuiEngineOffer";
 
-export const completeEngineProductPath = "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
+export const completeEngineProductPath = shantuiEngineOffer.path;
 
-const productName = "Двигатель в сборе Cummins NTA855-C360S10 для Shantui SD32";
-const imagePath = "/media/shantui-sd32-engine/new-engine.webp";
-const casePath = "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855";
-const requestText = `Здравствуйте! Интересует двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32.
-Серийный номер бульдозера: 
-Фото шильдика техники: пришлю следующим сообщением
-Город поставки: 
-Нужен монтаж и запуск: да / нет
-Требуемый срок: 
+const productName = shantuiEngineOffer.name;
+const imagePath = shantuiEngineOffer.image;
+const casePath = shantuiEngineOffer.casePath;
+const requestText = `Здравствуйте. Нужна цена и срок на Cummins NTA855-C360S10 в сборе для Shantui SD32.
+Техника: ____
+Фото шильдика пришлю в чате.
 https://acahydraulic.kz${completeEngineProductPath}/`;
 
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   name: productName,
-  description: "Новый комплектный двигатель Cummins NTA855-C360S10 для бульдозера Shantui SD32. Комплектация, совместимость, цена и срок подтверждаются по шильдику и серийному номеру техники.",
+  description: "Новый двигатель Cummins NTA855-C360S10 в сборе с навесным оборудованием для Shantui SD32. Под заказ, ожидание 3–14 дней. Цена 12 860 000 ₸ с доставкой по Казахстану, без монтажа. Совместимость проверяем по шильдику.",
   image: `https://acahydraulic.kz${imagePath}`,
   url: `https://acahydraulic.kz${completeEngineProductPath}/`,
   sku: "NTA855-C360S10",
@@ -29,6 +26,20 @@ const productSchema = {
   model: "NTA855-C360S10",
   category: "Двигатели в сборе для спецтехники",
   brand: { "@type": "Brand", name: "Cummins" },
+  offers: {
+    "@type": "Offer",
+    price: shantuiEngineOffer.price,
+    priceCurrency: shantuiEngineOffer.priceCurrency,
+    url: `https://acahydraulic.kz${completeEngineProductPath}/`,
+    itemCondition: "https://schema.org/NewCondition",
+    availability: "https://schema.org/BackOrder",
+    shippingDetails: {
+      "@type": "OfferShippingDetails",
+      shippingRate: { "@type": "MonetaryAmount", value: 0, currency: "KZT" },
+      shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
+    },
+    seller: { "@type": "Organization", name: "ACA Hydraulic" },
+  },
   additionalProperty: [
     { "@type": "PropertyValue", name: "Техника", value: "Shantui SD32" },
     { "@type": "PropertyValue", name: "Состояние", value: "Новый" },
@@ -49,7 +60,7 @@ export default function CompleteEngineProduct() {
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       <SEO
         title="Двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32"
-        description="Новый двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32: проверка по шильдику, согласование комплектации, поставка по Казахстану, монтаж и запуск."
+        description="Cummins NTA855-C360S10 для Shantui SD32 — 12 860 000 ₸ с доставкой по Казахстану. Новый двигатель в сборе под заказ, ожидание 3–14 дней. Монтаж отдельно. Реальный кейс."
         keywords="Cummins NTA855-C360S10, двигатель Shantui SD32, купить двигатель в сборе Shantui, двигатель NTA855 Казахстан"
         canonical={completeEngineProductPath}
         ogImage={imagePath}
@@ -67,7 +78,7 @@ export default function CompleteEngineProduct() {
             Двигатели в сборе
           </Link>
           <div className="mt-6 grid items-start gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-            <figure className="overflow-hidden rounded-xl bg-white p-3">
+            <figure className="order-last overflow-hidden rounded-xl bg-white p-3 lg:order-first">
               <img src={imagePath} alt={productName} width={900} height={1600} fetchPriority="high" className="max-h-[680px] w-full object-contain" />
               <figcaption className="px-2 pb-2 pt-3 text-sm leading-6 text-gray-600">
                 Реальный двигатель из выполненной поставки для Shantui SD32.
@@ -77,26 +88,32 @@ export default function CompleteEngineProduct() {
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#FFC000]">Новый двигатель в сборе</p>
               <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">{productName}</h1>
+              <a
+                href={`https://wa.me/77714177925?text=${encodeURIComponent(requestText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-aca-contact-event="catalog_whatsapp_click"
+                data-aca-contact-source="engine_product_page"
+                data-aca-item-id="nta855-c360s10"
+                data-aca-item-category="engines-complete"
+                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#eab000] sm:w-auto"
+              >
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                Получить цену и срок
+              </a>
               <p className="mt-5 text-lg leading-relaxed text-gray-300">
                 Поставка по Казахстану с согласованием комплектации. Монтаж и запуск рассчитываются отдельно. До заказа проверяем двигатель и технику по шильдикам — одного названия серии NTA855 недостаточно.
               </p>
 
               <div className="mt-7 rounded-xl border border-[#FFC000]/35 bg-[#171717] p-6">
-                <p className="text-sm text-gray-400">Актуальная цена и срок</p>
-                <p className="mt-2 text-3xl font-extrabold text-[#FFC000]">По запросу</p>
-                <p className="mt-3 text-sm leading-6 text-gray-400">Подтверждаем после проверки шильдика, комплектации, города поставки и требуемого срока.</p>
+                <p className="text-sm text-gray-400">Цена нового двигателя в сборе</p>
+                <p className="mt-2 text-3xl font-extrabold text-[#FFC000]">{shantuiEngineOffer.priceLabel}</p>
+                <p className="mt-3 text-sm leading-6 text-gray-300">С навесным оборудованием, без монтажа и запуска. Гидротрансформатор не входит: в выполненном заказе его перенесли со старого двигателя.</p>
+                <p className="mt-3 text-sm font-bold leading-6 text-white">{shantuiEngineOffer.availabilityLabel}. {shantuiEngineOffer.leadTimeLabel}.</p>
+                <p className="mt-3 text-sm leading-6 text-gray-300">{shantuiEngineOffer.shippingLabel}. Дату поставки согласуем до заказа; совместимость и комплектность фиксируем после проверки шильдика.</p>
               </div>
 
-              <a
-                href={`https://wa.me/77714177925?text=${encodeURIComponent(requestText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackCatalogEvent("engine_product_whatsapp_click", { item_id: "nta855-c360s10", source: "engine-product-page" })}
-                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#eab000] sm:w-auto"
-              >
-                <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                Запросить цену и срок
-              </a>
+
             </div>
           </div>
         </div>
@@ -137,7 +154,7 @@ export default function CompleteEngineProduct() {
               <h2 className="mt-3 text-2xl font-bold">Поставка и запуск двигателя на Shantui SD32</h2>
               <p className="mt-4 leading-relaxed text-gray-400">В выполненном заказе поставили новый комплектный двигатель, перенесли гидротрансформатор со старого двигателя, установили и запустили бульдозер.</p>
               <Link href={casePath} className="mt-6 inline-flex min-h-11 items-center rounded border border-[#FFC000] px-5 py-2 font-bold text-[#FFC000] hover:bg-[#FFC000] hover:text-black">
-                Смотреть фото и видео
+                Продали и установили на Shantui SD32 — фото и видео
               </Link>
             </aside>
           </div>

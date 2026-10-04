@@ -3,6 +3,7 @@ import { Link } from "wouter";
 
 import { SEO } from "@/components/SEO";
 import { CumminsEngineCard } from "@/components/engines/CumminsEngineCard";
+import { ShantuiEngineOfferCard } from "@/components/engines/ShantuiEngineOfferCard";
 import { cumminsEngineFamilies, cumminsEngineGroups } from "@/data/cumminsEngineFamilies";
 import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 
@@ -26,7 +27,7 @@ const faq = [
   },
   {
     question: "Цена 12 860 000 ₸ действует сейчас?",
-    answer: "Это историческая стоимость двигателя в выполненном заказе для Shantui SD32. Монтаж в неё не входил. Для нового запроса цену, срок и комплектацию рассчитываем заново.",
+    answer: "Да, текущая цена нового Cummins NTA855-C360S10 для Shantui SD32 в сборе с навесным оборудованием — 12 860 000 ₸ с доставкой по Казахстану, без монтажа и запуска. Гидротрансформатор не входит. Двигатель под заказ, на складе нет; ориентировочное ожидание 3–14 дней. Дату поставки согласуем до заказа. На другие исполнения NTA855 эта цена не распространяется.",
   },
 ];
 
@@ -92,6 +93,11 @@ export default function CompleteEngines() {
             <Link href={cumminsCatalogPath} className="mt-4 inline-flex font-bold text-[#7a5000] underline underline-offset-4">Открыть каталог бренда Cummins</Link>
           </div>
 
+          <section className="mt-10" aria-labelledby="exact-engine-offers-title">
+            <h2 id="exact-engine-offers-title" className="text-3xl font-extrabold">Двигатель с указанной ценой</h2>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3"><ShantuiEngineOfferCard /></div>
+          </section>
+
           {cumminsEngineGroups.map((group) => (
             <section key={group.id} className="mt-12" aria-labelledby={`engine-group-${group.id}`}>
               <div className="max-w-3xl">
@@ -131,7 +137,7 @@ export default function CompleteEngines() {
             <div className="mt-6 rounded-lg border border-[#e0b000] bg-[#fff9df] p-6">
               <p className="text-sm text-gray-600">Стоимость двигателя в этом заказе</p>
               <p className="mt-2 text-4xl font-bold text-[#8a5b00]">12 860 000 ₸</p>
-              <p className="mt-3 text-sm leading-6 text-gray-600">Историческая цена конкретной поставки. Монтаж не входил в указанную сумму. Новый заказ рассчитывается заново.</p>
+              <p className="mt-3 text-sm leading-6 text-gray-600">Историческая стоимость выполненной поставки без монтажа. Текущая цена NTA855-C360S10 и состав предложения показаны в отдельной карточке товара.</p>
             </div>
             <Link href={casePath} className="mt-6 inline-flex min-h-12 items-center rounded bg-[#111827] px-6 py-3 font-bold text-white hover:bg-black">Фото, видео и состав работ</Link>
           </div>

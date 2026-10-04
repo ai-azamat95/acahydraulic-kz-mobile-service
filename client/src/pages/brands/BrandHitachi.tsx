@@ -34,14 +34,14 @@ export default function BrandHitachi() {
     if (typeof window !== "undefined" && (window as any).gtag_whatsapp_conversion) {
       (window as any).gtag_whatsapp_conversion();
     }
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Здравствуйте! Нужна выездная диагностика Hitachi. Понимаю, что комплексная диагностика начинается от 200 000 ₸. Могу отправить модель, город и видео неисправности.")}`, "_blank");
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Здравствуйте! Нужна выездная диагностика Hitachi. Понимаю, что диагностика платная. Прошу согласовать стоимость до выезда. Могу отправить модель, город и видео неисправности.")}`, "_blank");
   };
 
   return (
     <div className="min-h-screen bg-[#111111] text-white font-roboto">
       <SEO
         title="Диагностика и ремонт гидравлики Hitachi | Выезд по Казахстану — ACA Hydraulic"
-        description="Выездная диагностика гидравлики Hitachi ZX и другой спецтехники. Давление, насосы, распределители, клапаны, электрика. Реальный кейс Hitachi 330-5G с видео. Диагностика от 200 000 ₸."
+        description="Выездная диагностика гидравлики Hitachi ZX и другой спецтехники. Давление, насосы, распределители, клапаны, электрика. Реальный кейс Hitachi 330-5G с видео. Диагностика платная, стоимость согласуем до выезда."
         keywords="ремонт гидравлики Hitachi, диагностика Hitachi ZX330, Hitachi плавает давление, Hitachi стрела рывками, ремонт экскаватора Hitachi Казахстан"
         canonical="/brands/hitachi"
         breadcrumbs={[
@@ -57,7 +57,7 @@ export default function BrandHitachi() {
         faq={[
           {
             question: "Сколько стоит диагностика гидравлики Hitachi?",
-            answer: "Выездная комплексная диагностика начинается от 200 000 ₸. Итоговая стоимость зависит от местоположения техники, модели и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.",
+            answer: "Выездная диагностика платная; стоимость согласуем до выезда. Итоговая стоимость зависит от местоположения техники, модели и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.",
           },
           {
             question: "Что проверяете, если Hitachi теряет мощность или работает рывками?",
@@ -109,8 +109,8 @@ export default function BrandHitachi() {
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">Диагностика и ремонт гидравлики <span className="text-[#FFC000]">Hitachi</span></h1>
             <p className="text-xl text-white/70 mb-5 max-w-3xl">Если экскаватор теряет мощность, давление нестабильно, стрела идёт рывками или операции работают медленно — ищем фактическую причину на объекте под нагрузкой.</p>
-            <div className="inline-flex items-center gap-3 bg-[#FFC000]/10 border border-[#FFC000]/30 px-5 py-3 rounded-lg mb-8">
-              <span className="text-white/80">Выездная комплексная диагностика</span><strong className="text-[#FFC000] text-xl">от 200 000 ₸</strong>
+            <div className="inline-flex flex-wrap items-center gap-3 bg-[#FFC000]/10 border border-[#FFC000]/30 px-5 py-3 rounded-lg mb-8">
+              <span className="text-white/80">Выездная комплексная диагностика</span><strong className="text-[#FFC000] text-xl">Стоимость согласуем до выезда</strong>
             </div>
             <div className="flex flex-wrap gap-4">
               <button onClick={handleWhatsApp} className="flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500"><MessageCircle className="w-5 h-5" />Отправить данные в WhatsApp</button>
@@ -177,7 +177,7 @@ export default function BrandHitachi() {
         <div className="container mx-auto px-4 text-center max-w-3xl">
           <h2 className="text-3xl font-bold text-black mb-4">Похожая проблема на Hitachi?</h2>
           <p className="text-black/70 mb-3 text-lg">Выездную диагностику начинаем с определения фактической причины неисправности, а не с замены деталей наугад.</p>
-          <p className="text-black font-bold text-xl mb-8">Комплексная диагностика — от 200 000 ₸. Ремонт и запчасти отдельно.</p>
+          <p className="text-black font-bold text-xl mb-8">Диагностика платная — стоимость согласуем до выезда. Ремонт и запчасти отдельно.</p>
           <div className="flex flex-wrap justify-center gap-4">
             <button onClick={handleWhatsApp} className="flex items-center gap-2 bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-900"><MessageCircle className="w-6 h-6" />WhatsApp</button>
             <a href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`} className="flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100"><Phone className="w-6 h-6" />{PHONE_NUMBER}</a>

@@ -12,7 +12,7 @@ const landingHtml = fs.readFileSync(path.join(root, landingRoute, "index.html"),
 
 test("Shantui case separates the historical engine price from installation", () => {
   assert.equal((caseHtml.match(/<h1[\s>]/g) || []).length, 1);
-  assert.match(caseHtml, /<title[^>]*>Shantui SD32: продали и установили Cummins NTA855/);
+  assert.match(caseHtml, /<title[^>]*>Двигатель Shantui SD32 Cummins NTA855: поставка и установка/);
   assert.match(caseHtml, /12 860 000 ₸/);
   assert.match(caseHtml, /Монтаж не входил в указанную цену/);
   assert.match(caseHtml, /гидротрансформатор/i);
@@ -26,7 +26,8 @@ test("complete-engine landing qualifies a B2B request without claiming stock or 
   assert.match(landingHtml, /Новые двигатели в сборе/);
   assert.match(landingHtml, /гарантийные условия фиксируем в договоре/);
   assert.match(landingHtml, /модель техники, полный индекс двигателя, фото шильдика/i);
-  assert.match(landingHtml, /Историческая цена конкретной поставки/);
+  assert.match(landingHtml, /Историческая стоимость выполненной поставки без монтажа/);
+  assert.match(landingHtml, /Текущая цена NTA855-C360S10/);
   assert.doesNotMatch(landingHtml, /в наличии/i);
 });
 
@@ -52,4 +53,28 @@ test("case publishes one Article plus a separate VideoObject", () => {
   const schemas = [...caseHtml.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map(match => JSON.parse(match[1]));
   assert.equal(schemas.filter(schema => schema["@type"] === "Article").length, 1);
   assert.equal(schemas.filter(schema => schema["@type"] === "VideoObject").length, 1);
+  const article = schemas.find(schema => schema["@type"] === "Article");
+  const video = schemas.find(schema => schema["@type"] === "VideoObject");
+  assert.equal(article.datePublished, "2026-09-25");
+  assert.equal(article.dateModified, "2026-10-03");
+  assert.equal(video.isPartOf["@id"], article["@id"]);
+});
+
+test("case highlights the delivered result and keeps proof directly accessible", () => {
+  assert.match(caseHtml, /Новый двигатель установлен — бульдозер Shantui SD32 запущен/);
+  assert.match(caseHtml, /ACA Hydraulic выполнила продажу и поставку двигателя Cummins NTA855/);
+  assert.match(caseHtml, /href="#case-installation-video"/);
+  assert.match(caseHtml, /id="case-installation-video"/);
+  assert.match(caseHtml, /актуальная цена и условия заказа/);
+  assert.match(caseHtml, /<h1[^>]*font-extrabold[^>]*>/);
+  assert.doesNotMatch(caseHtml, /<h1[^>]*font-bebas/);
+});
+
+test("priced engine cards link directly to the real sale and installation case", () => {
+  for (const route of [landingRoute, "parts/engines-complete/cummins"]) {
+    const html = fs.readFileSync(path.join(root, route, "index.html"), "utf8");
+    assert.equal((html.match(/data-engine-case-link/g) || []).length, 1);
+    assert.match(html, new RegExp(`href="/${caseRoute}"[^>]*data-engine-case-link|data-engine-case-link[^>]*href="/${caseRoute}"`));
+    assert.match(html, /Продали и установили на Shantui SD32 — фото и видео/);
+  }
 });

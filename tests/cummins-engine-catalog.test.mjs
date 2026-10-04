@@ -52,13 +52,15 @@ test("both catalogues publish local supplier photos for every family card", () =
   }
 });
 
-test("Cummins catalogue ItemList schema points at 25 product pages", () => {
+test("Cummins catalogue ItemList includes the priced engine and 25 family pages", () => {
   const schemas = [...catalogHtml.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)]
     .map((match) => JSON.parse(match[1]));
   const graph = schemas.find((schema) => Array.isArray(schema["@graph"]));
   const itemList = graph?.["@graph"].find((item) => item["@type"] === "ItemList");
-  assert.equal(itemList?.numberOfItems, 25);
-  assert.equal(itemList?.itemListElement?.length, 25);
-  assert.equal(new Set(itemList?.itemListElement?.map((item) => item.url)).size, 25);
-  assert(itemList?.itemListElement?.every((item) => item.url.includes("/parts/engines-complete/cummins/")));
+  assert.equal(itemList?.numberOfItems, 26);
+  assert.equal(itemList?.itemListElement?.length, 26);
+  assert.equal(new Set(itemList?.itemListElement?.map((item) => item.url)).size, 26);
+  assert.equal(itemList?.itemListElement?.[0].url, "https://acahydraulic.kz/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10/");
+  assert(itemList?.itemListElement?.slice(1).every((item) => item.url.includes("/parts/engines-complete/cummins/")));
+  assert.deepEqual(itemList?.itemListElement?.map((item) => item.position), Array.from({ length: 26 }, (_, index) => index + 1));
 });

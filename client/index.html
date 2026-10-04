@@ -52,8 +52,8 @@
     <!-- Analytics vendors are loaded by analytics-gate.js only after consent. -->
     <script>
       // Compatibility helpers record contact intent only.
-      // Google Ads WhatsApp conversion is intentionally fired only by the
-      // qualified calculator lead after the client accepts the 200,000 KZT gate.
+      // Google Ads form conversions record contact intent after the client
+      // acknowledges paid diagnostics; the price is agreed separately.
       function gtag_whatsapp_conversion() { try { if (!window.__ACA_ANALYTICS_EXCLUDE__ && window.__ACA_COOKIE_CONSENT__?.analytics) window.gtag('event', 'acahydraulic_whatsapp_click', {event_category:'whatsapp'}); } catch (_) {} return true; }
       function gtag_registration_conversion() { return true; }
       function gtag_phone_conversion() { return true; }
@@ -183,7 +183,16 @@
         try {
           // Do not send WhatsApp query text (client details) to analytics.
           if (window.__ACA_COOKIE_CONSENT__.analytics) {
-            window.gtag('event', 'acahydraulic_' + kind + '_click', {event_category: kind, transport_type: 'beacon'});
+            // Catalogue links use the existing catalogue action exclusively.
+            // A single click must not also emit the generic WhatsApp action.
+            var catalogueContact = kind === 'whatsapp' && link.getAttribute('data-aca-contact-event') === 'catalog_whatsapp_click';
+            var contactParams = {event_category: kind, transport_type: 'beacon'};
+            if (catalogueContact) {
+              contactParams.item_id = link.getAttribute('data-aca-item-id') || undefined;
+              contactParams.item_category = link.getAttribute('data-aca-item-category') || undefined;
+              contactParams.catalog_source = link.getAttribute('data-aca-contact-source') || 'product_page';
+            }
+            window.gtag('event', catalogueContact ? 'catalog_whatsapp_click' : 'acahydraulic_' + kind + '_click', contactParams);
           }
           if (kind === 'phone' && window.__ACA_COOKIE_CONSENT__.marketing) {
             window.gtag('event', 'conversion', {send_to: 'AW-17847190636/MNy9COmB06QcEOyImr5C'});

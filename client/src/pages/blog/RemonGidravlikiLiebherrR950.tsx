@@ -37,7 +37,7 @@ export default function RemonGidravlikiLiebherrR950() {
           },
           {
             question: "Сколько стоит выездная диагностика Liebherr?",
-            answer: "Выездная комплексная диагностика ACA Hydraulic начинается от 200 000 ₸. Ремонт, запчасти и дополнительные расходы рассчитываются отдельно после диагностики.",
+            answer: "Выездная диагностика ACA Hydraulic платная; стоимость согласуем до выезда. Ремонт, запчасти и дополнительные расходы рассчитываются отдельно после диагностики.",
           },
         ]}
       />
@@ -94,8 +94,8 @@ export default function RemonGidravlikiLiebherrR950() {
         <section className="mb-12 bg-[#FFC000] text-black rounded-xl p-6 md:p-8">
           <h2 className="font-bebas text-3xl uppercase mb-3">Выездная диагностика Liebherr</h2>
           <p className="text-black/75 mb-3">Перед выездом отправьте модель, фото шильдика, местонахождение и видео работы техники. Если ранее меняли насос, регулятор или клапаны — сообщите это заранее.</p>
-          <p className="font-bold text-xl mb-6">Комплексная диагностика — от 200 000 ₸. Ремонт и запчасти отдельно.</p>
-          <div className="flex flex-wrap gap-3"><a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Здравствуйте! Liebherr R950: проблема с мощностью/давлением. Стоимость диагностики от 200 000 ₸ понимаю. Могу отправить видео и шильдик.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg font-bold"><MessageCircle className="w-5 h-5"/>WhatsApp</a><a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-lg font-bold"><Phone className="w-5 h-5"/>Позвонить</a></div>
+          <p className="font-bold text-xl mb-6">Диагностика платная — стоимость согласуем до выезда. Ремонт и запчасти отдельно.</p>
+          <div className="flex flex-wrap gap-3"><a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Здравствуйте! Liebherr R950: проблема с мощностью/давлением. Понимаю, что диагностика платная. Прошу согласовать стоимость до выезда. Могу отправить видео и шильдик.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg font-bold"><MessageCircle className="w-5 h-5"/>WhatsApp</a><a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-lg font-bold"><Phone className="w-5 h-5"/>Позвонить</a></div>
         </section>
 
         <div className="border-t border-white/10 pt-8 flex flex-wrap gap-4"><Link href="/brands/liebherr" className="text-[#FFC000] hover:underline">Диагностика Liebherr</Link><Link href="/services/hydraulic-pumps" className="text-[#FFC000] hover:underline">Диагностика гидронасосов</Link><Link href="/projects" className="text-[#FFC000] hover:underline">Реальные видеокейсы ACA Hydraulic</Link></div>

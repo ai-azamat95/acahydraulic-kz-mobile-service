@@ -2,6 +2,8 @@ import { Link } from "wouter";
 import { CheckCircle2, Factory, Gauge, MessageCircle, ShieldCheck, Truck } from "lucide-react";
 
 import { CumminsEngineCard } from "@/components/engines/CumminsEngineCard";
+import { ShantuiEngineOfferCard } from "@/components/engines/ShantuiEngineOfferCard";
+import { shantuiEngineOffer } from "@/data/shantuiEngineOffer";
 import { SEO } from "@/components/SEO";
 import { cumminsEngineFamilies, cumminsEngineGroups, cumminsEnginePath } from "@/data/cumminsEngineFamilies";
 
@@ -20,13 +22,16 @@ const pageSchema = {
     },
     {
       "@type": "ItemList",
-      numberOfItems: cumminsEngineFamilies.length,
-      itemListElement: cumminsEngineFamilies.map((engine, index) => ({
+      numberOfItems: cumminsEngineFamilies.length + 1,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: shantuiEngineOffer.name, url: `https://acahydraulic.kz${shantuiEngineOffer.path}/` },
+        ...cumminsEngineFamilies.map((engine, index) => ({
         "@type": "ListItem",
-        position: index + 1,
+        position: index + 2,
         name: `Двигатель ${engine.name}`,
         url: `https://acahydraulic.kz${cumminsEnginePath(engine)}/`,
       })),
+      ],
     },
   ],
 };
@@ -87,6 +92,10 @@ export default function CumminsEngineCatalog() {
       </section>
 
       <div id="engine-families" className="container mx-auto max-w-7xl space-y-14 px-4 py-12 md:py-16">
+        <section aria-labelledby="exact-engine-offers-title">
+          <h2 id="exact-engine-offers-title" className="text-3xl font-extrabold md:text-4xl">Двигатель с указанной ценой</h2>
+          <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3"><ShantuiEngineOfferCard /></div>
+        </section>
         {cumminsEngineGroups.map((group) => (
           <section key={group.id} aria-labelledby={`${group.id}-title`}>
             <div className="max-w-3xl">

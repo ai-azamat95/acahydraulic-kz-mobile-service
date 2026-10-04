@@ -70,6 +70,7 @@ test('updated repair articles do not promise free diagnostics', () => {
   for (const slug of ['kak-opredelit-neispravnost-gidravliki', 'remont-gidronasosa-cat', 'stoimost-remonta-gidromotora-komatsu']) {
     const html = fs.readFileSync(`dist/public/blog/${slug}/index.html`, 'utf8');
     assert.doesNotMatch(html, /бесплат/iu);
-    assert.match(html, /200 000 ₸/);
+    assert.doesNotMatch(html, /200\s*000\s*₸/);
+    assert.match(html, /стоимость согласуем до выезда/i);
   }
 });

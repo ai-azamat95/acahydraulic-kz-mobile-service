@@ -163,7 +163,7 @@ function productPage(product) {
   <p>${escapeHtml(catalogProductSelection(product))}</p>
   <p>Укажите количество, город и нужную дату. Совпадения только модели техники недостаточно: исполнение, комплектацию, цену и срок поставки подтверждаем до оплаты.</p></section>
   <p>Доступны оригинальные, OEM и проверенные аналоговые варианты. Конкретный вариант, наличие, срок доставки и гарантия подтверждаются после проверки.</p>
-  <p><a href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте! Интересует: ${productSeo.name}\n${canonical}\nМодель и серийный номер: \nКоличество: \nГород: \nНужна к дате: \nПриложу фото шильдика и детали.`)}">Запросить подбор в WhatsApp</a></p>
+  <p><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_product_page" href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужна цена и срок на ${productSeo.name}.\nТехника: ____\n${canonical}\nФото шильдика пришлю в чате.`)}">Получить цену и срок</a></p>
   ${product.category === 'hydraulic-pumps' ? `<nav aria-label="Статьи перед покупкой насоса"><ul><li><a href="/blog/k3v112dt-kak-podobrat-gidronasos/">Подбор K3V112DT</a></li><li><a href="/blog/remont-ili-zamena-gidronasosa/">Ремонт или замена гидронасоса</a></li><li><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">K5V80DTP и HANDOK</a></li></ul></nav>` : ''}
 </main>`;
 
