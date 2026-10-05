@@ -77,6 +77,32 @@ for (let page = 1; page <= manifest.chunkCount; page += 1) {
   products.push(...JSON.parse(fs.readFileSync(path.join(catalogDir, `products-${String(page).padStart(3, '0')}.json`), 'utf8')));
 }
 
+const categorySummary = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.categorySummaryFile), 'utf8'));
+const addedExactCategoryImages = {
+  'solenoid-valves': 'category-solenoid-valve.webp',
+  relays: 'category-relay.webp',
+  'ignition-switches': 'category-ignition-switch.webp',
+  sensors: 'category-sensor.webp',
+  'electric-motors': 'category-electric-motor.webp',
+  alternators: 'category-alternator.webp',
+  'engine-gasket-kits': 'category-engine-gasket-kit.webp',
+  'oil-pumps': 'category-oil-pump.webp',
+  'water-pumps': 'category-water-pump.webp',
+  turbochargers: 'category-turbocharger.webp',
+  'fuel-common-rails': 'category-fuel-common-rail.webp',
+  'seal-kits': 'category-seal-kit.webp',
+  'throttle-cables': 'category-throttle-cable.webp',
+  'pressure-test-kits': 'category-pressure-test-kit.webp',
+};
+for (const [category, imageFile] of Object.entries(addedExactCategoryImages)) {
+  const categoryProducts = products.filter((product) => (product.categories || [product.category]).includes(category));
+  assert(categoryProducts.length > 0, `${category} category must not be empty`);
+  assert.equal(categorySummary[category]?.count, categoryProducts.length, `${category} summary must match its product membership`);
+  assert.equal(categorySummary[category]?.imageUrl, `/catalog-assets/${imageFile}`, `${category} must use its reviewed local image`);
+  const imagePath = path.join(catalogDir, '..', 'catalog-assets', imageFile);
+  assert(fs.existsSync(imagePath) && fs.statSync(imagePath).size > 0, `${category} local image must exist`);
+}
+
 assert.equal(products.length, manifest.productCount, 'public product count must match the manifest');
 assert.equal(new Set(products.map((product) => product.handle)).size, products.length, 'public product handles must be unique');
 const pumpParts = products.filter((product) => (product.categories || [product.category]).includes('pump-parts'));

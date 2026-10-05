@@ -50,6 +50,32 @@ assert(flowControlValve, 'known flow control valve must be present');
 assert.equal(flowControlValve.category, 'hydraulic-motors', 'every product in the supplier hydraulic motor collection must stay in that category');
 
 assert.equal(strictCategoryAudit.passed, true, 'strict supplier collection comparison must pass');
+const addedExactCategories = {
+  'solenoid-valves': 'solenoid-valve',
+  relays: 'relay',
+  'ignition-switches': 'ignition-switch',
+  sensors: 'sensor',
+  'electric-motors': 'motor',
+  alternators: 'alternator',
+  'engine-gasket-kits': 'engine-gasket-kit',
+  'oil-pumps': 'oil-pump',
+  'water-pumps': 'water-pump',
+  turbochargers: 'turbocharger',
+  'fuel-common-rails': 'fuel-common-rail',
+  'seal-kits': 'seal-kits',
+  'throttle-cables': 'throttle-cable',
+  'pressure-test-kits': 'pressure-test-kit',
+};
+for (const [category, collection] of Object.entries(addedExactCategories)) {
+  const categoryAudit = strictCategoryAudit.categories[category];
+  assert(categoryAudit, `${category} strict collection audit must be present`);
+  assert.equal(categoryAudit.collection, collection, `${category} must use the exact supplier collection`);
+  assert(categoryAudit.sourceProducts > 0, `${category} source collection must not be empty`);
+  assert.equal(categoryAudit.importedProducts, categoryAudit.sourceProducts, `every ${category} product must be imported`);
+  assert.deepEqual(categoryAudit.missingProductIds, [], `${category} must not miss source products`);
+  assert.deepEqual(categoryAudit.unexpectedProductIds, [], `${category} must not include keyword-only products`);
+  assert.equal(categorySummary[category].count, categoryAudit.sourceProducts, `${category} card count must match the source collection`);
+}
 const hydraulicMotorAudit = strictCategoryAudit.categories['hydraulic-motors'];
 assert(hydraulicMotorAudit, 'hydraulic motor collection audit must be present');
 assert.equal(hydraulicMotorAudit.collection, 'hydraulic-motor');

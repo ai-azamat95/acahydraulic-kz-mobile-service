@@ -69,8 +69,8 @@ try {
         );
         for(const lang of ['RU','KZ','EN']){
           await selectCatalogLanguage(page, lang);
-          assert.equal(await page.locator('.aca-category-card:visible').count(),21);
-          assert.equal(await page.locator('.aca-category-count:visible').count(),21);
+          assert.equal(await page.locator('.aca-category-card:visible').count(),35);
+          assert.equal(await page.locator('.aca-category-count:visible').count(),35);
           assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
           assert.equal(
             new URL(await page.locator('[data-complete-engine-category] img').getAttribute('src'),origin).pathname,
@@ -104,7 +104,7 @@ try {
             const hero=await page.locator('.aca-catalog-hero').boundingBox();
             assert(hero.height<820,'desktop hero should reveal categories in the first viewport');
             assert.equal(await page.locator('.aca-desktop-nav:visible').count(),1,'desktop navigation must be visible');
-            assert.deepEqual(await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{}))),[7,7,7],'desktop categories should use three balanced rows');
+            assert.deepEqual(await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{}))),[7,7,7,7,7],'desktop categories should use five balanced rows');
             assert.equal(await page.locator('.aca-product-card').count(),0,'catalog home must start with category choices instead of a mixed product list');
             assert.equal(await page.locator('.aca-desktop-banner:visible').count(),2,'desktop must show both promotional banners');
             const desktopBannerImages=await page.locator('.aca-desktop-banner img').evaluateAll(nodes=>nodes.map(node=>({loaded:node.complete&&node.naturalWidth>0,ratio:node.clientWidth/node.clientHeight,natural:node.naturalWidth/node.naturalHeight})));
@@ -116,10 +116,13 @@ try {
         }
         await selectCatalogLanguage(page, 'RU');
         assert.equal(await page.locator('.aca-product-fitment').count(),await page.locator('.aca-product-card').count(),'every product card needs a fitment description');
-        await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
+        const categoryCardCount = await page.locator('.aca-category-card').count();
+        for (let index = 0; index < categoryCardCount; index += 1) {
+          await page.locator('.aca-category-card').nth(index).scrollIntoViewIfNeeded();
+        }
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
-        assert.equal(categoryImages.length,21,'each category needs a product image');
+        assert.equal(categoryImages.length,35,'each category needs a product image');
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
         assert.equal(categoryImages[1].path,'/catalog-assets/complete-engine-category.webp');
         assert.equal(categoryImages[7].path,'/catalog-assets/final-drive-category.jpg');
