@@ -154,10 +154,16 @@ for (const product of wiringHarnesses) {
 assert(
   fuelInjectors.every(
     (product) =>
-      product.imageUrl === '/catalog-assets/category-fuel-injector.jpg' &&
-      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-fuel-injector.jpg']),
+      product.gallery.length === 1 &&
+      product.imageUrl === product.gallery[0] &&
+      product.imageUrl !== '/catalog-assets/category-fuel-injector.jpg' &&
+      Boolean(managedImageKey(product.imageUrl)),
   ),
-  'fuel injectors must use the local unbranded catalogue image',
+  'fuel injectors must use product-specific primary images in ACA-managed storage',
+);
+assert(
+  new Set(fuelInjectors.map((product) => product.imageUrl)).size >= Math.floor(fuelInjectors.length * 0.95),
+  'fuel injector primary images must not collapse back to a shared category placeholder',
 );
 assert(
   fuelPumps.every(

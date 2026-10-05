@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const catalogDir = path.resolve('client/public/catalog-data');
+const catalogDir = path.resolve(process.env.CATALOG_DIR || 'client/public/catalog-data');
 const manifest = JSON.parse(fs.readFileSync(path.join(catalogDir, 'manifest.json'), 'utf8'));
 const audit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.catalogAuditFile), 'utf8'));
 const strictCategoryAudit = JSON.parse(fs.readFileSync(path.join(catalogDir, manifest.strictCategoryAuditFile), 'utf8'));
@@ -107,6 +107,20 @@ assert.equal(fuelInjectorAudit.importedProducts, fuelInjectorAudit.sourceProduct
 assert.deepEqual(fuelInjectorAudit.missingProductIds, [], 'no supplier fuel injectors may be missing');
 assert.deepEqual(fuelInjectorAudit.unexpectedProductIds, [], 'no keyword-only products may enter the fuel injector category');
 assert.equal(categorySummary['fuel-injectors'].count, fuelInjectorAudit.sourceProducts, 'rendered fuel injector count must match the supplier collection');
+const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
+assert(
+  fuelInjectors.every(
+    (product) =>
+      product.gallery.length === 1 &&
+      product.imageUrl === product.gallery[0] &&
+      product.imageUrl !== '/catalog-assets/category-fuel-injector.jpg',
+  ),
+  'every fuel injector must use its source product primary image instead of the shared category placeholder',
+);
+assert(
+  new Set(fuelInjectors.map((product) => product.imageUrl)).size >= Math.floor(fuelInjectors.length * 0.95),
+  'fuel injector primary images must remain product-specific apart from legitimate supplier duplicates',
+);
 
 const fuelPumpAudit = strictCategoryAudit.categories['fuel-pumps'];
 assert(fuelPumpAudit, 'fuel pump collection audit must be present');
