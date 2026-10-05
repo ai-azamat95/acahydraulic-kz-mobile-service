@@ -53,8 +53,9 @@ jobs:
         run: |
           node scripts/prepare-public-catalog.mjs
           node scripts/check-owner-catalog-inputs.mjs client/public/catalog-data
-      - run: |
-          pnpm build
+      - run: pnpm build
+      - name: Generate crawlable catalogue navigation
+        run: |
           node scripts/create-spa-route-copies.mjs
           node scripts/create-catalog-landing-routes.mjs
       - name: Install browser runtime
