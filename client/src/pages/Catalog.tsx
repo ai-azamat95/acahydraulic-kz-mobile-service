@@ -1,6 +1,7 @@
 import catalogHomeSeo from "@shared/catalog-home-seo.json";
 import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import SiteHomeLink from "@/components/SiteHomeLink";
+import CatalogDirectory from "@/components/catalog/CatalogDirectory";
 import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/components/catalog/PumpSupplyOffers";
 import { pumpCasePath } from "@/content/pumpCases";
 import { catalogSearchHref } from "@/lib/catalogLinks";
@@ -330,8 +331,24 @@ export default function Catalog() {
         stats.set(model.slug, { ...model, count: (current?.count || 0) + 1 });
       }
     }
-    return Array.from(stats.values()).filter((item) => item.count >= 8).sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)).slice(0, 30);
+    return Array.from(stats.values()).filter((item) => item.count >= 8).sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
   }, [products]);
+
+  const navigationModels = useMemo(() => {
+    if (!category && !routeBrand && !routeModel) return modelStats;
+    const counts = new Map<string, number>();
+    for (const product of products) {
+      if (category && !(product.categories || [product.category]).includes(category)) continue;
+      const text = landingSearchText(product);
+      if (routeBrand && !extractBrandSlugs(text).includes(routeBrand.slug)) continue;
+      const models = extractModelLandings(text);
+      if (routeModel && !models.some(model => model.slug === routeModel.slug)) continue;
+      for (const model of models) counts.set(model.slug, (counts.get(model.slug) || 0) + 1);
+    }
+    return modelStats
+      .filter(model => model.slug !== routeModel?.slug && (counts.get(model.slug) || 0) > 0)
+      .map(model => ({ ...model, count: counts.get(model.slug)! }));
+  }, [category, routeBrand?.slug, routeModel?.slug, modelStats, products]);
 
   const filterProducts = useCallback((query: string) => {
     const brandNeedle = brand.toLowerCase();
@@ -991,19 +1008,11 @@ export default function Catalog() {
           </div>
         </section>
 
-        {modelStats.length > 0 && (
-          <section className="mx-auto max-w-[1600px] px-4 py-10 md:py-14" aria-labelledby="catalog-models-title">
-            <h2 id="catalog-models-title" className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">Популярные модели техники и двигателей</h2>
-            <p className="mt-2 max-w-3xl leading-relaxed text-gray-400">Перейдите на страницу модели, чтобы увидеть связанные позиции каталога. Совместимость каждой детали всё равно подтверждаем по OEM и серийному номеру.</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {modelStats.map((model) => (
-                <Link key={model.slug} href={`/catalog/model/${model.slug}`} className="min-h-10 rounded border border-white/15 bg-[#151515] px-4 py-2 text-sm font-semibold text-gray-200 hover:border-[#FFC000]/60 hover:text-[#FFC000]">
-                  {model.brand} {model.label} · {model.count}
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        {complete && navigationModels.length > 0 && <CatalogDirectory
+          home={!isLandingPage}
+          models={navigationModels}
+          brands={catalogBrandLandings.map(item => ({ ...item, count: brandStats.get(item.slug) || 0 })).filter(item => item.count > 0)}
+        />}
 
           {!isLandingPage && <section className="mx-auto max-w-[1600px] border-t border-gray-200 bg-white px-4 py-10 text-[#111827]" aria-labelledby="catalog-sections-title">
             <h2 id="catalog-sections-title" className="text-xl font-bold">Каталог запчастей по узлам</h2>

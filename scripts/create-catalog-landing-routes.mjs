@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { catalogProductName } from '../shared/catalog-product-seo.mjs';
+import { groupCatalogModels } from '../shared/catalog-directory.mjs';
 
 import {
   catalogBrandLandings,
@@ -58,16 +59,19 @@ function relatedLinks(current, type, matches) {
   const categories = catalogCategoryLandings
     .filter((item) => type !== 'category' || item.id !== current)
     .map((item) => ({ ...item, relatedCount: matches.filter((product) => (product.categories || [product.category]).includes(item.id)).length }))
+    .filter((item) => item.relatedCount > 0)
     .sort((a, b) => b.relatedCount - a.relatedCount)
     .slice(0, 8);
   const brands = brandPages
     .filter((item) => type !== 'brand' || item.slug !== current)
     .map((item) => ({ ...item, relatedCount: matches.filter((product) => productBrandSlugs.get(product.id).includes(item.slug)).length }))
+    .filter((item) => item.relatedCount > 0)
     .sort((a, b) => b.relatedCount - a.relatedCount || b.count - a.count)
     .slice(0, 8);
   const models = modelPages
     .filter((item) => type !== 'model' || item.slug !== current)
     .map((item) => ({ ...item, relatedCount: matches.filter((product) => productModels.get(product.id).some((model) => model.slug === item.slug)).length }))
+    .filter((item) => item.relatedCount > 0)
     .sort((a, b) => b.relatedCount - a.relatedCount || b.count - a.count)
     .slice(0, 10);
   return `<section><h2>Другие разделы каталога</h2><p>${categories.map((item) => `<a href="/catalog/category/${item.id}/">${escapeHtml(item.title)}</a>`).join(' · ')}</p>
@@ -148,6 +152,18 @@ for (const product of products) {
   }
 }
 const modelPages = [...modelCounts.values()].filter((model) => model.count >= minimumModelProducts).sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+
+// All published model pages must be reachable from the catalogue, not only a top-N list.
+// Use the generated set so sparse or unknown models never become broken navigation links.
+const catalogHomePath = path.join(outDir, 'catalog/index.html');
+const directory = `<section data-catalog-directory><h2 id="catalog-directory-title">Запчасти по брендам и моделям</h2>
+<p>Выберите модель, чтобы перейти к связанным позициям. Упоминание модели в каталоге не заменяет проверку OEM-номера, шильдика и исполнения перед заказом.</p>
+<nav aria-label="Бренды запчастей">${brandPages.map(brand => `<a href="/catalog/brand/${brand.slug}/">${escapeHtml(brand.name)} · ${brand.count}</a>`).join(' · ')}</nav>
+${groupCatalogModels(modelPages).map(group => `<details data-model-brand="${escapeAttr(group.brand)}"><summary>${escapeHtml(group.brand)} · модели: ${group.models.length}</summary><nav aria-label="Модели ${escapeAttr(group.brand)}"><ul>${group.models.map(model => `<li><a href="/catalog/model/${model.slug}/">${escapeHtml(`${model.brand} ${model.label}`)} · ${model.count}</a></li>`).join('')}</ul></nav></details>`).join('')}
+</section>`;
+const catalogHomeHtml = fs.readFileSync(catalogHomePath, 'utf8').replace(/<section data-catalog-directory>[\s\S]*?<\/section>/g, '');
+if (!catalogHomeHtml.includes('</main>')) throw new Error('Catalog home static content is missing. Run create-spa-route-copies first.');
+fs.writeFileSync(catalogHomePath, catalogHomeHtml.replace('</main>', `${directory}</main>`));
 
 const pages = [];
 for (const category of catalogCategoryLandings) {
