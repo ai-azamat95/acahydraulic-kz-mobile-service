@@ -3,6 +3,7 @@ import path from 'node:path';
 import http from 'node:http';
 import assert from 'node:assert/strict';
 import { checkSiteNavigation } from './check-site-navigation.mjs';
+import { checkCatalogDirectory } from './check-catalog-directory-browser.mjs';
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
 const catalogDir = path.join(root, 'catalog-data');
@@ -382,6 +383,17 @@ try {
         results.push({engine:engineName,width,huscoSearchProductCategories:'pass',priceOnRequest:'pass',authorizedNameplatePhoto:'pass'});
         console.log(JSON.stringify(results.at(-1)));
         await huscoPage.close();
+      }
+      for (const width of [390, 1440]) {
+        const directoryPage = await browser.newPage({ viewport: { width, height: 900 }, locale: 'ru-RU' });
+        const errors = [];
+        directoryPage.on('pageerror', error => errors.push(error.message));
+        await directoryPage.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
+        try {
+          results.push({ engine: engineName, width, ...await checkCatalogDirectory(directoryPage, origin, `${engineName}-${width}`) });
+          assert.deepEqual(errors, [], 'catalogue directory runtime errors');
+          console.log(JSON.stringify(results.at(-1)));
+        } finally { await directoryPage.close(); }
       }
       await browser.close();
       if (engineName === 'chromium') {
