@@ -10,6 +10,11 @@ on:
       - 'client/src/pages/Reviews.tsx'
       - 'client/src/pages/Contacts.tsx'
       - 'scripts/check-site-navigation.mjs'
+      - 'client/src/pages/GnbPartsCatalog.tsx'
+      - 'client/src/App.tsx'
+      - 'shared/gnb-parts.json'
+      - 'scripts/lib/gnb-parts-page.mjs'
+      - 'scripts/create-catalog-landing-routes.mjs'
       - 'client/src/pages/Catalog.tsx'
       - 'client/src/pages/CatalogProduct.tsx'
       - 'client/src/components/catalog/ProductResults.tsx'
@@ -30,6 +35,7 @@ on:
       - 'client/src/types/catalog.ts'
       - 'client/src/catalog-*.css'
       - 'client/src/index.css'
+      - 'scripts/check-gnb-parts-browser.mjs'
       - 'scripts/check-catalog-browser.mjs'
       - '.github/workflows/catalog-browser-check.yml'
 permissions:
@@ -50,6 +56,12 @@ jobs:
           node scripts/prepare-public-catalog.mjs
           node scripts/check-owner-catalog-inputs.mjs client/public/catalog-data
       - run: pnpm build
+      - name: Generate production catalogue routes
+        run: |
+          node scripts/create-spa-route-copies.mjs
+          pnpm catalog:routes
+          pnpm catalog:landing-routes
+          node scripts/check-owner-catalog-inputs.mjs dist/public/catalog-data --routes
       - name: Install browser runtime
         run: |
           npm install --prefix "$RUNNER_TEMP/aca-ui" playwright@1.62.1 --no-audit --no-fund

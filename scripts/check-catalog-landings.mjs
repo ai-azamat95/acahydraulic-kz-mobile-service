@@ -85,5 +85,5 @@ for (const slug of [
 }
 
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length, 'landing sitemap URL count must match generated pages');
+assert.equal(sitemapUrlCount, pages.length + 1, 'landing sitemap URL count must match generated pages');
 console.log(JSON.stringify({ passed: true, categories: landingIndex.categories.length, brands: landingIndex.brands.length, models: landingIndex.models.length, sitemapUrls: sitemapUrlCount }, null, 2));
