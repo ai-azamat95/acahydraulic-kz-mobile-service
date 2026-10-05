@@ -65,6 +65,20 @@ const STRICT_CATEGORY_COLLECTIONS = [
   ['fuel-injectors', 'fuel-injector'],
   ['fuel-pumps', 'fuel-pump'],
   ['engine-rebuild-kits', 'engine-overhaul-rebuild-kit'],
+  ['solenoid-valves', 'solenoid-valve'],
+  ['relays', 'relay'],
+  ['ignition-switches', 'ignition-switch'],
+  ['sensors', 'sensor'],
+  ['electric-motors', 'motor'],
+  ['alternators', 'alternator'],
+  ['engine-gasket-kits', 'engine-gasket-kit'],
+  ['oil-pumps', 'oil-pump'],
+  ['water-pumps', 'water-pump'],
+  ['turbochargers', 'turbocharger'],
+  ['fuel-common-rails', 'fuel-common-rail'],
+  ['seal-kits', 'seal-kits'],
+  ['throttle-cables', 'throttle-cable'],
+  ['pressure-test-kits', 'pressure-test-kit'],
 ];
 const PUMP_PARTS_PLACEHOLDER = '/catalog-assets/category-pump-parts.jpg';
 const FUEL_INJECTOR_PLACEHOLDER = '/catalog-assets/category-fuel-injector.jpg';
@@ -611,7 +625,13 @@ function verifyCatalogImport(sourceProducts, importedProducts, marketCurrency, e
 }
 
 async function fetchCategoryCollections() {
-  const queue = CATEGORY_COLLECTIONS.flatMap(([category, handles]) => handles.map((handle) => ({ category, handle })));
+  const queueByHandle = new Map(
+    CATEGORY_COLLECTIONS.flatMap(([category, handles]) => handles.map((handle) => [handle, { category, handle }])),
+  );
+  for (const [category, handle] of STRICT_CATEGORY_COLLECTIONS) {
+    if (!queueByHandle.has(handle)) queueByHandle.set(handle, { category, handle });
+  }
+  const queue = [...queueByHandle.values()];
   const results = [];
   let next = 0;
 
