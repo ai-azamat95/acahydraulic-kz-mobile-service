@@ -32,6 +32,7 @@ on:
       - '.github/workflows/pages.yml'
       - 'shared/catalog-landings.json'
       - 'client/src/types/catalog.ts'
+      - 'client/public/catalog-data/**'
       - 'client/src/catalog-*.css'
       - 'client/src/index.css'
       - 'scripts/check-catalog-browser.mjs'

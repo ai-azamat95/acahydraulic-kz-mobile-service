@@ -1,4 +1,31 @@
 const VISIBLE_SUPPLIER_MARK_KEYS_BY_PRODUCT_ID = new Map([
+  [
+    '7100999762082',
+    new Set([
+      'cumminsfuelpumpinjectorforpc2008engines6d107397637238390',
+      'cumminsfuelpumpinjectorforpc2008engines6d107397637238391',
+      'cumminsfuelpumpinjectorforpc2008engines6d107397637238392',
+      'cumminsfuelpumpinjectorforpc2008engines6d107397637238393',
+    ]),
+  ],
+  [
+    '7100999860386',
+    new Set([
+      'hyundair290lc7acommonrailinjector494596738400',
+      'hyundair290lc7acommonrailinjector494596738401',
+      'hyundair290lc7acommonrailinjector494596738402',
+      'hyundair290lc7acommonrailinjector494596738403',
+    ]),
+  ],
+  ['7645086351522', new Set(['3095023commonrailfuelinjectorforcummins01'])],
+  [
+    '7645123510434',
+    new Set([
+      '3079946fuelinjectorcumminsdieselengine01',
+      '3079946fuelinjectorcumminsdieselengine02',
+      '3079946fuelinjectorcumminsdieselengine03',
+    ]),
+  ],
   ['7100654583970', new Set(['img2226'])],
   ['7100655534242', new Set(['img2224', 'img2225', 'img2226'])],
   ['7100655698082', new Set(['img2225', 'img2226'])],

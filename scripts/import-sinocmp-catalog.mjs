@@ -357,7 +357,16 @@ function publicProductGallery(product, categories) {
       })
       .filter(Boolean);
   }
-  if (categoryList.includes('fuel-injectors')) return [FUEL_INJECTOR_PLACEHOLDER];
+  if (categoryList.includes('fuel-injectors')) {
+    // Cards need the product-specific primary photo shown by the supplier,
+    // not one category image repeated across the whole injector collection.
+    // Keep one photo per product to limit catalogue weight; the mirror step
+    // moves it to ACA-managed storage before the public snapshot is created.
+    const gallery = sourceOrderedProductGallery(product)
+      .filter((imageUrl) => !isExcludedCatalogImage(product.id, imageUrl))
+      .slice(0, 1);
+    return gallery.length ? gallery : [FUEL_INJECTOR_PLACEHOLDER];
+  }
   if (categoryList.includes('engine-rebuild-kits')) return [ENGINE_REBUILD_KIT_PLACEHOLDER];
   return productGallery(product).filter(
     (imageUrl) => !containsSupplierBrand(imageUrl) && !isExcludedCatalogImage(product.id, imageUrl),

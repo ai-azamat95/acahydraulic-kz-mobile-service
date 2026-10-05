@@ -82,6 +82,7 @@ assert.equal(new Set(products.map((product) => product.handle)).size, products.l
 const pumpParts = products.filter((product) => (product.categories || [product.category]).includes('pump-parts'));
 const wiringHarnesses = products.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses'));
 const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
+const allowedFuelInjectorFallbackIds = new Set(['7100999762082', '7100999860386']);
 const fuelPumps = products.filter((product) => (product.categories || [product.category]).includes('fuel-pumps'));
 const engineRebuildKits = products.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits'));
 const controllers = products.filter((product) => (product.categories || [product.category]).includes('controllers'));
@@ -154,10 +155,16 @@ for (const product of wiringHarnesses) {
 assert(
   fuelInjectors.every(
     (product) =>
-      product.imageUrl === '/catalog-assets/category-fuel-injector.jpg' &&
-      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-fuel-injector.jpg']),
+      product.gallery.length === 1 &&
+      product.imageUrl === product.gallery[0] &&
+      (product.imageUrl !== '/catalog-assets/category-fuel-injector.jpg' || allowedFuelInjectorFallbackIds.has(String(product.id))) &&
+      Boolean(managedImageKey(product.imageUrl)),
   ),
-  'fuel injectors must use the local unbranded catalogue image',
+  'fuel injectors must use ACA-managed product photos or the reviewed fallback for supplier-marked sources',
+);
+assert(
+  new Set(fuelInjectors.map((product) => product.imageUrl)).size >= Math.floor(fuelInjectors.length * 0.95),
+  'fuel injector primary images must not collapse back to a shared category placeholder',
 );
 assert(
   fuelPumps.every(
