@@ -1,9 +1,11 @@
 {
-  "generatedAt": "2026-09-28T19:41:21Z",
-  "scanner": "Apple Vision full small-text pass plus targeted accurate confirmation",
-  "imageCount": 31807,
+  "generatedAt": "2026-10-05T18:51:24Z",
+  "scanner": "Prior Apple Vision full small-text pass plus a new small-text pass over 1029 product-specific injector images",
+  "imageCount": 32836,
   "forbiddenTextMatches": 0,
   "decodeFailures": 0,
-  "visualTemplateMatchesResolved": 8,
-  "manifestSha256": "50e3fd8515ef102266f5988bf313e05f6b59b7fc050285253296e63684756d1b"
+  "newInjectorImagesScanned": 1029,
+  "excludedInjectorSourceImagesWithSupplierText": 11,
+  "injectorProductsUsingReviewedLocalFallback": 2,
+  "manifestSha256": "ea9b5ba4bc00b7e7d5b2367db83a75c8e9877b9903f0ad5eb1923d2b94fae8cf"
 }

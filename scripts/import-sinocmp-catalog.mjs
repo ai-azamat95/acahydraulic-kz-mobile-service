@@ -67,6 +67,7 @@ const STRICT_CATEGORY_COLLECTIONS = [
   ['engine-rebuild-kits', 'engine-overhaul-rebuild-kit'],
 ];
 const PUMP_PARTS_PLACEHOLDER = '/catalog-assets/category-pump-parts.jpg';
+const FUEL_INJECTOR_PLACEHOLDER = '/catalog-assets/category-fuel-injector.jpg';
 const ENGINE_REBUILD_KIT_PLACEHOLDER = '/catalog-assets/category-engine-rebuild-kit.jpg';
 const wiringHarnessMirroredImages = new Map();
 
@@ -361,9 +362,10 @@ function publicProductGallery(product, categories) {
     // not one category image repeated across the whole injector collection.
     // Keep one photo per product to limit catalogue weight; the mirror step
     // moves it to ACA-managed storage before the public snapshot is created.
-    return sourceOrderedProductGallery(product)
+    const gallery = sourceOrderedProductGallery(product)
       .filter((imageUrl) => !isExcludedCatalogImage(product.id, imageUrl))
       .slice(0, 1);
+    return gallery.length ? gallery : [FUEL_INJECTOR_PLACEHOLDER];
   }
   if (categoryList.includes('engine-rebuild-kits')) return [ENGINE_REBUILD_KIT_PLACEHOLDER];
   return productGallery(product).filter(
