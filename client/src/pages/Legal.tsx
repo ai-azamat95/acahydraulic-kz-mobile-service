@@ -9,7 +9,7 @@ export default function Legal() {
   const title = privacy ? 'Политика конфиденциальности' : 'Условия использования сайта';
   return <main className="min-h-screen bg-[#111111] text-gray-200 px-5 py-12">
     <SEO title={title} description={`${title} сайта ACA Hydraulic: обращения, связь и информация об услугах.`} schema={{ "@context": "https://schema.org", "@type": "WebPage", name: title, url: `https://acahydraulic.kz/${privacy ? "privacy" : "terms"}/` }} />
-    <div className="mx-auto max-w-3xl space-y-6 leading-relaxed">
+    <div className="mx-auto max-w-3xl space-y-6 break-words leading-relaxed">
       <Link href="/" className="text-[#FFC000] underline">← На главную</Link>
       <h1 className="text-3xl font-bold text-white">{title}</h1>
       {privacy ? <>
