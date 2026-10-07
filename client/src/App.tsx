@@ -1,3 +1,4 @@
+import CommercePolicy from "@/pages/CommercePolicy";
 import { Toaster } from "@/components/ui/sonner";
 import { useTikTokPageView } from "@/hooks/useTikTokEvents";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -115,6 +116,8 @@ function AppRoutes() {
         <Route path={"/"} component={Home} />
         <Route path="/privacy" component={Legal} />
         <Route path="/terms" component={Legal} />
+        <Route path="/payment" component={CommercePolicy} />
+        <Route path="/offer" component={CommercePolicy} />
         <Route path="/delivery-and-returns" component={DeliveryAndReturns} />
         <Route path="/industrial-ai" component={IndustrialAI} />
         <Route path="/parts" component={Catalog} />

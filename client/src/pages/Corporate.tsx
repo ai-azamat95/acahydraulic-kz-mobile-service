@@ -1,16 +1,17 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { FileText, ShieldCheck, Briefcase, CreditCard, Building2, Download } from 'lucide-react';
+import { FileText, ShieldCheck, Briefcase, CreditCard, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from "wouter";
 import B2BLeadForm from '@/components/B2BLeadForm';
 
 const Corporate = () => {
   return (
     <>
       <Helmet>
-        <title>Корпоративным клиентам | ACA Hydraulic - Работа с НДС и по договору</title>
-        <meta name="description" content="Условия сотрудничества для юридических лиц. Ремонт гидравлики с НДС, отсрочка платежа, участие в тендерах. Скачать типовой договор и реквизиты." />
+        <title>Корпоративным клиентам | ACA Hydraulic - Работа по договору</title>
+        <meta name="description" content="Условия сотрудничества для юридических лиц. Ремонт гидравлики по договору, отсрочка платежа, участие в тендерах. Реквизиты ИП и условия заказа." />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -43,8 +44,7 @@ const Corporate = () => {
                   <FileText className="w-12 h-12 text-[#FFB800] mb-6" />
                   <h3 className="text-xl font-bold mb-4">Полный документооборот</h3>
                   <p className="text-muted-foreground">
-                    Работаем с НДС. Предоставляем акты выполненных работ, счета-фактуры, 
-                    дефектные ведомости и технические заключения для списания запчастей.
+                    Работаем через ИП Тлеуғазы. Состав документов по поставке и выполненным работам согласуем для конкретного заказа.
                   </p>
                 </CardContent>
               </Card>
@@ -78,36 +78,36 @@ const Corporate = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
               <div>
                 <h2 className="text-3xl font-bold mb-2">Документы для бухгалтерии</h2>
-                <p className="text-muted-foreground">Скачайте необходимые файлы для начала работы</p>
+                <p className="text-muted-foreground">Ознакомьтесь с реквизитами ИП и условиями заказа</p>
               </div>
             </div>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-sm flex items-center justify-between group cursor-pointer hover:border-[#FFB800] border border-transparent transition-all">
+              <Link href="/contacts/" className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-sm flex items-center justify-between group hover:border-[#FFB800] border border-transparent transition-all">
                 <div className="flex items-center gap-4">
                   <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg">
                     <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
                     <div className="font-bold">Карточка предприятия (Реквизиты)</div>
-                    <div className="text-sm text-muted-foreground">PDF, 1.2 MB</div>
+                    <div className="text-sm text-muted-foreground">Реквизиты ИП Тлеуғазы</div>
                   </div>
                 </div>
-                <Download className="w-5 h-5 text-gray-400 group-hover:text-[#FFB800]" />
-              </div>
+                <FileText className="w-5 h-5 text-gray-400 group-hover:text-[#FFB800]" />
+              </Link>
 
-              <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-sm flex items-center justify-between group cursor-pointer hover:border-[#FFB800] border border-transparent transition-all">
+              <Link href="/offer/" className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-sm flex items-center justify-between group hover:border-[#FFB800] border border-transparent transition-all">
                 <div className="flex items-center gap-4">
                   <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg">
                     <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <div className="font-bold">Типовой договор на ремонт</div>
-                    <div className="text-sm text-muted-foreground">DOCX, 0.5 MB</div>
+                    <div className="font-bold">Условия заказа и оферта</div>
+                    <div className="text-sm text-muted-foreground">Запчасти и сервисные работы</div>
                   </div>
                 </div>
-                <Download className="w-5 h-5 text-gray-400 group-hover:text-[#FFB800]" />
-              </div>
+                <FileText className="w-5 h-5 text-gray-400 group-hover:text-[#FFB800]" />
+              </Link>
             </div>
           </div>
         </section>

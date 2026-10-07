@@ -35,9 +35,13 @@ if (!fs.existsSync(indexPath)) {
 }
 
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
-const sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
+let sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
+for (const route of ['payment', 'offer']) {
+  if (!sitemap.includes(`<loc>${baseUrl}/${route}/</loc>`)) sitemap = sitemap.replace('</urlset>', `<url><loc>${baseUrl}/${route}/</loc></url>\n</urlset>`);
+}
+if (sitemap) fs.writeFileSync(sitemapPath, sitemap);
 const locs = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)].map((m) => m[1]);
-const routes = new Set(['404', 'privacy', 'terms', 'delivery-and-returns', 'cart', 'checkout']);
+const routes = new Set(['404', 'privacy', 'terms', 'payment', 'offer', 'delivery-and-returns', 'cart', 'checkout']);
 
 for (const raw of locs) {
   const route = raw.replace(/^\/+|\/+$/g, '');
@@ -63,6 +67,8 @@ const explicitMeta = {
   privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
   terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
   'delivery-and-returns': { title: deliveryPolicy.title + ' | ACA Hydraulic', description: deliveryPolicy.description },
+  payment: { title: 'Оплата заказа | ACA Hydraulic', description: 'Согласование заказа и оплата ИП Тлеуғазы в тенге.' },
+  offer: { title: 'Публичная оферта | ACA Hydraulic', description: 'Условия заказа запчастей и работ у ИП Тлеуғазы.' },
   cart: { title: 'Корзина | ACA Hydraulic', description: 'Корзина запчастей ACA Hydraulic.' },
   checkout: { title: 'Оформление заказа | ACA Hydraulic', description: 'Оформление заказа запчастей ACA Hydraulic.' },
   'parts/engines-complete': {
@@ -123,11 +129,11 @@ const explicitMeta = {
   },
   corporate: {
     title: 'Корпоративное обслуживание спецтехники | ACA Hydraulic',
-    description: 'B2B обслуживание парка спецтехники: диагностика, выездной ремонт гидравлики, договор, НДС, приоритетный сервис.',
+    description: 'B2B обслуживание парка спецтехники: диагностика, выездной ремонт гидравлики, договор, документы, приоритетный сервис.',
   },
   'services/mobile-repair': {
     title: 'Выездной ремонт гидравлики спецтехники по согласованию | ACA Hydraulic',
-    description: 'Мобильный ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Выезд по Казахстану, диагностика, договор с НДС.',
+    description: 'Мобильный ремонт гидравлики экскаваторов, буровых, кранов и спецтехники на объекте. Выезд по Казахстану, диагностика, договор.',
   },
   'services/emergency-service': {
     title: 'Срочный ремонт гидравлики по согласованию | ACA Hydraulic',
@@ -255,7 +261,7 @@ function metaForRoute(route) {
     const name = serviceNames[key] ?? 'Ремонт гидравлики спецтехники';
     return {
       title: `${name} | ACA Hydraulic`,
-      description: `${name}: диагностика, выездной ремонт и восстановление гидравлических систем спецтехники по Казахстану. Работаем с юрлицами, НДС, гарантия.`,
+      description: `${name}: диагностика, выездной ремонт и восстановление гидравлических систем спецтехники по Казахстану. Работаем с юрлицами, документы, гарантия.`,
     };
   }
   if (route.startsWith('regions/')) {

@@ -1,3 +1,6 @@
+import Legal from "../client/src/pages/Legal";
+import CommercePolicy from "../client/src/pages/CommercePolicy";
+import DeliveryAndReturns from "../client/src/pages/DeliveryAndReturns";
 import React from "react";
 import { renderToString } from "react-dom/server";
 import helmetPackage from "react-helmet-async";
@@ -24,6 +27,8 @@ import BrandCat from "../client/src/pages/brands/BrandCat";
 
 const { HelmetProvider } = helmetPackage;
 const pages: Record<string, React.ComponentType> = {
+  privacy: Legal, terms: Legal, payment: CommercePolicy, offer: CommercePolicy,
+  "delivery-and-returns": DeliveryAndReturns,
   "brands/cat": BrandCat,
   "blog/kak-opredelit-neispravnost-gidravliki": DiagnosisArticle,
   "blog/remont-gidronasosa-cat": PumpRepairArticle,

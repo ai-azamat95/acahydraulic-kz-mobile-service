@@ -4,12 +4,15 @@ import fs from 'node:fs';
 
 test('return policy is published with the confirmed shipping and defect terms', () => {
   const html = fs.readFileSync('dist/public/delivery-and-returns/index.html', 'utf8');
-  assert.equal((html.match(/<h1>/g) || []).length, 1);
+  assert.equal((html.match(/<h1\b[^>]*>/g) || []).length, 1);
   assert.match(html, /180 000–200 000/);
   assert.match(html, /в течение 3 суток/);
-  assert.match(html, /14 дней после получения/);
-  assert.match(html, /оплачивает клиент/);
-  assert.match(html, /не ограничивают обязательные права покупателя/);
+  assert.match(html, /14 календарных дней/);
+  assert.match(html, /не возлагаются автоматически на покупателя/);
+  assert.match(html, /Обязательные права покупателя/);
+  assert.match(html, /ИП Тлеуғазы/);
+  assert.match(html, /950909351023/);
+  assert.doesNotMatch(html, /240540017992/);
   assert.match(html, /https:\/\/acahydraulic.kz\/delivery-and-returns\//);
 });
 

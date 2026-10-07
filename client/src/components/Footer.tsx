@@ -1,3 +1,4 @@
+import { CommerceLinks } from "@/components/CommerceInfo";
 import { Phone, MessageCircle, Mail } from "lucide-react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
@@ -81,6 +82,8 @@ export function Footer() {
           </div>
         </div>
         
+        <p className="mb-4 text-sm text-gray-400">Продавец: ИП Тлеуғазы · ИИН 950909351023</p>
+        <CommerceLinks />
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-600 text-xs font-roboto">
             © 2026 ACA Hydraulic. {t('footer.rights')}

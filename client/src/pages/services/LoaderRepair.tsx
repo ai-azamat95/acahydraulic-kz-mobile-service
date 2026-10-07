@@ -40,7 +40,7 @@ export default function LoaderRepair() {
               <span className="text-[#FFC000]">погрузчиков</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Восстановление гидравлических систем фронтальных и телескопических погрузчиков. Работаем по договору с НДС. Выездной сервис на объекты.
+              Восстановление гидравлических систем фронтальных и телескопических погрузчиков. Работаем по договору. Выездной сервис на объекты.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -124,7 +124,7 @@ export default function LoaderRepair() {
               <CheckCircle2 className="text-[#FFC000] mb-4" size={40} />
               <h3 className="font-bebas text-2xl uppercase mb-3">Работа по договору</h3>
               <p className="text-gray-400 leading-relaxed">
-                Официальное оформление с НДС. Полный пакет документов. Прозрачные условия сотрудничества для юридических лиц.
+                Официальное оформление заказа. Полный пакет документов. Прозрачные условия сотрудничества для юридических лиц.
               </p>
             </div>
 
