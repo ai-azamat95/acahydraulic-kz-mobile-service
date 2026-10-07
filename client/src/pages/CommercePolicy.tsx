@@ -8,7 +8,7 @@ export default function CommercePolicy() {
   const slug = location.startsWith("/offer") ? "offer" : "payment";
   const policy = policies[slug];
   return <main className="min-h-screen bg-[#111111] px-5 py-12 text-gray-200">
-    <SEO title={policy.title} description={policy.description} canonical={`/${slug}/`} />
+    <SEO title={policy.title} description={policy.description} canonical={`/${slug}/`} schema={{ "@context": "https://schema.org", "@type": "WebPage", name: policy.title, url: `https://acahydraulic.kz/${slug}/` }} />
     <div className="mx-auto max-w-3xl space-y-7 leading-relaxed">
       <Link href="/" className="inline-flex min-h-11 items-center text-[#FFC000] underline">← На главную</Link>
       <h1 className="text-3xl font-bold text-white sm:text-4xl">{policy.title}</h1>

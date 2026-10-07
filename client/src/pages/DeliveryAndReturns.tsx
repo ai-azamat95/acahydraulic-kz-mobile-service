@@ -5,7 +5,7 @@ import policy from "../../../shared/delivery-and-returns.json";
 
 export default function DeliveryAndReturns() {
   return <main className="min-h-screen bg-[#111111] px-5 py-10 text-gray-200">
-    <SEO title={policy.title} description={policy.description} canonical="/delivery-and-returns/" />
+    <SEO title={policy.title} description={policy.description} canonical="/delivery-and-returns/" schema={{ "@context": "https://schema.org", "@type": "WebPage", name: policy.title, url: "https://acahydraulic.kz/delivery-and-returns/" }} />
     <div className="mx-auto max-w-3xl space-y-7 leading-relaxed">
       <Link href="/catalog" className="inline-flex min-h-11 items-center text-[#FFC000] underline">← Каталог запчастей</Link>
       <h1 className="text-3xl font-bold text-white sm:text-4xl">{policy.title}</h1>
