@@ -67,6 +67,7 @@ jobs:
           node --test tests/merchant-publication.test.mjs
           node --test tests/handok-product-publication.test.mjs
           node --test tests/xcmg-xz200-pump-publication.test.mjs
+          node --test tests/cat-brand-seo.test.mjs
       - name: Verify catalog SEO and sitemaps
         run: |
           pnpm catalog:verify-seo

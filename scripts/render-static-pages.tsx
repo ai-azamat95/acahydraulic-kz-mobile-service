@@ -19,9 +19,11 @@ import CumminsEngineCatalog from "../client/src/pages/CumminsEngineCatalog";
 import { CumminsEngineProductPage } from "../client/src/pages/CumminsEngineProduct";
 import { cumminsEngineFamilies } from "../client/src/data/cumminsEngineFamilies";
 import Cases from "../client/src/pages/Cases";
+import BrandCat from "../client/src/pages/brands/BrandCat";
 
 const { HelmetProvider } = helmetPackage;
 const pages: Record<string, React.ComponentType> = {
+  "brands/cat": BrandCat,
   "blog/kak-opredelit-neispravnost-gidravliki": DiagnosisArticle,
   "blog/remont-gidronasosa-cat": PumpRepairArticle,
   "blog/stoimost-remonta-gidromotora-komatsu": MotorCostArticle,
