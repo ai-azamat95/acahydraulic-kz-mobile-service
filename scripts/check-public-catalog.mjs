@@ -83,6 +83,7 @@ const pumpParts = products.filter((product) => (product.categories || [product.c
 const wiringHarnesses = products.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses'));
 const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
 const allowedFuelInjectorFallbackIds = new Set(['7100999762082', '7100999860386']);
+const allowedFuelInjectorGalleryIds = new Set(['8837524848802']);
 const fuelPumps = products.filter((product) => (product.categories || [product.category]).includes('fuel-pumps'));
 const engineRebuildKits = products.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits'));
 const controllers = products.filter((product) => (product.categories || [product.category]).includes('controllers'));
@@ -155,7 +156,7 @@ for (const product of wiringHarnesses) {
 assert(
   fuelInjectors.every(
     (product) =>
-      product.gallery.length === 1 &&
+      (product.gallery.length === 1 || allowedFuelInjectorGalleryIds.has(String(product.id))) &&
       product.imageUrl === product.gallery[0] &&
       (product.imageUrl !== '/catalog-assets/category-fuel-injector.jpg' || allowedFuelInjectorFallbackIds.has(String(product.id))) &&
       Boolean(managedImageKey(product.imageUrl)),

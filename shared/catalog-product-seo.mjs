@@ -26,6 +26,10 @@ export function catalogProductSeo(product, language = 'ru') {
   };
 }
 
+export function catalogProductHasReviewedCopy(product, language = 'ru') {
+  return language === 'ru' && Boolean(productCopy[product.handle]);
+}
+
 export function catalogProductCategories(product) {
   const ids = product.categories?.length ? product.categories : [product.category];
   return landings.categories.filter(category => ids.includes(category.id));

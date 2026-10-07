@@ -25,6 +25,7 @@ const popularCatalogCategories = [
   { id: "main-control-valves", title: "Гидрораспределители", text: "Основные распределители с проверкой секций и портов." },
   { id: "fuel-injectors", title: "Топливные форсунки", text: "Форсунки и комплектующие Common Rail по номеру." },
   { id: "fuel-pumps", title: "Топливные насосы", text: "ТНВД и насосы низкого давления для двигателей спецтехники." },
+  { id: "fuel-common-rails", title: "Рампы Common Rail", text: "Топливные рампы и магистрали высокого давления по OEM и двигателю." },
   { id: "engine-rebuild-kits", title: "Комплекты капремонта ДВС", text: "Комплекты по модели и серийному номеру двигателя." },
   { id: "wiring-harnesses", title: "Жгуты проводки", text: "Проводка двигателя, кабины и оборудования по разъёмам." },
   { id: "controllers", title: "Контроллеры", text: "Блоки управления и ECU по номеру, разъёмам и версии исполнения." },
@@ -727,6 +728,7 @@ export default function Home() {
                 <li><Link href="/catalog/category/hydraulic-pumps" className="hover:text-[#FFC000] transition-colors">Каталог гидронасосов</Link></li>
                 <li><Link href="/catalog/category/pump-parts" className="hover:text-[#FFC000] transition-colors">Запчасти гидронасосов</Link></li>
                 <li><Link href="/catalog/category/fuel-pumps" className="hover:text-[#FFC000] transition-colors">Топливные насосы</Link></li>
+                <li><Link href="/catalog/category/fuel-common-rails" className="hover:text-[#FFC000] transition-colors">Рампы Common Rail</Link></li>
               </ul>
             </div>
 

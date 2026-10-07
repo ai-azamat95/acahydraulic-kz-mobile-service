@@ -66,5 +66,101 @@
     "description": "Новый основной гидронасос 267-2755 для CAT 432E — 1 230 000 ₸. Фото и видео проданного насоса, реальный кейс ACA Hydraulic. Подбор по шильдику и исполнениям.",
     "selectionCategory": "hydraulic-pumps",
     "selection": "Пришлите модель и серийный номер машины, фото шильдика насоса, вала, фланца, портов и регулятора. Укажите город, количество и нужную дату. Для CAT 428 и других модификаций необходима отдельная проверка: совпадение внешнего вида не подтверждает совместимость."
+  },
+  "fuel-common-rail-pipe-438-3416-4383416-for-caterpillar-cat-engine-c6-4-c6-6-excavator-320d-323d": {
+    "name": "Топливная магистраль Common Rail 438-3416 / 4383416 для CAT C6.4, C6.6, 320D, 323D",
+    "title": "Магистраль Common Rail 438-3416 для CAT C6.4, C6.6",
+    "description": "Топливная магистраль Common Rail 438-3416 / 4383416 для CAT C6.4, C6.6, экскаваторов 320D и 323D. Подбор по OEM и серийному номеру двигателя. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "6754-71-1210-komatsu-pc200-8-common-rail-assy": {
+    "name": "Топливная рампа Common Rail 6754-71-1210 для Komatsu PC200-8",
+    "title": "Рампа Common Rail 6754-71-1210 для Komatsu PC200-8",
+    "description": "Топливная рампа Common Rail 6754-71-1210 для Komatsu PC200-8. Проверим OEM, модель и серийный номер двигателя, датчик, клапан и расположение выходов. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-095600-6860-23810-0e020-23810-11040-for-toyota-hilux-1gd-2gd-engine": {
+    "name": "Топливная рампа 095600-6860 / 23810-0E020 / 23810-11040 для Toyota 1GD, 2GD",
+    "title": "Рампа 095600-6860 / 23810-0E020 для Toyota 1GD, 2GD",
+    "description": "Топливная рампа 095600-6860 / 23810-0E020 / 23810-11040 для Toyota Hilux с двигателем 1GD или 2GD. Совместимость сверяем по OEM, VIN и фото узла. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "common-rail-assembly-23810-0e010-238100e010-for-toyota-fortuner-hilux-innova-1gdftv-2gdftv-engine": {
+    "name": "Топливная рампа 23810-0E010 / 238100E010 для Toyota 1GDFTV, 2GDFTV",
+    "title": "Рампа 23810-0E010 для Toyota 1GDFTV, 2GDFTV",
+    "description": "Топливная рампа 23810-0E010 / 238100E010 для Toyota Fortuner, Hilux, Innova с двигателем 1GD-FTV или 2GD-FTV. Подбор по OEM, VIN и фото узла. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-438-3414-4383414-for-caterpillar-c4-4-engine": {
+    "name": "Топливная рампа Common Rail 438-3414 / 4383414 для Caterpillar C4.4",
+    "title": "Рампа Common Rail 438-3414 для Caterpillar C4.4",
+    "description": "Топливная рампа Common Rail 438-3414 / 4383414 для двигателя Caterpillar C4.4. Сверим OEM, серийный номер, датчик, клапан и расположение выходов. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-095440-1720-8-98152950-2-for-isuzu-6hk1-engine": {
+    "name": "Топливная рампа 095440-1720 / 8-98152950-2 для Isuzu 6HK1",
+    "title": "Рампа 095440-1720 / 8-98152950-2 для Isuzu 6HK1",
+    "description": "Топливная рампа 095440-1720 / 8-98152950-2 для Isuzu 6HK1. Сверим обе маркировки, серийный номер, датчик и клапан. По одному номеру взаимозаменяемость не подтверждаем.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-095440-0350-8-97306063-0-for-isuzu-4hk1-engine-hitachi-zx200-3-zx210-3-zx240-3-excavator": {
+    "name": "Топливная рампа 095440-0350 / 8-97306063-0 для Isuzu 4HK1, Hitachi ZX200-3, ZX210-3, ZX240-3",
+    "title": "Рампа 095440-0350 для Isuzu 4HK1 и Hitachi ZX-3",
+    "description": "Топливная рампа 095440-0350 / 8-97306063-0 для Isuzu 4HK1, Hitachi ZX200-3, ZX210-3, ZX240-3. Сверим OEM, серийный номер, датчик и клапан. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-375-2649-0445226128-0445226129-for-cat-c7-1-engine-323-320-323-excavator-924k-loader": {
+    "name": "Топливная рампа 375-2649 / 0445226128 / 0445226129 для CAT C7.1, 320, 323, 924K",
+    "title": "Рампа 375-2649 / 0445226128 для CAT C7.1",
+    "description": "Топливная рампа 375-2649 / 0445226128 / 0445226129 для CAT C7.1, экскаваторов 320, 323 и погрузчика 924K. Подбор по OEM, серийному номеру и фото узла. Цена — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "common-rail-fuel-injector-8973060634-for-hitachi-zx200-3-engine-4hk1": {
+    "name": "Топливная форсунка Common Rail 8973060634 для Hitachi ZX200-3, Isuzu 4HK1",
+    "title": "Форсунка Common Rail 8973060634 для Hitachi ZX200-3",
+    "description": "Топливная форсунка Common Rail 8973060634 для Hitachi ZX200-3 с двигателем Isuzu 4HK1. Сверим маркировку, серийный номер, разъём и калибровочный код. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-injectors"
+  },
+  "fuel-common-rail-assembly-8-98152950-2-for-isuzu-6hk1-engine-hitachi": {
+    "name": "Топливная рампа Common Rail 8-98152950-2 для Isuzu 6HK1 и техники Hitachi",
+    "title": "Рампа Common Rail 8-98152950-2 для Isuzu 6HK1",
+    "description": "Топливная рампа 8-98152950-2 для Isuzu 6HK1 и техники Hitachi. Есть похожее исполнение 095440-1720: до заказа сверим все номера, датчик, клапан и выходы.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-pipe-0445224040-for-kobelco-excavator-sk130-8-sk140-8": {
+    "name": "Топливная магистраль Common Rail 0445224040 для Kobelco SK130-8, SK140-8",
+    "title": "Магистраль Common Rail 0445224040 для Kobelco SK130-8",
+    "description": "Топливная магистраль Common Rail 0445224040 для Kobelco SK130-8 и SK140-8. Сверим OEM, серийный номер двигателя, выходы, датчик и клапан. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-pipe-0445226047-20980481-for-volvo-trucks": {
+    "name": "Топливная рампа Common Rail 0445226047 / 20980481 для грузовиков Volvo",
+    "title": "Рампа Common Rail 0445226047 / 20980481 для Volvo",
+    "description": "Топливная рампа Common Rail 0445226047 / 20980481 для грузовой техники Volvo. Сверим оба OEM, модель и серийный номер двигателя, датчик, клапан и выходы. Цена — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-pipe-0445226188-for-deutz-d6e-engine": {
+    "name": "Топливная рампа Common Rail 0445226188 для двигателя Deutz D6E",
+    "title": "Рампа Common Rail 0445226188 для Deutz D6E",
+    "description": "Топливная рампа Common Rail 0445226188 для двигателя Deutz D6E. Сверим OEM, серийный номер, фото маркировки, датчика, клапана и выходов. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "fuel-common-rail-pipe-3963815-for-cummins-diesel-engine-isl-isc-8-3": {
+    "name": "Топливная рампа Common Rail 3963815 для Cummins ISL, ISC 8.3",
+    "title": "Рампа Common Rail 3963815 для Cummins ISL, ISC 8.3",
+    "description": "Топливная рампа Common Rail 3963815 для двигателей Cummins ISL и ISC 8.3. Сверим OEM, CPL, серийный номер двигателя, датчик, клапан и выходы. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "358-6634-3586634-common-fuel-rail-for-caterpillar-320d-320d-gc-excavator": {
+    "name": "Топливная рампа Common Rail 358-6634 / 3586634 для CAT 320D, 320D GC",
+    "title": "Рампа Common Rail 358-6634 для CAT 320D, 320D GC",
+    "description": "Топливная рампа Common Rail 358-6634 / 3586634 для CAT 320D и 320D GC. Подбор по OEM, модели и серийному номеру двигателя, датчику, клапану и выходам. Цена — по запросу.",
+    "selectionCategory": "fuel-common-rails"
+  },
+  "20798896-volvo": {
+    "name": "Топливная рампа Common Rail 20798896 для Volvo D6E, EC160C, EC235D, EW230C",
+    "title": "Рампа Common Rail 20798896 для Volvo D6E",
+    "description": "Топливная рампа Common Rail 20798896 для Volvo D6E, EC160C, EC235D, EW230C. Сверим OEM, серийный номер двигателя, датчик, клапан и выходы. Цена и срок — по запросу.",
+    "selectionCategory": "fuel-common-rails"
   }
 }

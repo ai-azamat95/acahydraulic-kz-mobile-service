@@ -22,7 +22,7 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import { cartItemFromProduct, preferredCartItem } from "@/lib/cart";
 
-import { catalogProductSeo, catalogProductCategories, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
+import { catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
 
 const WHATSAPP_NUMBER = "77714177925";
 
@@ -165,6 +165,7 @@ export default function CatalogProduct() {
   const productSeo = catalogProductSeo(product, language);
   const productCategories = catalogProductCategories(product);
   const seoDescription = productSeo.description;
+  const hasReviewedCopy = catalogProductHasReviewedCopy(product, language);
   const addProductToCart = () => {
     addItem(preferredCartItem(product));
     toast.success(language === "ru" ? "Товар добавлен в корзину" : language === "kz" ? "Тауар себетке қосылды" : "Added to cart");
@@ -317,7 +318,7 @@ export default function CatalogProduct() {
               </button>
             </div>}
             {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
-            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct || product.ownerCase) ? seoDescription : copy.productDescription}</p>
+            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct || product.ownerCase || hasReviewedCopy) ? seoDescription : copy.productDescription}</p>
 
             <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
               <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{fitmentLabel}</h2>

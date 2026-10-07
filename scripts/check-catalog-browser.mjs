@@ -8,6 +8,8 @@ const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/nod
 const root = path.resolve('dist/public');
 const catalogDir = path.join(root, 'catalog-data');
 const catalogManifest = JSON.parse(fs.readFileSync(path.join(catalogDir, 'manifest.json'), 'utf8'));
+const catalogLandingIndex = JSON.parse(fs.readFileSync(path.join(catalogDir, 'landing-pages.json'), 'utf8'));
+const expectedCategoryCardCount = catalogLandingIndex.categories.length + 1;
 const completeIndexPath = catalogManifest.indexFile ? path.join(catalogDir, catalogManifest.indexFile) : null;
 const catalogProducts = completeIndexPath && fs.existsSync(completeIndexPath)
   ? JSON.parse(fs.readFileSync(completeIndexPath, 'utf8'))
@@ -22,6 +24,7 @@ const expectedMainControlValveCount = catalogProducts.filter((product) => (produ
 const expectedWiringHarnessCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses')).length;
 const expectedFuelInjectorCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('fuel-injectors')).length;
 const expectedFuelPumpCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('fuel-pumps')).length;
+const expectedFuelCommonRailCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('fuel-common-rails')).length;
 const expectedEngineRebuildKitCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits')).length;
 const expectedControllerCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('controllers')).length;
 const expectedMonitorCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('monitors')).length;
@@ -69,8 +72,8 @@ try {
         );
         for(const lang of ['RU','KZ','EN']){
           await selectCatalogLanguage(page, lang);
-          assert.equal(await page.locator('.aca-category-card:visible').count(),21);
-          assert.equal(await page.locator('.aca-category-count:visible').count(),21);
+          assert.equal(await page.locator('.aca-category-card:visible').count(),expectedCategoryCardCount);
+          assert.equal(await page.locator('.aca-category-count:visible').count(),expectedCategoryCardCount);
           assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
           assert.equal(
             new URL(await page.locator('[data-complete-engine-category] img').getAttribute('src'),origin).pathname,
@@ -104,7 +107,8 @@ try {
             const hero=await page.locator('.aca-catalog-hero').boundingBox();
             assert(hero.height<820,'desktop hero should reveal categories in the first viewport');
             assert.equal(await page.locator('.aca-desktop-nav:visible').count(),1,'desktop navigation must be visible');
-            assert.deepEqual(await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{}))),[7,7,7],'desktop categories should use three balanced rows');
+            const desktopCategoryRows=await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{})));
+            assert(desktopCategoryRows.length<=4&&Math.max(...desktopCategoryRows)-Math.min(...desktopCategoryRows)<=2,'desktop categories must avoid an orphaned final row');
             assert.equal(await page.locator('.aca-product-card').count(),0,'catalog home must start with category choices instead of a mixed product list');
             assert.equal(await page.locator('.aca-desktop-banner:visible').count(),2,'desktop must show both promotional banners');
             const desktopBannerImages=await page.locator('.aca-desktop-banner img').evaluateAll(nodes=>nodes.map(node=>({loaded:node.complete&&node.naturalWidth>0,ratio:node.clientWidth/node.clientHeight,natural:node.naturalWidth/node.naturalHeight})));
@@ -119,12 +123,13 @@ try {
         await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
-        assert.equal(categoryImages.length,21,'each category needs a product image');
+        assert.equal(categoryImages.length,expectedCategoryCardCount,'each category needs a product image');
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
         assert.equal(categoryImages[1].path,'/catalog-assets/complete-engine-category.webp');
         assert.equal(categoryImages[7].path,'/catalog-assets/final-drive-category.jpg');
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/controllers"] img').getAttribute('src'),'/catalog-assets/category-controller.jpg','controller category must use a real controller image');
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/monitors"] img').getAttribute('src'),'/catalog-assets/category-monitor.jpg','monitor category must keep the monitor image');
+        assert.equal(await page.locator('.aca-category-card[href="/catalog/category/fuel-common-rails"] img').getAttribute('src'),'/catalog-assets/category-fuel-common-rail.webp','Common Rail category must use a real local fuel rail photo');
         assert.match(await page.locator('.aca-category-card[href="/catalog/category/controllers"] .aca-category-count').textContent(),new RegExp(expectedControllerCount.toLocaleString('ru-RU').replace(/\s/g,'\\s?')),'controller count must use the complete category summary');
         assert.match(await page.locator('.aca-category-card[href="/catalog/category/monitors"] .aca-category-count').textContent(),new RegExp(expectedMonitorCount.toLocaleString('ru-RU').replace(/\s/g,'\\s?')),'monitor count must use the complete category summary');
         if(width===1440){
@@ -185,6 +190,14 @@ try {
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelPumpCount),'fuel pump URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelPumpCount),'all fuel pumps must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedFuelPumpCount,'all fuel pumps must render as real product cards');
+          }
+          if(expectedFuelCommonRailCount>0){
+            await page.goto(origin+'/catalog/category/fuel-common-rails',{waitUntil:'networkidle'});
+            await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedFuelCommonRailCount);
+            assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelCommonRailCount),'Common Rail URL must contain the curated supplier collection');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelCommonRailCount),'all Common Rail products must be visible without pagination');
+            assert.equal(await page.locator('.aca-product-card').count(),expectedFuelCommonRailCount,'all Common Rail products must render as real product cards');
+            assert.equal(await page.locator('.aca-product-card').filter({hasText:'8973060634'}).count(),0,'the injector from the supplier collection must not be mislabelled as a fuel rail');
           }
           if(expectedEngineRebuildKitCount>0){
             await page.goto(origin+'/catalog/category/engine-rebuild-kits',{waitUntil:'networkidle'});

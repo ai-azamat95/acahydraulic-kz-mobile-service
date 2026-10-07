@@ -18,7 +18,7 @@ const pages = [
   ...landingIndex.models.map((page) => ({ type: 'model', slug: page.slug, count: page.count })),
 ];
 
-assert.equal(landingIndex.categories.length, 20, 'all 20 catalogue categories need landing pages');
+assert.equal(landingIndex.categories.length, 21, 'all 21 catalogue categories need landing pages');
 assert.deepEqual(landingIndex.categories.map((item) => item.id), catalogCategoryLandings.map((item) => item.id), 'category landing list must match UI categories');
 assert.deepEqual(Object.keys(categorySeoContent).sort(), catalogCategoryLandings.map((item) => item.id).sort(), 'every category needs SEO selection content');
 assert(homeSource.includes('href={`/catalog/category/${item.id}`}'), 'home category cards must use direct landing-page links');
@@ -76,6 +76,7 @@ for (const slug of [
   'main-control-valves',
   'fuel-injectors',
   'fuel-pumps',
+  'fuel-common-rails',
   'engine-rebuild-kits',
   'wiring-harnesses',
   'controllers',
