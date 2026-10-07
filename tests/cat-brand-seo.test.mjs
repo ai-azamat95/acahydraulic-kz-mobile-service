@@ -6,6 +6,7 @@ const html = fs.readFileSync("dist/public/brands/cat/index.html", "utf8");
 const body = html.match(/<body[^>]*>([\s\S]*)<\/body>/)[1];
 const text = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
 const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1]));
+const productMap = JSON.parse(fs.readFileSync("client/public/catalog-data/product-map.json", "utf8"));
 
 test("CAT service route publishes the real React page, not a generic fallback", () => {
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
@@ -37,7 +38,13 @@ test("CAT repair links to three distinct verified cases and the parts catalog wi
     "/blog/remont-gidronasosa-cat/",
   ]) {
     assert.ok(body.includes(`href="${route}"`), route);
-    assert.ok(fs.existsSync(`dist/public${route}index.html`), `published target: ${route}`);
+    if (route.startsWith("/catalog/hydraulic-pump-")) {
+      // PR validation builds catalogue landings, while production also creates
+      // every product HTML route. Check the shared routing input in both paths.
+      assert.ok(Object.hasOwn(productMap, route.split("/")[2]), `catalogue target: ${route}`);
+    } else {
+      assert.ok(fs.existsSync(`dist/public${route}index.html`), `published target: ${route}`);
+    }
   }
   assert.match(text, /Этот кейс подтверждает продажу, а не установку или испытание насоса/);
   assert.match(text, /Наличие, цену, исполнение и срок поставки подтверждаем по конкретной позиции/);
