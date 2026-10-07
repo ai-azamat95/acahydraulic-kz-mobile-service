@@ -68,6 +68,7 @@ jobs:
           node --test tests/handok-product-publication.test.mjs
           node --test tests/xcmg-xz200-pump-publication.test.mjs
           node --test tests/cat-brand-seo.test.mjs
+          node --test tests/husco-hidromek-publication.test.mjs
       - name: Verify catalog SEO and sitemaps
         run: |
           pnpm catalog:verify-seo

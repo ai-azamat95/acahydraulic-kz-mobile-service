@@ -123,8 +123,8 @@ export default function Cases() {
     <div className="min-h-screen bg-[#0a0a0a] text-white font-roboto">
       <SEO
         title="Реальные кейсы ремонта спецтехники с видео | ACA Hydraulic"
-        description="Реальные ремонты и поставки ACA Hydraulic: гидронасос XCMG 803001730 для ГНБ XZ200, двигатель Cummins NTA855, насосы CAT и SANY. Фото, видео и подтверждённый результат."
-        keywords="XCMG 803001730, гидронасос XZ200, насос XZ200E, реальный ремонт спецтехники, Cummins NTA855, поставка гидронасоса"
+        description="Реальные ремонты и поставки ACA Hydraulic: HUSCO C16E303 для HIDROMEK 102B, гидронасос XCMG 803001730, двигатель Cummins NTA855, насосы CAT и SANY."
+        keywords="HUSCO C16E303, гидрораспределитель HIDROMEK 102B, XCMG 803001730, гидронасос XZ200, реальный ремонт спецтехники"
         canonical="/cases"
         schema={cat325VideoSchema}
       />
@@ -146,6 +146,17 @@ export default function Cases() {
 
       <Cat325VideoCase />
       <PumpCaseTeaser />
+      <section className="border-b border-white/10 bg-[#151515] py-10">
+        <div className="container mx-auto grid items-center gap-6 px-4 md:grid-cols-[220px_1fr]">
+          <img src="/catalog-assets/husco-c16e303/husco-c16e303-main.webp" alt="Гидрораспределитель HUSCO C16E303 с HIDROMEK HMK 102B" width={1400} height={1400} loading="lazy" className="h-60 w-full rounded-lg bg-white object-contain" />
+          <div>
+            <p className="text-sm font-bold text-[#FFC000]">HIDROMEK 102B · продажа · установка · запуск</p>
+            <h2 className="mt-3 text-3xl font-bold text-white">HUSCO C16E303: установка заднего распределителя</h2>
+            <p className="my-4 max-w-3xl text-gray-300">Продали и установили распределитель с маркировкой F18/22233 и 6600-E163 A00, запустили технику и проверили работу заднего оборудования.</p>
+            <Link href="/cases/hidromek-102b-zamena-gidroraspredelitelya-husco-c16e303/" className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black">Посмотреть кейс и карточку</Link>
+          </div>
+        </div>
+      </section>
       <section className="border-b border-white/10 bg-[#101010] py-10">
         <div className="container mx-auto grid items-center gap-6 px-4 md:grid-cols-[220px_1fr]">
           <img src="/media/shantui-sd32-engine/new-engine.webp" alt="Новый комплектный двигатель Cummins NTA855 для Shantui SD32" width={900} height={1600} loading="lazy" className="h-64 w-full rounded-lg object-contain" />

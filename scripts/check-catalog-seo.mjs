@@ -30,7 +30,7 @@ for (const product of [productsWithFitment.find(item => !merchantHandles.has(ite
   const htmlPath = path.join(publicDir, 'catalog', product.handle, 'index.html');
   const html = fs.readFileSync(htmlPath, 'utf8');
   assert(!/с наценкой\s+50%/i.test(html), 'public SEO copy must not expose commercial markup');
-  assert(html.includes('<h2>Применяемость</h2>'), 'static product fallback must contain a fitment section');
+  assert(/<h2>Применяемость(?: этого исполнения)?<\/h2>/.test(html), 'static product fallback must contain a fitment section');
   const schemaMatch = html.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s);
   assert(schemaMatch, 'static product page must include Product JSON-LD');
   const schema = JSON.parse(schemaMatch[1]);

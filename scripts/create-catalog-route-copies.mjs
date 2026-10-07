@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
+import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
 import path from 'node:path';
 import { catalogProductSeo, catalogProductCategories, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 
@@ -90,8 +91,13 @@ function productPage(product) {
   const productCategories = catalogProductCategories(product);
   const title = `${productSeo.title} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
-  const fitmentLabel = product.approvedSale ? 'Применяемость этого исполнения' : 'Применяемость';
-  const seriesNote = (product.approvedSale || product.ownerSale || product.ownerProduct) ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.' : '';
+  const fitmentLabel = (product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase) ? 'Применяемость этого исполнения' : 'Применяемость';
+  const isHuscoOwnerCase = product.ownerCase?.casePath === huscoCase.casePath;
+  const seriesNote = isHuscoOwnerCase
+    ? 'У распределителей одной серии могут отличаться секции, порты, клапаны, электромагниты и разъёмы. Совпадение только C16E303 не подтверждает взаимозаменяемость.'
+    : (product.approvedSale || product.ownerSale || product.ownerProduct)
+      ? 'Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Подберём вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно.'
+      : '';
   const price = Number.isFinite(product.minPriceKzt) ? `Цена ${fixedOffer ? "" : "от "}${formatPrice(product.minPriceKzt)}` : 'Цена по запросу';
   const isXcmgOwnerSale = product.ownerSale?.casePath === xcmgSale.casePath;
   const saleTerms = merchantOffer
@@ -158,6 +164,7 @@ function productPage(product) {
   ) : ''}
   ${product.ownerProduct ? `<section><h2>Подтверждено по реальному товару</h2><ul><li>HANDOK HYDRAULIC, модель H5V80DTP-12T.</li><li>Номер детали YKSKR-9K00, маркировка Made in Korea.</li><li>Цена 2 530 000 ₸, доставка по Казахстану включена.</li></ul><p><a href="/cases/postavka-zamena-gidronasosa/#hitachi-order">Реальный заказ HANDOK для Hitachi ZX160W</a></p><p><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">Как проверить H5V80DTP и K5V80DTP перед заказом</a></p></section>` : ''}
   ${product.ownerEvidence ? `<section data-owner-evidence><h2>${escapeHtml(product.ownerEvidence.heading)}</h2><figure>${image ? `<img src="${escapeAttr(image)}" alt="${escapeAttr(product.ownerEvidence.photoAlt || productSeo.name)}" width="900" height="655" loading="lazy">` : ''}<figcaption>${escapeHtml(product.ownerEvidence.photoCaption)}</figcaption></figure><ul>${product.ownerEvidence.facts.map(fact => `<li>${escapeHtml(fact)}</li>`).join('')}</ul></section>` : ''}
+  ${isHuscoOwnerCase ? `<section data-owner-case><h2>Этот распределитель продали и установили на HIDROMEK HMK 102B</h2><p>На снятом узле подтверждены HUSCO C16E303, F18/22233 и 6600-E163 A00. После монтажа технику запустили и проверили работу заднего оборудования.</p><p><a href="${huscoCase.casePath}/">Кейс установки HUSCO C16E303 на HIDROMEK 102B</a></p>${huscoCase.videos.map(video => `<video controls playsinline preload="none" poster="${escapeAttr(video.poster)}" width="360" height="640"><source src="${escapeAttr(video.src)}" type="video/mp4"></video>`).join('')}</section>` : ''}
   ${saleTerms ? `<p>${escapeHtml(saleTerms)}</p>` : ''}
   <section data-product-selection><h2>Что прислать для подбора этой запчасти</h2>
   <p>${escapeHtml(catalogProductSelection(product))}</p>

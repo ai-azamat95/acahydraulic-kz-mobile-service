@@ -189,7 +189,7 @@ export function useCatalogProduct(handle: string) {
         const productMap = await fetchJson<Record<string, number>>(
           versioned("/catalog-data/product-map.json", manifest.importedAt),
           controller.signal,
-          "force-cache",
+          "no-cache",
         );
         const chunk = productMap[handle];
         if (chunk === undefined) throw new Error("Product not found");
@@ -199,7 +199,7 @@ export function useCatalogProduct(handle: string) {
             manifest.importedAt,
           ),
           controller.signal,
-          "force-cache",
+          "no-cache",
         );
         const match = products.find((item) => item.handle === handle);
         if (!match) throw new Error("Product not found");

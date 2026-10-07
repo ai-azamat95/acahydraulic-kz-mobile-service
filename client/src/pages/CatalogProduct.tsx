@@ -2,6 +2,8 @@ import catSale from "../../../shared/cat-432e-sale.json";
 import Cat432eSaleMedia from "@/components/Cat432eSaleMedia";
 import xcmgSale from "../../../shared/xcmg-xz200-pump-sale.json";
 import XcmgXz200PumpMedia from "@/components/XcmgXz200PumpMedia";
+import huscoCase from "../../../shared/husco-hidromek-102b-case.json";
+import Hidromek102bHuscoMedia from "@/components/Hidromek102bHuscoMedia";
 import merchantPumps from "../../../shared/merchant-pumps.json";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
@@ -124,9 +126,10 @@ export default function CatalogProduct() {
   }
 
   const isXcmgOwnerSale = product.ownerSale?.casePath === xcmgSale.casePath;
+  const isHuscoOwnerCase = product.ownerCase?.casePath === huscoCase.casePath;
   const ownerSaleTerms = isXcmgOwnerSale ? xcmgSale.terms[language] : catSale.terms[language];
   const fixedOffer = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct);
-  const commercialContactFirst = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerEvidence);
+  const commercialContactFirst = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerEvidence || product.ownerCase);
   const displayedPrice = product.minPriceKzt !== null
     ? `${fixedOffer ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
@@ -151,12 +154,14 @@ export default function CatalogProduct() {
       : undefined;
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
   const fitmentText = product.fitment || copy.fitmentUnknown;
-  const fitmentLabel = (product.approvedSale || product.ownerSale || product.ownerProduct)
+  const fitmentLabel = (product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase)
     ? language === "ru" ? "Применяемость этого исполнения" : language === "kz" ? "Осы нұсқаның қолданылуы" : "Applications of this configuration"
     : copy.fitmentLabel;
-  const seriesNote = (product.approvedSale || product.ownerSale || product.ownerProduct)
-    ? language === "ru" ? "Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Для вашей техники подберём подходящий вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно." : language === "kz" ? "Бұл сериядағы сорғылар әртүрлі маркалы техникада қолданылады. Мұнда нұсқалардың бірі көрсетілген. Техникаңызға сәйкес нұсқаны тақтайша, білік, фланец, порттар және реттегіш бойынша таңдаймыз. Сорғы моделінің сәйкес келуі жеткіліксіз." : "This pump series is used on equipment from different brands. This page lists one configuration. We select the correct version for your machine using the nameplate, shaft, flange, ports and regulator. A matching pump model alone does not confirm compatibility."
-    : "";
+  const seriesNote = isHuscoOwnerCase
+    ? language === "ru" ? "У распределителей одной серии могут отличаться секции, порты, клапаны, электромагниты и разъёмы. Совпадение только C16E303 не подтверждает взаимозаменяемость." : language === "kz" ? "Бір сериядағы гидротаратқыштардың секциялары, порттары, клапандары, электромагниттері мен қосқыштары әртүрлі болуы мүмкін. Тек C16E303 сәйкестігі өзара алмастыруды растамайды." : "Control valves in the same series can differ by sections, ports, valves, solenoids and connectors. A C16E303 match alone does not confirm interchangeability."
+    : (product.approvedSale || product.ownerSale || product.ownerProduct)
+      ? language === "ru" ? "Насосы этой серии применяются на технике разных марок. Здесь указано одно из исполнений. Для вашей техники подберём подходящий вариант по шильдику, валу, фланцу, портам и регулятору. Одного совпадения модели насоса недостаточно." : language === "kz" ? "Бұл сериядағы сорғылар әртүрлі маркалы техникада қолданылады. Мұнда нұсқалардың бірі көрсетілген. Техникаңызға сәйкес нұсқаны тақтайша, білік, фланец, порттар және реттегіш бойынша таңдаймыз. Сорғы моделінің сәйкес келуі жеткіліксіз." : "This pump series is used on equipment from different brands. This page lists one configuration. We select the correct version for your machine using the nameplate, shaft, flange, ports and regulator. A matching pump model alone does not confirm compatibility."
+      : "";
   const productSeo = catalogProductSeo(product, language);
   const productCategories = catalogProductCategories(product);
   const seoDescription = productSeo.description;
@@ -312,7 +317,7 @@ export default function CatalogProduct() {
               </button>
             </div>}
             {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
-            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct) ? seoDescription : copy.productDescription}</p>
+            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct || product.ownerCase) ? seoDescription : copy.productDescription}</p>
 
             <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
               <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{fitmentLabel}</h2>
@@ -376,6 +381,7 @@ export default function CatalogProduct() {
             ))}
             {product.ownerProduct && <section className="mt-8 rounded-lg border border-[#FFC000]/30 bg-[#FFC000]/5 p-5"><h2 className="text-xl font-bold">Подтверждено по реальному товару</h2><ul className="mt-4 grid gap-2 text-sm leading-6 text-gray-300"><li>HANDOK HYDRAULIC, модель H5V80DTP-12T.</li><li>Номер детали YKSKR-9K00, маркировка Made in Korea.</li><li>Цена 2 530 000 ₸, доставка по Казахстану включена.</li></ul><div className="mt-4 flex flex-col items-start gap-2"><Link href="/cases/postavka-zamena-gidronasosa/#hitachi-order" className="inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Реальный заказ HANDOK для Hitachi ZX160W</Link><Link href="/blog/k5v80dtp-handok-hitachi-zx160w/" className="inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Как проверить H5V80DTP и K5V80DTP перед заказом</Link></div></section>}
             {product.ownerEvidence && <section className="mt-8 rounded-lg border border-[#FFC000]/30 bg-[#FFC000]/5 p-5"><h2 className="text-xl font-bold">{product.ownerEvidence.heading}</h2><ul className="mt-4 grid gap-2 text-sm leading-6 text-gray-300">{product.ownerEvidence.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></section>}
+            {isHuscoOwnerCase && <section className="mt-8"><h2 className="text-2xl font-bold">Этот распределитель продали и установили на HIDROMEK HMK 102B</h2><p className="my-4 text-gray-300">На фото — снятый узел с маркировкой HUSCO C16E303, F18/22233 и 6600-E163 A00. После установки технику запустили и проверили работу заднего оборудования.</p><Hidromek102bHuscoMedia /><Link href={huscoCase.casePath} className="mt-4 inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">Кейс: HIDROMEK 102B и HUSCO C16E303</Link></section>}
             {product.tags.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-2">
                 {product.tags.slice(0, 8).map((tag) => (
