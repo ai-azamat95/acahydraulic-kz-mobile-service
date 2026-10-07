@@ -100,4 +100,6 @@ jobs:
           retention-days: 7
 
       - name: Check seller, legal routes and mobile layout
-        run: node scripts/check-commerce-browser.mjs
+        run: |
+          node scripts/create-spa-route-copies.mjs
+          node scripts/check-commerce-browser.mjs
