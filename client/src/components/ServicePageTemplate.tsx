@@ -128,7 +128,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
         <section id="service-request" className="py-20 bg-[#FFB800] scroll-mt-8">
           <div className="container px-4 md:px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">Нужна выездная диагностика?</h2>
-            <p className="text-xl text-black/80 mb-3 max-w-2xl mx-auto">Работаем по договору с НДС. Условия ремонта и гарантии фиксируем после диагностики и согласования объёма работ.</p>
+            <p className="text-xl text-black/80 mb-3 max-w-2xl mx-auto">Работаем по договору. Условия ремонта и гарантии фиксируем после диагностики и согласования объёма работ.</p>
             <p className="text-black font-bold text-xl mb-8">Диагностика платная — стоимость согласуем до выезда.</p>
             <div className="mt-8"><B2BLeadForm /></div>
           </div>

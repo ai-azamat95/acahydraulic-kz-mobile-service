@@ -1,3 +1,4 @@
+import { MerchantDetails, CommerceLinks } from "@/components/CommerceInfo";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
@@ -155,20 +156,8 @@ export default function Contacts() {
               {/* Legal Info */}
               <div className="bg-[#1a1a1a] p-8 border border-white/10 rounded-sm">
                 <h2 className="font-bebas text-3xl text-white mb-6 uppercase">Реквизиты</h2>
-                <div className="space-y-4 text-gray-400">
-                  <div className="flex justify-between border-b border-white/5 pb-2">
-                    <span className="font-bold text-white">Наименование:</span>
-                    <span>ТОО "ACA Hydraulic"</span>
-                  </div>
-                  <div className="flex justify-between border-b border-white/5 pb-2">
-                    <span className="font-bold text-white">БИН:</span>
-                    <span>240540017992</span>
-                  </div>
-                  <div className="flex justify-between border-b border-white/5 pb-2">
-                    <span className="font-bold text-white">Директор:</span>
-                    <span>Тлеуғазы А.Б</span>
-                  </div>
-                </div>
+                <MerchantDetails />
+                <div className="mt-5"><CommerceLinks /></div>
               </div>
 
               {/* Social Links */}

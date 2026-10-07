@@ -1,3 +1,4 @@
+import { CommerceLinks } from "@/components/CommerceInfo";
 import { Link } from "wouter";
 import { SEO } from "@/components/SEO";
 import policy from "../../../shared/delivery-and-returns.json";
@@ -13,6 +14,7 @@ export default function DeliveryAndReturns() {
         <h2 className="mb-3 text-xl font-bold text-white">{section.title}</h2>
         <p>{section.text}</p>
       </section>)}
+      <CommerceLinks />
       <div className="flex flex-wrap gap-4 border-t border-white/15 pt-5">
         <a href="tel:+77714177925" className="inline-flex min-h-11 items-center text-[#FFC000] underline">+7 771 417 79 25</a>
         <a href="mailto:info@acahydraulic.kz" className="inline-flex min-h-11 items-center text-[#FFC000] underline">info@acahydraulic.kz</a>

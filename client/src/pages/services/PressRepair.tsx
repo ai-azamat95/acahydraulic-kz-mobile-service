@@ -37,7 +37,7 @@ export default function PressRepair() {
               <span className="text-[#FFC000]">промышленных прессов</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Восстановление гидравлических систем прессового оборудования. Работаем по договору с НДС. Выездной сервис на производства.
+              Восстановление гидравлических систем прессового оборудования. Работаем по договору. Выездной сервис на производства.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -85,7 +85,7 @@ export default function PressRepair() {
               <CheckCircle2 className="text-[#FFC000] mb-4" size={32} />
               <h3 className="font-bebas text-2xl uppercase mb-3">Работа по договору</h3>
               <p className="text-gray-400 leading-relaxed">
-                Официальное оформление с НДС. Полный пакет документов для промышленных предприятий.
+                Официальное оформление заказа. Полный пакет документов для промышленных предприятий.
               </p>
             </div>
 

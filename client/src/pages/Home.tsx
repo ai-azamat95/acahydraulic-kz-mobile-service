@@ -1,3 +1,4 @@
+import { CommerceLinks } from "@/components/CommerceInfo";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
@@ -218,7 +219,7 @@ export default function Home() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="text-[#FFC000]">✓</span>
-                  Работаем по договору с НДС
+                  Работаем по договору
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="text-[#FFC000]">✓</span>
@@ -767,10 +768,7 @@ export default function Home() {
             <p className="text-gray-600 text-xs">
               &copy; {new Date().getFullYear()} ACA Hydraulic. {t('footer.rights')}
             </p>
-            <div className="flex gap-6">
-              <a href="/privacy/" className="text-gray-600 hover:text-[#FFC000] text-xs transition-colors">{t('footer.privacyPolicy')}</a>
-              <a href="/terms/" className="text-gray-600 hover:text-[#FFC000] text-xs transition-colors">{t('footer.termsOfUse')}</a>
-            </div>
+            <div className="max-w-full"><p className="text-sm text-gray-500">ИП Тлеуғазы · ИИН 950909351023</p><CommerceLinks /></div>
           </div>
         </div>
       </footer>

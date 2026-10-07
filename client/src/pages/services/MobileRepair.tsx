@@ -171,7 +171,7 @@ export default function MobileRepair() {
             <div className="p-6 bg-[#1a1a1a] rounded border-l-2 border-[#FFC000]">
               <FileText className="w-8 h-8 text-[#FFC000] mb-4" />
               <h4 className="font-bold mb-2">Полный пакет документов</h4>
-              <p className="text-sm text-gray-400">Договор, АВР, ЭСФ, НДС. Прозрачная бухгалтерия.</p>
+              <p className="text-sm text-gray-400">Договор и документы по заказу. Прозрачная бухгалтерия.</p>
             </div>
             <div className="p-6 bg-[#1a1a1a] rounded border-l-2 border-[#FFC000]">
               <Clock className="w-8 h-8 text-[#FFC000] mb-4" />

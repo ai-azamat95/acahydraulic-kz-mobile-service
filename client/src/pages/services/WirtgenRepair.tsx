@@ -241,7 +241,7 @@ export default function WirtgenRepair() {
             <div className="bg-[#1a1a1a] p-6 border border-white/5 rounded">
               <CheckCircle2 className="w-10 h-10 text-[#FFC000] mb-4" />
               <h3 className="font-bebas text-xl mb-2">Работаем по договору</h3>
-              <p className="text-gray-400 text-sm">Официальное оформление с НДС. Полный пакет документов.</p>
+              <p className="text-gray-400 text-sm">Официальное оформление заказа. Полный пакет документов.</p>
             </div>
 
             <div className="bg-[#1a1a1a] p-6 border border-white/5 rounded">

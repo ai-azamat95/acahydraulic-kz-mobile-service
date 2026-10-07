@@ -63,7 +63,7 @@ export default function About() {
               </div>
               <h3 className="font-bebas text-2xl mb-3">Надёжность</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Работаем по договору с НДС. Полный пакет документов. Прозрачные условия сотрудничества.
+                Работаем по договору. Полный пакет документов. Прозрачные условия сотрудничества.
               </p>
             </div>
 
@@ -202,7 +202,7 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             <div className="bg-[#1a1a1a] p-6 border border-white/5 rounded">
               <div className="w-12 h-12 rounded-full bg-[#FFC000] flex items-center justify-center font-bebas text-2xl text-black mb-4">1</div>
-              <h3 className="font-bebas text-xl mb-2">Договор с НДС</h3>
+              <h3 className="font-bebas text-xl mb-2">Договор и документы</h3>
               <p className="text-gray-400 text-sm">Официальное оформление. Прозрачные условия. Полный пакет документов для юридических лиц.</p>
             </div>
 

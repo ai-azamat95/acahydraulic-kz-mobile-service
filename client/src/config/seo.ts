@@ -1,3 +1,4 @@
+import merchant from "../../../shared/merchant.json";
 // SEO Configuration for all pages
 // This file contains optimized titles, descriptions, and keywords for each page
 
@@ -134,7 +135,7 @@ export const localBusinessSchema = {
   ],
   "@id": "https://acahydraulic.kz/#business",
   "name": "ACA Hydraulic",
-  "legalName": "ТОО «АСА-ГС»",
+  "legalName": merchant.name,
   "image": "https://acahydraulic.kz/webdev-static-assets/og-image.webp",
   "logo": "https://acahydraulic.kz/favicon-32.png",
   "description": "Профессиональный выездной сервис и ремонт гидравлики спецтехники, экскаваторов и буровых установок в Астане и по всему Казахстану. Ежедневно, по договорённости. Перед приездом согласуйте время.",
@@ -151,8 +152,7 @@ export const localBusinessSchema = {
   "priceRange": "$$",
   "currenciesAccepted": "KZT",
   "paymentAccepted": "Cash, Bank Transfer",
-  "foundingDate": "2024",
-  "taxID": "240540017992",
+  "taxID": merchant.iin,
   "sameAs": [
     "https://wa.me/77714177925",
     "https://t.me/+77714177925",

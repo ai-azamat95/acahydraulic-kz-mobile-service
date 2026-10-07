@@ -39,7 +39,7 @@ export default function ManipulatorRepair() {
               <span className="text-[#FFC000]">манипуляторов</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Восстановление гидравлических систем крано-манипуляторных установок. Работаем по договору с НДС. Выездной сервис на объекты.
+              Восстановление гидравлических систем крано-манипуляторных установок. Работаем по договору. Выездной сервис на объекты.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -123,7 +123,7 @@ export default function ManipulatorRepair() {
               <CheckCircle2 className="text-[#FFC000] mb-4" size={40} />
               <h3 className="font-bebas text-2xl uppercase mb-3">Работа по договору</h3>
               <p className="text-gray-400 leading-relaxed">
-                Официальное оформление с НДС. Полный пакет документов. Прозрачные условия сотрудничества для юридических лиц.
+                Официальное оформление заказа. Полный пакет документов. Прозрачные условия сотрудничества для юридических лиц.
               </p>
             </div>
 

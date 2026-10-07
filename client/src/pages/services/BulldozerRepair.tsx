@@ -230,7 +230,7 @@ export default function BulldozerRepair() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div className="bg-[#1a1a1a] p-6 border border-white/5 rounded">
               <CheckCircle2 className="w-10 h-10 text-[#FFC000] mb-4" />
-              <h3 className="font-bebas text-xl mb-2">Работаем по договору с НДС</h3>
+              <h3 className="font-bebas text-xl mb-2">Работаем по договору</h3>
               <p className="text-gray-400 text-sm">Официальное оформление. Полный пакет документов для юридических лиц.</p>
             </div>
 

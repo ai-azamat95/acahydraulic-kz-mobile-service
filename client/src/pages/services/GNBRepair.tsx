@@ -40,7 +40,7 @@ export default function GNBRepair() {
               <span className="text-[#FFC000]">горизонтально-направленного бурения</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Инженерная диагностика гидравлических систем ГНБ. Работаем по договору с НДС. Минимизация простоев оборудования.
+              Инженерная диагностика гидравлических систем ГНБ. Работаем по договору. Минимизация простоев оборудования.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -192,8 +192,8 @@ export default function GNBRepair() {
               <div className="w-16 h-16 rounded-full bg-[#FFC000]/10 flex items-center justify-center mx-auto mb-4">
                 <CheckCircle2 className="w-8 h-8 text-[#FFC000]" />
               </div>
-              <h3 className="font-bebas text-xl mb-2">НДС</h3>
-              <p className="text-gray-400 text-sm">Работаем с НДС. Полный пакет документов для бухгалтерии.</p>
+              <h3 className="font-bebas text-xl mb-2">Документы</h3>
+              <p className="text-gray-400 text-sm">Работаем по договору. Полный пакет документов для бухгалтерии.</p>
             </div>
 
             <div className="text-center p-6">

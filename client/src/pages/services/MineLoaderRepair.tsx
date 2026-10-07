@@ -37,7 +37,7 @@ export default function MineLoaderRepair() {
               <span className="text-[#FFC000]">шахтных погрузчиков</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Восстановление гидравлических систем. Работаем по договору с НДС. Выездной сервис на объекты по всему Казахстану.
+              Восстановление гидравлических систем. Работаем по договору. Выездной сервис на объекты по всему Казахстану.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -85,7 +85,7 @@ export default function MineLoaderRepair() {
               <CheckCircle2 className="text-[#FFC000] mb-4" size={32} />
               <h3 className="font-bebas text-2xl uppercase mb-3">Работа по договору</h3>
               <p className="text-gray-400 leading-relaxed">
-                Официальное оформление с НДС. Полный пакет документов для юридических лиц.
+                Официальное оформление заказа. Полный пакет документов для юридических лиц.
               </p>
             </div>
 
