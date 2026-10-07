@@ -33,10 +33,21 @@ test("catalog product data failures can be retried without losing the route", ()
 test("catalog product routes revalidate owner data after a deployment", () => {
   assert.match(
     hook,
-    /product-map\.json", manifest\.importedAt\),\s*controller\.signal,\s*"no-cache"/s
+    /const catalogDataVersion = manifest\.dataVersion \|\| manifest\.importedAt/
   );
   assert.match(
     hook,
-    /products-\$\{String\(chunk\)\.padStart\(3, "0"\)\}\.json`,\s*manifest\.importedAt,\s*\),\s*controller\.signal,\s*"no-cache"/s
+    /product-map\.json", catalogDataVersion\),\s*controller\.signal,\s*"no-cache"/s
   );
+  assert.match(
+    hook,
+    /products-\$\{String\(chunk\)\.padStart\(3, "0"\)\}\.json`,\s*catalogDataVersion,\s*\),\s*controller\.signal,\s*"no-cache"/s
+  );
+});
+
+test("catalog index cache is invalidated when curated data changes without a source reimport", () => {
+  assert.match(hook, /dataVersion\?: string/);
+  assert.match(hook, /categorySummaryFile\}`, catalogDataVersion/);
+  assert.match(hook, /indexFile\}`, catalogDataVersion/);
+  assert.match(main, /manifest\.dataVersion \|\| manifest\.importedAt/);
 });

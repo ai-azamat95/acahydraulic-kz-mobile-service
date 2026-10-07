@@ -72,10 +72,11 @@ if (typeof window !== "undefined" && window.location.pathname === "/") {
       void import("./pages/Catalog");
       void fetch("/catalog-data/manifest.json", { cache: "no-cache" })
         .then((response) => (response.ok ? response.json() : null))
-        .then((manifest: { importedAt?: string } | null) => {
+        .then((manifest: { importedAt?: string; dataVersion?: string } | null) => {
           if (!manifest) return;
-          const suffix = manifest.importedAt
-            ? `?v=${encodeURIComponent(manifest.importedAt)}`
+          const catalogDataVersion = manifest.dataVersion || manifest.importedAt;
+          const suffix = catalogDataVersion
+            ? `?v=${encodeURIComponent(catalogDataVersion)}`
             : "";
           return fetch(`/catalog-data/search-index-001.json${suffix}`, {
             cache: "force-cache",

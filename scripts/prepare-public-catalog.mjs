@@ -32,6 +32,7 @@ for (const fileName of privateFiles) {
 
 const publicManifest = {
   importedAt: preparedManifest.importedAt,
+  dataVersion: preparedManifest.dataVersion || preparedManifest.importedAt,
   productCount: preparedManifest.productCount,
   pageSize: preparedManifest.pageSize,
   chunkCount: preparedManifest.chunkCount,

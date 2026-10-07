@@ -1129,6 +1129,7 @@ async function run() {
   writeJson('wiring-harness-import-audit.json', wiringHarnessAudit);
   writeJson('manifest.json', {
     importedAt,
+    dataVersion: importedAt,
     productCount: searchIndex.length,
     pageSize: PAGE_SIZE,
     chunkCount: Math.ceil(searchIndex.length / PAGE_SIZE),

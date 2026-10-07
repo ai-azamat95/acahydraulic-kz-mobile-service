@@ -6,6 +6,7 @@ import type { CatalogIndexProduct, CatalogProduct } from "@/types/catalog";
 
 type CatalogManifest = {
   importedAt?: string;
+  dataVersion?: string;
   chunkCount: number;
   indexFile?: string;
   productCount?: number;
@@ -59,12 +60,13 @@ export function useCatalogIndex() {
           controller.signal,
           "no-cache",
         );
+        const catalogDataVersion = manifest.dataVersion || manifest.importedAt;
 
         if (!controller.signal.aborted) setProductCount(manifest.productCount || 0);
 
         const categorySummaryFile = manifest.categorySummaryFile || "category-summary.json";
         void fetchJson<CatalogCategorySummary>(
-          versioned(`/catalog-data/${categorySummaryFile}`, manifest.importedAt),
+          versioned(`/catalog-data/${categorySummaryFile}`, catalogDataVersion),
           controller.signal,
           "force-cache",
         )
@@ -77,7 +79,7 @@ export function useCatalogIndex() {
 
         const firstChunkUrl = versioned(
           "/catalog-data/search-index-001.json",
-          manifest.importedAt,
+          catalogDataVersion,
         );
 
         try {
@@ -102,7 +104,7 @@ export function useCatalogIndex() {
             const indexFile = manifest.indexFile || "search-index.json";
             try {
               const index = await fetchJson<CatalogIndexProduct[]>(
-                versioned(`/catalog-data/${indexFile}`, manifest.importedAt),
+                versioned(`/catalog-data/${indexFile}`, catalogDataVersion),
                 controller.signal,
                 "force-cache",
               );
@@ -128,7 +130,7 @@ export function useCatalogIndex() {
                   fetchJson<CatalogIndexProduct[]>(
                     versioned(
                       `/catalog-data/search-index-${String(page).padStart(3, "0")}.json`,
-                      manifest.importedAt,
+                      catalogDataVersion,
                     ),
                     controller.signal,
                     "force-cache",
@@ -186,8 +188,9 @@ export function useCatalogProduct(handle: string) {
           controller.signal,
           "no-cache",
         );
+        const catalogDataVersion = manifest.dataVersion || manifest.importedAt;
         const productMap = await fetchJson<Record<string, number>>(
-          versioned("/catalog-data/product-map.json", manifest.importedAt),
+          versioned("/catalog-data/product-map.json", catalogDataVersion),
           controller.signal,
           "no-cache",
         );
@@ -196,7 +199,7 @@ export function useCatalogProduct(handle: string) {
         const products = await fetchJson<CatalogProduct[]>(
           versioned(
             `/catalog-data/products-${String(chunk).padStart(3, "0")}.json`,
-            manifest.importedAt,
+            catalogDataVersion,
           ),
           controller.signal,
           "no-cache",
