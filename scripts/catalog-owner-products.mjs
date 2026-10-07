@@ -9,9 +9,13 @@ export function ownerCatalogProductByHandle(handle) {
   return ownerCatalogProducts.find(product => product.handle === handle);
 }
 
+function productHandles(product) {
+  return [product.handle, ...(product.legacyHandles || [])];
+}
+
 function removeOwnerProducts(rows) {
   const ownerIds = new Set(ownerCatalogProducts.map(product => String(product.id)));
-  const ownerHandles = new Set(ownerCatalogProducts.map(product => product.handle));
+  const ownerHandles = new Set(ownerCatalogProducts.flatMap(productHandles));
   return rows.filter(row => !ownerIds.has(String(row.id)) && !ownerHandles.has(row.handle));
 }
 
@@ -50,12 +54,14 @@ export function applyOwnerCatalogProducts(catalogDir, { updateCategorySummary = 
 
   let added = 0;
   for (const product of ownerCatalogProducts) {
-    if (!existingHandles.has(product.handle)) added += 1;
+    const alreadyPresent = productHandles(product).some(handle => existingHandles.has(handle));
+    if (!alreadyPresent) added += 1;
+    for (const legacyHandle of product.legacyHandles || []) delete productMap[legacyHandle];
     productMap[product.handle] = targetChunk;
     if (categorySummary) {
       for (const category of new Set(product.categories?.length ? product.categories : [product.category])) {
         const summary = categorySummary[category] || { count: 0, imageUrl: null };
-        if (!existingHandles.has(product.handle)) summary.count += 1;
+        if (!alreadyPresent) summary.count += 1;
         summary.imageUrl ||= product.imageUrl;
         categorySummary[category] = summary;
       }

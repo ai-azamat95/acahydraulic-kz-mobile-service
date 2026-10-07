@@ -1,6 +1,7 @@
 export type CatalogIndexProduct = {
   id: string;
   handle: string;
+  legacyHandles?: string[];
   title: string;
   catalogTitle?: string;
   fitment: string | null;
@@ -20,6 +21,7 @@ export type CatalogIndexProduct = {
     photoAlt: string;
     selection: string;
   };
+  ownerCase?: { confirmedOn: string; casePath: string };
   ownerSale?: { condition: "new"; confirmedOn: string; casePath: string };
   ownerProduct?: {
     condition: "new";

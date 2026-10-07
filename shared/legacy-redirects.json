@@ -8,5 +8,6 @@
   "/remont-greydera": "/services/grader-repair/",
   "/remont-buldozerov": "/services/bulldozer-repair/",
   "/projects": "/cases/",
-  "/catalog/category/controllers-monitors": "/catalog/category/controllers/"
+  "/catalog/category/controllers-monitors": "/catalog/category/controllers/",
+  "/catalog/husco-6600-f163-a00-c16e303-f18-22233-hydraulic-control-valve": "/catalog/husco-6600-e163-a00-c16e303-f18-22233-hydraulic-control-valve/"
 }

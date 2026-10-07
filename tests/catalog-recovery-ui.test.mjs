@@ -29,3 +29,14 @@ test("catalog product data failures can be retried without losing the route", ()
   );
   assert.match(productPage, /Повторить загрузку/);
 });
+
+test("catalog product routes revalidate owner data after a deployment", () => {
+  assert.match(
+    hook,
+    /product-map\.json", manifest\.importedAt\),\s*controller\.signal,\s*"no-cache"/s
+  );
+  assert.match(
+    hook,
+    /products-\$\{String\(chunk\)\.padStart\(3, "0"\)\}\.json`,\s*manifest\.importedAt,\s*\),\s*controller\.signal,\s*"no-cache"/s
+  );
+});
