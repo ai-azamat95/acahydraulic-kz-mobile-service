@@ -7,7 +7,7 @@ const schemas = html => [...html.matchAll(/<script[^>]*type="application\/ld\+js
 
 test('business schema uses confirmed identity and appointment-only availability', () => {
   const business = schemas(read('')).find(s => s['@id']?.endsWith('#business'));
-  assert.equal(business.legalName, 'ТОО «АСА-ГС»');
+  assert.equal(business.legalName, 'ИП Тлеуғазы');
   assert.equal(business.openingHoursSpecification, undefined);
   assert.equal(business.contactPoint.hoursAvailable, undefined);
   assert.match(business.description, /по договорённости/);
