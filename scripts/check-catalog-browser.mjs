@@ -22,6 +22,7 @@ const expectedMainControlValveCount = catalogProducts.filter((product) => (produ
 const expectedWiringHarnessCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses')).length;
 const expectedFuelInjectorCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('fuel-injectors')).length;
 const expectedFuelPumpCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('fuel-pumps')).length;
+const expectedFuelCommonRailCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('fuel-common-rails')).length;
 const expectedEngineRebuildKitCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits')).length;
 const expectedControllerCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('controllers')).length;
 const expectedMonitorCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('monitors')).length;
@@ -185,6 +186,14 @@ try {
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelPumpCount),'fuel pump URL must contain the complete supplier collection');
             assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelPumpCount),'all fuel pumps must be visible without pagination');
             assert.equal(await page.locator('.aca-product-card').count(),expectedFuelPumpCount,'all fuel pumps must render as real product cards');
+          }
+          if(expectedFuelCommonRailCount>0){
+            await page.goto(origin+'/catalog/category/fuel-common-rails',{waitUntil:'networkidle'});
+            await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedFuelCommonRailCount);
+            assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelCommonRailCount),'Common Rail URL must contain the curated supplier collection');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelCommonRailCount),'all Common Rail products must be visible without pagination');
+            assert.equal(await page.locator('.aca-product-card').count(),expectedFuelCommonRailCount,'all Common Rail products must render as real product cards');
+            assert.equal(await page.locator('.aca-product-card').filter({hasText:'8973060634'}).count(),0,'the injector from the supplier collection must not be mislabelled as a fuel rail');
           }
           if(expectedEngineRebuildKitCount>0){
             await page.goto(origin+'/catalog/category/engine-rebuild-kits',{waitUntil:'networkidle'});

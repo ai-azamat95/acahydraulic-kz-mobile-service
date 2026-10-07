@@ -109,10 +109,11 @@ assert.deepEqual(fuelInjectorAudit.unexpectedProductIds, [], 'no keyword-only pr
 assert.equal(categorySummary['fuel-injectors'].count, fuelInjectorAudit.sourceProducts, 'rendered fuel injector count must match the supplier collection');
 const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
 const allowedFuelInjectorFallbackIds = new Set(['7100999762082', '7100999860386']);
+const allowedFuelInjectorGalleryIds = new Set(['8837524848802']);
 assert(
   fuelInjectors.every(
     (product) =>
-      product.gallery.length === 1 &&
+      (product.gallery.length === 1 || allowedFuelInjectorGalleryIds.has(String(product.id))) &&
       product.imageUrl === product.gallery[0] &&
       (product.imageUrl !== '/catalog-assets/category-fuel-injector.jpg' || allowedFuelInjectorFallbackIds.has(String(product.id))),
   ),
@@ -130,6 +131,14 @@ assert.equal(fuelPumpAudit.importedProducts, fuelPumpAudit.sourceProducts, 'ever
 assert.deepEqual(fuelPumpAudit.missingProductIds, [], 'no supplier fuel pumps may be missing');
 assert.deepEqual(fuelPumpAudit.unexpectedProductIds, [], 'no keyword-only products may enter the fuel pump category');
 assert.equal(categorySummary['fuel-pumps'].count, fuelPumpAudit.sourceProducts, 'rendered fuel pump count must match the supplier collection');
+
+const fuelCommonRailAudit = strictCategoryAudit.categories['fuel-common-rails'];
+assert(fuelCommonRailAudit, 'fuel common rail collection audit must be present');
+assert.equal(fuelCommonRailAudit.collection, 'fuel-common-rail');
+assert.equal(fuelCommonRailAudit.importedProducts, fuelCommonRailAudit.sourceProducts, 'every supplier fuel rail must be imported');
+assert.deepEqual(fuelCommonRailAudit.missingProductIds, [], 'no supplier fuel rails may be missing');
+assert.deepEqual(fuelCommonRailAudit.unexpectedProductIds, [], 'the injector in the supplier collection must not enter the rail category');
+assert.equal(categorySummary['fuel-common-rails'].count, fuelCommonRailAudit.sourceProducts, 'rendered fuel common rail count must match the curated supplier collection');
 
 const engineRebuildKitAudit = strictCategoryAudit.categories['engine-rebuild-kits'];
 assert(engineRebuildKitAudit, 'engine rebuild kit collection audit must be present');

@@ -250,6 +250,7 @@ export const partCategories = [
   { id: "engine-rebuild-kits", ru: "Комплекты капремонта ДВС", kz: "Қозғалтқыш жөндеу жинақтары", en: "Engine rebuild kits" },
   { id: "fuel-injectors", ru: "Топливные форсунки", kz: "Отын бүріккіштері", en: "Fuel injectors" },
   { id: "fuel-pumps", ru: "Топливные насосы", kz: "Отын сорғылары", en: "Fuel pumps" },
+  { id: "fuel-common-rails", ru: "Топливные рампы Common Rail", kz: "Common Rail отын рампалары", en: "Common Rail fuel rails" },
   { id: "air-conditioning", ru: "Кондиционирование", kz: "Кондиционер жүйесі", en: "Air conditioning" },
   { id: "diagnostic-tools", ru: "Диагностические инструменты", kz: "Диагностикалық құралдар", en: "Diagnostic tools" },
   { id: "other-parts", ru: "Другие запчасти", kz: "Басқа қосалқы бөлшектер", en: "Other parts" },

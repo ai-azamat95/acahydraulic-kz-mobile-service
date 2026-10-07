@@ -17,6 +17,10 @@ const CONTROLLER_COLLECTION = 'controller';
 const MONITOR_MARKUP = 1.5;
 const MONITOR_COLLECTION = 'monitor';
 const WIRING_HARNESS_COLLECTION = 'wiring-harness';
+const COMMON_RAIL_COLLECTION = 'fuel-common-rail';
+// SinoCMP lists this injector inside the Common Rail collection. Keep the
+// product, but publish it under injectors instead of mislabelling it as a rail.
+const CURATED_COMMON_RAIL_INJECTOR_IDS = new Set(['8837524848802']);
 const PRICE_ON_REQUEST_THRESHOLD_KZT = 10_000_000;
 const CONCURRENCY = 2;
 const COLLECTION_CONCURRENCY = 3;
@@ -52,6 +56,9 @@ const CATEGORY_COLLECTIONS = [
   // Fuel pumps remain part of the broader engine and fuel catalogue while the
   // supplier's exact collection is also available as a dedicated filter.
   ['fuel-pumps', ['fuel-pump']],
+  // Rails, accumulators and high-pressure pipes need their own OEM-first
+  // landing instead of being hidden inside the broad engine category.
+  ['fuel-common-rails', [COMMON_RAIL_COLLECTION]],
   // Engine rebuild kits remain in the broader engine and fuel catalogue while
   // this exact supplier collection is exposed as a dedicated category.
   ['engine-rebuild-kits', ['engine-overhaul-rebuild-kit']],
@@ -64,6 +71,7 @@ const STRICT_CATEGORY_COLLECTIONS = [
   ['wiring-harnesses', 'wiring-harness'],
   ['fuel-injectors', 'fuel-injector'],
   ['fuel-pumps', 'fuel-pump'],
+  ['fuel-common-rails', COMMON_RAIL_COLLECTION],
   ['engine-rebuild-kits', 'engine-overhaul-rebuild-kit'],
 ];
 const PUMP_PARTS_PLACEHOLDER = '/catalog-assets/category-pump-parts.jpg';
@@ -88,6 +96,25 @@ const categoryRules = [
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function strictCategorySourceProducts(category, collectionHandle, categoryCollections) {
+  const collection = categoryCollections.find((item) => item.handle === collectionHandle);
+  const products = collection?.products || [];
+
+  if (category === 'fuel-common-rails') {
+    return products.filter((product) => !CURATED_COMMON_RAIL_INJECTOR_IDS.has(String(product.id)));
+  }
+
+  if (category === 'fuel-injectors') {
+    const commonRailCollection = categoryCollections.find((item) => item.handle === COMMON_RAIL_COLLECTION);
+    const curatedInjectors = (commonRailCollection?.products || []).filter((product) =>
+      CURATED_COMMON_RAIL_INJECTOR_IDS.has(String(product.id)),
+    );
+    return [...products, ...curatedInjectors];
+  }
+
+  return products;
 }
 
 async function fetchJson(url, attempt = 1) {
@@ -357,7 +384,7 @@ function publicProductGallery(product, categories) {
       })
       .filter(Boolean);
   }
-  if (categoryList.includes('fuel-injectors')) {
+  if (categoryList.includes('fuel-injectors') && !CURATED_COMMON_RAIL_INJECTOR_IDS.has(String(product.id))) {
     // Cards need the product-specific primary photo shown by the supplier,
     // not one category image repeated across the whole injector collection.
     // Keep one photo per product to limit catalogue weight; the mirror step
@@ -717,7 +744,9 @@ function verifyStrictCategoryImports(categoryCollections, importedProducts) {
       continue;
     }
 
-    const sourceIds = new Set(collection.products.map((product) => String(product.id)));
+    const sourceIds = new Set(
+      strictCategorySourceProducts(category, collectionHandle, categoryCollections).map((product) => String(product.id)),
+    );
     const categoryProducts = [...importedProducts.values()].filter((product) => (product.categories || [product.category]).includes(category));
     const importedIds = new Set(categoryProducts.map((product) => String(product.id)));
     const missingProductIds = [...sourceIds].filter((id) => !importedIds.has(id));
@@ -957,8 +986,7 @@ async function run() {
   }
   const strictCategoryMembershipsByProductId = new Map();
   for (const [category, collectionHandle] of STRICT_CATEGORY_COLLECTIONS) {
-    const collection = categoryCollections.find((item) => item.handle === collectionHandle);
-    for (const product of collection?.products || []) {
+    for (const product of strictCategorySourceProducts(category, collectionHandle, categoryCollections)) {
       const id = String(product.id);
       const memberships = strictCategoryMembershipsByProductId.get(id) || [];
       memberships.push(category);

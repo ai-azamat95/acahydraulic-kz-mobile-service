@@ -69,6 +69,7 @@ const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge>
   "engine-rebuild-kits": Settings,
   "fuel-injectors": Fuel,
   "fuel-pumps": Fuel,
+  "fuel-common-rails": Fuel,
   "air-conditioning": Fan,
   "diagnostic-tools": ScanLine,
   "other-parts": PackageSearch,
@@ -131,7 +132,7 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
 
 function initialVisibleProducts(category: string) {
   if (["controllers", "monitors"].includes(category)) return ELECTRONICS_VISIBLE_PRODUCTS;
-  if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves", "wiring-harnesses", "fuel-injectors", "fuel-pumps", "engine-rebuild-kits"].includes(category)) return Number.MAX_SAFE_INTEGER;
+  if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves", "wiring-harnesses", "fuel-injectors", "fuel-pumps", "fuel-common-rails", "engine-rebuild-kits"].includes(category)) return Number.MAX_SAFE_INTEGER;
   return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
 }
 
