@@ -8,6 +8,8 @@ const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/nod
 const root = path.resolve('dist/public');
 const catalogDir = path.join(root, 'catalog-data');
 const catalogManifest = JSON.parse(fs.readFileSync(path.join(catalogDir, 'manifest.json'), 'utf8'));
+const catalogLandingIndex = JSON.parse(fs.readFileSync(path.join(catalogDir, 'landing-pages.json'), 'utf8'));
+const expectedCategoryCardCount = catalogLandingIndex.categories.length + 1;
 const completeIndexPath = catalogManifest.indexFile ? path.join(catalogDir, catalogManifest.indexFile) : null;
 const catalogProducts = completeIndexPath && fs.existsSync(completeIndexPath)
   ? JSON.parse(fs.readFileSync(completeIndexPath, 'utf8'))
@@ -70,8 +72,8 @@ try {
         );
         for(const lang of ['RU','KZ','EN']){
           await selectCatalogLanguage(page, lang);
-          assert.equal(await page.locator('.aca-category-card:visible').count(),21);
-          assert.equal(await page.locator('.aca-category-count:visible').count(),21);
+          assert.equal(await page.locator('.aca-category-card:visible').count(),expectedCategoryCardCount);
+          assert.equal(await page.locator('.aca-category-count:visible').count(),expectedCategoryCardCount);
           assert.equal(await page.locator('[data-complete-engine-category]:visible').count(),1);
           assert.equal(
             new URL(await page.locator('[data-complete-engine-category] img').getAttribute('src'),origin).pathname,
