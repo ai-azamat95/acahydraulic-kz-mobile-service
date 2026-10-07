@@ -103,6 +103,7 @@ const categoryImageOverrides: Record<string, string> = {
   "engine-rebuild-kits": "/catalog-assets/category-engine-rebuild-kit.jpg",
   "fuel-injectors": "/catalog-assets/category-fuel-injector.jpg",
   "fuel-pumps": "/catalog-assets/category-fuel-pump.jpg",
+  "fuel-common-rails": "/catalog-assets/category-fuel-common-rail.webp",
   "air-conditioning": "/catalog-assets/category-air-conditioning.jpg",
   "diagnostic-tools": "/catalog-assets/category-diagnostic-tools.jpg",
   "other-parts": "/catalog-assets/category-other-parts.jpg",

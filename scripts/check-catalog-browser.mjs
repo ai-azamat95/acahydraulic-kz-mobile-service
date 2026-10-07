@@ -122,12 +122,13 @@ try {
         await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
-        assert.equal(categoryImages.length,21,'each category needs a product image');
+        assert.equal(categoryImages.length,expectedCategoryCardCount,'each category needs a product image');
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
         assert.equal(categoryImages[1].path,'/catalog-assets/complete-engine-category.webp');
         assert.equal(categoryImages[7].path,'/catalog-assets/final-drive-category.jpg');
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/controllers"] img').getAttribute('src'),'/catalog-assets/category-controller.jpg','controller category must use a real controller image');
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/monitors"] img').getAttribute('src'),'/catalog-assets/category-monitor.jpg','monitor category must keep the monitor image');
+        assert.equal(await page.locator('.aca-category-card[href="/catalog/category/fuel-common-rails"] img').getAttribute('src'),'/catalog-assets/category-fuel-common-rail.webp','Common Rail category must use a real local fuel rail photo');
         assert.match(await page.locator('.aca-category-card[href="/catalog/category/controllers"] .aca-category-count').textContent(),new RegExp(expectedControllerCount.toLocaleString('ru-RU').replace(/\s/g,'\\s?')),'controller count must use the complete category summary');
         assert.match(await page.locator('.aca-category-card[href="/catalog/category/monitors"] .aca-category-count').textContent(),new RegExp(expectedMonitorCount.toLocaleString('ru-RU').replace(/\s/g,'\\s?')),'monitor count must use the complete category summary');
         if(width===1440){

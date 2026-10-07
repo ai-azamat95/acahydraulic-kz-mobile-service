@@ -75,4 +75,6 @@ test('ships complete SEO and selection content for the new category', () => {
   assert(landing.description.length >= 140);
   assert(seoContent['fuel-common-rails'].queries.length >= 4);
   assert.match(seoContent['fuel-common-rails'].selection, /OEM-номер/);
+  const categoryAsset = fs.readFileSync('client/public/catalog-assets/category-fuel-common-rail.webp');
+  assert.equal(categoryAsset.subarray(0, 4).toString('ascii'), 'RIFF');
 });
