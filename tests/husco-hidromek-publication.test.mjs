@@ -7,6 +7,7 @@ import repairCase from "../shared/husco-hidromek-102b-case.json" with { type: "j
 
 const root = "dist/public";
 const productPath = path.join(root, "catalog", repairCase.handle, "index.html");
+const legacyProductPath = path.join(root, "catalog", "husco-6600-f163-a00-c16e303-f18-22233-hydraulic-control-valve", "index.html");
 const casePath = path.join(root, repairCase.casePath.replace(/^\//, ""), "index.html");
 
 function readPublished(file) {
@@ -68,7 +69,7 @@ test("HIDROMEK case publishes one H1, exact identifiers and three non-autoplay v
   assert.ok(videoSchemas.every((schema) => schema.contentUrl?.startsWith("https://acahydraulic.kz/media/hidromek-102b-husco-c16e303/")));
 });
 
-test("HUSCO product page publishes price on request, Product schema and reciprocal case link", () => {
+test("HUSCO product page publishes price on request, Product schema and reciprocal case link", { skip: !fs.existsSync(productPath) }, () => {
   const html = readPublished(productPath);
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
   assert.match(html, /Гидрораспределитель HUSCO 6600-E163 A00 — C16E303, F18\/22233/);
@@ -83,6 +84,13 @@ test("HUSCO product page publishes price on request, Product schema and reciproc
   assert.equal(product.mpn, "C16E303");
   assert.equal(product.offers, undefined);
   assert.equal(product.image.length, 3);
+});
+
+test("the incorrect F163 URL points to the canonical E163 product", () => {
+  const html = readPublished(legacyProductPath);
+  const canonical = `https://acahydraulic.kz/catalog/${repairCase.handle}/`;
+  assert.match(html, new RegExp(`rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+  assert.match(html, new RegExp(`http-equiv="refresh" content="0;url=/catalog/${repairCase.handle}/"`));
 });
 
 test("case, video sitemap and real media are discoverable", () => {

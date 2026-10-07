@@ -33,6 +33,7 @@ const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catal
 const categorySelectionGuides = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-selection-guides.json'), 'utf8'));
 const legacyRedirects = JSON.parse(fs.readFileSync(path.resolve('shared/legacy-redirects.json'), 'utf8'));
 const catalogRedirects = Object.fromEntries(Object.entries(legacyRedirects).filter(([from]) => from.startsWith('/catalog/')));
+const publishedProductPaths = new Set(products.map((product) => `/catalog/${product.handle}/`));
 
 function escapeAttr(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
@@ -199,7 +200,9 @@ for (const page of pages) {
 
 for (const [from, to] of Object.entries(catalogRedirects)) {
   const destination = path.join(outDir, to.replace(/^\/+/, ''), 'index.html');
-  if (!fs.existsSync(destination)) throw new Error(`Catalog redirect destination missing: ${to}`);
+  if (!fs.existsSync(destination) && !publishedProductPaths.has(to)) {
+    throw new Error(`Catalog redirect destination missing: ${to}`);
+  }
   const pageDir = path.join(outDir, from.replace(/^\/+/, ''));
   fs.mkdirSync(pageDir, { recursive: true });
   fs.writeFileSync(
