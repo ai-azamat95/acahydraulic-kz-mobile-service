@@ -127,7 +127,7 @@ try {
         // lazy images; visit each card rather than jumping past the middle.
         for (const image of await page.locator('.aca-category-card img').all()) {
           await image.scrollIntoViewIfNeeded();
-          await image.evaluate(node => node.decode());
+          await page.waitForFunction(node => node.complete && node.naturalWidth > 0, await image.elementHandle());
         }
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
