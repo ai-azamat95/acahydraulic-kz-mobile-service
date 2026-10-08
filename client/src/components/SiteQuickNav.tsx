@@ -16,6 +16,9 @@ export default function SiteQuickNav() {
           className="inline-flex min-h-11 items-center rounded px-3 text-[#FFC000] hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">
           В каталог
         </Link>
+        <Link href="/sitemap/" className="inline-flex min-h-11 items-center rounded px-2 text-white/80 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">
+          Разделы сайта
+        </Link>
       </div>
     </nav>
   );

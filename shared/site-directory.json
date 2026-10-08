@@ -1,0 +1,1476 @@
+[
+  {
+    "title": "Компания и условия заказа",
+    "links": [
+      {
+        "href": "/catalog/",
+        "label": "Каталог запчастей для спецтехники"
+      },
+      {
+        "href": "/about/",
+        "label": "О компании ACA Hydraulic | Гидравлический сервис"
+      },
+      {
+        "href": "/reviews/",
+        "label": "Отзывы клиентов ACA Hydraulic | Ремонт гидравлики"
+      },
+      {
+        "href": "/contacts/",
+        "label": "Контакты ACA Hydraulic | Вызвать ремонт гидравлики"
+      },
+      {
+        "href": "/corporate/",
+        "label": "Корпоративное обслуживание спецтехники"
+      },
+      {
+        "href": "/privacy/",
+        "label": "Политика конфиденциальности"
+      },
+      {
+        "href": "/terms/",
+        "label": "Условия использования сайта"
+      },
+      {
+        "href": "/payment/",
+        "label": "Оплата заказа"
+      },
+      {
+        "href": "/offer/",
+        "label": "Публичная оферта"
+      }
+    ]
+  },
+  {
+    "title": "Услуги ремонта",
+    "links": [
+      {
+        "href": "/services/",
+        "label": "Ремонт гидравлики и спецтехники в Астане — услуги ACA Hydraulic"
+      },
+      {
+        "href": "/services/mobile-repair/",
+        "label": "Выездная диагностика гидравлики спецтехники"
+      },
+      {
+        "href": "/services/emergency-service/",
+        "label": "Аварийная диагностика гидравлики спецтехники"
+      },
+      {
+        "href": "/services/b2b-maintenance/",
+        "label": "Диагностика и ремонт гидравлики для предприятий"
+      },
+      {
+        "href": "/services/industrial-service/",
+        "label": "Сервис промышленной гидравлики"
+      },
+      {
+        "href": "/services/excavator-repair/",
+        "label": "Ремонт гидравлики экскаваторов в Астане"
+      },
+      {
+        "href": "/services/bulldozer-repair/",
+        "label": "Диагностика гидравлики бульдозеров"
+      },
+      {
+        "href": "/services/loader-repair/",
+        "label": "Диагностика гидравлики погрузчиков"
+      },
+      {
+        "href": "/services/grader-repair/",
+        "label": "Диагностика гидравлики автогрейдеров"
+      },
+      {
+        "href": "/services/mining-loader-repair/",
+        "label": "Ремонт гидравлики шахтных погрузчиков"
+      },
+      {
+        "href": "/services/mining-truck-repair/",
+        "label": "Ремонт гидравлики карьерных самосвалов"
+      },
+      {
+        "href": "/services/manipulator-repair/",
+        "label": "Диагностика гидравлики манипуляторов"
+      },
+      {
+        "href": "/services/wirtgen-repair/",
+        "label": "Ремонт гидравлики дорожных фрез Wirtgen"
+      },
+      {
+        "href": "/services/drilling-repair/",
+        "label": "Диагностика и ремонт гидравлики буровых установок"
+      },
+      {
+        "href": "/services/gnb-repair/",
+        "label": "Ремонт гидравлики установок ГНБ"
+      },
+      {
+        "href": "/services/piledriver-repair/",
+        "label": "Ремонт гидравлики сваебойных установок"
+      },
+      {
+        "href": "/services/hydraulic-pumps/",
+        "label": "Диагностика и ремонт гидронасосов спецтехники"
+      },
+      {
+        "href": "/services/hydraulic-motors/",
+        "label": "Диагностика и ремонт гидромоторов хода и поворота"
+      },
+      {
+        "href": "/services/hydraulic-valves/",
+        "label": "Диагностика и ремонт гидрораспределителей"
+      },
+      {
+        "href": "/services/press-repair/",
+        "label": "Диагностика гидравлики промышленных прессов"
+      },
+      {
+        "href": "/services/railway-repair/",
+        "label": "Диагностика гидравлики железнодорожной техники"
+      }
+    ]
+  },
+  {
+    "title": "Сервис по регионам",
+    "links": [
+      {
+        "href": "/regions/astana/",
+        "label": "Ремонт гидравлики в Астане — база и выезд"
+      },
+      {
+        "href": "/regions/almaty/",
+        "label": "Ремонт гидравлики Алматы | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/karaganda/",
+        "label": "Ремонт гидравлики Караганда | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/atyrau/",
+        "label": "Ремонт гидравлики Атырау | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/aktau/",
+        "label": "Ремонт гидравлики Актау | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/shymkent/",
+        "label": "Ремонт гидравлики Шымкент | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/petropavlovsk/",
+        "label": "Ремонт гидравлики Петропавловск | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/semey/",
+        "label": "Ремонт гидравлики Семей | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/pavlodar-ekibastuz/",
+        "label": "Ремонт гидравлики Павлодар — Экибастуз | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/zhezkazgan-balkhash/",
+        "label": "Ремонт гидравлики Жезказган — Балхаш | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/kokshetau/",
+        "label": "Ремонт гидравлики Кокшетау | Выездной сервис ACA Hydraulic"
+      },
+      {
+        "href": "/regions/kostanay/",
+        "label": "Ремонт гидравлики Костанай | Выездной сервис ACA Hydraulic"
+      }
+    ]
+  },
+  {
+    "title": "Сервис по брендам",
+    "links": [
+      {
+        "href": "/brands/cat/",
+        "label": "Ремонт гидравлики CAT Caterpillar в Казахстане"
+      },
+      {
+        "href": "/brands/komatsu/",
+        "label": "Ремонт гидравлики Komatsu"
+      },
+      {
+        "href": "/brands/hitachi/",
+        "label": "Ремонт гидравлики Hitachi"
+      },
+      {
+        "href": "/brands/hyundai/",
+        "label": "Ремонт гидравлики Hyundai"
+      },
+      {
+        "href": "/brands/wirtgen/",
+        "label": "Ремонт гидравлики Wirtgen"
+      },
+      {
+        "href": "/brands/shantui/",
+        "label": "Ремонт гидравлики Shantui"
+      },
+      {
+        "href": "/brands/liebherr/",
+        "label": "Ремонт гидравлики Liebherr"
+      },
+      {
+        "href": "/brands/volvo/",
+        "label": "Ремонт гидравлики Volvo"
+      }
+    ]
+  },
+  {
+    "title": "Двигатели в сборе",
+    "links": [
+      {
+        "href": "/parts/engines-complete/",
+        "label": "Каталог двигателей в сборе Cummins — поставка и монтаж"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/",
+        "label": "Двигатели Cummins в сборе: QSB, N855, K19, QSK и X15"
+      },
+      {
+        "href": "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10/",
+        "label": "Двигатель Cummins NTA855-C360S10 в сборе для Shantui SD32"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/4bta3-9/",
+        "label": "Cummins 4BTA3.9 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsb3-9/",
+        "label": "Cummins QSB3.9 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/6bt-bta5-9/",
+        "label": "Cummins 6BT / BTA5.9 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsb5-9/",
+        "label": "Cummins QSB5.9 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsb6-7/",
+        "label": "Cummins QSB6.7 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/c8-3/",
+        "label": "Cummins C8.3: 6CT8.3 / 6CTA8.3 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsc8-3/",
+        "label": "Cummins QSC8.3 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsl8-9-qsl9/",
+        "label": "Cummins QSL8.9 / QSL9 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/m11-qsm11/",
+        "label": "Cummins M11 / QSM11 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/n855-nt855-nta855/",
+        "label": "Cummins N855 / NT855 / NTA855 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsnt-n14/",
+        "label": "Cummins QSNT / N14 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/k19/",
+        "label": "Cummins K19: KT19 / KTA19 / KTTA19 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsk19/",
+        "label": "Cummins QSK19 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsk23/",
+        "label": "Cummins QSK23 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/k38/",
+        "label": "Cummins K38 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsk38/",
+        "label": "Cummins QSK38 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/k50/",
+        "label": "Cummins K50 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsk50/",
+        "label": "Cummins QSK50 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsx15/",
+        "label": "Cummins QSX15 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/x15/",
+        "label": "Cummins X15 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/4bta3-9-g2/",
+        "label": "Cummins 4BTA3.9-G2 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/6ltaa8-9-g2/",
+        "label": "Cummins 6LTAA8.9-G2 в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/qsb6-7-marine/",
+        "label": "Cummins QSB6.7 Marine в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/marine-power-generation/",
+        "label": "Cummins Marine Power Generation в сборе — поставка по Казахстану"
+      },
+      {
+        "href": "/parts/engines-complete/cummins/marine-main-propulsion/",
+        "label": "Cummins Marine Main Propulsion в сборе — поставка по Казахстану"
+      }
+    ]
+  },
+  {
+    "title": "Категории запчастей",
+    "links": [
+      {
+        "href": "/catalog/category/hydraulic-pumps/",
+        "label": "Гидронасосы под заказ в Казахстане"
+      },
+      {
+        "href": "/catalog/category/gear-pumps/",
+        "label": "Шестерёнчатые насосы для спецтехники"
+      },
+      {
+        "href": "/catalog/category/piston-pumps/",
+        "label": "Аксиально-поршневые гидронасосы под заказ"
+      },
+      {
+        "href": "/catalog/category/main-control-valves/",
+        "label": "Основные гидрораспределители HUSCO и других производителей"
+      },
+      {
+        "href": "/catalog/category/pump-parts/",
+        "label": "Запчасти гидронасосов: подбор по модели"
+      },
+      {
+        "href": "/catalog/category/hydraulic-motors/",
+        "label": "Гидромоторы для спецтехники под заказ"
+      },
+      {
+        "href": "/catalog/category/final-drives/",
+        "label": "Бортовые редукторы и передачи хода"
+      },
+      {
+        "href": "/catalog/category/control-valves/",
+        "label": "Гидрораспределители и гидравлические клапаны"
+      },
+      {
+        "href": "/catalog/category/electrical/",
+        "label": "Электрика спецтехники: датчики, стартеры и соленоиды"
+      },
+      {
+        "href": "/catalog/category/wiring-harnesses/",
+        "label": "Жгуты проводки для спецтехники"
+      },
+      {
+        "href": "/catalog/category/controllers/",
+        "label": "Контроллеры для спецтехники"
+      },
+      {
+        "href": "/catalog/category/monitors/",
+        "label": "Мониторы для спецтехники"
+      },
+      {
+        "href": "/catalog/category/seals-filters/",
+        "label": "Ремкомплекты, уплотнения и фильтры"
+      },
+      {
+        "href": "/catalog/category/engine-fuel/",
+        "label": "Запчасти двигателя и топливной системы"
+      },
+      {
+        "href": "/catalog/category/engine-rebuild-kits/",
+        "label": "Комплекты капитального ремонта двигателя"
+      },
+      {
+        "href": "/catalog/category/fuel-injectors/",
+        "label": "Топливные форсунки для спецтехники"
+      },
+      {
+        "href": "/catalog/category/fuel-pumps/",
+        "label": "Топливные насосы для спецтехники"
+      },
+      {
+        "href": "/catalog/category/fuel-common-rails/",
+        "label": "Топливные рампы Common Rail для спецтехники"
+      },
+      {
+        "href": "/catalog/category/air-conditioning/",
+        "label": "Запчасти кондиционера спецтехники"
+      },
+      {
+        "href": "/catalog/category/diagnostic-tools/",
+        "label": "Диагностические инструменты для спецтехники"
+      },
+      {
+        "href": "/catalog/category/other-parts/",
+        "label": "Другие запчасти для спецтехники"
+      }
+    ]
+  },
+  {
+    "title": "Запчасти по брендам",
+    "links": [
+      {
+        "href": "/catalog/brand/caterpillar/",
+        "label": "Запчасти Caterpillar для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/komatsu/",
+        "label": "Запчасти Komatsu для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/hitachi/",
+        "label": "Запчасти Hitachi для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/volvo/",
+        "label": "Запчасти Volvo CE для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/hyundai/",
+        "label": "Запчасти Hyundai для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/sany/",
+        "label": "Запчасти SANY для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/xcmg/",
+        "label": "Запчасти XCMG для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/shantui/",
+        "label": "Запчасти Shantui для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/doosan/",
+        "label": "Запчасти Doosan для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/kobelco/",
+        "label": "Запчасти Kobelco для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/liebherr/",
+        "label": "Запчасти Liebherr для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/jcb/",
+        "label": "Запчасти JCB для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/danfoss/",
+        "label": "Запчасти Danfoss для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/rexroth/",
+        "label": "Запчасти Rexroth для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/kawasaki/",
+        "label": "Запчасти Kawasaki для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/parker/",
+        "label": "Запчасти Parker для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/husco/",
+        "label": "Запчасти HUSCO для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/handok/",
+        "label": "Запчасти HANDOK для спецтехники"
+      },
+      {
+        "href": "/catalog/brand/cummins/",
+        "label": "Запчасти Cummins для спецтехники"
+      }
+    ]
+  },
+  {
+    "title": "Запчасти по моделям",
+    "links": [
+      {
+        "href": "/catalog/model/pc200-6/",
+        "label": "Запчасти для спецтехники Komatsu PC200-6"
+      },
+      {
+        "href": "/catalog/model/pc200-8/",
+        "label": "Запчасти для спецтехники Komatsu PC200-8"
+      },
+      {
+        "href": "/catalog/model/pc200-7/",
+        "label": "Запчасти для спецтехники Komatsu PC200-7"
+      },
+      {
+        "href": "/catalog/model/4hk1/",
+        "label": "Запчасти для двигателя Isuzu 4HK1"
+      },
+      {
+        "href": "/catalog/model/sk200-8/",
+        "label": "Запчасти для спецтехники Kobelco SK200-8"
+      },
+      {
+        "href": "/catalog/model/6hk1/",
+        "label": "Запчасти для двигателя Isuzu 6HK1"
+      },
+      {
+        "href": "/catalog/model/ec210b/",
+        "label": "Запчасти для спецтехники Volvo CE EC210B"
+      },
+      {
+        "href": "/catalog/model/sk200-6/",
+        "label": "Запчасти для спецтехники Kobelco SK200-6"
+      },
+      {
+        "href": "/catalog/model/320d/",
+        "label": "Запчасти для спецтехники Caterpillar 320D"
+      },
+      {
+        "href": "/catalog/model/sk200-6e/",
+        "label": "Запчасти для спецтехники Kobelco SK200-6E"
+      },
+      {
+        "href": "/catalog/model/ex200-5/",
+        "label": "Запчасти для спецтехники Hitachi EX200-5"
+      },
+      {
+        "href": "/catalog/model/pc300-8/",
+        "label": "Запчасти для спецтехники Komatsu PC300-8"
+      },
+      {
+        "href": "/catalog/model/c15/",
+        "label": "Запчасти для двигателя Caterpillar C15"
+      },
+      {
+        "href": "/catalog/model/pc220-8/",
+        "label": "Запчасти для спецтехники Komatsu PC220-8"
+      },
+      {
+        "href": "/catalog/model/ec240b/",
+        "label": "Запчасти для спецтехники Volvo CE EC240B"
+      },
+      {
+        "href": "/catalog/model/pc300-7/",
+        "label": "Запчасти для спецтехники Komatsu PC300-7"
+      },
+      {
+        "href": "/catalog/model/pc120-6/",
+        "label": "Запчасти для спецтехники Komatsu PC120-6"
+      },
+      {
+        "href": "/catalog/model/3406e/",
+        "label": "Запчасти для двигателя Caterpillar 3406E"
+      },
+      {
+        "href": "/catalog/model/ec290b/",
+        "label": "Запчасти для спецтехники Volvo CE EC290B"
+      },
+      {
+        "href": "/catalog/model/pc200-5/",
+        "label": "Запчасти для спецтехники Komatsu PC200-5"
+      },
+      {
+        "href": "/catalog/model/pc220-6/",
+        "label": "Запчасти для спецтехники Komatsu PC220-6"
+      },
+      {
+        "href": "/catalog/model/sk210-8/",
+        "label": "Запчасти для спецтехники Kobelco SK210-8"
+      },
+      {
+        "href": "/catalog/model/4bt/",
+        "label": "Запчасти для двигателя Cummins 4BT"
+      },
+      {
+        "href": "/catalog/model/j08e/",
+        "label": "Запчасти для двигателя Hino J08E"
+      },
+      {
+        "href": "/catalog/model/zx200-3/",
+        "label": "Запчасти для спецтехники Hitachi ZX200-3"
+      },
+      {
+        "href": "/catalog/model/pc220-7/",
+        "label": "Запчасти для спецтехники Komatsu PC220-7"
+      },
+      {
+        "href": "/catalog/model/ex200-3/",
+        "label": "Запчасти для спецтехники Hitachi EX200-3"
+      },
+      {
+        "href": "/catalog/model/ec210/",
+        "label": "Запчасти для спецтехники Volvo CE EC210"
+      },
+      {
+        "href": "/catalog/model/ex200-2/",
+        "label": "Запчасти для спецтехники Hitachi EX200-2"
+      },
+      {
+        "href": "/catalog/model/pc300-6/",
+        "label": "Запчасти для спецтехники Komatsu PC300-6"
+      },
+      {
+        "href": "/catalog/model/320c/",
+        "label": "Запчасти для спецтехники Caterpillar 320C"
+      },
+      {
+        "href": "/catalog/model/pc400-7/",
+        "label": "Запчасти для спецтехники Komatsu PC400-7"
+      },
+      {
+        "href": "/catalog/model/c18/",
+        "label": "Запчасти для двигателя Caterpillar C18"
+      },
+      {
+        "href": "/catalog/model/m11/",
+        "label": "Запчасти для двигателя Cummins M11"
+      },
+      {
+        "href": "/catalog/model/pc100-6/",
+        "label": "Запчасти для спецтехники Komatsu PC100-6"
+      },
+      {
+        "href": "/catalog/model/qsm11/",
+        "label": "Запчасти для двигателя Cummins QSM11"
+      },
+      {
+        "href": "/catalog/model/k19/",
+        "label": "Запчасти для двигателя Cummins K19"
+      },
+      {
+        "href": "/catalog/model/e320c/",
+        "label": "Запчасти для спецтехники Caterpillar E320C"
+      },
+      {
+        "href": "/catalog/model/sk200-5/",
+        "label": "Запчасти для спецтехники Kobelco SK200-5"
+      },
+      {
+        "href": "/catalog/model/3126b/",
+        "label": "Запчасти для двигателя Caterpillar 3126B"
+      },
+      {
+        "href": "/catalog/model/c13/",
+        "label": "Запчасти для двигателя Caterpillar C13"
+      },
+      {
+        "href": "/catalog/model/nt855/",
+        "label": "Запчасти для двигателя Cummins NT855"
+      },
+      {
+        "href": "/catalog/model/sk210-6/",
+        "label": "Запчасти для спецтехники Kobelco SK210-6"
+      },
+      {
+        "href": "/catalog/model/zx200/",
+        "label": "Запчасти для спецтехники Hitachi ZX200"
+      },
+      {
+        "href": "/catalog/model/320b/",
+        "label": "Запчасти для спецтехники Caterpillar 320B"
+      },
+      {
+        "href": "/catalog/model/3cx/",
+        "label": "Запчасти для спецтехники JCB 3CX"
+      },
+      {
+        "href": "/catalog/model/6bt5/",
+        "label": "Запчасти для двигателя Cummins 6BT5"
+      },
+      {
+        "href": "/catalog/model/ec290/",
+        "label": "Запчасти для спецтехники Volvo CE EC290"
+      },
+      {
+        "href": "/catalog/model/ex120-5/",
+        "label": "Запчасти для спецтехники Hitachi EX120-5"
+      },
+      {
+        "href": "/catalog/model/e320b/",
+        "label": "Запчасти для спецтехники Caterpillar E320B"
+      },
+      {
+        "href": "/catalog/model/ec140b/",
+        "label": "Запчасти для спецтехники Volvo CE EC140B"
+      },
+      {
+        "href": "/catalog/model/pc210-6/",
+        "label": "Запчасти для спецтехники Komatsu PC210-6"
+      },
+      {
+        "href": "/catalog/model/4jj1/",
+        "label": "Запчасти для двигателя Isuzu 4JJ1"
+      },
+      {
+        "href": "/catalog/model/isx15/",
+        "label": "Запчасти для двигателя Cummins ISX15"
+      },
+      {
+        "href": "/catalog/model/pc400-8/",
+        "label": "Запчасти для спецтехники Komatsu PC400-8"
+      },
+      {
+        "href": "/catalog/model/sk200-3/",
+        "label": "Запчасти для спецтехники Kobelco SK200-3"
+      },
+      {
+        "href": "/catalog/model/v2203/",
+        "label": "Запчасти для двигателя Kubota V2203"
+      },
+      {
+        "href": "/catalog/model/ec360b/",
+        "label": "Запчасти для спецтехники Volvo CE EC360B"
+      },
+      {
+        "href": "/catalog/model/ex100-2/",
+        "label": "Запчасти для спецтехники Hitachi EX100-2"
+      },
+      {
+        "href": "/catalog/model/r290lc-7/",
+        "label": "Запчасти для спецтехники Hyundai R290LC-7"
+      },
+      {
+        "href": "/catalog/model/v3800/",
+        "label": "Запчасти для двигателя Kubota V3800"
+      },
+      {
+        "href": "/catalog/model/zx240-3/",
+        "label": "Запчасти для спецтехники Hitachi ZX240-3"
+      },
+      {
+        "href": "/catalog/model/d13/",
+        "label": "Запчасти для двигателя Volvo D13"
+      },
+      {
+        "href": "/catalog/model/pc400-6/",
+        "label": "Запчасти для спецтехники Komatsu PC400-6"
+      },
+      {
+        "href": "/catalog/model/qsb6/",
+        "label": "Запчасти для двигателя Cummins QSB6"
+      },
+      {
+        "href": "/catalog/model/r210-7/",
+        "label": "Запчасти для спецтехники Hyundai R210-7"
+      },
+      {
+        "href": "/catalog/model/sk350-8/",
+        "label": "Запчасти для спецтехники Kobelco SK350-8"
+      },
+      {
+        "href": "/catalog/model/312d/",
+        "label": "Запчасти для спецтехники Caterpillar 312D"
+      },
+      {
+        "href": "/catalog/model/330d/",
+        "label": "Запчасти для спецтехники Caterpillar 330D"
+      },
+      {
+        "href": "/catalog/model/qsx15/",
+        "label": "Запчасти для двигателя Cummins QSX15"
+      },
+      {
+        "href": "/catalog/model/324d/",
+        "label": "Запчасти для спецтехники Caterpillar 324D"
+      },
+      {
+        "href": "/catalog/model/e320d/",
+        "label": "Запчасти для спецтехники Caterpillar E320D"
+      },
+      {
+        "href": "/catalog/model/ex100-3/",
+        "label": "Запчасти для спецтехники Hitachi EX100-3"
+      },
+      {
+        "href": "/catalog/model/pc350-7/",
+        "label": "Запчасти для спецтехники Komatsu PC350-7"
+      },
+      {
+        "href": "/catalog/model/pc360-7/",
+        "label": "Запчасти для спецтехники Komatsu PC360-7"
+      },
+      {
+        "href": "/catalog/model/pc60-7/",
+        "label": "Запчасти для спецтехники Komatsu PC60-7"
+      },
+      {
+        "href": "/catalog/model/d722/",
+        "label": "Запчасти для двигателя Kubota D722"
+      },
+      {
+        "href": "/catalog/model/330c/",
+        "label": "Запчасти для спецтехники Caterpillar 330C"
+      },
+      {
+        "href": "/catalog/model/ec240/",
+        "label": "Запчасти для спецтехники Volvo CE EC240"
+      },
+      {
+        "href": "/catalog/model/ec330b/",
+        "label": "Запчасти для спецтехники Volvo CE EC330B"
+      },
+      {
+        "href": "/catalog/model/pc210-8/",
+        "label": "Запчасти для спецтехники Komatsu PC210-8"
+      },
+      {
+        "href": "/catalog/model/pc350-8/",
+        "label": "Запчасти для спецтехники Komatsu PC350-8"
+      },
+      {
+        "href": "/catalog/model/sk210-6e/",
+        "label": "Запчасти для спецтехники Kobelco SK210-6E"
+      },
+      {
+        "href": "/catalog/model/ex120-2/",
+        "label": "Запчасти для спецтехники Hitachi EX120-2"
+      },
+      {
+        "href": "/catalog/model/pc210-7/",
+        "label": "Запчасти для спецтехники Komatsu PC210-7"
+      },
+      {
+        "href": "/catalog/model/pc270-8/",
+        "label": "Запчасти для спецтехники Komatsu PC270-8"
+      },
+      {
+        "href": "/catalog/model/sk120-5/",
+        "label": "Запчасти для спецтехники Kobelco SK120-5"
+      },
+      {
+        "href": "/catalog/model/sk250-8/",
+        "label": "Запчасти для спецтехники Kobelco SK250-8"
+      },
+      {
+        "href": "/catalog/model/325d/",
+        "label": "Запчасти для спецтехники Caterpillar 325D"
+      },
+      {
+        "href": "/catalog/model/d902/",
+        "label": "Запчасти для двигателя Kubota D902"
+      },
+      {
+        "href": "/catalog/model/e320/",
+        "label": "Запчасти для спецтехники Caterpillar E320"
+      },
+      {
+        "href": "/catalog/model/ex220-5/",
+        "label": "Запчасти для спецтехники Hitachi EX220-5"
+      },
+      {
+        "href": "/catalog/model/pc130-8/",
+        "label": "Запчасти для спецтехники Komatsu PC130-8"
+      },
+      {
+        "href": "/catalog/model/pc450-8/",
+        "label": "Запчасти для спецтехники Komatsu PC450-8"
+      },
+      {
+        "href": "/catalog/model/sk250-6/",
+        "label": "Запчасти для спецтехники Kobelco SK250-6"
+      },
+      {
+        "href": "/catalog/model/zx210-3/",
+        "label": "Запчасти для спецтехники Hitachi ZX210-3"
+      },
+      {
+        "href": "/catalog/model/zx330-3/",
+        "label": "Запчасти для спецтехники Hitachi ZX330-3"
+      },
+      {
+        "href": "/catalog/model/323d/",
+        "label": "Запчасти для спецтехники Caterpillar 323D"
+      },
+      {
+        "href": "/catalog/model/pc350-6/",
+        "label": "Запчасти для спецтехники Komatsu PC350-6"
+      },
+      {
+        "href": "/catalog/model/pc450-7/",
+        "label": "Запчасти для спецтехники Komatsu PC450-7"
+      },
+      {
+        "href": "/catalog/model/sk330-8/",
+        "label": "Запчасти для спецтехники Kobelco SK330-8"
+      },
+      {
+        "href": "/catalog/model/ec480d/",
+        "label": "Запчасти для спецтехники Volvo CE EC480D"
+      },
+      {
+        "href": "/catalog/model/pc120-5/",
+        "label": "Запчасти для спецтехники Komatsu PC120-5"
+      },
+      {
+        "href": "/catalog/model/pc300-5/",
+        "label": "Запчасти для спецтехники Komatsu PC300-5"
+      },
+      {
+        "href": "/catalog/model/zx270-3/",
+        "label": "Запчасти для спецтехники Hitachi ZX270-3"
+      },
+      {
+        "href": "/catalog/model/312c/",
+        "label": "Запчасти для спецтехники Caterpillar 312C"
+      },
+      {
+        "href": "/catalog/model/322c/",
+        "label": "Запчасти для спецтехники Caterpillar 322C"
+      },
+      {
+        "href": "/catalog/model/325c/",
+        "label": "Запчасти для спецтехники Caterpillar 325C"
+      },
+      {
+        "href": "/catalog/model/336d/",
+        "label": "Запчасти для спецтехники Caterpillar 336D"
+      },
+      {
+        "href": "/catalog/model/ec160b/",
+        "label": "Запчасти для спецтехники Volvo CE EC160B"
+      },
+      {
+        "href": "/catalog/model/ec460/",
+        "label": "Запчасти для спецтехники Volvo CE EC460"
+      },
+      {
+        "href": "/catalog/model/ex300-3/",
+        "label": "Запчасти для спецтехники Hitachi EX300-3"
+      },
+      {
+        "href": "/catalog/model/pc100-5/",
+        "label": "Запчасти для спецтехники Komatsu PC100-5"
+      },
+      {
+        "href": "/catalog/model/r210lc-7/",
+        "label": "Запчасти для спецтехники Hyundai R210LC-7"
+      },
+      {
+        "href": "/catalog/model/r210lc-9/",
+        "label": "Запчасти для спецтехники Hyundai R210LC-9"
+      },
+      {
+        "href": "/catalog/model/sk200/",
+        "label": "Запчасти для спецтехники Kobelco SK200"
+      },
+      {
+        "href": "/catalog/model/sk230-6e/",
+        "label": "Запчасти для спецтехники Kobelco SK230-6E"
+      },
+      {
+        "href": "/catalog/model/zx330/",
+        "label": "Запчасти для спецтехники Hitachi ZX330"
+      },
+      {
+        "href": "/catalog/model/325b/",
+        "label": "Запчасти для спецтехники Caterpillar 325B"
+      },
+      {
+        "href": "/catalog/model/ec360/",
+        "label": "Запчасти для спецтехники Volvo CE EC360"
+      },
+      {
+        "href": "/catalog/model/ec460b/",
+        "label": "Запчасти для спецтехники Volvo CE EC460B"
+      },
+      {
+        "href": "/catalog/model/pc130-6/",
+        "label": "Запчасти для спецтехники Komatsu PC130-6"
+      },
+      {
+        "href": "/catalog/model/pc130-7/",
+        "label": "Запчасти для спецтехники Komatsu PC130-7"
+      },
+      {
+        "href": "/catalog/model/345b/",
+        "label": "Запчасти для спецтехники Caterpillar 345B"
+      },
+      {
+        "href": "/catalog/model/ec140/",
+        "label": "Запчасти для спецтехники Volvo CE EC140"
+      },
+      {
+        "href": "/catalog/model/ec380d/",
+        "label": "Запчасти для спецтехники Volvo CE EC380D"
+      },
+      {
+        "href": "/catalog/model/pc240-8/",
+        "label": "Запчасти для спецтехники Komatsu PC240-8"
+      },
+      {
+        "href": "/catalog/model/r215-7/",
+        "label": "Запчасти для спецтехники Hyundai R215-7"
+      },
+      {
+        "href": "/catalog/model/wa500-6/",
+        "label": "Запчасти для спецтехники Komatsu WA500-6"
+      },
+      {
+        "href": "/catalog/model/zx210/",
+        "label": "Запчасти для спецтехники Hitachi ZX210"
+      },
+      {
+        "href": "/catalog/model/zx250-3/",
+        "label": "Запчасти для спецтехники Hitachi ZX250-3"
+      },
+      {
+        "href": "/catalog/model/303/",
+        "label": "Запчасти для спецтехники Caterpillar 303"
+      },
+      {
+        "href": "/catalog/model/312b/",
+        "label": "Запчасти для спецтехники Caterpillar 312B"
+      },
+      {
+        "href": "/catalog/model/318c/",
+        "label": "Запчасти для спецтехники Caterpillar 318C"
+      },
+      {
+        "href": "/catalog/model/dx225/",
+        "label": "Запчасти для спецтехники Doosan DX225"
+      },
+      {
+        "href": "/catalog/model/e330c/",
+        "label": "Запчасти для спецтехники Caterpillar E330C"
+      },
+      {
+        "href": "/catalog/model/e330d/",
+        "label": "Запчасти для спецтехники Caterpillar E330D"
+      },
+      {
+        "href": "/catalog/model/ec300d/",
+        "label": "Запчасти для спецтехники Volvo CE EC300D"
+      },
+      {
+        "href": "/catalog/model/ex100-5/",
+        "label": "Запчасти для спецтехники Hitachi EX100-5"
+      },
+      {
+        "href": "/catalog/model/pc220-5/",
+        "label": "Запчасти для спецтехники Komatsu PC220-5"
+      },
+      {
+        "href": "/catalog/model/sk250-6e/",
+        "label": "Запчасти для спецтехники Kobelco SK250-6E"
+      },
+      {
+        "href": "/catalog/model/zx240/",
+        "label": "Запчасти для спецтехники Hitachi ZX240"
+      },
+      {
+        "href": "/catalog/model/zx450/",
+        "label": "Запчасти для спецтехники Hitachi ZX450"
+      },
+      {
+        "href": "/catalog/model/322b/",
+        "label": "Запчасти для спецтехники Caterpillar 322B"
+      },
+      {
+        "href": "/catalog/model/d16/",
+        "label": "Запчасти для двигателя Volvo D16"
+      },
+      {
+        "href": "/catalog/model/ex120-3/",
+        "label": "Запчасти для спецтехники Hitachi EX120-3"
+      },
+      {
+        "href": "/catalog/model/ex200-1/",
+        "label": "Запчасти для спецтехники Hitachi EX200-1"
+      },
+      {
+        "href": "/catalog/model/ex400-5/",
+        "label": "Запчасти для спецтехники Hitachi EX400-5"
+      },
+      {
+        "href": "/catalog/model/pc230-6/",
+        "label": "Запчасти для спецтехники Komatsu PC230-6"
+      },
+      {
+        "href": "/catalog/model/pc250-6/",
+        "label": "Запчасти для спецтехники Komatsu PC250-6"
+      },
+      {
+        "href": "/catalog/model/sk100-3/",
+        "label": "Запчасти для спецтехники Kobelco SK100-3"
+      },
+      {
+        "href": "/catalog/model/sk330-6e/",
+        "label": "Запчасти для спецтехники Kobelco SK330-6E"
+      },
+      {
+        "href": "/catalog/model/319d/",
+        "label": "Запчасти для спецтехники Caterpillar 319D"
+      },
+      {
+        "href": "/catalog/model/e312/",
+        "label": "Запчасти для спецтехники Caterpillar E312"
+      },
+      {
+        "href": "/catalog/model/ec135b/",
+        "label": "Запчасти для спецтехники Volvo CE EC135B"
+      },
+      {
+        "href": "/catalog/model/ec180b/",
+        "label": "Запчасти для спецтехники Volvo CE EC180B"
+      },
+      {
+        "href": "/catalog/model/ec210c/",
+        "label": "Запчасти для спецтехники Volvo CE EC210C"
+      },
+      {
+        "href": "/catalog/model/ec220d/",
+        "label": "Запчасти для спецтехники Volvo CE EC220D"
+      },
+      {
+        "href": "/catalog/model/ex400-3/",
+        "label": "Запчасти для спецтехники Hitachi EX400-3"
+      },
+      {
+        "href": "/catalog/model/r140lc-7/",
+        "label": "Запчасти для спецтехники Hyundai R140LC-7"
+      },
+      {
+        "href": "/catalog/model/r250-7/",
+        "label": "Запчасти для спецтехники Hyundai R250-7"
+      },
+      {
+        "href": "/catalog/model/sk120-3/",
+        "label": "Запчасти для спецтехники Kobelco SK120-3"
+      },
+      {
+        "href": "/catalog/model/sk140-8/",
+        "label": "Запчасти для спецтехники Kobelco SK140-8"
+      },
+      {
+        "href": "/catalog/model/sk300/",
+        "label": "Запчасти для спецтехники Kobelco SK300"
+      },
+      {
+        "href": "/catalog/model/wa380/",
+        "label": "Запчасти для спецтехники Komatsu WA380"
+      },
+      {
+        "href": "/catalog/model/zx120-3/",
+        "label": "Запчасти для спецтехники Hitachi ZX120-3"
+      },
+      {
+        "href": "/catalog/model/zx200-1/",
+        "label": "Запчасти для спецтехники Hitachi ZX200-1"
+      },
+      {
+        "href": "/catalog/model/zx230/",
+        "label": "Запчасти для спецтехники Hitachi ZX230"
+      },
+      {
+        "href": "/catalog/model/zx270/",
+        "label": "Запчасти для спецтехники Hitachi ZX270"
+      },
+      {
+        "href": "/catalog/model/301/",
+        "label": "Запчасти для спецтехники Caterpillar 301"
+      },
+      {
+        "href": "/catalog/model/320/",
+        "label": "Запчасти для спецтехники Caterpillar 320"
+      },
+      {
+        "href": "/catalog/model/329d/",
+        "label": "Запчасти для спецтехники Caterpillar 329D"
+      },
+      {
+        "href": "/catalog/model/330b/",
+        "label": "Запчасти для спецтехники Caterpillar 330B"
+      },
+      {
+        "href": "/catalog/model/d905/",
+        "label": "Запчасти для двигателя Kubota D905"
+      },
+      {
+        "href": "/catalog/model/ec140d/",
+        "label": "Запчасти для спецтехники Volvo CE EC140D"
+      },
+      {
+        "href": "/catalog/model/ec250d/",
+        "label": "Запчасти для спецтехники Volvo CE EC250D"
+      },
+      {
+        "href": "/catalog/model/ex220-2/",
+        "label": "Запчасти для спецтехники Hitachi EX220-2"
+      },
+      {
+        "href": "/catalog/model/ex220-3/",
+        "label": "Запчасти для спецтехники Hitachi EX220-3"
+      },
+      {
+        "href": "/catalog/model/ex300-5/",
+        "label": "Запчасти для спецтехники Hitachi EX300-5"
+      },
+      {
+        "href": "/catalog/model/pc400-5/",
+        "label": "Запчасти для спецтехники Komatsu PC400-5"
+      },
+      {
+        "href": "/catalog/model/pc70-7/",
+        "label": "Запчасти для спецтехники Komatsu PC70-7"
+      },
+      {
+        "href": "/catalog/model/r290lc-9/",
+        "label": "Запчасти для спецтехники Hyundai R290LC-9"
+      },
+      {
+        "href": "/catalog/model/sk100/",
+        "label": "Запчасти для спецтехники Kobelco SK100"
+      },
+      {
+        "href": "/catalog/model/sk330-6/",
+        "label": "Запчасти для спецтехники Kobelco SK330-6"
+      },
+      {
+        "href": "/catalog/model/wa430/",
+        "label": "Запчасти для спецтехники Komatsu WA430"
+      },
+      {
+        "href": "/catalog/model/wa450-1/",
+        "label": "Запчасти для спецтехники Komatsu WA450-1"
+      },
+      {
+        "href": "/catalog/model/wa600-3/",
+        "label": "Запчасти для спецтехники Komatsu WA600-3"
+      },
+      {
+        "href": "/catalog/model/zx110/",
+        "label": "Запчасти для спецтехники Hitachi ZX110"
+      },
+      {
+        "href": "/catalog/model/zx120/",
+        "label": "Запчасти для спецтехники Hitachi ZX120"
+      },
+      {
+        "href": "/catalog/model/311d/",
+        "label": "Запчасти для спецтехники Caterpillar 311D"
+      },
+      {
+        "href": "/catalog/model/315c/",
+        "label": "Запчасти для спецтехники Caterpillar 315C"
+      },
+      {
+        "href": "/catalog/model/365b/",
+        "label": "Запчасти для спецтехники Caterpillar 365B"
+      },
+      {
+        "href": "/catalog/model/d275a/",
+        "label": "Запчасти для спецтехники Komatsu D275A"
+      },
+      {
+        "href": "/catalog/model/e323d/",
+        "label": "Запчасти для спецтехники Caterpillar E323D"
+      },
+      {
+        "href": "/catalog/model/e330b/",
+        "label": "Запчасти для спецтехники Caterpillar E330B"
+      },
+      {
+        "href": "/catalog/model/ec210d/",
+        "label": "Запчасти для спецтехники Volvo CE EC210D"
+      },
+      {
+        "href": "/catalog/model/ec240c/",
+        "label": "Запчасти для спецтехники Volvo CE EC240C"
+      },
+      {
+        "href": "/catalog/model/ec330/",
+        "label": "Запчасти для спецтехники Volvo CE EC330"
+      },
+      {
+        "href": "/catalog/model/ex200/",
+        "label": "Запчасти для спецтехники Hitachi EX200"
+      },
+      {
+        "href": "/catalog/model/ex60-2/",
+        "label": "Запчасти для спецтехники Hitachi EX60-2"
+      },
+      {
+        "href": "/catalog/model/pc200-3/",
+        "label": "Запчасти для спецтехники Komatsu PC200-3"
+      },
+      {
+        "href": "/catalog/model/pc200-8m0/",
+        "label": "Запчасти для спецтехники Komatsu PC200-8M0"
+      },
+      {
+        "href": "/catalog/model/pc300/",
+        "label": "Запчасти для спецтехники Komatsu PC300"
+      },
+      {
+        "href": "/catalog/model/r220-5/",
+        "label": "Запчасти для спецтехники Hyundai R220-5"
+      },
+      {
+        "href": "/catalog/model/r250lc-7/",
+        "label": "Запчасти для спецтехники Hyundai R250LC-7"
+      },
+      {
+        "href": "/catalog/model/sk230-6/",
+        "label": "Запчасти для спецтехники Kobelco SK230-6"
+      },
+      {
+        "href": "/catalog/model/wa470-1/",
+        "label": "Запчасти для спецтехники Komatsu WA470-1"
+      },
+      {
+        "href": "/catalog/model/wa600-3d/",
+        "label": "Запчасти для спецтехники Komatsu WA600-3D"
+      },
+      {
+        "href": "/catalog/model/zx130-3/",
+        "label": "Запчасти для спецтехники Hitachi ZX130-3"
+      },
+      {
+        "href": "/catalog/model/zx350/",
+        "label": "Запчасти для спецтехники Hitachi ZX350"
+      }
+    ]
+  },
+  {
+    "title": "Статьи и подбор",
+    "links": [
+      {
+        "href": "/blog/",
+        "label": "Блог о ремонте гидравлики спецтехники"
+      },
+      {
+        "href": "/blog/remont-gidronasosa-cat/",
+        "label": "Ремонт гидронасоса CAT: пошаговое руководство и стоимость"
+      },
+      {
+        "href": "/blog/padaet-davlenie-gidravliki-ekskavatora/",
+        "label": "Давление в гидросистеме экскаватора: причины падения"
+      },
+      {
+        "href": "/blog/stoimost-remonta-gidromotora-komatsu/",
+        "label": "Сколько стоит ремонт гидромотора Komatsu в Казахстане | Цены 2026"
+      },
+      {
+        "href": "/blog/kak-opredelit-neispravnost-gidravliki/",
+        "label": "Не работает гидравлика спецтехники: 10 признаков"
+      },
+      {
+        "href": "/blog/remont-gidravliki-frezy-wirtgen-1500/",
+        "label": "Wirtgen 1500 не едет: выездная диагностика хода и гидросистемы"
+      },
+      {
+        "href": "/blog/kapitalnyy-remont-shantui-sd32/",
+        "label": "Ремонт SHANTUI SD32: диагностика гидравлики"
+      },
+      {
+        "href": "/blog/remont-gidravliki-liebherr-r950/",
+        "label": "Liebherr R950 теряет мощность: как диагностировать гидросистему и главный насос"
+      },
+      {
+        "href": "/blog/vosstanovlenie-gidromotora-volvo-ec380/",
+        "label": "Volvo EC380 не едет: как диагностировать гидромотор хода и гидросистему"
+      },
+      {
+        "href": "/blog/k3v112dt-kak-podobrat-gidronasos/",
+        "label": "Гидронасос K3V112DT: как подобрать и заказать нужное исполнение"
+      },
+      {
+        "href": "/blog/remont-ili-zamena-gidronasosa/",
+        "label": "Ремонт или замена гидронасоса экскаватора: что проверить до покупки"
+      },
+      {
+        "href": "/blog/k5v80dtp-handok-hitachi-zx160w/",
+        "label": "K5V80DTP и HANDOK для заказа на Hitachi ZX160W: что сравнить до оплаты"
+      },
+      {
+        "href": "/blog/zapchasti-po-nomeru-i-shildiku/",
+        "label": "Как заказать запчасти для спецтехники по номеру и шильдику"
+      },
+      {
+        "href": "/blog/zapchasti-pod-zakaz-kazakhstan-chto-proverit/",
+        "label": "Запчасти для спецтехники под заказ: что проверить до оплаты"
+      },
+      {
+        "href": "/blog/kupit-dvigatel-v-sbore-dlya-spetstekhniki/",
+        "label": "Как купить двигатель в сборе для спецтехники без ошибки"
+      },
+      {
+        "href": "/blog/remont-ili-zamena-dvigatelya-spetstekhniki/",
+        "label": "Ремонтировать или менять двигатель спецтехники: что посчитать"
+      },
+      {
+        "href": "/blog/cummins-nta855-shantui-sd32-kak-zakazat/",
+        "label": "Cummins NTA855 для Shantui SD32: что проверить перед заказом"
+      }
+    ]
+  },
+  {
+    "title": "Реальные кейсы",
+    "links": [
+      {
+        "href": "/cases/",
+        "label": "Реальные кейсы ремонта спецтехники с видео"
+      },
+      {
+        "href": "/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu/",
+        "label": "Экскаватор теряет мощность на горячую — реальный ремонт CAT 330DL"
+      },
+      {
+        "href": "/cases/sany-sy365h-gidravlika-na-goryachuyu/",
+        "label": "SANY SY365H: рывки гидравлики и потеря мощности на горячую"
+      },
+      {
+        "href": "/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami/",
+        "label": "Hitachi 330-5G: плавает давление и стрела идёт рывками"
+      },
+      {
+        "href": "/cases/postavka-zamena-gidronasosa/",
+        "label": "Гидронасос с доставкой и заменой: SANY и Hitachi ZX160W"
+      },
+      {
+        "href": "/cases/cat-325c-glokhnet-pod-nagruzkoy/",
+        "label": "CAT 325C глохнет под нагрузкой: видео диагностики и ремонта"
+      },
+      {
+        "href": "/cases/sany-sy365h-zamena-gidronasosa-video/",
+        "label": "Замена гидронасоса SANY SY365H: поставка K5V160DT и запуск на видео"
+      },
+      {
+        "href": "/cases/cat-432e-postavka-gidronasosa-267-2755/",
+        "label": "CAT 432E: продажа нового гидронасоса 267-2755"
+      },
+      {
+        "href": "/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855/",
+        "label": "Двигатель Shantui SD32 Cummins NTA855: поставка и установка"
+      },
+      {
+        "href": "/cases/xcmg-xz200-ustanovka-gidronasosa-803001730/",
+        "label": "XCMG XZ200: продажа и установка гидронасоса 803001730"
+      },
+      {
+        "href": "/cases/hidromek-102b-zamena-gidroraspredelitelya-husco-c16e303/",
+        "label": "Hidromek 102B: установка HUSCO C16E303"
+      }
+    ]
+  }
+]

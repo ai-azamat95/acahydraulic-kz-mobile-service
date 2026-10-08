@@ -14,7 +14,7 @@ export default function VosstanovlenieGidromotoraVolvoEC380() {
     dateModified: "2026-09-12",
     author: { "@type": "Organization", name: "ACA Hydraulic" },
     publisher: { "@id": "https://acahydraulic.kz/#business" },
-    mainEntityOfPage: { "@type": "WebPage", "@id": "https://acahydraulic.kz/blog/vosstanovlenie-gidromotora-volvo-ec380" },
+    mainEntityOfPage: "https://acahydraulic.kz/blog/vosstanovlenie-gidromotora-volvo-ec380/",
   };
 
   return (

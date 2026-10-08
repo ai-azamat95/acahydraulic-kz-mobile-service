@@ -14,8 +14,9 @@ export default function Contacts() {
   return (
     <div className="min-h-[100dvh] bg-[#111111] text-white font-roboto flex flex-col overflow-x-hidden">
       <SEO 
-        title="Контакты" 
-        description="Свяжитесь с нами для заказа ремонта гидравлики. Телефоны, адрес, карта проезда, форма обратной связи. Работаем по всему Казахстану."
+        title="Контакты ACA Hydraulic — сервис и запчасти в Астане"
+        description="Адрес базы: трасса Астана–Караганда, 81. Телефон и WhatsApp +7 771 417-79-25. Согласуйте выезд, ремонт или подбор запчастей до приезда на базу."
+        canonical="/contacts" breadcrumbs={[{ name: "Контакты", url: "/contacts" }]}
         keywords="контакты ACA Hydraulic, адрес сервиса, телефон ремонта гидравлики, вызвать мастера, карта проезда"
       />
       {/* Header */}

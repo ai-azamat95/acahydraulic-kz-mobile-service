@@ -235,7 +235,7 @@ export default function Blog() {
                     {article.excerpt}
                   </p>
 
-                  <Link href={`/blog/${article.slug}`}>
+                  <Link href={`/blog/${article.slug}/`}>
                     <Button
                       variant="link"
                       className="p-0 h-auto text-[#FFC000] hover:text-white justify-start group/btn"
