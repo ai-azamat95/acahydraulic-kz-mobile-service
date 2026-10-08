@@ -69,9 +69,23 @@ export function SEO({
   const canonicalUrl = rawCanonicalUrl.split(/[?#]/)[0].replace(/\/+$/, "") + "/";
   const imageUrl = new URL(ogImage || DEFAULT_OG_IMAGE, BASE_URL).href;
 
+  // Use the same preferred URL format as canonical links and omit callers'
+  // repeated home entries (the component supplies the home item itself).
+  const breadcrumbUrls = new Set([`${BASE_URL}/`]);
+  const normalizedBreadcrumbs = (breadcrumbs ?? []).flatMap(item => {
+    const url = new URL(item.url, BASE_URL);
+    url.search = "";
+    url.hash = "";
+    url.pathname = url.pathname.replace(/\/+$/, "") + "/";
+    const href = url.href;
+    if (breadcrumbUrls.has(href)) return [];
+    breadcrumbUrls.add(href);
+    return [{ name: item.name, url: href }];
+  });
+
   // ── Breadcrumb Schema ──────────────────────────────────────────────────────
   const breadcrumbSchema =
-    breadcrumbs && breadcrumbs.length > 0
+    normalizedBreadcrumbs.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
@@ -80,13 +94,13 @@ export function SEO({
               "@type": "ListItem",
               position: 1,
               name: "Главная",
-              item: BASE_URL,
+              item: `${BASE_URL}/`,
             },
-            ...breadcrumbs.map((item, index) => ({
+            ...normalizedBreadcrumbs.map((item, index) => ({
               "@type": "ListItem",
               position: index + 2,
               name: item.name,
-              item: `${BASE_URL}${item.url}`,
+              item: item.url,
             })),
           ],
         }

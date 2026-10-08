@@ -37,7 +37,7 @@ if (!fs.existsSync(indexPath)) {
 
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 let sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
-for (const route of ['payment', 'offer']) {
+for (const route of ['payment', 'offer', 'sitemap']) {
   if (!sitemap.includes(`<loc>${baseUrl}/${route}/</loc>`)) sitemap = sitemap.replace('</urlset>', `<url><loc>${baseUrl}/${route}/</loc></url>\n</urlset>`);
 }
 if (sitemap) fs.writeFileSync(sitemapPath, sitemap);
@@ -453,8 +453,8 @@ function withRouteHead(html, route) {
   const articleImage = article?.image || staticBlogArticle?.image || serviceImage;
   if (articleImage) {
     const image = escapeAttr(new URL(articleImage, baseUrl).href);
-    out = setTag(out, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${image}">`);
-    out = setTag(out, /<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${image}">`);
+    out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:image["'])[^>]*>/i, `<meta property="og:image" content="${image}">`);
+    out = setTag(out, /<meta(?=[^>]*\b(?:name|property)=["']twitter:image["'])[^>]*>/i, `<meta name="twitter:image" content="${image}">`);
   }
   const pageSchema = JSON.stringify(article ? articleSchema(article) : staticBlogArticle ? staticBlogArticleSchema(staticBlogArticle, canonical) : {
     '@context': 'https://schema.org',

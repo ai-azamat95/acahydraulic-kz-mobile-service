@@ -1,5 +1,7 @@
 import { ArrowUpRight, ClipboardList, MessageCircle } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import ServiceDetails, { ServiceFAQ } from "@/components/ServiceDetails";
+import serviceContent from "../../../shared/service-content.json";
 import { SEO } from "@/components/SEO";
 import showcase from "../../../shared/service-showcase.json";
 import assessment from "../../../shared/service-assessment.json";
@@ -11,9 +13,14 @@ export default function ServiceShowcase() {
   const service = showcase[slug as keyof typeof showcase];
   const diagnostic = assessment[slug as keyof typeof assessment];
 
+  const detailedRoute = `/services/${slug}`;
+  const detailed = ["mining-loader-repair", "piledriver-repair", "mining-truck-repair"].includes(slug)
+    ? serviceContent[detailedRoute as keyof typeof serviceContent] : undefined;
+
   return (
     <>
       <SEO title={service.title} description={service.description} canonical={`/services/${slug}`} ogImage={`/images/services/${service.image}`} breadcrumbs={[{ name: "Услуги", url: "/services" }, { name: service.label, url: `/services/${slug}` }]} />
+      {detailed && <div className="bg-[#f5f6f1] text-[#17242b]"><ServiceDetails content={detailed} light /><ServiceFAQ items={detailed.faq} light /></div>}
       <section aria-labelledby="service-showcase-title" className="relative z-10 overflow-hidden bg-[#f5f6f1] text-[#17242b]">
         <div className="relative min-h-48 overflow-hidden bg-[#e7ede5] md:min-h-56">
           <img src={`/images/services/${service.image}`} alt="" role="presentation" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />

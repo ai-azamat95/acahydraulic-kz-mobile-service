@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { SEO } from '@/components/SEO';
 import { FileText, ShieldCheck, Briefcase, CreditCard, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,10 +9,9 @@ import B2BLeadForm from '@/components/B2BLeadForm';
 const Corporate = () => {
   return (
     <>
-      <Helmet>
-        <title>Корпоративным клиентам | ACA Hydraulic - Работа по договору</title>
-        <meta name="description" content="Условия сотрудничества для юридических лиц. Ремонт гидравлики по договору, отсрочка платежа, участие в тендерах. Реквизиты ИП и условия заказа." />
-      </Helmet>
+      <SEO title="Ремонт и запчасти для предприятий — работа по договору"
+        description="Диагностика и ремонт спецтехники, подбор и поставка запчастей для предприятий Казахстана. Согласование сметы, оплаты и документов для конкретного заказа."
+        canonical="/corporate" breadcrumbs={[{ name: 'Для предприятий', url: '/corporate' }]} />
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
@@ -53,8 +52,7 @@ const Corporate = () => {
                   <CreditCard className="w-12 h-12 text-[#FFB800] mb-6" />
                   <h3 className="text-xl font-bold mb-4">Гибкая оплата</h3>
                   <p className="text-muted-foreground">
-                    Для постоянных партнеров доступна отсрочка платежа до 30 дней. 
-                    Работаем по договору сервисного обслуживания с фиксированными ставками.
+                    Порядок оплаты и условия обслуживания согласуем в договоре для конкретного заказа. Стоимость работ и запчастей подтверждаем до их выполнения и закупки.
                   </p>
                 </CardContent>
               </Card>
@@ -63,8 +61,7 @@ const Corporate = () => {
                   <Briefcase className="w-12 h-12 text-[#FFB800] mb-6" />
                   <h3 className="text-xl font-bold mb-4">Участие в тендерах</h3>
                   <p className="text-muted-foreground">
-                    Аккредитованы на всех основных тендерных площадках Казахстана (Samruk-Kazyna, 
-                    Goszakup, NadLoc). Готовы предоставить обеспечение заявки.
+                    Пришлите техническое задание, требования к документам и сроки закупки. Проверим возможность участия и подготовим предложение в пределах согласованного объёма.
                   </p>
                 </CardContent>
               </Card>

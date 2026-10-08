@@ -14,7 +14,7 @@ export default function RemonGidravlikiLiebherrR950() {
     dateModified: "2026-09-12",
     author: { "@type": "Organization", name: "ACA Hydraulic" },
     publisher: { "@id": "https://acahydraulic.kz/#business" },
-    mainEntityOfPage: { "@type": "WebPage", "@id": "https://acahydraulic.kz/blog/remont-gidravliki-liebherr-r950" },
+    mainEntityOfPage: "https://acahydraulic.kz/blog/remont-gidravliki-liebherr-r950/",
   };
 
   return (

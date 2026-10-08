@@ -21,7 +21,7 @@ export default function RemonGidravlikiFrezyWirtgen1500() {
     dateModified: "2026-09-12",
     author: { "@type": "Organization", name: "ACA Hydraulic" },
     publisher: { "@id": "https://acahydraulic.kz/#business" },
-    mainEntityOfPage: { "@type": "WebPage", "@id": "https://acahydraulic.kz/blog/remont-gidravliki-frezy-wirtgen-1500" },
+    mainEntityOfPage: "https://acahydraulic.kz/blog/remont-gidravliki-frezy-wirtgen-1500/",
     image: WIRTGEN_PHOTOS[0].url,
   };
 

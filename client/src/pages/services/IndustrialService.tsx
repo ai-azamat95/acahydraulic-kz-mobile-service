@@ -1,4 +1,3 @@
-import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
 import { Phone, MessageCircle, ArrowLeft, CheckCircle, Clock, Shield, FileText, Wrench, Building2, Factory, Truck, HardHat, Settings, TrendingUp } from "lucide-react";
@@ -7,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export default function IndustrialService() {
-  const { user, loading, error, isAuthenticated, logout } = useAuth();
   const { t } = useTranslation();
 
   return (
