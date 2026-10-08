@@ -123,7 +123,12 @@ try {
         }
         await selectCatalogLanguage(page, 'RU');
         assert.equal(await page.locator('.aca-product-fitment').count(),await page.locator('.aca-product-card').count(),'every product card needs a fitment description');
-        await page.locator('.aca-category-card').last().scrollIntoViewIfNeeded();
+        // Departments make the directory taller. WebKit loads only nearby
+        // lazy images; visit each card rather than jumping past the middle.
+        for (const image of await page.locator('.aca-category-card img').all()) {
+          await image.scrollIntoViewIfNeeded();
+          await image.evaluate(node => node.decode());
+        }
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
         assert.equal(categoryImages.length,expectedCategoryCardCount,'each category needs a product image');
