@@ -3,6 +3,7 @@ import path from 'node:path';
 import http from 'node:http';
 import assert from 'node:assert/strict';
 import { checkSiteNavigation } from './check-site-navigation.mjs';
+import { checkCatalogPagination } from './check-catalog-pagination-browser.mjs';
 import { checkCatalogDirectory } from './check-catalog-directory-browser.mjs';
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
@@ -55,7 +56,7 @@ async function acceptEssentialCookies(page) {
 fs.mkdirSync('catalog-ui-check',{recursive:true});
 const results=[];
 try {
-  for(const [engineName,engine] of Object.entries({chromium,webkit})){
+  for(const [engineName,engine] of Object.entries(process.env.CATALOG_BROWSER_ENGINE === "chromium" ? {chromium} : {chromium,webkit})){
     const browser=await engine.launch();
     try{
       for(const width of [320,390,430,768,1024,1440,1920]){
@@ -85,7 +86,8 @@ try {
             'rgb(255, 255, 255)',
             'complete engine category must use the same white surface as the other categories'
           );
-          assert.equal(await page.locator('.aca-category-card').nth(1).getAttribute('href'),'/parts/engines-complete/');
+          assert.equal(await page.locator('[data-catalog-section="engines"] [data-complete-engine-category]').getAttribute('href'),'/parts/engines-complete/');
+          assert.equal(await page.locator('[data-catalog-section]').count(),4);
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page overflow '+engineName+' '+width+' '+lang);
           const clipped=await page.locator('.aca-category-label').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1).map(n=>n.textContent));
           assert.deepEqual(clipped,[],'clipped labels '+width+' '+lang);
@@ -96,7 +98,7 @@ try {
             const promoPaths=await page.locator('.aca-mobile-promos img').evaluateAll(nodes=>nodes.map(n=>new URL(n.src).pathname));
             assert.deepEqual(promoPaths,['/catalog-assets/promo-first-order.jpg','/catalog-assets/promo-china-delivery.jpg'],'approved local banner assets');
             const promo=await page.locator('.aca-mobile-promos').boundingBox();
-            const categories=await page.locator('.aca-category-grid').boundingBox();
+            const categories=await page.locator('.aca-category-grid').first().boundingBox();
             assert(promo.y>=categories.y+categories.height-1,'promotions must remain secondary after categories on mobile');
             assert(await page.locator('.aca-mobile-nav').isVisible());
             await page.locator('.aca-mobile-nav a[href="#catalog-delivery"]').click();
@@ -107,8 +109,9 @@ try {
             const hero=await page.locator('.aca-catalog-hero').boundingBox();
             assert(hero.height<820,'desktop hero should reveal categories in the first viewport');
             assert.equal(await page.locator('.aca-desktop-nav:visible').count(),1,'desktop navigation must be visible');
-            const desktopCategoryRows=await page.locator('.aca-category-card').evaluateAll(nodes=>Object.values(nodes.reduce((rows,node)=>{const top=Math.round(node.getBoundingClientRect().top);rows[top]=(rows[top]||0)+1;return rows},{})));
-            assert(desktopCategoryRows.length<=4&&Math.max(...desktopCategoryRows)-Math.min(...desktopCategoryRows)<=2,'desktop categories must avoid an orphaned final row');
+            for (const section of await page.locator('[data-catalog-section]').all()) {
+              assert(await section.locator('.aca-category-card').count() >= 4, 'each department must retain its categories');
+            }
             assert.equal(await page.locator('.aca-product-card').count(),0,'catalog home must start with category choices instead of a mixed product list');
             assert.equal(await page.locator('.aca-desktop-banner:visible').count(),2,'desktop must show both promotional banners');
             const desktopBannerImages=await page.locator('.aca-desktop-banner img').evaluateAll(nodes=>nodes.map(node=>({loaded:node.complete&&node.naturalWidth>0,ratio:node.clientWidth/node.clientHeight,natural:node.naturalWidth/node.naturalHeight})));
@@ -125,8 +128,8 @@ try {
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
         assert.equal(categoryImages.length,expectedCategoryCardCount,'each category needs a product image');
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
-        assert.equal(categoryImages[1].path,'/catalog-assets/complete-engine-category.webp');
-        assert.equal(categoryImages[7].path,'/catalog-assets/final-drive-category.jpg');
+        assert(categoryImages.some(image => image.path === '/catalog-assets/complete-engine-category.webp'));
+        assert(categoryImages.some(image => image.path === '/catalog-assets/final-drive-category.jpg'));
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/controllers"] img').getAttribute('src'),'/catalog-assets/category-controller.jpg','controller category must use a real controller image');
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/monitors"] img').getAttribute('src'),'/catalog-assets/category-monitor.jpg','monitor category must keep the monitor image');
         assert.equal(await page.locator('.aca-category-card[href="/catalog/category/fuel-common-rails"] img').getAttribute('src'),'/catalog-assets/category-fuel-common-rail.webp','Common Rail category must use a real local fuel rail photo');
@@ -139,90 +142,89 @@ try {
           assert.equal(await page.locator('.aca-category-grid').count(),0,'category page must not repeat the full category grid above products');
           assert.equal(new URL(page.url()).pathname,'/catalog/category/hydraulic-pumps','category click must create a clean shareable URL');
           assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://acahydraulic.kz/catalog/category/hydraulic-pumps/','category needs a self canonical');
-          assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),'800','hydraulic pump category must expose at least 800 cards immediately');
-          assert.equal(await page.locator('.aca-product-card').count(),800,'hydraulic pump category must render 800 real product cards');
+          assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),'10','hydraulic pump category must show 10 items per page');
+          assert.equal(await page.locator('.aca-product-card').count(),10,'hydraulic pump category must render 10 real product cards');
           await page.goto(origin+'/catalog',{waitUntil:'networkidle'});
           if(expectedGearPumpCount>0){
             await page.goto(origin+'/catalog/category/gear-pumps',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedGearPumpCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedGearPumpCount),'gear pump URL must contain the complete supplier collection');
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedGearPumpCount),'all gear pumps must be visible without pagination');
-            assert.equal(await page.locator('.aca-product-card').count(),expectedGearPumpCount,'all gear pumps must render as real product cards');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedGearPumpCount)),'gear pumps must show a 10-item page');
+            assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedGearPumpCount),'gear pumps must render the first page');
           }
           if(expectedPistonPumpCount>0){
             await page.goto(origin+'/catalog/category/piston-pumps',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedPistonPumpCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedPistonPumpCount),'piston pump URL must contain the complete supplier collection');
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedPistonPumpCount),'all piston pumps must be visible without pagination');
-            assert.equal(await page.locator('.aca-product-card').count(),expectedPistonPumpCount,'all piston pumps must render as real product cards');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedPistonPumpCount)),'piston pumps must show a 10-item page');
+            assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedPistonPumpCount),'piston pumps must render the first page');
           }
           await page.goto(origin+'/catalog/category/hydraulic-motors',{waitUntil:'networkidle'});
           await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedHydraulicMotorCount);
           assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedHydraulicMotorCount),'hydraulic motor URL must contain the complete supplier collection');
-          assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedHydraulicMotorCount),'all hydraulic motors must be visible without pagination');
-          assert.equal(await page.locator('.aca-product-card').count(),expectedHydraulicMotorCount,'all hydraulic motors must render as real product cards');
+          assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedHydraulicMotorCount)),'hydraulic motors must show a 10-item page');
+          assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedHydraulicMotorCount),'hydraulic motors must render the first page');
           if(expectedMainControlValveCount>0){
             await page.goto(origin+'/catalog/category/main-control-valves',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedMainControlValveCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedMainControlValveCount),'main control valve URL must contain the complete supplier collection');
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedMainControlValveCount),'all main control valves must be visible without pagination');
-            assert.equal(await page.locator('.aca-product-card').count(),expectedMainControlValveCount,'all main control valves must render as real product cards');
-            const overlappingValve = page.locator('.aca-product-card').filter({hasText:'Control Valve Assy for Kobelco Excavator SK250LC'});
-            assert.equal(await overlappingValve.locator('.aca-product-code').textContent(),'Основные гидрораспределители','overlapping products must show the localized active category badge');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedMainControlValveCount)),'main control valves must show a 10-item page');
+            assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedMainControlValveCount),'main control valves must render the first page');
+            assert.equal(await page.locator('.aca-product-code').first().textContent(),'Основные гидрораспределители','cards must use the localized active category badge');
           }
           if(expectedWiringHarnessCount>0){
             await page.goto(origin+'/catalog/category/wiring-harnesses',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedWiringHarnessCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedWiringHarnessCount),'wiring harness URL must contain the complete supplier collection');
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedWiringHarnessCount),'all wiring harnesses must be visible without pagination');
-            assert.equal(await page.locator('.aca-product-card').count(),expectedWiringHarnessCount,'all wiring harnesses must render as real product cards');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedWiringHarnessCount)),'wiring harnesses must show a 10-item page');
+            assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedWiringHarnessCount),'wiring harnesses must render the first page');
           }
           if(expectedFuelInjectorCount>0){
             await page.goto(origin+'/catalog/category/fuel-injectors',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedFuelInjectorCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelInjectorCount),'fuel injector URL must contain the complete supplier collection');
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelInjectorCount),'all fuel injectors must be visible without pagination');
-            assert.equal(await page.locator('.aca-product-card').count(),expectedFuelInjectorCount,'all fuel injectors must render as real product cards');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedFuelInjectorCount)),'fuel injectors must show a 10-item page');
+            assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedFuelInjectorCount),'fuel injectors must render the first page');
           }
           if(expectedFuelPumpCount>0){
             await page.goto(origin+'/catalog/category/fuel-pumps',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedFuelPumpCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelPumpCount),'fuel pump URL must contain the complete supplier collection');
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelPumpCount),'all fuel pumps must be visible without pagination');
-            assert.equal(await page.locator('.aca-product-card').count(),expectedFuelPumpCount,'all fuel pumps must render as real product cards');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedFuelPumpCount)),'fuel pumps must show a 10-item page');
+            assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedFuelPumpCount),'fuel pumps must render the first page');
           }
           if(expectedFuelCommonRailCount>0){
             await page.goto(origin+'/catalog/category/fuel-common-rails',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedFuelCommonRailCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedFuelCommonRailCount),'Common Rail URL must contain the curated supplier collection');
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedFuelCommonRailCount),'all Common Rail products must be visible without pagination');
-            assert.equal(await page.locator('.aca-product-card').count(),expectedFuelCommonRailCount,'all Common Rail products must render as real product cards');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedFuelCommonRailCount)),'Common Rail products must show a 10-item page');
+            assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedFuelCommonRailCount),'Common Rail products must render the first page');
             assert.equal(await page.locator('.aca-product-card').filter({hasText:'8973060634'}).count(),0,'the injector from the supplier collection must not be mislabelled as a fuel rail');
           }
           if(expectedEngineRebuildKitCount>0){
             await page.goto(origin+'/catalog/category/engine-rebuild-kits',{waitUntil:'networkidle'});
             await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedEngineRebuildKitCount);
             assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedEngineRebuildKitCount),'engine rebuild kit URL must contain the complete supplier collection');
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(expectedEngineRebuildKitCount),'all engine rebuild kits must be visible without pagination');
-            assert.equal(await page.locator('.aca-product-card').count(),expectedEngineRebuildKitCount,'all engine rebuild kits must render as real product cards');
+            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),String(Math.min(10, expectedEngineRebuildKitCount)),'engine rebuild kits must show a 10-item page');
+            assert.equal(await page.locator('.aca-product-card').count(),Math.min(10, expectedEngineRebuildKitCount),'engine rebuild kits must render the first page');
           }
           for (const [slug, expected] of [['controllers', expectedControllerCount], ['monitors', expectedMonitorCount]]) {
             await page.goto(`${origin}/catalog/category/${slug}`, { waitUntil: 'networkidle' });
             await page.waitForFunction((count) => document.querySelector('[data-result-count]')?.getAttribute('data-result-count') === String(count), expected);
-            const initiallyVisible = Math.min(48, expected);
-            assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(initiallyVisible), `${slug} must start with a scannable 48-card batch`);
-            assert.equal(await page.locator('.aca-product-card').count(), initiallyVisible, `${slug} must render the initial 48-card batch`);
-            if (expected > initiallyVisible) {
-              assert.equal(await page.locator('[data-show-all-products]').getAttribute('data-show-all-products'), String(expected), `${slug} must offer an explicit show-all action`);
-              if (slug === 'controllers') {
-                const showAllButton = page.locator('[data-show-all-products]');
-                await showAllButton.scrollIntoViewIfNeeded();
-                await page.waitForTimeout(500);
-                await showAllButton.click();
-                await page.waitForFunction((count) => document.querySelector('[data-visible-count]')?.getAttribute('data-visible-count') === String(count), expected);
-                assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'), String(expected), 'show-all must expose every controller card');
-                assert.equal(await page.locator('.aca-product-card').count(), expected, 'show-all must render every controller card');
-              }
+            assert.equal(await page.locator('.aca-product-card').count(), Math.min(10, expected));
+            if (expected > 10) {
+              const firstIds = await page.locator('.aca-product-card > a').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
+              await page.locator('[data-page-next]').click();
+              await page.waitForFunction(() => document.querySelector('[data-page]')?.getAttribute('data-page') === '2');
+              assert.equal(new URL(page.url()).searchParams.get('page'), '2');
+              const secondIds = await page.locator('.aca-product-card > a').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
+              assert(secondIds.every(id => !firstIds.includes(id)), 'pages must not repeat products');
+              await page.reload({ waitUntil: 'networkidle' });
+              await page.waitForFunction(() => document.querySelector('[data-index-complete]')?.getAttribute('data-index-complete') === 'true');
+              assert.deepEqual(await page.locator('.aca-product-card > a').evaluateAll(nodes => nodes.map(node => node.getAttribute('href'))), secondIds, 'reload must retain page 2');
+              await page.locator('[data-page-prev]').click();
+              await page.waitForFunction(() => document.querySelector('[data-page]')?.getAttribute('data-page') === '1');
+              assert.deepEqual(await page.locator('.aca-product-card > a').evaluateAll(nodes => nodes.map(node => node.getAttribute('href'))), firstIds);
             }
           }
           await page.goto(origin+'/catalog/category/control-valves',{waitUntil:'networkidle'});
@@ -241,7 +243,10 @@ try {
         if(width===390){
           await page.goto(origin+'/parts/engines-complete/',{waitUntil:'networkidle'});
           await page.locator('[data-engine-product-card]').first().waitFor();
-          assert.equal(await page.locator('[data-engine-product-card]').count(),25,'engine landing must expose all 25 product cards');
+          assert.equal(await page.locator('[data-engine-product-card]').count(),9,'first engine page must show 9 families plus the specific SD32 offer');
+          while (!await page.locator('#n855 [data-engine-product-link]').count()) {
+            await page.locator('[data-page-next]').click();
+          }
           assert.equal(
             await page.locator('#n855 [data-engine-product-link]').getAttribute('href'),
             '/parts/engines-complete/cummins/n855-nt855-nta855',
@@ -261,10 +266,10 @@ try {
           assert.equal(await page.locator('[data-engine-case]').count(),1,'verified Shantui case must appear on N855 family only');
           await page.goto(origin+'/parts/engines-complete/cummins/',{waitUntil:'networkidle'});
           await page.locator('[data-cummins-engine-card]').first().waitFor();
-          assert.equal(await page.locator('[data-cummins-engine-card]').count(),25,'Cummins catalogue must publish 25 engine-family cards');
+          assert.equal(await page.locator('[data-cummins-engine-card]').count(),9,'Cummins first page must show 9 families plus the SD32 offer');
           assert(await page.locator('img[src="/catalog-assets/cummins-engine-range.webp"]').evaluate(node=>node.complete&&node.naturalWidth>0),'Cummins catalogue visual must load');
           const cumminsImages=page.locator('[data-cummins-engine-image]');
-          assert.equal(await cumminsImages.count(),25,'Every Cummins card must have a supplier photo');
+          assert.equal(await cumminsImages.count(),9,'Every visible Cummins card must have a supplier photo');
           for(const image of await cumminsImages.all())await image.scrollIntoViewIfNeeded();
           await page.waitForFunction(()=>[...document.querySelectorAll('[data-cummins-engine-image]')].every(node=>node.complete&&node.naturalWidth>0));
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Cummins catalogue must not overflow mobile viewport');
@@ -404,7 +409,8 @@ try {
         await directoryPage.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
         try {
           results.push({ engine: engineName, width, ...await checkCatalogDirectory(directoryPage, origin, `${engineName}-${width}`) });
-          assert.deepEqual(errors, [], 'catalogue directory runtime errors');
+          results.push({ engine: engineName, width, ...await checkCatalogPagination(directoryPage, origin) });
+          assert.deepEqual(errors, [], 'catalogue directory and pagination runtime errors');
           console.log(JSON.stringify(results.at(-1)));
         } finally { await directoryPage.close(); }
       }

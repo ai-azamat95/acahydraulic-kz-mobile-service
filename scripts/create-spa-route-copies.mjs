@@ -1,3 +1,4 @@
+import catalogSections from "../shared/catalog-sections.json" with { type: "json" };
 import fs from 'node:fs';
 import path from 'node:path';
 import { build } from 'esbuild';
@@ -350,7 +351,7 @@ function staticFallback(route, meta, canonical) {
     return `<main aria-label="Каталог запчастей"><a href="/">ACA Hydraulic</a>
       <h1>${escapeHtml(catalogHomeSeo.title)}</h1><p>${escapeHtml(catalogHomeSeo.description)}</p>
       <section><h2>Что нужно для точного подбора</h2><p>${escapeHtml(catalogHomeSeo.selection)}</p></section>
-      <nav aria-label="Все разделы каталога"><h2>Каталог запчастей по узлам</h2><ul>${catalogLandings.categories.map(item => `<li><a href="/catalog/category/${item.id}/">${escapeHtml(item.title)}</a><p>${escapeHtml(item.intro)}</p></li>`).join('')}</ul></nav>
+      <nav aria-label="Все разделы каталога"><h2>Каталог запчастей по узлам</h2>${catalogSections.map(section => `<section id="section-${section.id}" data-catalog-section="${section.id}"><h3>${escapeHtml(section.ru)}</h3><p>${escapeHtml(section.description.ru)}</p><ul>${section.id === 'engines' ? '<li><a href="/parts/engines-complete/">Двигатели в сборе</a></li>' : ''}${section.categories.map(id => catalogLandings.categories.find(item => item.id === id)).map(item => `<li><a href="/catalog/category/${item.id}/">${escapeHtml(item.title)}</a><p>${escapeHtml(item.intro)}</p></li>`).join('')}</ul></section>`).join('')}</nav>
       <section><h2>Двигатели в сборе для спецтехники</h2><p><a href="/parts/engines-complete/">Каталог двигателей Cummins в сборе</a> — подбор по полному индексу и шильдику, поставка и монтаж по согласованию.</p></section>
       <p><a href="/delivery-and-returns/">Доставка, оплата и возврат</a></p>
       <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a> · <a href="tel:+77714177925">+7 (771) 417-79-25</a></p></main>`;

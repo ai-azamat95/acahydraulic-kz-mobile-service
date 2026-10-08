@@ -1,3 +1,6 @@
+import catalogSections from "@shared/catalog-sections.json";
+import { CATALOG_PAGE_SIZE, catalogPage, catalogPageHref } from "@shared/catalog-pagination.mjs";
+import { CatalogPagination } from "@/components/catalog/CatalogPagination";
 import catalogHomeSeo from "@shared/catalog-home-seo.json";
 import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import SiteHomeLink from "@/components/SiteHomeLink";
@@ -75,10 +78,7 @@ const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge>
   "other-parts": PackageSearch,
 };
 const WHATSAPP_NUMBER = "77714177925";
-const DEFAULT_VISIBLE_PRODUCTS = 24;
-const ELECTRONICS_VISIBLE_PRODUCTS = 48;
-const HYDRAULIC_PUMP_VISIBLE_PRODUCTS = 800;
-const HYDRAULIC_PUMP_LOAD_MORE_BATCH = 200;
+const sectionIcons = { hydraulics: Gauge, electrical: CircuitBoard, engines: Cog, other: PackageCheck };
 const completeEngineCategoryCopy: Record<CatalogLanguage, { title: string; subtitle: string }> = {
   ru: { title: "Двигатели в сборе", subtitle: "Поставка и монтаж" },
   kz: { title: "Қозғалтқыштар жинағы", subtitle: "Жеткізу және орнату" },
@@ -131,19 +131,12 @@ function categoryCountLabel(count: number, language: CatalogLanguage) {
   return `${formattedCount} ${noun}`;
 }
 
-function initialVisibleProducts(category: string) {
-  if (["controllers", "monitors"].includes(category)) return ELECTRONICS_VISIBLE_PRODUCTS;
-  if (["gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves", "wiring-harnesses", "fuel-injectors", "fuel-pumps", "fuel-common-rails", "engine-rebuild-kits"].includes(category)) return Number.MAX_SAFE_INTEGER;
-  return category === "hydraulic-pumps" ? HYDRAULIC_PUMP_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS;
-}
-
-function visibleProductsLabel(visible: number, total: number, language: CatalogLanguage) {
-  const locale = language === "kz" ? "kk-KZ" : language === "en" ? "en-US" : "ru-RU";
-  const shown = Math.min(visible, total).toLocaleString(locale);
-  const available = total.toLocaleString(locale);
-  if (language === "kz") return `${shown} / ${available} тауар көрсетілді`;
-  if (language === "en") return `Showing ${shown} of ${available} products`;
-  return `Показано ${shown} из ${available} товаров`;
+function visibleProductsLabel(start: number, shown: number, total: number, language: CatalogLanguage) {
+  const range = total ? `${start + 1}–${start + shown}` : "0";
+  const available = total.toLocaleString(language === "en" ? "en-US" : language === "kz" ? "kk-KZ" : "ru-RU");
+  if (language === "kz") return `${range} / ${available} тауар · бір бетте 10`;
+  if (language === "en") return `${range} of ${available} products · 10 per page`;
+  return `${range} из ${available} товаров · по 10 на странице`;
 }
 
 function catalogProgressLabel(loaded: number, total: number, language: CatalogLanguage) {
@@ -153,14 +146,6 @@ function catalogProgressLabel(loaded: number, total: number, language: CatalogLa
   if (language === "kz") return `${ready} / ${available} тауар жүктелді — қалғаны жүктелуде…`;
   if (language === "en") return `Loaded ${ready} of ${available} products — loading the rest…`;
   return `Загружено ${ready} из ${available} товаров — загружаем остальные…`;
-}
-
-function showAllProductsLabel(total: number, language: CatalogLanguage) {
-  const locale = language === "kz" ? "kk-KZ" : language === "en" ? "en-US" : "ru-RU";
-  const available = total.toLocaleString(locale);
-  if (language === "kz") return `Барлық ${available} тауарды көрсету`;
-  if (language === "en") return `Show all ${available} products`;
-  return `Показать все ${available} товаров`;
 }
 
 type SearchMode = "part" | "oem" | "vin";
@@ -248,7 +233,7 @@ const enhancementCopy = {
 
 export default function Catalog() {
   const params = useParams<{ categoryId?: string; brandSlug?: string; modelSlug?: string }>();
-  const [, navigate] = useLocation();
+  const [location, navigate] = useLocation();
   const urlSearch = useSearch();
   const urlQuery = new URLSearchParams(urlSearch).get("q") || "";
   const routeCategory = partCategories.some((item) => item.id === params.categoryId) ? params.categoryId || "" : "";
@@ -263,7 +248,15 @@ export default function Catalog() {
   const [supplyOption, setSupplyOption] = useState("");
   const [formError, setFormError] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(() => initialVisibleProducts(category));
+  const requestedPage = catalogPage(urlSearch);
+  const previousPageRef = useRef(requestedPage);
+  const skipPageScrollRef = useRef(false);
+  const resetPage = () => {
+    if (requestedPage !== 1) {
+      skipPageScrollRef.current = true;
+      navigate(catalogPageHref(location, urlSearch, 1), { replace: true });
+    }
+  };
   const resultsRef = useRef<HTMLDivElement>(null);
   const trackedLandingRef = useRef("");
   const copy = catalogCopy[language];
@@ -278,9 +271,13 @@ export default function Catalog() {
     setCategory(nextCategory);
     setBrand(routeBrand?.name || "");
     setMachineModel(routeModel?.label || "");
-    setVisibleCount(initialVisibleProducts(nextCategory));
     window.scrollTo(0, 0);
   }, [params.brandSlug, params.categoryId, params.modelSlug, routeBrand?.name, routeCategory, routeModel?.label]);
+
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id.startsWith("section-")) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start" }));
+  }, [params.categoryId, params.brandSlug, params.modelSlug]);
 
   const selectedCategory = useMemo(
     () => partCategories.find((item) => item.id === category),
@@ -291,7 +288,6 @@ export default function Catalog() {
     setPartQuery(urlQuery);
     setSearchMode("part");
     setFormError("");
-    setVisibleCount(initialVisibleProducts(category));
     if (urlQuery) window.scrollTo(0, 0);
   }, [urlQuery]);
 
@@ -370,6 +366,31 @@ export default function Catalog() {
 
   const filteredProducts = useMemo(() => filterProducts(deferredQuery), [deferredQuery, filterProducts]);
 
+  const pages = Math.max(1, Math.ceil(filteredProducts.length / CATALOG_PAGE_SIZE));
+  const page = complete ? Math.min(requestedPage, pages) : requestedPage;
+  const pageStart = (page - 1) * CATALOG_PAGE_SIZE;
+  const pageProducts = filteredProducts.slice(pageStart, pageStart + CATALOG_PAGE_SIZE);
+  const activeSection = catalogSections.find(section => section.categories.includes(category));
+  const pageHref = (next: number) => catalogPageHref(location, urlSearch, next);
+
+  useEffect(() => {
+    if (complete && requestedPage !== page) navigate(catalogPageHref(location, urlSearch, page), { replace: true });
+  }, [complete, requestedPage, page, location, urlSearch, navigate]);
+
+  useEffect(() => {
+    if (previousPageRef.current !== requestedPage) {
+      previousPageRef.current = requestedPage;
+      if (skipPageScrollRef.current) {
+        skipPageScrollRef.current = false;
+        return;
+      }
+      requestAnimationFrame(() => {
+        resultsRef.current?.scrollIntoView({ block: "start" });
+        resultsRef.current?.querySelector<HTMLElement>("h2")?.focus({ preventScroll: true });
+      });
+    }
+  }, [requestedPage]);
+
   const matchingSupplyOffers = useMemo(() => {
     if (searchMode === "vin" || (category && category !== "hydraulic-pumps")) return [];
     return supplyPumpOffers.filter(offer =>
@@ -405,8 +426,8 @@ export default function Catalog() {
   const isFullIndexLoading = !complete;
 
   useEffect(() => {
-    if (!complete) return;
-    const trackingKey = landingPath;
+    if (!complete || !showResults) return;
+    const trackingKey = `${landingPath}:${page}:${deferredQuery}`;
     if (trackedLandingRef.current === trackingKey) return;
     trackedLandingRef.current = trackingKey;
     trackCatalogEvent("view_item_list", {
@@ -414,9 +435,9 @@ export default function Catalog() {
       item_list_name: categoryLanding?.id || routeBrand?.slug || routeModel?.slug || "catalog",
       catalog_result_count: filteredProducts.length,
       catalog_language: language,
-      items: filteredProducts.slice(0, 24).map(catalogAnalyticsItem),
+      items: pageProducts.map(catalogAnalyticsItem),
     });
-  }, [categoryLanding?.id, complete, filteredProducts, landingPath, language, routeBrand?.slug, routeModel?.slug]);
+  }, [categoryLanding?.id, complete, filteredProducts, landingPath, language, routeBrand?.slug, routeModel?.slug, page, deferredQuery, showResults]);
 
   const scrollToResults = () => {
     window.requestAnimationFrame(() => {
@@ -468,7 +489,6 @@ export default function Catalog() {
       return;
     }
     setFormError("");
-    setVisibleCount(initialVisibleProducts(category));
     const submittedQuery = `${partQuery} ${machineModel}`.trim().toLowerCase();
     const submittedResultCount = filterProducts(submittedQuery).length;
     const analyticsParams = catalogSearchAnalyticsParams({
@@ -520,9 +540,9 @@ export default function Catalog() {
           mainEntity: {
             "@type": "ItemList",
             numberOfItems: filteredProducts.length,
-            itemListElement: filteredProducts.slice(0, 24).map((product, index) => ({
+            itemListElement: pageProducts.map((product, index) => ({
               "@type": "ListItem",
-              position: index + 1,
+              position: pageStart + index + 1,
               url: `https://acahydraulic.kz/catalog/${product.handle}/`,
               name: catalogProductName(product, language),
             })),
@@ -610,7 +630,7 @@ export default function Catalog() {
                       <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-[#FFC000]" aria-hidden="true" />
                       <input
                         value={partQuery}
-                        onChange={(event) => setPartQuery(event.target.value)}
+                        onChange={(event) => { setPartQuery(event.target.value); resetPage(); }}
                         placeholder={activeSearchMode.placeholder}
                         inputMode="search"
                         className="min-h-14 w-full rounded-lg border border-white/20 bg-[#181818] py-3 pl-11 pr-3 text-base font-medium text-white placeholder:text-gray-500 focus:border-[#FFC000] focus:outline-none"
@@ -653,7 +673,7 @@ export default function Catalog() {
                         onChange={(event) => {
                           setBrand(event.target.value);
                           setCategory("");
-                          setVisibleCount(initialVisibleProducts(""));
+                          resetPage();
                         }}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-2 text-sm text-white focus:border-[#FFC000] focus:outline-none"
                       >
@@ -670,12 +690,12 @@ export default function Catalog() {
                           const nextCategory = event.target.value;
                           setCategory(nextCategory);
                           setBrand("");
-                          setVisibleCount(initialVisibleProducts(nextCategory));
+                          resetPage();
                         }}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-2 text-sm text-white focus:border-[#FFC000] focus:outline-none"
                       >
                         <option value="">{copy.allCategories}</option>
-                        {partCategories.map((item) => <option key={item.id} value={item.id}>{item[language]}</option>)}
+                        {catalogSections.map(section => <optgroup key={section.id} label={section[language]}>{section.categories.map(id => partCategories.find(item => item.id === id)!).map(item => <option key={item.id} value={item.id}>{item[language]}</option>)}</optgroup>)}
                       </select>
                     </label>
 
@@ -683,7 +703,7 @@ export default function Catalog() {
                       {copy.modelLabel}
                       <input
                         value={machineModel}
-                        onChange={(event) => setMachineModel(event.target.value)}
+                        onChange={(event) => { setMachineModel(event.target.value); resetPage(); }}
                         placeholder={copy.modelPlaceholder}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-3 text-sm text-white placeholder:text-gray-500 focus:border-[#FFC000] focus:outline-none"
                       />
@@ -801,13 +821,47 @@ export default function Catalog() {
             )}
           </div>
 
-          {!isLandingPage && <div className="aca-category-grid">
-            {partCategories.map((item, index) => {
+          <nav className="aca-section-nav" aria-label={language === "ru" ? "Разделы запчастей" : language === "kz" ? "Бөлшектер бөлімдері" : "Parts departments"}>
+            {catalogSections.map(section => {
+              const Icon = sectionIcons[section.id as keyof typeof sectionIcons];
+              return <a key={section.id} href={isLandingPage ? `/catalog/#section-${section.id}` : `#section-${section.id}`} aria-current={activeSection?.id === section.id ? "location" : undefined}><Icon aria-hidden="true" />{section[language]}</a>;
+            })}
+          </nav>
+          {!isLandingPage && catalogSections.map(section => {
+            const SectionIcon = sectionIcons[section.id as keyof typeof sectionIcons];
+            return <section key={section.id} id={`section-${section.id}`} className="aca-category-section" aria-labelledby={`section-title-${section.id}`} data-catalog-section={section.id}>
+              <div className="aca-category-section-heading"><SectionIcon aria-hidden="true" /><div><h3 id={`section-title-${section.id}`}>{section[language]}</h3><p>{section.description[language]}</p></div></div>
+              <div className="aca-category-grid">
+            {section.categories.map(id => partCategories.find(item => item.id === id)!).map((item, index) => {
               const Icon = categoryIcons[item.id];
               const stat = categoryStats[item.id];
               const imageUrl = categoryImageOverrides[item.id] || stat?.imageUrl;
               return (
                 <Fragment key={item.id}>
+                  {section.id === "engines" && index === 0 && (
+                    <Link
+                      href="/parts/engines-complete/"
+                      onClick={() => trackCatalogEvent("complete_engine_category_click", { source: "catalog-category-grid", language })}
+                      className="aca-category-card aca-engine-category-card"
+                      data-complete-engine-category
+                    >
+                      <span className="aca-category-media">
+                        <img
+                          src="/catalog-assets/complete-engine-category.webp"
+                          alt="Новый комплектный двигатель для спецтехники"
+                          width="640"
+                          height="640"
+                          loading="lazy"
+                        />
+                        <Cog className="aca-category-fallback" aria-hidden="true" />
+                      </span>
+                      <span className="aca-category-copy">
+                        <span className="aca-category-label">{completeEngineCategoryCopy[language].title}</span>
+                        <span className="aca-category-count">{completeEngineCategoryCopy[language].subtitle}</span>
+                      </span>
+                      <ChevronRight className="aca-category-arrow" aria-hidden="true" />
+                    </Link>
+                  )}
                   <Link
                     href={catalogSearchHref(partQuery, item.id)}
                     className="aca-category-card"
@@ -835,34 +889,17 @@ export default function Catalog() {
                     </span>
                     <ChevronRight className="aca-category-arrow" aria-hidden="true" />
                   </Link>
-                  {index === 0 && (
-                    <Link
-                      href="/parts/engines-complete/"
-                      onClick={() => trackCatalogEvent("complete_engine_category_click", { source: "catalog-category-grid", language })}
-                      className="aca-category-card aca-engine-category-card"
-                      data-complete-engine-category
-                    >
-                      <span className="aca-category-media">
-                        <img
-                          src="/catalog-assets/complete-engine-category.webp"
-                          alt="Новый комплектный двигатель для спецтехники"
-                          width="640"
-                          height="640"
-                          loading="lazy"
-                        />
-                        <Cog className="aca-category-fallback" aria-hidden="true" />
-                      </span>
-                      <span className="aca-category-copy">
-                        <span className="aca-category-label">{completeEngineCategoryCopy[language].title}</span>
-                        <span className="aca-category-count">{completeEngineCategoryCopy[language].subtitle}</span>
-                      </span>
-                      <ChevronRight className="aca-category-arrow" aria-hidden="true" />
-                    </Link>
-                  )}
+
                 </Fragment>
               );
             })}
-          </div>}
+              </div>
+            </section>;
+          })}
+          {isLandingPage && activeSection && <nav className="aca-sibling-categories" aria-label={activeSection[language]}>
+            {activeSection.id === "engines" && <Link href="/parts/engines-complete/">{completeEngineCategoryCopy[language].title}</Link>}
+            {activeSection.categories.map(id => partCategories.find(item => item.id === id)!).map(item => <Link key={item.id} href={catalogSearchHref(partQuery, item.id)} aria-current={category === item.id ? "page" : undefined}>{item[language]}</Link>)}
+          </nav>}
           {!isLandingPage && (
             <aside className="aca-mobile-promos" aria-label={ui.promoTitle}>
               <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>
@@ -897,12 +934,13 @@ export default function Catalog() {
             data-result-count={filteredProducts.length}
             data-expected-count={expectedResultCount}
             data-index-complete={complete ? "true" : "false"}
-            data-visible-count={Math.min(visibleCount, filteredProducts.length)}
+            data-visible-count={pageProducts.length}
+            data-page={page}
           >
             <PumpSupplyOffers offers={matchingSupplyOffers} language={language} />
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <h2 className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{matchingSupplyOffers.length ? pumpSupplyLabels[language].more : copy.resultsTitle}</h2>
+                <h2 tabIndex={-1} className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{matchingSupplyOffers.length ? pumpSupplyLabels[language].more : copy.resultsTitle}</h2>
                 {selectedCategory && <p className="mt-1 text-sm font-medium text-[#FFC000]">{selectedCategory[language]}</p>}
               </div>
               {!loading && !error && (
@@ -911,23 +949,20 @@ export default function Catalog() {
                     ? expectedResultCount > filteredProducts.length
                       ? catalogProgressLabel(filteredProducts.length, expectedResultCount, language)
                       : copy.loadingProducts
-                    : visibleProductsLabel(visibleCount, filteredProducts.length, language)}
+                    : visibleProductsLabel(pageStart, pageProducts.length, filteredProducts.length, language)}
                 </p>
               )}
             </div>
             <ProductResults
               copy={matchingSupplyOffers.length ? { ...copy, noResults: pumpSupplyLabels[language].empty } : copy}
               language={language}
-              products={filteredProducts.slice(0, visibleCount)}
+              products={pageProducts}
               activeCategory={category || undefined}
               total={complete ? filteredProducts.length : expectedResultCount}
-              loading={loading || (!complete && filteredProducts.length === 0)}
+              loading={loading || (!complete && (requestedPage > 1 || filteredProducts.length === 0))}
               error={error}
-              canLoadMore={complete && visibleCount < filteredProducts.length}
-              onLoadMore={() => setVisibleCount((count) => count + (category === "hydraulic-pumps" ? HYDRAULIC_PUMP_LOAD_MORE_BATCH : ["controllers", "monitors"].includes(category) ? ELECTRONICS_VISIBLE_PRODUCTS : DEFAULT_VISIBLE_PRODUCTS))}
-              showAllLabel={showAllProductsLabel(filteredProducts.length, language)}
-              onShowAll={() => setVisibleCount(filteredProducts.length)}
             />
+            {complete && !error && <CatalogPagination page={page} pages={pages} href={pageHref} language={language} />}
           </div>}
 
           {isLandingPage && (

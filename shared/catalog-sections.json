@@ -1,0 +1,34 @@
+[
+  {
+    "id": "hydraulics",
+    "ru": "Гидравлика",
+    "kz": "Гидравлика",
+    "en": "Hydraulics",
+    "description": { "ru": "Насосы, гидромоторы, распределители и детали гидросистемы", "kz": "Сорғылар, гидромоторлар, таратқыштар және гидрожүйе бөлшектері", "en": "Pumps, hydraulic motors, valves and hydraulic components" },
+    "categories": ["hydraulic-pumps", "gear-pumps", "piston-pumps", "hydraulic-motors", "main-control-valves", "control-valves", "pump-parts"]
+  },
+  {
+    "id": "electrical",
+    "ru": "Электрика",
+    "kz": "Электрика",
+    "en": "Electrical",
+    "description": { "ru": "Датчики, проводка, блоки управления, мониторы и диагностика", "kz": "Датчиктер, сымдар, басқару блоктары, мониторлар және диагностика", "en": "Sensors, wiring, controllers, monitors and diagnostics" },
+    "categories": ["electrical", "wiring-harnesses", "controllers", "monitors", "diagnostic-tools"]
+  },
+  {
+    "id": "engines",
+    "ru": "Двигатели и комплектующие",
+    "kz": "Қозғалтқыштар және бөлшектер",
+    "en": "Engines and components",
+    "description": { "ru": "Двигатели в сборе, топливная система и комплекты для ремонта", "kz": "Қозғалтқыштар жинағы, отын жүйесі және жөндеу жинақтары", "en": "Complete engines, fuel systems and engine rebuild kits" },
+    "categories": ["engine-fuel", "engine-rebuild-kits", "fuel-injectors", "fuel-pumps", "fuel-common-rails"]
+  },
+  {
+    "id": "other",
+    "ru": "Другие узлы и расходники",
+    "kz": "Басқа тораптар және шығын материалдары",
+    "en": "Other assemblies and consumables",
+    "description": { "ru": "Редукторы хода, фильтры, уплотнения, кондиционирование и другие детали", "kz": "Жүріс редукторлары, сүзгілер, тығыздағыштар және басқа бөлшектер", "en": "Final drives, filters, seals, air conditioning and other parts" },
+    "categories": ["final-drives", "seals-filters", "air-conditioning", "other-parts"]
+  }
+]

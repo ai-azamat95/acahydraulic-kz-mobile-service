@@ -2,9 +2,8 @@ import { Building2, CheckCircle2, ClipboardCheck, MessageCircle, PackageCheck, S
 import { Link } from "wouter";
 
 import { SEO } from "@/components/SEO";
-import { CumminsEngineCard } from "@/components/engines/CumminsEngineCard";
-import { ShantuiEngineOfferCard } from "@/components/engines/ShantuiEngineOfferCard";
-import { cumminsEngineFamilies, cumminsEngineGroups } from "@/data/cumminsEngineFamilies";
+import { PaginatedEngineCatalog } from "@/components/engines/PaginatedEngineCatalog";
+import { cumminsEngineFamilies } from "@/data/cumminsEngineFamilies";
 import { trackCatalogEvent } from "@/lib/catalogAnalytics";
 
 const pagePath = "/parts/engines-complete";
@@ -93,22 +92,7 @@ export default function CompleteEngines() {
             <Link href={cumminsCatalogPath} className="mt-4 inline-flex font-bold text-[#7a5000] underline underline-offset-4">Открыть каталог бренда Cummins</Link>
           </div>
 
-          <section className="mt-10" aria-labelledby="exact-engine-offers-title">
-            <h2 id="exact-engine-offers-title" className="text-3xl font-extrabold">Двигатель с указанной ценой</h2>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3"><ShantuiEngineOfferCard /></div>
-          </section>
-
-          {cumminsEngineGroups.map((group) => (
-            <section key={group.id} className="mt-12" aria-labelledby={`engine-group-${group.id}`}>
-              <div className="max-w-3xl">
-                <h2 id={`engine-group-${group.id}`} className="text-3xl font-extrabold">{group.title}</h2>
-                <p className="mt-3 leading-relaxed text-gray-600">{group.description}</p>
-              </div>
-              <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {group.engines.map((engine) => <CumminsEngineCard key={engine.id} engine={engine} source="complete-engines" />)}
-              </div>
-            </section>
-          ))}
+          <PaginatedEngineCatalog source="complete-engines" />
         </div>
       </section>
 

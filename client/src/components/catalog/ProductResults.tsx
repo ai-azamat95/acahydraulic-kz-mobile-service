@@ -18,10 +18,6 @@ type ProductResultsProps = {
   total: number;
   loading: boolean;
   error: boolean;
-  canLoadMore: boolean;
-  onLoadMore: () => void;
-  showAllLabel: string;
-  onShowAll: () => void;
 };
 
 const WHATSAPP_NUMBER = "77714177925";
@@ -80,7 +76,7 @@ function ProductImage({ product, name }: { product: CatalogIndexProduct; name: s
   );
 }
 
-export function ProductResults({ copy, language, products, activeCategory, total, loading, error, canLoadMore, onLoadMore, showAllLabel, onShowAll }: ProductResultsProps) {
+export function ProductResults({ copy, language, products, activeCategory, total, loading, error }: ProductResultsProps) {
   const { addItem } = useCart();
   if (loading) {
     return <div className="mt-8 min-h-40 border border-white/10 bg-[#151515] p-6 text-gray-300" role="status">{copy.loadingProducts}</div>;
@@ -195,16 +191,6 @@ export function ProductResults({ copy, language, products, activeCategory, total
           );
         })}
       </div>
-      {canLoadMore && (
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <button type="button" onClick={onLoadMore} data-load-more-products className="min-h-12 rounded border border-white/25 px-6 font-bold text-white hover:border-[#FFC000] hover:text-[#FFC000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">
-            {copy.loadMore}
-          </button>
-          <button type="button" onClick={onShowAll} data-show-all-products={total} className="min-h-12 rounded bg-[#FFC000] px-6 font-extrabold text-black hover:bg-[#E6AC00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">
-            {showAllLabel}
-          </button>
-        </div>
-      )}
     </>
   );
 }

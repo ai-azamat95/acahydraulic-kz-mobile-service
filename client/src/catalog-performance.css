@@ -1,5 +1,5 @@
-/* Defer rendering of product cards until they approach the viewport. */
+/* A page contains only ten cards. Render them normally to keep scrolling,
+   focus and page heights stable; product images still load lazily. */
 section[aria-labelledby="categories-title"] article.group {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 330px;
+  content-visibility: visible;
 }
