@@ -64,6 +64,7 @@ function setRootFallback(html, fallback) {
 }
 
 const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
+const catalogCanonicalAliases = JSON.parse(fs.readFileSync(new URL('../shared/catalog-canonical-aliases.json', import.meta.url), 'utf8'));
 
 function productPage(product) {
   const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
@@ -86,7 +87,10 @@ function productPage(product) {
           transitTime: { '@type': 'QuantitativeValue', minValue: merchantPumps.transitMinDays, maxValue: merchantPumps.transitMaxDays, unitCode: 'DAY' },
         }
       : undefined;
-  const canonical = `${baseUrl}/catalog/${product.handle}/`;
+  const selfUrl = `${baseUrl}/catalog/${product.handle}/`;
+  const canonicalHandle = catalogCanonicalAliases[product.handle] || product.handle;
+  const canonical = `${baseUrl}/catalog/${canonicalHandle}/`;
+  const isCanonicalProduct = canonicalHandle === product.handle;
   const productSeo = catalogProductSeo(product);
   const productCategories = catalogProductCategories(product);
   const title = `${productSeo.title} | ACA Hydraulic`;
@@ -113,7 +117,7 @@ function productPage(product) {
     .filter(Boolean)
     .map(value => new URL(value, baseUrl).href))];
   const image = images[0];
-  const schema = JSON.stringify({
+  const schema = Number.isFinite(product.minPriceKzt) && isCanonicalProduct ? JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: productSeo.name,
@@ -130,7 +134,7 @@ function productPage(product) {
       name: fitmentLabel,
       value: product.fitment,
     }] : undefined,
-    offers: Number.isFinite(product.minPriceKzt) ? {
+    offers: {
       '@type': fixedOffer ? 'Offer' : 'AggregateOffer',
       price: fixedOffer ? product.minPriceKzt : undefined,
       priceCurrency: 'KZT',
@@ -144,8 +148,8 @@ function productPage(product) {
       lowPrice: fixedOffer ? undefined : product.minPriceKzt,
       highPrice: fixedOffer ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
       url: canonical,
-    } : undefined,
-  });
+    },
+  }) : null;
   const fallback = `<main aria-label="${escapeAttr(productSeo.name)}">
   <p><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a></p>
   <nav aria-label="Разделы каталога">${productCategories.map(category => `<a href="/catalog/category/${category.id}/">${escapeHtml(category.title)}</a>`).join(' · ')}</nav>
@@ -158,6 +162,7 @@ function productPage(product) {
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
+  ${images.length ? `<section data-product-gallery><h2>Фото ${escapeHtml(productSeo.name)}</h2>${images.map((src, index) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(`${productSeo.name} — фото ${index + 1}`)}" width="900" height="900" loading="lazy">`).join('')}</section>` : ''}
   ${product.ownerSale ? (isXcmgOwnerSale
     ? `<section><h2>Реальная поставка и установка этого насоса</h2><p>${escapeHtml(xcmgSale.terms.ru)}</p><p><a href="${xcmgSale.casePath}/">Кейс XCMG XZ200: насос 803001730</a></p>${xcmgSale.videos.map(video => `<video controls preload="none" poster="${video.poster}" width="720" height="1280"><source src="${video.src}" type="video/mp4"></video>`).join('')}</section>`
     : `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>`
@@ -170,7 +175,7 @@ function productPage(product) {
   <p>${escapeHtml(catalogProductSelection(product))}</p>
   <p>Укажите количество, город и нужную дату. Совпадения только модели техники недостаточно: исполнение, комплектацию, цену и срок поставки подтверждаем до оплаты.</p></section>
   <p>Доступны оригинальные, OEM и проверенные аналоговые варианты. Конкретный вариант, наличие, срок доставки и гарантия подтверждаются после проверки.</p>
-  <p><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_product_page" href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужна цена и срок на ${productSeo.name}.\nТехника: ____\n${canonical}\nФото шильдика пришлю в чате.`)}">Получить цену и срок</a></p>
+  <p><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_product_page" href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужна цена и срок на ${productSeo.name}.\nТехника: ____\n${selfUrl}\nФото шильдика пришлю в чате.`)}">Получить цену и срок</a></p>
   ${product.category === 'hydraulic-pumps' ? `<nav aria-label="Статьи перед покупкой насоса"><ul><li><a href="/blog/k3v112dt-kak-podobrat-gidronasos/">Подбор K3V112DT</a></li><li><a href="/blog/remont-ili-zamena-gidronasosa/">Ремонт или замена гидронасоса</a></li><li><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">K5V80DTP и HANDOK</a></li></ul></nav>` : ''}
 </main>`;
 
@@ -189,7 +194,9 @@ function productPage(product) {
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(title)}">`);
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(description)}">`);
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:url["'])[^>]*>/i, `<meta name="twitter:url" content="${escapeAttr(canonical)}">`);
-  html = html.replace('</head>', `<script type="application/ld+json" data-static-product-schema data-rh="true">${schema}</script>\n</head>`);
+  if (schema) {
+    html = html.replace('</head>', `<script type="application/ld+json" data-static-product-schema data-rh="true">${schema}</script>\n</head>`);
+  }
   html = setRootFallback(html, fallback);
   html = html.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);
@@ -204,9 +211,10 @@ for (const product of products) {
   fs.writeFileSync(path.join(productDir, 'index.html'), productPage(product));
 }
 
+const sitemapProducts = products.filter(product => !catalogCanonicalAliases[product.handle]);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${products.map((product) => `  <url>
+${sitemapProducts.map((product) => `  <url>
     <loc>${baseUrl}/catalog/${product.handle}/</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
@@ -214,4 +222,4 @@ ${products.map((product) => `  <url>
   </url>`).join('\n')}
 </urlset>\n`;
 fs.writeFileSync(path.join(outDir, 'sitemap-products.xml'), sitemap);
-console.log(`Created ${products.length} static catalog routes and sitemap-products.xml`);
+console.log(`Created ${products.length} static catalog routes and ${sitemapProducts.length} canonical sitemap entries`);

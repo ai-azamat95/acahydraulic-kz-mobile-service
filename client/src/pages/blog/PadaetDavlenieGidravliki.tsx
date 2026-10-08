@@ -22,7 +22,7 @@ export default function PadaetDavlenieGidravliki() {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://acahydraulic.kz/blog/padaet-davlenie-gidravliki-ekskavatora",
+      "@id": "https://acahydraulic.kz/blog/padaet-davlenie-gidravliki-ekskavatora/",
     },
     image: "https://acahydraulic.kz/images/excavator-tech-repair.webp",
   };
@@ -274,6 +274,16 @@ export default function PadaetDavlenieGidravliki() {
                 Ремонт экскаваторов
               </span>
             </Link>
+            <Link href="/catalog/category/hydraulic-pumps/">
+              <span className="inline-block px-4 py-2 bg-[#1a1a1a] border border-white/10 rounded text-sm text-gray-300 hover:border-[#FFC000]/50 hover:text-[#FFC000] transition-colors cursor-pointer">
+                Гидронасосы по OEM и модели
+              </span>
+            </Link>
+            <Link href="/catalog/category/control-valves/">
+              <span className="inline-block px-4 py-2 bg-[#1a1a1a] border border-white/10 rounded text-sm text-gray-300 hover:border-[#FFC000]/50 hover:text-[#FFC000] transition-colors cursor-pointer">
+                Гидрораспределители и клапаны
+              </span>
+            </Link>
           </div>
         </div>
 
@@ -290,7 +300,7 @@ export default function PadaetDavlenieGidravliki() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="https://wa.me/77714177925?text=Здравствуйте!%20Нужна%20выездная%20диагностика%20гидравлики.%20Стоимость%20от%20200%20000%20₸%20понятна.%20Отправлю%20марку,%20модель,%20город%20и%20видео%20неисправности."
+              href="https://wa.me/77714177925?text=Здравствуйте!%20Нужна%20выездная%20диагностика%20гидравлики.%20Прошу%20согласовать%20стоимость%20до%20выезда.%20Отправлю%20марку,%20модель,%20город%20и%20видео%20неисправности."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bebas text-lg px-6 py-3 rounded transition-colors"

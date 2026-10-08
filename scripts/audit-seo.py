@@ -36,8 +36,19 @@ for url in sorted(urls):
         else: store[match[1]].append(route)
     for block in re.findall(r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', html, re.S):
         try:
-            data = json.loads(block); t = data.get('@type', 'unknown'); schema_count[str(t)] += 1
-            if data.get('@type') == 'WebPage' and data.get('url') != url: issues['wrong_webpage_schema'].append([route, data.get('url')])
+            data = json.loads(block)
+            nodes = data.get('@graph') if isinstance(data, dict) and isinstance(data.get('@graph'), list) else [data]
+            for node in nodes:
+                if not isinstance(node, dict):
+                    schema_count['unknown'] += 1; continue
+                t = node.get('@type', 'unknown'); schema_count[str(t)] += 1
+                if t == 'WebPage' and node.get('url') != url: issues['wrong_webpage_schema'].append([route, node.get('url')])
+                if t == 'Product' and not any(node.get(field) for field in ['offers', 'review', 'aggregateRating']):
+                    issues['ineligible_product_schema'].append(route)
+                if t == 'VideoObject':
+                    upload_date = node.get('uploadDate', '')
+                    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})', upload_date):
+                        issues['invalid_video_upload_date'].append([route, upload_date])
         except (ValueError, AttributeError): issues['invalid_jsonld'].append(route)
     main = re.search(r'<main\b.*?</main>', html, re.S)
     if not main: issues['missing_main'].append(route)

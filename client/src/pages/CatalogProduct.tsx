@@ -5,6 +5,7 @@ import XcmgXz200PumpMedia from "@/components/XcmgXz200PumpMedia";
 import huscoCase from "../../../shared/husco-hidromek-102b-case.json";
 import Hidromek102bHuscoMedia from "@/components/Hidromek102bHuscoMedia";
 import merchantPumps from "../../../shared/merchant-pumps.json";
+import catalogCanonicalAliasesData from "../../../shared/catalog-canonical-aliases.json";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -25,6 +26,7 @@ import { cartItemFromProduct, preferredCartItem } from "@/lib/cart";
 import { catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
 
 const WHATSAPP_NUMBER = "77714177925";
+const catalogCanonicalAliases: Record<string, string> = catalogCanonicalAliasesData;
 
 function schemaAvailability(value?: string) {
   if (value === "preorder") return "https://schema.org/PreOrder";
@@ -164,8 +166,43 @@ export default function CatalogProduct() {
       : "";
   const productSeo = catalogProductSeo(product, language);
   const productCategories = catalogProductCategories(product);
+  const canonicalHandle = catalogCanonicalAliases[product.handle] || product.handle;
+  const isCanonicalProduct = canonicalHandle === product.handle;
   const seoDescription = productSeo.description;
   const hasReviewedCopy = catalogProductHasReviewedCopy(product, language);
+  const productSchema = product.minPriceKzt !== null && isCanonicalProduct ? {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: productSeo.name,
+    description: seoDescription,
+    image: gallery.map(image => new URL(image, "https://acahydraulic.kz").href),
+    sku: mainSku,
+    category: merchantOffer ? merchantPumps.productType : undefined,
+    brand: (merchantOffer?.brand || product.brand) ? { "@type": "Brand", name: merchantOffer?.brand || product.brand } : undefined,
+    mpn: merchantOffer?.mpn || product.mpn,
+    itemCondition: fixedOffer ? "https://schema.org/NewCondition" : undefined,
+    additionalProperty: product.fitment ? [{
+      "@type": "PropertyValue",
+      name: fitmentLabel,
+      value: product.fitment,
+    }] : undefined,
+    offers: {
+      "@type": fixedOffer ? "Offer" : "AggregateOffer",
+      price: fixedOffer ? product.minPriceKzt : undefined,
+      priceCurrency: "KZT",
+      shippingDetails: merchantOffer ? {
+        "@type": "OfferShippingDetails",
+        shippingRate: { "@type": "MonetaryAmount", value: merchantShippingPriceKzt, currency: "KZT" },
+        shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
+        deliveryTime: merchantDeliveryTime,
+      } : undefined,
+      availability: merchantOffer ? schemaAvailability(merchantOffer.availability) : undefined,
+      lowPrice: fixedOffer ? undefined : product.minPriceKzt,
+      highPrice: fixedOffer ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
+      offerCount: fixedOffer ? undefined : product.variants.length,
+      url: `https://acahydraulic.kz/catalog/${canonicalHandle}/`,
+    },
+  } : undefined;
   const addProductToCart = () => {
     addItem(preferredCartItem(product));
     toast.success(language === "ru" ? "Товар добавлен в корзину" : language === "kz" ? "Тауар себетке қосылды" : "Added to cart");
@@ -176,45 +213,13 @@ export default function CatalogProduct() {
       <SEO
         title={productSeo.title}
         description={seoDescription}
-        canonical={`/catalog/${product.handle}`}
+        canonical={`/catalog/${canonicalHandle}`}
         ogImage={gallery[0]}
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: productSeo.name,
-          description: seoDescription,
-          image: gallery.map(image => new URL(image, "https://acahydraulic.kz").href),
-          sku: mainSku,
-          category: merchantOffer ? merchantPumps.productType : undefined,
-          brand: (merchantOffer?.brand || product.brand) ? { "@type": "Brand", name: merchantOffer?.brand || product.brand } : undefined,
-          mpn: merchantOffer?.mpn || product.mpn,
-          itemCondition: fixedOffer ? "https://schema.org/NewCondition" : undefined,
-          additionalProperty: product.fitment ? [{
-            "@type": "PropertyValue",
-            name: fitmentLabel,
-            value: product.fitment,
-          }] : undefined,
-          offers: product.minPriceKzt !== null ? {
-            "@type": fixedOffer ? "Offer" : "AggregateOffer",
-            price: fixedOffer ? product.minPriceKzt : undefined,
-            priceCurrency: "KZT",
-            shippingDetails: merchantOffer ? {
-              "@type": "OfferShippingDetails",
-              shippingRate: { "@type": "MonetaryAmount", value: merchantShippingPriceKzt, currency: "KZT" },
-              shippingDestination: { "@type": "DefinedRegion", addressCountry: "KZ" },
-              deliveryTime: merchantDeliveryTime,
-            } : undefined,
-            availability: merchantOffer ? schemaAvailability(merchantOffer.availability) : undefined,
-            lowPrice: fixedOffer ? undefined : product.minPriceKzt,
-            highPrice: fixedOffer ? undefined : product.maxPriceKzt ?? product.minPriceKzt,
-            offerCount: fixedOffer ? undefined : product.variants.length,
-            url: `https://acahydraulic.kz/catalog/${product.handle}/`,
-          } : undefined,
-        }}
+        schema={productSchema}
         breadcrumbs={[
           { name: "Каталог запчастей", url: "/catalog/" },
           ...productCategories.slice(0, 1).map(category => ({ name: category.title, url: `/catalog/category/${category.id}/` })),
-          { name: productSeo.name, url: `/catalog/${product.handle}` },
+          { name: productSeo.name, url: `/catalog/${canonicalHandle}` },
         ]}
       />
 

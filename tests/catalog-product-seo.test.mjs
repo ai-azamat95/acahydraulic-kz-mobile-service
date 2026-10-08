@@ -57,6 +57,7 @@ test('all catalog items have useful metadata without mutating imported data', ()
     const seo = catalogProductSeo(product);
     assert(seo.name && seo.title && seo.description, product.handle);
     assert(seo.title.length <= 110 || Object.hasOwn(copy, product.handle), product.handle);
+    assert.doesNotMatch(seo.description, /\.\./, `${product.handle}: SEO description has duplicated punctuation`);
     assert.equal(JSON.stringify(product), original);
     assert(catalogProductSelection(product));
   }

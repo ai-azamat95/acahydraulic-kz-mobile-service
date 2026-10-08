@@ -326,6 +326,9 @@ function fallbackLinks(route) {
     return [
       ['Ремонт гидронасосов', '/services/hydraulic-pumps/'],
       ['Ремонт гидромоторов', '/services/hydraulic-motors/'],
+      ['Гидронасосы по OEM и модели', '/catalog/category/hydraulic-pumps/'],
+      ['Гидромоторы для спецтехники', '/catalog/category/hydraulic-motors/'],
+      ['Каталог запчастей ACA Hydraulic', '/catalog/'],
       ['Выездной ремонт гидравлики', '/services/mobile-repair/'],
       ['Контакты ACA Hydraulic', '/contacts/'],
     ];

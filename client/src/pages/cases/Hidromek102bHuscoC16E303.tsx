@@ -33,7 +33,7 @@ const videoSchema = {
     name: video.title,
     description: video.caption,
     thumbnailUrl: `https://acahydraulic.kz${video.poster}`,
-    uploadDate: repairCase.publishedOn,
+    uploadDate: `${repairCase.publishedOn}T00:00:00+05:00`,
     duration: video.duration,
     contentUrl: `https://acahydraulic.kz${video.src}`,
     mainEntityOfPage: `https://acahydraulic.kz${repairCase.casePath}/`,

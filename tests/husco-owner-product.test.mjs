@@ -101,7 +101,7 @@ test('HUSCO preparation replaces the incorrect legacy F163 URL without duplicati
   }
 });
 
-test('generated HUSCO route has a self canonical, category links and evidence caption with no Offer or NewCondition', () => {
+test('generated HUSCO route has a self canonical, evidence and no ineligible Product schema', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'aca-husco-route-'));
   try {
     const out = path.join(dir, 'dist/public');
@@ -119,11 +119,8 @@ test('generated HUSCO route has a self canonical, category links and evidence ca
     assert(html.includes(product.ownerEvidence.photoAlt));
     assert(html.includes(product.imageUrl));
     for (const category of product.categories) assert(html.includes(`/catalog/category/${category}/`));
-    const schema = JSON.parse(html.match(/data-static-product-schema[^>]*>([\s\S]*?)<\/script>/)[1]);
-    assert.equal(schema.brand.name, 'HUSCO');
-    assert.equal(schema.mpn, 'C16E303');
-    assert.equal(schema.offers, undefined);
-    assert.equal(schema.itemCondition, undefined);
+    assert.doesNotMatch(html, /data-static-product-schema/);
+    assert.doesNotMatch(html, /"@type":"Product"/);
     assert.doesNotMatch(html, /HANDOK|Новый насос в сборе|2 530 000/);
     assert(fs.readFileSync(path.join(out, 'sitemap-products.xml'), 'utf8').includes(canonical));
   } finally {
