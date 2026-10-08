@@ -941,10 +941,10 @@ export default function Catalog() {
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <h2 tabIndex={-1} className="font-bebas text-3xl font-bold uppercase tracking-wide md:text-4xl">{matchingSupplyOffers.length ? pumpSupplyLabels[language].more : copy.resultsTitle}</h2>
-                {selectedCategory && <p className="mt-1 text-sm font-medium text-[#FFC000]">{selectedCategory[language]}</p>}
+                {selectedCategory && <p className="mt-1 text-sm font-medium text-[#795809]">{selectedCategory[language]}</p>}
               </div>
               {!loading && !error && (
-                <p className="text-sm text-gray-400" role={isFullIndexLoading ? "status" : undefined}>
+                <p className="aca-page-summary" role={isFullIndexLoading ? "status" : undefined}>
                   {isFullIndexLoading
                     ? expectedResultCount > filteredProducts.length
                       ? catalogProgressLabel(filteredProducts.length, expectedResultCount, language)

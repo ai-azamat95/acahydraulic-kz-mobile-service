@@ -129,7 +129,7 @@ export function ProductResults({ copy, language, products, activeCategory, total
                 </h3>
 
                 <div className="aca-product-fitment mt-3 min-h-[3.4rem] border-l-2 border-[#FFC000]/70 pl-2.5">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#FFC000] sm:text-[11px]">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#795809] sm:text-[11px]">
                     {copy.fitmentLabel}
                   </p>
                   <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-400 sm:text-xs sm:leading-[1.15rem]">
@@ -148,7 +148,7 @@ export function ProductResults({ copy, language, products, activeCategory, total
                 )}
 
                 <div className="mt-auto pt-4 sm:pt-5">
-                  <p className="text-base font-extrabold leading-tight text-[#FFC000] sm:text-xl">
+                  <p className="text-base font-extrabold leading-tight text-[#795809] sm:text-xl">
                     {formatPrice(product, copy, language)}
                   </p>
 
