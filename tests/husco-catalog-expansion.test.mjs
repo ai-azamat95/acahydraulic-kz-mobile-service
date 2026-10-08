@@ -134,15 +134,10 @@ test('prepared catalogue and static routes publish each requested product once w
       assert.match(html, /Цена по запросу/);
       assert.match(html, /Поставка под заказ/);
       assert.doesNotMatch(html, /jcbpro|srsltid/i);
-      const schema = JSON.parse(html.match(/data-static-product-schema[^>]*>([\s\S]*?)<\/script>/)[1]);
-      assert.equal(schema.offers, undefined);
-      assert.equal(schema.itemCondition, undefined);
-      assert.deepEqual(
-        schema.image,
-        Array.from({ length: expected.imageCount }, (_, index) =>
-          `https://acahydraulic.kz/catalog-assets/${expected.assetDirectory}/${String(index + 1).padStart(2, '0')}.webp`,
-        ),
-      );
+      assert.doesNotMatch(html, /data-static-product-schema/);
+      for (const image of Array.from({ length: expected.imageCount }, (_, index) =>
+        `https://acahydraulic.kz/catalog-assets/${expected.assetDirectory}/${String(index + 1).padStart(2, '0')}.webp`
+      )) assert(html.includes(image), `missing crawlable HUSCO image: ${image}`);
       assert(sitemap.includes(`/catalog/${expected.handle}/`));
     }
   } finally {

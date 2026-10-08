@@ -162,7 +162,7 @@ function productPage(product) {
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
-  ${images.length ? `<section data-product-gallery><h2>Фото ${escapeHtml(productSeo.name)}</h2>${images.slice(0, 4).map((src, index) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(`${productSeo.name} — фото ${index + 1}`)}" width="900" height="900" loading="lazy">`).join('')}</section>` : ''}
+  ${images.length ? `<section data-product-gallery><h2>Фото ${escapeHtml(productSeo.name)}</h2>${images.map((src, index) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(`${productSeo.name} — фото ${index + 1}`)}" width="900" height="900" loading="lazy">`).join('')}</section>` : ''}
   ${product.ownerSale ? (isXcmgOwnerSale
     ? `<section><h2>Реальная поставка и установка этого насоса</h2><p>${escapeHtml(xcmgSale.terms.ru)}</p><p><a href="${xcmgSale.casePath}/">Кейс XCMG XZ200: насос 803001730</a></p>${xcmgSale.videos.map(video => `<video controls preload="none" poster="${video.poster}" width="720" height="1280"><source src="${video.src}" type="video/mp4"></video>`).join('')}</section>`
     : `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>`
