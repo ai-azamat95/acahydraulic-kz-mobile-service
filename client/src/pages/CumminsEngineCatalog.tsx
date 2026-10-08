@@ -1,11 +1,10 @@
 import { Link } from "wouter";
 import { CheckCircle2, Factory, Gauge, MessageCircle, ShieldCheck, Truck } from "lucide-react";
 
-import { CumminsEngineCard } from "@/components/engines/CumminsEngineCard";
-import { ShantuiEngineOfferCard } from "@/components/engines/ShantuiEngineOfferCard";
+import { PaginatedEngineCatalog } from "@/components/engines/PaginatedEngineCatalog";
 import { shantuiEngineOffer } from "@/data/shantuiEngineOffer";
 import { SEO } from "@/components/SEO";
-import { cumminsEngineFamilies, cumminsEngineGroups, cumminsEnginePath } from "@/data/cumminsEngineFamilies";
+import { cumminsEngineFamilies, cumminsEnginePath } from "@/data/cumminsEngineFamilies";
 
 export const cumminsEngineCatalogPath = "/parts/engines-complete/cummins";
 const heroImage = "/catalog-assets/cummins-engine-range.webp";
@@ -92,22 +91,7 @@ export default function CumminsEngineCatalog() {
       </section>
 
       <div id="engine-families" className="container mx-auto max-w-7xl space-y-14 px-4 py-12 md:py-16">
-        <section aria-labelledby="exact-engine-offers-title">
-          <h2 id="exact-engine-offers-title" className="text-3xl font-extrabold md:text-4xl">Двигатель с указанной ценой</h2>
-          <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3"><ShantuiEngineOfferCard /></div>
-        </section>
-        {cumminsEngineGroups.map((group) => (
-          <section key={group.id} aria-labelledby={`${group.id}-title`}>
-            <div className="max-w-3xl">
-              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#8a5b00]">Поставка двигателей</p>
-              <h2 id={`${group.id}-title`} className="mt-2 text-3xl font-extrabold md:text-4xl">{group.title}</h2>
-              <p className="mt-3 leading-relaxed text-gray-600">{group.description}</p>
-            </div>
-            <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {group.engines.map((engine) => <CumminsEngineCard key={engine.id} engine={engine} source="cummins-engine-catalog" />)}
-            </div>
-          </section>
-        ))}
+          <PaginatedEngineCatalog source="cummins-engine-catalog" />
       </div>
 
       <section className="border-y border-gray-200 bg-white py-12 md:py-16">

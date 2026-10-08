@@ -11,7 +11,7 @@ const landingHtml = fs.readFileSync(path.join(root, landingRoute, "index.html"),
 const productHtml = fs.readFileSync(path.join(root, productRoute, "index.html"), "utf8");
 
 test("complete-engine landing exposes the N855 family inside the 25-product catalogue", () => {
-  assert.equal((landingHtml.match(/data-engine-product-card/g) || []).length, 25);
+  assert.equal((landingHtml.match(/data-engine-product-card/g) || []).length, 9);
   assert.match(landingHtml, /N855 \/ NT855 \/ NTA855/);
   assert.match(landingHtml, new RegExp(`href="/${familyRoute}"`));
   assert.match(landingHtml, /Цена и срок:<\/strong> по запросу/);
@@ -60,7 +60,7 @@ test("both engine catalogues expose one exact engine with price", () => {
     assert.match(html, /Под заказ — на складе нет/);
     assert.match(html, /Ориентировочное ожидание: 3–14 дней/);
     assert.match(html, /Доставка по Казахстану включена в цену/);
-    assert.equal((html.match(/data-engine-product-card/g) || []).length, 25);
+    assert.equal((html.match(/data-engine-product-card/g) || []).length, 9);
   }
 });
 

@@ -10,7 +10,7 @@ const supplyOffers = fs.readFileSync('client/src/components/catalog/PumpSupplyOf
 test('catalog navigation opens dedicated category pages without mixing the home product feed', () => {
   assert.match(catalogPage, /const showResults = isLandingPage \|\| Boolean\(urlQuery\);/);
   assert.match(catalogPage, /href=\{catalogSearchHref\(partQuery, item\.id\)\}/);
-  assert.match(catalogPage, /!isLandingPage && <div className="aca-category-grid">/);
+  assert.match(catalogPage, /!isLandingPage && catalogSections\.map\(section/);
   assert.doesNotMatch(catalogPage, /chooseCategory/);
   assert(catalogPage.indexOf('id="catalog-results"') < catalogPage.indexOf('className="aca-landing-intro'), 'products must appear before long SEO copy on category pages');
 });
@@ -21,17 +21,16 @@ test('catalog category counts use the complete published summary immediately', (
   assert.match(catalogHook, /setCategorySummary\(summary\)/);
   assert.match(catalogHook, /Complete catalog index unavailable; loading chunks/);
   assert.match(catalogPage, /Object\.keys\(categorySummary\)\.length > 0/);
-  assert.match(catalogPage, /const ELECTRONICS_VISIBLE_PRODUCTS = 48/);
+  assert.match(catalogPage, /CATALOG_PAGE_SIZE/);
   assert.match(catalogPage, /data-expected-count=\{expectedResultCount\}/);
   assert.match(catalogPage, /data-index-complete=\{complete \? "true" : "false"\}/);
   assert.match(catalogPage, /catalogProgressLabel\(filteredProducts\.length, expectedResultCount, language\)/);
 });
 
-test('catalog offers an explicit show-all action after the complete index loads', () => {
-  assert.match(productResults, /data-show-all-products=\{total\}/);
-  assert.match(productResults, /onClick=\{onShowAll\}/);
-  assert.match(catalogPage, /showAllLabel=\{showAllProductsLabel\(filteredProducts\.length, language\)\}/);
-  assert.match(catalogPage, /onShowAll=\{\(\) => setVisibleCount\(filteredProducts\.length\)\}/);
+test('catalog uses paginated results after the complete index loads', () => {
+  assert.doesNotMatch(productResults, /data-show-all-products/);
+  assert.match(catalogPage, /complete && !error && <CatalogPagination/);
+  assert.match(catalogPage, /products=\{pageProducts\}/);
 });
 
 test('featured product links use a client-routable product URL', () => {
