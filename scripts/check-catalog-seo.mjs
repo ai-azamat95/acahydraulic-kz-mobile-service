@@ -8,6 +8,7 @@ import merchantProductCopy from '../shared/catalog-product-merchant-copy.json' w
 const productCopy = { ...reviewedProductCopy, ...merchantProductCopy };
 const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
 const merchantHandles = new Set(merchantPumps.products.map(product => product.handle));
+const catalogCanonicalAliases = JSON.parse(fs.readFileSync(new URL('../shared/catalog-canonical-aliases.json', import.meta.url), 'utf8'));
 
 const publicDir = path.resolve(process.argv[2] || 'dist/public');
 const catalogDir = path.join(publicDir, 'catalog-data');
@@ -25,8 +26,14 @@ assert(products.every((product) => !/sinocmp/i.test(`${product.fitment || ''} ${
 const productsWithFitment = products.filter((product) => product.fitment);
 const fitmentCoverage = productsWithFitment.length / products.length;
 assert(fitmentCoverage >= 0.75, `explicit fitment coverage is too low: ${(fitmentCoverage * 100).toFixed(1)}%`);
+const productsWithOffers = products.filter((product) => Number.isFinite(product.minPriceKzt));
+const productsWithProductSchema = productsWithOffers.filter(product => !catalogCanonicalAliases[product.handle]);
+const priceOnRequestProducts = products.filter((product) => !Number.isFinite(product.minPriceKzt));
 
-for (const product of [productsWithFitment.find(item => !merchantHandles.has(item.handle)), products.find((item) => !item.fitment && !merchantHandles.has(item.handle))].filter(Boolean)) {
+for (const product of [
+  productsWithOffers.find(item => item.fitment && !merchantHandles.has(item.handle)),
+  productsWithOffers.find(item => !item.fitment && !merchantHandles.has(item.handle)),
+].filter(Boolean)) {
   const htmlPath = path.join(publicDir, 'catalog', product.handle, 'index.html');
   const html = fs.readFileSync(htmlPath, 'utf8');
   assert(!/с наценкой\s+50%/i.test(html), 'public SEO copy must not expose commercial markup');
@@ -42,6 +49,11 @@ for (const product of [productsWithFitment.find(item => !merchantHandles.has(ite
   assert.equal(schema.sku, product.sku);
   assert(schema.description?.includes('Применяемость:'), 'Product JSON-LD needs a fitment-aware description');
   assert(Array.isArray(schema.image) && schema.image.length > 0, 'Product JSON-LD needs an image');
+}
+
+for (const product of priceOnRequestProducts.slice(0, 20)) {
+  const html = fs.readFileSync(path.join(publicDir, 'catalog', product.handle, 'index.html'), 'utf8');
+  assert(!/data-static-product-schema/.test(html), `${product.handle}: price-on-request page must not publish an ineligible Product schema`);
 }
 
 for (const pump of merchantPumps.products) {
@@ -74,15 +86,23 @@ for (const product of products) {
   assert(html.includes(`<title data-rh="true">${escapeHtml(seo.title)} | ACA Hydraulic</title>`), `${product.handle}: static and client titles must match`);
   assert(html.includes(`<h1>${escapeHtml(seo.name)}</h1>`), `${product.handle}: visible product name missing`);
   assert.equal((html.match(/rel="canonical"/g) || []).length, 1, `${product.handle}: duplicate canonical`);
-  assert(html.includes(`href="https://acahydraulic.kz/catalog/${product.handle}/"`), `${product.handle}: self canonical missing`);
+  const canonicalHandle = catalogCanonicalAliases[product.handle] || product.handle;
+  assert(html.includes(`href="https://acahydraulic.kz/catalog/${canonicalHandle}/"`), `${product.handle}: expected canonical missing`);
   assert(html.includes('data-product-selection'), `${product.handle}: selection instructions missing`);
   assert(!/<meta[^>]+name="robots"[^>]+noindex/i.test(html), `${product.handle}: unexpectedly noindex`);
   for (const category of catalogProductCategories(product)) {
     assert(html.includes(`href="/catalog/category/${category.id}/"`), `${product.handle}: category link missing`);
   }
-  const schema = JSON.parse(html.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s)[1]);
-  assert.equal(schema.name, seo.name);
-  assert.equal(schema.description, seo.description);
+  const schemaMatch = html.match(/<script type="application\/ld\+json" data-static-product-schema[^>]*>(.*?)<\/script>/s);
+  if (Number.isFinite(product.minPriceKzt) && canonicalHandle === product.handle) {
+    assert(schemaMatch, `${product.handle}: priced product must publish Product JSON-LD`);
+    const schema = JSON.parse(schemaMatch[1]);
+    assert.equal(schema.name, seo.name);
+    assert.equal(schema.description, seo.description);
+    assert(schema.offers, `${product.handle}: Product JSON-LD must contain an Offer or AggregateOffer`);
+  } else {
+    assert.equal(schemaMatch, null, `${product.handle}: non-canonical or price-on-request page must not publish Product JSON-LD`);
+  }
   if (productCopy[product.handle]) {
     assert(html.includes(escapeHtml(product.title)), `${product.handle}: original identifiers must remain visible`);
     const link = html.match(/href="(https:\/\/wa\.me\/77714177925\?text=[^"]+)"/)[1];
@@ -91,15 +111,22 @@ for (const product of products) {
 }
 
 const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap-products.xml'), 'utf8');
-assert.equal((sitemap.match(/<url>/g) || []).length, products.length, 'product sitemap must include every product page');
+const sitemapProductCount = products.length - Object.keys(catalogCanonicalAliases).length;
+assert.equal((sitemap.match(/<url>/g) || []).length, sitemapProductCount, 'product sitemap must contain only canonical product pages');
+for (const [alias, canonical] of Object.entries(catalogCanonicalAliases)) {
+  assert(!sitemap.includes(`/catalog/${alias}/`), `${alias}: canonical alias must be excluded from the sitemap`);
+  assert(sitemap.includes(`/catalog/${canonical}/`), `${canonical}: canonical product must remain in the sitemap`);
+}
 
 console.log(JSON.stringify({
   passed: true,
   products: products.length,
   productsWithExplicitFitment: productsWithFitment.length,
   fitmentCoveragePercent: Number((fitmentCoverage * 100).toFixed(1)),
-  productSchemasChecked: products.length,
+  productSchemasChecked: productsWithProductSchema.length,
+  priceOnRequestPagesWithoutProductSchema: priceOnRequestProducts.length,
   reviewedRussianProducts: Object.keys(productCopy).length,
-  sitemapProducts: products.length,
+  sitemapProducts: sitemapProductCount,
+  canonicalAliases: Object.keys(catalogCanonicalAliases).length,
   commercialMarkupLeaks: 0,
 }, null, 2));

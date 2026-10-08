@@ -55,3 +55,13 @@ test('duplicate projects listing redirects to cases and is excluded from sitemap
   assert.match(read('projects/'), /http-equiv="refresh"/);
   for (const file of ['sitemap.xml', 'sitemap-cases.xml']) assert.ok(!fs.readFileSync(`dist/public/${file}`, 'utf8').includes('<loc>https://acahydraulic.kz/projects/</loc>'));
 });
+
+test('highest-traffic hydraulic articles link readers to commercial catalog categories', () => {
+  for (const route of [
+    'blog/padaet-davlenie-gidravliki-ekskavatora/',
+    'blog/remont-gidronasosa-cat/',
+  ]) {
+    const html = read(route);
+    assert.match(html, /href="\/catalog\/category\/hydraulic-pumps\/"/);
+  }
+});

@@ -25,7 +25,7 @@ export default function RemonGidronasosaCat() {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://acahydraulic.kz/blog/remont-gidronasosa-cat",
+      "@id": "https://acahydraulic.kz/blog/remont-gidronasosa-cat/",
     },
     image: "https://acahydraulic.kz/images/hydraulic-repair-cinematic.webp",
     articleSection: "Ремонт CAT",
@@ -243,6 +243,16 @@ export default function RemonGidronasosaCat() {
             <Link href="/services/mobile-repair">
               <span className="inline-block px-4 py-2 bg-[#1a1a1a] border border-white/10 rounded text-sm text-gray-300 hover:border-[#FFC000]/50 hover:text-[#FFC000] transition-colors cursor-pointer">
                 Выездной ремонт
+              </span>
+            </Link>
+            <Link href="/catalog/category/hydraulic-pumps/">
+              <span className="inline-block px-4 py-2 bg-[#1a1a1a] border border-white/10 rounded text-sm text-gray-300 hover:border-[#FFC000]/50 hover:text-[#FFC000] transition-colors cursor-pointer">
+                Гидронасосы CAT и других марок
+              </span>
+            </Link>
+            <Link href="/catalog/brand/caterpillar/">
+              <span className="inline-block px-4 py-2 bg-[#1a1a1a] border border-white/10 rounded text-sm text-gray-300 hover:border-[#FFC000]/50 hover:text-[#FFC000] transition-colors cursor-pointer">
+                Запчасти Caterpillar по номеру
               </span>
             </Link>
           </div>

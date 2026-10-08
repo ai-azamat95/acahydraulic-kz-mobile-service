@@ -67,9 +67,10 @@ test("HIDROMEK case publishes one H1, exact identifiers and three non-autoplay v
   const videoSchemas = schemas.filter((schema) => schema["@type"] === "VideoObject");
   assert.equal(videoSchemas.length, 3);
   assert.ok(videoSchemas.every((schema) => schema.contentUrl?.startsWith("https://acahydraulic.kz/media/hidromek-102b-husco-c16e303/")));
+  assert.ok(videoSchemas.every((schema) => schema.uploadDate === `${repairCase.publishedOn}T00:00:00+05:00`));
 });
 
-test("HUSCO product page publishes price on request, Product schema and reciprocal case link", { skip: !fs.existsSync(productPath) }, () => {
+test("HUSCO price-on-request page omits ineligible Product schema and keeps the reciprocal case link", { skip: !fs.existsSync(productPath) }, () => {
   const html = readPublished(productPath);
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
   assert.match(html, /Гидрораспределитель HUSCO 6600-E163 A00 — C16E303, F18\/22233/);
@@ -78,12 +79,8 @@ test("HUSCO product page publishes price on request, Product schema and reciproc
   assert.match(html, new RegExp(`href="https://acahydraulic\\.kz/catalog/${repairCase.handle}/"`));
   for (const image of repairCase.gallery) assert.match(html, new RegExp(image.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
 
-  const product = schemaNodes(html).find((schema) => schema["@type"] === "Product");
-  assert.ok(product);
-  assert.equal(product.brand.name, "HUSCO");
-  assert.equal(product.mpn, "C16E303");
-  assert.equal(product.offers, undefined);
-  assert.equal(product.image.length, 3);
+  assert.equal(schemaNodes(html).some((schema) => schema["@type"] === "Product"), false);
+  assert.doesNotMatch(html, /data-static-product-schema/);
 });
 
 test("the incorrect F163 URL points to the canonical E163 product", () => {

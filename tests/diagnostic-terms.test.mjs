@@ -25,6 +25,9 @@ test('diagnostic landing pages, article offers and schema have no public minimum
     assert.match(html, /стоимость согласуем до выезда/i, route);
     assert.doesNotMatch(html, /бесплатн[а-я]*\s+диагностик/iu, route);
   }
+  const pressureArticle = read('client/src/pages/blog/PadaetDavlenieGidravliki.tsx');
+  assert.doesNotMatch(pressureArticle, minimumPrice);
+  assert.match(pressureArticle, /согласовать%20стоимость%20до%20выезда/i);
 });
 
 test('both intake forms acknowledge paid diagnostics with a pending quote and preserve event contracts', () => {

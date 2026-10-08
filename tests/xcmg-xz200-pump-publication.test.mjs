@@ -64,6 +64,7 @@ test("XCMG case publishes one H1, honest fitment wording, canonical and three re
   const videoSchemas = schemas.filter((schema) => schema["@type"] === "VideoObject");
   assert.equal(videoSchemas.length, 3);
   assert.ok(videoSchemas.every((schema) => schema.contentUrl?.startsWith("https://acahydraulic.kz/media/xcmg-xz200-pump/")));
+  assert.ok(videoSchemas.every((schema) => schema.uploadDate === "2026-09-29T00:00:00+05:00"));
 });
 
 test("XCMG product page publishes Product schema, real gallery and case link", { skip: !fs.existsSync(productPath) }, () => {

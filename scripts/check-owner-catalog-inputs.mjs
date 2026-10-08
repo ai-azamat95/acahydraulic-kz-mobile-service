@@ -31,15 +31,16 @@ export function verifyOwnerCatalogInputs(catalogDir, { routeDir } = {}) {
       assert(fs.readFileSync(path.join(routeDir, 'sitemap-products.xml'), 'utf8').includes(canonical), 'Missing owner sitemap entry: ' + owner.handle);
       for (const category of owner.categories || [owner.category]) assert(html.includes('/catalog/category/' + category + '/'), 'Missing owner route category: ' + owner.handle);
       const schemaMatch = html.match(/data-static-product-schema[^>]*>([\s\S]*?)<\/script>/);
-      assert(schemaMatch, 'Missing owner product schema: ' + owner.handle);
-      const schema = JSON.parse(schemaMatch[1]);
-      assert.equal(schema.mpn, owner.mpn, 'Owner route MPN differs');
       if (owner.minPriceKzt === null) {
-        assert.equal(schema.offers, undefined, 'Price-on-request owner route must not invent an offer');
+        assert.equal(schemaMatch, null, 'Price-on-request owner route must not publish ineligible Product schema');
         assert.match(html, /Цена по запросу/);
+      } else {
+        assert(schemaMatch, 'Missing owner product schema: ' + owner.handle);
+        const schema = JSON.parse(schemaMatch[1]);
+        assert.equal(schema.mpn, owner.mpn, 'Owner route MPN differs');
+        if (owner.ownerEvidence) assert.equal(schema.itemCondition, undefined, 'Job evidence must not imply a new supplied item');
       }
       if (owner.ownerEvidence) {
-        assert.equal(schema.itemCondition, undefined, 'Job evidence must not imply a new supplied item');
         assert(html.includes(owner.ownerEvidence.photoCaption), 'Owner evidence caption missing');
       }
     }

@@ -18,7 +18,7 @@ export function catalogProductSeo(product, language = 'ru') {
   const price = Number.isFinite(product.minPriceKzt)
     ? `Цена ${fixedOwnerOffer ? '' : 'от '}${new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(product.minPriceKzt)} ₸.`
     : 'Цена по запросу.';
-  const fitment = product.fitment || 'уточняется по номеру детали, модели и шильдику техники';
+  const fitment = (product.fitment || 'уточняется по номеру детали, модели и шильдику техники').replace(/[.!?]+$/, '');
   return {
     name,
     title: copy?.title || (name.length > 110 ? name.slice(0, 110).replace(/\s+\S*$/, '') + '…' : name),
