@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { trackFormContactIntent } from "@/lib/contactIntent";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -11,7 +12,6 @@ import {
 
 const WHATSAPP_NUMBER = "77714177925";
 const DIAGNOSTIC_TERMS = "Стоимость согласуем до выезда";
-const GOOGLE_ADS_QUALIFIED_LEAD = "AW-17847190636/JZkfCOu_84McEOyImr5C";
 
 const equipmentTypes = [
   { id: "excavator", label: "Экскаватор", image: "/images/calculator/excavator.webp", alt: "Гусеничный гидравлический экскаватор на промышленном объекте" },
@@ -264,33 +264,7 @@ export default function CostCalculator() {
     .join("\n");
 
   const openWhatsApp = () => {
-    const leadParams = {
-      equipment: selectedEquipment,
-      brand: selection.brand,
-      model: selection.model,
-      city: selection.city,
-      component: selection.component || "unknown",
-      lead_type: "qualified_mobile_service",
-      paid_diagnostics_acknowledged: true,
-      price_agreement_pending: true,
-    };
-
-    track("calculator_whatsapp_click", leadParams);
-    track("qualified_lead", leadParams);
-    track("generate_lead", leadParams);
-
-    if (typeof window !== "undefined") {
-      (window as any).gtag?.("event", "conversion", {
-        send_to: GOOGLE_ADS_QUALIFIED_LEAD,
-      });
-    }
-
-    trackTikTok("SubmitForm", {
-      content_type: "service",
-      content_name: "Квалифицированная заявка на выездную диагностику",
-      paid_diagnostics_acknowledged: true,
-      price_agreement_pending: true,
-    });
+    trackFormContactIntent("calculator");
   };
 
   const cardClass = (selected: boolean) =>

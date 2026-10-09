@@ -7,13 +7,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { toast } from 'sonner';
+import { trackFormContactIntent } from '@/lib/contactIntent';
 
 interface B2BLeadFormProps {
   onSuccess?: () => void;
 }
 
 const DIAGNOSTIC_TERMS = 'Стоимость согласуем до выезда';
-const GOOGLE_ADS_QUALIFIED_LEAD = 'AW-17847190636/JZkfCOu_84McEOyImr5C';
 
 const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
   const [formData, setFormData] = useState({
@@ -81,32 +81,9 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
       'Могу отправить фото шильдика и видео работы техники.',
     ].filter(Boolean);
 
-    const qualifiedParams = {
-      lead_type: 'qualified_b2b_form',
-      paid_diagnostics_acknowledged: true,
-      price_agreement_pending: true,
-      equipment_type: formData.equipmentType || 'unknown',
-      model: formData.model,
-      location: formData.location,
-    };
-
-    if (typeof window !== 'undefined') {
-      (window as any).gtag?.('event', 'b2b_budget_accepted', qualifiedParams);
-      (window as any).gtag?.('event', 'qualified_lead', qualifiedParams);
-      (window as any).gtag?.('event', 'generate_lead', qualifiedParams);
-      (window as any).gtag?.('event', 'conversion', {
-        send_to: GOOGLE_ADS_QUALIFIED_LEAD,
-      });
-      (window as any).ttq?.track?.('SubmitForm', {
-        content_type: 'service',
-        content_name: 'Квалифицированная B2B заявка на выездную диагностику',
-        paid_diagnostics_acknowledged: true,
-        price_agreement_pending: true,
-      });
-    }
-
     const whatsappUrl = `https://wa.me/77714177925?text=${encodeURIComponent(messageLines.join('\n'))}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    trackFormContactIntent('b2b_form');
 
     toast.info('Заявка подготовлена', {
       description: 'Отправьте сообщение в WhatsApp. Стоимость диагностики и выезда согласуем заранее.',

@@ -52,8 +52,8 @@
     <!-- Analytics vendors are loaded by analytics-gate.js only after consent. -->
     <script>
       // Compatibility helpers record contact intent only.
-      // Google Ads form conversions record contact intent after the client
-      // acknowledges paid diagnostics; the price is agreed separately.
+      // Form/calculator transitions use the secondary Ads contact-intent action.
+      // They never confirm message receipt, lead qualification or a sale.
       function gtag_whatsapp_conversion() { try { if (!window.__ACA_ANALYTICS_EXCLUDE__ && window.__ACA_COOKIE_CONSENT__?.analytics) window.gtag('event', 'acahydraulic_whatsapp_click', {event_category:'whatsapp'}); } catch (_) {} return true; }
       function gtag_registration_conversion() { return true; }
       function gtag_phone_conversion() { return true; }

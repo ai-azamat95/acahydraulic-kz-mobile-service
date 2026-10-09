@@ -16,6 +16,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm exec vitest run client/src/lib/contactIntent.test.ts server/analyticsGate.test.ts
       - run: pnpm build
       - run: node scripts/create-spa-route-copies.mjs
       - run: node scripts/create-case-route-copies.mjs
