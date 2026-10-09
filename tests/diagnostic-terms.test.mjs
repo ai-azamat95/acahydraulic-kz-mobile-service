@@ -30,22 +30,19 @@ test('diagnostic landing pages, article offers and schema have no public minimum
   assert.match(pressureArticle, /согласовать%20стоимость%20до%20выезда/i);
 });
 
-test('both intake forms acknowledge paid diagnostics with a pending quote and preserve event contracts', () => {
+test('both intake forms acknowledge paid diagnostics without claiming a received lead', () => {
   const contracts = {
-    B2BLeadForm: ['b2b_budget_accepted', 'qualified_lead', 'generate_lead', 'qualified_b2b_form'],
-    CostCalculator: ['calculator_budget_accepted', 'calculator_budget_rejected', 'calculator_price_gate_view', 'calculator_whatsapp_click', 'qualified_lead', 'generate_lead', 'qualified_mobile_service'],
+    B2BLeadForm: ['trackFormContactIntent', 'b2b_form'],
+    CostCalculator: ['calculator_budget_accepted', 'calculator_budget_rejected', 'calculator_price_gate_view', 'trackFormContactIntent'],
   };
   for (const [component, events] of Object.entries(contracts)) {
     const source = read(`client/src/components/${component}.tsx`);
     assert.doesNotMatch(source, minimumPrice);
     assert.doesNotMatch(source, /DIAGNOSTIC_VALUE|diagnostic_price\s*:|budget_confirmed\s*:|\bvalue\s*:\s*\d|currency\s*:/);
-    assert.match(source, /paid_diagnostics_acknowledged: true/);
-    assert.match(source, /price_agreement_pending: true/);
     assert.match(source, /Понимаю, что диагностика платная\. Прошу согласовать полную стоимость до выезда\./);
     assert.doesNotMatch(source, /до начала работ/);
     assert.doesNotMatch(source, /ПОДТВЕРЖДЕНА|минимальную стоимость|подтверждение стоимости/);
-    assert.match(source, /AW-17847190636\/JZkfCOu_84McEOyImr5C/);
-    assert.match(source, /SubmitForm/);
+    assert.doesNotMatch(source, /qualified_lead|generate_lead|SubmitForm|qualified_b2b_form|qualified_mobile_service/);
     for (const event of events) assert.ok(source.includes(event), `${component}: ${event}`);
   }
 });

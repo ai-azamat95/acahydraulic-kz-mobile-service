@@ -1,203 +1,77 @@
-# Google Ads Conversion Tracking Implementation
+# ACA: проверяемый учёт обращений
 
-## Overview
-Google Ads conversion tracking has been successfully implemented for the ACA Hydraulic website to track form submissions and lead generation.
+Обновлено 10 октября 2026. Заменяет устаревшее февральское описание, которое
+ошибочно называло переход в WhatsApp отправленной заявкой.
 
-## Configuration Details
+## Границы измерения
 
-**Google Ads Account ID:** `AW-17847190636`  
-**Conversion Event ID:** `AW-17847190636/4nkyCNfMn_gbEOyImr5C`  
-**Conversion Name:** "Заявка с сайта ACA Hydraulic"
+Google Ads: `1595757658`, USD. Google tag: `AW-17847190636` (не customer ID).
+GA4: `G-XZB9KZ4VCH`. Загрузка через `analytics-gate.js` с согласием.
+Сайт статический. Наличие server/routers.ts не доказывает сохранение production-формы в CRM.
+B2BLeadForm и CostCalculator подготавливают сообщение WhatsApp; они не знают,
+отправлено ли оно, получил ли его менеджер и подходит ли задача компании.
 
-## Implementation
+## События
 
-### 1. Global Tag Setup
-The Google Ads global tag (gtag.js) is installed in `client/index.html`:
+| Действие | Сигнал | Что доказано |
+| --- | --- | --- |
+| Переход формы/калькулятора | form_whatsapp_click, form_source=b2b_form/calculator | Только намерение связаться |
+| Тот же переход с marketing consent | Ads AW-17847190636/JZkfCOu_84McEOyImr5C | Второстепенная микроконверсия |
+| Тот же переход с marketing consent | TikTok Contact | Не SubmitForm, не продажа |
+| Ссылка WhatsApp | acahydraulic_whatsapp_click | Клик, не сообщение |
+| Ссылка WhatsApp каталога | catalog_whatsapp_click | Клик с товарным контекстом |
+| Ссылка телефона | acahydraulic_phone_click и второстепенный Ads-сигнал | Клик, не состоявшийся звонок |
 
-```html
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17847190636"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-17847190636');
-  
-  // Google Ads Conversion Tracking Function
-  function gtag_report_conversion(url) {
-    var callback = function () {
-      if (typeof(url) != 'undefined') {
-        window.location = url;
-      }
-    };
-    gtag('event', 'conversion', {
-        'send_to': 'AW-17847190636/4nkyCNfMn_gbEOyImr5C',
-        'event_callback': callback
-    });
-    return false;
-  }
-  
-  window.gtag_report_conversion = gtag_report_conversion;
-</script>
-```
+Калькулятор может отправить общий контактный сигнал и сигнал этапа формы.
+Это разные срезы одного действия; нельзя складывать их как число заявок.
+Не отправлять qualified_lead / generate_lead из обработчика перехода.
+trackFormContactIntent не принимает свободный текст или персональные данные.
+Ошибка счётчика не должна прерывать обращение. Категории consent проверяются отдельно.
+Внутренние посещения и автоматизированные проверки исключены из аналитики.
 
-### 2. Conversion Triggers
+## Настройка Ads
 
-Conversions are tracked on the following user actions:
+Действие `7524376555`: «ACA — переход в WhatsApp из формы (не заявка)»,
+второстепенное, ценность 0. Метка сохранена для непрерывности истории.
+Проверять primary_for_goal=false и отсутствие действия в custom goals активных кампаний.
+Переименование не превращает историческую статистику в подтверждённые лиды.
 
-#### A. B2B Lead Form Submission
-**File:** `client/src/components/B2BLeadForm.tsx`  
-**Trigger:** When user successfully submits the B2B lead form  
-**Implementation:**
-```typescript
-// Fire Google Ads conversion
-if (typeof window.gtag_report_conversion === 'function') {
-  window.gtag_report_conversion();
-}
-```
+Исторические цели других сайтов не удалять и не превращать в главные.
+Не путать ACA с отдельным Video Astana `5922785545`.
+У второстепенного Lead Video Astana Website в аккаунте ACA (`7599825028`)
+ошибочная ценность 50 000 USD заменена на 0. Бюджеты и ставки не меняются.
 
-#### B. Cost Calculator - WhatsApp Button Click
-**File:** `client/src/components/CostCalculator.tsx`  
-**Trigger:** When user clicks "Получить смету в WhatsApp" button after completing calculator  
-**Implementation:**
-```typescript
-onClick={() => {
-  // Fire Google Ads conversion
-  if (typeof window.gtag_report_conversion === 'function') {
-    window.gtag_report_conversion();
-  }
-}}
-```
+## Три уровня приёмки
 
-### 3. TypeScript Support
-Global window interface extended in `client/src/global.d.ts`:
+1. Код: contactIntent.test.ts, analyticsGate.test.ts, diagnostic-terms.test.mjs,
+   сборка и опубликованный JS.
+2. Доставка: контролируемый Tag Assistant / DebugView тест, проверка consent и
+   сетевого запроса. Не нажимать собственные объявления, не посылать фиктивные
+   квалифицированные заявки, не обходить отказ от cookies. Автотест не доказывает
+   приём события Google; он выполняется без отправки данных счётчикам.
+3. Бизнес: полученное сообщение/звонок, подтверждение менеджера, квалификация,
+   КП и оплаченный заказ. Без этих записей сквозной учёт не подтверждён.
 
-```typescript
-interface Window {
-  gtag_report_conversion: (url?: string) => boolean;
-  gtag: (...args: any[]) => void;
-  dataLayer: any[];
-}
-```
+Ноль событий может означать отсутствие действий, отказ от cookies, блокировщик,
+ошибку доставки или атрибуции; одной проверки кода недостаточно.
 
-## Features
+## Реальные заявки и заказы: недостающий источник
 
-### ✅ GCLID Preservation
-The Google Ads tag automatically captures and preserves the `gclid` parameter from URL query strings, ensuring proper attribution of conversions to ad clicks.
+Нужен подтверждённый источник менеджера: CRM или закрытый журнал.
+Минимум: ID обращения, время получения +05:00, направление (запчасти/ремонт),
+источник и точность определения, товар/страница, статус
+(получено/квалифицировано/КП/оплачено/нецелевое), причина квалификации,
+ID КП/заказа, фактическая выручка KZT, ответственный.
+Не сохранять клиентские данные в публичном репозитории.
 
-### ✅ Duplicate Prevention
-The implementation includes safety checks:
-- Function existence check before calling: `typeof window.gtag_report_conversion === 'function'`
-- Google's native deduplication prevents multiple conversions from the same user session
+Квалификация означает: менеджер подтвердил реальную задачу, технику/артикул,
+возможность исполнения и обратную связь. Черновик сообщения этим условиям не соответствует.
+Для импорта нужны разрешённо собранные данные атрибуции и фактическая дата этапа.
+Сначала подключить источник, проверить одну настоящую запись и дедупликацию
+(ID обращения + этап), затем настраивать offline-цель и импорт.
+Не придумывать GCLID, ценность или клиентов. CRM-интеграция и импорт
+не запускаются одним изменением сайта.
 
-### ✅ No Double Firing
-Each conversion trigger is placed at the appropriate user action point:
-- Form submission success (after validation)
-- WhatsApp button click (single action)
-
-## Testing Instructions
-
-### Using Google Tag Assistant
-
-1. Install [Google Tag Assistant Chrome Extension](https://chrome.google.com/webstore/detail/tag-assistant-legacy-by-g/kejbdjndbnbjgmefkgdddjlbokphdefk)
-
-2. Open the website in Chrome
-
-3. Click the Tag Assistant icon and enable recording
-
-4. Perform one of the conversion actions:
-   - Submit the B2B lead form
-   - Complete the cost calculator and click WhatsApp button
-
-5. Check Tag Assistant for:
-   - ✅ Google Ads tag is firing
-   - ✅ Conversion event is being sent
-   - ✅ Conversion ID matches: `AW-17847190636/4nkyCNfMn_gbEOyImr5C`
-
-### Using Google Ads Interface
-
-1. Log in to Google Ads account
-
-2. Navigate to: **Tools & Settings → Measurement → Conversions**
-
-3. Find conversion: "Заявка с сайта ACA Hydraulic"
-
-4. Check status:
-   - Should show "Recording conversions" status
-   - May take 24-48 hours for first conversions to appear
-
-### Browser Console Testing
-
-1. Open browser DevTools (F12)
-
-2. Go to Console tab
-
-3. Perform a conversion action
-
-4. Check for network requests to `googleadservices.com`
-
-5. Verify no JavaScript errors related to gtag
-
-## Conversion Value
-
-Currently, conversions are tracked without a specific monetary value. To add conversion value tracking, update the conversion call:
-
-```typescript
-gtag('event', 'conversion', {
-    'send_to': 'AW-17847190636/4nkyCNfMn_gbEOyImr5C',
-    'value': 1000.0,  // Add estimated lead value
-    'currency': 'KZT'  // Kazakhstan Tenge
-});
-```
-
-## Troubleshooting
-
-### Conversion Not Recording
-
-1. **Check Tag Installation**
-   - Open browser DevTools → Network tab
-   - Look for requests to `googletagmanager.com` and `googleadservices.com`
-   - Verify no 404 or blocked requests
-
-2. **Verify Function Availability**
-   - Open browser console
-   - Type: `typeof window.gtag_report_conversion`
-   - Should return: `"function"`
-
-3. **Check Ad Blockers**
-   - Disable ad blockers temporarily
-   - Test conversion action again
-
-4. **Verify Conversion ID**
-   - Ensure ID matches exactly: `AW-17847190636/4nkyCNfMn_gbEOyImr5C`
-   - Check for typos in implementation
-
-### Data Delay
-
-- Conversions may take 3-24 hours to appear in Google Ads
-- Real-time testing requires Tag Assistant or browser DevTools
-
-## Maintenance
-
-### When to Update
-
-- If Google Ads account ID changes
-- If new conversion actions are added
-- If conversion event ID is regenerated
-
-### Files to Modify
-
-1. `client/index.html` - Update conversion event ID
-2. `client/src/components/B2BLeadForm.tsx` - Add/modify conversion triggers
-3. `client/src/components/CostCalculator.tsx` - Add/modify conversion triggers
-
-## Support
-
-For Google Ads conversion tracking issues:
-- [Google Ads Help Center](https://support.google.com/google-ads/answer/1722022)
-- [Conversion Tracking Troubleshooting](https://support.google.com/google-ads/answer/6095947)
-
----
-
-**Implementation Date:** February 13, 2026  
-**Last Updated:** February 13, 2026  
-**Status:** ✅ Active and Ready for Testing
+Отчёт: расход → клики → полученные обращения → квалифицированные заявки →
+КП → оплаченные заказы → валовая прибыль. Google и GA4 не суммируются как разные клиенты.
+Официальная справка: https://support.google.com/google-ads/answer/7012522
