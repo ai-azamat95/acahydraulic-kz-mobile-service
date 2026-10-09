@@ -38,7 +38,7 @@ export default function XcmgXz320eRepair() {
         title={repair.seoTitle}
         description={repair.description}
         canonical={repair.casePath}
-        ogImage={video.poster}
+        ogImage={repair.ogImage}
         pageType="article"
         publishedDate={repair.publishedOn}
         modifiedDate={repair.modifiedOn}
@@ -64,7 +64,7 @@ export default function XcmgXz320eRepair() {
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-gray-300">{repair.summary}</p>
             <div className="mt-6 flex flex-wrap gap-2 text-sm">
-              {["Установка ГНБ", "XCMG XZ320E", "Реальная работа"].map((label) => (
+              {["Промывка гидробака", "Замена насоса", "Проверка на расширении"].map((label) => (
                 <span key={label} className="rounded-full border border-white/15 px-3 py-1.5 text-gray-300">{label}</span>
               ))}
             </div>
@@ -95,15 +95,15 @@ export default function XcmgXz320eRepair() {
               <a href={video.src}>Открыть видео ремонта XCMG XZ320E</a>
             </video>
             <figcaption className="mt-3 flex items-center justify-between gap-3 text-sm leading-6 text-gray-400">
-              <span>Реальные кадры работы на объекте</span>
+              <span>Гидробак, новый насос, проводка и проверка на расширении</span>
               <a href={video.src} className="shrink-0 text-[#FFC000] underline underline-offset-4">Открыть видео</a>
             </figcaption>
           </figure>
         </section>
 
         <section className="mt-14 border-t border-white/10 pt-10" aria-labelledby="work-title">
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#FFC000]">Рабочие эпизоды</p>
-          <h2 id="work-title" className="mt-3 text-3xl font-bold">Что показано в ремонте</h2>
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#FFC000]">Этапы ремонта</p>
+          <h2 id="work-title" className="mt-3 text-3xl font-bold">Что сделали на XCMG XZ320E</h2>
           <ol className="mt-7 grid gap-5 md:grid-cols-2">
             {repair.steps.map((step, index) => (
               <li key={step.title} className="rounded-xl border border-white/10 bg-[#171717] p-6">
@@ -117,7 +117,7 @@ export default function XcmgXz320eRepair() {
         </section>
 
         <section className="mt-12" aria-labelledby="photos-title">
-          <h2 id="photos-title" className="text-3xl font-bold">Кадры с объекта</h2>
+          <h2 id="photos-title" className="text-3xl font-bold">Гидробак, насос и результат</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {repair.gallery.map((photo) => (
               <figure key={photo.src}>

@@ -22,6 +22,10 @@ test("XZ320E repair page renders the real case and primary video without JavaScr
   assert.equal((html.match(/rel="canonical"/g) || []).length, 1);
   assert.ok(html.includes(`href="${canonical}"`));
   assert.doesNotMatch(html, /noindex|803001730|1 350 000/);
+  assert.doesNotMatch(html, /итогового испытания под нагрузкой в кейсе нет/);
+  for (const detail of ["гидробак", "подпитывающий насос", "400-й расширитель"]) {
+    assert.ok(html.includes(detail), `missing confirmed repair detail: ${detail}`);
+  }
 
   const videos = [...html.matchAll(/<video\b[^>]*>/g)];
   assert.equal(videos.length, 1);
@@ -31,6 +35,14 @@ test("XZ320E repair page renders the real case and primary video without JavaScr
   assert.doesNotMatch(videos[0][0], /autoplay/i);
   assert.ok(videos[0][0].includes(`poster="${repair.video.poster}"`));
   assert.ok(html.includes(`src="${repair.video.src}"`));
+  assert.ok(html.includes(`property="og:image" content="https://acahydraulic.kz${repair.ogImage}"`));
+  assert.ok(html.includes('property="og:image:width" content="1200"'));
+  assert.ok(html.includes('property="og:image:height" content="630"'));
+  assert.equal(repair.video.src, "/media/xcmg-xz320e-repair/case-film-v2.mp4");
+  assert.equal(repair.video.poster, "/media/xcmg-xz320e-repair/case-poster-v2.webp");
+  assert.equal(repair.video.duration, "PT1M7S");
+  assert.equal(repair.video.seconds, 67);
+  assert.ok(!html.includes("/media/xcmg-xz320e-repair/case-film.mp4"));
   assert.ok(videos[0].index < html.indexOf("<h2"), "primary video should precede the detailed case sections");
   for (const photo of repair.gallery) {
     assert.ok(html.includes(`src="${photo.src}"`));
@@ -52,7 +64,9 @@ test("XZ320E Article and VideoObject agree with the visible media and publicatio
   assert.equal(video.uploadDate, repair.video.uploadDate);
   assert.match(video.uploadDate, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+]05:00$/);
   if (repair.video.duration) assert.equal(video.duration, repair.video.duration);
-  assert.equal(schemas.find(item => item["@type"] === "Article").datePublished, repair.publishedOn);
+  const article = schemas.find(item => item["@type"] === "Article");
+  assert.equal(article.datePublished, repair.publishedOn);
+  assert.equal(article.dateModified, repair.modifiedOn);
 });
 
 test("XZ320E repair is reachable from cases, GNB service and both sitemaps", () => {
@@ -82,7 +96,7 @@ test("XZ320E inquiry requests useful machine details and all published media fil
   for (const detail of ["Модель и серийный номер", "Что не работает", "местоположение техники", "фото шильдика", canonical]) {
     assert.ok(message.includes(detail), `missing inquiry detail: ${detail}`);
   }
-  for (const media of [repair.video.src, repair.video.poster, ...repair.gallery.map(photo => photo.src)]) {
+  for (const media of [repair.video.src, repair.video.poster, repair.ogImage, ...repair.gallery.map(photo => photo.src)]) {
     assert.ok(fs.statSync(path.join(output, media)).size > 1000, `missing or empty media: ${media}`);
   }
 });
