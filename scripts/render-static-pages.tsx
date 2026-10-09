@@ -62,6 +62,7 @@ import PumpRepairArticle from "../client/src/pages/blog/RemonGidronasosaCat";
 import MotorCostArticle from "../client/src/pages/blog/StoimostRemonGidromotora";
 import Cat432ePumpSale from "../client/src/pages/cases/Cat432ePumpSale";
 import XcmgXz200PumpInstallation from "../client/src/pages/cases/XcmgXz200PumpInstallation";
+import XcmgXz320eRepair from "../client/src/pages/cases/XcmgXz320eRepair";
 import Hidromek102bHuscoC16E303 from "../client/src/pages/cases/Hidromek102bHuscoC16E303";
 import ShantuiSD32EngineSupply from "../client/src/pages/cases/ShantuiSD32EngineSupply";
 import CompleteEngines from "../client/src/pages/CompleteEngines";
@@ -126,6 +127,7 @@ const pages: Record<string, React.ComponentType> = {
   "cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami": HitachiCase,
   "cases/cat-432e-postavka-gidronasosa-267-2755": Cat432ePumpSale,
   "cases/xcmg-xz200-ustanovka-gidronasosa-803001730": XcmgXz200PumpInstallation,
+  "cases/xcmg-xz320e-remont-gnb": XcmgXz320eRepair,
   "cases/hidromek-102b-zamena-gidroraspredelitelya-husco-c16e303": Hidromek102bHuscoC16E303,
   "cases/shantui-sd32-postavka-dvigatelya-cummins-nta855": ShantuiSD32EngineSupply,
   "parts/engines-complete": CompleteEngines,

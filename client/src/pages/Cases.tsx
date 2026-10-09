@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Eye, ExternalLink, FileText, Filter, Phone, PlayCircle, Video } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import Cat325VideoCase, { cat325VideoSchema } from "@/components/Cat325VideoCase";
+import xz320eRepair from "../../../shared/xcmg-xz320e-repair-case.json";
 
 type RepairCase = {
   id: string;
@@ -123,7 +124,7 @@ export default function Cases() {
     <div className="min-h-screen bg-[#0a0a0a] text-white font-roboto">
       <SEO
         title="Реальные кейсы ремонта спецтехники с видео | ACA Hydraulic"
-        description="Реальные ремонты и поставки ACA Hydraulic: HUSCO C16E303 для HIDROMEK 102B, гидронасос XCMG 803001730, двигатель Cummins NTA855, насосы CAT и SANY."
+        description="Реальные ремонты и поставки ACA Hydraulic: ГНБ XCMG XZ320E, насосы CAT и SANY, двигатель Cummins NTA855 и распределитель HUSCO. Фото и видео работ."
         keywords="HUSCO C16E303, гидрораспределитель HIDROMEK 102B, XCMG 803001730, гидронасос XZ200, реальный ремонт спецтехники"
         canonical="/cases"
         schema={cat325VideoSchema}
@@ -141,6 +142,21 @@ export default function Cases() {
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed">
             Кейсы диагностики, ремонта и поставки запчастей ACA Hydraulic. Фото и видео реальной техники, детали заказа и подтверждённый результат.
           </p>
+        </div>
+      </section>
+
+      <section className="border-b border-white/10 bg-[#101010] py-10">
+        <div className="container mx-auto grid items-center gap-6 px-4 md:grid-cols-[220px_1fr]">
+          <Link href={`${xz320eRepair.casePath}/`} className="relative mx-auto block w-full max-w-[220px] overflow-hidden rounded-lg bg-black">
+            <img src={xz320eRepair.video.poster} alt="Реальные кадры ремонта ГНБ XCMG XZ320E" width={720} height={1280} loading="lazy" className="aspect-[9/16] max-h-72 w-full object-contain" />
+            <span className="absolute inset-0 flex items-center justify-center"><PlayCircle className="h-12 w-12 rounded-full bg-black/60 text-[#FFC000]" aria-hidden="true" /></span>
+          </Link>
+          <div>
+            <p className="text-sm font-bold text-[#FFC000]">ГНБ · ремонт на объекте · видео работ</p>
+            <h2 className="mt-3 text-3xl font-bold text-white">{xz320eRepair.title}</h2>
+            <p className="my-4 max-w-3xl leading-relaxed text-gray-300">{xz320eRepair.summary}</p>
+            <Link href={`${xz320eRepair.casePath}/`} className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black">Посмотреть ремонт XZ320E</Link>
+          </div>
         </div>
       </section>
 

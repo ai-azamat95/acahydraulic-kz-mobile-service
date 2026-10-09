@@ -47,6 +47,7 @@ const SanySY365HHotHydraulics = lazy(() => import("./pages/cases/SanySY365HHotHy
 const Hitachi330FloatingPressure = lazy(() => import("./pages/cases/Hitachi330FloatingPressure"));
 const Cat432ePumpSale = lazy(() => import("./pages/cases/Cat432ePumpSale"));
 const XcmgXz200PumpInstallation = lazy(() => import("./pages/cases/XcmgXz200PumpInstallation"));
+const XcmgXz320eRepair = lazy(() => import("./pages/cases/XcmgXz320eRepair"));
 const Hidromek102bHuscoC16E303 = lazy(() => import("./pages/cases/Hidromek102bHuscoC16E303"));
 const PumpSupplyInstallation = lazy(() => import("./pages/cases/PumpSupplyInstallation"));
 const VideoCase = lazy(() => import("./pages/cases/VideoCase"));
@@ -163,6 +164,7 @@ function AppRoutes() {
         <Route path="/cases/sany-sy365h-zamena-gidronasosa-video" component={VideoCase} />
         <Route path="/cases/cat-432e-postavka-gidronasosa-267-2755" component={Cat432ePumpSale} />
         <Route path="/cases/xcmg-xz200-ustanovka-gidronasosa-803001730" component={XcmgXz200PumpInstallation} />
+        <Route path="/cases/xcmg-xz320e-remont-gnb" component={XcmgXz320eRepair} />
         <Route path="/cases/hidromek-102b-zamena-gidroraspredelitelya-husco-c16e303" component={Hidromek102bHuscoC16E303} />
         <Route path="/cases/postavka-zamena-gidronasosa" component={PumpSupplyInstallation} />
         <Route path="/cases/shantui-sd32-postavka-dvigatelya-cummins-nta855" component={ShantuiSD32EngineSupply} />

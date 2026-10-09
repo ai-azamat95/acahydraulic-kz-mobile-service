@@ -58,6 +58,7 @@ jobs:
         run: |
           node scripts/create-video-seo-routes.mjs
           node --test tests/video-seo.test.mjs
+          node --test tests/xcmg-xz320e-repair-publication.test.mjs
       - name: Create static catalog route copies
         run: |
           pnpm catalog:routes

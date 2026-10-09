@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
+import xcmgRepair from '../shared/xcmg-xz320e-repair-case.json' with { type: 'json' };
 import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
 import path from 'node:path';
 const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
@@ -28,6 +29,7 @@ const routes = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)]
 const caseMeta = {
   [catSale.casePath.slice(1)]: { title: `${catSale.caseTitle} | ACA Hydraulic`, description: catSale.caseDescription },
   [xcmgSale.casePath.slice(1)]: { title: `${xcmgSale.caseTitle} | ACA Hydraulic`, description: xcmgSale.caseDescription },
+  [xcmgRepair.casePath.slice(1)]: { title: `${xcmgRepair.seoTitle} | ACA Hydraulic`, description: xcmgRepair.description },
   [huscoCase.casePath.slice(1)]: { title: huscoCase.seoTitle, description: huscoCase.caseDescription },
   'cases/shantui-sd32-postavka-dvigatelya-cummins-nta855': {
     title: 'Двигатель Shantui SD32 Cummins NTA855: поставка и установка | ACA Hydraulic',

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
+import xcmgRepair from '../shared/xcmg-xz320e-repair-case.json' with { type: 'json' };
 import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
 
 const out = path.resolve('dist/public');
@@ -43,7 +44,17 @@ const huscoCaseVideo = {
   seconds: huscoFunctionalVideo.seconds,
   uploadDate: `${huscoCase.publishedOn}T00:00:00+05:00`,
 };
-const sitemapVideos = [...cases, catalogCaseVideo, xcmgCaseVideo, huscoCaseVideo];
+const xcmgRepairVideo = {
+  slug: xcmgRepair.casePath.replace(/^\/cases\/|\/$/g, ''),
+  title: xcmgRepair.video.title,
+  description: xcmgRepair.video.description,
+  video: xcmgRepair.video.src,
+  poster: xcmgRepair.video.poster,
+  duration: xcmgRepair.video.duration,
+  seconds: xcmgRepair.video.seconds,
+  uploadDate: xcmgRepair.video.uploadDate,
+};
+const sitemapVideos = [...cases, catalogCaseVideo, xcmgCaseVideo, huscoCaseVideo, xcmgRepairVideo];
 const template = fs.readFileSync(path.join(out, 'index.html'), 'utf8');
 const escape = text => String(text).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const videoSchema = item => {
@@ -119,7 +130,7 @@ for (const [from, to] of Object.entries(pageRedirects)) {
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-${sitemapVideos.map(item => `  <url><loc>${base}/cases/${item.slug}/</loc><video:video><video:thumbnail_loc>${base}${item.poster}</video:thumbnail_loc><video:title>${escape(item.title)}</video:title><video:description>${escape(item.description)}</video:description><video:content_loc>${base}${item.video}</video:content_loc><video:duration>${item.seconds}</video:duration><video:publication_date>${item.uploadDate}</video:publication_date><video:family_friendly>yes</video:family_friendly></video:video></url>`).join('\n')}
+${sitemapVideos.map(item => `  <url><loc>${base}/cases/${item.slug}/</loc><video:video><video:thumbnail_loc>${base}${item.poster}</video:thumbnail_loc><video:title>${escape(item.title)}</video:title><video:description>${escape(item.description)}</video:description><video:content_loc>${base}${item.video}</video:content_loc>${Number.isFinite(item.seconds) && item.seconds > 0 ? `<video:duration>${item.seconds}</video:duration>` : ''}<video:publication_date>${item.uploadDate}</video:publication_date><video:family_friendly>yes</video:family_friendly></video:video></url>`).join('\n')}
 </urlset>\n`;
 fs.writeFileSync(path.join(out, 'sitemap-videos.xml'), sitemap);
 
