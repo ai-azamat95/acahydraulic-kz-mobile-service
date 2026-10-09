@@ -152,7 +152,7 @@ export default function Cases() {
             <span className="absolute inset-0 flex items-center justify-center"><PlayCircle className="h-12 w-12 rounded-full bg-black/60 text-[#FFC000]" aria-hidden="true" /></span>
           </Link>
           <div>
-            <p className="text-sm font-bold text-[#FFC000]">ГНБ · ремонт на объекте · видео работ</p>
+            <p className="text-sm font-bold text-[#FFC000]">ГНБ · гидробак · замена насоса · проверка в работе</p>
             <h2 className="mt-3 text-3xl font-bold text-white">{xz320eRepair.title}</h2>
             <p className="my-4 max-w-3xl leading-relaxed text-gray-300">{xz320eRepair.summary}</p>
             <Link href={`${xz320eRepair.casePath}/`} className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black">Посмотреть ремонт XZ320E</Link>
