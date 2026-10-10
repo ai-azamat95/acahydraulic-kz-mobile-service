@@ -74,6 +74,7 @@ jobs:
         run: |
           pnpm catalog:verify-seo
           pnpm catalog:verify-landings
+          node --test tests/catalog-product-seo.test.mjs
           node --test tests/catalog-directory.test.mjs
       - name: Verify published site has no supplier identity
         run: pnpm catalog:verify-site

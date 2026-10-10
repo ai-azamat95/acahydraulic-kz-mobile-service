@@ -4,8 +4,9 @@ import path from 'node:path';
 import { catalogProductSeo, catalogProductCategories } from '../shared/catalog-product-seo.mjs';
 import reviewedProductCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
 import merchantProductCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
+import pilotProductCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
 
-const productCopy = { ...reviewedProductCopy, ...merchantProductCopy };
+const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...merchantProductCopy };
 const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
 const merchantHandles = new Set(merchantPumps.products.map(product => product.handle));
 const catalogCanonicalAliases = JSON.parse(fs.readFileSync(new URL('../shared/catalog-canonical-aliases.json', import.meta.url), 'utf8'));

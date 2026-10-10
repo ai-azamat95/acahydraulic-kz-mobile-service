@@ -1,9 +1,10 @@
 import reviewedProductCopy from './catalog-product-copy.json' with { type: 'json' };
 import merchantProductCopy from './catalog-product-merchant-copy.json' with { type: 'json' };
+import pilotProductCopy from './catalog-product-pilot-copy.json' with { type: 'json' };
 import landings from './catalog-landings.json' with { type: 'json' };
 import selectionCopy from './catalog-seo-content.json' with { type: 'json' };
 
-const productCopy = { ...reviewedProductCopy, ...merchantProductCopy };
+const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...merchantProductCopy };
 
 // Keep OEM numbers and the supplier's original title in the product data.
 // Only reviewed, handle-specific translations replace the public Russian name.
