@@ -4,10 +4,13 @@ import test from 'node:test';
 import fs from 'node:fs';
 import reviewedCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
 import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
+import pilotCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
+import catalogAliases from '../shared/catalog-canonical-aliases.json' with { type: 'json' };
 import ownerProducts from '../shared/catalog-owner-products.json' with { type: 'json' };
 import { catalogProductName, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 
-const copy = { ...reviewedCopy, ...merchantCopy };
+const previousCopy = { ...reviewedCopy, ...merchantCopy };
+const copy = { ...previousCopy, ...pilotCopy };
 
 const dir = 'client/public/catalog-data';
 const products = [
@@ -18,7 +21,7 @@ const products = [
 const codes = text => text.toUpperCase().match(/\b[A-Z0-9]+(?:[-.][A-Z0-9]+)*\b/g)?.filter(word => /\d/.test(word)) || [];
 
 test('reviewed Russian names preserve every source part number and equipment model', () => {
-  assert.equal(Object.keys(copy).length, 31);
+  assert.equal(Object.keys(copy).length, 131);
   for (const [handle, content] of Object.entries(copy)) {
     const imported = products.find(item => item.handle === handle);
     const product = imported && applyOwnerSale(imported);
@@ -35,6 +38,39 @@ test('reviewed Russian names preserve every source part number and equipment mod
     assert.equal(catalogProductName(product, 'kz'), product.title);
     assert.equal(catalogProductHasReviewedCopy(product), true);
     assert.equal(catalogProductHasReviewedCopy(product, 'en'), false);
+  }
+});
+
+test('Russian catalogue pilot contains 100 canonical, evidence-backed product pages', () => {
+  assert.equal(Object.keys(pilotCopy).length, 100);
+  assert.deepEqual(
+    Object.values(pilotCopy).reduce((counts, content) => {
+      counts[content.selectionCategory] = (counts[content.selectionCategory] || 0) + 1;
+      return counts;
+    }, {}),
+    {
+      'hydraulic-pumps': 50,
+      'fuel-injectors': 20,
+      'fuel-pumps': 15,
+      'wiring-harnesses': 15,
+    },
+  );
+
+  const primaryCodesByCategory = new Map();
+  for (const [handle, content] of Object.entries(pilotCopy)) {
+    assert(!Object.hasOwn(previousCopy, handle), `${handle}: pilot must not replace previously reviewed copy`);
+    assert(!Object.hasOwn(catalogAliases, handle), `${handle}: canonical aliases do not belong in the pilot`);
+    const product = products.find(item => item.handle === handle);
+    assert(product?.imageUrl, `${handle}: product image is required`);
+    assert(product?.fitment, `${handle}: explicit fitment is required`);
+    assert(product?.sku, `${handle}: public SKU is required`);
+    assert.doesNotMatch(content.name, /\b(?:Hydraulic|Fuel|Injection|Pump|Injector|Wiring|Harness|Fits|for)\b/i, `${handle}: public Russian name contains untranslated generic words`);
+
+    const primaryCode = codes(product.title)[0];
+    const categoryCodes = primaryCodesByCategory.get(content.selectionCategory) || new Set();
+    assert(!categoryCodes.has(primaryCode), `${handle}: duplicate primary code ${primaryCode} in ${content.selectionCategory}`);
+    categoryCodes.add(primaryCode);
+    primaryCodesByCategory.set(content.selectionCategory, categoryCodes);
   }
 });
 
