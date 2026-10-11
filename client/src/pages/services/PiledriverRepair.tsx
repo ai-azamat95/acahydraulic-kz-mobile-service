@@ -15,6 +15,16 @@ export default function PiledriverRepair() {
         description="Диагностика и ремонт гидравлики сваебойных установок: насосы, лебёдки, гидромоторы, цилиндры мачты и блоки управления. Выезд по Казахстану согласовывается после обращения."
         keywords="ремонт сваебойной установки, ремонт гидравлики копра, ремонт гидромолота, диагностика сваебойной установки"
         canonical="/services/piledriver-repair"
+        breadcrumbs={[
+          { name: "Услуги", url: "/services" },
+          { name: "Ремонт сваебойных установок", url: "/services/piledriver-repair" },
+        ]}
+        serviceSchema={{
+          serviceName: "Ремонт гидравлики сваебойных установок",
+          serviceDescription: "Диагностика и ремонт гидравлики сваебойных установок с выездом по Казахстану по согласованию.",
+          serviceUrl: "/services/piledriver-repair",
+          areaServed: ["Астана", "Казахстан"],
+        }}
       />
 
       {/* Header */}

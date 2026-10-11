@@ -154,8 +154,6 @@ export const localBusinessSchema = {
   "paymentAccepted": "Cash, Bank Transfer",
   "taxID": merchant.iin,
   "sameAs": [
-    "https://wa.me/77714177925",
-    "https://t.me/+77714177925",
     "https://www.tiktok.com/@acaservice01"
   ],
   "areaServed": [

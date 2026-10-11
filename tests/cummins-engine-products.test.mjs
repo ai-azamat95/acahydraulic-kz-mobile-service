@@ -53,7 +53,7 @@ test("all 25 Cummins family pages are statically rendered and indexable", () => 
     assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${slug} must have one h1`);
     assert.match(html, new RegExp(`<link[^>]+rel="canonical"[^>]+href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"|<link[^>]+href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[^>]+rel="canonical"`));
     assert.equal(service?.name, `Подбор и поставка двигателя Cummins ${model} в сборе`, `${slug} Service name`);
-    assert.equal(service?.url, canonical.slice(0, -1), `${slug} Service URL`);
+    assert.equal(service?.url, canonical, `${slug} Service URL`);
     assert.equal(schemas(html).some((item) => item?.["@type"] === "Product"), false, `${slug} must not publish an invalid Product without price or verified reviews`);
     assert.doesNotMatch(html, /"offers"|"aggregateRating"|"review"/);
     assert.match(html, /wa\.me\/77714177925/);

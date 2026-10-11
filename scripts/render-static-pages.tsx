@@ -171,9 +171,11 @@ export function renderStaticPage(requestedRoute: string) {
   const { helmet } = context;
   const scripts = helmet.script.toString();
   const canonical = `https://acahydraulic.kz/${requestedRoute ? requestedRoute + "/" : ""}`;
-  const webpage = scripts.includes('"@type":"WebPage"') ? "" : `<script type="application/ld+json" data-static-page-schema>${JSON.stringify({
-    "@context": "https://schema.org", "@type": "WebPage", "@id": `${canonical}#webpage`,
+  const webpageType = requestedRoute === "about" ? "AboutPage" : requestedRoute === "contacts" ? "ContactPage" : "WebPage";
+  const webpage = scripts.includes(`"@type":"${webpageType}"`) ? "" : `<script type="application/ld+json" data-static-page-schema>${JSON.stringify({
+    "@context": "https://schema.org", "@type": webpageType, "@id": `${canonical}#webpage`,
     url: canonical, inLanguage: "ru-KZ", isPartOf: { "@id": "https://acahydraulic.kz/#website" },
+    ...(webpageType === "AboutPage" || webpageType === "ContactPage" ? { mainEntity: { "@id": "https://acahydraulic.kz/#business" } } : {}),
   })}</script>`;
   queryClient.clear();
   return {
