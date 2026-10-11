@@ -137,7 +137,12 @@ export const localBusinessSchema = {
   "name": "ACA Hydraulic",
   "legalName": merchant.name,
   "image": "https://acahydraulic.kz/webdev-static-assets/og-image.webp",
-  "logo": "https://acahydraulic.kz/favicon-32.png",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://acahydraulic.kz/apple-touch-icon.png",
+    "width": 180,
+    "height": 180
+  },
   "description": "Профессиональный выездной сервис и ремонт гидравлики спецтехники, экскаваторов и буровых установок в Астане и по всему Казахстану. Ежедневно, по договорённости. Перед приездом согласуйте время.",
   "address": {
     "@type": "PostalAddress",
@@ -154,7 +159,8 @@ export const localBusinessSchema = {
   "paymentAccepted": "Cash, Bank Transfer",
   "taxID": merchant.iin,
   "sameAs": [
-    "https://www.tiktok.com/@acaservice01"
+    "https://www.tiktok.com/@acaservice01",
+    "https://www.youtube.com/@acahydraulic"
   ],
   "areaServed": [
     {
