@@ -204,6 +204,10 @@ export default function CatalogProduct() {
       url: `https://acahydraulic.kz/catalog/${canonicalHandle}/`,
     },
   } : undefined;
+  const managedSquareOgImage = Boolean(gallery[0]) && (
+    gallery[0].startsWith("https://ai-azamat95.github.io/acahydraulic-catalog-images/")
+    || gallery[0].startsWith("/catalog-assets/priority-products/")
+  );
   const addProductToCart = () => {
     addItem(preferredCartItem(product));
     toast.success(language === "ru" ? "Товар добавлен в корзину" : language === "kz" ? "Тауар себетке қосылды" : "Added to cart");
@@ -216,6 +220,8 @@ export default function CatalogProduct() {
         description={seoDescription}
         canonical={`/catalog/${canonicalHandle}`}
         ogImage={gallery[0]}
+        ogImageWidth={managedSquareOgImage ? 1000 : null}
+        ogImageHeight={managedSquareOgImage ? 1000 : null}
         schema={productSchema}
         breadcrumbs={[
           { name: "Каталог запчастей", url: "/catalog/" },
@@ -265,6 +271,8 @@ export default function CatalogProduct() {
                 <img
                   src={selectedImage}
                   alt={product.ownerEvidence?.photoAlt || productSeo.name}
+                  loading={commercialContactFirst ? "lazy" : "eager"}
+                  fetchPriority={commercialContactFirst ? undefined : "high"}
                   decoding="async"
                   referrerPolicy="no-referrer-when-downgrade"
                   onError={() => setImageFailed(true)}

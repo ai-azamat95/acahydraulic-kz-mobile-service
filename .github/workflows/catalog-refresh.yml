@@ -57,6 +57,10 @@ jobs:
           CATALOG_IMAGE_WEBP_SIZE: "1000"
           CATALOG_IMAGE_WEBP_QUALITY: "70"
           CATALOG_IMAGE_CONCURRENCY: "12"
+      - name: Sync first-party images for priority catalog products
+        run: node scripts/sync-priority-catalog-images.mjs --prune
+        env:
+          CATALOG_PRIORITY_IMAGE_SOURCE_DIR: .catalog-images
       - name: Publish changed images before catalog URLs
         run: |
           cp client/public/catalog-data/catalog-image-manifest.json .catalog-images/catalog-image-manifest.json
@@ -94,7 +98,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$REFRESH_BRANCH"
-          git add -A client/public/catalog-data client/public/catalog-assets/wiring-harnesses
+          git add -A client/public/catalog-data client/public/catalog-assets/wiring-harnesses client/public/catalog-assets/priority-products
           git commit -m "Refresh independent catalog snapshot"
           git push origin "$REFRESH_BRANCH"
           gh pr create --base main --head "$REFRESH_BRANCH" --title "Refresh independent catalog snapshot" --body "Automated catalog refresh. Product data was verified before publication; all external gallery images were mirrored to ACA-managed storage; the public snapshot contains no supplier host or supplier identity. Review the product/image counts and checks before merging."

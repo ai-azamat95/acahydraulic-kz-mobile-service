@@ -167,7 +167,7 @@ function productPage(product) {
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
-  ${images.length ? `<section data-product-gallery><h2>Фото ${escapeHtml(productSeo.name)}</h2>${images.map((src, index) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(`${productSeo.name} — фото ${index + 1}`)}" width="900" height="900" loading="lazy">`).join('')}</section>` : ''}
+  ${images.length ? `<section data-product-gallery><h2>Фото ${escapeHtml(productSeo.name)}</h2>${images.map((src, index) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(`${productSeo.name} — фото ${index + 1}`)}" width="900" height="900" loading="${index === 0 ? 'eager' : 'lazy'}"${index === 0 ? ' fetchpriority="high"' : ''} decoding="async">`).join('')}</section>` : ''}
   ${product.ownerSale ? (isXcmgOwnerSale
     ? `<section><h2>Реальная поставка и установка этого насоса</h2><p>${escapeHtml(xcmgSale.terms.ru)}</p><p><a href="${xcmgSale.casePath}/">Кейс XCMG XZ200: насос 803001730</a></p>${xcmgSale.videos.map(video => `<video controls preload="none" poster="${video.poster}" width="720" height="1280"><source src="${video.src}" type="video/mp4"></video>`).join('')}</section>`
     : `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>`
@@ -194,7 +194,12 @@ function productPage(product) {
   html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
   if (image) {
     html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:image["'])[^>]*>/i, `<meta property="og:image" content="${escapeAttr(image)}">`);
+    html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:image:alt["'])[^>]*>/i, `<meta property="og:image:alt" content="${escapeAttr(productSeo.name)}">`);
     html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:image["'])[^>]*>/i, `<meta name="twitter:image" content="${escapeAttr(image)}">`);
+  }
+  html = html.replace(/<meta(?=[^>]*\bproperty=["']og:image:(?:width|height)["'])[^>]*>\s*/gi, '');
+  if (image && (image.includes('/catalog-assets/priority-products/') || image.includes('ai-azamat95.github.io/acahydraulic-catalog-images/'))) {
+    html = html.replace('</head>', '<meta property="og:image:width" content="1000"><meta property="og:image:height" content="1000">\n</head>');
   }
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(title)}">`);
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(description)}">`);
