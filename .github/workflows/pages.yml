@@ -81,7 +81,7 @@ jobs:
       - name: Verify published site has no supplier identity
         run: pnpm catalog:verify-site
       - name: Verify sitewide SEO regressions
-        run: node --test tests/seo-audit-regressions.test.mjs tests/site-audit.test.mjs
+        run: node --test tests/seo-audit-regressions.test.mjs tests/site-audit.test.mjs tests/blog-factual-integrity.test.mjs
       - name: Audit every sitemap page and internal link
         run: python3 scripts/audit-seo.py dist/public --strict > dist/seo-audit.json
       - name: Upload artifact

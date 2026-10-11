@@ -188,10 +188,10 @@ const blogNames = {
   'padaet-davlenie-gidravliki-ekskavatora': 'Падает давление гидравлики экскаватора',
   'stoimost-remonta-gidromotora-komatsu': 'Стоимость ремонта гидромотора Komatsu',
   'kak-opredelit-neispravnost-gidravliki': 'Как определить неисправность гидравлики',
-  'remont-gidravliki-frezy-wirtgen-1500': 'Ремонт гидравлики фрезы Wirtgen 1500',
+  'remont-gidravliki-frezy-wirtgen-1500': 'Wirtgen 1500 не едет: диагностика хода',
   'kapitalnyy-remont-shantui-sd32': 'Ремонт SHANTUI SD32: диагностика гидравлики',
-  'remont-gidravliki-liebherr-r950': 'Ремонт гидравлики Liebherr R950',
-  'vosstanovlenie-gidromotora-volvo-ec380': 'Восстановление гидромотора Volvo EC380',
+  'remont-gidravliki-liebherr-r950': 'Liebherr R950 теряет мощность: диагностика гидросистемы',
+  'vosstanovlenie-gidromotora-volvo-ec380': 'Volvo EC380 не едет: диагностика хода',
 };
 
 const staticBlogArticles = {
@@ -199,7 +199,8 @@ const staticBlogArticles = {
     headline: 'Wirtgen 1500 не едет: выездная диагностика хода и гидросистемы',
     description: 'Реальный выезд ACA Hydraulic на Wirtgen 1500: отсутствие нормального хода, проверка давления, электроклапанов, датчиков скорости и гидросистемы.',
     image: '/webdev-static-assets/wirtgen-1500-1.webp',
-    dateModified: '2026-09-12',
+    datePublished: '2026-10-08',
+    dateModified: '2026-10-11',
   },
   'blog/kapitalnyy-remont-shantui-sd32': {
     schemaType: 'BlogPosting',
@@ -212,12 +213,14 @@ const staticBlogArticles = {
   'blog/remont-gidravliki-liebherr-r950': {
     headline: 'Liebherr R950 теряет мощность: как диагностировать гидросистему и главный насос',
     description: 'Практическое руководство ACA Hydraulic: что проверять, если Liebherr R950 медленно работает, теряет усилие ковша или давление гидросистемы нестабильно.',
-    dateModified: '2026-09-12',
+    datePublished: '2026-10-08',
+    dateModified: '2026-10-11',
   },
   'blog/vosstanovlenie-gidromotora-volvo-ec380': {
     headline: 'Volvo EC380 не едет: как диагностировать гидромотор хода и гидросистему',
     description: 'Практическое руководство ACA Hydraulic: что проверять, если Volvo EC380 потерял ход, одна гусеница слабее или движение ухудшается после прогрева.',
-    dateModified: '2026-09-12',
+    datePublished: '2026-10-08',
+    dateModified: '2026-10-11',
   },
 };
 
