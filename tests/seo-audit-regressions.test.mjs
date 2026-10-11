@@ -78,6 +78,18 @@ test('business identity sources stay synchronized with the real first-party logo
   });
 });
 
+test('website and social metadata use the exact business name', () => {
+  const page = read('');
+  const pageSchemas = schemas(page);
+  const business = pageSchemas.find(schema => schema['@id'] === 'https://acahydraulic.kz/#business');
+  const website = pageSchemas.find(schema => schema['@id'] === 'https://acahydraulic.kz/#website');
+  const ogSiteName = page.match(/<meta[^>]*property="og:site_name"[^>]*content="([^"]+)"/u)?.[1];
+
+  assert.equal(business?.name, 'ACA Hydraulic');
+  assert.equal(website?.name, business?.name);
+  assert.equal(ogSiteName, business?.name);
+});
+
 test('company and contact pages identify their relationship to the business', () => {
   for (const [route, type] of [['about/', 'AboutPage'], ['contacts/', 'ContactPage']]) {
     const page = schemas(read(route)).find(schema => schema['@type'] === type);
