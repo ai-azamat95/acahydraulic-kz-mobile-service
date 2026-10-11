@@ -6,14 +6,18 @@ import reviewedCopy from '../shared/catalog-product-copy.json' with { type: 'jso
 import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
 import pilotCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
 import phase2Copy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
+import phase3Copy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
 import catalogAliases from '../shared/catalog-canonical-aliases.json' with { type: 'json' };
 import ownerProducts from '../shared/catalog-owner-products.json' with { type: 'json' };
-import { catalogOfferHasConfirmedSupply, catalogProductName, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
-import { createPhase2Copy, familyExclusionPatterns, makeCopy, partCodes } from '../scripts/create-catalog-product-phase2.mjs';
+import { catalogOfferHasConfirmedSupply, catalogProductName, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductImageIsPlaceholder, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
+import { createPhase2Copy, cleanFitment, detectedBrand, familyExclusionPatterns, identityCodesForFamily, makeCopy, normalizedPartCodesForFamily, partCodes, validCandidate } from '../scripts/create-catalog-product-phase2.mjs';
+import { createPhase3Copy, hasHonestPhase3PrimaryImage, phase3AllowedHandles, phase3ModifiedDate, phase3Quotas, rejectedPhase3Handles } from '../scripts/create-catalog-product-phase3.mjs';
 
 const previousCopy = { ...reviewedCopy, ...merchantCopy };
 const copyBeforePhase2 = { ...previousCopy, ...pilotCopy };
 const copy = { ...copyBeforePhase2, ...phase2Copy };
+const copyBeforePhase3 = { ...copy, ...merchantCopy };
+const copyWithPhase3 = { ...copyBeforePhase3, ...phase3Copy };
 const rejectedPhase2Handles = [
   'hydraulic-pump-regulator-14536038-for-volvo-ec460-ec480-excavator',
   'hydraulic-pump-regulator-k3v112-lq10v01004f1-for-kobelco-excavator-sk200-6e-sk250-6e',
@@ -114,11 +118,104 @@ test('phase-two Russian catalogue cohort is deterministic and evidence-backed', 
   assert.match(phase2Copy['9233096-pusher-head-control-valve-block-for-hitachi-zax200-zax450-zax600-zax160lc'].name, /^Блок клапанов управления/);
 });
 
+test('phase-three Russian catalogue cohort is deterministic, distinct and evidence-backed', () => {
+  assert.equal(Object.keys(phase3Copy).length, 500);
+  assert.equal(Object.keys(copyWithPhase3).length, 931);
+  assert.deepEqual(
+    Object.values(phase3Copy).reduce((counts, content) => {
+      counts[content.reviewFamily] = (counts[content.reviewFamily] || 0) + 1;
+      return counts;
+    }, {}),
+    phase3Quotas,
+  );
+  assert.deepEqual(phase3Copy, createPhase3Copy());
+
+  for (const [family, allowedHandles] of Object.entries(phase3AllowedHandles)) {
+    const actual = Object.entries(phase3Copy)
+      .filter(([, content]) => content.reviewFamily === family)
+      .map(([handle]) => handle)
+      .sort();
+    assert.deepEqual(actual, [...allowedHandles].sort(), `${family}: explicit review allowlist changed`);
+  }
+
+  for (const handle of rejectedPhase3Handles) assert(!Object.hasOwn(phase3Copy, handle), `${handle}: rejected source must remain excluded`);
+  assert(!Object.hasOwn(phase3Copy, '9233692-hydraulic-motor-excavator-final-drive-for-zax200-3-zax210-5g'));
+
+  const fields = ['name', 'title', 'description'];
+  for (const field of fields) {
+    const values = Object.values(phase3Copy).map(content => content[field].toLocaleLowerCase('ru').replace(/\s+/g, ' ').trim());
+    assert.equal(new Set(values).size, values.length, `phase-three ${field} values must be unique`);
+  }
+
+  const productByHandle = new Map(products.map(product => [product.handle, product]));
+  const codeOwners = new Map();
+  for (const handle of Object.keys(copyBeforePhase3)) {
+    const product = productByHandle.get(handle);
+    if (!product) continue;
+    for (const code of normalizedPartCodesForFamily(product, '', { splitCrossReferences: true })) codeOwners.set(code, handle);
+  }
+
+  let categoryPlaceholders = 0;
+  for (const [handle, content] of Object.entries(phase3Copy)) {
+    assert(!Object.hasOwn(copyBeforePhase3, handle), `${handle}: phase three must not replace reviewed copy`);
+    assert(!Object.hasOwn(catalogAliases, handle), `${handle}: canonical aliases do not belong in phase three`);
+    const product = productByHandle.get(handle);
+    assert(product?.imageUrl, `${handle}: product image is required`);
+    assert(product?.fitment, `${handle}: explicit fitment is required`);
+    assert(product?.sku, `${handle}: public SKU is required`);
+    assert.equal(content.sourceTitle, product.title, `${handle}: source title changed after review`);
+    assert.equal(content.modifiedDate, phase3ModifiedDate, `${handle}: wrong review date`);
+    assert(validCandidate(product, content.reviewFamily, copyBeforePhase3), `${handle}: source no longer passes family evidence gates`);
+    assert((product.categories?.length ? product.categories : [product.category]).includes(content.selectionCategory), `${handle}: selection category mismatch`);
+    assert.doesNotMatch(product.title, familyExclusionPatterns[content.reviewFamily], `${handle}: component must not be presented as an assembly`);
+    assert(content.title.length <= 49, `${handle}: title must leave room for the site name`);
+    assert(content.description.length >= 110 && content.description.length <= 180, `${handle}: description length`);
+    assert.match(content.description, /(?:Сверим|Проверим)/, `${handle}: verification step missing`);
+    assert.match(content.description, /до оплаты/i, `${handle}: prepayment verification boundary missing`);
+    assert(content.description.includes(content.primaryCode), `${handle}: primary code missing from description`);
+    assert(content.name.includes(content.primaryCode), `${handle}: primary code missing from name`);
+    assert.doesNotMatch(`${handle} ${content.sourceTitle} ${content.name} ${content.description}`, /\b(?:programmed|genuine|second[ -]?hand|brand new|free shipping|used|reconditioned|remanufactured|refurbished)\b/i, `${handle}: risky supplier claim leaked`);
+    assert.doesNotMatch(content.description, /в наличии|оригинал|гарантия\s+\d|за\s+\d+\s*дн/i, `${handle}: commercial terms must not be invented`);
+
+    const sourceCodes = identityCodesForFamily(product, content.reviewFamily);
+    const normalizedIdentity = `${product.title} ${product.catalogTitle || ''} ${product.fitment}`.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const normalizedName = content.name.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    for (const code of sourceCodes) assert(normalizedName.includes(code.toUpperCase().replace(/[^A-Z0-9]/g, '')), `${handle}: source identifier ${code} missing`);
+    for (const code of codes(content.name)) assert(normalizedIdentity.includes(code.toUpperCase().replace(/[^A-Z0-9]/g, '')), `${handle}: invented identifier ${code}`);
+    const evidenceToken = codes(cleanFitment(product.fitment))[0] || detectedBrand(product);
+    assert(evidenceToken && content.description.toLocaleLowerCase('ru').includes(evidenceToken.toLocaleLowerCase('ru')), `${handle}: fitment evidence missing from description`);
+
+    for (const code of normalizedPartCodesForFamily(product, content.reviewFamily, { splitCrossReferences: true })) {
+      assert(!codeOwners.has(code), `${handle}: duplicate cross-reference code ${code} from ${codeOwners.get(code)}`);
+      codeOwners.set(code, handle);
+    }
+
+    assert(hasHonestPhase3PrimaryImage(product), `${handle}: repeated or unmanaged primary image`);
+    if (catalogProductImageIsPlaceholder(product)) categoryPlaceholders += 1;
+  }
+  assert.equal(categoryPlaceholders, 20, 'only the reviewed rebuild-kit and cylinder-head category illustrations are allowed');
+
+  const preview = (handle, family) => makeCopy(productByHandle.get(handle), family);
+  assert.equal(preview('nt855-engine-assembly-inline-6-4-stroke-cycle-diesel', 'engine-assemblies').primaryCode, 'NT855');
+  assert.doesNotMatch(preview('nt855-engine-assembly-inline-6-4-stroke-cycle-diesel', 'engine-assemblies').name, /(?:^|\s)(?:6|4-STROKE-CYCLE)(?:\s|$)/i);
+  assert.equal(preview('qsb4-5-inline-4-cylinder-4-5-liter-engine-assembly', 'engine-assemblies').primaryCode, 'QSB4.5');
+  assert.doesNotMatch(preview('qsb4-5-inline-4-cylinder-4-5-liter-engine-assembly', 'engine-assemblies').name, /(?:4-CYLINDER|\s4\.5\s)/i);
+  assert.equal(preview('d902-complete-cylinder-head-for-kubota-kx41-3-bx23s-bx24-bx1880-bx2360-bx2370d-bx2380-zd323-zd1021-tractor-mower', 'cylinder-heads').primaryCode, 'D902');
+  assert.equal(preview('3t72-rebuild-kit', 'engine-rebuild-kits').primaryCode, '3T72');
+  assert.equal(preview('4-cylinder-overhaul-rebuild-kit-for-kubota-v1505-v1505t-v1505d-engine', 'engine-rebuild-kits').primaryCode, 'V1505');
+});
+
 test('only a current ACA merchant offer is exposed as confirmed supply', () => {
   assert.equal(catalogOfferHasConfirmedSupply({ availability: 'in_stock' }), true);
   assert.equal(catalogOfferHasConfirmedSupply({ availability: 'preorder' }), false);
   assert.equal(catalogOfferHasConfirmedSupply(undefined), false);
   assert.equal(catalogOfferHasConfirmedSupply({ available: true }), false, 'supplier availability is not ACA stock evidence');
+});
+
+test('category artwork is distinguishable from product-specific photography', () => {
+  assert.equal(catalogProductImageIsPlaceholder({ imageUrl: '/catalog-assets/category-engine-rebuild-kit.jpg' }), true);
+  assert.equal(catalogProductImageIsPlaceholder({ imageUrl: '/catalog-assets/priority-products/catalog/v2/1/01.webp' }), false);
+  assert.equal(catalogProductImageIsPlaceholder({ imageUrl: 'https://ai-azamat95.github.io/acahydraulic-catalog-images/catalog/v2/1/01.webp' }), false);
 });
 
 test('Russian catalogue pilot contains 100 canonical, evidence-backed product pages', () => {

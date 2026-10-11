@@ -23,7 +23,7 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import { cartItemFromProduct, preferredCartItem } from "@/lib/cart";
 
-import { catalogOfferHasConfirmedSupply, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
+import { catalogOfferHasConfirmedSupply, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductImageIsPlaceholder, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
 
 const WHATSAPP_NUMBER = "77714177925";
 const catalogCanonicalAliases: Record<string, string> = catalogCanonicalAliasesData;
@@ -171,12 +171,14 @@ export default function CatalogProduct() {
   const isCanonicalProduct = canonicalHandle === product.handle;
   const seoDescription = productSeo.description;
   const hasReviewedCopy = catalogProductHasReviewedCopy(product, language);
+  const imageIsCategoryPlaceholder = catalogProductImageIsPlaceholder(product);
+  const schemaImages = imageIsCategoryPlaceholder ? [] : gallery.map(image => new URL(image, "https://acahydraulic.kz").href);
   const productSchema = product.minPriceKzt !== null && isCanonicalProduct ? {
     "@context": "https://schema.org",
     "@type": "Product",
     name: productSeo.name,
     description: seoDescription,
-    image: gallery.map(image => new URL(image, "https://acahydraulic.kz").href),
+    image: schemaImages.length ? schemaImages : undefined,
     sku: mainSku,
     category: merchantOffer ? merchantPumps.productType : undefined,
     brand: (merchantOffer?.brand || product.brand) ? { "@type": "Brand", name: merchantOffer?.brand || product.brand } : undefined,
@@ -219,9 +221,9 @@ export default function CatalogProduct() {
         title={productSeo.title}
         description={seoDescription}
         canonical={`/catalog/${canonicalHandle}`}
-        ogImage={gallery[0]}
-        ogImageWidth={managedSquareOgImage ? 1000 : null}
-        ogImageHeight={managedSquareOgImage ? 1000 : null}
+        ogImage={imageIsCategoryPlaceholder ? undefined : gallery[0]}
+        ogImageWidth={imageIsCategoryPlaceholder ? 1200 : managedSquareOgImage ? 1000 : null}
+        ogImageHeight={imageIsCategoryPlaceholder ? 630 : managedSquareOgImage ? 1000 : null}
         schema={productSchema}
         breadcrumbs={[
           { name: "Каталог запчастей", url: "/catalog/" },
@@ -270,7 +272,7 @@ export default function CatalogProduct() {
               {selectedImage && !imageFailed ? (
                 <img
                   src={selectedImage}
-                  alt={product.ownerEvidence?.photoAlt || productSeo.name}
+                  alt={product.ownerEvidence?.photoAlt || (imageIsCategoryPlaceholder ? `Иллюстрация категории ${categoryName}` : productSeo.name)}
                   loading={commercialContactFirst ? "lazy" : "eager"}
                   fetchPriority={commercialContactFirst ? undefined : "high"}
                   decoding="async"
@@ -290,7 +292,7 @@ export default function CatalogProduct() {
               {selectedImage && !imageFailed && (
                 <span className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1 rounded bg-black/70 px-2.5 py-1 text-xs font-medium text-white">
                   <ZoomIn className="h-3.5 w-3.5" aria-hidden="true" />
-                  {product.ownerEvidence ? "Пример маркировки узла" : "Фото товара"}
+                  {product.ownerEvidence ? "Пример маркировки узла" : imageIsCategoryPlaceholder ? "Иллюстрация категории" : "Фото товара"}
                 </span>
               )}
             </div>
