@@ -2,10 +2,11 @@ import reviewedProductCopy from './catalog-product-copy.json' with { type: 'json
 import merchantProductCopy from './catalog-product-merchant-copy.json' with { type: 'json' };
 import pilotProductCopy from './catalog-product-pilot-copy.json' with { type: 'json' };
 import phase2ProductCopy from './catalog-product-phase2-copy.json' with { type: 'json' };
+import phase3ProductCopy from './catalog-product-phase3-copy.json' with { type: 'json' };
 import landings from './catalog-landings.json' with { type: 'json' };
 import selectionCopy from './catalog-seo-content.json' with { type: 'json' };
 
-const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...merchantProductCopy };
+const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...phase3ProductCopy, ...merchantProductCopy };
 
 // Keep OEM numbers and the supplier's original title in the product data.
 // Only reviewed or deterministically validated handle-specific translations
@@ -31,6 +32,10 @@ export function catalogProductSeo(product, language = 'ru') {
 
 export function catalogProductHasReviewedCopy(product, language = 'ru') {
   return language === 'ru' && Boolean(productCopy[product.handle]);
+}
+
+export function catalogProductImageIsPlaceholder(product) {
+  return typeof product.imageUrl === 'string' && product.imageUrl.startsWith('/catalog-assets/category-');
 }
 
 export function catalogOfferHasConfirmedSupply(merchantOffer) {

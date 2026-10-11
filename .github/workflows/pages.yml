@@ -74,6 +74,7 @@ jobs:
         run: |
           pnpm catalog:verify-seo
           pnpm catalog:verify-landings
+          pnpm catalog:verify-phase3-copy
           node --test tests/catalog-product-seo.test.mjs
           node --test tests/catalog-first-party-images.test.mjs
           node --test tests/catalog-directory.test.mjs

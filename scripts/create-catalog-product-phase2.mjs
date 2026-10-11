@@ -28,7 +28,7 @@ export const phase2Quotas = {
 
 export const phase2ModifiedDate = '2026-10-11';
 
-const familyPatterns = {
+export const familyPatterns = {
   'hydraulic-pumps': /\b(?:hydraulic\s+(?:main\s+)?pump|main\s+hydraulic\s+pump)\b/i,
   'gear-pumps': /\b(?:hydraulic\s+)?gear\s+pump\b/i,
   'piston-pumps': /\b(?:hydraulic\s+)?piston\s+pump\b/i,
@@ -39,6 +39,17 @@ const familyPatterns = {
   'control-valves': /\b(?:hydraulic\s+)?(?:main\s+)?control\s+valve\b/i,
   'final-drives': /\b(?:final\s+drive|travel\s+motor|swing\s+motor)\b/i,
   controllers: /\b(?:controller(?:\s+(?:panel|unit))?|control\s+unit|ECU|ECM|CPU|MCU)\b/i,
+  'engine-assemblies': /\b(?:complete\s+(?:diesel\s+)?engine(?:\s+assembly)?|(?:diesel\s+)?engine\s+assembly)\b/i,
+  'engine-rebuild-kits': /\b(?:engine\s+)?(?:rebuild|overhaul)\s+kit\b/i,
+  'cylinder-heads': /\bcylinder\s+head(?:\s+assembly)?\b/i,
+  'main-control-valves': /\b(?:hydraulic\s+)?main\s+control\s+valve\b/i,
+  'fan-motors': /\b(?:hydraulic\s+)?fan\s+motor\b/i,
+};
+
+export const familyCategories = {
+  'engine-assemblies': 'engine-fuel',
+  'cylinder-heads': 'engine-fuel',
+  'fan-motors': 'hydraulic-motors',
 };
 
 export const familyExclusionPatterns = {
@@ -52,6 +63,11 @@ export const familyExclusionPatterns = {
   'control-valves': /\b(?:control\s+valve\s+(?:wiring\s+harness|case|housing|seal|repair\s+kit)|wire\s+harness|fuel|suction\s+control\s+valve|metering)\b/i,
   'final-drives': /\b(?:repair\s+kit|seal\s+kit|bearing\s+kit|gear\s+set|shaft)\b/i,
   controllers: /\b(?:wiring|wire\s+harness|sensor|repair\s+kit)\b/i,
+  'engine-assemblies': /\b(?:long\s+block|short\s+block|gasket|repair\s+kit|rebuild\s+kit|overhaul\s+kit)\b/i,
+  'engine-rebuild-kits': /\b(?:valve|pump|injector)\s+(?:rebuild|overhaul)\s+kit\b/i,
+  'cylinder-heads': /\b(?:gasket|bolt|cover|repair\s+kit)\b/i,
+  'main-control-valves': /\b(?:wiring\s+harness|repair\s+kit|seal\s+kit|solenoid)\b/i,
+  'fan-motors': /\b(?:repair\s+kit|seal\s+kit|sensor|valve)\b/i,
 };
 
 const passengerVehiclePattern = /\b(?:Citro[eë]n|Peugeot|Dodge|Great\s+Wall|Mitsubishi\s+L200|Kia\s+(?:Sportage|Sorento)|Hyundai\s+(?:Tucson|Santa\s+Fe)|Ram\s+(?:2500|3500|4500|5500))\b/i;
@@ -72,13 +88,13 @@ const codes = value => String(value || '')
   .match(/\b[A-Z0-9]+(?:[-./][A-Z0-9]+)*\b/g)
   ?.filter(word => /\d/.test(word) && !/^(?:\d+V|\d+PCS?|\d+T)$/i.test(word)) || [];
 
-const normalizedCode = value => value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+export const normalizedCode = value => value.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
 function productCategories(product) {
   return product.categories?.length ? product.categories : [product.category];
 }
 
-function productType(product, family) {
+export function productType(product, family) {
   const title = product.title;
   if (family === 'hydraulic-pumps') return /\bmain\b/i.test(title) ? 'Основной гидронасос' : 'Гидронасос';
   if (family === 'gear-pumps') return /\bpilot\b/i.test(title) ? 'Пилотный шестерённый насос' : 'Шестерённый насос';
@@ -118,10 +134,15 @@ function productType(product, family) {
     if (/\bswing\s+motor\b/i.test(title)) return 'Гидромотор поворота';
     return 'Бортовой редуктор';
   }
+  if (family === 'engine-assemblies') return 'Двигатель в сборе';
+  if (family === 'engine-rebuild-kits') return 'Ремкомплект двигателя';
+  if (family === 'cylinder-heads') return 'Головка блока цилиндров';
+  if (family === 'main-control-valves') return 'Главный гидрораспределитель';
+  if (family === 'fan-motors') return 'Гидромотор вентилятора';
   return 'Контроллер';
 }
 
-function cleanFitment(value) {
+export function cleanFitment(value) {
   return String(value)
     .replace(/\bcompatible\s+with\b/gi, ' ')
     .replace(/\b(?:fits?|for|various)\b/gi, ' ')
@@ -134,9 +155,32 @@ function cleanFitment(value) {
     .trim();
 }
 
-function identityCodes(product) {
+export function identityCodes(product) {
   const values = [product.title, product.catalogTitle, product.fitment].filter(Boolean).join(' ');
   return [...new Set(codes(values))];
+}
+
+const compactIdentityFamilies = new Set([
+  'engine-assemblies',
+  'engine-rebuild-kits',
+  'cylinder-heads',
+]);
+
+function isSpecificationCode(code, source = '') {
+  if (/^(?:19|20)\d{2}(?:-(?:19|20)\d{2})?$/i.test(code)) return true;
+  if (/^\d+(?:\.\d+)?(?:L|MM|PCS?|CYLINDERS?)$/i.test(code)) return true;
+  if (/^\d+(?:\.\d+)?-?CYLINDERS?$/i.test(code)) return true;
+  if (/^\d+-?STROKE(?:-CYCLE)?$/i.test(code)) return true;
+  const escaped = code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (/^\d+(?:\.\d+)?$/i.test(code) && new RegExp(`\\b${escaped}\\s*(?:LITERS?|L|CYLINDERS?)\\b`, 'i').test(source)) return true;
+  return /^\d{1,3}$/.test(code);
+}
+
+export function identityCodesForFamily(product, family) {
+  const sourceCodes = identityCodes(product);
+  return compactIdentityFamilies.has(family)
+    ? sourceCodes.filter(code => !isSpecificationCode(code, `${product.title} ${product.catalogTitle || ''}`))
+    : sourceCodes;
 }
 
 export function partCodes(product) {
@@ -154,17 +198,39 @@ export function partCodes(product) {
     .filter(code => !fitmentCodes.has(normalizedCode(code)) && !contextualDescriptors.has(normalizedCode(code)));
 }
 
+export function partCodesForFamily(product, family) {
+  const sourceCodes = partCodes(product);
+  return compactIdentityFamilies.has(family)
+    ? sourceCodes.filter(code => !isSpecificationCode(code, `${product.title} ${product.catalogTitle || ''}`))
+    : sourceCodes;
+}
+
+export function normalizedPartCodesForFamily(product, family, { splitCrossReferences = false } = {}) {
+  return [...new Set(partCodesForFamily(product, family)
+    .flatMap(code => {
+      if (!splitCrossReferences || !code.includes('/')) return [code];
+      const parts = code.split('/').filter(Boolean);
+      return parts.length > 1 && parts.every(part => normalizedCode(part).length >= 4 && /\d/.test(part)) ? parts : [code];
+    })
+    .map(normalizedCode)
+    .filter(Boolean))];
+}
+
 function primaryCode(product) {
   const preferred = partCodes(product).find(code => normalizedCode(code).length >= 5);
   return preferred || codes(product.title).find(code => normalizedCode(code).length >= 5) || '';
 }
 
-function detectedBrand(product) {
+function familyCategory(family) {
+  return familyCategories[family] || family;
+}
+
+export function detectedBrand(product) {
   const identity = `${product.title} ${product.fitment}`.toLowerCase();
   return brandAliases.find(({ alias }) => new RegExp(`(^|[^a-z0-9])${alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-z0-9]|$)`, 'i').test(identity))?.name || '';
 }
 
-function shortenWords(value, maxLength) {
+export function shortenWords(value, maxLength) {
   const words = value.split(/\s+/).filter(Boolean).filter((word, index, all) => (
     index === 0 || normalizedCode(word) !== normalizedCode(all[index - 1])
   ));
@@ -195,11 +261,13 @@ function buildDescription(type, primary, fitment) {
   return description;
 }
 
-export function makeCopy(product, family) {
+export function makeCopy(product, family, { modifiedDate = phase2ModifiedDate } = {}) {
   const type = productType(product, family);
   const fitment = cleanFitment(product.fitment);
-  const primary = primaryCode(product);
-  const missingCodes = partCodes(product);
+  const missingCodes = partCodesForFamily(product, family);
+  const primary = compactIdentityFamilies.has(family)
+    ? missingCodes.find(code => /\d/.test(code)) || primaryCode(product)
+    : primaryCode(product);
   const identifiers = missingCodes.length ? missingCodes.join(' / ') : primary;
   const name = `${type} ${identifiers} для ${fitment}`.replace(/\s+/g, ' ').trim();
   const title = buildTitle(type, primary, fitment);
@@ -210,36 +278,36 @@ export function makeCopy(product, family) {
     name,
     title,
     description,
-    selectionCategory: family,
-    modifiedDate: phase2ModifiedDate,
+    selectionCategory: familyCategory(family),
+    modifiedDate,
   };
 }
 
-function score(product) {
+function score(product, priorities = priorityHandles, preferPriced = true) {
   return [
-    priorityHandles.get(product.handle) || 0,
-    Number(Number.isFinite(product.minPriceKzt)),
+    priorities.get(product.handle) || 0,
+    preferPriced ? Number(Number.isFinite(product.minPriceKzt)) : 0,
     Math.min(product.gallery?.length || 0, 4),
     Number(Boolean(detectedBrand(product))),
   ];
 }
 
-function compareCandidates(a, b) {
-  const left = score(a);
-  const right = score(b);
+export function compareCandidates(a, b, priorities = priorityHandles, preferPriced = true) {
+  const left = score(a, priorities, preferPriced);
+  const right = score(b, priorities, preferPriced);
   for (let index = 0; index < left.length; index += 1) {
     if (left[index] !== right[index]) return right[index] - left[index];
   }
   return a.handle.localeCompare(b.handle, 'en');
 }
 
-function validCandidate(product, family) {
-  if (existingCopy[product.handle] || aliases[product.handle]) return false;
+export function validCandidate(product, family, excludedCopy = existingCopy) {
+  if (excludedCopy[product.handle] || aliases[product.handle]) return false;
   if (!product.imageUrl || !product.fitment || !product.sku) return false;
   if (passengerVehiclePattern.test(`${product.title} ${product.fitment}`)) return false;
   if (conflictingFitmentPattern.test(`${product.title} ${product.fitment}`)) return false;
   if (product.catalogTitle && /[А-ЯЁ]/i.test(product.catalogTitle)) return false;
-  if (!productCategories(product).includes(family) || !familyPatterns[family].test(product.title)) return false;
+  if (!productCategories(product).includes(familyCategory(family)) || !familyPatterns[family].test(product.title)) return false;
   if (familyExclusionPatterns[family].test(product.title)) return false;
   const copy = makeCopy(product, family);
   const fitment = cleanFitment(product.fitment);
@@ -247,36 +315,52 @@ function validCandidate(product, family) {
   if (!copy.primaryCode || !copy.title || copy.name.length > 180 || /\bдля\s*$/i.test(copy.name)) return false;
   if (!/[А-ЯЁ]/i.test(copy.name) || /\b(?:Hydraulic|Fuel|Injection|Pump|Injector|Wiring|Harness|Fits|for|Excavator|Engine|Machine|Truck|Loader|Controller|Motor|Valve)\b/i.test(copy.name)) return false;
   if (copy.description.length < 110 || copy.description.length > 180) return false;
-  const sourceCodes = identityCodes(product);
+  const sourceCodes = identityCodesForFamily(product, family);
   const nameCodes = codes(copy.name);
   if (sourceCodes.some(code => !nameCodes.includes(code))) return false;
   if (nameCodes.some(code => !sourceCodes.includes(code))) return false;
   return true;
 }
 
-function loadProducts() {
+export function loadProducts() {
   return fs.readdirSync(catalogDir)
     .filter(file => /^search-index-\d+\.json$/.test(file))
     .sort()
     .flatMap(file => JSON.parse(fs.readFileSync(path.join(catalogDir, file), 'utf8')));
 }
 
-export function createPhase2Copy(products = loadProducts()) {
+export function createCatalogProductCopy(products, {
+  quotas,
+  excludedCopy,
+  priorities = new Map(),
+  allowedHandlesByFamily = {},
+  excludedHandles = new Set(),
+  modifiedDate = phase2ModifiedDate,
+  preferPriced = true,
+  splitCrossReferences = false,
+  candidatePredicate = () => true,
+} = {}) {
   const byHandle = new Map(products.map(product => [product.handle, product]));
   const usedCodes = new Set();
-  for (const handle of Object.keys(existingCopy)) {
+  for (const handle of Object.keys(excludedCopy)) {
     const product = byHandle.get(handle);
     if (!product) continue;
-    for (const code of partCodes(product)) usedCodes.add(normalizedCode(code));
+    for (const code of normalizedPartCodesForFamily(product, '', { splitCrossReferences })) usedCodes.add(code);
   }
 
   const result = {};
-  for (const [family, quota] of Object.entries(phase2Quotas)) {
-    const candidates = products.filter(product => validCandidate(product, family)).sort(compareCandidates);
+  for (const [family, quota] of Object.entries(quotas)) {
+    const allowedHandles = allowedHandlesByFamily[family];
+    const candidates = products
+      .filter(product => !excludedHandles.has(product.handle))
+      .filter(product => !allowedHandles || allowedHandles.has(product.handle))
+      .filter(candidatePredicate)
+      .filter(product => validCandidate(product, family, excludedCopy))
+      .sort((a, b) => compareCandidates(a, b, priorities, preferPriced));
     let selected = 0;
     for (const product of candidates) {
-      const copy = makeCopy(product, family);
-      const normalizedPartCodes = [...new Set(partCodes(product).map(normalizedCode).filter(Boolean))];
+      const copy = makeCopy(product, family, { modifiedDate });
+      const normalizedPartCodes = normalizedPartCodesForFamily(product, family, { splitCrossReferences });
       if (!normalizedPartCodes.length || normalizedPartCodes.some(code => usedCodes.has(code))) continue;
       for (const code of normalizedPartCodes) usedCodes.add(code);
       result[product.handle] = copy;
@@ -286,6 +370,14 @@ export function createPhase2Copy(products = loadProducts()) {
     assert.equal(selected, quota, `${family}: expected ${quota} high-confidence products, selected ${selected}`);
   }
   return result;
+}
+
+export function createPhase2Copy(products = loadProducts()) {
+  return createCatalogProductCopy(products, {
+    quotas: phase2Quotas,
+    excludedCopy: existingCopy,
+    priorities: priorityHandles,
+  });
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

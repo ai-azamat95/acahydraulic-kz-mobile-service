@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { catalogProductSeo, catalogProductCategories } from '../shared/catalog-product-seo.mjs';
+import { catalogProductSeo, catalogProductCategories, catalogProductImageIsPlaceholder } from '../shared/catalog-product-seo.mjs';
 import reviewedProductCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
 import merchantProductCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
 import pilotProductCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
 import phase2ProductCopy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
+import phase3ProductCopy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
 
-const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...merchantProductCopy };
+const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...phase3ProductCopy, ...merchantProductCopy };
 const merchantPumps = JSON.parse(fs.readFileSync(new URL('../shared/merchant-pumps.json', import.meta.url), 'utf8'));
 const merchantHandles = new Set(merchantPumps.products.map(product => product.handle));
 const catalogCanonicalAliases = JSON.parse(fs.readFileSync(new URL('../shared/catalog-canonical-aliases.json', import.meta.url), 'utf8'));
@@ -31,6 +32,7 @@ assert(fitmentCoverage >= 0.75, `explicit fitment coverage is too low: ${(fitmen
 const productsWithOffers = products.filter((product) => Number.isFinite(product.minPriceKzt));
 const productsWithProductSchema = productsWithOffers.filter(product => !catalogCanonicalAliases[product.handle]);
 const priceOnRequestProducts = products.filter((product) => !Number.isFinite(product.minPriceKzt));
+assert.equal(Object.keys(productCopy).length, 931, 'reviewed Russian catalogue coverage must include all three cohorts');
 
 for (const product of [
   productsWithOffers.find(item => item.fitment && !merchantHandles.has(item.handle)),
@@ -50,7 +52,12 @@ for (const product of [
   assert(html.includes('Поставка под заказ'), 'static product must disclose supply to order');
   assert.equal(schema.sku, product.sku);
   assert(schema.description?.includes('Применяемость:'), 'Product JSON-LD needs a fitment-aware description');
-  assert(Array.isArray(schema.image) && schema.image.length > 0, 'Product JSON-LD needs an image');
+  if (catalogProductImageIsPlaceholder(product)) {
+    assert.equal(schema.image, undefined, 'category illustration must not be published as product-specific schema image');
+    assert(html.includes('Иллюстрация категории'), 'category illustration must be labelled honestly');
+  } else {
+    assert(Array.isArray(schema.image) && schema.image.length > 0, 'Product JSON-LD needs a product-specific image');
+  }
 }
 
 for (const product of priceOnRequestProducts.slice(0, 20)) {
@@ -102,8 +109,13 @@ for (const product of products) {
     assert.equal(schema.name, seo.name);
     assert.equal(schema.description, seo.description);
     assert(schema.offers, `${product.handle}: Product JSON-LD must contain an Offer or AggregateOffer`);
+    if (catalogProductImageIsPlaceholder(product)) assert.equal(schema.image, undefined, `${product.handle}: category illustration is not a product image`);
   } else {
     assert.equal(schemaMatch, null, `${product.handle}: non-canonical or price-on-request page must not publish Product JSON-LD`);
+  }
+  if (catalogProductImageIsPlaceholder(product)) {
+    assert(html.includes('Иллюстрация категории'), `${product.handle}: category illustration label missing`);
+    assert(!new RegExp(`<meta[^>]+property="og:image"[^>]+content="[^"]*${product.imageUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i').test(html), `${product.handle}: category illustration leaked into product OG metadata`);
   }
   if (productCopy[product.handle]) {
     assert(html.includes(escapeHtml(product.title)), `${product.handle}: original identifiers must remain visible`);
@@ -118,6 +130,11 @@ assert.equal((sitemap.match(/<url>/g) || []).length, sitemapProductCount, 'produ
 for (const [alias, canonical] of Object.entries(catalogCanonicalAliases)) {
   assert(!sitemap.includes(`/catalog/${alias}/`), `${alias}: canonical alias must be excluded from the sitemap`);
   assert(sitemap.includes(`/catalog/${canonical}/`), `${canonical}: canonical product must remain in the sitemap`);
+}
+for (const [handle, content] of Object.entries(phase3ProductCopy)) {
+  const block = sitemap.match(new RegExp(`<url>\\s*<loc>https://acahydraulic\\.kz/catalog/${handle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/</loc>[\\s\\S]*?</url>`))?.[0];
+  assert(block, `${handle}: phase-three product missing from sitemap`);
+  assert(block.includes(`<lastmod>${content.modifiedDate}</lastmod>`), `${handle}: phase-three sitemap review date missing`);
 }
 
 console.log(JSON.stringify({

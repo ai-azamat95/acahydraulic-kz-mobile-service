@@ -22,6 +22,8 @@ on:
       - "scripts/check-catalog-seo.mjs"
       - "scripts/check-catalog-landings.mjs"
       - "scripts/create-catalog-route-copies.mjs"
+      - "scripts/create-catalog-product-phase2.mjs"
+      - "scripts/create-catalog-product-phase3.mjs"
       - "scripts/create-catalog-landing-routes.mjs"
       - "scripts/lib/catalog-landings.mjs"
       - "shared/catalog-landings.json"
@@ -82,7 +84,9 @@ jobs:
           node scripts/prepare-public-catalog.mjs
           node scripts/check-owner-catalog-inputs.mjs client/public/catalog-data
       - name: Verify reviewed product names and selection copy
-        run: node --test tests/catalog-product-seo.test.mjs
+        run: |
+          pnpm catalog:verify-phase3-copy
+          node --test tests/catalog-product-seo.test.mjs
       - name: Type-check the site
         run: pnpm check
       - name: Build fitment-aware product pages
