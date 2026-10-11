@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx watch server/_core/index.ts",
-    "build": "vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "vite build && node scripts/apply-priority-catalog-images.mjs dist/public && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "NODE_ENV=production node dist/index.js",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
@@ -13,6 +13,8 @@
     "catalog:sync": "node scripts/import-sinocmp-catalog.mjs",
     "catalog:snapshot": "node scripts/fetch-public-catalog-snapshot.mjs",
     "catalog:mirror-images": "node scripts/mirror-catalog-images.mjs",
+    "catalog:sync-priority-images": "node scripts/sync-priority-catalog-images.mjs",
+    "catalog:verify-priority-images": "node scripts/sync-priority-catalog-images.mjs --check",
     "catalog:verify-image-storage": "node scripts/rebuild-catalog-image-manifest.mjs --check --manifest client/public/catalog-data/catalog-image-manifest.json --image-dir .catalog-images",
     "catalog:verify-image-availability": "node scripts/check-catalog-image-availability.mjs",
     "catalog:verify-image-audit": "node scripts/check-catalog-image-audit.mjs",

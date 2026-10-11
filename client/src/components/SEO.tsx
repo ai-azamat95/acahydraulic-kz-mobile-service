@@ -25,6 +25,8 @@ interface SEOProps {
   keywords?: string;
   canonical?: string;
   ogImage?: string;
+  ogImageWidth?: number | null;
+  ogImageHeight?: number | null;
   schema?: object;
   breadcrumbs?: BreadcrumbItem[];
   faq?: FAQItem[];
@@ -48,6 +50,8 @@ export function SEO({
   keywords,
   canonical,
   ogImage,
+  ogImageWidth = 1200,
+  ogImageHeight = 630,
   schema,
   breadcrumbs,
   faq,
@@ -68,6 +72,9 @@ export function SEO({
     : `${BASE_URL}${canonicalPath.startsWith("/") ? canonicalPath : `/${canonicalPath}`}`;
   const canonicalUrl = rawCanonicalUrl.split(/[?#]/)[0].replace(/\/+$/, "") + "/";
   const imageUrl = new URL(ogImage || DEFAULT_OG_IMAGE, BASE_URL).href;
+  const imageDimensions = ogImageWidth && ogImageHeight
+    ? { width: ogImageWidth, height: ogImageHeight }
+    : null;
 
   // Use the same preferred URL format as canonical links and omit callers'
   // repeated home entries (the component supplies the home item itself).
@@ -202,8 +209,8 @@ export function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={imageUrl} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+      {imageDimensions && <meta property="og:image:width" content={String(imageDimensions.width)} />}
+      {imageDimensions && <meta property="og:image:height" content={String(imageDimensions.height)} />}
       <meta property="og:image:alt" content={title} />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content="ru_RU" />

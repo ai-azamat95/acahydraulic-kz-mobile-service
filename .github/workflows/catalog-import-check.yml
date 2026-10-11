@@ -14,6 +14,9 @@ on:
       - "scripts/clean-catalog-supplier-marks.py"
       - "scripts/image-audit-requirements.txt"
       - "scripts/check-public-catalog.mjs"
+      - "scripts/catalog-first-party-images.mjs"
+      - "scripts/sync-priority-catalog-images.mjs"
+      - "scripts/apply-priority-catalog-images.mjs"
       - "scripts/lib/catalog-fitment.mjs"
       - "scripts/check-catalog-import.mjs"
       - "scripts/check-catalog-seo.mjs"
@@ -46,6 +49,8 @@ on:
       - ".github/workflows/catalog-refresh.yml"
       - ".github/workflows/catalog-integrity.yml"
       - "tests/catalog-image-manifest-rebuild.test.mjs"
+      - "tests/catalog-first-party-images.test.mjs"
+      - "client/public/catalog-assets/priority-products/**"
       - "CATALOG_INDEPENDENCE.md"
       - "catalog-image-text-audit.json"
       - "client/public/catalog-data/**"
@@ -91,4 +96,5 @@ jobs:
         run: |
           pnpm catalog:verify-seo
           pnpm catalog:verify-landings
+          node --test tests/catalog-first-party-images.test.mjs
           node --test tests/catalog-directory.test.mjs
