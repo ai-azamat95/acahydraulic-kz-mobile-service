@@ -1,18 +1,81 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import ts from 'typescript';
 
 const read = route => fs.readFileSync(`dist/public/${route}index.html`, 'utf8');
 const schemas = html => [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1]));
 
+const literalValue = node => {
+  if (ts.isStringLiteral(node)) return node.text;
+  if (ts.isNumericLiteral(node)) return Number(node.text);
+  if (ts.isArrayLiteralExpression(node)) return node.elements.map(literalValue);
+  if (ts.isObjectLiteralExpression(node)) {
+    return Object.fromEntries(
+      node.properties.map(property => [property.name.text, literalValue(property.initializer)]),
+    );
+  }
+  throw new Error(`Unsupported schema literal: ${ts.SyntaxKind[node.kind]}`);
+};
+
+const configBusinessIdentity = () => {
+  const source = fs.readFileSync('client/src/config/seo.ts', 'utf8');
+  const ast = ts.createSourceFile('seo.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  let schema;
+  const visit = node => {
+    if (
+      ts.isVariableDeclaration(node)
+      && node.name.getText(ast) === 'localBusinessSchema'
+      && ts.isObjectLiteralExpression(node.initializer)
+    ) schema = node.initializer;
+    ts.forEachChild(node, visit);
+  };
+  visit(ast);
+  assert.ok(schema, 'localBusinessSchema export');
+  const properties = Object.fromEntries(
+    schema.properties
+      .filter(ts.isPropertyAssignment)
+      .map(property => [property.name.getText(ast).replaceAll('"', ''), property.initializer]),
+  );
+  return { logo: literalValue(properties.logo), sameAs: literalValue(properties.sameAs) };
+};
+
 test('business schema uses confirmed identity and appointment-only availability', () => {
-  const business = schemas(read('')).find(s => s['@id']?.endsWith('#business'));
+  const businesses = schemas(read('')).filter(s => s['@id'] === 'https://acahydraulic.kz/#business');
+  assert.equal(businesses.length, 1);
+  const [business] = businesses;
   assert.equal(business.legalName, 'ИП Тлеуғазы');
   assert.equal(business.openingHoursSpecification, undefined);
   assert.equal(business.contactPoint.hoursAvailable, undefined);
   assert.match(business.description, /по договорённости/);
   assert.doesNotMatch(JSON.stringify(business), /24\/7|23:59/);
-  assert.deepEqual(business.sameAs, ['https://www.tiktok.com/@acaservice01']);
+  assert.deepEqual(business.logo, {
+    '@type': 'ImageObject',
+    url: 'https://acahydraulic.kz/apple-touch-icon.png',
+    width: 180,
+    height: 180,
+  });
+  assert.deepEqual(business.sameAs, [
+    'https://www.tiktok.com/@acaservice01',
+    'https://www.youtube.com/@acahydraulic',
+  ]);
+});
+
+test('business identity sources stay synchronized with the real first-party logo', () => {
+  const sourceLogo = fs.readFileSync('client/public/apple-touch-icon.png');
+  const publishedLogo = fs.readFileSync('dist/public/apple-touch-icon.png');
+  assert.deepEqual(publishedLogo, sourceLogo);
+  assert.equal(sourceLogo.subarray(1, 4).toString(), 'PNG');
+  assert.equal(sourceLogo.readUInt32BE(16), 180);
+  assert.equal(sourceLogo.readUInt32BE(20), 180);
+
+  const sourceBusiness = schemas(fs.readFileSync('client/index.html', 'utf8'))
+    .find(schema => schema['@id'] === 'https://acahydraulic.kz/#business');
+  assert.ok(sourceBusiness, 'client/index.html business schema');
+  assert.deepEqual(configBusinessIdentity(), {
+    logo: sourceBusiness.logo,
+    sameAs: sourceBusiness.sameAs,
+  });
 });
 
 test('company and contact pages identify their relationship to the business', () => {
