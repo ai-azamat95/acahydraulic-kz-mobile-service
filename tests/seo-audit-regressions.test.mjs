@@ -12,6 +12,43 @@ test('business schema uses confirmed identity and appointment-only availability'
   assert.equal(business.contactPoint.hoursAvailable, undefined);
   assert.match(business.description, /по договорённости/);
   assert.doesNotMatch(JSON.stringify(business), /24\/7|23:59/);
+  assert.deepEqual(business.sameAs, ['https://www.tiktok.com/@acaservice01']);
+});
+
+test('company and contact pages identify their relationship to the business', () => {
+  for (const [route, type] of [['about/', 'AboutPage'], ['contacts/', 'ContactPage']]) {
+    const page = schemas(read(route)).find(schema => schema['@type'] === type);
+    assert(page, route);
+    assert.deepEqual(page.mainEntity, { '@id': 'https://acahydraulic.kz/#business' });
+    assert.equal(page.url, `https://acahydraulic.kz/${route}`);
+  }
+});
+
+test('every service page has one normalized Service and BreadcrumbList schema', () => {
+  const serviceUrls = [...fs.readFileSync('dist/public/sitemap.xml', 'utf8').matchAll(/<loc>(https:\/\/acahydraulic\.kz\/services\/[^<]+)<\/loc>/g)]
+    .map(match => match[1]);
+  assert.equal(serviceUrls.length, 20);
+  for (const url of serviceUrls) {
+    const route = new URL(url).pathname.slice(1);
+    const pageSchemas = schemas(read(route));
+    const services = pageSchemas.filter(schema => schema['@type'] === 'Service');
+    const breadcrumbs = pageSchemas.filter(schema => schema['@type'] === 'BreadcrumbList');
+    assert.equal(services.length, 1, `${route}: Service schema`);
+    assert.equal(breadcrumbs.length, 1, `${route}: BreadcrumbList schema`);
+    assert.equal(services[0].url, url, `${route}: Service.url`);
+    assert.equal(services[0]['@id'], `${url}#service`, `${route}: Service @id`);
+  }
+});
+
+test('every case page has one WebPage schema', () => {
+  const caseUrls = [...fs.readFileSync('dist/public/sitemap-cases.xml', 'utf8').matchAll(/<loc>(https:\/\/acahydraulic\.kz\/[^<]+)<\/loc>/g)]
+    .map(match => match[1]);
+  for (const url of caseUrls) {
+    const route = new URL(url).pathname.slice(1);
+    const webpages = schemas(read(route)).filter(schema => schema['@type'] === 'WebPage');
+    assert.equal(webpages.length, 1, `${route}: WebPage schema`);
+    assert.equal(webpages[0].url, url, `${route}: WebPage.url`);
+  }
 });
 
 test('pressure article contains actual diagnosis content before JavaScript runs', () => {
@@ -52,7 +89,10 @@ test('real cases contain case content instead of copied homepage and have matchi
 });
 
 test('duplicate projects listing redirects to cases and is excluded from sitemaps', () => {
-  assert.match(read('projects/'), /http-equiv="refresh"/);
+  const html = read('projects/');
+  assert.match(html, /http-equiv="refresh"/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/acahydraulic\.kz\/cases\/">/);
+  assert.match(html, /<meta name="robots" content="noindex, follow">/);
   for (const file of ['sitemap.xml', 'sitemap-cases.xml']) assert.ok(!fs.readFileSync(`dist/public/${file}`, 'utf8').includes('<loc>https://acahydraulic.kz/projects/</loc>'));
 });
 

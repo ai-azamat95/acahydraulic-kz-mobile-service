@@ -23,7 +23,7 @@ import { useTikTokContact } from "@/hooks/useTikTokEvents";
 import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import { cartItemFromProduct, preferredCartItem } from "@/lib/cart";
 
-import { catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
+import { catalogOfferHasConfirmedSupply, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
 
 const WHATSAPP_NUMBER = "77714177925";
 const catalogCanonicalAliases: Record<string, string> = catalogCanonicalAliasesData;
@@ -136,6 +136,7 @@ export default function CatalogProduct() {
     ? `${fixedOffer ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
   const merchantOffer = merchantPumps.products.find(offer => offer.handle === product.handle);
+  const confirmedSupply = catalogOfferHasConfirmedSupply(merchantOffer);
   const merchantShippingPriceKzt = merchantOffer && Object.hasOwn(merchantOffer, "shippingPriceKzt")
     ? merchantOffer.shippingPriceKzt
     : merchantPumps.shippingPriceKzt;
@@ -339,7 +340,7 @@ export default function CatalogProduct() {
               <p className="text-3xl font-extrabold text-[#FFC000] md:text-4xl">{displayedPrice}</p>
               <div className="mt-3 flex items-center gap-2 text-sm text-gray-300">
                 <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
-                {product.available ? copy.available : copy.checkAvailability}
+                {confirmedSupply ? copy.available : copy.checkAvailability}
               </div>
               {product.ownerSale && <p className="mt-3 text-sm leading-6 text-gray-300">{ownerSaleTerms}</p>}
               {(product.approvedSale || product.ownerProduct) && <p className="mt-3 text-sm leading-6 text-gray-300">
@@ -424,7 +425,7 @@ export default function CatalogProduct() {
                     <dt className="text-gray-500">{copy.status}</dt>
                     <dd className="mt-1 flex items-center gap-2 text-gray-200">
                       <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
-                      {variant.available ? copy.available : copy.checkAvailability}
+                      {confirmedSupply && variant.available ? copy.available : copy.checkAvailability}
                     </dd>
                   </div>
                 </dl>

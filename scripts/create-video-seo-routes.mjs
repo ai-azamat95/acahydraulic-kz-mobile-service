@@ -63,6 +63,20 @@ const videoSchema = item => {
     description: item.description, thumbnailUrl: [`${base}${item.poster}`], contentUrl: `${base}${item.video}`,
     url, mainEntityOfPage: url, uploadDate: item.uploadDate, duration: item.duration, inLanguage: 'ru' };
 };
+const pageSchema = item => {
+  const url = `${base}/cases/${item.slug}/`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: item.title,
+    description: item.description,
+    inLanguage: 'ru-KZ',
+    isPartOf: { '@id': `${base}/#website` },
+    mainEntity: { '@id': `${url}#video` },
+  };
+};
 function replaceRoot(html, content) {
   const opening = /<div\b[^>]*\bid=["']root["'][^>]*>/i.exec(html);
   if (!opening) throw new Error('Missing root');
@@ -96,6 +110,7 @@ for (const item of cases) {
 <meta data-rh="true" property="og:title" content="${escape(title)}"><meta data-rh="true" property="og:description" content="${escape(item.description)}">
 <meta data-rh="true" property="og:url" content="${url}"><meta data-rh="true" property="og:image" content="${base}${item.poster}">
 <meta data-rh="true" property="og:type" content="website">
+<script data-rh="true" type="application/ld+json">${JSON.stringify(pageSchema(item)).replace(/</g, '\\u003c')}</script>
 <script data-rh="true" type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>`;
   html = html.replace('</head>', `${head}</head>`);
   const contact = `https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте! Посмотрел видео ${item.model}. Моя техника: __. Город: __. Симптомы: __. Нужна диагностика / запчасть с заменой. Пришлю шильдик.`)}`;
@@ -125,7 +140,7 @@ fs.writeFileSync(catalogCaseFile, catalogCaseHtml);
 // matching canonical provide a static redirect; do not claim an HTTP 301.
 for (const [from, to] of Object.entries(pageRedirects)) {
   if (!fs.existsSync(path.join(out, to, 'index.html'))) throw new Error(`Redirect destination missing: ${to}`);
-  writeRoute(from, `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Страница переехала | ACA Hydraulic</title><meta http-equiv="refresh" content="0;url=${to}"><link rel="canonical" href="${base}${to}"></head><body><p>Страница переехала: <a href="${to}">перейти на актуальную страницу ACA Hydraulic</a>.</p></body></html>`);
+  writeRoute(from, `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Страница переехала | ACA Hydraulic</title><meta name="robots" content="noindex, follow"><meta http-equiv="refresh" content="0;url=${to}"><link rel="canonical" href="${base}${to}"></head><body><p>Страница переехала: <a href="${to}">перейти на актуальную страницу ACA Hydraulic</a>.</p></body></html>`);
 }
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

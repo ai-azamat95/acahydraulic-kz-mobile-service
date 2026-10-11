@@ -1,4 +1,5 @@
-import { catalogProductName } from "@shared/catalog-product-seo.mjs";
+import merchantPumps from "@shared/merchant-pumps.json";
+import { catalogOfferHasConfirmedSupply, catalogProductName } from "@shared/catalog-product-seo.mjs";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Link } from "wouter";
@@ -98,6 +99,7 @@ export function ProductResults({ copy, language, products, activeCategory, total
       <div className="aca-product-grid mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => {
           const productName = catalogProductName(product, language);
+          const confirmedSupply = catalogOfferHasConfirmedSupply(merchantPumps.products.find(offer => offer.handle === product.handle));
           const visibleTags = product.tags.slice(0, 2);
           const whatsappText = encodeURIComponent(`Здравствуйте! Интересует запчасть: ${product.title}\n${window.location.origin}/catalog/${product.handle}`);
           return (
@@ -112,12 +114,12 @@ export function ProductResults({ copy, language, products, activeCategory, total
                 </div>
                 <div
                   className={`absolute right-2 top-2 rounded-full border px-2 py-1 text-[10px] font-bold backdrop-blur sm:right-3 sm:top-3 sm:text-[11px] ${
-                    product.available
+                    confirmedSupply
                       ? "border-[#FFC000]/50 bg-black/75 text-[#FFD24A]"
                       : "border-white/20 bg-black/70 text-gray-300"
                   }`}
                 >
-                  {product.available ? copy.available : copy.checkAvailability}
+                  {confirmedSupply ? copy.available : copy.checkAvailability}
                 </div>
               </Link>
 

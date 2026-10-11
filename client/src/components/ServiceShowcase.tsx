@@ -6,6 +6,18 @@ import { SEO } from "@/components/SEO";
 import showcase from "../../../shared/service-showcase.json";
 import assessment from "../../../shared/service-assessment.json";
 
+const pagesWithOwnSeo = new Set([
+  "excavator-repair",
+  "hydraulic-motors",
+  "hydraulic-pumps",
+  "hydraulic-valves",
+  "industrial-service",
+  "mining-loader-repair",
+  "mining-truck-repair",
+  "mobile-repair",
+  "piledriver-repair",
+]);
+
 export default function ServiceShowcase() {
   const [location] = useLocation();
   const slug = location.replace(/\/+$/, "").match(/^\/services\/([^/]+)$/)?.[1];
@@ -19,7 +31,19 @@ export default function ServiceShowcase() {
 
   return (
     <>
-      <SEO title={service.title} description={service.description} canonical={`/services/${slug}`} ogImage={`/images/services/${service.image}`} breadcrumbs={[{ name: "Услуги", url: "/services" }, { name: service.label, url: `/services/${slug}` }]} />
+      {!pagesWithOwnSeo.has(slug) && <SEO
+        title={service.title}
+        description={service.description}
+        canonical={detailedRoute}
+        ogImage={`/images/services/${service.image}`}
+        breadcrumbs={[{ name: "Услуги", url: "/services" }, { name: service.label, url: detailedRoute }]}
+        serviceSchema={{
+          serviceName: service.label,
+          serviceDescription: service.description,
+          serviceUrl: detailedRoute,
+          areaServed: ["Астана", "Казахстан"],
+        }}
+      />}
       {detailed && <div className="bg-[#f5f6f1] text-[#17242b]"><ServiceDetails content={detailed} light /><ServiceFAQ items={detailed.faq} light /></div>}
       <section aria-labelledby="service-showcase-title" className="relative z-10 overflow-hidden bg-[#f5f6f1] text-[#17242b]">
         <div className="relative min-h-48 overflow-hidden bg-[#e7ede5] md:min-h-56">

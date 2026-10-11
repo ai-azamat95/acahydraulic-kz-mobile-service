@@ -89,8 +89,7 @@ function setMeta(html, route) {
       .replace(/<meta(?=[^>]*\b(?:name|property)=["'](?:description|keywords|robots|language|author|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi, '')
       .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
       .replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
-    const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebPage', url: canonical, name: meta.title });
-    html = html.replace('</head>', `${rendered.head}<script type="application/ld+json" data-static-page-schema>${pageSchema}</script></head>`);
+    html = html.replace('</head>', `${rendered.head}</head>`);
     return replaceRootContent(html, rendered.body);
   }
   html = html.replace(/<title\b[^>]*>.*?<\/title>/is, `<title data-rh="true">${meta.title}</title>`);
@@ -112,6 +111,17 @@ function setMeta(html, route) {
       html = html.replace(pattern, `<meta ${name.startsWith('og:') ? 'property' : 'name'}="${name}" content="${escapeAttr(value)}" data-rh="true">`);
     }
     html = html.replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
+    const pageSchema = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: meta.title,
+      description: meta.description,
+      inLanguage: 'ru-KZ',
+      isPartOf: { '@id': `${baseUrl}/#website` },
+    });
+    html = html.replace('</head>', `<script type="application/ld+json" data-static-page-schema>${pageSchema}</script>\n</head>`);
     // Search crawlers and visitors without JavaScript receive the real case,
     // including the distinction between completed work and a pending order.
     html = replaceRootContent(html, `<main class="container mx-auto max-w-6xl px-4 py-12 text-white">

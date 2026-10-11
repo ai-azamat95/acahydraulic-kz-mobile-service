@@ -21,10 +21,15 @@ test('watch pages expose matching video metadata and useful content without Java
     assert.ok(html.includes(`href="https://acahydraulic.kz/${route}/"`));
     assert.ok(html.includes(item.summary));
     const pageSchemas = schemas(html);
-    assert.equal(pageSchemas.length, 1);
-    assert.equal(pageSchemas[0]['@type'], 'VideoObject');
-    assert.equal(pageSchemas[0].contentUrl, `https://acahydraulic.kz${item.video}`);
-    assert.equal(pageSchemas[0].mainEntityOfPage, `https://acahydraulic.kz/${route}/`);
+    assert.equal(pageSchemas.filter(schema => schema['@type'] === 'WebPage').length, 1);
+    assert.equal(pageSchemas.filter(schema => schema['@type'] === 'VideoObject').length, 1);
+    const video = pageSchemas.find(schema => schema['@type'] === 'VideoObject');
+    const page = pageSchemas.find(schema => schema['@type'] === 'WebPage');
+    assert.equal(video.contentUrl, `https://acahydraulic.kz${item.video}`);
+    assert.equal(video['@id'], `https://acahydraulic.kz/${route}/#video`);
+    assert.equal(video.mainEntityOfPage, `https://acahydraulic.kz/${route}/`);
+    assert.equal(page.url, `https://acahydraulic.kz/${route}/`);
+    assert.deepEqual(page.mainEntity, { '@id': `https://acahydraulic.kz/${route}/#video` });
     assert.ok(html.includes(`poster="${item.poster}"`));
     assert.ok(html.includes(`src="${item.video}"`));
     assert.doesNotMatch(html, /<video[^>]*autoplay/);
@@ -62,6 +67,7 @@ test('old service URLs redirect only to existing relevant pages, without redirec
     const html = read(from);
     assert.ok(html.includes(`http-equiv="refresh" content="0;url=${to}"`));
     assert.ok(html.includes(`rel="canonical" href="https://acahydraulic.kz${to}"`));
+    assert.ok(html.includes('name="robots" content="noindex, follow"'));
     assert.ok(read(to).includes('<h1'));
     assert.ok(!Object.hasOwn(pageRedirects, to.replace(/\/$/, '')));
     assert.notEqual(to, '/');

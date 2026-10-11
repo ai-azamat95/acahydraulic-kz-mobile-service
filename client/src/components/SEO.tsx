@@ -125,26 +125,32 @@ export function SEO({
 
   // ── Service Schema ─────────────────────────────────────────────────────────
   const serviceJsonLd = serviceSchema
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "@id": `${BASE_URL}${serviceSchema.serviceUrl}#service`,
-        name: serviceSchema.serviceName,
-        description: serviceSchema.serviceDescription,
-        url: `${BASE_URL}${serviceSchema.serviceUrl}`,
-        provider: {
-          "@id": BUSINESS_ID,
-        },
-        areaServed: (serviceSchema.areaServed ?? ["Астана", "Казахстан"]).map(
-          (area) => ({ "@type": "Place", name: area })
-        ),
-        availableChannel: {
-          "@type": "ServiceChannel",
-          serviceUrl: `${BASE_URL}${serviceSchema.serviceUrl}`,
-          servicePhone: PHONE,
-          availableLanguage: ["Russian", "Kazakh"],
-        },
-      }
+    ? (() => {
+        const serviceUrl = new URL(serviceSchema.serviceUrl, BASE_URL);
+        serviceUrl.search = "";
+        serviceUrl.hash = "";
+        serviceUrl.pathname = serviceUrl.pathname.replace(/\/+$/, "") + "/";
+        return {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "@id": `${serviceUrl.href}#service`,
+          name: serviceSchema.serviceName,
+          description: serviceSchema.serviceDescription,
+          url: serviceUrl.href,
+          provider: {
+            "@id": BUSINESS_ID,
+          },
+          areaServed: (serviceSchema.areaServed ?? ["Астана", "Казахстан"]).map(
+            (area) => ({ "@type": "Place", name: area })
+          ),
+          availableChannel: {
+            "@type": "ServiceChannel",
+            serviceUrl: serviceUrl.href,
+            servicePhone: PHONE,
+            availableLanguage: ["Russian", "Kazakh"],
+          },
+        };
+      })()
     : null;
 
   // ── Article Schema (for blog pages) ───────────────────────────────────────

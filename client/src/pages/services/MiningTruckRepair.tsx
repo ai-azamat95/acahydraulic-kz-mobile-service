@@ -15,6 +15,16 @@ export default function MiningTruckRepair() {
         description="Диагностика и ремонт гидравлики карьерных самосвалов: подъём кузова, рулевое управление, насосы, распределители и цилиндры. Выезд по Казахстану согласовывается после обращения."
         keywords="ремонт карьерного самосвала, ремонт гидравлики самосвала, ремонт цилиндра подъёма кузова, диагностика рулевой гидравлики"
         canonical="/services/mining-truck-repair"
+        breadcrumbs={[
+          { name: "Услуги", url: "/services" },
+          { name: "Ремонт карьерных самосвалов", url: "/services/mining-truck-repair" },
+        ]}
+        serviceSchema={{
+          serviceName: "Ремонт гидравлики карьерных самосвалов",
+          serviceDescription: "Диагностика и ремонт гидравлики карьерных самосвалов с выездом по Казахстану по согласованию.",
+          serviceUrl: "/services/mining-truck-repair",
+          areaServed: ["Астана", "Казахстан"],
+        }}
       />
 
       {/* Header */}

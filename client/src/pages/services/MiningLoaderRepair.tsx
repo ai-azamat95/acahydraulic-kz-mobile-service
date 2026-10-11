@@ -15,6 +15,16 @@ export default function MiningLoaderRepair() {
         description="Диагностика и ремонт гидравлики шахтных погрузчиков: контур хода, насосы, гидромоторы, распределители и рабочее оборудование. Выезд по Казахстану согласовывается после обращения."
         keywords="ремонт шахтных погрузчиков, ремонт гидравлики LHD, ремонт гидравлики подземного погрузчика, диагностика шахтного погрузчика"
         canonical="/services/mining-loader-repair"
+        breadcrumbs={[
+          { name: "Услуги", url: "/services" },
+          { name: "Ремонт шахтных погрузчиков", url: "/services/mining-loader-repair" },
+        ]}
+        serviceSchema={{
+          serviceName: "Ремонт гидравлики шахтных погрузчиков",
+          serviceDescription: "Диагностика и ремонт гидравлики шахтных погрузчиков с выездом по Казахстану по согласованию.",
+          serviceUrl: "/services/mining-loader-repair",
+          areaServed: ["Астана", "Казахстан"],
+        }}
       />
 
       {/* Header */}

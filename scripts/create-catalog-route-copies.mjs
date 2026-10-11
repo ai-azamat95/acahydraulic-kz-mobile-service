@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
 import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
+import phase2ProductCopy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
 import path from 'node:path';
 import { catalogProductSeo, catalogProductCategories, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 
@@ -22,6 +23,10 @@ const products = Array.from({ length: manifest.chunkCount }, (_, index) => {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }).flat();
 const lastmod = String(manifest.importedAt || new Date().toISOString()).slice(0, 10);
+
+function productLastmod(product) {
+  return phase2ProductCopy[product.handle]?.modifiedDate || lastmod;
+}
 
 function escapeAttr(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
@@ -216,7 +221,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapProducts.map((product) => `  <url>
     <loc>${baseUrl}/catalog/${product.handle}/</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${productLastmod(product)}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>`).join('\n')}

@@ -3,6 +3,11 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
+test('OpenAI search crawler can access public pages without exposing private routes', () => {
+  const robots = fs.readFileSync('client/public/robots.txt', 'utf8');
+  assert.match(robots, /User-agent: OAI-SearchBot\s+Allow: \/\s+Disallow: \/api\/\s+Disallow: \/admin\//);
+});
+
 test('static error pages are noindex while sitemap pages remain indexable', () => {
   for (const file of ['dist/public/404.html', 'dist/public/404/index.html', 'dist/public/cart/index.html', 'dist/public/checkout/index.html']) {
     assert.match(fs.readFileSync(file, 'utf8'), /<meta[^>]*name="robots"[^>]*content="noindex, follow"/);
