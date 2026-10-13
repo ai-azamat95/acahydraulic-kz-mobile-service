@@ -50,6 +50,7 @@ for (const fileName of jsonFiles) {
 assert.deepEqual(sensitiveKeyHits, [], `sensitive supplier fields leaked: ${sensitiveKeyHits.slice(0, 10).join(', ')}`);
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+assert.equal(typeof manifest.categoryIndexFiles, 'object', 'category-specific search indexes are required');
 assert.equal(manifest.imageOwnership, 'aca-managed', 'catalogue images must be stored in ACA-managed storage');
 assert.match(manifest.imageBaseUrl || '', /^https:\/\//i, 'ACA-managed image base URL must use HTTPS');
 assert.equal(forbiddenSupplierHost.test(manifest.imageBaseUrl), false, 'ACA-managed image base URL cannot use a supplier host');
@@ -79,6 +80,15 @@ for (let page = 1; page <= manifest.chunkCount; page += 1) {
 
 assert.equal(products.length, manifest.productCount, 'public product count must match the manifest');
 assert.equal(new Set(products.map((product) => product.handle)).size, products.length, 'public product handles must be unique');
+for (const [categoryId, relativePath] of Object.entries(manifest.categoryIndexFiles)) {
+  assert.match(categoryId, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `invalid category index id: ${categoryId}`);
+  assert.equal(relativePath, `category-indexes/${categoryId}.json`, `unexpected category index path for ${categoryId}`);
+  const categoryProducts = JSON.parse(fs.readFileSync(path.join(catalogDir, relativePath), 'utf8'));
+  assert(categoryProducts.length > 0, `empty category index: ${categoryId}`);
+  assert(categoryProducts.every(product => (product.categories?.length ? product.categories : [product.category]).includes(categoryId)), `cross-category product leaked into ${categoryId}`);
+  const expectedHandles = products.filter(product => (product.categories?.length ? product.categories : [product.category]).includes(categoryId)).map(product => product.handle).sort();
+  assert.deepEqual(categoryProducts.map(product => product.handle).sort(), expectedHandles, `category index is incomplete: ${categoryId}`);
+}
 const pumpParts = products.filter((product) => (product.categories || [product.category]).includes('pump-parts'));
 const wiringHarnesses = products.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses'));
 const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));

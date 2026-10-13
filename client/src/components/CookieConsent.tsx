@@ -123,7 +123,7 @@ export function CookieConsent() {
     return (
       <button
         aria-label="Открыть настройки cookie"
-        className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] left-3 z-[70] inline-flex min-h-11 items-center gap-2 rounded-md border border-white/15 bg-[#171717] px-3 text-xs font-semibold text-gray-200 shadow-lg transition-colors hover:border-[#FFC000]/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] md:bottom-4"
+        className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-3 z-[70] inline-flex min-h-11 items-center gap-2 rounded-md border border-white/15 bg-[#171717] px-3 text-xs font-semibold text-gray-200 shadow-lg transition-colors hover:border-[#FFC000]/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] md:bottom-4"
         onClick={() => {
           setIsCustomizing(true);
           setIsOpen(true);

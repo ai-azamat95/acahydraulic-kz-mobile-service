@@ -34,6 +34,7 @@ on:
       - 'shared/catalog-owner-products.json'
       - 'shared/catalog-product-phase2-copy.json'
       - 'shared/catalog-product-phase3-copy.json'
+      - 'shared/catalog-product-priority-copy.json'
       - 'scripts/create-catalog-product-phase2.mjs'
       - 'scripts/create-catalog-product-phase3.mjs'
       - 'client/public/catalog-assets/priority-products/**'
@@ -43,6 +44,7 @@ on:
       - 'tests/catalog-first-party-images.test.mjs'
       - 'package.json'
       - 'scripts/prepare-public-catalog.mjs'
+      - 'scripts/lib/catalog-category-indexes.mjs'
       - 'scripts/check-owner-catalog-inputs.mjs'
       - '.github/workflows/pages.yml'
       - 'shared/catalog-landings.json'
@@ -51,6 +53,7 @@ on:
       - 'client/src/catalog-*.css'
       - 'client/src/index.css'
       - 'scripts/check-catalog-browser.mjs'
+      - 'tests/catalog-category-indexes.test.mjs'
       - '.github/workflows/catalog-browser-check.yml'
 permissions:
   contents: read

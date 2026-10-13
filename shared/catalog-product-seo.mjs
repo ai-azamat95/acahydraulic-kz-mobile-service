@@ -3,10 +3,11 @@ import merchantProductCopy from './catalog-product-merchant-copy.json' with { ty
 import pilotProductCopy from './catalog-product-pilot-copy.json' with { type: 'json' };
 import phase2ProductCopy from './catalog-product-phase2-copy.json' with { type: 'json' };
 import phase3ProductCopy from './catalog-product-phase3-copy.json' with { type: 'json' };
+import priorityProductCopy from './catalog-product-priority-copy.json' with { type: 'json' };
 import landings from './catalog-landings.json' with { type: 'json' };
 import selectionCopy from './catalog-seo-content.json' with { type: 'json' };
 
-const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...phase3ProductCopy, ...merchantProductCopy };
+const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...phase3ProductCopy, ...priorityProductCopy, ...merchantProductCopy };
 
 // Keep OEM numbers and the supplier's original title in the product data.
 // Only reviewed or deterministically validated handle-specific translations

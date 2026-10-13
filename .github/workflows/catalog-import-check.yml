@@ -75,7 +75,7 @@ jobs:
       - name: Verify committed ACA catalogue snapshot
         run: pnpm catalog:verify-public
       - name: Test product-scoped image mirroring
-        run: node --test tests/catalog-image-mirror.test.mjs tests/catalog-image-manifest-rebuild.test.mjs
+        run: node --test tests/catalog-image-mirror.test.mjs tests/catalog-image-manifest-rebuild.test.mjs tests/catalog-category-indexes.test.mjs
       - name: Verify current pixel audit
         run: node scripts/check-catalog-image-audit.mjs
       - name: Verify ACA-owned catalogue products and HUSCO evidence

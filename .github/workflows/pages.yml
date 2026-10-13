@@ -42,7 +42,7 @@ jobs:
       - name: Create approved pump feed
         run: node scripts/create-merchant-feed.mjs
       - name: Verify owner catalogue products
-        run: node --test tests/catalog-owner-products.test.mjs
+        run: node --test tests/catalog-owner-products.test.mjs tests/catalog-category-indexes.test.mjs
       - name: Create Industrial AI route copy
         run: node scripts/create-industrial-ai-route.mjs
       - name: Create static case route copies
@@ -81,7 +81,7 @@ jobs:
       - name: Verify published site has no supplier identity
         run: pnpm catalog:verify-site
       - name: Verify sitewide SEO regressions
-        run: node --test tests/seo-audit-regressions.test.mjs tests/site-audit.test.mjs tests/blog-factual-integrity.test.mjs
+        run: node --test tests/seo-audit-regressions.test.mjs tests/site-audit.test.mjs tests/blog-factual-integrity.test.mjs tests/measurement-and-trust.test.mjs tests/lcp-assets.test.mjs
       - name: Audit every sitemap page and internal link
         run: python3 scripts/audit-seo.py dist/public --strict > dist/seo-audit.json
       - name: Upload artifact

@@ -43,7 +43,7 @@ const Corporate = () => {
                   <FileText className="w-12 h-12 text-[#FFB800] mb-6" />
                   <h3 className="text-xl font-bold mb-4">Полный документооборот</h3>
                   <p className="text-muted-foreground">
-                    Работаем через ИП Тлеуғазы. Состав документов по поставке и выполненным работам согласуем для конкретного заказа.
+                    Работаем через ТОО «АСА-ГС». Состав документов по поставке и выполненным работам согласуем для конкретного заказа.
                   </p>
                 </CardContent>
               </Card>
@@ -75,7 +75,7 @@ const Corporate = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
               <div>
                 <h2 className="text-3xl font-bold mb-2">Документы для бухгалтерии</h2>
-                <p className="text-muted-foreground">Ознакомьтесь с реквизитами ИП и условиями заказа</p>
+                <p className="text-muted-foreground">Ознакомьтесь с реквизитами ТОО и условиями заказа</p>
               </div>
             </div>
             
@@ -87,7 +87,7 @@ const Corporate = () => {
                   </div>
                   <div>
                     <div className="font-bold">Карточка предприятия (Реквизиты)</div>
-                    <div className="text-sm text-muted-foreground">Реквизиты ИП Тлеуғазы</div>
+                    <div className="text-sm text-muted-foreground">Реквизиты ТОО «АСА-ГС»</div>
                   </div>
                 </div>
                 <FileText className="w-5 h-5 text-gray-400 group-hover:text-[#FFB800]" />

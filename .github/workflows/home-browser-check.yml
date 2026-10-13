@@ -2,7 +2,17 @@ name: Check homepage in browser
 on:
   pull_request:
     paths:
+      - 'client/index.html'
+      - 'client/public/images/hero-bg-v4-mobile.webp'
       - 'client/src/pages/Home.tsx'
+      - 'client/src/components/B2BLeadForm.tsx'
+      - 'client/src/components/CostCalculator.tsx'
+      - 'client/src/components/CookieConsent.tsx'
+      - 'client/src/components/Footer.tsx'
+      - 'client/src/lib/contactIntent.ts'
+      - 'client/src/locales/**'
+      - 'tests/measurement-and-trust.test.mjs'
+      - 'tests/lcp-assets.test.mjs'
       - '.github/workflows/home-browser-check.yml'
 permissions:
   contents: read

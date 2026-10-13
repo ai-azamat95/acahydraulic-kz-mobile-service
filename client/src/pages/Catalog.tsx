@@ -261,7 +261,7 @@ export default function Catalog() {
   const trackedLandingRef = useRef("");
   const copy = catalogCopy[language];
   const ui = enhancementCopy[language];
-  const { products, productCount, categorySummary, loading, error, complete } = useCatalogIndex();
+  const { products, productCount, categorySummary, loading, error, complete, loadComplete } = useCatalogIndex(routeCategory || undefined);
   const fireContact = useTikTokContact();
   const deferredQuery = useDeferredValue(`${searchMode === "vin" ? "" : partQuery} ${machineModel}`.trim().toLowerCase());
   const activeSearchMode = ui.searchModes.find((item) => item.id === searchMode) || ui.searchModes[0];
@@ -671,6 +671,7 @@ export default function Catalog() {
                       <select
                         value={brand}
                         onChange={(event) => {
+                          if (routeCategory) loadComplete();
                           setBrand(event.target.value);
                           setCategory("");
                           resetPage();
@@ -688,6 +689,7 @@ export default function Catalog() {
                         value={category}
                         onChange={(event) => {
                           const nextCategory = event.target.value;
+                          if (routeCategory && nextCategory !== routeCategory) loadComplete();
                           setCategory(nextCategory);
                           setBrand("");
                           resetPage();

@@ -9,7 +9,7 @@ export function CommerceLinks() {
 }
 
 export function MerchantDetails() {
-  const rows = [["Продавец", merchant.name], ["Предприниматель", merchant.owner], ["ИИН", merchant.iin], ["Адрес регистрации", merchant.legalAddress], ["Место работы и самовывоза", merchant.businessAddress], ["Режим работы", merchant.hours], ["ИИК", merchant.iban], ["Банк", merchant.bank], ["БИК", merchant.bic], ["КБЕ", merchant.kbe], ["Валюта", merchant.currency]];
+  const rows = [["Продавец и получатель оплаты", merchant.name], ["БИН", merchant.bin], ["Юридический адрес", merchant.legalAddress], ["Место работы и самовывоза", merchant.businessAddress], ["Режим работы", merchant.hours], ["Валюта расчётов", merchant.currency]];
   return <dl className="space-y-3 text-sm leading-relaxed">{rows.map(([label, value]) =>
     <div key={label} className="grid gap-1 border-b border-white/10 pb-3 sm:grid-cols-[11rem_1fr] sm:gap-4">
       <dt className="font-semibold text-white">{label}</dt><dd className="min-w-0 break-words text-gray-300">{value}</dd>
