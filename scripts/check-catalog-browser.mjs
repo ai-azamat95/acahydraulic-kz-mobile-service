@@ -17,6 +17,7 @@ const catalogProducts = completeIndexPath && fs.existsSync(completeIndexPath)
   : fs.readdirSync(catalogDir)
       .filter((file) => /^search-index-\d+\.json$/.test(file))
       .flatMap((file) => JSON.parse(fs.readFileSync(path.join(catalogDir, file), 'utf8')));
+const expectedHydraulicPumpCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('hydraulic-pumps')).length;
 const expectedControlValveCount = catalogProducts.filter((product) => (product.categories || [product.category]).includes('control-valves')).length;
 const expectedGearPumpCount = catalogProducts.filter((product) => product.category === 'gear-pumps').length;
 const expectedPistonPumpCount = catalogProducts.filter((product) => product.category === 'piston-pumps').length;
@@ -147,6 +148,8 @@ try {
           assert.equal(await page.locator('.aca-category-grid').count(),0,'category page must not repeat the full category grid above products');
           assert.equal(new URL(page.url()).pathname,'/catalog/category/hydraulic-pumps','category click must create a clean shareable URL');
           assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://acahydraulic.kz/catalog/category/hydraulic-pumps/','category needs a self canonical');
+          await page.waitForFunction((expected)=>document.querySelector('[data-result-count]')?.getAttribute('data-result-count')===String(expected),expectedHydraulicPumpCount);
+          assert.equal(await page.locator('[data-result-count]').getAttribute('data-result-count'),String(expectedHydraulicPumpCount),'hydraulic pump category must contain the complete collection');
           assert.equal(await page.locator('[data-visible-count]').getAttribute('data-visible-count'),'10','hydraulic pump category must show 10 items per page');
           assert.equal(await page.locator('.aca-product-card').count(),10,'hydraulic pump category must render 10 real product cards');
           await page.goto(origin+'/catalog',{waitUntil:'networkidle'});
