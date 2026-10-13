@@ -12,6 +12,7 @@ const productPage = fs.readFileSync(
   "client/src/pages/CatalogProduct.tsx",
   "utf8"
 );
+const catalogPage = fs.readFileSync("client/src/pages/Catalog.tsx", "utf8");
 
 test("stale Vite chunks have guarded reload recovery and a user-safe fallback", () => {
   assert.match(main, /installVitePreloadRecovery\(\)/);
@@ -57,4 +58,7 @@ test("category landings load their compact index before the full 10k-product sea
   assert.match(hook, /manifest\.categoryIndexFiles\?\.\[scopeCategory\]/);
   assert.match(hook, /setProducts\(categoryProducts\)/);
   assert.match(hook, /return \{ products, productCount, categorySummary, loading, error, complete, loadComplete \}/);
+  assert.doesNotMatch(catalogPage, /category !== routeCategory\) loadComplete/);
+  assert.match(catalogPage, /if \(routeCategory\) loadComplete\(\);\s*setBrand/s);
+  assert.match(catalogPage, /if \(routeCategory && nextCategory !== routeCategory\) loadComplete\(\)/);
 });

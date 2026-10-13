@@ -291,10 +291,6 @@ export default function Catalog() {
     if (urlQuery) window.scrollTo(0, 0);
   }, [urlQuery]);
 
-  useEffect(() => {
-    if (routeCategory && category !== routeCategory) loadComplete();
-  }, [category, loadComplete, routeCategory]);
-
   const categoryStats = useMemo(() => {
     const stats: Record<string, { count: number; imageUrl: string | null }> = {};
     const hasPublishedSummary = Object.keys(categorySummary).length > 0;
@@ -675,6 +671,7 @@ export default function Catalog() {
                       <select
                         value={brand}
                         onChange={(event) => {
+                          if (routeCategory) loadComplete();
                           setBrand(event.target.value);
                           setCategory("");
                           resetPage();
@@ -692,6 +689,7 @@ export default function Catalog() {
                         value={category}
                         onChange={(event) => {
                           const nextCategory = event.target.value;
+                          if (routeCategory && nextCategory !== routeCategory) loadComplete();
                           setCategory(nextCategory);
                           setBrand("");
                           resetPage();
