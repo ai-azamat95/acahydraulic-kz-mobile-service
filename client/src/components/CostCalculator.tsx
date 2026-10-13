@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { trackFormContactIntent } from "@/lib/contactIntent";
+import { createContactIntentId, trackFormContactIntent } from "@/lib/contactIntent";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -176,6 +176,7 @@ export default function CostCalculator() {
   const [step, setStep] = useState(1);
   const [selection, setSelection] = useState<Selection>(initialSelection);
   const [budgetRejected, setBudgetRejected] = useState(false);
+  const [contactIntentId, setContactIntentId] = useState(createContactIntentId);
 
   const maxStep = 6;
 
@@ -209,6 +210,7 @@ export default function CostCalculator() {
   const reset = () => {
     setSelection(initialSelection);
     setBudgetRejected(false);
+    setContactIntentId(createContactIntentId());
     setStep(1);
   };
 
@@ -246,6 +248,7 @@ export default function CostCalculator() {
 
   const whatsappText = [
     "Здравствуйте! Хочу заказать выездную диагностику ACA Hydraulic.",
+    `Номер обращения: ${contactIntentId}`,
     "",
     `Техника: ${selectedEquipment}`,
     `Марка: ${selection.brand || "не указана"}`,
@@ -264,7 +267,7 @@ export default function CostCalculator() {
     .join("\n");
 
   const openWhatsApp = () => {
-    trackFormContactIntent("calculator");
+    trackFormContactIntent("calculator", contactIntentId);
   };
 
   const cardClass = (selected: boolean) =>

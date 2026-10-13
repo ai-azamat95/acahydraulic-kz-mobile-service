@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { trackFormContactIntent } from '@/lib/contactIntent';
+import { createContactIntentId, trackFormContactIntent } from '@/lib/contactIntent';
 
 interface B2BLeadFormProps {
   onSuccess?: () => void;
@@ -61,9 +61,12 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
       tender: 'Запрос КП',
     };
 
+    const contactIntentId = createContactIntentId();
+
     const messageLines = [
       'Здравствуйте! Нужна выездная диагностика ACA Hydraulic.',
       'Понимаю, что диагностика платная. Прошу согласовать полную стоимость до выезда.',
+      `Номер обращения: ${contactIntentId}`,
       '',
       `Контактное лицо: ${formData.name}`,
       `Телефон: ${formData.phone}`,
@@ -83,7 +86,7 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
 
     const whatsappUrl = `https://wa.me/77714177925?text=${encodeURIComponent(messageLines.join('\n'))}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-    trackFormContactIntent('b2b_form');
+    trackFormContactIntent('b2b_form', contactIntentId);
 
     toast.info('Заявка подготовлена', {
       description: 'Отправьте сообщение в WhatsApp. Стоимость диагностики и выезда согласуем заранее.',

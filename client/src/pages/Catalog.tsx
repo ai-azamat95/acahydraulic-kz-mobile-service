@@ -261,7 +261,7 @@ export default function Catalog() {
   const trackedLandingRef = useRef("");
   const copy = catalogCopy[language];
   const ui = enhancementCopy[language];
-  const { products, productCount, categorySummary, loading, error, complete } = useCatalogIndex();
+  const { products, productCount, categorySummary, loading, error, complete, loadComplete } = useCatalogIndex(routeCategory || undefined);
   const fireContact = useTikTokContact();
   const deferredQuery = useDeferredValue(`${searchMode === "vin" ? "" : partQuery} ${machineModel}`.trim().toLowerCase());
   const activeSearchMode = ui.searchModes.find((item) => item.id === searchMode) || ui.searchModes[0];
@@ -290,6 +290,10 @@ export default function Catalog() {
     setFormError("");
     if (urlQuery) window.scrollTo(0, 0);
   }, [urlQuery]);
+
+  useEffect(() => {
+    if (routeCategory && category !== routeCategory) loadComplete();
+  }, [category, loadComplete, routeCategory]);
 
   const categoryStats = useMemo(() => {
     const stats: Record<string, { count: number; imageUrl: string | null }> = {};

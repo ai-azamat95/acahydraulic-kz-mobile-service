@@ -157,7 +157,7 @@ export const localBusinessSchema = {
   "priceRange": "$$",
   "currenciesAccepted": "KZT",
   "paymentAccepted": "Cash, Bank Transfer",
-  "taxID": merchant.iin,
+  "taxID": merchant.bin,
   "sameAs": [
     "https://www.tiktok.com/@acaservice01",
     "https://www.youtube.com/@acahydraulic"

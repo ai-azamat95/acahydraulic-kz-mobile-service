@@ -23,7 +23,7 @@ export default function PressRepair() {
       <section className="relative py-16 md:py-24 border-b border-white/10 overflow-hidden">
         <div className="absolute inset-0 bg-[#1a1a1a]">
            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent z-10"></div>
-           <div className="absolute inset-0 opacity-20 bg-[url('/images/hero-bg-v4.webp')] bg-cover bg-center"></div>
+           <div className="absolute inset-0 bg-[url('/images/hero-bg-v4-mobile.webp')] bg-cover bg-center opacity-20 md:bg-[url('/images/hero-bg-v4.webp')]"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-20">

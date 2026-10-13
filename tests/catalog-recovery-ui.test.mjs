@@ -51,3 +51,10 @@ test("catalog index cache is invalidated when curated data changes without a sou
   assert.match(hook, /indexFile\}`, catalogDataVersion/);
   assert.match(main, /manifest\.dataVersion \|\| manifest\.importedAt/);
 });
+
+test("category landings load their compact index before the full 10k-product search index", () => {
+  assert.match(hook, /categoryIndexFiles\?: Record<string, string>/);
+  assert.match(hook, /manifest\.categoryIndexFiles\?\.\[scopeCategory\]/);
+  assert.match(hook, /setProducts\(categoryProducts\)/);
+  assert.match(hook, /return \{ products, productCount, categorySummary, loading, error, complete, loadComplete \}/);
+});

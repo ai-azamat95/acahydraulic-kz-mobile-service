@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import "@/catalog-mobile.css";
 import "@/catalog-performance.css";
@@ -11,6 +11,7 @@ type CatalogManifest = {
   indexFile?: string;
   productCount?: number;
   categorySummaryFile?: string;
+  categoryIndexFiles?: Record<string, string>;
 };
 
 export type CatalogCategorySummary = Record<string, { count: number; imageUrl?: string | null }>;
@@ -34,13 +35,18 @@ function versioned(url: string, importedAt?: string) {
   return `${url}${url.includes("?") ? "&" : "?"}v=${encodeURIComponent(importedAt)}`;
 }
 
-export function useCatalogIndex() {
+export function useCatalogIndex(scopeCategory?: string) {
   const [products, setProducts] = useState<CatalogIndexProduct[]>([]);
   const [productCount, setProductCount] = useState(0);
   const [categorySummary, setCategorySummary] = useState<CatalogCategorySummary>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [complete, setComplete] = useState(false);
+  const [fullIndexScope, setFullIndexScope] = useState<string | null>(null);
+  const fullIndexRequested = Boolean(scopeCategory && fullIndexScope === scopeCategory);
+  const loadComplete = useCallback(() => {
+    if (scopeCategory) setFullIndexScope(scopeCategory);
+  }, [scopeCategory]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -52,6 +58,7 @@ export function useCatalogIndex() {
         setLoading(true);
         setError(false);
         setComplete(false);
+        setProducts([]);
         setProductCount(0);
         setCategorySummary({});
 
@@ -76,6 +83,23 @@ export function useCatalogIndex() {
           .catch((summaryError) => {
             if (!controller.signal.aborted) console.warn("Catalog category summary unavailable", summaryError);
           });
+
+        const categoryIndexFile = !fullIndexRequested && scopeCategory
+          ? manifest.categoryIndexFiles?.[scopeCategory]
+          : undefined;
+        if (categoryIndexFile) {
+          const categoryProducts = await fetchJson<CatalogIndexProduct[]>(
+            versioned(`/catalog-data/${categoryIndexFile}`, catalogDataVersion),
+            controller.signal,
+            "force-cache",
+          );
+          if (!controller.signal.aborted) {
+            setProducts(categoryProducts);
+            setComplete(true);
+            setLoading(false);
+          }
+          return;
+        }
 
         const firstChunkUrl = versioned(
           "/catalog-data/search-index-001.json",
@@ -164,9 +188,9 @@ export function useCatalogIndex() {
       if (backgroundTimer !== undefined) window.clearTimeout(backgroundTimer);
       controller.abort();
     };
-  }, []);
+  }, [fullIndexRequested, scopeCategory]);
 
-  return { products, productCount, categorySummary, loading, error, complete };
+  return { products, productCount, categorySummary, loading, error, complete, loadComplete };
 }
 
 export function useCatalogProduct(handle: string) {

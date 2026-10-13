@@ -93,9 +93,9 @@ export default function Checkout() {
       <main className="mx-auto max-w-7xl px-4 py-8 md:py-12">
         <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#FFC000]">Шаг 2 из 3</p>
         <h1 className="mt-2 text-3xl font-extrabold md:text-5xl">Оформление заказа</h1>
-        <p className="mt-3 max-w-3xl leading-7 text-gray-400">Оставьте контакты и способ доставки. До оплаты согласуем товары, итоговую сумму и срок. Получатель оплаты — ИП Тлеуғазы.</p>
+        <p className="mt-3 max-w-3xl leading-7 text-gray-400">Оставьте контакты и способ доставки. До оплаты согласуем товары, итоговую сумму и срок. Получатель оплаты — {merchant.name}.</p>
 
-        <p className="mt-3 text-sm text-gray-300">{merchant.name} · ИИН {merchant.iin}</p>
+        <p className="mt-3 text-sm text-gray-300">{merchant.name} · БИН {merchant.bin}</p>
         <CommerceLinks />
 
         {items.length === 0 ? (

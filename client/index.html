@@ -44,7 +44,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Optimized: 2 font families only (Bebas Neue for headings, Inter for body) -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
 
     <!-- Consent and internal-traffic gate runs before every analytics vendor. -->
     <script src="/analytics-gate.js"></script>
@@ -70,7 +72,7 @@
   ],
   "@id": "https://acahydraulic.kz/#business",
   "name": "ACA Hydraulic",
-  "legalName": "ИП Тлеуғазы",
+  "legalName": "ТОО «АСА-ГС»",
   "image": "https://acahydraulic.kz/webdev-static-assets/og-image.jpg",
   "logo": {
     "@type": "ImageObject",
@@ -93,7 +95,7 @@
   "paymentAccepted": "Cash, Bank Transfer",
   "description": "Профессиональный выездной сервис и ремонт гидравлики спецтехники, экскаваторов и буровых установок в Астане и по всему Казахстану. Ежедневно, по договорённости. Перед приездом согласуйте время.",
   "slogan": "Выездной сервис гидравлики спецтехники",
-  "taxID": "950909351023",
+  "taxID": "240540017992",
   "areaServed": [
     {
       "@type": "City",

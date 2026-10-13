@@ -10,9 +10,9 @@ test('return policy is published with the confirmed shipping and defect terms', 
   assert.match(html, /14 календарных дней/);
   assert.match(html, /не возлагаются автоматически на покупателя/);
   assert.match(html, /Обязательные права покупателя/);
-  assert.match(html, /ИП Тлеуғазы/);
-  assert.match(html, /950909351023/);
-  assert.doesNotMatch(html, /240540017992/);
+  assert.match(html, /ТОО «АСА-ГС»/);
+  assert.match(html, /240540017992/);
+  assert.doesNotMatch(html, /ИП Тлеуғазы|950909351023|KZ10601A871084470181/);
   assert.match(html, /https:\/\/acahydraulic.kz\/delivery-and-returns\//);
 });
 

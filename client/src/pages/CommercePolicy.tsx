@@ -16,7 +16,7 @@ export default function CommercePolicy() {
       {policy.sections.map(section => <section key={section.title}>
         <h2 className="mb-3 text-xl font-bold text-white">{section.title}</h2><p>{section.text}</p>
       </section>)}
-      <section><h2 className="mb-4 text-xl font-bold text-white">Реквизиты получателя</h2><MerchantDetails /></section>
+      <section><h2 className="mb-4 text-xl font-bold text-white">Реквизиты продавца и получателя оплаты</h2><MerchantDetails /></section>
       <p className="flex flex-wrap gap-4"><a href="tel:+77714177925" className="inline-flex min-h-11 items-center text-[#FFC000] underline">+7 771 417 79 25</a><a href="mailto:info@acahydraulic.kz" className="inline-flex min-h-11 items-center text-[#FFC000] underline">info@acahydraulic.kz</a></p>
       <CommerceLinks />
     </div>

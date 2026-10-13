@@ -9,7 +9,7 @@ import { Phone, MessageCircle, Wrench, HardHat, Truck, ShieldCheck, Scan, Micros
 import CostCalculator from "@/components/CostCalculator";
 import { Link } from "wouter";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import B2BLeadForm from "@/components/B2BLeadForm";
 import StickyMobileBar from "@/components/StickyMobileBar";
 import { useTranslation } from "react-i18next";
@@ -162,13 +162,18 @@ export default function Home() {
       <section className="relative flex flex-col">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/images/hero-bg-v4.webp" 
-            alt="Excavator in mine" 
-            className="w-full h-full object-cover object-[75%_center] md:object-center scale-100 origin-center brightness-90"
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture className="block h-full w-full">
+            <source media="(max-width: 767px)" srcSet="/images/hero-bg-v4-mobile.webp" />
+            <img
+              src="/images/hero-bg-v4.webp"
+              alt="Выездной ремонт гидравлики спецтехники ACA Hydraulic"
+              width={1536}
+              height={2752}
+              className="h-full w-full object-cover object-[75%_center] brightness-90 md:object-center"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
           {/* Gradients */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/95"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent md:via-black/40 md:to-transparent"></div>
@@ -770,7 +775,7 @@ export default function Home() {
             <p className="text-gray-600 text-xs">
               &copy; {new Date().getFullYear()} ACA Hydraulic. {t('footer.rights')}
             </p>
-            <div className="max-w-full"><p className="text-sm text-gray-500">ИП Тлеуғазы · ИИН 950909351023</p><CommerceLinks /></div>
+            <div className="max-w-full"><p className="text-sm text-gray-500">Продавец и получатель оплаты: <Link href="/offer/" className="underline underline-offset-4 hover:text-[#FFC000]">ТОО «АСА-ГС» · БИН 240540017992</Link></p><CommerceLinks /></div>
           </div>
         </div>
       </footer>
@@ -779,6 +784,7 @@ export default function Home() {
       <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}>
         <DialogContent className="bg-white dark:bg-zinc-900 sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
           <DialogTitle className="sr-only">Заявка на ремонт</DialogTitle>
+          <DialogDescription className="sr-only">Укажите технику, место работ и контакты, чтобы подготовить сообщение для WhatsApp.</DialogDescription>
           <B2BLeadForm />
         </DialogContent>
       </Dialog>

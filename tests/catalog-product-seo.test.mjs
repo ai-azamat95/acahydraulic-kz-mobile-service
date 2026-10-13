@@ -7,6 +7,7 @@ import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { t
 import pilotCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
 import phase2Copy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
 import phase3Copy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
+import priorityCopy from '../shared/catalog-product-priority-copy.json' with { type: 'json' };
 import catalogAliases from '../shared/catalog-canonical-aliases.json' with { type: 'json' };
 import ownerProducts from '../shared/catalog-owner-products.json' with { type: 'json' };
 import { catalogOfferHasConfirmedSupply, catalogProductName, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductImageIsPlaceholder, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
@@ -36,6 +37,7 @@ const products = [
     .flatMap(file => JSON.parse(fs.readFileSync(`${dir}/${file}`, 'utf8'))),
   ...ownerProducts,
 ];
+const fullSearchIndex = JSON.parse(fs.readFileSync(`${dir}/search-index.json`, 'utf8'));
 const codes = text => text.toUpperCase().match(/\b[A-Z0-9]+(?:[-./][A-Z0-9]+)*\b/g)?.filter(word => /\d/.test(word) && !/^(?:\d+V|\d+PCS?|\d+T)$/i.test(word)) || [];
 const normalizedIdentity = text => text.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
@@ -210,6 +212,25 @@ test('only a current ACA merchant offer is exposed as confirmed supply', () => {
   assert.equal(catalogOfferHasConfirmedSupply({ availability: 'preorder' }), false);
   assert.equal(catalogOfferHasConfirmedSupply(undefined), false);
   assert.equal(catalogOfferHasConfirmedSupply({ available: true }), false, 'supplier availability is not ACA stock evidence');
+});
+
+test('the first pump and injector result pages have reviewed Russian product names', () => {
+  assert.equal(Object.keys(priorityCopy).length, 6);
+  for (const [handle, content] of Object.entries(priorityCopy)) {
+    const product = products.find(item => item.handle === handle);
+    assert(product, `${handle}: priority product must exist`);
+    assert(/[а-яё]/i.test(content.name), `${handle}: Russian name is required`);
+    assert.doesNotMatch(content.name, /\b(?:Hydraulic|Fuel|Pump|Injector|for|Engine|Truck|Excavator)\b/i, `${handle}: untranslated generic word`);
+    assert(content.title.length <= 65, `${handle}: title is too long`);
+    assert(content.description.length >= 110 && content.description.length <= 180, `${handle}: description length`);
+    assert.doesNotMatch(content.description, /в наличии|оригинал|гарантия\s+\d|за\s+\d+\s*дн/i, `${handle}: invented commercial promise`);
+    assert.equal(catalogProductName(product), content.name);
+  }
+
+  for (const categoryId of ['hydraulic-pumps', 'fuel-injectors']) {
+    const firstPage = fullSearchIndex.filter(product => (product.categories?.length ? product.categories : [product.category]).includes(categoryId)).slice(0, 10);
+    assert(firstPage.every(product => /[а-яё]/i.test(catalogProductName(product))), `${categoryId}: first page still contains an untranslated title`);
+  }
 });
 
 test('category artwork is distinguishable from product-specific photography', () => {

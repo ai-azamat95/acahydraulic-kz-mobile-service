@@ -22,7 +22,9 @@ async function fetchFile(fileName) {
   const body = Buffer.from(await response.arrayBuffer());
   if (body.length === 0) throw new Error(`Snapshot file is empty: ${url}`);
   JSON.parse(body.toString("utf8"));
-  fs.writeFileSync(path.join(stagingDir, fileName), body);
+  const outputPath = path.join(stagingDir, fileName);
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, body);
 }
 
 async function run() {
@@ -41,6 +43,7 @@ async function run() {
       manifest.categorySummaryFile || "category-summary.json",
     ];
     if (manifest.indexFile) files.push(manifest.indexFile);
+    files.push(...Object.values(manifest.categoryIndexFiles || {}));
     for (let page = 1; page <= manifest.chunkCount; page += 1) {
       const suffix = String(page).padStart(3, "0");
       files.push(`products-${suffix}.json`, `search-index-${suffix}.json`);

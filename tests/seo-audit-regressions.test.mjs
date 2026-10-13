@@ -44,7 +44,8 @@ test('business schema uses confirmed identity and appointment-only availability'
   const businesses = schemas(read('')).filter(s => s['@id'] === 'https://acahydraulic.kz/#business');
   assert.equal(businesses.length, 1);
   const [business] = businesses;
-  assert.equal(business.legalName, 'ИП Тлеуғазы');
+  assert.equal(business.legalName, 'ТОО «АСА-ГС»');
+  assert.equal(business.taxID, '240540017992');
   assert.equal(business.openingHoursSpecification, undefined);
   assert.equal(business.contactPoint.hoursAvailable, undefined);
   assert.match(business.description, /по договорённости/);
