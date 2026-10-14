@@ -141,8 +141,8 @@ const explicitMeta = {
     description: 'Экстренный выезд на аварийный ремонт гидравлики спецтехники. Помогаем сократить простой экскаваторов, буровых и дорожной техники.',
   },
   'services/hydraulic-pumps': {
-    title: 'Ремонт гидронасосов спецтехники | ACA Hydraulic',
-    description: 'Диагностика, ремонт и восстановление гидронасосов CAT, Komatsu, Hitachi, Kawasaki, Rexroth и Sauer для спецтехники.',
+    title: 'Ремонт гидронасосов экскаваторов в Астане | ACA Hydraulic',
+    description: 'Диагностика и ремонт гидронасосов экскаваторов и спецтехники в Астане, выезд по Казахстану. Дефектовка, смета и проверка результата после ремонта.',
   },
   'services/hydraulic-motors': {
     title: 'Ремонт гидромоторов спецтехники | ACA Hydraulic',
@@ -327,7 +327,7 @@ function escapeHtml(value) {
 function fallbackLinks(route) {
   if (route.startsWith('blog/')) {
     return [
-      ['Ремонт гидронасосов', '/services/hydraulic-pumps/'],
+      ['Ремонт гидронасосов экскаваторов', '/services/hydraulic-pumps/'],
       ['Ремонт гидромоторов', '/services/hydraulic-motors/'],
       ['Гидронасосы по OEM и модели', '/catalog/category/hydraulic-pumps/'],
       ['Гидромоторы для спецтехники', '/catalog/category/hydraulic-motors/'],

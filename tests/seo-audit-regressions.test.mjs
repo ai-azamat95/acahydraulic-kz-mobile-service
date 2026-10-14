@@ -134,6 +134,24 @@ test('pressure article contains actual diagnosis content before JavaScript runs'
   assert.equal(schemas(html).filter(s => s['@type'] === 'BlogPosting').length, 1);
 });
 
+test('hydraulic pump service matches the commercial excavator repair intent', () => {
+  const service = read('services/hydraulic-pumps/');
+  const article = read('blog/remont-ili-zamena-gidronasosa/');
+
+  assert.match(service, /<title[^>]*>Ремонт гидронасосов экскаваторов в Астане \| ACA Hydraulic<\/title>/);
+  assert.match(service, /<h1[^>]*>Ремонт гидронасосов экскаваторов и спецтехники<\/h1>/);
+  assert.match(service, /Ремонт гидронасоса экскаватора начинается с проверки гидросистемы/);
+  assert.match(article, /href="\/services\/hydraulic-pumps\/"[^>]*>Ремонт гидронасосов экскаваторов и спецтехники<\/a>/);
+  assert.match(service, /aria-label="Тип техники"/);
+  assert.match(service, /aria-label="Срочность ремонта"/);
+  assert.match(service, /text-\[\#8a5a00\]/);
+  assert.doesNotMatch(service, /text-\[\#FFB800\]\/20/);
+
+  const schema = schemas(service).find(item => item['@type'] === 'Service');
+  assert.equal(schema?.name, 'Ремонт гидронасосов экскаваторов в Астане | ACA Hydraulic');
+  assert.equal(schema?.url, 'https://acahydraulic.kz/services/hydraulic-pumps/');
+});
+
 test('technical blog articles expose an article schema before JavaScript runs', () => {
   for (const route of [
     'remont-gidravliki-frezy-wirtgen-1500',
