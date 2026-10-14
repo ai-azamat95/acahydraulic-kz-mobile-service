@@ -23,4 +23,5 @@ jobs:
       - run: node scripts/create-video-seo-routes.mjs
       - run: node scripts/create-merchant-feed.mjs
       - run: node scripts/create-catalog-landing-routes.mjs
+      - run: node scripts/apply-markdown-alternates.mjs
       - run: node --test tests/*.test.mjs
