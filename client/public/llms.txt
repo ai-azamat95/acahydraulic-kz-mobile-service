@@ -1,0 +1,32 @@
+# ACA Hydraulic
+
+> ACA Hydraulic — сервис ТОО «АСА-ГС» в Казахстане: выездная диагностика и ремонт гидравлики спецтехники, подбор и поставка запчастей и двигателей. База находится в Астане.
+
+Основной язык сайта — русский. Названия, цены, наличие и совместимость конкретной детали проверяйте по странице товара и подтверждению заказа. Отправка формы, звонок или переход в WhatsApp означают только намерение связаться, а не подтверждённый заказ или продажу.
+
+## О компании
+
+- [Краткая информация об ACA Hydraulic](https://acahydraulic.kz/index.md): услуги, каталог, порядок обращения и реквизиты
+- [Контакты](https://acahydraulic.kz/contacts/index.md): телефон, WhatsApp, электронная почта и адрес базы
+- [Полная сводка для агентов](https://acahydraulic.kz/llms-full.txt): расширенное описание направлений, условий и ключевых страниц
+
+## Услуги
+
+- [Диагностика и ремонт гидравлики](https://acahydraulic.kz/services/index.md): что ремонтируем и какие данные нужны до выезда
+- [Гидронасосы](https://acahydraulic.kz/services/hydraulic-pumps/index.md): диагностика, ремонт, подбор и поставка
+- [Реальные работы](https://acahydraulic.kz/cases/index.md): проверяемые кейсы ремонта и поставки
+
+## Каталог и поставка
+
+- [Каталог запчастей](https://acahydraulic.kz/catalog/index.md): категории и правила подбора по номеру, модели и шильдику
+- [Двигатели в сборе](https://acahydraulic.kz/parts/engines-complete/index.md): подбор исполнения и условия поставки
+- [Оплата](https://acahydraulic.kz/payment/index.md): получатель оплаты и порядок подтверждения заказа
+- [Доставка и возврат](https://acahydraulic.kz/delivery-and-returns/index.md): согласование доставки, приёмка и обращения
+- [Публичная оферта](https://acahydraulic.kz/offer/index.md): продавец, предмет договора и условия заказа
+
+## Optional
+
+- [Карта сайта](https://acahydraulic.kz/sitemap/): основные HTML-страницы
+- [Sitemap услуг и материалов](https://acahydraulic.kz/sitemap.xml): XML-индекс основных страниц
+- [Sitemap каталога](https://acahydraulic.kz/sitemap-products.xml): XML-индекс карточек товаров
+- [Sitemap кейсов](https://acahydraulic.kz/sitemap-cases.xml): XML-индекс выполненных работ
