@@ -7,8 +7,8 @@ const content = serviceContent["/services/hydraulic-pumps"];
 const HydraulicPumps = () => {
   return (
     <ServicePageTemplate
-      title="Ремонт гидронасосов спецтехники"
-      description="Диагностика и ремонт гидронасосов спецтехники в Астане. Определяем причину неисправности, согласуем смету и проверяем результат ремонта."
+      title="Ремонт гидронасосов экскаваторов и спецтехники"
+      description="Диагностируем гидросистему, выполняем дефектовку и ремонт гидронасоса. Согласуем смету и проверяем результат после ремонта."
       seoTitle={content.title}
       seoDescription={content.description}
       seoKeywords="ремонт гидронасоса, ремонт гидронасоса Астана, ремонт Kawasaki K3V, ремонт Rexroth A8VO, ремонт аксиально-поршневого насоса, ремонт гидронасоса экскаватора"

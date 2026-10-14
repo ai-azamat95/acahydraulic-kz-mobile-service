@@ -143,18 +143,18 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
 
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Тип техники</Label>
+              <Label htmlFor="equipmentType">Тип техники</Label>
               <Select value={formData.equipmentType} onValueChange={value => setFormData({...formData, equipmentType:value})}>
-                <SelectTrigger className="bg-zinc-50 dark:bg-zinc-950"><SelectValue placeholder="Выберите тип" /></SelectTrigger>
+                <SelectTrigger id="equipmentType" aria-label="Тип техники" className="bg-zinc-50 dark:bg-zinc-950"><SelectValue placeholder="Выберите тип" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="excavator">Экскаватор</SelectItem><SelectItem value="loader">Погрузчик</SelectItem><SelectItem value="crane">Автокран</SelectItem><SelectItem value="bulldozer">Бульдозер</SelectItem><SelectItem value="drilling">Буровая установка</SelectItem><SelectItem value="other">Другое</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>Срочность</Label>
+              <Label htmlFor="urgency">Срочность</Label>
               <Select value={formData.urgency} onValueChange={value => setFormData({...formData, urgency:value})}>
-                <SelectTrigger className="bg-zinc-50 dark:bg-zinc-950"><SelectValue placeholder="Выберите приоритет" /></SelectTrigger>
+                <SelectTrigger id="urgency" aria-label="Срочность ремонта" className="bg-zinc-50 dark:bg-zinc-950"><SelectValue placeholder="Выберите приоритет" /></SelectTrigger>
                 <SelectContent><SelectItem value="emergency">Срочно</SelectItem><SelectItem value="planned">Плановый ремонт</SelectItem><SelectItem value="maintenance">Техническое обслуживание</SelectItem><SelectItem value="tender">Тендер / Запрос КП</SelectItem></SelectContent>
               </Select>
             </div>

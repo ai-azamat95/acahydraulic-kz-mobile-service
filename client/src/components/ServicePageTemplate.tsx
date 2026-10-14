@@ -111,7 +111,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
 
         <section className="py-20">
           <div className="container px-4 md:px-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Почему с нами работают <span className="text-[#FFB800]">крупные компании</span></h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Почему с нами работают <span className="text-[#8a5a00]">крупные компании</span></h2>
             <div className="grid md:grid-cols-3 gap-5">{benefits.map((benefit, idx) => <Card key={idx} className="bg-white border border-[#d8e0d8] shadow-sm"><CardContent className="p-6 md:p-8"><h3 className="text-xl font-bold mb-4 text-[#7d5d0b]">{benefit.title}</h3><p className="text-[#52635b] leading-relaxed">{benefit.desc}</p></CardContent></Card>)}</div>
           </div>
         </section>
@@ -119,7 +119,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
         <section className="py-14 md:py-20 bg-[#203831] text-white">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Этапы работы</h2>
-            <div className="grid md:grid-cols-4 gap-8">{processSteps.map((step, idx) => <div key={idx} className="relative"><div className="text-6xl font-bold text-[#FFB800]/20 mb-4">0{idx + 1}</div><h3 className="text-xl font-bold mb-2">{step.title}</h3><p className="text-gray-400 text-sm">{step.desc}</p>{idx < processSteps.length - 1 && <ArrowRight className="hidden md:block absolute top-8 -right-4 text-gray-600"/>}</div>)}</div>
+            <div className="grid md:grid-cols-4 gap-8">{processSteps.map((step, idx) => <div key={idx} className="relative"><div className="text-6xl font-bold text-[#FFB800] mb-4">0{idx + 1}</div><h3 className="text-xl font-bold mb-2">{step.title}</h3><p className="text-gray-400 text-sm">{step.desc}</p>{idx < processSteps.length - 1 && <ArrowRight className="hidden md:block absolute top-8 -right-4 text-gray-600"/>}</div>)}</div>
           </div>
         </section>
 
