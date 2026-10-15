@@ -1,5 +1,20 @@
 [
   {
+    "id": "equipment",
+    "ru": "Техника и оборудование",
+    "kz": "Техника және жабдық",
+    "en": "Machinery and equipment",
+    "description": {
+      "ru": "Спецтехника JCB и навесное оборудование под задачу",
+      "kz": "Міндетке сай JCB техникасы және аспалы жабдық",
+      "en": "JCB machinery and attachments selected for the job"
+    },
+    "categories": [
+      "construction-machinery",
+      "attachments"
+    ]
+  },
+  {
     "id": "hydraulics",
     "ru": "Гидравлика",
     "kz": "Гидравлика",

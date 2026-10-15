@@ -79,7 +79,11 @@ const priorityHandles = new Map([
 ]);
 
 const existingCopy = { ...reviewedCopy, ...pilotCopy, ...merchantCopy };
+// Preserve the brand vocabulary used to review the fixed October 11 cohorts.
+// New navigation brands must not silently reselect or rewrite approved copy.
+const reviewedBrandSlugs = new Set('caterpillar komatsu hitachi volvo hyundai sany xcmg shantui doosan kobelco liebherr jcb danfoss rexroth kawasaki parker husco handok cummins'.split(' '));
 const brandAliases = landings.brands
+  .filter(brand => reviewedBrandSlugs.has(brand.slug))
   .flatMap(brand => brand.aliases.map(alias => ({ alias, name: brand.name.replace(/\s+CE$/i, '') })))
   .sort((a, b) => b.alias.length - a.alias.length);
 
@@ -326,7 +330,8 @@ export function loadProducts() {
   return fs.readdirSync(catalogDir)
     .filter(file => /^search-index-\d+\.json$/.test(file))
     .sort()
-    .flatMap(file => JSON.parse(fs.readFileSync(path.join(catalogDir, file), 'utf8')));
+    .flatMap(file => JSON.parse(fs.readFileSync(path.join(catalogDir, file), 'utf8')))
+    .filter(product => !product.catalogSupplement);
 }
 
 export function createCatalogProductCopy(products, {

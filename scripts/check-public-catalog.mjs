@@ -91,10 +91,13 @@ for (const [categoryId, relativePath] of Object.entries(manifest.categoryIndexFi
 }
 const pumpParts = products.filter((product) => (product.categories || [product.category]).includes('pump-parts'));
 const wiringHarnesses = products.filter((product) => (product.categories || [product.category]).includes('wiring-harnesses'));
-const fuelInjectors = products.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
+// The historical supplier photo audit applies to its original cohort. The new
+// inquiry-only supplement may have no usable photo; it must never borrow one.
+const auditedImageProducts = products.filter(product => !product.catalogSupplement);
+const fuelInjectors = auditedImageProducts.filter((product) => (product.categories || [product.category]).includes('fuel-injectors'));
 const allowedFuelInjectorFallbackIds = new Set(['7100999762082', '7100999860386']);
 const allowedFuelInjectorGalleryIds = new Set(['8837524848802']);
-const fuelPumps = products.filter((product) => (product.categories || [product.category]).includes('fuel-pumps'));
+const fuelPumps = auditedImageProducts.filter((product) => (product.categories || [product.category]).includes('fuel-pumps'));
 const engineRebuildKits = products.filter((product) => (product.categories || [product.category]).includes('engine-rebuild-kits'));
 const controllers = products.filter((product) => (product.categories || [product.category]).includes('controllers'));
 const monitors = products.filter((product) => (product.categories || [product.category]).includes('monitors'));

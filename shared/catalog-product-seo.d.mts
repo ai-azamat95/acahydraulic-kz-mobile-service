@@ -1,6 +1,9 @@
 type SeoProduct = {
   handle: string;
   title: string;
+  catalogSupplement?: string;
+  catalogDescription?: string;
+  catalogSelection?: string;
   category: string;
   categories?: string[];
   fitment?: string | null;
@@ -15,4 +18,4 @@ export function catalogProductHasReviewedCopy(product: Pick<SeoProduct, "handle"
 export function catalogProductImageIsPlaceholder(product: { imageUrl?: string | null }): boolean;
 export function catalogOfferHasConfirmedSupply(merchantOffer?: { availability?: string }): boolean;
 export function catalogProductCategories(product: Pick<SeoProduct, "category" | "categories">): { id: string; title: string; description: string; intro: string }[];
-export function catalogProductSelection(product: Pick<SeoProduct, "handle" | "approvedSale" | "ownerEvidence">): string;
+export function catalogProductSelection(product: Pick<SeoProduct, "handle" | "approvedSale" | "ownerEvidence" | "catalogSupplement" | "catalogSelection">): string;

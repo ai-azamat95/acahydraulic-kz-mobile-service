@@ -173,17 +173,17 @@ for (const category of catalogCategoryLandings) {
 }
 for (const brand of brandPages) {
   pages.push({
-    type: 'brand', slug: brand.slug, title: `Запчасти ${brand.name} для спецтехники`,
-    description: `Каталог запчастей ${brand.name} для спецтехники. Подбор по OEM-номеру, модели и серийному номеру с проверкой совместимости до оплаты.`,
-    intro: `Подбираем запчасти ${brand.name} по каталожному номеру, модели и серийному номеру техники. Сверяем исполнение и комплектацию до подтверждения заказа.`,
+    type: 'brand', slug: brand.slug, title: brand.title || `Запчасти ${brand.name} для спецтехники`,
+    description: brand.description || `Каталог запчастей ${brand.name} для спецтехники. Подбор по OEM-номеру, модели и серийному номеру с проверкой совместимости до оплаты.`,
+    intro: brand.intro || `Подбираем запчасти ${brand.name} по каталожному номеру, модели и серийному номеру техники. Сверяем исполнение и комплектацию до подтверждения заказа.`,
     matches: products.filter((product) => productBrandSlugs.get(product.id).includes(brand.slug)),
   });
 }
 for (const model of modelPages) {
   pages.push({
     type: 'model', slug: model.slug,
-    title: `Запчасти для ${model.engine ? 'двигателя' : 'спецтехники'} ${model.brand} ${model.label}`,
-    description: `Запчасти для ${model.brand} ${model.label}: поиск по OEM-номеру и узлу, проверка исполнения и совместимости, поставка по Казахстану.`,
+    title: model.brand === 'JCB' ? `Каталог ${model.brand} ${model.label}: запчасти и техника` : `Запчасти для ${model.engine ? 'двигателя' : 'спецтехники'} ${model.brand} ${model.label}`,
+    description: model.brand === 'JCB' ? `Техника и запчасти ${model.brand} ${model.label} в Казахстане. Подбор исполнения машины под задачу и деталей по OEM-номеру. Цена и срок по запросу.` : `Запчасти для ${model.brand} ${model.label}: поиск по OEM-номеру и узлу, проверка исполнения и совместимости, поставка по Казахстану.`,
     intro: `В каталоге собраны позиции, где прямо указана применяемость к ${model.brand} ${model.label}. Окончательную совместимость подтверждаем по OEM и серийному номеру.`,
     matches: products.filter((product) => productModels.get(product.id).some((item) => item.slug === model.slug)),
   });

@@ -131,7 +131,7 @@ export default function CatalogProduct() {
   const isHuscoOwnerCase = product.ownerCase?.casePath === huscoCase.casePath;
   const ownerSaleTerms = isXcmgOwnerSale ? xcmgSale.terms[language] : catSale.terms[language];
   const fixedOffer = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct);
-  const commercialContactFirst = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerEvidence || product.ownerCase);
+  const commercialContactFirst = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerEvidence || product.ownerCase || product.catalogSupplement);
   const displayedPrice = product.minPriceKzt !== null
     ? `${fixedOffer ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
@@ -157,7 +157,10 @@ export default function CatalogProduct() {
       : undefined;
   const mainSku = product.variants.find((variant) => variant.sku)?.sku || product.id;
   const fitmentText = product.fitment || copy.fitmentUnknown;
-  const fitmentLabel = (product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase)
+  const equipmentInquiry = product.category === "construction-machinery" || product.category === "attachments";
+  const fitmentLabel = equipmentInquiry
+    ? language === "ru" ? "Модель и условия подбора" : language === "kz" ? "Модель және іріктеу шарттары" : "Model and selection requirements"
+    : (product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase || product.catalogSupplement)
     ? language === "ru" ? "Применяемость этого исполнения" : language === "kz" ? "Осы нұсқаның қолданылуы" : "Applications of this configuration"
     : copy.fitmentLabel;
   const seriesNote = isHuscoOwnerCase
@@ -292,12 +295,12 @@ export default function CatalogProduct() {
               {selectedImage && !imageFailed && (
                 <span className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1 rounded bg-black/70 px-2.5 py-1 text-xs font-medium text-white">
                   <ZoomIn className="h-3.5 w-3.5" aria-hidden="true" />
-                  {product.ownerEvidence ? "Пример маркировки узла" : imageIsCategoryPlaceholder ? "Иллюстрация категории" : "Фото товара"}
+                  {product.ownerEvidence ? "Пример маркировки узла" : imageIsCategoryPlaceholder ? "Иллюстрация категории" : product.catalogSupplement ? "Фото из каталога" : "Фото товара"}
                 </span>
               )}
             </div>
 
-            {product.ownerEvidence && <p className="mt-3 text-sm leading-6 text-gray-400">{product.ownerEvidence.photoCaption}</p>}
+            {(product.ownerEvidence || product.catalogImageCaption) && <p className="mt-3 text-sm leading-6 text-gray-400">{product.ownerEvidence?.photoCaption || product.catalogImageCaption}</p>}
 
             {gallery.length > 1 && (
               <div className="mt-3 grid grid-cols-5 gap-2 sm:grid-cols-6 md:grid-cols-8">
@@ -327,14 +330,16 @@ export default function CatalogProduct() {
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight [overflow-wrap:anywhere] md:text-5xl">{productSeo.name}</h1>
             {commercialContactFirst && <div className="mt-4">
-              <p className="text-sm leading-6 text-gray-300">{language === "ru" ? "Под заказ · поставка по Казахстану. Исполнение, цену и срок подтвердим по шильдику." : language === "kz" ? "Тапсырыс бойынша · Қазақстанға жеткізу. Нұсқа, баға мен мерзімді тақтайша бойынша растаймыз." : "Supply to order across Kazakhstan. Configuration, price and lead time are confirmed using the nameplate."}</p>
+              <p className="text-sm leading-6 text-gray-300">{equipmentInquiry
+                ? language === "ru" ? "Возможность поставки в Казахстан — по запросу. Модель, комплектацию, цену и срок согласуем в предложении." : language === "kz" ? "Қазақстанға жеткізу мүмкіндігі сұрау бойынша анықталады. Модель, жинақтама, баға мен мерзімді ұсыныста келісеміз." : "Availability for supply to Kazakhstan is checked on request. Model, specification, price and lead time are agreed in the quotation."
+                : language === "ru" ? "Под заказ · поставка по Казахстану. Исполнение, цену и срок подтвердим по шильдику." : language === "kz" ? "Тапсырыс бойынша · Қазақстанға жеткізу. Нұсқа, баға мен мерзімді тақтайша бойынша растаймыз." : "Supply to order across Kazakhstan. Configuration, price and lead time are confirmed using the nameplate."}</p>
               <button type="button" onClick={() => requestProduct()} className="mt-4 inline-flex min-h-12 items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#E6AC00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">
                 <MessageCircle className="h-5 w-5" aria-hidden="true" />
                 {language === "ru" ? "Получить цену и срок" : language === "kz" ? "Баға мен мерзімді білу" : "Get price and lead time"}
               </button>
             </div>}
             {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
-            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct || product.ownerCase || hasReviewedCopy) ? seoDescription : copy.productDescription}</p>
+            <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct || product.ownerCase || product.catalogSupplement || hasReviewedCopy) ? seoDescription : copy.productDescription}</p>
 
             <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
               <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{fitmentLabel}</h2>

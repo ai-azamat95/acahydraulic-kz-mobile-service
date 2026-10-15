@@ -4,6 +4,11 @@ export type CatalogIndexProduct = {
   legacyHandles?: string[];
   title: string;
   catalogTitle?: string;
+  catalogSupplement?: string;
+  applicationBrand?: string;
+  catalogDescription?: string;
+  catalogSelection?: string;
+  catalogImageCaption?: string;
   fitment: string | null;
   sku: string;
   brand?: string;

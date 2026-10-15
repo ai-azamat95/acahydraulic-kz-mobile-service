@@ -62,7 +62,7 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
   ru: {
     languageName: "Русский",
     backToService: "Выездной ремонт",
-    pageTitle: "Запчасти для спецтехники",
+    pageTitle: "Запчасти и спецтехника",
     pageDescription: "Запчасти под заказ. Цену, срок и совместимость подтвердим по OEM, модели и фото шильдика.",
     searchLabel: "Номер детали или название",
     searchPlaceholder: "Например: K5V160DT, 90R055 или гидронасос",
@@ -79,7 +79,7 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
     brandsTitle: "Работаем с основными брендами",
     brandsDescription: "Оригинальные, OEM и проверенные аналоги. Вариант согласуем до оплаты.",
     requestTitle: "Не нашли деталь в каталоге?",
-    requestDescription: "Каталог не ограничивает ассортимент. Отправьте запрос, и мы проверим поставщиков в Казахстане и Китае.",
+    requestDescription: "Каталог не ограничивает ассортимент. Отправьте номер детали или задачу, и мы проверим доступные предложения поставщиков.",
     requestButton: "Отправить запрос",
     requestNote: "Цена и срок подтверждаются после проверки номера и совместимости.",
     processTitle: "Как проходит подбор",
@@ -233,6 +233,8 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
 };
 
 export const partCategories = [
+  { id: "construction-machinery", ru: "Спецтехника JCB", kz: "JCB арнайы техникасы", en: "JCB construction machinery" },
+  { id: "attachments", ru: "Навесное оборудование", kz: "Аспалы жабдық", en: "Attachments" },
   { id: "hydraulic-pumps", ru: "Гидронасосы", kz: "Гидросорғылар", en: "Hydraulic pumps" },
   { id: "gear-pumps", ru: "Шестерёнчатые насосы", kz: "Тісті сорғылар", en: "Gear pumps" },
   { id: "piston-pumps", ru: "Поршневые насосы", kz: "Поршеньді сорғылар", en: "Piston pumps" },
@@ -257,5 +259,5 @@ export const partCategories = [
 ] as const;
 
 export const supportedBrands = [
-  "Caterpillar", "Komatsu", "Hitachi", "Volvo CE", "Hyundai", "SANY", "XCMG", "Shantui", "Doosan", "Kobelco", "Liebherr", "JCB", "Danfoss", "Rexroth", "Kawasaki", "Parker", "HUSCO", "HANDOK", "Cummins",
+  "Caterpillar", "Komatsu", "Hitachi", "Volvo CE", "Hyundai", "SANY", "XCMG", "Shantui", "Doosan", "Kobelco", "Liebherr", "JCB", "Danfoss", "Rexroth", "Kawasaki", "Parker", "HUSCO", "HANDOK", "Cummins", "Perkins", "FPT",
 ];
