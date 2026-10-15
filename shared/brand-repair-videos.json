@@ -1,0 +1,117 @@
+{
+  "hitachi": {
+    "name": "Hitachi",
+    "videos": [
+      {
+        "platform": "tiktok",
+        "id": "7529938314011380997",
+        "title": "Hitachi 330-5G: плавает давление, стрела идёт рывками",
+        "description": "Выезд на объект: нестабильное давление, медленная работа экскаватора и рывки стрелы.",
+        "relatedHref": "/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami/",
+        "relatedLabel": "Разбор неисправности Hitachi 330-5G"
+      }
+    ]
+  },
+  "hyundai": {
+    "name": "Hyundai",
+    "videos": [
+      {
+        "platform": "youtube",
+        "id": "EmwYLJDrsh8",
+        "title": "Hyundai HX300SL: ремонт гидравлики, часть 2",
+        "description": "Работы на экскаваторе Hyundai HX300SL 2023 года выпуска."
+      },
+      {
+        "platform": "youtube",
+        "id": "hTdVBbP4r_s",
+        "title": "Hyundai HX300SL: ремонт на объекте, часть 3",
+        "description": "Продолжение выездного ремонта Hyundai HX300SL."
+      },
+      {
+        "platform": "youtube",
+        "id": "okwuAcykkzs",
+        "title": "Hyundai HX300SL: процесс ремонта гидравлики",
+        "description": "Видео работ с гидравликой экскаватора на объекте."
+      },
+      {
+        "platform": "youtube",
+        "id": "kEzSzcbIdA8",
+        "title": "Hyundai HX300SL: проверка и сдача заказчику",
+        "description": "Завершение ремонта, тестирование и сдача экскаватора заказчику."
+      },
+      {
+        "platform": "tiktok",
+        "id": "7548854684765687045",
+        "title": "Hyundai R300LC-9S: сбрасывал обороты при движении",
+        "description": "Отдельный ремонт Hyundai R300LC-9S: диагностика и восстановление хода."
+      }
+    ]
+  },
+  "komatsu": {
+    "name": "Komatsu",
+    "videos": [
+      {
+        "platform": "tiktok",
+        "id": "7487125515283827974",
+        "title": "Komatsu: реальные работы на объекте",
+        "description": "Видео выполненных работ ACA Hydraulic с техникой Komatsu."
+      }
+    ]
+  },
+  "wirtgen": {
+    "name": "Wirtgen",
+    "videos": [
+      {
+        "platform": "youtube",
+        "id": "QCoNajhkgnU",
+        "title": "Wirtgen 1500: нет хода — диагностика и ремонт",
+        "description": "Выездная диагностика и ремонт гидравлики дорожной фрезы Wirtgen 1500.",
+        "relatedHref": "/blog/remont-gidravliki-frezy-wirtgen-1500/",
+        "relatedLabel": "Разбор ремонта дорожной фрезы Wirtgen 1500"
+      }
+    ]
+  },
+  "cat": {
+    "name": "Caterpillar",
+    "videos": [
+      {
+        "platform": "youtube",
+        "id": "spniTTX9ECI",
+        "title": "CAT M318: не едет — диагностика гидравлики",
+        "description": "Первая часть: диагностика экскаватора CAT M318 при отсутствии хода."
+      },
+      {
+        "platform": "youtube",
+        "id": "ioaCaNVvlfo",
+        "title": "CAT M318: диагностика и ремонт, часть 2",
+        "description": "Продолжение работ с гидравликой экскаватора CAT M318."
+      },
+      {
+        "platform": "youtube",
+        "id": "ZW7GWSV3-BE",
+        "title": "CAT M318: финальная проверка, часть 3",
+        "description": "Завершающий этап: тест экскаватора после ремонта."
+      },
+      {
+        "platform": "tiktok",
+        "id": "7648329720278289672",
+        "title": "CAT 330DL: потеря мощности после прогрева",
+        "description": "Видео результата выездного ремонта экскаватора CAT 330DL.",
+        "relatedHref": "/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu/",
+        "relatedLabel": "Диагностика и ремонт CAT 330DL"
+      },
+      {
+        "platform": "tiktok",
+        "id": "7630110235562085650",
+        "title": "CAT 330D2L: восстановление после затопления",
+        "description": "Один из роликов восстановления экскаватора: от осмотра до запуска."
+      },
+      {
+        "platform": "youtube",
+        "id": "Sk9HX4HzSoo",
+        "title": "CAT M318: ремонт пилотного распределителя",
+        "description": "Работы с пилотным распределителем (манифолдом) CAT M318."
+      }
+    ]
+  }
+}
