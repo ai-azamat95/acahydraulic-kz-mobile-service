@@ -321,6 +321,29 @@ export default function CatalogProduct() {
                 ))}
               </div>
             )}
+            {Boolean(product.catalogVideos?.length) && (
+              <section className="mt-6 space-y-4" aria-label="Видео осмотра">
+                <h2 className="text-lg font-bold">{language === "ru" ? "Видео осмотра" : language === "kz" ? "Қарау бейнесі" : "Inspection video"}</h2>
+                {product.catalogVideos?.map(video => (
+                  <figure key={video.src}>
+                    <video
+                      controls
+                      playsInline
+                      preload="none"
+                      poster={video.poster}
+                      width={video.width}
+                      height={video.height}
+                      aria-label={video.caption}
+                      className="mx-auto max-h-[70vh] w-full rounded-lg bg-black object-contain"
+                    >
+                      <source src={video.src} type="video/mp4" />
+                      <a href={video.src}>Открыть видео</a>
+                    </video>
+                    <figcaption className="mt-2 text-sm leading-6 text-gray-400">{video.caption}</figcaption>
+                  </figure>
+                ))}
+              </section>
+            )}
           </section>
 
           <div className="min-w-0 lg:py-3">

@@ -10,6 +10,13 @@ export type CatalogIndexProduct = {
   catalogSelection?: string;
   catalogImageCaption?: string;
   catalogImageLabel?: string;
+  catalogVideos?: {
+    src: string;
+    poster: string;
+    caption: string;
+    width: number;
+    height: number;
+  }[];
   fitment: string | null;
   sku: string;
   brand?: string;

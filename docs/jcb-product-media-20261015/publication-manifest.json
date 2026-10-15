@@ -1,0 +1,204 @@
+{
+  "checkedAt": "2026-10-15",
+  "hashAlgorithm": "sha256",
+  "assets": [
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/32-925682-filter.jpg",
+      "role": "original-photo",
+      "sourceNumber": 5,
+      "byteLength": 222354,
+      "sha256": "b9f163d022ae153973a6e4175ac7e2984619e1c103c80702cc8a09af11060dfc",
+      "productIds": [
+        "ACA-JCB-PART-32-925682"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg",
+      "role": "original-photo",
+      "sourceNumber": 2,
+      "byteLength": 155824,
+      "sha256": "7fb76553035ec63248fc6381eb756575194d82b4b80772793eb9e31a3ceaeed6",
+      "productIds": [
+        "ACA-JCB-PART-320-A7227",
+        "ACA-JCB-PART-581-R5206"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/320-b4420-packaging.jpg",
+      "role": "original-photo",
+      "sourceNumber": 4,
+      "byteLength": 182596,
+      "sha256": "d23007456e3670db6d7a0259a610b978836dc69efcd75fe853fb6c6796a7b59d",
+      "productIds": [
+        "ACA-JCB-PART-320-B4420"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/400-g6382-slew-ring.jpg",
+      "role": "original-photo",
+      "sourceNumber": 7,
+      "byteLength": 280832,
+      "sha256": "955f6d79cf6ff3938dd075530ecc47ae90e5dcc86b463e10650927e6dae4e9e7",
+      "productIds": [
+        "ACA-JCB-PART-400-G6382"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/581-r5206-boxes.jpg",
+      "role": "original-photo",
+      "sourceNumber": 1,
+      "byteLength": 276937,
+      "sha256": "95e8f933ff9b26d41b067bfb5aa91226aed6148fb8e25bb1e569b0e421de6176",
+      "productIds": [
+        "ACA-JCB-PART-581-R5206"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/991-20021-video-still-28p5s.jpg",
+      "role": "video-still",
+      "sourceNumber": 9,
+      "byteLength": 40052,
+      "sha256": "b18ef86ea63c97226a20769925a47a6a12664669471e4f604576c69dfe31c081",
+      "productIds": [
+        "ACA-JCB-PART-991-20021"
+      ],
+      "sourceFrameSeconds": 28.5
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/991-20023-video-still-18s.jpg",
+      "role": "video-still",
+      "sourceNumber": 9,
+      "byteLength": 47727,
+      "sha256": "3066e31e5e1192ea413131acd1fd346f4bb4373acdee6e661d96da95306d7193",
+      "productIds": [
+        "ACA-JCB-PART-991-20023"
+      ],
+      "sourceFrameSeconds": 18
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/991-20038-video-still-12s.jpg",
+      "role": "video-still",
+      "sourceNumber": 9,
+      "byteLength": 78028,
+      "sha256": "6f09ce6f15d4cc5f0c72a491922aa8574ef560c20db1be55eff9d18b57c32ec5",
+      "productIds": [
+        "ACA-JCB-PART-991-20038"
+      ],
+      "sourceFrameSeconds": 12
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/jcb-air-filter-inspection-poster.jpg",
+      "role": "video-poster",
+      "sourceNumber": 8,
+      "byteLength": 27090,
+      "sha256": "35803fdf0800c552df8ba1396dfde5279ddf0157ee8bb1ac91d0334d8026f7ac",
+      "productIds": [
+        "ACA-JCB-PART-32-925682",
+        "ACA-JCB-PART-32-925683"
+      ],
+      "sourceFrameSeconds": 57
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/jcb-seal-kits-inspection-poster.jpg",
+      "role": "video-poster",
+      "sourceNumber": 9,
+      "byteLength": 47727,
+      "sha256": "3066e31e5e1192ea413131acd1fd346f4bb4373acdee6e661d96da95306d7193",
+      "productIds": [
+        "ACA-JCB-PART-991-20021",
+        "ACA-JCB-PART-991-20023",
+        "ACA-JCB-PART-991-20038"
+      ],
+      "sourceFrameSeconds": 18
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/oil-cooler-a4173-label-16s.jpg",
+      "role": "video-still",
+      "sourceNumber": 10,
+      "byteLength": 39579,
+      "sha256": "c1b18ae8ed02627e560160d15fb7ffa475eba1140eed13cea76902089fd13ce4",
+      "productIds": [
+        "ACA-JCB-OIL-COOLER-A4173-MARKING"
+      ],
+      "sourceFrameSeconds": 16
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/oil-cooler-housing-inspection-poster.jpg",
+      "role": "video-poster",
+      "sourceNumber": 10,
+      "byteLength": 55354,
+      "sha256": "7ec6e537d94b80da5e7a5053b87790a4bdfc7cda49a1ffe002c60f5bdca7681f",
+      "productIds": [
+        "ACA-JCB-OIL-COOLER-A4173-MARKING"
+      ],
+      "sourceFrameSeconds": 0
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-product-media-20261015/reducer-selection.jpg",
+      "role": "original-photo",
+      "sourceNumber": 6,
+      "byteLength": 284657,
+      "sha256": "ebb248f8d8d51a3d90230a25b219ed466b9986c526bb1f0f1edf344fe81d1b07",
+      "productIds": [
+        "ACA-REDUCER-MARKING-SELECTION"
+      ]
+    },
+    {
+      "publicPath": "/catalog-media/jcb-20261015/jcb-air-filter-inspection.mp4",
+      "role": "video-export",
+      "sourceNumber": 8,
+      "byteLength": 9263124,
+      "sha256": "660cb259b259f934009444a668dc88de9a389c5c16ae2dee4401f9001a11c859",
+      "productIds": [
+        "ACA-JCB-PART-32-925682",
+        "ACA-JCB-PART-32-925683"
+      ],
+      "width": 576,
+      "height": 1024,
+      "durationSeconds": 67.366667,
+      "codec": "h264",
+      "pixelFormat": "yuv420p",
+      "audioStreams": 0,
+      "faststartConfirmed": true,
+      "fullDecodeErrors": []
+    },
+    {
+      "publicPath": "/catalog-media/jcb-20261015/jcb-seal-kits-inspection.mp4",
+      "role": "video-export",
+      "sourceNumber": 9,
+      "byteLength": 5431357,
+      "sha256": "b11f45aa86972c78a0e6c49772d1dce982a303f964b8615189ea3cc884d46aa7",
+      "productIds": [
+        "ACA-JCB-PART-991-20021",
+        "ACA-JCB-PART-991-20023",
+        "ACA-JCB-PART-991-20038"
+      ],
+      "width": 576,
+      "height": 1024,
+      "durationSeconds": 32.2,
+      "codec": "h264",
+      "pixelFormat": "yuv420p",
+      "audioStreams": 0,
+      "faststartConfirmed": true,
+      "fullDecodeErrors": []
+    },
+    {
+      "publicPath": "/catalog-media/jcb-20261015/oil-cooler-housing-inspection.mp4",
+      "role": "video-export",
+      "sourceNumber": 10,
+      "byteLength": 3457741,
+      "sha256": "f95d23583e056ede6e68b6c6212fe5a298078f4e7421330ccaa21e60a0605184",
+      "productIds": [
+        "ACA-JCB-OIL-COOLER-A4173-MARKING"
+      ],
+      "width": 576,
+      "height": 1024,
+      "durationSeconds": 22.7,
+      "codec": "h264",
+      "pixelFormat": "yuv420p",
+      "audioStreams": 0,
+      "faststartConfirmed": true,
+      "fullDecodeErrors": []
+    }
+  ]
+}

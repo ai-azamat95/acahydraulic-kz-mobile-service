@@ -37,15 +37,19 @@ test('eight JCB service parts retain exact article identities, purpose, and matc
     assert.equal(product.brand, 'JCB');
     assert.equal(product.category, 'seals-filters');
     assert(product.categories.includes('seals-filters'));
-    assert.equal(product.imageUrl, imageBase + expected.photo);
+    const detailPhoto = '/catalog-assets/jcb-product-media-20261015/32-925682-filter.jpg';
+    assert.equal(product.imageUrl, expected.number === '32/925682' ? detailPhoto : imageBase + expected.photo);
     assert.match(product.catalogTitle || product.title, expected.purpose, `${expected.number}: correct part purpose`);
     if (expected.detail) assert.match(product.catalogTitle || product.title, expected.detail);
     assert((product.catalogTitle || product.title).includes(expected.number));
     const expectedGallery = [imageBase + expected.photo];
+    if (expected.number === '32/925682') expectedGallery.unshift(detailPhoto);
     if (expected.number === '581/R5206') expectedGallery.push(imageBase + 'jcb-packages-overview-1.jpg', imageBase + 'jcb-packages-overview-2.jpg');
+    if (expected.number === '581/R5206') expectedGallery.push('/catalog-assets/jcb-product-media-20261015/581-r5206-boxes.jpg', '/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg');
+    if (expected.number === '320/B4420') expectedGallery.push('/catalog-assets/jcb-product-media-20261015/320-b4420-packaging.jpg');
     if (expected.number === '813/50012') expectedGallery.push('/catalog-assets/jcb-service-parts-batch2/813-50026-packaging.jpg');
     assert.deepEqual(product.gallery, expectedGallery, `${expected.number}: correct photo association and gallery order`);
-    if (product.catalogImageLabel) assert.equal(product.catalogImageLabel, 'Фото упаковки');
+    if (product.catalogImageLabel) assert.equal(product.catalogImageLabel, expected.number === '32/925682' ? 'Фото детали и упаковки' : 'Фото упаковки');
     assert(product.variants.length > 0);
     assert(product.variants.every(variant => variant.sku === expected.number));
   }
@@ -102,7 +106,7 @@ test('all ten public JPEGs are byte-identical copies of the user originals recor
   for (const part of evidence.parts) {
     const manifestPhoto = photoManifest.images.find(photo => photo.partNumbers.includes(part.partNumber) && photo.role === 'primary-packaging');
     assert.equal(manifestPhoto.sourceFile, part.photo, `${part.partNumber}: provenance maps to the correct source photo`);
-    assert.equal(manifestPhoto.publicPath, addedProducts.find(product => product.sku === part.partNumber).imageUrl);
+    assert(addedProducts.find(product => product.sku === part.partNumber).gallery.includes(manifestPhoto.publicPath));
   }
   assert.equal(fs.existsSync(new URL('client/public/jcb-service-parts-photos-20261015/parts-evidence.json', root)), false,
     'Internal supplier research does not belong in public assets');

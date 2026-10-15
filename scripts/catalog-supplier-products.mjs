@@ -44,6 +44,15 @@ function validateProducts(products) {
     for (const category of categoriesFor(product)) {
       assert(SAFE_CATEGORY_ID.test(category || ''), `${product.handle}: invalid supplier category ${category}`);
     }
+    if (product.catalogVideos !== undefined) {
+      assert(Array.isArray(product.catalogVideos), `${product.handle}: invalid videos`);
+      for (const video of product.catalogVideos) {
+        assert(/^\/catalog-media\/[a-z0-9/._-]+\.mp4$/.test(video.src) && !video.src.includes('..'), `${product.handle}: invalid local video`);
+        assert(/^\/catalog-assets\/[a-z0-9/._-]+\.jpg$/.test(video.poster) && !video.poster.includes('..'), `${product.handle}: invalid video poster`);
+        assert(typeof video.caption === 'string' && video.caption.trim(), `${product.handle}: video caption required`);
+        assert(Number.isInteger(video.width) && video.width > 0 && Number.isInteger(video.height) && video.height > 0, `${product.handle}: invalid video dimensions`);
+      }
+    }
   }
   return { ids, handles };
 }
