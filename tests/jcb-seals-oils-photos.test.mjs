@@ -39,7 +39,9 @@ test('five new JCB articles retain exact identities, purpose and their own reada
     assert.equal(product.category, expected.category);
     assert(product.categories.includes(expected.category));
     assert.equal(product.imageUrl, imageBase + expected.photo);
-    assert.deepEqual(product.gallery, [imageBase + expected.photo]);
+    assert.deepEqual(product.gallery, expected.number === '320/A7227'
+      ? [imageBase + expected.photo, '/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg']
+      : [imageBase + expected.photo]);
     assert.match(product.catalogTitle || product.title, expected.purpose);
     assert((product.catalogTitle || product.title).includes(expected.number));
     assert(product.variants.length > 0);

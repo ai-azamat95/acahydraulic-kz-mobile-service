@@ -1,0 +1,203 @@
+{
+  "checkedAt": "2026-10-15",
+  "hashAlgorithm": "sha256",
+  "sources": [
+    {
+      "sourceNumber": 1,
+      "sourceFile": "1-Фото-1.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 276937,
+      "sha256": "95e8f933ff9b26d41b067bfb5aa91226aed6148fb8e25bb1e569b0e421de6176",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/581-r5206-boxes.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 2,
+      "sourceFile": "2-Фото-2.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 155824,
+      "sha256": "7fb76553035ec63248fc6381eb756575194d82b4b80772793eb9e31a3ceaeed6",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 3,
+      "sourceFile": "3-Фото-3.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 217847,
+      "sha256": "dea7c8c34dc494f522b8f772b69710ecb606ddfb8f2544d49e4c9173903903db",
+      "status": "excluded-unidentified",
+      "internalPath": "docs/jcb-product-media-20261015/excluded/photo-3-unidentified-packaging.jpg",
+      "publicPaths": []
+    },
+    {
+      "sourceNumber": 4,
+      "sourceFile": "4-Фото-4.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 182596,
+      "sha256": "d23007456e3670db6d7a0259a610b978836dc69efcd75fe853fb6c6796a7b59d",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/320-b4420-packaging.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 5,
+      "sourceFile": "5-Фото-5.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 222354,
+      "sha256": "b9f163d022ae153973a6e4175ac7e2984619e1c103c80702cc8a09af11060dfc",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/32-925682-filter.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 6,
+      "sourceFile": "6-Фото-6.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 284657,
+      "sha256": "ebb248f8d8d51a3d90230a25b219ed466b9986c526bb1f0f1edf344fe81d1b07",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/reducer-selection.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 7,
+      "sourceFile": "7-Фото-7.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 280832,
+      "sha256": "955f6d79cf6ff3938dd075530ecc47ae90e5dcc86b463e10650927e6dae4e9e7",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/400-g6382-slew-ring.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 8,
+      "sourceFile": "8-c3082059-05bc-478e-9b44-b43b25c61992.mov",
+      "mediaType": "video/quicktime",
+      "byteLength": 8107815,
+      "sha256": "6d1b98742ccd0f1bafd6a8302a4363b13a0d1d9114dcdc417dac54ffd7108029",
+      "durationSeconds": 67.366667,
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "width": null,
+          "height": null,
+          "duration": "67.333333",
+          "sample_rate": "44100",
+          "channels": 2,
+          "avg_frame_rate": "0/0",
+          "side_data_list": null
+        },
+        {
+          "index": 1,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 576,
+          "height": 1024,
+          "duration": "67.366667",
+          "sample_rate": null,
+          "channels": null,
+          "avg_frame_rate": "60570/2021",
+          "side_data_list": null
+        }
+      ],
+      "status": "published-as-transcoded-video",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/jcb-air-filter-inspection-poster.jpg",
+        "/catalog-media/jcb-20261015/jcb-air-filter-inspection.mp4"
+      ]
+    },
+    {
+      "sourceNumber": 9,
+      "sourceFile": "9-2a9ee5de-2dd8-424f-97b1-6ca1387df664.mov",
+      "mediaType": "video/quicktime",
+      "byteLength": 5538252,
+      "sha256": "70fbcac7aabc3e832cb5aa3e42dc8b1e2b042d33d79a2c268b6628b3d01fbfe4",
+      "durationSeconds": 32.201678,
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "width": null,
+          "height": null,
+          "duration": "32.201678",
+          "sample_rate": "44100",
+          "channels": 2,
+          "avg_frame_rate": "0/0",
+          "side_data_list": null
+        },
+        {
+          "index": 1,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 576,
+          "height": 1024,
+          "duration": "32.200000",
+          "sample_rate": null,
+          "channels": null,
+          "avg_frame_rate": "4825/161",
+          "side_data_list": null
+        }
+      ],
+      "status": "published-as-transcoded-video",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/991-20021-video-still-28p5s.jpg",
+        "/catalog-assets/jcb-product-media-20261015/991-20023-video-still-18s.jpg",
+        "/catalog-assets/jcb-product-media-20261015/991-20038-video-still-12s.jpg",
+        "/catalog-assets/jcb-product-media-20261015/jcb-seal-kits-inspection-poster.jpg",
+        "/catalog-media/jcb-20261015/jcb-seal-kits-inspection.mp4"
+      ]
+    },
+    {
+      "sourceNumber": 10,
+      "sourceFile": "10-41fd3824-cfe4-4e7b-938a-4216cc0866e5.mov",
+      "mediaType": "video/quicktime",
+      "byteLength": 4715693,
+      "sha256": "5b3c1e61fea5c2703572f142fcd0d8588d30237b4a67f282f15f48d80abb56f8",
+      "durationSeconds": 22.7,
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "width": null,
+          "height": null,
+          "duration": "22.658345",
+          "sample_rate": "44100",
+          "channels": 2,
+          "avg_frame_rate": "0/0",
+          "side_data_list": null
+        },
+        {
+          "index": 1,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 576,
+          "height": 1024,
+          "duration": "22.700000",
+          "sample_rate": null,
+          "channels": null,
+          "avg_frame_rate": "6800/227",
+          "side_data_list": null
+        }
+      ],
+      "status": "published-as-transcoded-video",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/oil-cooler-a4173-label-16s.jpg",
+        "/catalog-assets/jcb-product-media-20261015/oil-cooler-housing-inspection-poster.jpg",
+        "/catalog-media/jcb-20261015/oil-cooler-housing-inspection.mp4"
+      ]
+    }
+  ]
+}

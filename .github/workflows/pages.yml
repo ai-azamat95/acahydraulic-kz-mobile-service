@@ -66,6 +66,7 @@ jobs:
           node scripts/check-owner-catalog-inputs.mjs dist/public/catalog-data --routes
           node scripts/check-cat-432e-sale.mjs
           node --test tests/supplier-catalog-publication.test.mjs
+          node --test tests/jcb-product-media.test.mjs
           node --test tests/merchant-publication.test.mjs
           node --test tests/handok-product-publication.test.mjs
           node --test tests/xcmg-xz200-pump-publication.test.mjs

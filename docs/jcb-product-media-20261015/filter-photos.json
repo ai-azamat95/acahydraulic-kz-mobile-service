@@ -1,0 +1,186 @@
+{
+  "checkedAt": "2026-10-15",
+  "workflow": "ECC research-ops fully read earlier in this same conversation and applied",
+  "scope": "Read-only classification of user photos 1–5; no repository changes",
+  "recommendedActionRu": "Обновить существующие галереи четырех SKU без создания новых товаров; исключить фото 3. Фото 5 можно сделать главным изображением 32/925682 с подписью о детали.",
+  "commercialStateUnchanged": {
+    "available": false,
+    "priceKzt": null,
+    "stockCountKnown": false,
+    "authenticityVerified": false,
+    "ACAOfficialDealerClaim": false
+  },
+  "photos": [
+    {
+      "photoNumber": 1,
+      "publish": true,
+      "primarySku": "581/R5206",
+      "allowedSkus": [
+        "581/R5206"
+      ],
+      "recommendedRole": "additional-packaging-photo",
+      "recommendedImageLabelRu": "Фото упаковок",
+      "captionRu": "Упаковки с маркировкой трансмиссионного фильтра JCB 581/R5206. Количество в поставке и наличие подтверждаем перед заказом.",
+      "photoFactsRu": [
+        "В верхнем ряду на трех этикетках четко читается 581/R5206 и TRANSMISSION FILTER.",
+        "Остальные коробки показаны без читаемого артикула."
+      ],
+      "limitsRu": [
+        "Не считать все коробки на поддоне деталями 581/R5206.",
+        "Не выводить складской остаток, наличие в Казахстане, цену или подлинность товара из количества упаковок."
+      ],
+      "sourceFile": "1-Фото-1.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/3A73E881-5F38-478A-B06B-3401EDEB2623/1-Фото-1.jpg",
+      "sha256": "95e8f933ff9b26d41b067bfb5aa91226aed6148fb8e25bb1e569b0e421de6176",
+      "byteLength": 276937,
+      "sources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/581-R5206",
+          "manufacturerTitle": "Transmission Filter Element",
+          "safeTitleRu": "Трансмиссионный фильтр JCB 581/R5206"
+        }
+      ],
+      "photoAssignmentEvidence": "Читаемый артикул на пользовательском фото"
+    },
+    {
+      "photoNumber": 2,
+      "publish": true,
+      "primarySku": "320/A7227",
+      "allowedSkus": [
+        "320/A7227",
+        "581/R5206"
+      ],
+      "recommendedRole": "additional-transport-label-photo",
+      "recommendedImageLabelRu": "Фото маркировки упаковок",
+      "captionRu": "Транспортная этикетка с артикулом JCB 320/A7227; ниже видны упаковки JCB 581/R5206. Состав заказа, количество и наличие согласуем отдельно.",
+      "photoFactsRu": [
+        "На основном транспортном ярлыке четко читаются PART NO. 320/A7227 и ELEMENT ASSEMBLY.",
+        "Ниже на оранжевых упаковках читается 581/R5206.",
+        "PALLET/BOX QUANTITY 12 относится к транспортной этикетке на снимке.",
+        "PALLET/BOX NUMBER 344 of 814 — номер транспортного места, а не подтвержденный номер производственной партии.",
+        "DATE OF DESPATCH 07/30/2025 — указанная дата отгрузки на ярлыке, не текущая дата наличия."
+      ],
+      "limitsRu": [
+        "Не публиковать 12 как текущий остаток ACA/поставщика или комплектацию покупаемой единицы.",
+        "Не публиковать 344/814 как доступное количество; не называть 344 номером производственной партии.",
+        "Не переносить дату отгрузки в дату производства, поставки или актуальности остатка.",
+        "Не использовать смешанный кадр главным фото конкретного фильтрующего элемента."
+      ],
+      "sourceFile": "2-Фото-2.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/3A73E881-5F38-478A-B06B-3401EDEB2623/2-Фото-2.jpg",
+      "sha256": "7fb76553035ec63248fc6381eb756575194d82b4b80772793eb9e31a3ceaeed6",
+      "byteLength": 155824,
+      "sources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/320-A7227",
+          "manufacturerTitle": "Fuel Filter Element",
+          "safeTitleRu": "Топливный фильтр JCB 320/A7227"
+        },
+        {
+          "url": "https://parts.jcb.com/uk/product/581-R5206",
+          "manufacturerTitle": "Transmission Filter Element",
+          "safeTitleRu": "Трансмиссионный фильтр JCB 581/R5206"
+        }
+      ],
+      "photoAssignmentEvidence": "Читаемый артикул на пользовательском фото"
+    },
+    {
+      "photoNumber": 3,
+      "publish": false,
+      "primarySku": null,
+      "allowedSkus": [],
+      "recommendedRole": "exclude-unidentified-packaging",
+      "recommendedImageLabelRu": null,
+      "captionRu": null,
+      "photoFactsRu": [
+        "Виден обтянутый пленкой блок оранжевых коробок JCB; читаемого артикула на основной группе нет.",
+        "Форма упаковок, рука, фон и последовательность снимков сходны с фото 4."
+      ],
+      "limitsRu": [
+        "Сходство с фото 4 не доказывает, что на снимке 3 изображен тот же 320/B4420.",
+        "Нельзя надежно привязать к одному из SKU; не добавлять в товарные галереи."
+      ],
+      "relationshipToPhoto4": {
+        "confirmed": false,
+        "reasonRu": "Нет общего читаемого каталожного номера, индивидуальной метки или непрерывного видеокадра, связывающих упаковки."
+      },
+      "sourceFile": "3-Фото-3.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/3A73E881-5F38-478A-B06B-3401EDEB2623/3-Фото-3.jpg",
+      "sha256": "dea7c8c34dc494f522b8f772b69710ecb606ddfb8f2544d49e4c9173903903db",
+      "byteLength": 217847,
+      "sources": [],
+      "photoAssignmentEvidence": "Читаемый артикул отсутствует"
+    },
+    {
+      "photoNumber": 4,
+      "publish": true,
+      "primarySku": "320/B4420",
+      "allowedSkus": [
+        "320/B4420"
+      ],
+      "recommendedRole": "additional-packaging-photo",
+      "recommendedImageLabelRu": "Фото упаковок",
+      "captionRu": "Упаковки с маркировкой масляного фильтра двигателя JCB 320/B4420. Комплектность, количество и наличие согласуем перед заказом.",
+      "photoFactsRu": [
+        "На левой этикетке четко читаются 320/B4420 и OIL FILTER.",
+        "На соседней упаковке виден тот же тип маркировки; не требуется читать все фоновые коробки."
+      ],
+      "limitsRu": [
+        "Две обернутые упаковки на фото не означают комплект из двух деталей.",
+        "Не присваивать артикул всем коробкам на фоне.",
+        "Не переносить количественный вид снимка в остаток или наличие."
+      ],
+      "sourceFile": "4-Фото-4.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/3A73E881-5F38-478A-B06B-3401EDEB2623/4-Фото-4.jpg",
+      "sha256": "d23007456e3670db6d7a0259a610b978836dc69efcd75fe853fb6c6796a7b59d",
+      "byteLength": 182596,
+      "sources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/320-B4420",
+          "manufacturerTitle": "Engine Oil Filter Element",
+          "safeTitleRu": "Масляный фильтр двигателя JCB 320/B4420"
+        }
+      ],
+      "photoAssignmentEvidence": "Читаемый артикул на пользовательском фото"
+    },
+    {
+      "photoNumber": 5,
+      "publish": true,
+      "primarySku": "32/925682",
+      "allowedSkus": [
+        "32/925682"
+      ],
+      "recommendedRole": "primary-actual-filter-photo",
+      "recommendedImageLabelRu": "Фото детали",
+      "productGlobalLabelWithPackagingGalleryRu": "Фото детали и упаковки",
+      "captionRu": "Воздушный фильтрующий элемент с маркировкой JCB 32/925682; на заднем плане упаковка с тем же артикулом. Исполнение, комплектность и применяемость подтверждаем перед заказом.",
+      "photoFactsRu": [
+        "Показан сам синий воздушный фильтрующий элемент, а не только коробка.",
+        "На этикетке непосредственно на элементе четко читается 32/925682.",
+        "На задней упаковке тот же номер и обозначение MAIN ELEMENT."
+      ],
+      "limitsRu": [
+        "Фото маркировки детали не доказывает подлинность партии или соответствие конкретному PIN.",
+        "Цвет, внешний вид, дата 11/12/25 на этикетке не доказывают размеры, тонкость фильтрации, срок службы или гарантию.",
+        "Если UI catalogImageLabel применяется ко всем снимкам товара, использовать общий текст Фото детали и упаковки, иначе оставшиеся фото коробки ошибочно будут называться деталью."
+      ],
+      "sourceFile": "5-Фото-5.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/3A73E881-5F38-478A-B06B-3401EDEB2623/5-Фото-5.jpg",
+      "sha256": "b9f163d022ae153973a6e4175ac7e2984619e1c103c80702cc8a09af11060dfc",
+      "byteLength": 222354,
+      "sources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/32-925682",
+          "manufacturerTitle": "ELEMENT-AIRPQ145; Engine Air Filters & Components",
+          "safeTitleRu": "Воздушный фильтр JCB 32/925682 — основной наружный элемент",
+          "additionalSource": {
+            "url": "https://onlinesatis.sif.com.tr/32925682-havalandirma",
+            "title": "32/925682 - Hava filtresi dış",
+            "supportsRu": "Точная карточка SIF подтверждает наружный воздушный элемент."
+          }
+        }
+      ],
+      "photoAssignmentEvidence": "Читаемый артикул на пользовательском фото"
+    }
+  ]
+}

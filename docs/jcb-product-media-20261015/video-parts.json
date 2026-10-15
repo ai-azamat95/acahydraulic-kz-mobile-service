@@ -1,0 +1,166 @@
+{
+  "checkedAt": "2026-10-15",
+  "workflow": "ECC research-ops read in full earlier in this conversation and applied",
+  "scope": "Primary-source checks and direct visual inspection of extracted frames for videos 9 and 10; no repo changes",
+  "collaborationNoteRu": "Позже от jcb_batch2_checks получены пути к четким stills; самостоятельно просмотрены 991/20038 на 12 с, 991/20023 на 18 с, 991/20021 на 28.5 с и теплообменник в кадрах 0, 14, 16, 20 с, плюс контактный лист. Файлы кадров не изменялись.",
+  "decisionRu": "991/20023 и 991/20021 подтверждены заводскими карточками JCB. 991/20038 четко прочитан на упаковке, общее назначение seal kit подтверждается первичным каталогом JLG, но точная JCB product-page не доступна. Теплообменник имеет видимый литой логотип JCB и A4173 на этикетке, однако 320/A4173 остается лишь официальным кандидатом: описательная карточка допустима без полного MPN.",
+  "items": [
+    {
+      "kind": "seal-kit",
+      "partNumber": "991/20038",
+      "status": "confirmed-video-label-generic-type-supported-by-primary-JLG-catalogue-JCB-page-unavailable",
+      "recommendedTitleRu": "Комплект уплотнений JCB 991/20038",
+      "recommendedDescriptionRu": "Комплект уплотнений с маркировкой JCB 991/20038. Применяемость проверяем по каталожному номеру и данным узла. Состав, размеры, цену, наличие и срок поставки подтверждаем перед заказом.",
+      "sourceVideo": 9,
+      "frameSeconds": 12,
+      "evidenceFrame": "/tmp/aca-jcb-batch3-evidence/videos/video-9-frame-12.jpg",
+      "frameSha256": "6f09ce6f15d4cc5f0c72a491922aa8574ef560c20db1be55eff9d18b57c32ec5",
+      "photoLabelFacts": [
+        "JCB SERVICE GENUINE PARTS",
+        "991/20038",
+        "SERVICE SE",
+        "UOI: 1"
+      ],
+      "primarySources": [
+        {
+          "url": "https://onlineexpress.jlg.com/parts/allfleet-parts/jcb/plastics-composites/seals/p/99120038",
+          "title": "JLG Online Express — JCB-SEAL KIT, item 99120038",
+          "supportsRu": "Первичный каталог производителя техники JLG содержит название JCB-SEAL KIT и cross-reference 991/20038. Это раздел Aftermarket Products; он подтверждает только общее назначение, не заводскую оригинальность JCB или детали применяемости. Страница найдена в поисковом индексе; прямое открытие завершилось TimeoutError."
+        }
+      ],
+      "JCBManufacturerSourceConfirmed": false,
+      "JCBSourceCheckRu": "Публичные JCB UK /in product/991-20038 недоступны в этом проходе; exact search JCB/SIF результатов не дал. Не заявлять в отчете, что назначение подтверждено заводской JCB карточкой. Пользовательская маркировка читается уверенно.",
+      "safeImageLabelRu": "Кадр из видео: упаковка",
+      "captionRu": "Упаковка с маркировкой JCB 991/20038; кадр из предоставленного видео. Состав комплекта и применяемость подтверждаем перед заказом.",
+      "restrictionsRu": [
+        "Не публиковать размеры 120×65, состав, замены или применяемость к цилиндрам/моделям по сторонним продавцам.",
+        "Не заявлять заводскую оригинальность JCB на основании упаковки или каталога JLG.",
+        "Не выводить доступный остаток, цену или комплектность из количества пакетов."
+      ],
+      "commercialState": {
+        "available": false,
+        "priceKzt": null
+      }
+    },
+    {
+      "kind": "seal-kit",
+      "partNumber": "991/20023",
+      "status": "confirmed-exact-label-and-JCB-primary-source",
+      "recommendedTitleRu": "Комплект уплотнений JCB 991/20023",
+      "recommendedDescriptionRu": "Комплект уплотнений JCB 991/20023. Применяемость проверяем по каталожному номеру и данным узла. Состав комплекта, размеры, цену, наличие и срок поставки подтверждаем перед заказом.",
+      "sourceVideo": 9,
+      "frameSeconds": 18,
+      "evidenceFrame": "/tmp/aca-jcb-batch3-evidence/videos/video-9-frame-18.jpg",
+      "frameSha256": "3066e31e5e1192ea413131acd1fd346f4bb4373acdee6e661d96da95306d7193",
+      "photoLabelFacts": [
+        "UNIVERSAL SEAL KIT",
+        "991/20023"
+      ],
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/991-20023",
+          "title": "Universal Seal Kit",
+          "supportsRu": "Точный каталожный номер и назначение: комплект уплотнений; категория Seal and End Kits. На странице размеры, состав и конкретная модель не приведены."
+        }
+      ],
+      "safeImageLabelRu": "Кадр из видео: упаковка",
+      "captionRu": "Маркировка комплекта уплотнений JCB 991/20023 на упаковке; кадр из предоставленного видео. Состав и применяемость подтверждаем перед заказом.",
+      "restrictionsRu": [
+        "Не использовать слово универсальный как обещание совместимости с любой машиной или узлом.",
+        "Не выводить из общего названия точное назначение к гидроцилиндру ковша/стрелы, конкретные модели техники, размеры, материал или количество уплотнений.",
+        "Упаковка и официальный каталог подтверждают обозначение, но не подлинность конкретной партии.",
+        "Не выводить склад ACA, цену или фактическое наличие из количества пакетов в видео."
+      ],
+      "commercialState": {
+        "available": false,
+        "priceKzt": null
+      }
+    },
+    {
+      "kind": "seal-kit",
+      "partNumber": "991/20021",
+      "status": "confirmed-exact-label-and-JCB-primary-source",
+      "recommendedTitleRu": "Комплект уплотнений JCB 991/20021",
+      "recommendedDescriptionRu": "Комплект уплотнений JCB 991/20021. Применяемость проверяем по каталожному номеру и данным узла. Состав комплекта, размеры, цену, наличие и срок поставки подтверждаем перед заказом.",
+      "sourceVideo": 9,
+      "frameSeconds": 28.5,
+      "evidenceFrame": "/tmp/aca-jcb-batch3-evidence/videos/video-9-frame-28.5.jpg",
+      "frameSha256": "b18ef86ea63c97226a20769925a47a6a12664669471e4f604576c69dfe31c081",
+      "photoLabelFacts": [
+        "UNIVERSAL SEAL KIT",
+        "991/20021"
+      ],
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/991-20021",
+          "title": "Universal Seal Kit",
+          "supportsRu": "Точный каталожный номер и назначение: комплект уплотнений; категория Seal and End Kits. На странице размеры, состав и конкретная модель не приведены."
+        }
+      ],
+      "safeImageLabelRu": "Кадр из видео: упаковка",
+      "captionRu": "Маркировка комплекта уплотнений JCB 991/20021 на упаковке; кадр из предоставленного видео. Состав и применяемость подтверждаем перед заказом.",
+      "restrictionsRu": [
+        "Не использовать слово универсальный как обещание совместимости с любой машиной или узлом.",
+        "Не выводить из общего названия точное назначение к гидроцилиндру ковша/стрелы, конкретные модели техники, размеры, материал или количество уплотнений.",
+        "Упаковка и официальный каталог подтверждают обозначение, но не подлинность конкретной партии.",
+        "Не выводить склад ACA, цену или фактическое наличие из количества пакетов в видео."
+      ],
+      "commercialState": {
+        "available": false,
+        "priceKzt": null
+      }
+    },
+    {
+      "kind": "oil-cooler",
+      "partNumber": null,
+      "status": "OEM-card-hold-incomplete-part-number",
+      "sourceVideo": 10,
+      "frameSeconds": 16,
+      "evidenceFrame": "/tmp/aca-jcb-batch3-evidence/videos/video-10-frame-16.jpg",
+      "frameSha256": "c1b18ae8ed02627e560160d15fb7ffa475eba1140eed13cea76902089fd13ce4",
+      "photoLabelFacts": [
+        "Main 6 Plate Oil Cooler",
+        "A4173"
+      ],
+      "verifiedFullPartNumberInFrame": false,
+      "officialCandidate": {
+        "partNumber": "320/A4173",
+        "url": "https://parts.jcb.com/uk/product/320-A4173",
+        "title": "Engine Oil Cooler",
+        "categorySource": "https://parts.jcb.com/uk/category/powertrain/engine-systems/lubrication-system/oil-cooler-cover/0ZGRz0000000362OAA",
+        "evidenceBoundaryRu": "Официальный JCB каталог содержит 320/A4173 Engine Oil Cooler. Совпадение суффикса A4173 и типа детали делает его кандидатом, но не доказывает тождество узлу из видео. Нельзя восстанавливать префикс 320/ как прочитанный факт."
+      },
+      "recommendedActionRu": "Допустима только описательная карточка масляного теплообменника с видимой маркой JCB и маркировкой A4173, без полного OEM MPN и без восстановления 320/. Слово двигателя связано с найденным официальным кандидатом 320/A4173 и должно быть подтверждено полным PN/PIN для конкретного узла.",
+      "descriptiveAlternative": {
+        "titleRu": "Масляный теплообменник JCB — маркировка A4173",
+        "manufacturerPartNumber": null,
+        "internalSkuSuggestion": "ACA-OIL-COOLER-A4173-SELECTION",
+        "descriptionRu": "Масляный теплообменник с литым логотипом JCB на корпусе и маркировкой A4173 на этикетке. Полный каталожный номер, применяемость, исполнение, состав поставки, цену, наличие и срок подтверждаем до заказа. Для проверки нужны PIN / серийный номер двигателя или техники, полная маркировка и фотографии подключений.",
+        "brandMark": "JCB",
+        "markedReference": "A4173",
+        "skuIfUsedAsMarkedReference": "A4173",
+        "skuMeaningRu": "Видимая маркировка узла; это не восстановленный или подтвержденный полный каталожный номер JCB."
+      },
+      "safeImageLabelRu": "Кадр из видео: маркировка узла",
+      "captionRu": "Масляный теплообменник с маркировкой A4173; кадр из предоставленного видео. Полный каталожный номер и применяемость требуют подтверждения.",
+      "restrictionsRu": [
+        "Не присваивать 320/A4173 в SKU/MPN/SEO/title/schema как подтвержденный номер снятого узла.",
+        "Не заявлять конкретные двигатели, модели, размеры или универсальную применяемость.",
+        "Слова 6 Plate на локальной этикетке не доказывают полный состав поставки или соответствие заводскому каталожному исполнению.",
+        "Не утверждать подлинность JCB, местный склад или официальное дилерство ACA.",
+        "Не путать видимый литой логотип с доказательством подлинности или авторизованного поставщика."
+      ],
+      "commercialState": {
+        "available": false,
+        "priceKzt": null
+      },
+      "visibleBrandMark": {
+        "brand": "JCB",
+        "evidenceFrame": "/tmp/aca-jcb-batch3-evidence/videos/video-10-frame-20.jpg",
+        "frameSeconds": 20,
+        "kind": "cast-logo-on-housing",
+        "meaningRu": "На корпусе виден литой логотип JCB. Это позволяет описать видимую маркировку бренда, но не аутентифицирует изготовителя или подлинность конкретного узла."
+      }
+    }
+  ]
+}
