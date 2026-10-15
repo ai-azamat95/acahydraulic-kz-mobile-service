@@ -1,0 +1,317 @@
+{
+  "checkedDate": "2026-10-15",
+  "workflow": "ECC research-ops SKILL fully read; light evidence-first local photo review and independent byte-hash deduplication.",
+  "scope": "All10 suppliedJPEGs visually inspected; source photos left unchanged; no repository edits or public uploads.",
+  "evidenceType": "User-supplied photographs, local filesystem SHA256 matches, local Apple Vision OCR as a secondary reading aid. No current web claims were researched in this subtask.",
+  "summary": {
+    "photosReviewed": 10,
+    "exactPublicDuplicates": 6,
+    "exactInternalExcludedDuplicates": 1,
+    "newByteSequences": 3,
+    "newExactArticlePhotoCandidates": [
+      2,
+      10
+    ],
+    "newUnassignedOverview": [
+      9
+    ],
+    "newProductsFromPhotoAlone": 0
+  },
+  "globalLimitationsRu": [
+    "Упаковка и маркировка не доказывают подлинность конкретной партии, официальный дилерский статус, склад ACA, наличие, сроки или количество в заказе.",
+    "Штрихкоды иQR производителя не являются личными контактами; служебные логистические реквизиты не следует переносить в коммерческие обещания.",
+    "Визуальный просмотр изображений не заменяет проверку назначения детали и совместимости по PIN.",
+    "Никаких утверждений о совместимости или подтверждённом OEM происхождении на основании внешнего вида."
+  ],
+  "photos": [
+    {
+      "sourceFile": "1-Фото-1.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/1-Фото-1.jpg",
+      "byteLength": 192011,
+      "sha256": "caeb1590283518aefb86b3c53d1e8921f7355e702df87f6d34a29dc40a4d9999",
+      "publicExactMatches": [
+        "catalog-assets/jcb-brakes-airfilters-20261015/32-917804-label.jpg"
+      ],
+      "visibleExactNumbers": [
+        "32/917804"
+      ],
+      "visibleLabel": [
+        "AIR FILTER"
+      ],
+      "topicRu": "Крупный снимок этикетки воздушного фильтра.",
+      "recommendation": "reuse-existing-public-asset-no-copy",
+      "reasonRu": "Точное побайтовое совпадение с уже опубликованным снимком маркировки.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Лиц и читаемых личных контактов не обнаружено при просмотре исходного изображения."
+      }
+    },
+    {
+      "sourceFile": "2-Фото-2.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/2-Фото-2.jpg",
+      "byteLength": 232291,
+      "sha256": "23912577ee8bb460c299a4c4bc2b265cec0a8370bdc3bf5278f97330dd22cdea",
+      "publicExactMatches": [],
+      "visibleExactNumbers": [
+        "32/917804"
+      ],
+      "visibleLabel": [
+        "AIR FILTER"
+      ],
+      "topicRu": "Общий вид той же коробки с полностью читаемой маркировкой.",
+      "recommendation": "eligible-existing-article-secondary-gallery",
+      "recommendedArticle": "32/917804",
+      "reasonRu": "Новый ракурс уже подтверждённого артикула; добавлять как второе фото существующей карточки, без новой карточки.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Лиц и читаемых личных контактов не обнаружено при просмотре исходного изображения."
+      }
+    },
+    {
+      "sourceFile": "3-Фото-3.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/3-Фото-3.jpg",
+      "byteLength": 141742,
+      "sha256": "09553e71151f3e24f6b6c0e03c5a79df5d68726e47651589e5d16955a20f386a",
+      "publicExactMatches": [
+        "catalog-assets/jcb-service-parts-batch2/jcb-transmission-fluid-sae30-20l.jpg"
+      ],
+      "visibleExactNumbers": [],
+      "visibleLabel": [
+        "JCB EXTREME PERFORMANCE TRANSMISSION FLUID",
+        "SAE30"
+      ],
+      "topicRu": "Канистры трансмиссионного масла; на фоне ведро Gear Oil80W90.",
+      "recommendation": "reuse-existing-public-asset-no-copy",
+      "reasonRu": "Уже опубликованный побайтовый дубликат. Не присваивать маслоартикул по мелким кодам и не выделять фоновую тару отдельным товаром.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Лиц и читаемых личных контактов не обнаружено при просмотре исходного изображения."
+      }
+    },
+    {
+      "sourceFile": "4-Фото-4.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/4-Фото-4.jpg",
+      "byteLength": 276937,
+      "sha256": "95e8f933ff9b26d41b067bfb5aa91226aed6148fb8e25bb1e569b0e421de6176",
+      "publicExactMatches": [
+        "catalog-assets/jcb-product-media-20261015/581-r5206-boxes.jpg"
+      ],
+      "visibleExactNumbers": [
+        "581/R5206"
+      ],
+      "visibleLabel": [
+        "TRANSMISSION FILTER"
+      ],
+      "topicRu": "Упаковки трансмиссионных фильтров на поддоне.",
+      "recommendation": "reuse-existing-public-asset-no-copy",
+      "reasonRu": "Побайтовый дубликат опубликованного фото. Число коробок не является подтверждённым остатком.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Лиц и читаемых личных контактов не обнаружено при просмотре исходного изображения."
+      }
+    },
+    {
+      "sourceFile": "5-Фото-5.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/5-Фото-5.jpg",
+      "byteLength": 155824,
+      "sha256": "7fb76553035ec63248fc6381eb756575194d82b4b80772793eb9e31a3ceaeed6",
+      "publicExactMatches": [
+        "catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg"
+      ],
+      "visibleExactNumbers": [
+        "320/A7227",
+        "581/R5206"
+      ],
+      "visibleLabel": [
+        "ELEMENT ASSEMBLY"
+      ],
+      "topicRu": "Логистическая этикетка320/A7227; под ней упаковки581/R5206.",
+      "recommendation": "reuse-existing-public-asset-no-copy",
+      "reasonRu": "Побайтовый дубликат. На этикетке видны служебный код поставщика, дата, номер паллеты и количество, но личных контактов или адреса не читается; логистические числа не переносить в остатки/комплектность.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Лиц и читаемых личных контактов не обнаружено при просмотре исходного изображения."
+      }
+    },
+    {
+      "sourceFile": "6-Фото-6.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/6-Фото-6.jpg",
+      "byteLength": 217847,
+      "sha256": "dea7c8c34dc494f522b8f772b69710ecb606ddfb8f2544d49e4c9173903903db",
+      "publicExactMatches": [],
+      "internalExactMatch": "docs/jcb-product-media-20261015/excluded/photo-3-unidentified-packaging.jpg",
+      "visibleExactNumbers": [],
+      "visibleLabel": [],
+      "topicRu": "Неидентифицированные коробки JCB в плёнке, видна рука.",
+      "recommendation": "remain-excluded-unidentified",
+      "reasonRu": "Точный дубликат ранее исключённого внутреннего снимка; номер по-прежнему не читается.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Видимые руки/предплечья не сопровождаются лицами или читаемыми персональными идентификаторами."
+      }
+    },
+    {
+      "sourceFile": "7-Фото-7.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/7-Фото-7.jpg",
+      "byteLength": 182596,
+      "sha256": "d23007456e3670db6d7a0259a610b978836dc69efcd75fe853fb6c6796a7b59d",
+      "publicExactMatches": [
+        "catalog-assets/jcb-product-media-20261015/320-b4420-packaging.jpg"
+      ],
+      "visibleExactNumbers": [
+        "320/B4420"
+      ],
+      "visibleLabel": [
+        "OIL FILTER"
+      ],
+      "topicRu": "Упаковки масляного фильтра в плёнке, видна рука.",
+      "recommendation": "reuse-existing-public-asset-no-copy",
+      "reasonRu": "Побайтовый дубликат уже опубликованного ракурса.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Видимые руки/предплечья не сопровождаются лицами или читаемыми персональными идентификаторами."
+      }
+    },
+    {
+      "sourceFile": "8-Фото-8.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/8-Фото-8.jpg",
+      "byteLength": 222354,
+      "sha256": "b9f163d022ae153973a6e4175ac7e2984619e1c103c80702cc8a09af11060dfc",
+      "publicExactMatches": [
+        "catalog-assets/jcb-product-media-20261015/32-925682-filter.jpg"
+      ],
+      "visibleExactNumbers": [
+        "32/925682"
+      ],
+      "visibleLabel": [],
+      "topicRu": "Открытый воздушный элемент с синей поверхностью и читаемой маркировкой.",
+      "recommendation": "reuse-existing-public-asset-no-copy",
+      "reasonRu": "Побайтовый дубликат опубликованного фото.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Лиц и читаемых личных контактов не обнаружено при просмотре исходного изображения."
+      }
+    },
+    {
+      "sourceFile": "9-Фото-9.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/9-Фото-9.jpg",
+      "byteLength": 333589,
+      "sha256": "5bbc02e445d96a8add050a2e3a6d0b94ca52d2369b63f313f9af9b5f7f72bed8",
+      "publicExactMatches": [],
+      "visibleExactNumbers": [],
+      "visibleLabel": [
+        "JCB"
+      ],
+      "topicRu": "Общий план нескольких коробок и упаковок в помещении.",
+      "recommendation": "do-not-associate-with-exact-article",
+      "reasonRu": "Ни один полный артикул независимо не подтверждён визуально в исходном разрешении. Apple Vision OCR без языковой коррекции также не прочитал каталожный номер. Не привязывать к конкретной карточке по форме коробки или соседним кадрам. При отдельной потребности это только общий иллюстративный снимок упаковок, без обещания склада ACA или наличия.",
+      "candidatePublicUse": "generic-overview-only-with-neutral-caption-if-needed",
+      "exactArticleAssociationConfirmed": false,
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "На заднем плане стеклянная дверь, предметы и отражения; читаемого лица, личных контактов, адресов или идентифицирующих экранов не обнаружено. Слабые силуэты/отражения не интерпретируются как установленная личность."
+      }
+    },
+    {
+      "sourceFile": "10-Фото-10.jpg",
+      "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9D4AB52C-6C06-493E-BC94-C0758BA47888/10-Фото-10.jpg",
+      "byteLength": 355189,
+      "sha256": "3c051e84b7802afe26120521870fb5105e588fb7db1f227d0ad3aa35345bdd17",
+      "publicExactMatches": [],
+      "visibleExactNumbers": [
+        "320/07580"
+      ],
+      "visibleLabel": [
+        "SEAL-ROCKE"
+      ],
+      "topicRu": "Упакованное формованное уплотнение с читаемой этикеткой.",
+      "recommendation": "eligible-exact-article-after-catalogue-function-check",
+      "recommendedArticle": "320/07580",
+      "reasonRu": "Новый снимок с полным номером. Точное назначение, применение и комплектацию подтверждать официальным каталогом; по форме и сокращённой надписи не достраивать технические свойства.",
+      "metadataPrivacy": {
+        "exifSegmentPresent": true,
+        "gpsExifTagPresent": false,
+        "gpsXmpTextPresent": false,
+        "method": "JPEG APP1 / EXIF IFD0 GPSInfo tag and XMP GPS keyword inspection"
+      },
+      "visualPrivacy": {
+        "facesObserved": false,
+        "readablePersonalContactsObserved": false,
+        "readablePrivateDocumentsObserved": false,
+        "notesRu": "Видимые руки/предплечья не сопровождаются лицами или читаемыми персональными идентификаторами."
+      }
+    }
+  ]
+}

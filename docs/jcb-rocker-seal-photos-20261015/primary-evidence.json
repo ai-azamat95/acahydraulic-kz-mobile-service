@@ -1,0 +1,281 @@
+{
+  "checkedAt": "2026-10-15",
+  "workflow": "ECC research-ops read in full; direct visual inspection, fresh primary web search and exact SHA256 duplicate checks",
+  "scopeRu": "Фото 10: новый exact номер и первичное назначение; фото 9: проверка читаемости; фото 2: новая галерея; остальные исходники проверены по SHA256. Репозиторий не изменялся.",
+  "newPart": {
+    "partNumber": "320/07580",
+    "identityStatus": "confirmed-user-label-and-primary-JCB-catalogue",
+    "photoNumber": 10,
+    "photoLabelFacts": [
+      "JCB SERVICE GENUINE PARTS",
+      "320/07580",
+      "SEAL-ROCKE"
+    ],
+    "safeTitleRu": "Уплотнение клапанной крышки JCB 320/07580",
+    "safeAlternativeTitleRu": "Прокладка клапанной крышки JCB 320/07580",
+    "safeProductTypeRu": "Уплотнение клапанной крышки",
+    "functionRu": "Уплотнение стыка клапанной крышки с головкой двигателя.",
+    "primarySources": [
+      {
+        "url": "https://parts.jcb.com/uk/product/320-07580",
+        "publisher": "JCB",
+        "title": "Rocker Cover Seal",
+        "supportsRu": "Точный номер 320/07580; описание указывает уплотнение между rocker cover и engine head. Подтверждает назначение клапанной крышки, не прокладку между головкой и блоком."
+      },
+      {
+        "url": "https://parts.jcb.com/uk/category/powertrain/engine-systems/cylinder-head-subassemblies/rocker-cover/0ZGRz00000004lBOAQ",
+        "publisher": "JCB",
+        "title": "Rocker Cover",
+        "supportsRu": "В категории крышки клапанного механизма отдельно указан Rocker Cover Seal 320/07580."
+      }
+    ],
+    "safeDescriptionRu": "Уплотнение клапанной крышки JCB 320/07580. Предназначено для стыка клапанной крышки с головкой двигателя. Исполнение и применяемость сверяем по серийному номеру двигателя, PIN техники и маркировке снятого уплотнения. Цена, наличие и срок поставки — по запросу.",
+    "safeSelectionRu": "Пришлите модель и серийный номер двигателя, PIN / серийный номер машины, полный номер снятого уплотнения, фотографии клапанной крышки и уплотнения. Размеры, профиль, количество и состав поставки подтвердим перед заказом.",
+    "safeImageLabelRu": "Фото детали в упаковке",
+    "captionRu": "Уплотнение в упаковке с маркировкой JCB 320/07580 и SEAL-ROCKE. Применяемость и состав поставки согласуем перед заказом.",
+    "fitmentModels": [],
+    "claimsAllowedRu": [
+      "Точный номер 320/07580.",
+      "Уплотнение клапанной крышки; допустимо бытовое название прокладка клапанной крышки.",
+      "Уплотнение стыка клапанной крышки и головки двигателя."
+    ],
+    "uncertaintiesRu": [
+      "Не указывать материал, форму профиля, размеры, ресурс или допуски без отдельного первичного подтверждения.",
+      "Не заявлять применяемость ко всем Dieselmax/Ecomax/3CX/4CX по общему названию.",
+      "Не называть прокладкой ГБЦ или комплектом прокладок двигателя.",
+      "UOI 1 на упаковке не доказывает комплектность предлагаемой поставки или текущий остаток.",
+      "Упаковка и номер не доказывают подлинность партии, местный склад или официальное дилерство ACA."
+    ],
+    "commercialState": {
+      "available": false,
+      "priceKzt": null,
+      "authenticityVerified": false,
+      "ACAOfficialDealerClaim": false
+    }
+  },
+  "photos": [
+    {
+      "sourceFile": "1-Фото-1.jpg",
+      "sha256": "caeb1590283518aefb86b3c53d1e8921f7355e702df87f6d34a29dc40a4d9999",
+      "bytes": 192011,
+      "priorMatches": [
+        {
+          "manifest": "docs/jcb-brakes-airfilters-20261015/source-manifest.json",
+          "sourceFile": "10-Фото-10.jpg",
+          "publicPath": null,
+          "publicPaths": [
+            "/catalog-assets/jcb-brakes-airfilters-20261015/32-917804-label.jpg"
+          ],
+          "status": "published-source-photo"
+        },
+        {
+          "manifest": "docs/jcb-brakes-airfilters-20261015/publication-manifest.json",
+          "sourceFile": null,
+          "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/32-917804-label.jpg",
+          "publicPaths": [],
+          "status": null
+        }
+      ],
+      "photoNumber": 1,
+      "decision": "reuse-existing-public-asset-no-new-copy",
+      "publishNewAsset": false,
+      "reasonRu": "SHA256 совпал с уже опубликованным оригинальным JPEG предыдущей партии."
+    },
+    {
+      "sourceFile": "2-Фото-2.jpg",
+      "sha256": "23912577ee8bb460c299a4c4bc2b265cec0a8370bdc3bf5278f97330dd22cdea",
+      "bytes": 232291,
+      "priorMatches": [],
+      "photoNumber": 2,
+      "decision": "append-to-existing-32-917804-gallery",
+      "publishNewAsset": true,
+      "partNumber": "32/917804",
+      "reasonRu": "Четко читается 32/917804 и AIR FILTER; новый общий вид той же упаковки, не дубль предыдущего close-up.",
+      "safeImageLabelRu": "Фото упаковки",
+      "captionRu": "Упаковка с маркировкой JCB 32/917804 и AIR FILTER. Применяемость, количество и состав заказа согласуем перед поставкой.",
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/32-917804",
+          "title": "Outer Air Filter Element",
+          "supportsRu": "Подтверждает воздушный фильтрующий элемент с точным номером. Публичное название остается Воздушный фильтр JCB 32/917804 без нового списка моделей или замены 32/925682."
+        }
+      ]
+    },
+    {
+      "sourceFile": "3-Фото-3.jpg",
+      "sha256": "09553e71151f3e24f6b6c0e03c5a79df5d68726e47651589e5d16955a20f386a",
+      "bytes": 141742,
+      "priorMatches": [
+        {
+          "manifest": "docs/jcb-seals-oils-photos-20261015/photo-manifest.json",
+          "sourceFile": "9-Фото-9.jpg",
+          "publicPath": "/catalog-assets/jcb-service-parts-batch2/jcb-transmission-fluid-sae30-20l.jpg",
+          "publicPaths": [],
+          "status": null
+        }
+      ],
+      "photoNumber": 3,
+      "decision": "reuse-existing-public-asset-no-new-copy",
+      "publishNewAsset": false,
+      "reasonRu": "SHA256 совпал с уже опубликованным оригинальным JPEG предыдущей партии."
+    },
+    {
+      "sourceFile": "4-Фото-4.jpg",
+      "sha256": "95e8f933ff9b26d41b067bfb5aa91226aed6148fb8e25bb1e569b0e421de6176",
+      "bytes": 276937,
+      "priorMatches": [
+        {
+          "manifest": "docs/jcb-product-media-20261015/source-manifest.json",
+          "sourceFile": "1-Фото-1.jpg",
+          "publicPath": null,
+          "publicPaths": [
+            "/catalog-assets/jcb-product-media-20261015/581-r5206-boxes.jpg"
+          ],
+          "status": "published-source-photo"
+        },
+        {
+          "manifest": "docs/jcb-product-media-20261015/publication-manifest.json",
+          "sourceFile": null,
+          "publicPath": "/catalog-assets/jcb-product-media-20261015/581-r5206-boxes.jpg",
+          "publicPaths": [],
+          "status": null
+        }
+      ],
+      "photoNumber": 4,
+      "decision": "reuse-existing-public-asset-no-new-copy",
+      "publishNewAsset": false,
+      "reasonRu": "SHA256 совпал с уже опубликованным оригинальным JPEG предыдущей партии."
+    },
+    {
+      "sourceFile": "5-Фото-5.jpg",
+      "sha256": "7fb76553035ec63248fc6381eb756575194d82b4b80772793eb9e31a3ceaeed6",
+      "bytes": 155824,
+      "priorMatches": [
+        {
+          "manifest": "docs/jcb-product-media-20261015/source-manifest.json",
+          "sourceFile": "2-Фото-2.jpg",
+          "publicPath": null,
+          "publicPaths": [
+            "/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg"
+          ],
+          "status": "published-source-photo"
+        },
+        {
+          "manifest": "docs/jcb-product-media-20261015/publication-manifest.json",
+          "sourceFile": null,
+          "publicPath": "/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg",
+          "publicPaths": [],
+          "status": null
+        }
+      ],
+      "photoNumber": 5,
+      "decision": "reuse-existing-public-asset-no-new-copy",
+      "publishNewAsset": false,
+      "reasonRu": "SHA256 совпал с уже опубликованным оригинальным JPEG предыдущей партии."
+    },
+    {
+      "sourceFile": "6-Фото-6.jpg",
+      "sha256": "dea7c8c34dc494f522b8f772b69710ecb606ddfb8f2544d49e4c9173903903db",
+      "bytes": 217847,
+      "priorMatches": [
+        {
+          "manifest": "docs/jcb-product-media-20261015/source-manifest.json",
+          "sourceFile": "3-Фото-3.jpg",
+          "publicPath": null,
+          "publicPaths": [],
+          "status": "excluded-unidentified"
+        }
+      ],
+      "photoNumber": 6,
+      "decision": "keep-excluded-unidentified-exact-duplicate",
+      "publishNewAsset": false,
+      "reasonRu": "Побайтовое совпадение с ранее исключенным фото без читаемого артикула. Новый файл не дает новых оснований для SKU-привязки."
+    },
+    {
+      "sourceFile": "7-Фото-7.jpg",
+      "sha256": "d23007456e3670db6d7a0259a610b978836dc69efcd75fe853fb6c6796a7b59d",
+      "bytes": 182596,
+      "priorMatches": [
+        {
+          "manifest": "docs/jcb-product-media-20261015/source-manifest.json",
+          "sourceFile": "4-Фото-4.jpg",
+          "publicPath": null,
+          "publicPaths": [
+            "/catalog-assets/jcb-product-media-20261015/320-b4420-packaging.jpg"
+          ],
+          "status": "published-source-photo"
+        },
+        {
+          "manifest": "docs/jcb-product-media-20261015/publication-manifest.json",
+          "sourceFile": null,
+          "publicPath": "/catalog-assets/jcb-product-media-20261015/320-b4420-packaging.jpg",
+          "publicPaths": [],
+          "status": null
+        }
+      ],
+      "photoNumber": 7,
+      "decision": "reuse-existing-public-asset-no-new-copy",
+      "publishNewAsset": false,
+      "reasonRu": "SHA256 совпал с уже опубликованным оригинальным JPEG предыдущей партии."
+    },
+    {
+      "sourceFile": "8-Фото-8.jpg",
+      "sha256": "b9f163d022ae153973a6e4175ac7e2984619e1c103c80702cc8a09af11060dfc",
+      "bytes": 222354,
+      "priorMatches": [
+        {
+          "manifest": "docs/jcb-product-media-20261015/source-manifest.json",
+          "sourceFile": "5-Фото-5.jpg",
+          "publicPath": null,
+          "publicPaths": [
+            "/catalog-assets/jcb-product-media-20261015/32-925682-filter.jpg"
+          ],
+          "status": "published-source-photo"
+        },
+        {
+          "manifest": "docs/jcb-product-media-20261015/publication-manifest.json",
+          "sourceFile": null,
+          "publicPath": "/catalog-assets/jcb-product-media-20261015/32-925682-filter.jpg",
+          "publicPaths": [],
+          "status": null
+        }
+      ],
+      "photoNumber": 8,
+      "decision": "reuse-existing-public-asset-no-new-copy",
+      "publishNewAsset": false,
+      "reasonRu": "SHA256 совпал с уже опубликованным оригинальным JPEG предыдущей партии."
+    },
+    {
+      "sourceFile": "9-Фото-9.jpg",
+      "sha256": "5bbc02e445d96a8add050a2e3a6d0b94ca52d2369b63f313f9af9b5f7f72bed8",
+      "bytes": 333589,
+      "priorMatches": [],
+      "photoNumber": 9,
+      "decision": "exclude-from-exact-SKU-galleries-unreliable-labels",
+      "publishNewAsset": false,
+      "partNumbersConfirmed": [],
+      "candidateNotForPublication": "32/925683",
+      "reasonRu": "Общий вид множества коробок. На верхней правой этикетке возможен 32/925683, однако исходные пиксели размыты: локальный Vision OCR дал 32-025683. Остальные этикетки не читаются надежно. Визуальная похожесть на старые упаковки не доказывает точный номер или состав штабеля.",
+      "safeGenericCaptionRu": "Общий вид упаковок с маркировкой JCB. Состав, количество и наличие конкретного заказа подтверждаем отдельно.",
+      "restrictionsRu": [
+        "Не привязывать фото к 32/925683 или иным точным SKU по вероятному чтению.",
+        "Не выводить из вида коробок текущий остаток, локальное наличие, подлинность партии или дилерство ACA.",
+        "Допустимо только общее иллюстративное использование с оговоркой; по умолчанию для этой публикации исключить."
+      ]
+    },
+    {
+      "sourceFile": "10-Фото-10.jpg",
+      "sha256": "3c051e84b7802afe26120521870fb5105e588fb7db1f227d0ad3aa35345bdd17",
+      "bytes": 355189,
+      "priorMatches": [],
+      "photoNumber": 10,
+      "decision": "publish-for-new-exact-part-320-07580",
+      "publishNewAsset": true,
+      "partNumber": "320/07580",
+      "reasonRu": "Маркировка на фото читается уверенно: 320/07580, SEAL-ROCKE. Официальный JCB подтверждает Rocker Cover Seal."
+    }
+  ],
+  "photo6ExactExcludedDuplicate": true,
+  "photo6PriorExcludedFile": "docs/jcb-product-media-20261015/excluded/photo-3-unidentified-packaging.jpg",
+  "summaryRu": "Добавить точное уплотнение клапанной крышки 320/07580 по фото 10 и новый вид упаковки 32/917804 по фото 2. Фото 9 не дает надежной точной SKU-привязки. Повторные опубликованные фото 1/3/4/5/7/8 повторно не копировать; фото 6 оставить исключенным."
+}

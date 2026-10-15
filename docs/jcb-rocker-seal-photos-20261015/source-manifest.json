@@ -1,0 +1,122 @@
+{
+  "checkedAt": "2026-10-15",
+  "hashAlgorithm": "sha256",
+  "sources": [
+    {
+      "sourceNumber": 1,
+      "sourceFile": "1-Фото-1.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 192011,
+      "sha256": "caeb1590283518aefb86b3c53d1e8921f7355e702df87f6d34a29dc40a4d9999",
+      "status": "reused-published-exact",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/32-917804-label.jpg"
+      ],
+      "reusedPublicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/32-917804-label.jpg"
+    },
+    {
+      "sourceNumber": 2,
+      "sourceFile": "2-Фото-2.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 232291,
+      "sha256": "23912577ee8bb460c299a4c4bc2b265cec0a8370bdc3bf5278f97330dd22cdea",
+      "status": "published-new-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-rocker-seal-photos-20261015/32-917804-packaging.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 3,
+      "sourceFile": "3-Фото-3.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 141742,
+      "sha256": "09553e71151f3e24f6b6c0e03c5a79df5d68726e47651589e5d16955a20f386a",
+      "status": "reused-published-exact",
+      "publicPaths": [
+        "/catalog-assets/jcb-service-parts-batch2/jcb-transmission-fluid-sae30-20l.jpg"
+      ],
+      "reusedPublicPath": "/catalog-assets/jcb-service-parts-batch2/jcb-transmission-fluid-sae30-20l.jpg"
+    },
+    {
+      "sourceNumber": 4,
+      "sourceFile": "4-Фото-4.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 276937,
+      "sha256": "95e8f933ff9b26d41b067bfb5aa91226aed6148fb8e25bb1e569b0e421de6176",
+      "status": "reused-published-exact",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/581-r5206-boxes.jpg"
+      ],
+      "reusedPublicPath": "/catalog-assets/jcb-product-media-20261015/581-r5206-boxes.jpg"
+    },
+    {
+      "sourceNumber": 5,
+      "sourceFile": "5-Фото-5.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 155824,
+      "sha256": "7fb76553035ec63248fc6381eb756575194d82b4b80772793eb9e31a3ceaeed6",
+      "status": "reused-published-exact",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg"
+      ],
+      "reusedPublicPath": "/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg"
+    },
+    {
+      "sourceNumber": 6,
+      "sourceFile": "6-Фото-6.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 217847,
+      "sha256": "dea7c8c34dc494f522b8f772b69710ecb606ddfb8f2544d49e4c9173903903db",
+      "status": "reused-internal-unidentified",
+      "publicPaths": [],
+      "internalPath": "docs/jcb-product-media-20261015/excluded/photo-3-unidentified-packaging.jpg",
+      "reuseReason": "Exact SHA256 match to the already held unidentified packaging photo; no additional copy created."
+    },
+    {
+      "sourceNumber": 7,
+      "sourceFile": "7-Фото-7.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 182596,
+      "sha256": "d23007456e3670db6d7a0259a610b978836dc69efcd75fe853fb6c6796a7b59d",
+      "status": "reused-published-exact",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/320-b4420-packaging.jpg"
+      ],
+      "reusedPublicPath": "/catalog-assets/jcb-product-media-20261015/320-b4420-packaging.jpg"
+    },
+    {
+      "sourceNumber": 8,
+      "sourceFile": "8-Фото-8.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 222354,
+      "sha256": "b9f163d022ae153973a6e4175ac7e2984619e1c103c80702cc8a09af11060dfc",
+      "status": "reused-published-exact",
+      "publicPaths": [
+        "/catalog-assets/jcb-product-media-20261015/32-925682-filter.jpg"
+      ],
+      "reusedPublicPath": "/catalog-assets/jcb-product-media-20261015/32-925682-filter.jpg"
+    },
+    {
+      "sourceNumber": 9,
+      "sourceFile": "9-Фото-9.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 333589,
+      "sha256": "5bbc02e445d96a8add050a2e3a6d0b94ca52d2369b63f313f9af9b5f7f72bed8",
+      "status": "held-unidentified-overview",
+      "publicPaths": [],
+      "internalPath": "docs/jcb-rocker-seal-photos-20261015/excluded/photo-9-unidentified-overview.jpg",
+      "holdReason": "No reliable exact part-number association from the overview."
+    },
+    {
+      "sourceNumber": 10,
+      "sourceFile": "10-Фото-10.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 355189,
+      "sha256": "3c051e84b7802afe26120521870fb5105e588fb7db1f227d0ad3aa35345bdd17",
+      "status": "published-new-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-rocker-seal-photos-20261015/320-07580-rocker-cover-seal.jpg"
+      ]
+    }
+  ]
+}

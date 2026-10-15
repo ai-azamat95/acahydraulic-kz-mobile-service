@@ -83,7 +83,7 @@ test('confirmed cooler PN updates the existing product and URL while brake frict
   assert.deepEqual(counterplate.gallery, [counterplate.imageUrl, photo(4), photo(3)]);
   assert.match(counterplate.title, /ответн.*пластин.*тормоз/iu);
   assert.doesNotMatch(counterplate.title, /фрикционн/iu);
-  assert.deepEqual(part('32/917804').gallery, [photo(10), photo(7)]);
+  assert.deepEqual(part('32/917804').gallery, [photo(10), photo(7), '/catalog-assets/jcb-rocker-seal-photos-20261015/32-917804-packaging.jpg']);
   assert.deepEqual(part('32/917805').gallery, [photo(8), photo(9), photo(7)]);
 });
 
