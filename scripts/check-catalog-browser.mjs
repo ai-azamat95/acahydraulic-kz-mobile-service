@@ -396,6 +396,7 @@ try {
         const nameplate = huscoPage.getByRole('img',{name:"Шильдик снятого гидрораспределителя HUSCO 6600-E163 A00, C16E303, F18/22233",exact:true});
         await nameplate.waitFor({state:'visible'});
         assert.equal(await nameplate.count(),1,'The real nameplate photo must be visible');
+        await nameplate.scrollIntoViewIfNeeded();
         await nameplate.evaluate(image => image.decode());
         assert(await nameplate.evaluate(image => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0),'Authorized nameplate photo must decode');
         const imageResponse = await huscoPage.request.get(origin + "/catalog-assets/husco-c16e303/husco-c16e303-nameplate.webp");
