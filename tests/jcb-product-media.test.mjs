@@ -20,6 +20,7 @@ const part = number => products.find(product => product.id === `ACA-JCB-PART-${n
 const reducer = products.find(product => product.id === 'ACA-REDUCER-MARKING-SELECTION');
 const cooler = products.find(product => product.id === 'ACA-JCB-OIL-COOLER-A4173-MARKING');
 const relevant = products.filter(product => product.gallery.some(image => image.startsWith(imageBase)) || product.catalogVideos?.some(video => video.src.startsWith(videoBase)));
+const batchVideos = product => (product.catalogVideos || []).filter(video => publication.some(asset => asset.publicPath === video.src));
 const fullCopy = product => [product.title, product.catalogTitle, product.productType, product.fitment, product.catalogDescription,
   product.catalogSelection, product.catalogImageCaption, ...(product.tags || []),
   ...product.variants.flatMap(variant => [variant.title, variant.sku, ...(variant.options || [])]),
@@ -83,11 +84,12 @@ test('existing filters retain exact identities and only gain photo and video ass
     ['991/20021', 'jcb-seal-kits-inspection.mp4'], ['991/20023', 'jcb-seal-kits-inspection.mp4'], ['991/20038', 'jcb-seal-kits-inspection.mp4'],
   ];
   for (const [number, file] of links) assert.deepEqual(part(number).catalogVideos.map(video => video.src), [videoBase + file]);
-  assert.deepEqual(cooler.catalogVideos.map(video => video.src), [videoBase + 'oil-cooler-housing-inspection.mp4']);
+  assert.deepEqual(cooler.catalogVideos.map(video => video.src), [videoBase + 'oil-cooler-housing-inspection.mp4',
+    '/catalog-media/jcb-brakes-airfilters-20261015/320-a4173-unboxing.mp4']);
   assert.equal(products.filter(product => product.catalogVideos?.length).length, 6);
 });
 
-test('six new inquiry cards retain only proven article numbers and generic selection where identity is incomplete', () => {
+test('media inquiry cards retain proven identities while the unidentified reducer remains generic', () => {
   assert.equal(relevant.length, 11, 'Six new cards and five existing filters');
   for (const number of ['400/G6382', '991/20021', '991/20023', '991/20038']) {
     const product = part(number);
@@ -102,11 +104,10 @@ test('six new inquiry cards retain only proven article numbers and generic selec
   assert(!reducer.brand && !reducer.applicationBrand && !reducer.mpn);
   assert.match(reducer.title, /редуктор.*подбор.*маркировк/iu);
   assert.doesNotMatch(fullCopy(reducer), /JCB|Bonfiglioli|final\s*drive|swing\s*drive|бортов|поворотн/iu);
-  assert(!cooler.mpn);
-  assert.equal(cooler.sku, 'маркировка A4173');
-  assert.match(cooler.title, /масляный.*теплообменник.*маркировка A4173/iu);
-  assert.doesNotMatch(JSON.stringify(cooler), /320[\s/-]?A4173/iu);
-  assert.match(cooler.fitment, /полный OEM-номер не подтвержд/iu);
+  assert.equal(cooler.mpn, '320/A4173', 'A later readable box label and continuous unboxing confirmed the full number');
+  assert.equal(cooler.sku, '320/A4173');
+  assert.equal(cooler.handle, 'jcb-oil-cooler-a4173-marking', 'The previously published product URL is preserved');
+  assert.match(cooler.title, /масляный.*теплообменник.*320\/A4173/iu);
   for (const product of relevant) {
     assert.equal(product.available, false, product.handle);
     assert.equal(product.minPriceKzt, null);
@@ -133,7 +134,7 @@ test('published MP4 files are silent faststart videos with local posters and fix
     assert.equal(asset.faststartConfirmed, true);
     assert.deepEqual(asset.fullDecodeErrors, []);
   }
-  for (const product of products.filter(item => item.catalogVideos?.length)) for (const video of product.catalogVideos) {
+  for (const product of relevant) for (const video of batchVideos(product)) {
     assert(video.src.startsWith(videoBase));
     assert(video.poster.startsWith(imageBase));
     assert(publication.some(asset => asset.publicPath === video.src));
@@ -168,11 +169,11 @@ test('supplier video validation rejects unsafe URLs and dimensions before modify
 });
 
 test('static product pages expose user-controlled video with inline playback and no preload or autoplay', () => {
-  for (const product of products.filter(item => item.catalogVideos?.length)) {
+  for (const product of relevant.filter(item => batchVideos(item).length)) {
     const html = readText(`dist/public/catalog/${product.handle}/index.html`);
     const nodes = [...html.matchAll(/<video\b([^>]*)>([\s\S]*?)<\/video>/giu)];
-    assert.equal(nodes.length, product.catalogVideos.length, product.handle);
-    for (const video of product.catalogVideos) {
+    assert(nodes.length >= batchVideos(product).length, product.handle);
+    for (const video of batchVideos(product)) {
       const match = nodes.find(node => node[2].includes(`src="${video.src}"`));
       assert(match, `${product.handle}: exact local video source`);
       assert.match(match[1], /\bcontrols(?:\s|=|$)/iu);

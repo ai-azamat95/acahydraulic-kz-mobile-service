@@ -1,0 +1,146 @@
+{
+  "checkedAt": "2026-10-15",
+  "hashAlgorithm": "sha256",
+  "sources": [
+    {
+      "sourceNumber": 1,
+      "sourceFile": "1-cb1166a6-04a1-4209-97bd-58e7477bdc87.mov",
+      "mediaType": "video/quicktime",
+      "byteLength": 7193811,
+      "sha256": "41242aea1dfd3d07a95e5134d760937a8ce741ac53842198ee1df2aff99d3823",
+      "status": "published-as-transcoded-video",
+      "durationSeconds": 42.133333,
+      "streams": [
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "width": null,
+          "height": null,
+          "duration": "42.093333",
+          "avg_frame_rate": "0/0",
+          "sample_rate": "44100",
+          "channels": 2
+        },
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 576,
+          "height": 1024,
+          "duration": "42.133333",
+          "avg_frame_rate": "18945/632",
+          "sample_rate": null,
+          "channels": null
+        }
+      ],
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/320-a4173-unboxing-poster.jpg",
+        "/catalog-media/jcb-brakes-airfilters-20261015/320-a4173-unboxing.mp4"
+      ]
+    },
+    {
+      "sourceNumber": 2,
+      "sourceFile": "2-Фото-2.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 172547,
+      "sha256": "6a49b43224a7175253817c8f1e89aa96d298cc4b747b3c1b62d9cc93f0e7ff19",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/320-a4173-packaging.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 3,
+      "sourceFile": "3-Фото-3.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 294486,
+      "sha256": "f5e6fe6aa8f87b3274484bc43c297d7c68757fe9cf4cb97075f3000a3611bbd5",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/458-20353-458-20285-packaging.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 4,
+      "sourceFile": "4-Фото-4.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 155840,
+      "sha256": "e94a19dd02aab6cbb2e4ee20aaaa179b72d012117832907e88d65c49cd29ebba",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/458-20285-label.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 5,
+      "sourceFile": "5-Фото-5.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 154626,
+      "sha256": "647d76fba93da8e462e6f6a58c3746ab037508e03936a23479e5d3aa043cbfab",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/458-20353-label.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 6,
+      "sourceFile": "6-Фото-6.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 147034,
+      "sha256": "41c55171736bc75271eef3b8d379da32ae1272490b89c4218fa3de63eed40938",
+      "status": "excluded-near-duplicate",
+      "internalPath": "docs/jcb-brakes-airfilters-20261015/excluded/photo-6-near-duplicate.jpg",
+      "nearDuplicateOfSourceNumber": 5,
+      "duplicateType": "perceptual-near-duplicate-not-byte-identical",
+      "similarity": {
+        "method": "FFmpeg SSIM on original JPEG pair",
+        "all": 0.982705,
+        "verifiedAt": "2026-10-15"
+      },
+      "publicPaths": []
+    },
+    {
+      "sourceNumber": 7,
+      "sourceFile": "7-Фото-7.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 252954,
+      "sha256": "b17239b400720cdc21c57cb40797480929e54a20b7ab4472c85699bbf9323db3",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/jcb-filter-packaging-overview.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 8,
+      "sourceFile": "8-Фото-8.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 159080,
+      "sha256": "a7102ea858f7fca8998622f6f680ea838b8a3c5fdce15b9980fbb93c00c2d1d3",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/32-917805-label.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 9,
+      "sourceFile": "9-Фото-9.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 160033,
+      "sha256": "b42c1c2f1ba2d76d70a0d56eb3ecd9cfc982433865b0b37297ec39a4c6a6e44b",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/32-917805-packaging.jpg"
+      ]
+    },
+    {
+      "sourceNumber": 10,
+      "sourceFile": "10-Фото-10.jpg",
+      "mediaType": "image/jpeg",
+      "byteLength": 192011,
+      "sha256": "caeb1590283518aefb86b3c53d1e8921f7355e702df87f6d34a29dc40a4d9999",
+      "status": "published-source-photo",
+      "publicPaths": [
+        "/catalog-assets/jcb-brakes-airfilters-20261015/32-917804-label.jpg"
+      ]
+    }
+  ]
+}

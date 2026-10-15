@@ -39,9 +39,11 @@ test('five new JCB articles retain exact identities, purpose and their own reada
     assert.equal(product.category, expected.category);
     assert(product.categories.includes(expected.category));
     assert.equal(product.imageUrl, imageBase + expected.photo);
-    assert.deepEqual(product.gallery, expected.number === '320/A7227'
-      ? [imageBase + expected.photo, '/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg']
-      : [imageBase + expected.photo]);
+    const expectedGallery = [imageBase + expected.photo];
+    if (expected.number === '320/A7227') expectedGallery.push('/catalog-assets/jcb-product-media-20261015/320-a7227-shipping-label.jpg');
+    if (expected.number === '458/20285') expectedGallery.push('/catalog-assets/jcb-brakes-airfilters-20261015/458-20285-label.jpg',
+      '/catalog-assets/jcb-brakes-airfilters-20261015/458-20353-458-20285-packaging.jpg');
+    assert.deepEqual(product.gallery, expectedGallery);
     assert.match(product.catalogTitle || product.title, expected.purpose);
     assert((product.catalogTitle || product.title).includes(expected.number));
     assert(product.variants.length > 0);

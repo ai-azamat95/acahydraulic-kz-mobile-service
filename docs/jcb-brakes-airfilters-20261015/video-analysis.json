@@ -1,0 +1,196 @@
+{
+  "checkedDate": "2026-10-15",
+  "workflow": "ECC video-editing SKILL.md was fully read earlier in this session; local FFmpeg/ffprobe only.",
+  "publicationStatus": "Prepared in /tmp only; no repository modifications or uploads.",
+  "source": {
+    "sourceFile": "1-cb1166a6-04a1-4209-97bd-58e7477bdc87.mov",
+    "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/1BFE86B0-85A9-4131-81E6-EACB2E8B188F/1-cb1166a6-04a1-4209-97bd-58e7477bdc87.mov",
+    "byteLength": 7193811,
+    "sha256": "41242aea1dfd3d07a95e5134d760937a8ce741ac53842198ee1df2aff99d3823",
+    "durationSeconds": 42.133333,
+    "streams": [
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "width": null,
+        "height": null,
+        "duration": "42.093333",
+        "avg_frame_rate": "0/0",
+        "sample_rate": "44100",
+        "channels": 2
+      },
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 576,
+        "height": 1024,
+        "duration": "42.133333",
+        "avg_frame_rate": "18945/632",
+        "sample_rate": null,
+        "channels": null
+      }
+    ]
+  },
+  "visualEvidence": {
+    "safeTitleRu": "Распаковка масляного теплообменника с корпусом фильтра JCB 320/A4173",
+    "exactReadableNumbers": [
+      "320/A4173",
+      "A4173"
+    ],
+    "labelFacts": [
+      "JCB SERVICE GENUINE PARTS",
+      "320/A4173",
+      "COOLER COV"
+    ],
+    "numberStatus": "Full 320/A4173 is directly readable on the box at 0–5 seconds, especially the 3-second frame. A continuous unboxing follows. The assembly itself has an A4173 label.",
+    "segments": [
+      {
+        "start": 0,
+        "end": 6,
+        "contentRu": "Обзор коробки; чётко читается320/A4173 иCOOLER COV."
+      },
+      {
+        "start": 6,
+        "end": 18,
+        "contentRu": "Вскрытие внешней коробки."
+      },
+      {
+        "start": 18,
+        "end": 29,
+        "contentRu": "Снятие упаковочной бумаги, вид теплообменника с уплотнительным каналом."
+      },
+      {
+        "start": 29,
+        "end": 42.133333,
+        "contentRu": "Извлечение и поворот узла, корпус фильтра икрышка, противоположная сторона."
+      }
+    ],
+    "recommendedCardReference": "320/A4173, after independent catalogue-source check of designation and fitment.",
+    "limitationsRu": [
+      "Маркировка коробки и непрерывная распаковка подтверждают показанный номер, но не подлинность, наличие, страну конкретной партии или совместимость.",
+      "Не выводить характеристики, размеры, рабочие параметры, состав поставки и гарантии по внешнему виду.",
+      "Это новый источник полного номера; старое видео партии3 с одной маркировкойA4173 само по себе полного номера не доказывало."
+    ]
+  },
+  "privacyReview": {
+    "method": "Contact sheets for the full duration at 1 frame per second plus full-resolution frames at 0,1,2,3,4,20,33,35,38,40 seconds.",
+    "visiblePeople": "Hands and forearms only; no faces observed in reviewed frames.",
+    "personalData": "No readable personal contacts, private documents, identity details or identifiable screens observed in reviewed frames.",
+    "limitation": "Sampled visual review, not a frame-by-frame privacy audit."
+  },
+  "audioReview": {
+    "sourceAudioPresent": true,
+    "codec": "aac",
+    "speechMusicStatus": "not-verified",
+    "reason": "The available model audio path explicitly does not support audio input; no local ASR was installed. No claim of absent speech or music.",
+    "exportAudioRemoved": true
+  },
+  "export": {
+    "path": "/tmp/aca-jcb-batch4-evidence/videos/jcb-320-a4173-unboxing.mp4",
+    "sha256": "372407ac92048450a068a49c7e51cca248fe0bc17553aab5599c6f4a9e867e7b",
+    "byteLength": 5145703,
+    "durationSeconds": 42.133333,
+    "width": 576,
+    "height": 1024,
+    "codec": "h264",
+    "pix_fmt": "yuv420p",
+    "preset": "fast",
+    "crf": 26,
+    "audioStreams": 0,
+    "faststartConfirmed": true,
+    "fullDecodeErrors": [],
+    "cropped": false,
+    "trimmed": false,
+    "metadataRemoved": true,
+    "topLevelAtoms": [
+      {
+        "type": "ftyp",
+        "offset": 0,
+        "size": 32
+      },
+      {
+        "type": "moov",
+        "offset": 32,
+        "size": 10788
+      },
+      {
+        "type": "free",
+        "offset": 10820,
+        "size": 8
+      },
+      {
+        "type": "mdat",
+        "offset": 10828,
+        "size": 5134875
+      }
+    ]
+  },
+  "stills": [
+    {
+      "path": "/tmp/aca-jcb-batch4-evidence/videos/jcb-320-a4173-unboxing-poster.jpg",
+      "sourceRequestedSeconds": 3,
+      "actualSourceFrameSeconds": 3.0,
+      "byteLength": 39056,
+      "sha256": "858bb2be9661493f8aea5f965181dacf443d73cbfd9a064340f22aa32349bb67",
+      "width": 576,
+      "height": 1024,
+      "role": "video-poster",
+      "cropped": false,
+      "syntheticEditing": false
+    },
+    {
+      "path": "/tmp/aca-jcb-batch4-evidence/videos/jcb-320-a4173-packaging-still-3s.jpg",
+      "sourceRequestedSeconds": 3,
+      "actualSourceFrameSeconds": 3.0,
+      "byteLength": 39056,
+      "sha256": "858bb2be9661493f8aea5f965181dacf443d73cbfd9a064340f22aa32349bb67",
+      "width": 576,
+      "height": 1024,
+      "role": "packaging-exact-number-evidence",
+      "cropped": false,
+      "syntheticEditing": false
+    },
+    {
+      "path": "/tmp/aca-jcb-batch4-evidence/videos/jcb-320-a4173-assembly-still-38s.jpg",
+      "sourceRequestedSeconds": 38,
+      "actualSourceFrameSeconds": 38.0,
+      "byteLength": 33867,
+      "sha256": "f0ae7100e82044ec55896410f6254c99719cb5e2e775b88ba39ea1394d1eb801",
+      "width": 576,
+      "height": 1024,
+      "role": "assembly-view-real-frame",
+      "cropped": false,
+      "syntheticEditing": false
+    },
+    {
+      "path": "/tmp/aca-jcb-batch4-evidence/videos/320-a4173-unboxing-poster-unit-38s.jpg",
+      "sourceRequestedSeconds": 38,
+      "actualSourceFrameSeconds": 38,
+      "byteLength": 33867,
+      "sha256": "f0ae7100e82044ec55896410f6254c99719cb5e2e775b88ba39ea1394d1eb801",
+      "width": 576,
+      "height": 1024,
+      "role": "poster-review-option-actual-unit",
+      "cropped": false,
+      "syntheticEditing": false
+    },
+    {
+      "path": "/tmp/aca-jcb-batch4-evidence/videos/320-a4173-unboxing-poster-label-3s.jpg",
+      "sourceRequestedSeconds": 3,
+      "actualSourceFrameSeconds": 3,
+      "byteLength": 39056,
+      "sha256": "858bb2be9661493f8aea5f965181dacf443d73cbfd9a064340f22aa32349bb67",
+      "width": 576,
+      "height": 1024,
+      "role": "poster-review-option-readable-box-label",
+      "cropped": false,
+      "syntheticEditing": false
+    }
+  ],
+  "suggestedPublication": {
+    "videoPath": "/catalog-media/jcb-brakes-airfilters-20261015/320-a4173-unboxing.mp4",
+    "posterDirectory": "/catalog-assets/jcb-brakes-airfilters-20261015/",
+    "posterChoice": "Root review pending between actual-unit38s and readable-box-label3s; both are real, unretouched frames.",
+    "internalStills": "Keep extra analysis stills internal unless explicitly selected."
+  }
+}
