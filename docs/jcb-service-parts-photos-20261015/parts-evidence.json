@@ -1,0 +1,229 @@
+{
+  "checkedAt": "2026-10-15",
+  "workflow": "ECC research-ops; light factual verification",
+  "scope": "8 артикулов с пользовательских фото; только первичные JCB product pages, exact SIF catalogue pages и пользовательские маркировки",
+  "sourcesNote": "SIF на собственном About Us заявляет дистрибуцию JCB в Турции с 1974; это не подтверждает статус ACA или подлинность представленной партии.",
+  "sifAbout": "https://onlinesatis.sif.com.tr/hakkimizda",
+  "photoOverview": [
+    "1-Фото-1.jpg",
+    "9-Фото-9.jpg"
+  ],
+  "parts": [
+    {
+      "partNumber": "32/925346",
+      "titleRu": "Гидравлический фильтр JCB 32/925346",
+      "functionRu": "Сменный фильтрующий элемент гидравлической системы.",
+      "officialTitle": "Hydraulic Filter Element",
+      "primarySource": "https://parts.jcb.com/uk/product/32-925346",
+      "photo": "2-Фото-2.jpg",
+      "photoLabel": "32/925346; FILTER ELEMENT",
+      "evidenceBoundary": "Тип гидравлического фильтра подтвержден JCB; не уточнять линию, тонкость фильтрации или размеры без каталога конкретной машины.",
+      "fitmentEvidence": [
+        {
+          "family": "JCB 3CX",
+          "source": "https://parts.jcb.com/uk/machine-parts/jcb-backhoe-loader-parts/3cx-parts",
+          "scope": "Код перечислен на общей странице 3CX; требуются PIN, год и исполнение. Это не универсальная совместимость."
+        }
+      ],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9DC93973-EDD6-4E68-A5A4-347290400179/2-Фото-2.jpg",
+      "recommendedFitmentText": "Подбор по каталожному номеру и PIN / серийному номеру техники. Перед заказом подтвердим применяемость.",
+      "recommendedAvailabilityText": "Цена, наличие и срок поставки — по запросу.",
+      "authenticityStatus": "Маркировка JCB на пользовательском фото; подлинность конкретного товара и происхождение цепочки поставки не проверены.",
+      "publicClaimRestrictions": [
+        "Не заявлять наличие на складе ACA или в Казахстане по фото.",
+        "Не заявлять официальное дилерство ACA.",
+        "Не переносить турецкую розничную цену и склад SIF в предложение ACA.",
+        "Не обещать оригинальность конкретной партии только по упаковке."
+      ]
+    },
+    {
+      "partNumber": "32/925682",
+      "titleRu": "Воздушный фильтр JCB 32/925682 — основной наружный элемент",
+      "functionRu": "Наружный основной элемент воздушного фильтра двигателя.",
+      "officialTitle": "ELEMENT-AIRPQ145",
+      "primarySource": "https://parts.jcb.com/uk/product/32-925682",
+      "additionalSources": [
+        {
+          "url": "https://onlinesatis.sif.com.tr/32925682-havalandirma",
+          "title": "32/925682 - Hava filtresi dış",
+          "supports": "Наружный воздушный фильтр (DIŞ HAVA FİLTRESİ)."
+        }
+      ],
+      "photo": "3-Фото-3.jpg",
+      "photoLabel": "32/925682; MAIN ELEMENT",
+      "evidenceBoundary": "Воздушное назначение подтверждено JCB; наружный подтвержден exact SIF карточкой; основной — маркировкой пользовательского фото.",
+      "fitmentEvidence": [
+        {
+          "family": "JCB 3CX / 4CX / 5CX / TH",
+          "source": "https://onlinesatis.sif.com.tr/32925682-havalandirma",
+          "scope": "Только широкие семейства, перечисленные SIF. Не использовать как гарантию установки; точное исполнение определяется PIN."
+        }
+      ],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9DC93973-EDD6-4E68-A5A4-347290400179/3-Фото-3.jpg",
+      "recommendedFitmentText": "Подбор по каталожному номеру и PIN / серийному номеру техники. Перед заказом подтвердим применяемость.",
+      "recommendedAvailabilityText": "Цена, наличие и срок поставки — по запросу.",
+      "authenticityStatus": "Маркировка JCB на пользовательском фото; подлинность конкретного товара и происхождение цепочки поставки не проверены.",
+      "publicClaimRestrictions": [
+        "Не заявлять наличие на складе ACA или в Казахстане по фото.",
+        "Не заявлять официальное дилерство ACA.",
+        "Не переносить турецкую розничную цену и склад SIF в предложение ACA.",
+        "Не обещать оригинальность конкретной партии только по упаковке."
+      ]
+    },
+    {
+      "partNumber": "32/925683",
+      "titleRu": "Воздушный фильтр JCB 32/925683 — внутренний страховочный элемент",
+      "functionRu": "Страховочный внутренний элемент воздушного фильтра двигателя.",
+      "officialTitle": "Safety Element",
+      "primarySource": "https://parts.jcb.com/uk/product/32-925683",
+      "additionalSources": [
+        {
+          "url": "https://onlinesatis.sif.com.tr/32925683-havalandirma",
+          "title": "32/925683 - Hava Fitresi İç",
+          "supports": "Внутренний воздушный фильтр (İÇ HAVA FİLTRESİ)."
+        }
+      ],
+      "photo": "4-Фото-4.jpg",
+      "photoLabel": "32/925683; Filter Assembly",
+      "evidenceBoundary": "Упаковка называет Filter Assembly, но точное назначение Safety Element в категории Engine Air Filters подтверждено JCB, внутренний — SIF.",
+      "fitmentEvidence": [
+        {
+          "family": "JCB 3CX",
+          "source": "https://parts.jcb.com/uk/machine-parts/jcb-backhoe-loader-parts/3cx-parts",
+          "scope": "Код перечислен на общей странице 3CX; необходим PIN."
+        },
+        {
+          "family": "JCB 3CX / 4CX / 5CX / TH",
+          "source": "https://onlinesatis.sif.com.tr/32925683-havalandirma",
+          "scope": "Только широкие семейства SIF; не универсальная совместимость."
+        }
+      ],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9DC93973-EDD6-4E68-A5A4-347290400179/4-Фото-4.jpg",
+      "recommendedFitmentText": "Подбор по каталожному номеру и PIN / серийному номеру техники. Перед заказом подтвердим применяемость.",
+      "recommendedAvailabilityText": "Цена, наличие и срок поставки — по запросу.",
+      "authenticityStatus": "Маркировка JCB на пользовательском фото; подлинность конкретного товара и происхождение цепочки поставки не проверены.",
+      "publicClaimRestrictions": [
+        "Не заявлять наличие на складе ACA или в Казахстане по фото.",
+        "Не заявлять официальное дилерство ACA.",
+        "Не переносить турецкую розничную цену и склад SIF в предложение ACA.",
+        "Не обещать оригинальность конкретной партии только по упаковке."
+      ]
+    },
+    {
+      "partNumber": "320/A7170",
+      "titleRu": "Топливный фильтр JCB 320/A7170",
+      "functionRu": "Фильтрующий элемент топливной системы двигателя.",
+      "officialTitle": "Fuel Filter Element",
+      "primarySource": "https://parts.jcb.com/uk/product/320-A7170",
+      "photo": "5-Фото-5.jpg",
+      "photoLabel": "320/A7170",
+      "evidenceBoundary": "JCB подтверждает топливный тип и категорию spin-on. Тонкая очистка/микроны/все модели по этому официальному источнику не подтверждены; использовать нейтральное название.",
+      "fitmentEvidence": [],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9DC93973-EDD6-4E68-A5A4-347290400179/5-Фото-5.jpg",
+      "recommendedFitmentText": "Подбор по каталожному номеру и PIN / серийному номеру техники. Перед заказом подтвердим применяемость.",
+      "recommendedAvailabilityText": "Цена, наличие и срок поставки — по запросу.",
+      "authenticityStatus": "Маркировка JCB на пользовательском фото; подлинность конкретного товара и происхождение цепочки поставки не проверены.",
+      "publicClaimRestrictions": [
+        "Не заявлять наличие на складе ACA или в Казахстане по фото.",
+        "Не заявлять официальное дилерство ACA.",
+        "Не переносить турецкую розничную цену и склад SIF в предложение ACA.",
+        "Не обещать оригинальность конкретной партии только по упаковке."
+      ]
+    },
+    {
+      "partNumber": "320/B4420",
+      "titleRu": "Масляный фильтр двигателя JCB 320/B4420",
+      "functionRu": "Фильтрующий элемент системы смазки двигателя.",
+      "officialTitle": "Engine Oil Filter Element",
+      "primarySource": "https://parts.jcb.com/uk/product/320-B4420",
+      "photo": "6-Фото-6.jpg",
+      "photoLabel": "320/B4420; OIL FILTER",
+      "evidenceBoundary": "Именно масло двигателя, не гидравлика и не трансмиссия. Не публиковать размеры упаковки как размеры фильтра.",
+      "fitmentEvidence": [],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9DC93973-EDD6-4E68-A5A4-347290400179/6-Фото-6.jpg",
+      "recommendedFitmentText": "Подбор по каталожному номеру и PIN / серийному номеру техники. Перед заказом подтвердим применяемость.",
+      "recommendedAvailabilityText": "Цена, наличие и срок поставки — по запросу.",
+      "authenticityStatus": "Маркировка JCB на пользовательском фото; подлинность конкретного товара и происхождение цепочки поставки не проверены.",
+      "publicClaimRestrictions": [
+        "Не заявлять наличие на складе ACA или в Казахстане по фото.",
+        "Не заявлять официальное дилерство ACA.",
+        "Не переносить турецкую розничную цену и склад SIF в предложение ACA.",
+        "Не обещать оригинальность конкретной партии только по упаковке."
+      ]
+    },
+    {
+      "partNumber": "320/A7124",
+      "titleRu": "Топливный фильтр JCB 320/A7124 — предварительный элемент",
+      "functionRu": "Сменный элемент предварительного топливного фильтра.",
+      "officialTitle": "Fuel Filter Element",
+      "primarySource": "https://parts.jcb.com/uk/product/320-A7124",
+      "additionalSources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/320-A7116",
+          "title": "Fuel Filter Assembly with Water in Fuel Sensor",
+          "supports": "Описание сборки первичного топливного фильтра (Primary) прямо включает фильтрующий элемент 320/A7124."
+        }
+      ],
+      "photo": "7-Фото-7.jpg",
+      "photoLabel": "320/A7124; ELEMENT ASSY",
+      "evidenceBoundary": "Назначение предварительный подтверждено через официальную JCB сборку 320/A7116. Датчик воды, стакан и ручной воздухоотвод относятся к сборке, их не обещать как комплект элемента 320/A7124.",
+      "fitmentEvidence": [],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9DC93973-EDD6-4E68-A5A4-347290400179/7-Фото-7.jpg",
+      "recommendedFitmentText": "Подбор по каталожному номеру и PIN / серийному номеру техники. Перед заказом подтвердим применяемость.",
+      "recommendedAvailabilityText": "Цена, наличие и срок поставки — по запросу.",
+      "authenticityStatus": "Маркировка JCB на пользовательском фото; подлинность конкретного товара и происхождение цепочки поставки не проверены.",
+      "publicClaimRestrictions": [
+        "Не заявлять наличие на складе ACA или в Казахстане по фото.",
+        "Не заявлять официальное дилерство ACA.",
+        "Не переносить турецкую розничную цену и склад SIF в предложение ACA.",
+        "Не обещать оригинальность конкретной партии только по упаковке."
+      ]
+    },
+    {
+      "partNumber": "581/R5206",
+      "titleRu": "Трансмиссионный фильтр JCB 581/R5206",
+      "functionRu": "Фильтрующий элемент трансмиссионного масла.",
+      "officialTitle": "Transmission Filter Element",
+      "primarySource": "https://parts.jcb.com/uk/product/581-R5206",
+      "photo": "8-Фото-8.jpg",
+      "photoLabel": "581/R5206; TRANSMISSION FILTER",
+      "evidenceBoundary": "Не называть масляным фильтром двигателя. Точные КПП, модели и исполнения требуют PIN.",
+      "fitmentEvidence": [],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9DC93973-EDD6-4E68-A5A4-347290400179/8-Фото-8.jpg",
+      "recommendedFitmentText": "Подбор по каталожному номеру и PIN / серийному номеру техники. Перед заказом подтвердим применяемость.",
+      "recommendedAvailabilityText": "Цена, наличие и срок поставки — по запросу.",
+      "authenticityStatus": "Маркировка JCB на пользовательском фото; подлинность конкретного товара и происхождение цепочки поставки не проверены.",
+      "publicClaimRestrictions": [
+        "Не заявлять наличие на складе ACA или в Казахстане по фото.",
+        "Не заявлять официальное дилерство ACA.",
+        "Не переносить турецкую розничную цену и склад SIF в предложение ACA.",
+        "Не обещать оригинальность конкретной партии только по упаковке."
+      ]
+    },
+    {
+      "partNumber": "813/50012",
+      "titleRu": "Уплотнение тормоза JCB 813/50012",
+      "functionRu": "Уплотнение тормозной системы.",
+      "officialTitle": "Brake Seal",
+      "primarySource": "https://parts.jcb.com/uk/product/813-50012",
+      "photo": "10-Фото-10.jpg",
+      "photoLabel": "813/50012; BRAKE SEAL; QTY 2",
+      "evidenceBoundary": "JCB подтверждает Brake Seal; точный узел/мост/поршень/размеры не установлены. На пользовательской упаковке QTY 2, на официальной странице Pack Size 1: не обещать комплект из двух и не выводить остаток со снимка.",
+      "fitmentEvidence": [],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/9DC93973-EDD6-4E68-A5A4-347290400179/10-Фото-10.jpg",
+      "recommendedFitmentText": "Подбор по каталожному номеру и PIN / серийному номеру техники. Перед заказом подтвердим применяемость.",
+      "recommendedAvailabilityText": "Цена, наличие и срок поставки — по запросу.",
+      "authenticityStatus": "Маркировка JCB на пользовательском фото; подлинность конкретного товара и происхождение цепочки поставки не проверены.",
+      "publicClaimRestrictions": [
+        "Не заявлять наличие на складе ACA или в Казахстане по фото.",
+        "Не заявлять официальное дилерство ACA.",
+        "Не переносить турецкую розничную цену и склад SIF в предложение ACA.",
+        "Не обещать оригинальность конкретной партии только по упаковке."
+      ]
+    }
+  ],
+  "photo10SecondarySeal": {
+    "status": "not_catalogued",
+    "reasonRu": "Нижняя синяя упаковка с просвечивающим перевернутым номером: возможен отдельный артикул 813/50011, но номер закрыт логотипами и пластиком и недостаточно надежно читается. Верхний 813/50012 читается четко. Фото содержит более одного уплотнения; оно не доказывает комплектацию 813/50012."
+  }
+}

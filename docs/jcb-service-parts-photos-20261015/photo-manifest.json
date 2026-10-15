@@ -1,0 +1,107 @@
+{
+  "checkedAt": "2026-10-15",
+  "description": "SHA256 оригинальных пользовательских JPEG до копирования. Снимки не подтверждают склад, подлинность, комплектность или официальное дилерство ACA.",
+  "hashAlgorithm": "sha256",
+  "images": [
+    {
+      "sourceFile": "2-Фото-2.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/32-925346-packaging.jpg",
+      "role": "primary-packaging",
+      "partNumbers": [
+        "32/925346"
+      ],
+      "byteLength": 144992,
+      "sha256": "a53c133c1151e031472a5257dfe9d1fd7affbe3d1069b22f8e66536ed74e53c6"
+    },
+    {
+      "sourceFile": "3-Фото-3.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/32-925682-packaging.jpg",
+      "role": "primary-packaging",
+      "partNumbers": [
+        "32/925682"
+      ],
+      "byteLength": 224036,
+      "sha256": "3c557e7d4bcecda3b0611c9799f444c51596022d8f00ed2cc35bfbc8680a557d"
+    },
+    {
+      "sourceFile": "4-Фото-4.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/32-925683-packaging.jpg",
+      "role": "primary-packaging",
+      "partNumbers": [
+        "32/925683"
+      ],
+      "byteLength": 176826,
+      "sha256": "01fb608a1523d388b17d23188f1156b574f0d0f2caf5a8d2be2dadfd68a74618"
+    },
+    {
+      "sourceFile": "5-Фото-5.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/320-a7170-packaging.jpg",
+      "role": "primary-packaging",
+      "partNumbers": [
+        "320/A7170"
+      ],
+      "byteLength": 173427,
+      "sha256": "db3735f9ed36499a9f8812f814cff026d535a82ea8bdc94ba588389bae84f7d8"
+    },
+    {
+      "sourceFile": "6-Фото-6.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/320-b4420-packaging.jpg",
+      "role": "primary-packaging",
+      "partNumbers": [
+        "320/B4420"
+      ],
+      "byteLength": 160827,
+      "sha256": "5e950678a81d71359c16f5497b169eb01ac139fe0a05efe41361a54a8b7ae26a"
+    },
+    {
+      "sourceFile": "7-Фото-7.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/320-a7124-packaging.jpg",
+      "role": "primary-packaging",
+      "partNumbers": [
+        "320/A7124"
+      ],
+      "byteLength": 160149,
+      "sha256": "d21d47afbf15d9e2ce9d949b09ec11d242f53fbb11a29a1e9c552f67c8613d46"
+    },
+    {
+      "sourceFile": "8-Фото-8.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/581-r5206-packaging.jpg",
+      "role": "primary-packaging",
+      "partNumbers": [
+        "581/R5206"
+      ],
+      "byteLength": 178358,
+      "sha256": "d919a25fcc7a2a1855ff0186379043126048dd3c91800706f7068f16f5a2754c"
+    },
+    {
+      "sourceFile": "10-Фото-10.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/813-50012-packaging.jpg",
+      "role": "primary-packaging",
+      "partNumbers": [
+        "813/50012"
+      ],
+      "byteLength": 204011,
+      "sha256": "698c0a2c92abb6bb517956399483607a85ade514cb62e1f4c4c7198f69028c10"
+    },
+    {
+      "sourceFile": "1-Фото-1.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/jcb-packages-overview-1.jpg",
+      "role": "overview-gallery",
+      "partNumbers": [
+        "581/R5206"
+      ],
+      "byteLength": 225464,
+      "sha256": "5548098c61f4c05620027320e914a1e4aacc85878a4800dfdf1c15f991c5aca3"
+    },
+    {
+      "sourceFile": "9-Фото-9.jpg",
+      "publicPath": "/catalog-assets/jcb-service-parts/jcb-packages-overview-2.jpg",
+      "role": "overview-gallery",
+      "partNumbers": [
+        "581/R5206"
+      ],
+      "byteLength": 217477,
+      "sha256": "5bdf1b195f8ace6ab0236f021dbb3fca2ee840462a97de3fd5141408bac72a96"
+    }
+  ]
+}

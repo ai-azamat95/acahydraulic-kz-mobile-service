@@ -295,7 +295,7 @@ export default function CatalogProduct() {
               {selectedImage && !imageFailed && (
                 <span className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1 rounded bg-black/70 px-2.5 py-1 text-xs font-medium text-white">
                   <ZoomIn className="h-3.5 w-3.5" aria-hidden="true" />
-                  {product.ownerEvidence ? "Пример маркировки узла" : imageIsCategoryPlaceholder ? "Иллюстрация категории" : product.catalogSupplement ? "Фото из каталога" : "Фото товара"}
+                  {product.ownerEvidence ? "Пример маркировки узла" : imageIsCategoryPlaceholder ? "Иллюстрация категории" : product.catalogImageLabel || (product.catalogSupplement ? "Фото из каталога" : "Фото товара")}
                 </span>
               )}
             </div>

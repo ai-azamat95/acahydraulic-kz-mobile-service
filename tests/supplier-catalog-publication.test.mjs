@@ -9,7 +9,7 @@ const publicDir = path.resolve('dist/public');
 const escapeHtml = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 
 test('reviewed supplement retains identities, manufacturer distinction and honest commercial terms', () => {
-  assert.equal(products.length, 1606);
+  assert.equal(products.length, 1614);
   assert.equal(products.filter(product => product.category === 'construction-machinery').length, 49);
   assert.equal(products.filter(product => product.category === 'attachments').length, 10);
   assert.equal(new Set(products.map(product => product.id)).size, products.length);
@@ -29,7 +29,8 @@ test('reviewed supplement retains identities, manufacturer distinction and hones
       assert.equal(variant.available, false, product.handle);
       assert.equal(variant.priceKzt, null, product.handle);
     }
-    assert.deepEqual(product.gallery, product.imageUrl ? [product.imageUrl] : [], product.handle);
+    assert.equal(product.gallery[0] || null, product.imageUrl, product.handle);
+    assert.equal(new Set(product.gallery).size, product.gallery.length, product.handle);
     for (const image of product.gallery) {
       assert.ok(image.startsWith('/catalog-assets/'), product.handle);
       assert.ok(fs.statSync(path.join('client/public', image)).size > 0, product.handle);

@@ -9,6 +9,7 @@ export type CatalogIndexProduct = {
   catalogDescription?: string;
   catalogSelection?: string;
   catalogImageCaption?: string;
+  catalogImageLabel?: string;
   fitment: string | null;
   sku: string;
   brand?: string;
