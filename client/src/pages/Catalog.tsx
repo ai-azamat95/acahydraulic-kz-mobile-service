@@ -55,6 +55,8 @@ import {
 } from "@/lib/catalogLandings";
 
 const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge> = {
+  "construction-machinery": Truck,
+  "attachments": Wrench,
   "hydraulic-pumps": Gauge,
   "gear-pumps": Cog,
   "piston-pumps": Gauge,
@@ -78,7 +80,7 @@ const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge>
   "other-parts": PackageSearch,
 };
 const WHATSAPP_NUMBER = "77714177925";
-const sectionIcons = { hydraulics: Gauge, electrical: CircuitBoard, engines: Cog, other: PackageCheck };
+const sectionIcons = { equipment: Truck, hydraulics: Gauge, electrical: CircuitBoard, engines: Cog, other: PackageCheck };
 const completeEngineCategoryCopy: Record<CatalogLanguage, { title: string; subtitle: string }> = {
   ru: { title: "Двигатели в сборе", subtitle: "Поставка и монтаж" },
   kz: { title: "Қозғалтқыштар жинағы", subtitle: "Жеткізу және орнату" },
@@ -410,12 +412,12 @@ export default function Catalog() {
         ? `/catalog/model/${routeModel.slug}`
         : "/catalog";
   const landingTitle = categoryLanding?.title
-    || (routeBrand ? `Запчасти ${routeBrand.name} для спецтехники` : "")
-    || (routeModel ? `Запчасти для ${routeModel.engine ? "двигателя" : "спецтехники"} ${routeModel.brand} ${routeModel.label}` : "")
+    || (routeBrand ? routeBrand.title || `Запчасти ${routeBrand.name} для спецтехники` : "")
+    || (routeModel ? routeModel.brand === "JCB" ? `Каталог ${routeModel.brand} ${routeModel.label}: запчасти и техника` : `Запчасти для ${routeModel.engine ? "двигателя" : "спецтехники"} ${routeModel.brand} ${routeModel.label}` : "")
     || catalogHomeSeo.title;
   const landingDescription = categoryLanding?.description
-    || (routeBrand ? `Каталог запчастей ${routeBrand.name} для спецтехники. Подбор по OEM-номеру, модели и серийному номеру с проверкой совместимости до оплаты.` : "")
-    || (routeModel ? `Запчасти для ${routeModel.brand} ${routeModel.label}: поиск по OEM-номеру и узлу, проверка исполнения и совместимости, поставка по Казахстану.` : "")
+    || (routeBrand ? routeBrand.description || `Каталог запчастей ${routeBrand.name} для спецтехники. Подбор по OEM-номеру, модели и серийному номеру с проверкой совместимости до оплаты.` : "")
+    || (routeModel ? routeModel.brand === "JCB" ? `Техника и запчасти ${routeModel.brand} ${routeModel.label} в Казахстане. Подбор исполнения машины под задачу и деталей по OEM-номеру. Цена и срок по запросу.` : `Запчасти для ${routeModel.brand} ${routeModel.label}: поиск по OEM-номеру и узлу, проверка исполнения и совместимости, поставка по Казахстану.` : "")
     || catalogHomeSeo.description;
   const isLandingPage = Boolean(categoryLanding || routeBrand || routeModel);
   const showResults = isLandingPage || Boolean(urlQuery);

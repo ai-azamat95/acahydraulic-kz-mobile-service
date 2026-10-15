@@ -4,7 +4,7 @@
     "links": [
       {
         "href": "/catalog/",
-        "label": "Каталог запчастей для спецтехники"
+        "label": "Каталог запчастей, техники и оборудования"
       },
       {
         "href": "/about/",
@@ -337,8 +337,10 @@
     ]
   },
   {
-    "title": "Категории запчастей",
+    "title": "Категории запчастей и техники",
     "links": [
+      {"href": "/catalog/category/construction-machinery/", "label": "Спецтехника JCB под заказ в Казахстане"},
+      {"href": "/catalog/category/attachments/", "label": "Навесное оборудование JCB для спецтехники"},
       {
         "href": "/catalog/category/hydraulic-pumps/",
         "label": "Гидронасосы под заказ в Казахстане"
@@ -426,8 +428,10 @@
     ]
   },
   {
-    "title": "Запчасти по брендам",
+    "title": "Запчасти и техника по брендам",
     "links": [
+      {"href": "/catalog/brand/perkins/", "label": "Запчасти Perkins для спецтехники"},
+      {"href": "/catalog/brand/fpt/", "label": "Запчасти FPT для спецтехники"},
       {
         "href": "/catalog/brand/caterpillar/",
         "label": "Запчасти Caterpillar для спецтехники"
@@ -474,7 +478,7 @@
       },
       {
         "href": "/catalog/brand/jcb/",
-        "label": "Запчасти JCB для спецтехники"
+        "label": "Техника, навесное оборудование и запчасти JCB"
       },
       {
         "href": "/catalog/brand/danfoss/",

@@ -1,0 +1,14 @@
+{
+  "unique_ids": true,
+  "unique_handles": true,
+  "all_price_null": true,
+  "all_unavailable": true,
+  "all_provenance_ids": true,
+  "all_source_rows_accounted": true,
+  "all_titles_russian": true,
+  "no_pdf_contacts_in_public": true,
+  "reference_is_mpn_sku": true,
+  "all_images_meet_minimum": true,
+  "oem_not_manufacturer": true,
+  "caterpillar_not_source_manufacturer": true
+}

@@ -101,7 +101,8 @@ function productPage(product) {
   const productCategories = catalogProductCategories(product);
   const title = `${productSeo.title} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
-  const fitmentLabel = (product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase) ? 'Применяемость этого исполнения' : 'Применяемость';
+  const equipmentInquiry = product.category === 'construction-machinery' || product.category === 'attachments';
+  const fitmentLabel = equipmentInquiry ? 'Модель и условия подбора' : (product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase || product.catalogSupplement) ? 'Применяемость этого исполнения' : 'Применяемость';
   const isHuscoOwnerCase = product.ownerCase?.casePath === huscoCase.casePath;
   const seriesNote = isHuscoOwnerCase
     ? 'У распределителей одной серии могут отличаться секции, порты, клапаны, электромагниты и разъёмы. Совпадение только C16E303 не подтверждает взаимозаменяемость.'
@@ -164,13 +165,14 @@ function productPage(product) {
   <h1>${escapeHtml(productSeo.name)}</h1>
   ${productSeo.name !== product.title ? `<p lang="en">${escapeHtml(product.title)}</p>` : ''}
   <p>${escapeHtml(description)}</p>
-  <p><strong>Поставка под заказ. Цену и срок подтвердим после проверки шильдика.</strong></p>
+  <p><strong>${equipmentInquiry ? 'Возможность поставки в Казахстан — по запросу. Модель, комплектацию, цену и срок согласуем в предложении.' : 'Поставка под заказ. Цену и срок подтвердим после проверки шильдика.'}</strong></p>
   <h2>${escapeHtml(fitmentLabel)}</h2>
   <p>${escapeHtml(fitment)}</p>
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
   ${images.length ? `<section data-product-gallery><h2>${imageIsCategoryPlaceholder ? `Иллюстрация категории ${escapeHtml(productCategories[0]?.title || 'запчастей')}` : `Фото ${escapeHtml(productSeo.name)}`}</h2>${images.map((src, index) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(imageIsCategoryPlaceholder ? `Иллюстрация категории ${productCategories[0]?.title || 'запчастей'}` : `${productSeo.name} — фото ${index + 1}`)}" width="900" height="900" loading="${index === 0 ? 'eager' : 'lazy'}"${index === 0 ? ' fetchpriority="high"' : ''} decoding="async">`).join('')}</section>` : ''}
+  ${product.catalogImageCaption && images.length ? `<p>${escapeHtml(product.catalogImageCaption)}</p>` : ''}
   ${product.ownerSale ? (isXcmgOwnerSale
     ? `<section><h2>Реальная поставка и установка этого насоса</h2><p>${escapeHtml(xcmgSale.terms.ru)}</p><p><a href="${xcmgSale.casePath}/">Кейс XCMG XZ200: насос 803001730</a></p>${xcmgSale.videos.map(video => `<video controls preload="none" poster="${video.poster}" width="720" height="1280"><source src="${video.src}" type="video/mp4"></video>`).join('')}</section>`
     : `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>`

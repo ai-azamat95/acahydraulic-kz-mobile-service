@@ -27,7 +27,7 @@ export function catalogProductSeo(product, language = 'ru') {
   return {
     name,
     title: copy?.title || (name.length > 110 ? name.slice(0, 110).replace(/\s+\S*$/, '') + '…' : name),
-    description: copy?.description || `${name}. Применяемость: ${fitment}. ${price} Комплектацию и срок поставки подтвердим до оплаты.`,
+    description: copy?.description || (product.catalogSupplement && product.catalogDescription) || `${name}. Применяемость: ${fitment}. ${price} Комплектацию и срок поставки подтвердим до оплаты.`,
   };
 }
 
@@ -49,6 +49,7 @@ export function catalogProductCategories(product) {
 }
 
 export function catalogProductSelection(product) {
+  if (product.catalogSupplement && product.catalogSelection) return product.catalogSelection;
   if (product.ownerEvidence?.selection) return product.ownerEvidence.selection;
   // Imported categories can be broad; use technical instructions only for reviewed products.
   const category = productCopy[product.handle]?.selectionCategory || ((product.approvedSale || product.ownerSale || product.ownerProduct) ? 'hydraulic-pumps' : 'other-parts');

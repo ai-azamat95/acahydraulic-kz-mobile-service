@@ -42,7 +42,7 @@ jobs:
       - name: Create approved pump feed
         run: node scripts/create-merchant-feed.mjs
       - name: Verify owner catalogue products
-        run: node --test tests/catalog-owner-products.test.mjs tests/catalog-category-indexes.test.mjs
+        run: node --test tests/catalog-owner-products.test.mjs tests/catalog-supplier-products.test.mjs tests/catalog-category-indexes.test.mjs
       - name: Create Industrial AI route copy
         run: node scripts/create-industrial-ai-route.mjs
       - name: Create static case route copies
@@ -65,6 +65,7 @@ jobs:
           pnpm catalog:landing-routes
           node scripts/check-owner-catalog-inputs.mjs dist/public/catalog-data --routes
           node scripts/check-cat-432e-sale.mjs
+          node --test tests/supplier-catalog-publication.test.mjs
           node --test tests/merchant-publication.test.mjs
           node --test tests/handok-product-publication.test.mjs
           node --test tests/xcmg-xz200-pump-publication.test.mjs

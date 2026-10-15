@@ -1,0 +1,3217 @@
+{
+  "observedOn": "2026-10-15",
+  "indexUrl": "https://sif.com.tr/urunler/",
+  "sourceCount": 59,
+  "machineCount": 49,
+  "attachmentSelectionGroupCount": 10,
+  "products": [
+    {
+      "id": "ACA-JCB-1CXW-PLUS",
+      "model": "1CXW PLUS",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/1cxw-plus/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/A_BHL_1CX_STAGE-V_9-1024x716.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/1cxw-plus.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/162/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "49 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "3.340 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "0,27 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "10x16.5"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "49 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "3 340 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "0,27 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-3CX-PLUS-MANUAL",
+      "model": "3CX PLUS MANUAL",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/3cx-plus-manual/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/3CX-PLUS-MAN-1024x707.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/3cx-plus-manual.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/163/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "8.600 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "1 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "340/80-20 ÖN / 480/80-26 ARKA"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "8 600 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "1 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-3CX-SITEMASTER",
+      "model": "3CX SITEMASTER",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/3cx-sitemaster/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/3CX-SITEMASTER-1024x768.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/3cx-sitemaster.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/23/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "74 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "8.400 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "1 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "12.5-18 ÖN / 18.4-26 ARKA"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "74 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "8 400 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "1 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-3CX-PLUS-EH",
+      "model": "3CX PLUS EH",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/3cx-plus-eh/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/3CX-PLUS-EH-1024x851.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/3cx-plus-eh.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/164/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "8.600 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "1 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "400/70-20 ÖN / 480/80-26 ARKA"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "8 600 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "1 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-3CX-PLUS-EH-DUAL-DRIVE",
+      "model": "3CX PLUS EH DUAL DRIVE",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/3cx-plus-eh-dual-drive/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/3CX-PLUS-EH-1024x851.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/3cx-plus-eh-dual-drive.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/1172/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "8135 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "1 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "400/70-20 ÖN / 480/80-26 ARKA"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "8135 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "1 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-3CX-PRO-EH",
+      "model": "3CX PRO EH",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/3cx-pro-eh/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/3CX-PROEH-1024x768.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/3cx-pro-eh.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/165/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "8.600 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "1,2 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "400/70-20 ÖN / 480/80-26 ARKA"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "8 600 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "1,2 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-4CX-PRO-MANUAL",
+      "model": "4CX PRO MANUAL",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/4cx-pro-manual/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/4CX-PRO-MANUAL-1024x768.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/4cx-pro-manual.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/166/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "9.350 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "1,3 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "440/80-28 ÖN VE ARKA"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "9 350 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "1,3 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-4CX-PRO-EH",
+      "model": "4CX PRO EH",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/4cx-pro-eh/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/4CX-PRO-EH-1024x576.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/4cx-pro-eh.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/167/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "8.850 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "1,3 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "440/80-28 ÖN VE ARKA"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "8 850 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "1,3 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-5CX-PRO-EH",
+      "model": "5CX PRO EH",
+      "categoryRu": "Экскаваторы-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/5cx-pro-eh/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/5CX-PRO-EH-1024x768.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/5cx-pro-eh.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/168/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "9.500 kg"
+        },
+        {
+          "label": "Ön Kova Kapasitesi",
+          "value": "1,3 m³"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "440/80-28 ÖN VE ARKA"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "9 500 кг"
+        },
+        {
+          "label": "Объём переднего ковша",
+          "value": "1,3 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-525-60-IND",
+      "model": "525-60 IND",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/525-60-ind/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/525-60-1024x576.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/525-60-ind.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/169/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "74 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "2,5 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "6 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "yok"
+        },
+        {
+          "label": "Kaldırma Yüksekliği",
+          "value": "6 m"
+        },
+        {
+          "label": "Azami Kapasite",
+          "value": "2.500 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "74 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "2,5 т"
+        },
+        {
+          "label": "Максимальная высота подъёма",
+          "value": "6 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-532X70-IND",
+      "model": "532X70 IND",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/532x70-ind/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": true,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "3,2 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "7 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "var"
+        },
+        {
+          "label": "Kaldırma Yüksekliği",
+          "value": "7 m"
+        },
+        {
+          "label": "Azami Kapasite",
+          "value": "3.200 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "3,2 т"
+        },
+        {
+          "label": "Максимальная высота подъёма",
+          "value": "7 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-536X95-IND",
+      "model": "536X95 IND",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/536x95-ind/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": true,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "3,6 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "9,49 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "var"
+        },
+        {
+          "label": "Kaldırma Yüksekliği",
+          "value": "9,49 m"
+        },
+        {
+          "label": "Azami Kapasite",
+          "value": "3.600 kg’a kadar"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "3,6 т"
+        },
+        {
+          "label": "Максимальная высота подъёма",
+          "value": "9,49 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-540V140",
+      "model": "540V140",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/540v140/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/A_THL_540-140_HiViz2_3x2.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/540v140.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/172/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "4 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "13,78 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "yok"
+        },
+        {
+          "label": "Kaldırma Yüksekliği",
+          "value": "14 m sınıfı"
+        },
+        {
+          "label": "Azami Kapasite",
+          "value": "4.000 kg sınıfı"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "4 т"
+        },
+        {
+          "label": "Максимальная высота подъёма",
+          "value": "13,78 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-540V180",
+      "model": "540V180",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/540v180/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/A_THL_540_180_12.jpeg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/540v180.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/173/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "4 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "17,51 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "var"
+        },
+        {
+          "label": "Kaldırma Yüksekliği",
+          "value": "18 m"
+        },
+        {
+          "label": "Azami Kapasite",
+          "value": "4.000 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "4 т"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-540-200",
+      "model": "540-200",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/jcb-540-200/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/A_THL_540_200_T4_25.jpeg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/540-200.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/25/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "4 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "20 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "var"
+        },
+        {
+          "label": "Kaldırma Yüksekliği",
+          "value": "20 m sınıfı"
+        },
+        {
+          "label": "Azami Kapasite",
+          "value": "4.000 kg sınıfı"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "4 т"
+        },
+        {
+          "label": "Максимальная высота подъёма",
+          "value": "20 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-558P260R",
+      "model": "558P260R",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/558p260r/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/558P260R-excel-machine-558p260r-1024x767.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/558p260r.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/174/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "150 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "5,8 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "26 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "yok"
+        },
+        {
+          "label": "Azami Kaldırma Yüksekliği",
+          "value": "25,5 m"
+        },
+        {
+          "label": "Azami Kaldırma Kapasitesi",
+          "value": "5.800 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "150 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "5,8 т"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-TLT-30-23D-4WD",
+      "model": "TLT 30-23D-4WD",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/tlt-30-23d-4wd/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/TLT-30-23D-4WD-excel-machine-tlt-30-23d-4wd-1024x695.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/tlt-30-23d-4wd.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "62 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "3 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "4,4 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "yok"
+        },
+        {
+          "label": "Azami Kapasite",
+          "value": "3.000 kg"
+        },
+        {
+          "label": "Kaldırma Yüksekliği",
+          "value": "4,35 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "62 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "3 т"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-TLT-35-26D-4WD",
+      "model": "TLT 35-26D-4WD",
+      "categoryRu": "Телескопические погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/tlt-35-26d-4wd/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/TLT-35-26D-4WD-excel-machine-tlt-35-26d-4wd-1024x787.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/tlt-35-26d-4wd.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "62 BG"
+        },
+        {
+          "label": "Maksimum Taşıma Kapasitesi",
+          "value": "3,5 ton"
+        },
+        {
+          "label": "Maksimum Kaldırma Yüksekliği",
+          "value": "4,4 m"
+        },
+        {
+          "label": "Geri Üfleme Fanı",
+          "value": "yok"
+        },
+        {
+          "label": "Azami Kapasite",
+          "value": "3.500 kg"
+        },
+        {
+          "label": "Kaldırma Yüksekliği",
+          "value": "4,35 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "62 л.с."
+        },
+        {
+          "label": "Максимальная грузоподъёмность",
+          "value": "3,5 т"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-131X",
+      "model": "131X",
+      "categoryRu": "Гусеничные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/131x/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/131X-excel-machine-131x-1024x648.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/131x.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "74 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "14.680 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "0,5 m³"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "2 x 130"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "6,06 m"
+        },
+        {
+          "label": "Azami Motor Gücü",
+          "value": "55 kW"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "74 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "14 680 кг"
+        },
+        {
+          "label": "Объём ковша",
+          "value": "0,5 м³"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "6,06 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-131X-DOZER",
+      "model": "131X DOZER",
+      "categoryRu": "Гусеничные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/131x-dozer/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/131X-DOZER-excel-machine-131x-dozer-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/131x-dozer.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "74 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "15.459 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "0,5 m³"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "2 x 130"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "6,06 m"
+        },
+        {
+          "label": "Azami Motor Gücü",
+          "value": "55 kW"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "74 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "15 459 кг"
+        },
+        {
+          "label": "Объём ковша",
+          "value": "0,5 м³"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "6,06 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-140X-D-SV",
+      "model": "140X D -SV",
+      "categoryRu": "Гусеничные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/140x-d-sv/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/140X-D-SV-excel-machine-140x-d-sv-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/140x-d-sv.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "15.592 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "0,5 m³"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "2 x 130"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "6,06 m"
+        },
+        {
+          "label": "Azami Motor Gücü",
+          "value": "81 kW"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "15 592 кг"
+        },
+        {
+          "label": "Объём ковша",
+          "value": "0,5 м³"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "6,06 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-220X-L-SV",
+      "model": "220X L -SV",
+      "categoryRu": "Гусеничные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/jcb-220x/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/220X-L-SV-excel-machine-220x-l-sv-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/220x-l-sv.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/24/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "173 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "24.724 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "1 - 1,2"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "2 x 228"
+        },
+        {
+          "label": "Azami Motor Gücü",
+          "value": "129 kW"
+        },
+        {
+          "label": "Azami Kepçe Kapasitesi",
+          "value": "1,25 m³"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "173 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "24 724 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-370X-L-SV",
+      "model": "370X L -SV",
+      "categoryRu": "Гусеничные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/370x-l-sv/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/370X-L-SV-excel-machine-370x-l-sv-1024x773.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/370x-l-sv.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/180/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "322 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "39.744 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "2,1 - 2,3"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "2 x 302"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "8,36 m"
+        },
+        {
+          "label": "Azami Motor Gücü",
+          "value": "240 kW"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "322 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "39 744 кг"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "8,36 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-520X",
+      "model": "520X",
+      "categoryRu": "Гусеничные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/520x/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/520X-excel-machine-520x-1024x768.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/520x.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "405 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "52.000 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "2,8 - 3,4"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "2 x 404"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "7,8 m"
+        },
+        {
+          "label": "Azami Kepçe Kapasitesi",
+          "value": "3,4 m³"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "405 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "52 000 кг"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "7,8 м"
+        },
+        {
+          "label": "Максимальный объём ковша",
+          "value": "3,4 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-JS160W-SV",
+      "model": "JS160W -SV",
+      "categoryRu": "Колёсные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/js160w-sv/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": true,
+      "publicImagePath": null,
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/182/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "130 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "18.450 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "0,85 m³"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "2 x 130"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "6,45 m"
+        },
+        {
+          "label": "Azami Motor Gücü",
+          "value": "97 kW"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "130 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "18 450 кг"
+        },
+        {
+          "label": "Объём ковша",
+          "value": "0,85 м³"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "6,45 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-HYDRADIG-110W",
+      "model": "HYDRADIG 110W",
+      "categoryRu": "Колёсные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/hydradig-110w/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": true,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "13.350 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "0,3 m³"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "158,4 litre/dak"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "4,41 m"
+        },
+        {
+          "label": "Azami Motor Gücü",
+          "value": "81 kW"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "13 350 кг"
+        },
+        {
+          "label": "Объём ковша",
+          "value": "0,3 м³"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "158,4 л/мин"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "4,41 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-POTHOLE-PRO",
+      "model": "POTHOLE PRO",
+      "categoryRu": "Колёсные экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/pothole-pro/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": true,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "109 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "13.350 kg"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "-"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "158,4 litre/dak"
+        },
+        {
+          "label": "Seyahat Hızı",
+          "value": "40 km/sa"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "109 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "13 350 кг"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "158,4 л/мин"
+        },
+        {
+          "label": "Скорость передвижения",
+          "value": "40 км/ч"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-16C-1",
+      "model": "16C-1",
+      "categoryRu": "Мини-экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/16c-1/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/C_MINI_16c-1_5_3x2-1024x632.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/16c-1.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/185/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "15,9 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "1.749 kg"
+        },
+        {
+          "label": "Maksimum Kazı Derinliği",
+          "value": "2,57 m"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "42 litre/dak"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "2,57 m"
+        },
+        {
+          "label": "Azami Boşaltma Yüksekliği",
+          "value": "2,63 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "15,9 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "1 749 кг"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "2,57 м"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "42 л/мин"
+        },
+        {
+          "label": "Максимальная высота выгрузки",
+          "value": "2,63 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-18Z-1-I",
+      "model": "18Z-1 I",
+      "categoryRu": "Мини-экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/18z-1-i/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/18Z-1-1024x576.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/18z-1-i.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/186/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "15,9 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "1.749 kg"
+        },
+        {
+          "label": "Maksimum Kazı Derinliği",
+          "value": "2,57 m"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "42 litre/dak"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "2,57 m"
+        },
+        {
+          "label": "Azami Boşaltma Yüksekliği",
+          "value": "2,63 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "15,9 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "1 749 кг"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "2,57 м"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "42 л/мин"
+        },
+        {
+          "label": "Максимальная высота выгрузки",
+          "value": "2,63 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-25Z-1",
+      "model": "25Z-1",
+      "categoryRu": "Мини-экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/25z-1/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/C_MINI_25Z-1_4-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/25z-1.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "25 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "2.550 kg"
+        },
+        {
+          "label": "Maksimum Kazı Derinliği",
+          "value": "2,82 m"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "76 litre/dak"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "2,82 m"
+        },
+        {
+          "label": "Azami Boşaltma Yüksekliği",
+          "value": "3,00 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "25 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "2 550 кг"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "2,82 м"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "76 л/мин"
+        },
+        {
+          "label": "Максимальная высота выгрузки",
+          "value": "3,00 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-35Z-1",
+      "model": "35Z-1",
+      "categoryRu": "Мини-экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/jcb-35z-1/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/C_MINI_35Z-1_10-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/35z-1.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/146/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "25 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "3.500 kg"
+        },
+        {
+          "label": "Maksimum Kazı Derinliği",
+          "value": "3,48 m"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "76 litre/dak"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "3,48 m"
+        },
+        {
+          "label": "Azami Boşaltma Yüksekliği",
+          "value": "3,53 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "25 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "3 500 кг"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "3,48 м"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "76 л/мин"
+        },
+        {
+          "label": "Максимальная высота выгрузки",
+          "value": "3,53 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-56Z-2",
+      "model": "56Z-2",
+      "categoryRu": "Мини-экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/56z-2/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/56Z-2-mini-excavator-1024x681.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/56z-2.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/188/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "49 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "5.542 kg"
+        },
+        {
+          "label": "Maksimum Kazı Derinliği",
+          "value": "2,84 m"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "90 litre/dak"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "2,84 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "49 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "5 542 кг"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "90 л/мин"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-85Z-2",
+      "model": "85Z-2",
+      "categoryRu": "Мини-экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/85z-2/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/85Z-285Z-2-1024x683.jpeg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/85z-2.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/189/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "65 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "8.495 kg"
+        },
+        {
+          "label": "Maksimum Kazı Derinliği",
+          "value": "3,84 m"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "148 litre/dak"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "3,84 m"
+        },
+        {
+          "label": "Azami Boşaltma Yüksekliği",
+          "value": "5,02 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "65 л.с."
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "3,84 м"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "148 л/мин"
+        },
+        {
+          "label": "Максимальная высота выгрузки",
+          "value": "5,02 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-100C-2",
+      "model": "100C-2",
+      "categoryRu": "Мини-экскаваторы",
+      "sourceUrl": "https://sif.com.tr/product/100c-2/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/A_MINI_100_C-2_4_3x2-1024x683.jpeg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/100c-2.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/190/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "74 BG"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "9.934 kg"
+        },
+        {
+          "label": "Maksimum Kazı Derinliği",
+          "value": "5,09 m"
+        },
+        {
+          "label": "Hidrolik Pompa Debisi",
+          "value": "148 litre/dak"
+        },
+        {
+          "label": "Azami Kazı Derinliği",
+          "value": "5,09 m"
+        },
+        {
+          "label": "Azami Boşaltma Yüksekliği",
+          "value": "5,66 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "74 л.с."
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "9 934 кг"
+        },
+        {
+          "label": "Максимальная глубина копания",
+          "value": "5,09 м"
+        },
+        {
+          "label": "Подача гидронасоса",
+          "value": "148 л/мин"
+        },
+        {
+          "label": "Максимальная высота выгрузки",
+          "value": "5,66 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-437-S5ZX",
+      "model": "437-S5ZX",
+      "categoryRu": "Фронтальные погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/437-s5zx/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/437-S5ZX-excel-machine-437-s5zx-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/437-s5zx.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/191/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "195 BG"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "3 m³"
+        },
+        {
+          "label": "Pivot Pim Yüksekliği",
+          "value": "4.021 mm"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "15.806 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "195 л.с."
+        },
+        {
+          "label": "Объём ковша",
+          "value": "3 м³"
+        },
+        {
+          "label": "Высота шарнира ковша",
+          "value": "4 021 мм"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "15 806 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-457-S5ZX",
+      "model": "457-S5ZX",
+      "categoryRu": "Фронтальные погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/457-s5zx/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/457-S5ZX-excel-machine-457-s5zx-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/457-s5zx.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/192/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "282 BG"
+        },
+        {
+          "label": "Kova Kapasitesi",
+          "value": "4 m³"
+        },
+        {
+          "label": "Pivot Pim Yüksekliği",
+          "value": "4.110 mm"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "20.311 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "282 л.с."
+        },
+        {
+          "label": "Объём ковша",
+          "value": "4 м³"
+        },
+        {
+          "label": "Высота шарнира ковша",
+          "value": "4 110 мм"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "20 311 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-155-S5-JP",
+      "model": "155 S5 JP",
+      "categoryRu": "Мини-погрузчики",
+      "sourceUrl": "https://sif.com.tr/product/155-s5-jp/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": true,
+      "publicImagePath": null,
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/193/",
+      "sourceSpecs": [
+        {
+          "label": "Taşıma Kapasitesi",
+          "value": "703 kg"
+        },
+        {
+          "label": "Ön Kova Genişliği ve Hacmi",
+          "value": "1.727 mm 0,41 metreküp"
+        },
+        {
+          "label": "Lastik Ölçüleri",
+          "value": "10x16.5"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Грузоподъёмность",
+          "value": "703 кг"
+        },
+        {
+          "label": "Ширина и объём переднего ковша",
+          "value": "1 727 мм 0,41 м³"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-CT260-120",
+      "model": "CT260-120",
+      "categoryRu": "Дорожные катки",
+      "sourceUrl": "https://sif.com.tr/product/ct260-120/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/CT260-120-excel-machine-ct260-120-1024x778.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/ct260-120.webp",
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/194/",
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "25 BG"
+        },
+        {
+          "label": "Maksimum Santrifüj Kuvveti",
+          "value": "41,1 kN"
+        },
+        {
+          "label": "Genlik",
+          "value": "0,51 mm"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "2.560 kg"
+        },
+        {
+          "label": "Tambur Genişliği",
+          "value": "1.200 mm"
+        },
+        {
+          "label": "Santrifüj Kuvveti",
+          "value": "tambur başına 23,6 / 41,1 kN"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "25 л.с."
+        },
+        {
+          "label": "Максимальная центробежная сила",
+          "value": "41,1 кН"
+        },
+        {
+          "label": "Амплитуда",
+          "value": "0,51 мм"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "2 560 кг"
+        },
+        {
+          "label": "Ширина вальца",
+          "value": "1 200 мм"
+        },
+        {
+          "label": "Центробежная сила",
+          "value": "на валец 23,6 / 41,1 кН"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-VM118-EU5",
+      "model": "VM118 EU5",
+      "categoryRu": "Дорожные катки",
+      "sourceUrl": "https://sif.com.tr/product/vm118-eu5/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/VM118-EU5-excel-machine-vm118-eu5-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/vm118-eu5.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "74 BG"
+        },
+        {
+          "label": "Maksimum Santrifüj Kuvveti",
+          "value": "256 kN"
+        },
+        {
+          "label": "Genlik",
+          "value": "1,8/0,8"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "11.950 kg"
+        },
+        {
+          "label": "Tambur Genişliği",
+          "value": "2.100 mm"
+        },
+        {
+          "label": "Santrifüj Kuvveti",
+          "value": "147–256 kN"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "74 л.с."
+        },
+        {
+          "label": "Максимальная центробежная сила",
+          "value": "256 кН"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "11 950 кг"
+        },
+        {
+          "label": "Ширина вальца",
+          "value": "2 100 мм"
+        },
+        {
+          "label": "Центробежная сила",
+          "value": "147–256 кН"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-VM128-EU5",
+      "model": "VM128 EU5",
+      "categoryRu": "Дорожные катки",
+      "sourceUrl": "https://sif.com.tr/product/vm128-eu5/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/VM128-EU5-excel-machine-vm128-eu5-1024x703.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/vm128-eu5.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "130 BG"
+        },
+        {
+          "label": "Maksimum Santrifüj Kuvveti",
+          "value": "256 kN"
+        },
+        {
+          "label": "Genlik",
+          "value": "1,8/0,8"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "12.100 kg"
+        },
+        {
+          "label": "Tambur Genişliği",
+          "value": "2.100 mm"
+        },
+        {
+          "label": "Santrifüj Kuvveti",
+          "value": "146–256 kN"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "130 л.с."
+        },
+        {
+          "label": "Максимальная центробежная сила",
+          "value": "256 кН"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "12 100 кг"
+        },
+        {
+          "label": "Ширина вальца",
+          "value": "2 100 мм"
+        },
+        {
+          "label": "Центробежная сила",
+          "value": "146–256 кН"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-VM138-EU5",
+      "model": "VM138 EU5",
+      "categoryRu": "Дорожные катки",
+      "sourceUrl": "https://sif.com.tr/product/vm138-eu5/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/VM138-EU5-excel-machine-vm138-eu5-1024x728.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/vm138-eu5.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Motor Gücü",
+          "value": "130 BG"
+        },
+        {
+          "label": "Maksimum Santrifüj Kuvveti",
+          "value": "292 kN"
+        },
+        {
+          "label": "Genlik",
+          "value": "1,8/0,8"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "13.150 kg"
+        },
+        {
+          "label": "Tambur Genişliği",
+          "value": "2.100 mm"
+        },
+        {
+          "label": "Santrifüj Kuvveti",
+          "value": "160–292 kN"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Мощность двигателя",
+          "value": "130 л.с."
+        },
+        {
+          "label": "Максимальная центробежная сила",
+          "value": "292 кН"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "13 150 кг"
+        },
+        {
+          "label": "Ширина вальца",
+          "value": "2 100 мм"
+        },
+        {
+          "label": "Центробежная сила",
+          "value": "160–292 кН"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-S1932EED-PLATFORM",
+      "model": "S1932EED PLATFORM",
+      "categoryRu": "Подъёмные платформы",
+      "sourceUrl": "https://sif.com.tr/product/s1932eed-platform/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/S1932EED-PLATFORM-excel-machine-s1932eed-platform-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/s1932eed-platform.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Maksimum Çalışma Yüksekliği",
+          "value": "7,71 m"
+        },
+        {
+          "label": "Platform Yüksekliği",
+          "value": "5,71 m"
+        },
+        {
+          "label": "Yük Kapasitesi",
+          "value": "230 kg"
+        },
+        {
+          "label": "Genel Genişlik",
+          "value": "0,82 m"
+        },
+        {
+          "label": "Azami Çalışma Yüksekliği",
+          "value": "7,71 m"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "1.590 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Максимальная рабочая высота",
+          "value": "7,71 м"
+        },
+        {
+          "label": "Высота платформы",
+          "value": "5,71 м"
+        },
+        {
+          "label": "Грузоподъёмность платформы",
+          "value": "230 кг"
+        },
+        {
+          "label": "Общая ширина",
+          "value": "0,82 м"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "1 590 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-S2632EED-PLATFORM",
+      "model": "S2632EED PLATFORM",
+      "categoryRu": "Подъёмные платформы",
+      "sourceUrl": "https://sif.com.tr/product/s2632eed-platform/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Maksimum Çalışma Yüksekliği",
+          "value": "9,92 m"
+        },
+        {
+          "label": "Platform Yüksekliği",
+          "value": "7,92 m"
+        },
+        {
+          "label": "Yük Kapasitesi",
+          "value": "250 kg"
+        },
+        {
+          "label": "Genel Genişlik",
+          "value": "0,83 m"
+        },
+        {
+          "label": "Azami Çalışma Yüksekliği",
+          "value": "9,92 m"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "2.180 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Максимальная рабочая высота",
+          "value": "9,92 м"
+        },
+        {
+          "label": "Высота платформы",
+          "value": "7,92 м"
+        },
+        {
+          "label": "Грузоподъёмность платформы",
+          "value": "250 кг"
+        },
+        {
+          "label": "Общая ширина",
+          "value": "0,83 м"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "2 180 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-S2646EED-PLATFORM",
+      "model": "S2646EED PLATFORM",
+      "categoryRu": "Подъёмные платформы",
+      "sourceUrl": "https://sif.com.tr/product/s2646eed-platform/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Maksimum Çalışma Yüksekliği",
+          "value": "9,9 m"
+        },
+        {
+          "label": "Platform Yüksekliği",
+          "value": "7,9 m"
+        },
+        {
+          "label": "Yük Kapasitesi",
+          "value": "450 kg"
+        },
+        {
+          "label": "Genel Genişlik",
+          "value": "1,18 m"
+        },
+        {
+          "label": "Azami Çalışma Yüksekliği",
+          "value": "9,9 m"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "2.663 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Максимальная рабочая высота",
+          "value": "9,9 м"
+        },
+        {
+          "label": "Высота платформы",
+          "value": "7,9 м"
+        },
+        {
+          "label": "Грузоподъёмность платформы",
+          "value": "450 кг"
+        },
+        {
+          "label": "Общая ширина",
+          "value": "1,18 м"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "2 663 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-S3246EED-PLATFORM",
+      "model": "S3246EED PLATFORM",
+      "categoryRu": "Подъёмные платформы",
+      "sourceUrl": "https://sif.com.tr/product/s3246eed-platform/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Maksimum Çalışma Yüksekliği",
+          "value": "11,7 m"
+        },
+        {
+          "label": "Platform Yüksekliği",
+          "value": "9,7 m"
+        },
+        {
+          "label": "Yük Kapasitesi",
+          "value": "320 kg"
+        },
+        {
+          "label": "Genel Genişlik",
+          "value": "1,18 m"
+        },
+        {
+          "label": "Azami Çalışma Yüksekliği",
+          "value": "11,7 m"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "2.866 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Максимальная рабочая высота",
+          "value": "11,7 м"
+        },
+        {
+          "label": "Высота платформы",
+          "value": "9,7 м"
+        },
+        {
+          "label": "Грузоподъёмность платформы",
+          "value": "320 кг"
+        },
+        {
+          "label": "Общая ширина",
+          "value": "1,18 м"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "2 866 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-S4046EED-PLATFORM",
+      "model": "S4046EED PLATFORM",
+      "categoryRu": "Подъёмные платформы",
+      "sourceUrl": "https://sif.com.tr/product/s4046eed-platform/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Maksimum Çalışma Yüksekliği",
+          "value": "13,9 m"
+        },
+        {
+          "label": "Platform Yüksekliği",
+          "value": "11,9 m"
+        },
+        {
+          "label": "Yük Kapasitesi",
+          "value": "320 kg"
+        },
+        {
+          "label": "Genel Genişlik",
+          "value": "1,18 m"
+        },
+        {
+          "label": "Azami Çalışma Yüksekliği",
+          "value": "13,9 m"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "3.070 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Максимальная рабочая высота",
+          "value": "13,9 м"
+        },
+        {
+          "label": "Высота платформы",
+          "value": "11,9 м"
+        },
+        {
+          "label": "Грузоподъёмность платформы",
+          "value": "320 кг"
+        },
+        {
+          "label": "Общая ширина",
+          "value": "1,18 м"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "3 070 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-S4550EED-PLATFORM",
+      "model": "S4550EED PLATFORM",
+      "categoryRu": "Подъёмные платформы",
+      "sourceUrl": "https://sif.com.tr/product/s4550eed-platform/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Maksimum Çalışma Yüksekliği",
+          "value": "15,8 m"
+        },
+        {
+          "label": "Platform Yüksekliği",
+          "value": "13,8 m"
+        },
+        {
+          "label": "Yük Kapasitesi",
+          "value": "230 kg"
+        },
+        {
+          "label": "Genel Genişlik",
+          "value": "1,27 m"
+        },
+        {
+          "label": "Azami Çalışma Yüksekliği",
+          "value": "15,8 m"
+        },
+        {
+          "label": "Çalışma Ağırlığı",
+          "value": "3.593 kg"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Максимальная рабочая высота",
+          "value": "15,8 м"
+        },
+        {
+          "label": "Высота платформы",
+          "value": "13,8 м"
+        },
+        {
+          "label": "Грузоподъёмность платформы",
+          "value": "230 кг"
+        },
+        {
+          "label": "Общая ширина",
+          "value": "1,27 м"
+        },
+        {
+          "label": "Рабочая масса",
+          "value": "3 593 кг"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-A45E-PLATFORM",
+      "model": "A45E PLATFORM",
+      "categoryRu": "Подъёмные платформы",
+      "sourceUrl": "https://sif.com.tr/product/a45e-platform/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": "https://sif.com.tr/wp-content/uploads/2026/09/A45E-PLATFORM-excel-machine-a45e-platform-1024x683.jpg",
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": "/catalog-assets/jcb/a45e-platform.webp",
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Maksimum Çalışma Yüksekliği",
+          "value": "15,84 m"
+        },
+        {
+          "label": "Platform Yüksekliği",
+          "value": "13,84 m"
+        },
+        {
+          "label": "Yük Kapasitesi",
+          "value": "300 kg"
+        },
+        {
+          "label": "Genel Genişlik",
+          "value": "2,26 m"
+        },
+        {
+          "label": "Azami Çalışma Yüksekliği",
+          "value": "15,84 m"
+        },
+        {
+          "label": "Azami Yatay Erişim",
+          "value": "7,48 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Максимальная рабочая высота",
+          "value": "15,84 м"
+        },
+        {
+          "label": "Высота платформы",
+          "value": "13,84 м"
+        },
+        {
+          "label": "Грузоподъёмность платформы",
+          "value": "300 кг"
+        },
+        {
+          "label": "Общая ширина",
+          "value": "2,26 м"
+        },
+        {
+          "label": "Максимальный горизонтальный вылет",
+          "value": "7,48 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-A60E-PLATFORM",
+      "model": "A60E PLATFORM",
+      "categoryRu": "Подъёмные платформы",
+      "sourceUrl": "https://sif.com.tr/product/a60e-platform/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Maksimum Çalışma Yüksekliği",
+          "value": "20,3 m"
+        },
+        {
+          "label": "Platform Yüksekliği",
+          "value": "18,3 m"
+        },
+        {
+          "label": "Yük Kapasitesi",
+          "value": "300 kg"
+        },
+        {
+          "label": "Genel Genişlik",
+          "value": "2,5 m"
+        },
+        {
+          "label": "Azami Çalışma Yüksekliği",
+          "value": "20,3 m"
+        },
+        {
+          "label": "Azami Yatay Erişim",
+          "value": "11,9 m"
+        }
+      ],
+      "publishedSpecsRu": [
+        {
+          "label": "Максимальная рабочая высота",
+          "value": "20,3 м"
+        },
+        {
+          "label": "Высота платформы",
+          "value": "18,3 м"
+        },
+        {
+          "label": "Грузоподъёмность платформы",
+          "value": "300 кг"
+        },
+        {
+          "label": "Общая ширина",
+          "value": "2,5 м"
+        },
+        {
+          "label": "Максимальный горизонтальный вылет",
+          "value": "11,9 м"
+        }
+      ],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": false
+    },
+    {
+      "id": "ACA-JCB-TARIMSAL-ATASMANLAR",
+      "model": "Tarımsal Ataşmanlar",
+      "categoryRu": "Сельскохозяйственное навесное оборудование",
+      "sourceUrl": "https://sif.com.tr/product/tarimsal-atasmanlar/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Tarımsal Ataşmanlar"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "14"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Bale Master"
+        },
+        {
+          "label": "Ürün 2",
+          "value": "Kova Fırçası"
+        },
+        {
+          "label": "Ürün 3",
+          "value": "Balya Tutucu"
+        },
+        {
+          "label": "Ürün 4",
+          "value": "Katlanır Çim Çatalı"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-KOVALAR",
+      "model": "Kovalar",
+      "categoryRu": "Экскаваторные ковши",
+      "sourceUrl": "https://sif.com.tr/product/6si-1-arada-kova/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Kovalar"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "10"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Bıçaklı Kova"
+        },
+        {
+          "label": "Ürün 2",
+          "value": "Kırıcı Kova"
+        },
+        {
+          "label": "Ürün 3",
+          "value": "Derin Profilli Kova"
+        },
+        {
+          "label": "Ürün 4",
+          "value": "Hendek Bakım Kovası"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-BURGULAR",
+      "model": "Burgular",
+      "categoryRu": "Гидравлические буры",
+      "sourceUrl": "https://sif.com.tr/product/hidrolik-burgu/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Burgular"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "1"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Toprak Delici / Toprak Sondajı"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-CATALLAR",
+      "model": "Çatallar",
+      "categoryRu": "Паллетные вилы",
+      "sourceUrl": "https://sif.com.tr/product/catallar/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Çatallar"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "1"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Çatal ataşmanları ürün grubu"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-HIDROLIK-KIRICILAR",
+      "model": "Hidrolik Kırıcılar",
+      "categoryRu": "Гидромолоты",
+      "sourceUrl": "https://sif.com.tr/product/hidrolik-kiricilar/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": "https://sif.com.tr/urun-brosuru/208/",
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Hidrolik Kırıcılar"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "9"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Müteahhit Kırıcı Serisi"
+        },
+        {
+          "label": "Ürün 2",
+          "value": "Profesyonel Kırıcı Serisi"
+        },
+        {
+          "label": "Ürün 3",
+          "value": "El Tipi Hidrolik Kırıcı Serisi"
+        },
+        {
+          "label": "Ürün 4",
+          "value": "HM22"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-KALDIRMA-EKIPMANI",
+      "model": "Kaldırma Ekipmanı",
+      "categoryRu": "Подъёмное навесное оборудование",
+      "sourceUrl": "https://sif.com.tr/product/kaldirma-ekipmani/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Kaldırma Ekipmanı"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "1"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Kafes Ustası (çalışma platformu/kafesi)"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-HAFIF-EKIPMAN",
+      "model": "Hafif Ekipman",
+      "categoryRu": "Малое строительное оборудование",
+      "sourceUrl": "https://sif.com.tr/product/hafif-ekipman/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Hafif Ekipman"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "11"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "İleri Titreşimli Plaka"
+        },
+        {
+          "label": "Ürün 2",
+          "value": "Ters Çevirilebilir Titreşimli Plaka"
+        },
+        {
+          "label": "Ürün 3",
+          "value": "Tek Tamburlu Silindir"
+        },
+        {
+          "label": "Ürün 4",
+          "value": "Titreşimli Tokmak"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-HIZLI-BAGLANTILAR",
+      "model": "Hızlı Bağlantılar",
+      "categoryRu": "Быстросъёмные соединения",
+      "sourceUrl": "https://sif.com.tr/product/hizli-baglantilar/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Hızlı Bağlantılar"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "1"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Manuel ve hidrolik hızlı bağlantı elemanları"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-KEPCELER",
+      "model": "Kepçeler",
+      "categoryRu": "Погрузочные ковши",
+      "sourceUrl": "https://sif.com.tr/product/kepceler/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Kepçeler"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "2"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Genel Amaçlı yükleyici kepçeleri"
+        },
+        {
+          "label": "Ürün 2",
+          "value": "6’sı 1 arada yükleyici kepçeleri"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    },
+    {
+      "id": "ACA-JCB-SUPURGELER",
+      "model": "Süpürgeler",
+      "categoryRu": "Щёточное оборудование",
+      "sourceUrl": "https://sif.com.tr/product/supurgeler/",
+      "indexUrl": "https://sif.com.tr/urunler/",
+      "observedOn": "2026-10-15",
+      "imageSourceUrl": null,
+      "sourceImageWasPlaceholder": false,
+      "publicImagePath": null,
+      "brochureUrl": null,
+      "sourceSpecs": [
+        {
+          "label": "Ataşman Grubu",
+          "value": "Süpürgeler"
+        },
+        {
+          "label": "Alt Ürün Sayısı",
+          "value": "1"
+        },
+        {
+          "label": "Ürün 1",
+          "value": "Süpürge serisi"
+        }
+      ],
+      "publishedSpecsRu": [],
+      "sourceType": "Текущий официальный каталог SİF İş Makinaları; не подтверждение наличия у ACA",
+      "isSelectionGroup": true
+    }
+  ],
+  "excludedSpecs": [
+    {
+      "model": "540V180",
+      "label": "Maksimum Kaldırma Yüksekliği",
+      "value": "17,51 m",
+      "reason": "Разные значения высоты в одном каталоге источника; исключено до уточнения."
+    },
+    {
+      "model": "558P260R",
+      "label": "Maksimum Kaldırma Yüksekliği",
+      "value": "26 m",
+      "reason": "Разные значения высоты в одном каталоге источника; исключено до уточнения."
+    },
+    {
+      "model": "TLT 30-23D-4WD",
+      "label": "Maksimum Kaldırma Yüksekliği",
+      "value": "4,4 m",
+      "reason": "Разные значения высоты в одном каталоге источника; исключено до уточнения."
+    },
+    {
+      "model": "TLT 35-26D-4WD",
+      "label": "Maksimum Kaldırma Yüksekliği",
+      "value": "4,4 m",
+      "reason": "Разные значения высоты в одном каталоге источника; исключено до уточнения."
+    },
+    {
+      "model": "131X",
+      "label": "Hidrolik Pompa Debisi",
+      "value": "2 x 130",
+      "reason": "Единицы подачи гидронасоса не указаны."
+    },
+    {
+      "model": "131X DOZER",
+      "label": "Hidrolik Pompa Debisi",
+      "value": "2 x 130",
+      "reason": "Единицы подачи гидронасоса не указаны."
+    },
+    {
+      "model": "140X D -SV",
+      "label": "Hidrolik Pompa Debisi",
+      "value": "2 x 130",
+      "reason": "Единицы подачи гидронасоса не указаны."
+    },
+    {
+      "model": "220X L -SV",
+      "label": "Kova Kapasitesi",
+      "value": "1 - 1,2",
+      "reason": "Единицы объёма ковша не указаны."
+    },
+    {
+      "model": "220X L -SV",
+      "label": "Hidrolik Pompa Debisi",
+      "value": "2 x 228",
+      "reason": "Единицы подачи гидронасоса не указаны."
+    },
+    {
+      "model": "220X L -SV",
+      "label": "Azami Kepçe Kapasitesi",
+      "value": "1,25 m³",
+      "reason": "Разные значения ковша в одном каталоге источника; исключено до уточнения."
+    },
+    {
+      "model": "370X L -SV",
+      "label": "Kova Kapasitesi",
+      "value": "2,1 - 2,3",
+      "reason": "Единицы объёма ковша не указаны."
+    },
+    {
+      "model": "370X L -SV",
+      "label": "Hidrolik Pompa Debisi",
+      "value": "2 x 302",
+      "reason": "Единицы подачи гидронасоса не указаны."
+    },
+    {
+      "model": "520X",
+      "label": "Kova Kapasitesi",
+      "value": "2,8 - 3,4",
+      "reason": "Единицы объёма ковша не указаны."
+    },
+    {
+      "model": "520X",
+      "label": "Hidrolik Pompa Debisi",
+      "value": "2 x 404",
+      "reason": "Единицы подачи гидронасоса не указаны."
+    },
+    {
+      "model": "JS160W -SV",
+      "label": "Hidrolik Pompa Debisi",
+      "value": "2 x 130",
+      "reason": "Единицы подачи гидронасоса не указаны."
+    },
+    {
+      "model": "56Z-2",
+      "label": "Maksimum Kazı Derinliği",
+      "value": "2,84 m",
+      "reason": "SIF указывает 2,84 м, официальный JCB Store для 56Z-2 указывает 3 843 мм; исключено до уточнения комплектации."
+    },
+    {
+      "model": "56Z-2",
+      "label": "Azami Kazı Derinliği",
+      "value": "2,84 m",
+      "reason": "SIF указывает 2,84 м, официальный JCB Store для 56Z-2 указывает 3 843 мм; исключено до уточнения комплектации."
+    },
+    {
+      "model": "85Z-2",
+      "label": "Çalışma Ağırlığı",
+      "value": "8.495 kg",
+      "reason": "SIF указывает 8 495 кг, JCB EU указывает 8 300 кг; масса зависит от исполнения, исключена до уточнения комплектации."
+    },
+    {
+      "model": "VM118 EU5",
+      "label": "Genlik",
+      "value": "1,8/0,8",
+      "reason": "Единицы амплитуды не указаны."
+    },
+    {
+      "model": "VM128 EU5",
+      "label": "Genlik",
+      "value": "1,8/0,8",
+      "reason": "Единицы амплитуды не указаны."
+    },
+    {
+      "model": "VM138 EU5",
+      "label": "Genlik",
+      "value": "1,8/0,8",
+      "reason": "Единицы амплитуды не указаны."
+    }
+  ],
+  "manufacturerCrosschecks": [
+    {
+      "url": "https://machinestore.jcb.com/en-GB/machines/mini-excavators/56z",
+      "observedOn": "2026-10-15",
+      "facts": {
+        "model": "56Z-2 Cab",
+        "operatingWeightKg": 5542,
+        "maxDiggingDepthDozerDownMm": 3843
+      },
+      "decision": "Глубина SIF 2,84 м не перенесена; параметры производителя не подставлены вместо исполнения SIF."
+    },
+    {
+      "url": "https://www.jcb.com/nl-NL/products/machines/minigraafmachines/85z/",
+      "observedOn": "2026-10-15",
+      "facts": {
+        "model": "85Z-2",
+        "operatingWeightKg": 8300,
+        "maximumDigDepthM": 3.84,
+        "maximumDumpHeightM": 5.02,
+        "maximumEnginePowerKw": 48
+      },
+      "decision": "Масса SIF 8 495 кг не перенесена из-за различия с JCB EU; характеристики зависят от исполнения."
+    }
+  ],
+  "powerSystems": {
+    "sourceUrl": "https://sif.com.tr/urunler/guc-sistemleri/",
+    "observedOn": "2026-10-15",
+    "confirmedGroups": [
+      "Двигатели",
+      "Мосты",
+      "Коробки передач",
+      "Силовые агрегаты для промышленной техники"
+    ],
+    "exactModels": [],
+    "note": "На странице SİF не приведены точные модели и параметры; отдельные конкретные изделия на этом основании не создавались."
+  },
+  "shareGoogle": {
+    "url": "https://share.google/9bDBajIfNWvzKQz3E",
+    "result": "Web open returned internal error; direct fetch TLS handshake timed out. Официальный каталог проверен независимо."
+  }
+}
