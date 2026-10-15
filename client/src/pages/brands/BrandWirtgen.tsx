@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import B2BLeadForm from "@/components/B2BLeadForm";
+import BrandRepairVideos from "@/components/BrandRepairVideos";
 
 const WHATSAPP_NUMBER = "77714177925";
 const PHONE_NUMBER = "+7 (771) 417-79-25";
@@ -75,6 +76,8 @@ export default function BrandWirtgen() {
       <section className="py-12 bg-[#1a1a1a]"><div className="container mx-auto px-4"><div className="grid grid-cols-1 md:grid-cols-3 gap-6">{[{icon:<Gauge className="w-6 h-6 text-[#FFC000]"/>,title:"Диагностика под нагрузкой",desc:"Проверяем ход и давление в момент проявления дефекта"},{icon:<Shield className="w-6 h-6 text-[#FFC000]"/>,title:"Гарантия по условиям работ",desc:"До 6 месяцев при соблюдении согласованных рекомендаций и условий эксплуатации"},{icon:<PlayCircle className="w-6 h-6 text-[#FFC000]"/>,title:"Реальный W1500 на видео",desc:"Диагностика хода и гидросистемы опубликована в TikTok"}].map((item,i)=><div key={i} className="flex items-start gap-4 bg-[#222] rounded-xl p-5"><div className="shrink-0 mt-1">{item.icon}</div><div><h3 className="font-bold mb-1">{item.title}</h3><p className="text-white/60 text-sm">{item.desc}</p></div></div>)}</div></div></section>
 
       <section className="py-16"><div className="container mx-auto px-4 grid lg:grid-cols-[1.2fr_.8fr] gap-8 items-center"><div><div className="text-[#FFC000] text-sm uppercase font-bold tracking-wider mb-3">Реальная работа</div><h2 className="text-3xl md:text-4xl font-bold mb-4">Wirtgen W1500 — отсутствовал нормальный ход</h2><p className="text-white/65 leading-relaxed mb-5">На объекте проверяли ходовую и гидросистему, давление, электроклапаны и датчики скорости. Ролик набрал более 12 тыс. просмотров и 161 переход в профиль.</p><a href={WIRTGEN_VIDEO} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[#FFC000] font-semibold">Смотреть диагностику <ArrowRight className="w-4 h-4"/></a></div><div className="bg-[#1a1a1a] border border-[#FFC000]/25 rounded-xl p-6"><div className="text-white/50 text-sm uppercase tracking-wider mb-2">Важно</div><p className="text-white/75 leading-relaxed">Не определяем причину потери хода только по нагреву масла. Сначала измеряем давление и проверяем гидромоторы, насосы, клапаны и управление — только после этого формируем ремонт.</p></div></div></section>
+
+      <BrandRepairVideos brand="wirtgen" />
 
       <section className="py-16 bg-[#1a1a1a]"><div className="container mx-auto px-4"><h2 className="text-3xl font-bold mb-10">Что проверяем и <span className="text-[#FFC000]">ремонтируем</span></h2><div className="grid grid-cols-1 md:grid-cols-2 gap-4">{services.map((service,i)=><div key={i} className="flex items-center gap-3 bg-[#222] rounded-lg p-4"><CheckCircle className="w-5 h-5 text-[#FFC000] shrink-0"/><span className="text-white/90">{service}</span></div>)}</div></div></section>
 

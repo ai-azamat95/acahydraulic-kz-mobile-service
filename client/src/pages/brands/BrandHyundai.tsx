@@ -1,3 +1,4 @@
+import BrandRepairVideos from "@/components/BrandRepairVideos";
 import { SEO } from "@/components/SEO";
 import { Phone, MessageCircle, CheckCircle, ArrowRight, Wrench, Gauge, Shield, PlayCircle, ExternalLink } from "lucide-react";
 import { Link } from "wouter";
@@ -93,6 +94,8 @@ export default function BrandHyundai() {
         { icon: <Shield className="w-6 h-6 text-[#FFC000]" />, title: "Гарантия по условиям работ", desc: "До 6 месяцев при соблюдении согласованных рекомендаций и условий эксплуатации" },
         { icon: <PlayCircle className="w-6 h-6 text-[#FFC000]" />, title: "Реальный Hyundai на видео", desc: "Показываем фактический ремонт R300LC-9S, а не шаблонный кейс" },
       ].map((item,i)=><div key={i} className="flex items-start gap-4 bg-[#222] rounded-xl p-5"><div className="shrink-0 mt-1">{item.icon}</div><div><h3 className="font-bold mb-1">{item.title}</h3><p className="text-white/60 text-sm">{item.desc}</p></div></div>)}</div></div></section>
+
+      <BrandRepairVideos brand="hyundai" />
 
       <section className="py-16"><div className="container mx-auto px-4"><h2 className="text-3xl font-bold mb-10">Что проверяем и <span className="text-[#FFC000]">ремонтируем</span></h2><div className="grid grid-cols-1 md:grid-cols-2 gap-4">{services.map((service,i)=><div key={i} className="flex items-center gap-3 bg-[#1a1a1a] rounded-lg p-4"><CheckCircle className="w-5 h-5 text-[#FFC000] shrink-0"/><span className="text-white/90">{service}</span></div>)}</div></div></section>
 

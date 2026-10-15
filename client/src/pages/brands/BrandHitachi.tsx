@@ -1,3 +1,4 @@
+import BrandRepairVideos from "@/components/BrandRepairVideos";
 import { SEO } from "@/components/SEO";
 import { Phone, MessageCircle, CheckCircle, ArrowRight, Wrench, Gauge, Shield, PlayCircle } from "lucide-react";
 import { Link } from "wouter";
@@ -134,6 +135,8 @@ export default function BrandHitachi() {
           </div>
         </div>
       </section>
+
+      <BrandRepairVideos brand="hitachi" />
 
       <section className="py-16">
         <div className="container mx-auto px-4">
