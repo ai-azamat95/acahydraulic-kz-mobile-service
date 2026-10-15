@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { checkSiteNavigation } from './check-site-navigation.mjs';
 import { checkCatalogPagination } from './check-catalog-pagination-browser.mjs';
 import { checkCatalogDirectory } from './check-catalog-directory-browser.mjs';
+import catalogSections from '../shared/catalog-sections.json' with { type: 'json' };
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
 const catalogDir = path.join(root, 'catalog-data');
@@ -88,7 +89,7 @@ try {
             'complete engine category must use the same white surface as the other categories'
           );
           assert.equal(await page.locator('[data-catalog-section="engines"] [data-complete-engine-category]').getAttribute('href'),'/parts/engines-complete/');
-          assert.equal(await page.locator('[data-catalog-section]').count(),4);
+          assert.equal(await page.locator('[data-catalog-section]').count(),catalogSections.length);
           assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page overflow '+engineName+' '+width+' '+lang);
           const clipped=await page.locator('.aca-category-label').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1||n.scrollHeight>n.clientHeight+1).map(n=>n.textContent));
           assert.deepEqual(clipped,[],'clipped labels '+width+' '+lang);
@@ -111,7 +112,9 @@ try {
             assert(hero.height<820,'desktop hero should reveal categories in the first viewport');
             assert.equal(await page.locator('.aca-desktop-nav:visible').count(),1,'desktop navigation must be visible');
             for (const section of await page.locator('[data-catalog-section]').all()) {
-              assert(await section.locator('.aca-category-card').count() >= 4, 'each department must retain its categories');
+              const id = await section.getAttribute('data-catalog-section');
+              const configured = catalogSections.find(item => item.id === id);
+              assert.equal(await section.locator('.aca-category-card').count(), configured.categories.length + (id === 'engines' ? 1 : 0), 'each department must retain its configured categories');
             }
             assert.equal(await page.locator('.aca-product-card').count(),0,'catalog home must start with category choices instead of a mixed product list');
             assert.equal(await page.locator('.aca-desktop-banner:visible').count(),2,'desktop must show both promotional banners');
@@ -132,7 +135,10 @@ try {
         }
         await page.waitForFunction(()=>[...document.querySelectorAll('.aca-category-card img')].every(node=>node.complete&&node.naturalWidth>0));
         const categoryImages=await page.locator('.aca-category-card img').evaluateAll(nodes=>nodes.map(node=>({path:new URL(node.src).pathname,loaded:node.complete&&node.naturalWidth>0})));
-        assert.equal(categoryImages.length,expectedCategoryCardCount,'each category needs a product image');
+        // Attachment groups without a current product photo use their category
+        // icon; do not require a borrowed photo to satisfy the browser check.
+        assert.equal(categoryImages.length,expectedCategoryCardCount - 1,'all categories except attachment selection groups need a product image');
+        assert.equal(await page.locator('.aca-category-card[href="/catalog/category/attachments"] .aca-category-fallback').count(),1);
         assert(categoryImages.every(image=>image.path.startsWith('/catalog-assets/')&&image.loaded),'category images must be local and loaded');
         assert(categoryImages.some(image => image.path === '/catalog-assets/complete-engine-category.webp'));
         assert(categoryImages.some(image => image.path === '/catalog-assets/final-drive-category.jpg'));

@@ -1,20 +1,5 @@
 [
   {
-    "id": "equipment",
-    "ru": "Техника и оборудование",
-    "kz": "Техника және жабдық",
-    "en": "Machinery and equipment",
-    "description": {
-      "ru": "Спецтехника JCB и навесное оборудование под задачу",
-      "kz": "Міндетке сай JCB техникасы және аспалы жабдық",
-      "en": "JCB machinery and attachments selected for the job"
-    },
-    "categories": [
-      "construction-machinery",
-      "attachments"
-    ]
-  },
-  {
     "id": "hydraulics",
     "ru": "Гидравлика",
     "kz": "Гидравлика",
@@ -45,5 +30,20 @@
     "en": "Other assemblies and consumables",
     "description": { "ru": "Редукторы хода, фильтры, уплотнения, кондиционирование и другие детали", "kz": "Жүріс редукторлары, сүзгілер, тығыздағыштар және басқа бөлшектер", "en": "Final drives, filters, seals, air conditioning and other parts" },
     "categories": ["final-drives", "seals-filters", "air-conditioning", "other-parts"]
+  },
+  {
+    "id": "equipment",
+    "ru": "Техника и оборудование",
+    "kz": "Техника және жабдық",
+    "en": "Machinery and equipment",
+    "description": {
+      "ru": "Спецтехника JCB и навесное оборудование под задачу",
+      "kz": "Міндетке сай JCB техникасы және аспалы жабдық",
+      "en": "JCB machinery and attachments selected for the job"
+    },
+    "categories": [
+      "construction-machinery",
+      "attachments"
+    ]
   }
 ]
