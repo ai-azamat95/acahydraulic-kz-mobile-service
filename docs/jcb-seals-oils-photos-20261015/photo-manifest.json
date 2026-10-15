@@ -1,0 +1,106 @@
+{
+  "source": "User-provided photographs, second JCB service-parts batch",
+  "receivedDate": "2026-10-15",
+  "hashAlgorithm": "sha256",
+  "transformations": "None: public images and the internal-only photo are byte-identical source JPEGs.",
+  "images": [
+    {
+      "sourceFile": "1-Фото-1.jpg",
+      "sha256": "0effe8ae5d593cdf59bb84fa41725770935e074df7cf5a1972fa48b6421ad34b",
+      "byteLength": 242186,
+      "published": true,
+      "publicPath": "/catalog-assets/jcb-service-parts-batch2/813-50026-packaging.jpg",
+      "partNumbers": [
+        "813/50026",
+        "813/50012"
+      ],
+      "role": "primary-packaging-and-existing-seal-gallery"
+    },
+    {
+      "sourceFile": "2-Фото-2.jpg",
+      "sha256": "a0a2184e22dd4771e1d27754dfe1bd66ccc7d476916eea64a030ec6b8df0b74e",
+      "byteLength": 234944,
+      "published": false,
+      "publicPath": null,
+      "partNumbers": [],
+      "role": "unidentified-seal-set-internal-only",
+      "internalPath": "docs/jcb-seals-oils-photos-20261015/unidentified-seal-set-photo-2.jpg",
+      "reason": "The article number is unreadable. Do not associate this image with 991/20023 or any other exact item."
+    },
+    {
+      "sourceFile": "3-Фото-3.jpg",
+      "sha256": "0dc0f0941cab53c4d6d9ddc14c31ce43e9cb7861ec8655ec455d372c2c780120",
+      "byteLength": 237418,
+      "published": false,
+      "publicPath": null,
+      "partNumbers": [],
+      "role": "partially-obscured-seal-set-internal-only",
+      "internalPath": "docs/jcb-seals-oils-photos-20261015/unidentified-seal-set-photo-3.jpg",
+      "reason": "The article number is partly covered and OCR readings conflict. Do not publish or assign 991/20023 without an unobstructed label."
+    },
+    {
+      "sourceFile": "4-Фото-4.jpg",
+      "sha256": "458069472fa3e4b46a871baf2e5cdbd69517a87d1229a97fa56e68c502f9a760",
+      "byteLength": 134809,
+      "published": true,
+      "publicPath": "/catalog-assets/jcb-service-parts-batch2/991-00158p-packaging.jpg",
+      "partNumbers": [
+        "991/00158P"
+      ],
+      "role": "primary-packaging"
+    },
+    {
+      "sourceFile": "5-Фото-5.jpg",
+      "sha256": "7dac16a9f0d8233312fda65037a3322b320dcff2f941c1a6e6f414ae0b48f1a9",
+      "byteLength": 369156,
+      "published": true,
+      "publicPath": "/catalog-assets/jcb-service-parts-batch2/458-20285-packaging.jpg",
+      "partNumbers": [
+        "458/20285"
+      ],
+      "role": "primary-packaging"
+    },
+    {
+      "sourceFile": "6-Фото-6.jpg",
+      "sha256": "c897559508f87d557300ad92cbfdcf1537059ea7ec624e130d0cded7b750dce8",
+      "byteLength": 153754,
+      "published": true,
+      "publicPath": "/catalog-assets/jcb-service-parts-batch2/320-a7351-packaging.jpg",
+      "partNumbers": [
+        "320/A7351"
+      ],
+      "role": "primary-packaging"
+    },
+    {
+      "sourceFile": "7-Фото-7.jpg",
+      "sha256": "8ddae1e052f6b72653e74bc6453034c8a485b214ff923e1226ce9fce651b5327",
+      "byteLength": 159583,
+      "published": true,
+      "publicPath": "/catalog-assets/jcb-service-parts-batch2/320-a7227-packaging.jpg",
+      "partNumbers": [
+        "320/A7227"
+      ],
+      "role": "primary-packaging"
+    },
+    {
+      "sourceFile": "8-Фото-8.jpg",
+      "sha256": "5fdade44a353e291f7bef718f72217720efbb80b0585e9624fdeb850b3a98501",
+      "byteLength": 134197,
+      "published": true,
+      "publicPath": "/catalog-assets/jcb-service-parts-batch2/jcb-advanced-engine-oil-15w40-20l.jpg",
+      "partNumbers": [],
+      "role": "primary-oil-container",
+      "articleStatus": "No verified OEM MPN; identify by visible product family, viscosity and 20 L container. Do not promote 5500 label codes to MPN."
+    },
+    {
+      "sourceFile": "9-Фото-9.jpg",
+      "sha256": "09553e71151f3e24f6b6c0e03c5a79df5d68726e47651589e5d16955a20f386a",
+      "byteLength": 141742,
+      "published": true,
+      "publicPath": "/catalog-assets/jcb-service-parts-batch2/jcb-transmission-fluid-sae30-20l.jpg",
+      "partNumbers": [],
+      "role": "primary-oil-container",
+      "articleStatus": "No verified OEM MPN; identify by visible product family, viscosity and 20 L container. Do not promote 5500 label codes to MPN."
+    }
+  ]
+}
