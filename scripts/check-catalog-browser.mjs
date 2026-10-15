@@ -397,6 +397,7 @@ try {
         await nameplate.waitFor({state:'visible'});
         assert.equal(await nameplate.count(),1,'The real nameplate photo must be visible');
         await nameplate.scrollIntoViewIfNeeded();
+        await huscoPage.waitForFunction(image => image.complete && image.naturalWidth > 0, await nameplate.elementHandle());
         await nameplate.evaluate(image => image.decode());
         assert(await nameplate.evaluate(image => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0),'Authorized nameplate photo must decode');
         const imageResponse = await huscoPage.request.get(origin + "/catalog-assets/husco-c16e303/husco-c16e303-nameplate.webp");
