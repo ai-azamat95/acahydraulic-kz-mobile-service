@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-15",
+  "hashAlgorithm": "sha256",
+  "assets": [
+    {
+      "publicPath": "/catalog-assets/jcb-rocker-seal-photos-20261015/32-917804-packaging.jpg",
+      "role": "original-photo",
+      "sourceNumber": 2,
+      "sha256": "23912577ee8bb460c299a4c4bc2b265cec0a8370bdc3bf5278f97330dd22cdea",
+      "byteLength": 232291,
+      "productIds": [
+        "ACA-JCB-PART-32-917804"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-rocker-seal-photos-20261015/320-07580-rocker-cover-seal.jpg",
+      "role": "original-photo",
+      "sourceNumber": 10,
+      "sha256": "3c051e84b7802afe26120521870fb5105e588fb7db1f227d0ad3aa35345bdd17",
+      "byteLength": 355189,
+      "productIds": [
+        "ACA-JCB-PART-320-07580"
+      ]
+    }
+  ]
+}

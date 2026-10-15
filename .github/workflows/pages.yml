@@ -68,6 +68,7 @@ jobs:
           node --test tests/supplier-catalog-publication.test.mjs
           node --test tests/jcb-product-media.test.mjs
           node --test tests/jcb-brakes-airfilters.test.mjs
+          node --test tests/jcb-rocker-seal-photos.test.mjs
           node --test tests/merchant-publication.test.mjs
           node --test tests/handok-product-publication.test.mjs
           node --test tests/xcmg-xz200-pump-publication.test.mjs
