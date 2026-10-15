@@ -20,7 +20,8 @@ const expectedParts = [
   { number: '813/50012', photo: '813-50012-packaging.jpg', purpose: /уплотнени.*тормоз/iu },
 ];
 const productId = number => `ACA-JCB-PART-${number.replace('/', '-')}`;
-const addedProducts = products.filter(product => String(product.id).startsWith('ACA-JCB-PART-'));
+const originalPhotoIds = new Set(expectedParts.map(part => productId(part.number)));
+const addedProducts = products.filter(product => originalPhotoIds.has(product.id));
 
 test('eight JCB service parts retain exact article identities, purpose, and matching packaging photos', () => {
   assert.equal(addedProducts.length, 8);
@@ -42,6 +43,7 @@ test('eight JCB service parts retain exact article identities, purpose, and matc
     assert((product.catalogTitle || product.title).includes(expected.number));
     const expectedGallery = [imageBase + expected.photo];
     if (expected.number === '581/R5206') expectedGallery.push(imageBase + 'jcb-packages-overview-1.jpg', imageBase + 'jcb-packages-overview-2.jpg');
+    if (expected.number === '813/50012') expectedGallery.push('/catalog-assets/jcb-service-parts-batch2/813-50026-packaging.jpg');
     assert.deepEqual(product.gallery, expectedGallery, `${expected.number}: correct photo association and gallery order`);
     if (product.catalogImageLabel) assert.equal(product.catalogImageLabel, 'Фото упаковки');
     assert(product.variants.length > 0);

@@ -1,0 +1,171 @@
+{
+  "checkedAt": "2026-10-15",
+  "workflow": "ECC research-ops; light factual verification",
+  "parts": [
+    {
+      "partNumber": "813/50026",
+      "confirmedPartNumber": "813/50026",
+      "photo": {
+        "file": "1-Фото-1.jpg",
+        "path": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/1-Фото-1.jpg",
+        "sha256": "0effe8ae5d593cdf59bb84fa41725770935e074df7cf5a1972fa48b6421ad34b",
+        "byteLength": 242186
+      },
+      "photoLabel": "813/50026; BRAKE SEAL; COUNTRY OF ORIGIN: ITALY",
+      "photoNumberConfidence": "confirmed-readable",
+      "publicationStatus": "ready-inquiry-only",
+      "safeTitleRu": "Уплотнение тормоза JCB 813/50026",
+      "functionRu": "Уплотнение тормозной системы.",
+      "sources": [
+        {
+          "url": "https://parts.jcb.com/in/product/813-50026",
+          "type": "manufacturer-product",
+          "officialTitle": "Brake Seal",
+          "supportsRu": "JCB относит точный номер 813/50026 к тормозным уплотнениям; для совместимости предлагает ввод серийного номера.",
+          "retrieval": "web search returned exact manufacturer product content; direct open did not return parsed text"
+        }
+      ],
+      "discoveredSifSource": {
+        "url": "https://onlinesatis.sif.com.tr/81350026-fren-piston-kecesi",
+        "status": "present-in-live-products-sitemap; product-page-403",
+        "claimUse": "discovery-only; piston-specific application not asserted"
+      },
+      "evidenceBoundaryRu": "Не добавлять размеры, номер моста, положение в тормозном узле и модельную совместимость без PIN и каталога исполнения. На общем фото также виден ранее опубликованный 813/50012: это отдельный номер, не замена и не комплект.",
+      "fitmentTextRu": "Подбор по полному каталожному номеру, PIN / серийному номеру техники и исполнению узла. Перед заказом проверим применяемость, размеры и комплектность.",
+      "availabilityTextRu": "Цена, наличие и срок поставки — по запросу.",
+      "commercialClaimBoundaryRu": "Фото упаковки не подтверждает подлинность конкретной партии, склад ACA, официальное дилерство ACA или согласованную единицу продажи."
+    },
+    {
+      "partNumber": "991/20023",
+      "confirmedPartNumber": null,
+      "photo": {
+        "file": "3-Фото-3.jpg",
+        "path": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/3-Фото-3.jpg",
+        "sha256": "0dc0f0941cab53c4d6d9ddc14c31ce43e9cb7861ec8655ec455d372c2c780120",
+        "byteLength": 237418
+      },
+      "photoLabel": "UNIVERSAL SEAL KIT; крупное окончание /20023; начальные цифры частично закрыты пальцем",
+      "photoNumberConfidence": "probable-not-fully-readable",
+      "publicationStatus": "hold-photo-number-association-until-label-confirmed",
+      "safeTitleRu": "Комплект уплотнений JCB 991/20023",
+      "functionRu": "Комплект уплотнений; точный узел и состав определяются по каталогу конкретного исполнения.",
+      "sources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/991-20023",
+          "type": "manufacturer-product",
+          "officialTitle": "Universal Seal Kit",
+          "supportsRu": "JCB подтверждает существование и название точного номера 991/20023 в разделе Seal and End Kits. Страница не даёт размеров или состава и требует серийный номер для совместимости.",
+          "retrieval": "fresh manufacturer page parsed 2026-10-15"
+        }
+      ],
+      "machineReading": {
+        "barcodeDecoded": false,
+        "visionOcrReadings": [
+          "991/20020 (small text under barcode)",
+          "901/20023 (large partially covered text)"
+        ],
+        "interpretationRu": "OCR противоречив. На фото вероятен 991/20023, но название UNIVERSAL SEAL KIT и наличие карточки JCB сами по себе не доказывают номер упаковки. Не обозначать как полностью проверенный штрихкод."
+      },
+      "evidenceBoundaryRu": "Не переводить Universal в обещание совместимости с любыми цилиндрами или машинами. Назначение конкретного цилиндра, размеры и состав комплекта не подтверждены. Фото 2 нельзя достоверно связать с этой упаковкой по артикулу.",
+      "fitmentTextRu": "Подбор по полному каталожному номеру, PIN / серийному номеру техники и исполнению узла. Перед заказом проверим применяемость, размеры и комплектность.",
+      "availabilityTextRu": "Цена, наличие и срок поставки — по запросу.",
+      "commercialClaimBoundaryRu": "Фото упаковки не подтверждает подлинность конкретной партии, склад ACA, официальное дилерство ACA или согласованную единицу продажи."
+    },
+    {
+      "partNumber": "991/00158P",
+      "confirmedPartNumber": "991/00158P",
+      "photo": {
+        "file": "4-Фото-4.jpg",
+        "path": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/4-Фото-4.jpg",
+        "sha256": "458069472fa3e4b46a871baf2e5cdbd69517a87d1229a97fa56e68c502f9a760",
+        "byteLength": 134809
+      },
+      "photoLabel": "991/00158P; KIT SEAL; DATE PACKED: 12/2025",
+      "photoNumberConfidence": "confirmed-readable-and-code39-decoded",
+      "publicationStatus": "ready-inquiry-only-neutral-title",
+      "safeTitleRu": "Комплект уплотнений JCB 991/00158P",
+      "functionRu": "Сервисный комплект уплотнений гидроцилиндра; точный цилиндр и исполнение проверяются до заказа.",
+      "sources": [
+        {
+          "url": "https://www.greenshieldsjcb.com/parts/telescopic-handlers2/hydraulic-seal-kit-8/",
+          "type": "jcb-dealer-exact-product",
+          "officialTitle": "JCB Hydraulic Seal Kit 991/00158P",
+          "supportsRu": "Карточка самого Greenshields JCB прямо указывает номер с P и сервисный комплект 120*60. Категория — телескопические погрузчики. Это не подтверждение установки на конкретную машину или фактических размеров содержимого пользовательского пакета.",
+          "retrieval": "fresh HTML HTTP 200; exact title/body checked 2026-10-15"
+        },
+        {
+          "url": "https://parts.jcb.com/uk/dealer/greenshieldsjcb",
+          "type": "manufacturer-dealer-directory",
+          "supportsRu": "JCB показывает Greenshields JCB Farnham как дилера."
+        }
+      ],
+      "primaryJcbProductStatus": "Exact parts.jcb.com product URL 991-00158P was not retrievable as a product page; no JCB/SIF exact product data inferred from 991/00158 without P.",
+      "machineReading": {
+        "barcodeDecoded": true,
+        "symbology": "Code39",
+        "payload": "991/00158P",
+        "visionConfidence": 0.7334041
+      },
+      "evidenceBoundaryRu": "Не убирать суффикс P; не заменять на 991/00158, 991/00158R или другие исполнения. Размер 120*60 из карточки дилера не публиковать как обмер содержимого пакета. Для подбора нужны PIN, маркировка цилиндра, диаметр штока и цилиндра, профили и размеры старых уплотнений. Модельный список не подтверждён.",
+      "fitmentTextRu": "Подбор по полному каталожному номеру, PIN / серийному номеру техники и исполнению узла. Перед заказом проверим применяемость, размеры и комплектность.",
+      "availabilityTextRu": "Цена, наличие и срок поставки — по запросу.",
+      "commercialClaimBoundaryRu": "Фото упаковки не подтверждает подлинность конкретной партии, склад ACA, официальное дилерство ACA или согласованную единицу продажи."
+    },
+    {
+      "partNumber": "458/20285",
+      "confirmedPartNumber": "458/20285",
+      "photo": {
+        "file": "5-Фото-5.jpg",
+        "path": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/5-Фото-5.jpg",
+        "sha256": "7dac16a9f0d8233312fda65037a3322b320dcff2f941c1a6e6f414ae0b48f1a9",
+        "byteLength": 369156
+      },
+      "photoLabel": "458/20285; BRAKE COUNTERPLATE -IH; UOI: 12",
+      "photoNumberConfidence": "confirmed-readable",
+      "publicationStatus": "ready-inquiry-only",
+      "safeTitleRu": "Ответный диск тормоза JCB 458/20285",
+      "functionRu": "Ответная пластина тормозного пакета в трансмиссионной системе.",
+      "sources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/458-20285",
+          "type": "manufacturer-product",
+          "officialTitle": "Brake Counter Plate - 12PK",
+          "supportsRu": "JCB подтверждает точный номер и назначение counter plate в разделе Transmission Systems. Для совместимости требуется серийный номер.",
+          "retrieval": "fresh manufacturer page parsed 2026-10-15"
+        },
+        {
+          "url": "https://parts.jcb.com/uk/machine-parts/jcb-backhoe-loader-parts/3cx-parts",
+          "type": "manufacturer-family-page",
+          "supportsRu": "Номер перечислен на общей странице JCB 3CX. Сама страница требует серийный номер, поскольку исполнения и годы различаются; это не универсальная применяемость."
+        }
+      ],
+      "discoveredSifSource": {
+        "url": "https://onlinesatis.sif.com.tr/45820285-fren-saci",
+        "status": "present-in-live-products-sitemap; product-page-403",
+        "claimUse": "discovery-only"
+      },
+      "evidenceBoundaryRu": "Не называть фрикционным диском: counterplate и friction plate — разные позиции. Каталожное обозначение JCB 12PK и UOI 12 на фото не заменяют согласование единицы продажи и комплектности предложения ACA. Не обещать комплект 12 шт. или конкретный мост без проверки.",
+      "fitmentTextRu": "Подбор по полному каталожному номеру, PIN / серийному номеру техники и исполнению узла. Перед заказом проверим применяемость, размеры и комплектность.",
+      "availabilityTextRu": "Цена, наличие и срок поставки — по запросу.",
+      "commercialClaimBoundaryRu": "Фото упаковки не подтверждает подлинность конкретной партии, склад ACA, официальное дилерство ACA или согласованную единицу продажи."
+    }
+  ],
+  "unassignedPhotos": [
+    {
+      "photo": {
+        "file": "2-Фото-2.jpg",
+        "path": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/2-Фото-2.jpg",
+        "sha256": "a0a2184e22dd4771e1d27754dfe1bd66ccc7d476916eea64a030ec6b8df0b74e",
+        "byteLength": 234944
+      },
+      "status": "unassigned-no-readable-article",
+      "observationRu": "Виден пакет с несколькими кольцами/уплотнениями, но надёжно читаемого каталожного номера нет.",
+      "doNotInferRu": "Не утверждать связь с фото 3 / 991/20023 по внешнему сходству, последовательности кадров или цветам колец."
+    }
+  ],
+  "sourceAccessLimitsRu": [
+    "SIF products sitemap доступен и содержит точные URL 813/50026 и 458/20285, но сами product pages вернули 403. Их URL не использованы для технических утверждений.",
+    "Для 991/00158P прямое назначение проверено по собственному product page официально перечисленного дилера Greenshields JCB; карточка производителя с точным P не была доступна."
+  ],
+  "overallDecisionRu": "Три точно читаемых номера готовы для нейтральных карточек по запросу. 991/20023 подтверждён как каталожный номер JCB, но связь с фото 3 остаётся вероятной; до безусловной привязки фото к карточке нужна читаемая этикетка или независимое подтверждение номера."
+}

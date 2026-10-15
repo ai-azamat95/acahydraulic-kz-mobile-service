@@ -1,0 +1,184 @@
+{
+  "checkedAt": "2026-10-15",
+  "workflow": "ECC research-ops, fully read before work",
+  "scope": "Read-only primary-source verification of photos 6–9, no repository changes",
+  "photoReadingMethod": [
+    "visual view_image",
+    "local Apple Vision OCR (full image and analysis crop in memory); oil P.N. remained unreliable"
+  ],
+  "decisionRu": "Фильтрам присваивать подтвержденные артикулы. Маслам использовать внутренние SKU, не заполнять OEM MPN по сомнительным цифровым строкам. Названия, вязкость и 20 л допустимы по этикеткам и первичным источникам.",
+  "items": [
+    {
+      "photoNumber": 6,
+      "kind": "filter",
+      "partNumber": "320/A7351",
+      "partNumberConfidence": "confirmed-photo-and-JCB-product-page",
+      "recommendedTitleRu": "Топливный фильтр JCB 320/A7351",
+      "recommendedDescriptionRu": "Фильтрующий элемент топливной системы JCB. Применяемость проверяем по PIN / серийному номеру техники и маркировке установленной детали. Цена, наличие и срок поставки — по запросу.",
+      "photoLabelFacts": [
+        "JCB SERVICE GENUINE PARTS",
+        "320/A7351"
+      ],
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/320-A7351",
+          "title": "Fuel Filter Element",
+          "supportsRu": "Точный код 320/A7351, топливный фильтрующий элемент; категория Spin-On Fuel Filters."
+        },
+        {
+          "url": "https://parts.jcb.com/uk/machine-parts/jcb-backhoe-loader-parts/3cx-parts",
+          "title": "JCB 3CX Parts",
+          "supportsRu": "В общей подборке 3CX перечислен точный код; это не подтверждает совместимость со всеми годами и исполнениями."
+        }
+      ],
+      "restrictionsRu": [
+        "Не объявлять фильтром масляным, гидравлическим или воздушным.",
+        "Не присваивать тонкость фильтрации, конкретную стадию очистки или применяемость ко всем 3CX без проверки PIN.",
+        "Надпись GENUINE PARTS на упаковке не доказывает подлинность конкретной партии."
+      ],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/6-Фото-6.jpg",
+      "commercialState": {
+        "available": false,
+        "priceKzt": null,
+        "authenticityVerified": false,
+        "ACAOfficialDealerClaim": false
+      },
+      "safeImageLabelRu": "Фото упаковки"
+    },
+    {
+      "photoNumber": 7,
+      "kind": "filter",
+      "partNumber": "320/A7227",
+      "partNumberConfidence": "confirmed-photo-and-JCB-product-page",
+      "recommendedTitleRu": "Топливный фильтр JCB 320/A7227",
+      "recommendedDescriptionRu": "Фильтрующий элемент топливной системы JCB. Применяемость проверяем по PIN / серийному номеру техники и маркировке установленной детали. Цена, наличие и срок поставки — по запросу.",
+      "photoLabelFacts": [
+        "JCB SERVICE GENUINE PARTS",
+        "320/A7227",
+        "ELEMENT ASSEMBLY"
+      ],
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/320-A7227",
+          "title": "Fuel Filter Element",
+          "supportsRu": "Точный код 320/A7227, топливный фильтрующий элемент."
+        },
+        {
+          "url": "https://parts.jcb.com/uk/machine-parts/jcb-backhoe-loader-parts/3cx-parts",
+          "title": "JCB 3CX Parts",
+          "supportsRu": "В общей подборке 3CX перечислен точный код; это не подтверждает совместимость со всеми годами и исполнениями."
+        }
+      ],
+      "restrictionsRu": [
+        "Не обещать сборку со стаканом или датчиком воды по словам ELEMENT ASSEMBLY.",
+        "Не присваивать тонкость фильтрации, конкретную стадию очистки или применяемость ко всем 3CX без проверки PIN.",
+        "Упаковка не доказывает подлинность конкретной партии."
+      ],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/7-Фото-7.jpg",
+      "commercialState": {
+        "available": false,
+        "priceKzt": null,
+        "authenticityVerified": false,
+        "ACAOfficialDealerClaim": false
+      },
+      "safeImageLabelRu": "Фото упаковки"
+    },
+    {
+      "photoNumber": 8,
+      "kind": "engine-oil",
+      "partNumber": null,
+      "partNumberConfidence": "not-confirmed-do-not-publish-OEM-MPN",
+      "recommendedInternalSku": "ACA-JCB-OIL-ADVANCED-15W40-20L",
+      "recommendedTitleRu": "Моторное масло JCB Advanced Engine Oil 15W-40, 20 л",
+      "recommendedDescriptionRu": "Моторное масло JCB Advanced Engine Oil вязкости 15W-40. На этикетке канистры указан объем 20 л. Подбор по требованиям руководства конкретного двигателя и техническому паспорту предлагаемой партии. Цена, наличие и срок поставки — по запросу.",
+      "photoLabelFacts": [
+        "JCB ADVANCED ENGINE OIL 15W-40",
+        "Net Content 20.0L"
+      ],
+      "viscosity": "15W-40",
+      "packageVolumeL": 20,
+      "labelNumericCodeCandidate": "55007445",
+      "labelNumericCodeConfirmed": false,
+      "separatePnReadable": false,
+      "pnReadingNoteRu": "На нижней этикетке есть отдельная строка P.N. Маленький размер и наклон не позволяют надежно прочитать ее. Прямой Vision OCR и OCR увеличенной области дают конфликтующие цифры даже для соседнего 5500-кода. Не публиковать 55007445 как артикул JCB.",
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/4001-4005",
+          "title": "JCB Advanced Engine Oil 15W-40 20L",
+          "supportsRu": "Производитель подтверждает существование линейки Advanced Engine Oil, вязкость 15W-40 и упаковку 20 л. На официальной UK странице указан код 4001/4005; это не является доказательством кода канистры на пользовательском фото."
+        }
+      ],
+      "officialReferenceNotAssignedToPhoto": "4001/4005",
+      "restrictionsRu": [
+        "Не присваивать канистре код 55007445 или 4001/4005 как подтвержденный MPN.",
+        "Не переносить допуски текущей UK рецептуры на конкретную турецкую канистру без TDS и сверки партии.",
+        "Не утверждать универсальную пригодность для всех двигателей, всесезонность в Казахстане или совместимость при смешивании.",
+        "Не объявлять число канистр на фото складским остатком, количеством в одном комплекте или наличием в Казахстане."
+      ],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/8-Фото-8.jpg",
+      "commercialState": {
+        "available": false,
+        "priceKzt": null,
+        "authenticityVerified": false,
+        "ACAOfficialDealerClaim": false
+      },
+      "safeImageLabelRu": "Фото упаковки"
+    },
+    {
+      "photoNumber": 9,
+      "kind": "transmission-oil",
+      "partNumber": null,
+      "partNumberConfidence": "not-confirmed-do-not-publish-OEM-MPN",
+      "recommendedInternalSku": "ACA-JCB-OIL-EXTREME-SAE30-20L",
+      "recommendedTitleRu": "Трансмиссионное масло JCB Extreme Performance Transmission Fluid SAE 30, 20 л",
+      "recommendedDescriptionRu": "Трансмиссионное масло JCB Extreme Performance Transmission Fluid вязкости SAE 30. На этикетке канистры указан объем 20 л. Подбор по требованиям руководства конкретной трансмиссии и техническому паспорту предлагаемой партии. Цена, наличие и срок поставки — по запросу.",
+      "photoLabelFacts": [
+        "JCB EXTREME PERFORMANCE TRANSMISSION FLUID",
+        "SAE30",
+        "Net Content 20.0L"
+      ],
+      "viscosity": "SAE 30",
+      "packageVolumeL": 20,
+      "labelNumericCodeCandidate": "55007442",
+      "labelNumericCodeConfirmed": false,
+      "separatePnReadable": false,
+      "pnReadingNoteRu": "Отдельная строка P.N. не прочитана надежно. Vision OCR дает конфликтующие цифры для нижнего блока. Не публиковать 55007442 как артикул JCB.",
+      "primarySources": [
+        {
+          "url": "https://jcbqatar.com/wp-content/uploads/2020/12/JCB-Lubricants-Brochure.pdf#page=11",
+          "title": "JCB Lubricants No Compromise — Transmission Fluids, printed pages 20–21 / PDF page 11",
+          "supportsRu": "Производительский каталог JCB подтверждает трансмиссионное назначение линейки Transmission Fluid EP SAE 30 и размер упаковки 20L. В каталоге код 4000/2605 относится к этой исторической продуктовой позиции; связь с P.N. на фото не доказана."
+        },
+        {
+          "url": "https://jcbqatar.com/wp-content/uploads/2020/12/JCB-Lubricants-Brochure.pdf#page=18",
+          "title": "JCB Lubricants No Compromise — The Range, printed pages 34–35 / PDF page 18",
+          "supportsRu": "Таблица производителя отдельно указывает JCB Transmission Fluid EP SAE30 в колонке 20 Litre."
+        },
+        {
+          "url": "https://parts.jcb.com/uk/product/4000-2605D",
+          "title": "JCB Advanced Transmission Fluid SAE 30 20L",
+          "supportsRu": "Текущая UK карточка подтверждает трансмиссионный тип, SAE 30 и 20 л для Advanced. Это не доказательство эквивалентности Advanced и Extreme Performance или кода сфотографированной канистры."
+        }
+      ],
+      "officialReferenceNotAssignedToPhoto": [
+        "4000/2605",
+        "4000/2605D"
+      ],
+      "restrictionsRu": [
+        "Не присваивать канистре 55007442, 4000/2605 или 4000/2605D как подтвержденный MPN.",
+        "Не объявлять Extreme Performance и Advanced тождественными продуктами.",
+        "Не копировать универсальные допуски, перечни машин, применение в гидравлике/мостах или рекомендации по смешиванию.",
+        "Фоновое ведро GEAR OIL 80W90 не выделять отдельной позицией: код не прочитан.",
+        "Не объявлять количество канистр на фото складским остатком или одним комплектом."
+      ],
+      "photoPath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/83C5DD62-3AD7-427F-9DFD-DF126DCFC4C9/9-Фото-9.jpg",
+      "commercialState": {
+        "available": false,
+        "priceKzt": null,
+        "authenticityVerified": false,
+        "ACAOfficialDealerClaim": false
+      },
+      "safeImageLabelRu": "Фото упаковки"
+    }
+  ]
+}
