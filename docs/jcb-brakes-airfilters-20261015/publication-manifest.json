@@ -1,0 +1,118 @@
+{
+  "checkedAt": "2026-10-15",
+  "hashAlgorithm": "sha256",
+  "assets": [
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/32-917804-label.jpg",
+      "role": "original-photo",
+      "sourceNumber": 10,
+      "sha256": "caeb1590283518aefb86b3c53d1e8921f7355e702df87f6d34a29dc40a4d9999",
+      "byteLength": 192011,
+      "productIds": [
+        "ACA-JCB-PART-32-917804"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/32-917805-label.jpg",
+      "role": "original-photo",
+      "sourceNumber": 8,
+      "sha256": "a7102ea858f7fca8998622f6f680ea838b8a3c5fdce15b9980fbb93c00c2d1d3",
+      "byteLength": 159080,
+      "productIds": [
+        "ACA-JCB-PART-32-917805"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/32-917805-packaging.jpg",
+      "role": "original-photo",
+      "sourceNumber": 9,
+      "sha256": "b42c1c2f1ba2d76d70a0d56eb3ecd9cfc982433865b0b37297ec39a4c6a6e44b",
+      "byteLength": 160033,
+      "productIds": [
+        "ACA-JCB-PART-32-917805"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/320-a4173-packaging.jpg",
+      "role": "original-photo",
+      "sourceNumber": 2,
+      "sha256": "6a49b43224a7175253817c8f1e89aa96d298cc4b747b3c1b62d9cc93f0e7ff19",
+      "byteLength": 172547,
+      "productIds": [
+        "ACA-JCB-OIL-COOLER-A4173-MARKING"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/320-a4173-unboxing-poster.jpg",
+      "role": "video-poster",
+      "sourceNumber": 1,
+      "sha256": "f0ae7100e82044ec55896410f6254c99719cb5e2e775b88ba39ea1394d1eb801",
+      "byteLength": 33867,
+      "productIds": [
+        "ACA-JCB-OIL-COOLER-A4173-MARKING"
+      ],
+      "sourceFrameSeconds": 38,
+      "sourceFrameRole": "assembly-view-real-frame"
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/458-20285-label.jpg",
+      "role": "original-photo",
+      "sourceNumber": 4,
+      "sha256": "e94a19dd02aab6cbb2e4ee20aaaa179b72d012117832907e88d65c49cd29ebba",
+      "byteLength": 155840,
+      "productIds": [
+        "ACA-JCB-PART-458-20285"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/458-20353-458-20285-packaging.jpg",
+      "role": "original-photo",
+      "sourceNumber": 3,
+      "sha256": "f5e6fe6aa8f87b3274484bc43c297d7c68757fe9cf4cb97075f3000a3611bbd5",
+      "byteLength": 294486,
+      "productIds": [
+        "ACA-JCB-PART-458-20285",
+        "ACA-JCB-PART-458-20353"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/458-20353-label.jpg",
+      "role": "original-photo",
+      "sourceNumber": 5,
+      "sha256": "647d76fba93da8e462e6f6a58c3746ab037508e03936a23479e5d3aa043cbfab",
+      "byteLength": 154626,
+      "productIds": [
+        "ACA-JCB-PART-458-20353"
+      ]
+    },
+    {
+      "publicPath": "/catalog-assets/jcb-brakes-airfilters-20261015/jcb-filter-packaging-overview.jpg",
+      "role": "original-photo",
+      "sourceNumber": 7,
+      "sha256": "b17239b400720cdc21c57cb40797480929e54a20b7ab4472c85699bbf9323db3",
+      "byteLength": 252954,
+      "productIds": [
+        "ACA-JCB-PART-32-917804",
+        "ACA-JCB-PART-32-917805"
+      ]
+    },
+    {
+      "publicPath": "/catalog-media/jcb-brakes-airfilters-20261015/320-a4173-unboxing.mp4",
+      "role": "video-export",
+      "sourceNumber": 1,
+      "sha256": "372407ac92048450a068a49c7e51cca248fe0bc17553aab5599c6f4a9e867e7b",
+      "byteLength": 5145703,
+      "productIds": [
+        "ACA-JCB-OIL-COOLER-A4173-MARKING"
+      ],
+      "width": 576,
+      "height": 1024,
+      "durationSeconds": 42.133333,
+      "codec": "h264",
+      "pixelFormat": "yuv420p",
+      "audioStreams": 0,
+      "faststartConfirmed": true,
+      "fullDecodeErrors": []
+    }
+  ]
+}

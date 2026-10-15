@@ -1,0 +1,268 @@
+{
+  "checkedAt": "2026-10-15",
+  "workflow": "ECC research-ops read in full and applied; actual web search and page opens this task",
+  "scopeRu": "Четыре точных номера. Фото 2–10 просмотрены непосредственно; кадр видео frame-3s.jpg также просмотрен. Репозиторий не изменялся.",
+  "parts": [
+    {
+      "partNumber": "458/20353",
+      "safeTitleRu": "Фрикционный диск тормоза JCB 458/20353",
+      "safeProductTypeRu": "Фрикционный тормозной диск",
+      "photoNumbers": [
+        5,
+        6
+      ],
+      "overviewPhotoNumbers": [
+        3
+      ],
+      "photoLabelFacts": [
+        "458/20353",
+        "BRAKE FRIC"
+      ],
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/458-20353",
+          "publisher": "JCB",
+          "title": "Brake Friction Plate - 222 x 49",
+          "supportsRu": "Точный артикул и назначение фрикционной пластины тормоза. Размероподобное обозначение в заголовке источника не переносится в публичные характеристики этой партии."
+        }
+      ],
+      "safeDescriptionRu": "Фрикционный диск тормоза JCB 458/20353. Подбор по полному каталожному номеру, PIN техники и исполнению тормозного узла. Количество, состав поставки, цену, наличие и срок подтверждаем до заказа.",
+      "captionRu": "Упаковка с маркировкой JCB 458/20353 и BRAKE FRIC. Количество и состав конкретного заказа согласуем отдельно.",
+      "claimsAllowedRu": [
+        "Каталожный номер 458/20353.",
+        "Фрикционный диск тормоза."
+      ],
+      "uncertaintiesRu": [
+        "Не переносить UOI 10 на цену или комплектацию предлагаемой единицы; не считать это остатком.",
+        "На общем фото 3 есть отдельный артикул 458/20285; не объявлять обе коробки 458/20353 или одним комплектом.",
+        "Не заявлять материал, толщину, число зубьев, сторону, конкретный мост или модели техники без сверки.",
+        "Не подменять фрикционный диск тормоза контрдиском 458/20285."
+      ],
+      "photos": [
+        {
+          "sourceNumber": 5,
+          "sourceFile": "5-Фото-5.jpg",
+          "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/1BFE86B0-85A9-4131-81E6-EACB2E8B188F/5-Фото-5.jpg",
+          "byteLength": 154626,
+          "sha256": "647d76fba93da8e462e6f6a58c3746ab037508e03936a23479e5d3aa043cbfab"
+        },
+        {
+          "sourceNumber": 6,
+          "sourceFile": "6-Фото-6.jpg",
+          "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/1BFE86B0-85A9-4131-81E6-EACB2E8B188F/6-Фото-6.jpg",
+          "byteLength": 147034,
+          "sha256": "41c55171736bc75271eef3b8d379da32ae1272490b89c4218fa3de63eed40938"
+        }
+      ],
+      "fitmentModels": [],
+      "commercialState": {
+        "available": false,
+        "priceKzt": null,
+        "authenticityVerified": false,
+        "ACAOfficialDealerClaim": false
+      }
+    },
+    {
+      "partNumber": "32/917804",
+      "safeTitleRu": "Воздушный фильтр JCB 32/917804",
+      "safeProductTypeRu": "Воздушный фильтр",
+      "photoNumbers": [
+        10
+      ],
+      "overviewPhotoNumbers": [
+        7
+      ],
+      "photoLabelFacts": [
+        "32/917804",
+        "AIR FILTER"
+      ],
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/32-917804",
+          "publisher": "JCB",
+          "title": "Outer Air Filter Element",
+          "supportsRu": "Точный код; тип воздушного фильтра двигателя. JCB называет наружным, но публично оставляем общее название без расширения применения."
+        },
+        {
+          "url": "https://www.mann-filter.com/mx-es/catalogo/resultados-de-la-busqueda/producto.html/c16400_mann-filter.html",
+          "publisher": "MANN+HUMMEL / MANN-FILTER",
+          "title": "C 16 400 — Filtro de aire EUROPICLON",
+          "supportsRu": "Первичный каталог изготовителя фильтров указывает J.C.BAMFORD 32/917804 в OE references. Использовано только для подтверждения воздушного типа, не для обещания взаимозаменяемости или продажи MANN под видом JCB."
+        }
+      ],
+      "safeDescriptionRu": "Воздушный фильтр JCB 32/917804. Подбор по PIN техники, полному номеру и исполнению установленного корпуса фильтра. Применяемость, комплектность, цену, наличие и срок поставки подтверждаем до заказа.",
+      "captionRu": "Упаковка с маркировкой JCB 32/917804 и AIR FILTER. Исполнение и применяемость сверяем перед заказом.",
+      "claimsAllowedRu": [
+        "Каталожный номер 32/917804.",
+        "Воздушный фильтр двигателя; для публичного имени достаточно воздушный фильтр."
+      ],
+      "uncertaintiesRu": [
+        "Не присваивать размеры MANN C 16 400 конкретной упаковке JCB.",
+        "Не публиковать MANN-номер как подтвержденный продаваемый аналог или универсальную замену.",
+        "Не объявлять 32/917804 и 32/917805 комплектом или одинаковыми изделиями.",
+        "Модели техники и применяемость требуют PIN."
+      ],
+      "photos": [
+        {
+          "sourceNumber": 10,
+          "sourceFile": "10-Фото-10.jpg",
+          "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/1BFE86B0-85A9-4131-81E6-EACB2E8B188F/10-Фото-10.jpg",
+          "byteLength": 192011,
+          "sha256": "caeb1590283518aefb86b3c53d1e8921f7355e702df87f6d34a29dc40a4d9999"
+        }
+      ],
+      "fitmentModels": [],
+      "commercialState": {
+        "available": false,
+        "priceKzt": null,
+        "authenticityVerified": false,
+        "ACAOfficialDealerClaim": false
+      }
+    },
+    {
+      "partNumber": "32/917805",
+      "safeTitleRu": "Защитный элемент воздушного фильтра JCB 32/917805",
+      "safeProductTypeRu": "Защитный элемент воздушного фильтра",
+      "photoNumbers": [
+        8,
+        9
+      ],
+      "overviewPhotoNumbers": [
+        7
+      ],
+      "photoLabelFacts": [
+        "32/917805",
+        "ELEMENT-SAFETY"
+      ],
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/32-917805",
+          "publisher": "JCB",
+          "title": "Outer Air Filter Element",
+          "supportsRu": "Подтверждает существование точного номера в категории Engine Air Filters & Components, но заголовок Outer конфликтует с пользовательской этикеткой ELEMENT-SAFETY и первичным каталогом MANN."
+        },
+        {
+          "url": "https://www.mann-filter.com/de-de/katalog/suchergebnisse/produkt.html/cf400_mann-filter.html",
+          "publisher": "MANN+HUMMEL / MANN-FILTER",
+          "title": "CF 400 — Luftfilter-Sekundärelement EUROPICLON",
+          "supportsRu": "Первичный каталог изготовителя фильтров описывает secondary element и указывает OE reference 32/917805. Поддерживает защитную/вторичную роль элемента."
+        },
+        {
+          "url": "https://www.mann-filter.com/br-pt/catalogo/resultados-da-pesquisa/produto.suffix.html/cf400/1_mann-filter.html",
+          "publisher": "MANN+HUMMEL / MANN-FILTER",
+          "title": "CF 400/1 — Elemento de segurança",
+          "supportsRu": "В первичном каталоге указаны защитный тип Elemento de segurança и OE J.C.BAMFORD 32/917805 (раздел Números Originais). Это согласуется с ELEMENT-SAFETY на фото."
+        }
+      ],
+      "sourceConflict": {
+        "present": true,
+        "JCBClaim": "Outer Air Filter Element",
+        "userPhotoClaim": "ELEMENT-SAFETY",
+        "independentManufacturerCatalogueClaim": "Secondary Element / Elemento de segurança, OE 32/917805",
+        "decisionRu": "Принять консервативное публичное название Защитный элемент воздушного фильтра JCB 32/917805 по четкой этикетке и согласующемуся первичному каталогу MANN. Не называть наружным или внутренним; не обещать взаимозаменяемость. Внутренний конфликт источников сохранить в evidence, не скрывать."
+      },
+      "safeDescriptionRu": "Защитный элемент воздушного фильтра JCB 32/917805 с маркировкой ELEMENT-SAFETY на упаковке. Применяемость и исполнение проверяем по PIN техники, номеру и корпусу установленного фильтра. Цену, наличие и срок поставки подтверждаем до заказа.",
+      "captionRu": "Упаковка с маркировкой JCB 32/917805 и ELEMENT-SAFETY. Применяемость и комплектность подтверждаем перед заказом.",
+      "claimsAllowedRu": [
+        "Каталожный номер 32/917805.",
+        "Защитный элемент воздушного фильтра по маркировке ELEMENT-SAFETY и первичным данным MANN."
+      ],
+      "uncertaintiesRu": [
+        "Заголовок JCB Outer не использовать как доказательство наружной позиции из-за конфликта с этикеткой и MANN.",
+        "Слова внутренний/наружный и совместимость с определенными корпусами не публиковать до проверки.",
+        "Не переносить размеры CF 400 / CF 400/1 или их межмодельную применяемость на эту карточку.",
+        "Не утверждать, что MANN является изготовителем сфотографированного JCB товара; использован только его первичный каталог для проверки типа."
+      ],
+      "photos": [
+        {
+          "sourceNumber": 8,
+          "sourceFile": "8-Фото-8.jpg",
+          "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/1BFE86B0-85A9-4131-81E6-EACB2E8B188F/8-Фото-8.jpg",
+          "byteLength": 159080,
+          "sha256": "a7102ea858f7fca8998622f6f680ea838b8a3c5fdce15b9980fbb93c00c2d1d3"
+        },
+        {
+          "sourceNumber": 9,
+          "sourceFile": "9-Фото-9.jpg",
+          "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/1BFE86B0-85A9-4131-81E6-EACB2E8B188F/9-Фото-9.jpg",
+          "byteLength": 160033,
+          "sha256": "b42c1c2f1ba2d76d70a0d56eb3ecd9cfc982433865b0b37297ec39a4c6a6e44b"
+        }
+      ],
+      "fitmentModels": [],
+      "commercialState": {
+        "available": false,
+        "priceKzt": null,
+        "authenticityVerified": false,
+        "ACAOfficialDealerClaim": false
+      }
+    },
+    {
+      "partNumber": "320/A4173",
+      "safeTitleRu": "Маслоохладитель двигателя JCB 320/A4173",
+      "safeProductTypeRu": "Маслоохладитель двигателя",
+      "photoNumbers": [
+        2
+      ],
+      "overviewPhotoNumbers": [],
+      "photoLabelFacts": [
+        "320/A4173",
+        "COOLER COV",
+        "JCB SERVICE GENUINE PARTS"
+      ],
+      "videoEvidenceFrame": "/tmp/aca-jcb-batch4-evidence/videos/frame-3s.jpg",
+      "primarySources": [
+        {
+          "url": "https://parts.jcb.com/uk/product/320-A4173",
+          "publisher": "JCB",
+          "title": "Engine Oil Cooler",
+          "supportsRu": "Заводская карточка подтверждает полный код 320/A4173 и назначение маслоохладителя двигателя. Точная комплектация, число пластин и модели не приведены."
+        },
+        {
+          "url": "https://parts.jcb.com/uk/category/powertrain/engine-systems/lubrication-system/oil-cooler-cover/0ZGRz0000000362OAA",
+          "publisher": "JCB",
+          "title": "Oil Cooler & Cover",
+          "supportsRu": "В разделе системы смазки двигателя JCB присутствует точный 320/A4173 Engine Oil Cooler."
+        }
+      ],
+      "safeDescriptionRu": "Маслоохладитель двигателя JCB 320/A4173. Полный номер читается на упаковке. Исполнение корпуса, подключения, применяемость и состав поставки сверяем по PIN техники и маркировке узла до заказа. Цена, наличие и срок поставки — по запросу.",
+      "captionRu": "Маркировка JCB 320/A4173 на упаковке. Исполнение узла и комплектность поставки согласуем перед заказом.",
+      "existingProductUpdate": {
+        "id": "ACA-JCB-OIL-COOLER-A4173-MARKING",
+        "actionRu": "Обновить существующую карточку, не создавать дубль. Теперь SKU/MPN 320/A4173 подтвержден четкой фотографией 2 и видео новой партии. Старую частичную маркировку A4173 оставить как описание прежнего кадра, без прежнего утверждения, что полный номер не установлен."
+      },
+      "claimsAllowedRu": [
+        "Полный код 320/A4173 установлен по новой упаковке и официальному JCB источнику.",
+        "Назначение маслоохладителя двигателя."
+      ],
+      "uncertaintiesRu": [
+        "COOLER COV — сокращение на упаковке, не самостоятельное подтверждение полного состава поставки.",
+        "Не обещать фильтр, крышку, прокладки и весь корпус в комплекте по одному названию.",
+        "Не публиковать шесть пластин, размеры, производительность или конкретные двигатели без каталожной сверки.",
+        "Полный PN на упаковке не доказывает подлинность конкретной партии, склад или официальное дилерство."
+      ],
+      "photos": [
+        {
+          "sourceNumber": 2,
+          "sourceFile": "2-Фото-2.jpg",
+          "sourcePath": "/tmp/codex-remote-attachments/01a13df7-1a1b-7da3-babd-226ed29646f1/1BFE86B0-85A9-4131-81E6-EACB2E8B188F/2-Фото-2.jpg",
+          "byteLength": 172547,
+          "sha256": "6a49b43224a7175253817c8f1e89aa96d298cc4b747b3c1b62d9cc93f0e7ff19"
+        }
+      ],
+      "fitmentModels": [],
+      "commercialState": {
+        "available": false,
+        "priceKzt": null,
+        "authenticityVerified": false,
+        "ACAOfficialDealerClaim": false
+      }
+    }
+  ],
+  "summaryRu": "458/20353 — фрикционный диск тормоза; 32/917804 — воздушный фильтр; 32/917805 — защитный воздушный элемент с сохраненным конфликтом заголовка JCB; полный 320/A4173 теперь подтвержден, обновлять существующую карточку без дубля.",
+  "commonRestrictionsRu": [
+    "Без неподтвержденной применяемости, размеров и универсальной взаимозаменяемости.",
+    "Фотографии и упаковки не подтверждают подлинность, местный склад, цену или дилерство ACA.",
+    "UOI / количество коробок не переводить в складской остаток или обещанную комплектность."
+  ]
+}

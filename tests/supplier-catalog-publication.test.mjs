@@ -9,7 +9,7 @@ const publicDir = path.resolve('dist/public');
 const escapeHtml = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 
 test('reviewed supplement retains identities, manufacturer distinction and honest commercial terms', () => {
-  assert.equal(products.length, 1627);
+  assert.equal(products.length, 1630);
   assert.equal(products.filter(product => product.category === 'construction-machinery').length, 49);
   assert.equal(products.filter(product => product.category === 'attachments').length, 10);
   assert.equal(new Set(products.map(product => product.id)).size, products.length);
