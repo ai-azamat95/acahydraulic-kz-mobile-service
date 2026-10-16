@@ -215,7 +215,7 @@ test('only a current ACA merchant offer is exposed as confirmed supply', () => {
 });
 
 test('the first pump and injector result pages have reviewed Russian product names', () => {
-  assert.equal(Object.keys(priorityCopy).length, 6);
+  assert.equal(Object.keys(priorityCopy).length, 7);
   for (const [handle, content] of Object.entries(priorityCopy)) {
     const product = products.find(item => item.handle === handle);
     assert(product, `${handle}: priority product must exist`);
@@ -231,6 +231,17 @@ test('the first pump and injector result pages have reviewed Russian product nam
     const firstPage = fullSearchIndex.filter(product => (product.categories?.length ? product.categories : [product.category]).includes(categoryId)).slice(0, 10);
     assert(firstPage.every(product => /[а-яё]/i.test(catalogProductName(product))), `${categoryId}: first page still contains an untranslated title`);
   }
+});
+
+test('the competing 2181-1950D5 listing consolidates into the reviewed canonical pump page', () => {
+  const canonical = '2181-1950d5-excavator-hydraulic-pump-for-k3v112dtp-for-r225-9t-dx225-r265-275-9-jcb220';
+  const duplicate = '2181-1950d5-excavator-hydraulic-pump-k3v112dtp-for-r225-9t-dx225';
+  const product = products.find(item => item.handle === canonical);
+
+  assert.equal(catalogAliases[duplicate], canonical);
+  assert(product, 'canonical 2181-1950D5 product must exist');
+  assert.match(catalogProductName(product), /^Гидронасос 2181-1950D5 \/ K3V112DTP/);
+  assert.equal(catalogProductHasReviewedCopy(product), true);
 });
 
 test('category artwork is distinguishable from product-specific photography', () => {
