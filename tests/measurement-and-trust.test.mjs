@@ -9,10 +9,11 @@ const home = fs.readFileSync('client/src/pages/Home.tsx', 'utf8');
 const footer = fs.readFileSync('client/src/components/Footer.tsx', 'utf8');
 const ru = JSON.parse(fs.readFileSync('client/src/locales/ru/translation.json', 'utf8'));
 
-test('a prepared WhatsApp message is not reported as a qualified or Google Ads lead', () => {
+test('form intent uses the secondary click helper without qualified-lead signals', () => {
   assert.doesNotMatch(contactIntent, /send_to|AW-17847190636|qualified_lead|generate_lead/);
   assert.match(contactIntent, /lead_stage: 'contact_intent'/);
   assert.match(contactIntent, /contact_intent_id/);
+  assert.match(contactIntent, /gtag_report_conversion/);
 });
 
 test('service forms carry the same non-PII inquiry reference into WhatsApp and analytics', () => {

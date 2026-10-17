@@ -1,6 +1,6 @@
 // A prepared message / WhatsApp click is not a received or qualified lead.
-// Google Ads conversion reporting must happen only after the inquiry is
-// received and qualified in the CRM/offline sales process.
+// The existing secondary Ads action measures this click only. Received and
+// qualified inquiries remain separate CRM/offline outcomes.
 
 export function createContactIntentId() {
   const randomPart = typeof crypto !== 'undefined' && 'randomUUID' in crypto
@@ -25,6 +25,7 @@ export function trackFormContactIntent(source: 'b2b_form' | 'calculator', contac
     try { window.gtag?.('event', 'form_whatsapp_click', params); } catch (_) {}
   }
   if (consent?.marketing) {
+    try { window.gtag_report_conversion?.(); } catch (_) {}
     try {
       (window as any).ttq?.track?.('Contact', { content_type: 'service', ...params });
     } catch (_) {}

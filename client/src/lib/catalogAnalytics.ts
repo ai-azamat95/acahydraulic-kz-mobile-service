@@ -70,19 +70,25 @@ export function catalogAnalyticsItem(product: CatalogIndexProduct) {
 }
 
 export function trackCatalogEvent(eventName: string, params: AnalyticsParams = {}) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined" || window.__ACA_ANALYTICS_EXCLUDE__) return;
+  const consent = window.__ACA_COOKIE_CONSENT__;
 
-  try {
-    if (window.__ACA_ANALYTICS_EXCLUDE__) return;
-    const gtag = (window as typeof window & {
-      gtag?: (command: "event", name: string, parameters: AnalyticsParams) => void;
-    }).gtag;
-    if (typeof gtag !== "function") return;
-
-    gtag("event", eventName, Object.fromEntries(
-      Object.entries(params).filter(([, value]) => value !== undefined),
-    ));
-  } catch {
-    // Analytics must never block catalog navigation or contact actions.
+  if (consent?.analytics) {
+    try {
+      window.gtag?.("event", eventName, Object.fromEntries(
+        Object.entries(params).filter(([, value]) => value !== undefined),
+      ));
+    } catch {
+      // A blocked analytics vendor must not block contact or other vendors.
+    }
+  }
+  if (eventName === "catalog_whatsapp_click" && consent?.marketing) {
+    try {
+      window.ttq?.track?.("Contact", {
+        content_type: "product", contact_method: "whatsapp", lead_stage: "contact_intent",
+      });
+    } catch {
+      // Contact navigation must still work when TikTok is blocked.
+    }
   }
 }

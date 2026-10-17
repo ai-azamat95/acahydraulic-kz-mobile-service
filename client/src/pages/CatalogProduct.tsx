@@ -19,7 +19,6 @@ import { CatalogLanguageControl } from "@/components/catalog/CatalogLanguageCont
 import { catalogCopy, partCategories, type CatalogLanguage } from "@/content/partsCatalog";
 import { useCart } from "@/contexts/CartContext";
 import { useCatalogProduct } from "@/hooks/useCatalogProducts";
-import { useTikTokContact } from "@/hooks/useTikTokEvents";
 import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import { cartItemFromProduct, preferredCartItem } from "@/lib/cart";
 
@@ -50,7 +49,6 @@ export default function CatalogProduct() {
   const trackedProductRef = useRef("");
   const { product, loading, error, retry } = useCatalogProduct(handle);
   const { addItem } = useCart();
-  const fireContact = useTikTokContact();
   const copy = catalogCopy[language];
   const category = product ? partCategories.find((item) => item.id === product.category) : null;
   const categoryName = category?.[language] || product?.category || "";
@@ -94,7 +92,6 @@ export default function CatalogProduct() {
       item_id: product.id,
       item_category: product.category,
     });
-    fireContact("whatsapp");
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
