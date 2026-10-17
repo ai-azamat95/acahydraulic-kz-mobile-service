@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { isExcludedCatalogImage } from './lib/catalog-image-hygiene.mjs';
+import { catalogCategoryCorrection } from '../shared/catalog-category-corrections.mjs';
 
 const catalogDir = path.resolve(process.argv[2] || 'client/public/catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
@@ -129,10 +130,12 @@ assert(monitors.length > 0, 'monitors category must not be empty');
 assert(
   pumpParts.every(
     (product) =>
-      product.imageUrl === '/catalog-assets/category-pump-parts.jpg' &&
-      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-pump-parts.jpg']),
+      // These reviewed existing cards keep their already-published images.
+      catalogCategoryCorrection(product.id)?.category === 'pump-parts' ||
+      (product.imageUrl === '/catalog-assets/category-pump-parts.jpg' &&
+      JSON.stringify(product.gallery) === JSON.stringify(['/catalog-assets/category-pump-parts.jpg'])),
   ),
-  'pump parts must use the local unbranded catalogue image',
+  'pump parts retain reviewed existing images or use the local unbranded catalogue image',
 );
 assert(
   wiringHarnesses.every((product) => Array.isArray(product.gallery) && product.imageUrl === (product.gallery[0] || null)),

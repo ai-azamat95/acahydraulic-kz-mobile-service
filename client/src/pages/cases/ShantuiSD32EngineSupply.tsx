@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { buildCaseWhatsAppUrl, caseCatalogHref, trackCaseContactIntent } from "@/lib/caseConversion";
 import { shantuiEngineOffer } from "@/data/shantuiEngineOffer";
 
 const casePath = shantuiEngineOffer.casePath;
@@ -10,7 +10,11 @@ const caseDescription = "Реальная продажа двигателя Cumm
 const enginePath = "/parts/engines-complete";
 const engineProductPath = "/parts/engines-complete/shantui-sd32-cummins-nta855-c360s10";
 const mediaRoot = "/media/shantui-sd32-engine";
-const message = `Здравствуйте! Посмотрел кейс ACA Hydraulic по поставке и установке Cummins NTA855 на Shantui SD32. Нужен расчёт двигателя в сборе.\nМарка и модель моей техники: \nПолный индекс двигателя: \nСерийный номер: \nГород: \nНужен монтаж и запуск: да / нет\nФото шильдика пришлю следующим сообщением.\nhttps://acahydraulic.kz${casePath}/`;
+const whatsappHref = buildCaseWhatsAppUrl({
+  caseTitle,
+  casePath,
+  requestText: "Здравствуйте! Посмотрел кейс ACA Hydraulic по поставке и установке Cummins NTA855 на Shantui SD32. Нужен расчёт двигателя в сборе.\nМарка и модель моей техники: \nПолный индекс двигателя: \nСерийный номер: \nГород: \nНужен монтаж и запуск: да / нет\nФото шильдика пришлю следующим сообщением.",
+});
 
 const faq = [
   { question: "ACA Hydraulic только поставила двигатель или выполнила установку?", answer: "В этом заказе мы продали и поставили новый двигатель Cummins серии NTA855 в сборе с навесным оборудованием, перенесли гидротрансформатор со старого двигателя, установили двигатель на Shantui SD32 и запустили бульдозер. На странице опубликованы реальные фото и видео этой работы." },
@@ -22,6 +26,7 @@ const faq = [
 ];
 
 export default function ShantuiSD32EngineSupply() {
+  const enginePartsCatalogPath = caseCatalogHref("/catalog/category/engine-fuel/", "shantui-sd32-engine");
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       <SEO
@@ -142,13 +147,13 @@ export default function ShantuiSD32EngineSupply() {
           <aside className="rounded-xl border border-[#FFC000]/30 bg-[#151515] p-7">
             <h2 className="text-2xl font-bold">Нужен двигатель для вашей техники?</h2>
             <p className="mt-4 leading-relaxed text-gray-400">Отправьте шильдик и данные машины. Подготовим расчёт двигателя, доставки и установки отдельными строками.</p>
-            <a href={`https://wa.me/77714177925?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer" onClick={() => trackCatalogEvent("case_whatsapp_click", { case_id: "shantui-sd32-engine", request_type: "complete-engine" })} className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-5 py-3 text-center font-bold text-black"><MessageCircle className="h-5 w-5" aria-hidden="true" />Получить расчёт</a>
+            <a href={whatsappHref} data-aca-contact-managed="react" target="_blank" rel="noopener noreferrer" onClick={() => trackCaseContactIntent({ caseId: "shantui-sd32-engine", caseModel: "Shantui SD32", requestType: "complete-engine" })} className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-5 py-3 text-center font-bold text-black"><MessageCircle className="h-5 w-5" aria-hidden="true" />Получить расчёт</a>
             <a href="tel:+77714177925" className="mt-4 block text-center font-bold text-[#FFC000]">+7 (771) 417-79-25</a>
           </aside>
         </section>
 
         <section className="mt-12"><h2 className="font-bebas text-4xl md:text-5xl">Вопросы по кейсу</h2><div className="mt-5 divide-y divide-white/10">{faq.map(item => <details key={item.question} className="py-5"><summary className="cursor-pointer text-lg font-bold">{item.question}</summary><p className="mt-4 leading-relaxed text-gray-300">{item.answer}</p></details>)}</div></section>
-        <section className="mt-12 rounded-xl bg-[#151515] p-7 md:p-9"><h2 className="text-3xl font-bold">Поставка двигателя под договор</h2><p className="mt-4 max-w-3xl leading-relaxed text-gray-300">Согласуем точное исполнение, комплектацию, стоимость, логистику, монтаж и гарантийные условия. Историческая цена этого кейса используется только как подтверждение опыта поставки.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-[#FFC000] underline"><Link href={engineProductPath}>Карточка двигателя NTA855-C360S10</Link><Link href={enginePath}>Новые двигатели в сборе</Link><Link href="/catalog/category/engine-fuel/">Запчасти двигателя</Link><Link href="/services/bulldozer-repair/">Сервис бульдозеров</Link></div></section>
+        <section className="mt-12 rounded-xl bg-[#151515] p-7 md:p-9"><h2 className="text-3xl font-bold">Поставка двигателя под договор</h2><p className="mt-4 max-w-3xl leading-relaxed text-gray-300">Согласуем точное исполнение, комплектацию, стоимость, логистику, монтаж и гарантийные условия. Историческая цена этого кейса используется только как подтверждение опыта поставки.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-[#FFC000] underline"><Link href={engineProductPath}>Карточка двигателя NTA855-C360S10</Link><Link href={enginePath}>Новые двигатели в сборе</Link><Link href={enginePartsCatalogPath}>Запчасти двигателя</Link><Link href="/services/bulldozer-repair/">Сервис бульдозеров</Link></div></section>
       </div>
     </main>
   );

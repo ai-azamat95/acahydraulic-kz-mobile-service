@@ -6,6 +6,7 @@ import { CheckCircle2, Eye, ExternalLink, FileText, Filter, Phone, PlayCircle, V
 import { SEO } from "@/components/SEO";
 import Cat325VideoCase, { cat325VideoSchema } from "@/components/Cat325VideoCase";
 import xz320eRepair from "../../../shared/xcmg-xz320e-repair-case.json";
+import { caseCatalogHref } from "@/lib/caseConversion";
 
 type RepairCase = {
   id: string;
@@ -116,6 +117,10 @@ const categories = [
 
 export default function Cases() {
   const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]["id"]>("all");
+  const pumpCatalogHref = caseCatalogHref(
+    "/catalog/category/hydraulic-pumps/",
+    "cases-hub",
+  );
 
   const filteredCases =
     activeCategory === "all" ? cases : cases.filter((item) => item.category === activeCategory);
@@ -142,6 +147,24 @@ export default function Cases() {
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed">
             Кейсы диагностики, ремонта и поставки запчастей ACA Hydraulic. Фото и видео реальной техники, детали заказа и подтверждённый результат.
           </p>
+        </div>
+      </section>
+
+      <section className="border-b border-[#FFC000]/30 bg-[#191600] py-8 md:py-10">
+        <div className="container mx-auto flex flex-col items-start justify-between gap-6 px-4 md:flex-row md:items-center">
+          <div className="max-w-3xl">
+            <p className="text-sm font-bold uppercase tracking-wider text-[#FFC000]">Подбор по номеру и шильдику</p>
+            <h2 className="mt-2 font-bebas text-3xl text-white md:text-4xl">Нужен гидронасос для вашей техники?</h2>
+            <p className="mt-3 leading-relaxed text-gray-300">
+              Перейдите в каталог гидронасосов, найдите номер или отправьте фото шильдика. Марку, модель машины и исполнение насоса проверяем до расчёта.
+            </p>
+          </div>
+          <Link
+            href={pumpCatalogHref}
+            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded bg-[#FFC000] px-6 py-3 text-center font-bold text-black hover:bg-[#eab000]"
+          >
+            Подобрать гидронасос
+          </Link>
         </div>
       </section>
 

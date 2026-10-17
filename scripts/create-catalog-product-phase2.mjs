@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import aliases from '../shared/catalog-canonical-aliases.json' with { type: 'json' };
+import { catalogCategoryCorrection } from '../shared/catalog-category-corrections.mjs';
 import landings from '../shared/catalog-landings.json' with { type: 'json' };
 import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
 import pilotCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
@@ -382,6 +383,9 @@ export function createPhase2Copy(products = loadProducts()) {
     quotas: phase2Quotas,
     excludedCopy: existingCopy,
     priorities: priorityHandles,
+    // Phase two is a fixed reviewed cohort. Later taxonomy corrections must
+    // not silently replace already-reviewed product copy at a quota boundary.
+    candidatePredicate: product => !catalogCategoryCorrection(product.id),
   });
 }
 

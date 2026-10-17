@@ -194,6 +194,11 @@
         var href = link.getAttribute('href') || '';
         var kind = href.startsWith('tel:') ? 'phone' : /^https:\/\/wa\.me\//.test(href) ? 'whatsapp' : null;
         if (!kind) return;
+        // React-managed links emit their richer, source-specific event from
+        // the component handler. Do not also count the same physical click as
+        // a generic document-level WhatsApp intent.
+        var reactManagedContact = kind === 'whatsapp' && link.getAttribute('data-aca-contact-managed') === 'react';
+        if (reactManagedContact) return;
         var catalogueContact = kind === 'whatsapp' && link.getAttribute('data-aca-contact-event') === 'catalog_whatsapp_click';
         if (catalogueContact && event.isTrusted === false) return;
         try {

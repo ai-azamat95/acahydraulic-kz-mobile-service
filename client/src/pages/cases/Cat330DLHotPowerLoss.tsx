@@ -2,9 +2,17 @@ import { Link } from "wouter";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, CheckCircle2, ExternalLink, Gauge, MessageCircle, Phone, PlayCircle, Thermometer } from "lucide-react";
+import { buildCaseWhatsAppUrl, trackCaseContactIntent } from "@/lib/caseConversion";
 
 export default function Cat330DLHotPowerLoss() {
   const videoUrl = "https://www.tiktok.com/@acaservice01/video/7648329720278289672";
+  const casePath = "/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu";
+  const caseModel = "Caterpillar 330DL";
+  const whatsappHref = buildCaseWhatsAppUrl({
+    caseTitle: `${caseModel} — потеря мощности после прогрева`,
+    casePath,
+    requestText: "Здравствуйте! У моей техники пропадает мощность после прогрева. Нужна консультация по диагностике.",
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white pt-20">
@@ -12,7 +20,7 @@ export default function Cat330DLHotPowerLoss() {
         title="Экскаватор теряет мощность на горячую — реальный ремонт CAT 330DL | ACA Hydraulic"
         description="Реальный кейс Caterpillar 330DL: после прогрева экскаватор терял мощность, была проблема поворота и высокий расход топлива. Выездная диагностика и ремонт ACA Hydraulic. Видео ремонта."
         keywords="экскаватор теряет мощность на горячую, CAT 330DL теряет мощность, экскаватор глохнет после прогрева, диагностика гидравлики экскаватора, ремонт Caterpillar Казахстан"
-        canonical="/cases/cat-330dl-teryaet-moshchnost-na-goryachuyu"
+        canonical={casePath}
       />
 
       <main>
@@ -59,11 +67,11 @@ export default function Cat330DLHotPowerLoss() {
               <div className="bg-[#141414] border border-[#FFC000]/30 rounded-xl p-6 md:p-8">
                 <h2 className="font-bebas text-3xl mb-4">Результат подтверждён видео</h2>
                 <p className="text-gray-400 mb-6">Финальная часть этого ремонта набрала более 89 000 просмотров в TikTok и дала реальные обращения по телефону.</p>
+              <Button asChild className="bg-[#FFC000] hover:bg-[#eab000] text-black h-12 px-6 font-bold">
                 <a href={videoUrl} target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-[#FFC000] hover:bg-[#eab000] text-black h-12 px-6 font-bold">
                     <PlayCircle className="w-5 h-5 mr-2"/> Смотреть реальный ремонт <ExternalLink className="w-4 h-4 ml-2"/>
-                  </Button>
                 </a>
+              </Button>
               </div>
 
               <div>
@@ -78,12 +86,14 @@ export default function Cat330DLHotPowerLoss() {
               <div className="text-xs uppercase tracking-widest text-gray-500 mb-2">Выездная диагностика</div>
               <div className="font-bebas text-2xl text-[#FFC000] mb-3">Стоимость согласуем до выезда</div>
               <p className="text-sm text-gray-400 leading-relaxed mb-6">Стоимость зависит от города, модели техники и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.</p>
-              <Link href="/contacts">
-                <Button className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 font-bold mb-3">Отправить данные техники</Button>
-              </Link>
-              <a href="https://wa.me/77714177925?text=CAT%20330DL%20теряет%20мощность%20после%20прогрева" target="_blank" rel="noopener noreferrer">
-                <Button className="w-full bg-transparent border border-white/20 hover:border-[#25D366] h-12"><MessageCircle className="w-5 h-5 mr-2"/>WhatsApp</Button>
-              </a>
+              <Button asChild className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 font-bold mb-3">
+                <Link href="/contacts">Отправить данные техники</Link>
+              </Button>
+              <Button asChild className="w-full bg-transparent border border-white/20 hover:border-[#25D366] h-12">
+                <a href={whatsappHref} data-aca-contact-managed="react" target="_blank" rel="noopener noreferrer" onClick={() => trackCaseContactIntent({ caseId: "cat-330dl-hot-power-loss", caseModel, requestType: "diagnostics" })}>
+                  <MessageCircle className="w-5 h-5 mr-2"/>WhatsApp
+                </a>
+              </Button>
               <a href="tel:+77714177925" className="mt-4 flex items-center justify-center gap-2 text-[#FFC000] font-bold"><Phone className="w-4 h-4"/>+7 (771) 417-79-25</a>
             </aside>
           </div>
@@ -92,7 +102,9 @@ export default function Cat330DLHotPowerLoss() {
         <section className="py-12 border-t border-white/10 bg-[#111]">
           <div className="container mx-auto px-4 max-w-5xl flex items-center justify-between gap-4 flex-wrap">
             <div><div className="font-bebas text-3xl">Другие реальные ремонты</div><p className="text-gray-500">Смотрите диагностику и результат на настоящей технике.</p></div>
-            <Link href="/projects"><Button className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black">Все видеокейсы</Button></Link>
+            <Button asChild className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black">
+              <Link href="/projects">Все видеокейсы</Link>
+            </Button>
           </div>
         </section>
       </main>

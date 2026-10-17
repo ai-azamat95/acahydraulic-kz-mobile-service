@@ -5,6 +5,7 @@ import { applySupplierCatalogProducts } from './catalog-supplier-products.mjs';
 import { createCategorySearchIndexes } from './lib/catalog-category-indexes.mjs';
 import path from 'node:path';
 import { applyApprovedCatalogPrices } from './catalog-approved-prices.mjs';
+import { applyCatalogCategoryCorrections } from './catalog-category-corrections.mjs';
 
 const catalogDir = path.resolve(process.env.CATALOG_DIR || 'client/public/catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
@@ -18,6 +19,7 @@ const approvedPrices = applyApprovedCatalogPrices(catalogDir);
 applyOwnerCatalogSales(catalogDir);
 const ownerProducts = applyOwnerCatalogProducts(catalogDir);
 const supplierProducts = applySupplierCatalogProducts(catalogDir);
+const categoryCorrections = applyCatalogCategoryCorrections(catalogDir);
 const preparedManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 const categoryIndexes = createCategorySearchIndexes({
   catalogDir,
@@ -56,4 +58,4 @@ const publicManifest = {
 };
 
 fs.writeFileSync(manifestPath, JSON.stringify(publicManifest));
-console.log(JSON.stringify({ prepared: true, approvedPrices, ownerProducts, supplierProducts, categoryIndexes: { categories: Object.keys(categoryIndexes.files).length, totalBytes: categoryIndexes.totalBytes }, removedPrivateFiles: privateFiles, manifestFields: Object.keys(publicManifest) }, null, 2));
+console.log(JSON.stringify({ prepared: true, approvedPrices, ownerProducts, supplierProducts, categoryCorrections, categoryIndexes: { categories: Object.keys(categoryIndexes.files).length, totalBytes: categoryIndexes.totalBytes }, removedPrivateFiles: privateFiles, manifestFields: Object.keys(publicManifest) }, null, 2));

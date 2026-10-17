@@ -7,6 +7,7 @@ import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { t
 import pilotCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
 import phase2Copy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
 import reviewedCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
+import { catalogCategoryCorrection } from '../shared/catalog-category-corrections.mjs';
 import imageManifest from '../client/public/catalog-data/catalog-image-manifest.json' with { type: 'json' };
 import {
   cleanFitment,
@@ -229,7 +230,7 @@ export function createPhase3Copy(products = loadProducts()) {
     modifiedDate: phase3ModifiedDate,
     preferPriced: false,
     splitCrossReferences: true,
-    candidatePredicate: hasHonestPhase3PrimaryImage,
+    candidatePredicate: product => !catalogCategoryCorrection(product.id) && hasHonestPhase3PrimaryImage(product),
   });
 
   return Object.fromEntries(Object.entries(raw).map(([handle, content]) => {

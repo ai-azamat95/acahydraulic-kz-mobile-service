@@ -48,6 +48,57 @@ export function catalogProductCategories(product) {
   return landings.categories.filter(category => ids.includes(category.id));
 }
 
+export function catalogProductIsHydraulicPump(product) {
+  const ids = product.categories?.length ? product.categories : [product.category];
+  return ids.includes('hydraulic-pumps');
+}
+
+function escapeBrandPattern(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+const hydraulicComponentBrandSlugs = new Set([
+  'rexroth',
+  'danfoss',
+  'kawasaki',
+  'parker',
+  'eaton',
+  'daikin',
+  'denison',
+  'von-roll',
+  'husco',
+  'handok',
+]);
+
+export function catalogProductBrandLanding(product) {
+  const manufacturer = String(product.brand || '').trim().toLocaleLowerCase('en');
+  if (manufacturer) {
+    const brand = landings.brands.find(brand =>
+      brand.name.toLocaleLowerCase('en') === manufacturer
+      || brand.aliases.some(alias => alias.toLocaleLowerCase('en') === manufacturer)
+    );
+    return brand ? { ...brand, matchSource: 'manufacturer' } : undefined;
+  }
+
+  const title = String(product.catalogTitle || product.title || '');
+  const manufacturerText = title.split(
+    /\b(?:for|fits?|compatible\s+with)\b|(?:^|\s)для(?:\s|$)/i,
+  )[0];
+  const inferred = landings.brands.filter(brand =>
+    hydraulicComponentBrandSlugs.has(brand.slug)
+    &&
+    brand.aliases.some(alias =>
+      new RegExp(`(^|[^a-z0-9])${escapeBrandPattern(alias)}([^a-z0-9]|$)`, 'i').test(manufacturerText)
+    )
+  );
+
+  // Text after fitment prepositions usually names the machine, not the pump
+  // manufacturer. Ambiguous or unsupported matches must not become brand links.
+  return inferred.length === 1
+    ? { ...inferred[0], matchSource: 'title-manufacturer' }
+    : undefined;
+}
+
 export function catalogProductSelection(product) {
   if (product.catalogSupplement && product.catalogSelection) return product.catalogSelection;
   if (product.ownerEvidence?.selection) return product.ownerEvidence.selection;

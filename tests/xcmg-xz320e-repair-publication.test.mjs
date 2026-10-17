@@ -87,9 +87,14 @@ test("XZ320E repair is reachable from cases, GNB service and both sitemaps", () 
 
 test("XZ320E inquiry requests useful machine details and all published media files exist", () => {
   const html = read(repair.casePath);
-  for (const route of ["/services/gnb-repair/", "/catalog/category/hydraulic-pumps/", "/blog/zapchasti-po-nomeru-i-shildiku/"]) {
+  for (const route of ["/services/gnb-repair/", "/blog/zapchasti-po-nomeru-i-shildiku/"]) {
     assert.ok(html.includes(`href="${route}"`), `missing contextual link: ${route}`);
   }
+  const pumpCatalogLink = html.match(/href="([^"]*\/catalog\/category\/hydraulic-pumps\/[^"]*)"/);
+  assert.ok(pumpCatalogLink, "missing contextual pump catalogue link");
+  const pumpCatalogUrl = new URL(pumpCatalogLink[1], "https://acahydraulic.kz");
+  assert.equal(pumpCatalogUrl.pathname, "/catalog/category/hydraulic-pumps/");
+  assert.equal(pumpCatalogUrl.searchParams.get("case_source"), "xcmg-xz320e-repair");
   const contact = html.match(/href="(https:\/\/wa\.me\/77714177925\?text=[^"]+)"/);
   assert.ok(contact);
   const message = new URL(contact[1]).searchParams.get("text");

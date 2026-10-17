@@ -1,14 +1,17 @@
 import { Link } from "wouter";
 import { ArrowUpRight, Check, MessageCircle, Play, Wrench } from "lucide-react";
 import { SEO } from "@/components/SEO";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { buildCaseWhatsAppUrl, caseCatalogHref, trackCaseContactIntent } from "@/lib/caseConversion";
 import repair from "../../../../shared/xcmg-xz320e-repair-case.json";
 
 const baseUrl = "https://acahydraulic.kz";
 const canonical = `${baseUrl}${repair.casePath}/`;
 const video = repair.video as typeof repair.video & { duration?: string; seconds?: number };
-const message = `Здравствуйте! Посмотрел кейс ремонта ГНБ XCMG XZ320E. Нужна помощь с буровой установкой.\nМодель и серийный номер: \nЧто не работает и когда появилась проблема: \nГород и местоположение техники: \nПришлю фото шильдика и видео неисправности.\n${canonical}`;
-const contactUrl = `https://wa.me/77714177925?text=${encodeURIComponent(message)}`;
+const contactUrl = buildCaseWhatsAppUrl({
+  caseTitle: repair.title,
+  casePath: repair.casePath,
+  requestText: "Здравствуйте! Посмотрел кейс ремонта ГНБ XCMG XZ320E. Нужна помощь с буровой установкой.\nМодель и серийный номер: \nЧто не работает и когда появилась проблема: \nГород и местоположение техники: \nПришлю фото шильдика и видео неисправности.",
+});
 const videoSchema = {
   "@context": "https://schema.org",
   "@type": "VideoObject",
@@ -25,13 +28,11 @@ const videoSchema = {
 };
 
 function recordInquiry() {
-  trackCatalogEvent("case_whatsapp_click", {
-    case_id: "xcmg-xz320e-repair",
-    request_type: "gnb-repair",
-  });
+  trackCaseContactIntent({ caseId: "xcmg-xz320e-repair", caseModel: "XCMG XZ320E", requestType: "gnb-repair" });
 }
 
 export default function XcmgXz320eRepair() {
+  const pumpCatalogPath = caseCatalogHref("/catalog/category/hydraulic-pumps/", "xcmg-xz320e-repair");
   return (
     <main className="min-h-screen bg-[#101010] text-white">
       <SEO
@@ -74,7 +75,7 @@ export default function XcmgXz320eRepair() {
             <div className="mt-8 hidden rounded-lg border-l-2 border-[#FFC000] bg-white/5 p-5 lg:block">
               <p className="font-semibold">Есть проблема с буровой установкой?</p>
               <p className="mt-2 text-sm leading-6 text-gray-400">Пришлите модель, симптомы и местоположение техники — уточним задачу и согласуем следующий шаг.</p>
-              <a href={contactUrl} onClick={recordInquiry} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-[#FFC000]">
+              <a href={contactUrl} data-aca-contact-managed="react" onClick={recordInquiry} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-[#FFC000]">
                 Написать в WhatsApp <ArrowUpRight size={18} aria-hidden="true" />
               </a>
             </div>
@@ -145,7 +146,7 @@ export default function XcmgXz320eRepair() {
                   <li key={item} className="flex gap-3 text-sm leading-6"><Check size={18} className="mt-1 shrink-0 text-[#FFC000]" aria-hidden="true" />{item}</li>
                 ))}
               </ul>
-              <a href={contactUrl} onClick={recordInquiry} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#FFC000] px-4 py-3 text-center font-bold text-black hover:bg-[#eab000]">
+              <a href={contactUrl} data-aca-contact-managed="react" onClick={recordInquiry} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#FFC000] px-4 py-3 text-center font-bold text-black hover:bg-[#eab000]">
                 <MessageCircle size={20} className="shrink-0" aria-hidden="true" /> Обсудить ремонт в WhatsApp
               </a>
             </div>
@@ -154,7 +155,7 @@ export default function XcmgXz320eRepair() {
 
         <nav className="mt-8 grid gap-3 border-t border-white/10 pt-7 sm:grid-cols-3" aria-label="Связанные услуги и запчасти">
           <Link href="/services/gnb-repair/" className="inline-flex min-h-12 items-center justify-between gap-2 rounded-lg bg-white/5 p-4 text-sm font-semibold text-[#FFC000]">Ремонт установок ГНБ <ArrowUpRight size={18} className="shrink-0" aria-hidden="true" /></Link>
-          <Link href="/catalog/category/hydraulic-pumps/" className="inline-flex min-h-12 items-center justify-between gap-2 rounded-lg bg-white/5 p-4 text-sm font-semibold text-[#FFC000]">Подбор гидронасосов <ArrowUpRight size={18} className="shrink-0" aria-hidden="true" /></Link>
+          <Link href={pumpCatalogPath} className="inline-flex min-h-12 items-center justify-between gap-2 rounded-lg bg-white/5 p-4 text-sm font-semibold text-[#FFC000]">Подбор гидронасосов <ArrowUpRight size={18} className="shrink-0" aria-hidden="true" /></Link>
           <Link href="/blog/zapchasti-po-nomeru-i-shildiku/" className="inline-flex min-h-12 items-center justify-between gap-2 rounded-lg bg-white/5 p-4 text-sm font-semibold text-[#FFC000]">Как сфотографировать шильдик <ArrowUpRight size={18} className="shrink-0" aria-hidden="true" /></Link>
         </nav>
       </div>

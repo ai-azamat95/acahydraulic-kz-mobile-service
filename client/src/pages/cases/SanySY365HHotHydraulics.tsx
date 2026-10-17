@@ -3,10 +3,18 @@ import { Link } from "wouter";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ExternalLink, MessageCircle, Phone, PlayCircle, Thermometer, Waves, Wrench, Zap } from "lucide-react";
+import { buildCaseWhatsAppUrl, trackCaseContactIntent } from "@/lib/caseConversion";
 
 export default function SanySY365HHotHydraulics() {
   const tiktokUrl = "https://www.tiktok.com/@acaservice01/video/7658206304082677000";
   const youtubeUrl = "https://www.youtube.com/watch?v=mFtnsK7oMRg";
+  const casePath = "/cases/sany-sy365h-gidravlika-na-goryachuyu";
+  const caseModel = "SANY SY365H";
+  const whatsappHref = buildCaseWhatsAppUrl({
+    caseTitle: `${caseModel} — потеря мощности и рывки гидравлики на горячую`,
+    casePath,
+    requestText: "Здравствуйте! Нужна помощь с гидравликой и электрикой экскаватора. Пришлю модель, симптомы, шильдик и видео.",
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white pt-20">
@@ -14,7 +22,7 @@ export default function SanySY365HHotHydraulics() {
         title="SANY SY365H: рывки гидравлики и потеря мощности на горячую | ACA Hydraulic"
         description="Реальный выездной ремонт SANY SY365H: после прогрева машина теряла мощность, стрела поднималась рывками. Диагностика гидравлики и электрики, ремонт и видео результата."
         keywords="SANY SY365H ремонт, SANY теряет мощность на горячую, экскаватор стрела поднимается рывками, гидравлика дергается на горячую, ремонт SANY Казахстан"
-        canonical="/cases/sany-sy365h-gidravlika-na-goryachuyu"
+        canonical={casePath}
       />
 
       <main>
@@ -57,8 +65,12 @@ export default function SanySY365HHotHydraulics() {
                 <h2 className="font-bebas text-3xl mb-4">Видео процесса ремонта</h2>
                 <p className="text-gray-400 mb-6">По SANY SY365H опубликована целая серия: первичная диагностика, гидравлика, электрика, демонтаж насоса и финальный результат.</p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <a href={tiktokUrl} target="_blank" rel="noopener noreferrer"><Button className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 px-6 font-bold"><PlayCircle className="w-5 h-5 mr-2"/>TikTok <ExternalLink className="w-4 h-4 ml-2"/></Button></a>
-                  <a href={youtubeUrl} target="_blank" rel="noopener noreferrer"><Button className="w-full bg-transparent border border-white/20 hover:border-red-500 h-12 px-6"><PlayCircle className="w-5 h-5 mr-2"/>YouTube</Button></a>
+                <Button asChild className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 px-6 font-bold">
+                  <a href={tiktokUrl} target="_blank" rel="noopener noreferrer"><PlayCircle className="w-5 h-5 mr-2"/>TikTok <ExternalLink className="w-4 h-4 ml-2"/></a>
+                </Button>
+                <Button asChild className="w-full bg-transparent border border-white/20 hover:border-red-500 h-12 px-6">
+                  <a href={youtubeUrl} target="_blank" rel="noopener noreferrer"><PlayCircle className="w-5 h-5 mr-2"/>YouTube</a>
+                </Button>
                 </div>
               </div>
 
@@ -75,8 +87,12 @@ export default function SanySY365HHotHydraulics() {
               <div className="text-xs uppercase tracking-widest text-gray-500 mb-2">Выездная диагностика</div>
               <div className="font-bebas text-2xl text-[#FFC000] mb-3">Стоимость согласуем до выезда</div>
               <p className="text-sm text-gray-400 leading-relaxed mb-6">Для сложных неисправностей гидравлики и электрики. Цена выезда зависит от города и модели техники. Запчасти и ремонт — отдельно после диагностики.</p>
-              <Link href="/contacts"><Button className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 font-bold mb-3">Отправить модель и видео</Button></Link>
-              <a href="https://wa.me/77714177925?text=SANY%20SY365H%20проблема%20с%20гидравликой%20на%20горячую" target="_blank" rel="noopener noreferrer"><Button className="w-full bg-transparent border border-white/20 hover:border-[#25D366] h-12"><MessageCircle className="w-5 h-5 mr-2"/>WhatsApp</Button></a>
+              <Button asChild className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 font-bold mb-3">
+                <Link href="/contacts">Отправить модель и видео</Link>
+              </Button>
+              <Button asChild className="w-full bg-transparent border border-white/20 hover:border-[#25D366] h-12">
+                <a href={whatsappHref} data-aca-contact-managed="react" target="_blank" rel="noopener noreferrer" onClick={() => trackCaseContactIntent({ caseId: "sany-sy365h-hot-hydraulics", caseModel, requestType: "diagnostics" })}><MessageCircle className="w-5 h-5 mr-2"/>WhatsApp</a>
+              </Button>
               <a href="tel:+77714177925" className="mt-4 flex items-center justify-center gap-2 text-[#FFC000] font-bold"><Phone className="w-4 h-4"/>+7 (771) 417-79-25</a>
             </aside>
           </div>
@@ -85,7 +101,9 @@ export default function SanySY365HHotHydraulics() {
         <section className="py-12 border-t border-white/10 bg-[#111]">
           <div className="container mx-auto px-4 max-w-5xl flex items-center justify-between gap-4 flex-wrap">
             <div><div className="font-bebas text-3xl">Смотрите другие реальные ремонты</div><p className="text-gray-500">CAT, SANY, XCMG и другие машины — процесс и результат на видео.</p></div>
-            <Link href="/projects"><Button className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black">Все видеокейсы</Button></Link>
+            <Button asChild className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black">
+              <Link href="/cases/">Все видеокейсы</Link>
+            </Button>
           </div>
         </section>
       <PumpCaseTeaser />
