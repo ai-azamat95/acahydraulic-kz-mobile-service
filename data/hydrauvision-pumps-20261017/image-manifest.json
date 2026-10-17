@@ -1,6 +1,6 @@
 {
   "capturedOn": "2026-10-17",
-  "count": 80,
+  "count": 81,
   "images": [
     {
       "publicId": "ACA-PUMP-214",
@@ -491,6 +491,13 @@
       "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/b/o/bosch_rexroth_axial_piston_pump_a11v_l_o_1.jpg",
       "sha256": "696049652fd5b043a3e5b353980f7a939815dac3c81e887e96c8df1100c55539",
       "bytes": 38290
+    },
+    {
+      "publicId": "8705189118114",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pgh4-3x-050re11vu2-internal-gear-pump-rexroth-r901147104.webp",
+      "sourceUrl": "https://ai-azamat95.github.io/acahydraulic-catalog-images/catalog/v2/8705189118114/01-5b0d58178c5a74cd.webp",
+      "sha256": "e0066f0319271d55edbefbdc04f042385743d83b32ce6f1458cbfda872fe5994",
+      "bytes": 23650
     },
     {
       "publicId": "ACA-PUMP-1853",

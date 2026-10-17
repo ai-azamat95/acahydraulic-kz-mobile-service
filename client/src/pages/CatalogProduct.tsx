@@ -349,7 +349,9 @@ export default function CatalogProduct() {
           <div className="min-w-0 lg:py-3">
             <div className="flex flex-wrap items-center gap-2">
               <p className="text-sm font-bold text-[#FFC000]">{categoryName}</p>
-              <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-gray-400">SKU: {mainSku}</span>
+              <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-gray-400">
+                {language === "en" ? "SKU" : "Артикул"}: {mainSku}
+              </span>
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight [overflow-wrap:anywhere] md:text-5xl">{productSeo.name}</h1>
             {commercialContactFirst && <div className="mt-4">

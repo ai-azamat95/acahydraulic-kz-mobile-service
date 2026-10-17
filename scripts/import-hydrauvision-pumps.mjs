@@ -22,7 +22,8 @@ const CANONICAL_PRODUCTS_BY_SOURCE_ID = new Map([
   [1799, {
     id: '8705189118114',
     handle: 'pgh4-3x-050re11vu2-internal-gear-pump-rexroth-r901147104',
-    imageUrl: 'https://ai-azamat95.github.io/acahydraulic-catalog-images/catalog/v2/8705189118114/01-5b0d58178c5a74cd.webp',
+    imageUrl: `/catalog-assets/${PUBLIC_ASSET_FOLDER}/pgh4-3x-050re11vu2-internal-gear-pump-rexroth-r901147104.webp`,
+    imageSourceUrl: 'https://ai-azamat95.github.io/acahydraulic-catalog-images/catalog/v2/8705189118114/01-5b0d58178c5a74cd.webp',
     reason: 'Exact existing catalogue match by Rexroth number R901147104 and execution PGH4-3X/050RE11VU2.',
   }],
 ]);
@@ -138,8 +139,16 @@ function imageExclusionReason(item, audit) {
 
 function detailsFor(name, mpn) {
   const value = normalizeSpace(name);
+  const rexrothSeries = /^R\d+$/i.test(mpn)
+    ? value.match(/^Bosch Rexroth\s+([A-Z0-9][A-Z0-9/-]*(?:\s+\d+)?)\s+Piston Pump\b/i)?.[1]
+    : '';
+  const danfossSeriesCandidate = value.match(
+    /^(?:[A-Z0-9.-]+\s+)?(?:Sauer\s+)?Danfoss\s+([A-Z][A-Z0-9/-]*(?:\s+\d+)?)\s+(?:Axial Piston|Radial Piston|Piston|Charge) Pump\b/i,
+  )?.[1];
+  const danfossSeries = /\d/.test(danfossSeriesCandidate || '') ? danfossSeriesCandidate : '';
+  const series = normalizeSpace(rexrothSeries || danfossSeries);
   const displacementSource = value.match(/(\d+(?:\.\d+)?(?:\s*\+\s*\d+(?:\.\d+)?)?\s*(?:cc|cm³)\/rev)/i)?.[1] || '';
-  const displacement = displacementSource.replace(/\s*(?:cc|cm³)\/rev/i, ' см³/об');
+  const displacement = displacementSource.replace(/\s*(?:cc|cm³)\/rev/i, ' см³/об').replaceAll('.', ',');
   let configuration = value
     .replace(/^.*?\b(?:Axial Piston|Radial Piston|Internal Gear|Piston|Gear|Vane) Pump\b\s*/i, '')
     .replace(/^.*?Motor\s*\/\s*Pump\s*/i, '')
@@ -155,9 +164,15 @@ function detailsFor(name, mpn) {
   } else {
     configuration = configuration.replace(/^[-–]\s*/, '').trim();
   }
-  const pieces = [mpn];
-  if (displacement && !mpn.includes(displacement)) pieces.push(displacement);
-  if (configuration && !configuration.toLowerCase().includes(mpn.toLowerCase())) pieces.push(configuration);
+  configuration = configuration
+    .replace(new RegExp(escapeRegExp(mpn), 'ig'), ' ')
+    .replace(/^(?:\s*[-–,]\s*)+|(?:\s*[-–,]\s*)+$/g, '')
+    .replace(/\s*[-–]\s*[-–]\s*/g, ' - ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const pieces = [mpn, series];
+  if (displacement) pieces.push(displacement);
+  if (configuration) pieces.push(configuration.replace(/^CW$/i, 'вращение по часовой стрелке (CW)'));
   return [...new Set(pieces.map(normalizeSpace).filter(Boolean))].join(', ');
 }
 
@@ -173,7 +188,8 @@ function publicProduct(item, audit) {
   const originalName = normalizeSpace(item.name);
   const condition = /PUMP OVERHAULED/i.test(originalName) ? 'Восстановленный' : /used equipment/i.test(audit.imageLabel) ? 'Бывший в эксплуатации' : null;
   const details = detailsFor(originalName, mpn);
-  const catalogTitle = `${condition ? `${condition} ` : ''}${kind.type} ${brand} ${details}`;
+  const localizedType = condition ? `${kind.type.charAt(0).toLowerCase()}${kind.type.slice(1)}` : kind.type;
+  const catalogTitle = `${condition ? `${condition} ` : ''}${localizedType} ${brand} ${details}`;
   const selection = kind.category === 'gear-pumps'
     ? 'Для подбора пришлите фото шильдика и насоса со всех сторон. Сверим полный номер, рабочий объём, направление вращения, вал, фланец, расположение и размеры портов. Совпадение серии или объёма без проверки присоединения не подтверждает взаимозаменяемость.'
     : kind.category === 'piston-pumps'
@@ -193,7 +209,7 @@ function publicProduct(item, audit) {
   return {
     id,
     handle: itemHandle,
-    title: originalName,
+    title: catalogTitle,
     catalogTitle,
     fitment: `Применяемость к конкретной технике не заявлена. ${selection}`,
     sku: mpn,
@@ -202,7 +218,7 @@ function publicProduct(item, audit) {
     category: kind.category,
     categories,
     productType: kind.type,
-    tags: [...new Set([brand, originalName, mpn, kind.type, ...(brand === 'Danfoss' && /Sauer Danfoss/i.test(originalName) ? ['Sauer Danfoss'] : [])])],
+    tags: [...new Set([brand, mpn, kind.type, catalogTitle, ...(brand === 'Danfoss' && /Sauer Danfoss/i.test(originalName) ? ['Sauer Danfoss'] : [])])],
     catalogDescription: `${catalogTitle}. ${statusSentence} Ориентировочная цена рассчитана по курсу НБК на ${RUN_DATE.split('-').reverse().join('.')}. Наличие, исполнение, доставку и итоговую стоимость подтверждаем до оплаты.`.replace(/\s+/g, ' ').trim(),
     catalogSelection: selection,
     catalogPriceNote: PRICE_NOTE,
@@ -231,7 +247,8 @@ function auditRecord(item) {
   const sourcePriceExclTaxEur = sourcePrice(item, 'final_price');
   const sourcePriceInclVatEur = Number.isFinite(item.price_info?.final_price) ? Number(item.price_info.final_price) : null;
   const canonical = CANONICAL_PRODUCTS_BY_SOURCE_ID.get(Number(item.id));
-  const imageReason = imageExclusionReason(item, { sourceImageUrl, imageLabel });
+  const selectedImageSourceUrl = canonical?.imageSourceUrl || sourceImageUrl;
+  const imageReason = canonical?.imageSourceUrl ? null : imageExclusionReason(item, { sourceImageUrl, imageLabel });
   return {
     sourceId: Number(item.id),
     sourceName: name,
@@ -240,9 +257,10 @@ function auditRecord(item) {
     sourcePriceExclTaxEur,
     sourcePriceInclVatEur,
     sourceImageUrl: sourceImageUrl || null,
+    selectedImageSourceUrl: selectedImageSourceUrl || null,
     imageLabel: imageLabel || null,
-    imagePublicationDecision: decision.decision === 'published' ? (imageReason ? 'excluded' : 'published') : 'not-applicable',
-    imagePublicationReason: decision.decision === 'published' ? imageReason : null,
+    imagePublicationDecision: decision.decision === 'published' ? (imageReason ? 'excluded' : canonical?.imageSourceUrl ? 'published-existing-aca' : 'published') : 'not-applicable',
+    imagePublicationReason: decision.decision === 'published' ? (canonical?.imageSourceUrl ? 'Existing ACA-managed product image mirrored to the local catalogue domain.' : imageReason) : null,
     decision: decision.decision,
     reason: decision.reason,
     ...(decision.decision === 'held' && /\b83095379\b/.test(name) ? {
@@ -260,26 +278,27 @@ function auditRecord(item) {
 async function downloadProductImage(product, audit) {
   if (!product.imageUrl) return null;
   const destination = path.join(ROOT, 'client', 'public', product.imageUrl);
-  if (!downloadImages && fs.existsSync(destination)) return imageManifestRow(product, audit, destination);
-  const response = await fetch(audit.sourceImageUrl, { headers: { 'user-agent': 'ACA Hydraulic catalog image import (authorized use; contact acahydraulic.kz)' } });
-  assert(response.ok, `${audit.sourceImageUrl}: image download returned ${response.status}`);
+  const selectedImageSourceUrl = audit.selectedImageSourceUrl || audit.sourceImageUrl;
+  if (!downloadImages && fs.existsSync(destination)) return imageManifestRow(product, selectedImageSourceUrl, destination);
+  const response = await fetch(selectedImageSourceUrl, { headers: { 'user-agent': 'ACA Hydraulic catalog image import (authorized use; contact acahydraulic.kz)' } });
+  assert(response.ok, `${selectedImageSourceUrl}: image download returned ${response.status}`);
   const body = Buffer.from(await response.arrayBuffer());
-  assert(body.length > 1_000, `${audit.sourceImageUrl}: downloaded image is unexpectedly small`);
-  const extension = path.extname(new URL(audit.sourceImageUrl).pathname) || '.img';
+  assert(body.length > 1_000, `${selectedImageSourceUrl}: downloaded image is unexpectedly small`);
+  const extension = path.extname(new URL(selectedImageSourceUrl).pathname) || '.img';
   const temporary = path.join(os.tmpdir(), `aca-hydrauvision-${audit.sourceId}${extension}`);
   fs.writeFileSync(temporary, body);
   fs.mkdirSync(path.dirname(destination), { recursive: true });
   execFileSync('cwebp', ['-quiet', '-q', '82', '-m', '6', '-metadata', 'none', temporary, '-o', destination]);
   fs.rmSync(temporary, { force: true });
-  return imageManifestRow(product, audit, destination);
+  return imageManifestRow(product, selectedImageSourceUrl, destination);
 }
 
-function imageManifestRow(product, audit, destination) {
+function imageManifestRow(product, sourceUrl, destination) {
   const body = fs.readFileSync(destination);
   return {
     publicId: product.id,
     localPath: product.imageUrl,
-    sourceUrl: audit.sourceImageUrl,
+    sourceUrl,
     sha256: createHash('sha256').update(body).digest('hex'),
     bytes: body.length,
   };

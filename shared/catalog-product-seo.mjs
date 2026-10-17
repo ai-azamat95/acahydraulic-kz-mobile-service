@@ -9,9 +9,9 @@ import selectionCopy from './catalog-seo-content.json' with { type: 'json' };
 
 const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...phase3ProductCopy, ...priorityProductCopy, ...merchantProductCopy };
 
-// Keep OEM numbers and the supplier's original title in the product data.
-// Only reviewed or deterministically validated handle-specific translations
-// replace the public Russian name.
+// Keep exact OEM numbers in public product data. Supplier-language source titles
+// belong only in private audit snapshots; reviewed catalogue imports may store a
+// Russian title directly. Handle-specific reviewed copy still takes precedence.
 export function catalogProductName(product, language = 'ru') {
   return (language === 'ru' && (productCopy[product.handle]?.name || product.catalogTitle)) || product.title;
 }

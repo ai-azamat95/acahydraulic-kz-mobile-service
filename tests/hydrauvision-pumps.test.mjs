@@ -68,7 +68,19 @@ test('published pumps retain exact identities, reviewed taxonomy and the authori
   for (const product of products) {
     const audit = auditById.get(product.id);
     assert.ok(audit, product.handle);
-    assert.equal(product.title, audit.sourceName, product.handle);
+    assert.equal(product.title, product.catalogTitle, product.handle);
+    assert.match(product.title, /[а-яё]/i, product.handle);
+    assert.ok(product.title.includes(product.sku), product.handle);
+    assert.ok(
+      normalizedIdentity(`${audit.sourceName} ${audit.sourceUrl}`).includes(normalizedIdentity(product.sku)),
+      product.handle,
+    );
+    assert.ok(!product.tags.includes(audit.sourceName), product.handle);
+    assert.doesNotMatch(
+      JSON.stringify([product.title, product.catalogTitle, product.tags]),
+      /\b(?:axial|radial|piston|internal|gear|vane|charge|hydraulic|pump|motor|overhauled|used|equipment)\b|cc\s*\/\s*rev/i,
+      product.handle,
+    );
     assert.equal(product.available, false, product.handle);
     assert.ok(audit.sourcePriceExclTaxEur > 0, product.handle);
     const expectedPrice = Math.round((audit.sourcePriceExclTaxEur * inventory.pricing.exchangeRateKzt * inventory.pricing.markup) / inventory.pricing.roundingKzt) * inventory.pricing.roundingKzt;
@@ -98,6 +110,11 @@ test('published pumps retain exact identities, reviewed taxonomy and the authori
   const correctedClassification = products.find(product => product.id === 'ACA-PUMP-1978');
   assert.match(correctedClassification.catalogTitle, /^Поршневой насос /);
   assert.doesNotMatch(correctedClassification.catalogTitle, /Радиально/);
+  assert.match(products.find(product => product.sku === '9510665-26-RF').catalogTitle, /SPV 26, вращение по часовой стрелке \(CW\)/);
+  assert.match(products.find(product => product.sku === '83108336').catalogTitle, /D1P193/);
+  for (const sku of ['R902077512', 'R902170281', 'R902233773']) {
+    assert.match(products.find(product => product.sku === sku).catalogTitle, /A11VLO (?:130|260)/, sku);
+  }
 
   const canonicalReplacement = products.find(product => product.sku === 'R901147104');
   assert.equal(canonicalReplacement.id, '8705189118114');
@@ -106,9 +123,9 @@ test('published pumps retain exact identities, reviewed taxonomy and the authori
 });
 
 test('local pump images are complete, hashed and never replace source placeholders with a false product photo', () => {
-  assert.equal(imageManifest.count, 80);
-  assert.equal(imageManifest.images.length, 80);
-  assert.equal(new Set(imageManifest.images.map(image => image.publicId)).size, 80);
+  assert.equal(imageManifest.count, 81);
+  assert.equal(imageManifest.images.length, 81);
+  assert.equal(new Set(imageManifest.images.map(image => image.publicId)).size, 81);
   const imageByProduct = new Map(imageManifest.images.map(image => [image.publicId, image]));
   const productsWithoutPhoto = products.filter(product => !product.imageUrl);
   assert.equal(productsWithoutPhoto.length, 24);
@@ -117,7 +134,8 @@ test('local pump images are complete, hashed and never replace source placeholde
   }
 
   const auditById = new Map(inventory.products.map(product => [product.publicId, product]));
-  assert.equal(inventory.products.filter(product => product.imagePublicationDecision === 'published' && product.decision === 'published').length, 80);
+  assert.equal(inventory.products.filter(product => ['published', 'published-existing-aca'].includes(product.imagePublicationDecision) && product.decision === 'published').length, 81);
+  assert.equal(inventory.products.filter(product => product.imagePublicationDecision === 'published-existing-aca' && product.decision === 'published').length, 1);
   for (const product of productsWithoutPhoto) {
     assert.equal(auditById.get(product.id).imagePublicationDecision, 'excluded', product.handle);
     assert.ok(auditById.get(product.id).imagePublicationReason, product.handle);
@@ -129,11 +147,6 @@ test('local pump images are complete, hashed and never replace source placeholde
 
   for (const product of products) {
     assert.equal(product.gallery[0] || null, product.imageUrl, product.handle);
-    if (product.sku === 'R901147104') {
-      assert.match(product.imageUrl, /^https:\/\/ai-azamat95\.github\.io\/acahydraulic-catalog-images\//);
-      assert.equal(imageByProduct.has(product.id), false);
-      continue;
-    }
     if (!product.imageUrl) {
       assert.equal(imageByProduct.has(product.id), false, product.handle);
       continue;
@@ -169,6 +182,7 @@ test('static pages publish the calculated price, caveat, local image and exact i
   skip: !fs.existsSync(path.join(publicDir, 'catalog', products[0].handle, 'index.html')),
 }, () => {
   const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap-products.xml'), 'utf8');
+  const auditById = new Map(inventory.products.filter(product => product.decision === 'published').map(product => [product.publicId, product]));
   for (const product of products) {
     const file = path.join(publicDir, 'catalog', product.handle, 'index.html');
     const html = fs.readFileSync(file, 'utf8');
@@ -179,8 +193,15 @@ test('static pages publish the calculated price, caveat, local image and exact i
     assert.ok(html.includes(escapeHtml(product.catalogPriceNote)), product.handle);
     assert.ok(html.includes(`"lowPrice":${product.minPriceKzt}`), product.handle);
     assert.ok(!html.includes('"availability"'), product.handle);
-    assert.doesNotMatch(html, /hydrauvision|webshop\./i, product.handle);
-    if (product.imageUrl) assert.ok(html.includes(product.imageUrl), product.handle);
+    assert.doesNotMatch(html, /hydrauvision|webshop\.|<p lang="en">/i, product.handle);
+    assert.ok(!html.includes(escapeHtml(auditById.get(product.id).sourceName)), product.handle);
+    if (product.imageUrl) {
+      assert.ok(html.includes(product.imageUrl), product.handle);
+      assert.ok(html.includes(`https://acahydraulic.kz${product.imageUrl}`), product.handle);
+    }
+    for (const [, imageUrl] of html.matchAll(/<img[^>]+src="([^"]+)"/g)) {
+      assert.ok(imageUrl.startsWith('/') || imageUrl.startsWith('https://acahydraulic.kz/'), `${product.handle}: ${imageUrl}`);
+    }
     const inquiry = html.match(/href="(https:\/\/wa\.me\/77714177925\?text=[^"]+)"/)?.[1];
     assert.ok(inquiry, product.handle);
     assert.ok(new URL(inquiry).searchParams.get('text').includes(canonical), product.handle);

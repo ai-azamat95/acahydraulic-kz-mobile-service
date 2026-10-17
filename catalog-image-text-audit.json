@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-05T18:51:24Z",
-  "scanner": "Prior Apple Vision full small-text pass plus a new small-text pass over 1029 product-specific injector images",
-  "imageCount": 32836,
+  "generatedAt": "2026-10-17T05:52:16.941Z",
+  "scanner": "Prior Apple Vision full small-text pass plus injector review; removal-only reconciliation after mirroring R901147104 to the local ACA catalogue.",
+  "imageCount": 32835,
   "forbiddenTextMatches": 0,
   "decodeFailures": 0,
   "newInjectorImagesScanned": 1029,
   "excludedInjectorSourceImagesWithSupplierText": 11,
   "injectorProductsUsingReviewedLocalFallback": 2,
-  "manifestSha256": "ea9b5ba4bc00b7e7d5b2367db83a75c8e9877b9903f0ad5eb1923d2b94fae8cf"
+  "manifestSha256": "6b798f7e0cfa730ceb14aeb35d90afcf90269ee704440e66bad1b628a8f13d30"
 }
