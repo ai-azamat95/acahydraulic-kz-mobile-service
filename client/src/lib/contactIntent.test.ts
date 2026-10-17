@@ -6,18 +6,19 @@ afterEach(() => vi.unstubAllGlobals());
 function setup(analytics: boolean, marketing: boolean, excluded = false) {
   const gtag = vi.fn();
   const track = vi.fn();
+  const reportConversion = vi.fn();
   vi.stubGlobal('window', {
     __ACA_COOKIE_CONSENT__: { analytics, marketing },
     __ACA_ANALYTICS_EXCLUDE__: excluded,
-    gtag, ttq: { track },
+    gtag, ttq: { track }, gtag_report_conversion: reportConversion,
   });
-  return { gtag, track };
+  return { gtag, track, reportConversion };
 }
 
 describe('form contact intent (never a received lead)', () => {
   for (const source of ['b2b_form', 'calculator'] as const) {
-    it(`${source}: records contact intent without reporting a Google Ads conversion`, () => {
-      const { gtag, track } = setup(true, true);
+    it(`${source}: records intent and calls only the existing secondary Ads helper`, () => {
+      const { gtag, track, reportConversion } = setup(true, true);
       trackFormContactIntent(source, 'ACA-TEST-123');
       expect(gtag.mock.calls).toEqual([
         ['event', 'form_whatsapp_click', {
@@ -27,16 +28,18 @@ describe('form contact intent (never a received lead)', () => {
         }],
       ]);
       expect(track).toHaveBeenCalledOnce();
+      expect(reportConversion).toHaveBeenCalledOnce();
       expect(track.mock.calls[0][0]).toBe('Contact');
       expect(JSON.stringify(gtag.mock.calls)).not.toMatch(/conversion|send_to|qualified_lead|generate_lead|phone|email|location|model/);
     });
   }
   it('does not track without consent or for excluded traffic', () => {
     for (const excluded of [false, true]) {
-      const { gtag, track } = setup(excluded, excluded, excluded);
+      const { gtag, track, reportConversion } = setup(excluded, excluded, excluded);
       trackFormContactIntent('b2b_form');
       expect(gtag).not.toHaveBeenCalled();
       expect(track).not.toHaveBeenCalled();
+      expect(reportConversion).not.toHaveBeenCalled();
     }
     vi.stubGlobal('window', {});
     expect(() => trackFormContactIntent('b2b_form')).not.toThrow();
@@ -47,10 +50,12 @@ describe('form contact intent (never a received lead)', () => {
     expect(analytics.gtag).toHaveBeenCalledOnce();
     expect(analytics.gtag.mock.calls[0][1]).toBe('form_whatsapp_click');
     expect(analytics.track).not.toHaveBeenCalled();
+    expect(analytics.reportConversion).not.toHaveBeenCalled();
     const marketing = setup(false, true);
     trackFormContactIntent('calculator');
     expect(marketing.gtag).not.toHaveBeenCalled();
     expect(marketing.track).toHaveBeenCalledOnce();
+    expect(marketing.reportConversion).toHaveBeenCalledOnce();
   });
   it('blocked vendors never prevent the customer continuing to WhatsApp', () => {
     vi.stubGlobal('window', {

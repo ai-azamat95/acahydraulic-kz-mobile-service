@@ -15,6 +15,7 @@ describe("catalog analytics", () => {
   it("sends public product identifiers and removes undefined values", () => {
     const calls: unknown[][] = [];
     (globalThis as typeof globalThis & { window: unknown }).window = {
+      __ACA_COOKIE_CONSENT__: { analytics: true, marketing: false },
       gtag: (...args: unknown[]) => calls.push(args),
     };
 
@@ -45,6 +46,7 @@ describe("catalog analytics", () => {
 
   it("never blocks a catalog action when analytics is unavailable", () => {
     (globalThis as typeof globalThis & { window: unknown }).window = {
+      __ACA_COOKIE_CONSENT__: { analytics: true, marketing: true },
       gtag: () => {
         throw new Error("blocked");
       },

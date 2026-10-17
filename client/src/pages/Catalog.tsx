@@ -41,7 +41,6 @@ import { CatalogLanguageControl } from "@/components/catalog/CatalogLanguageCont
 import { ProductResults } from "@/components/catalog/ProductResults";
 import { catalogCopy, partCategories, supportedBrands, type CatalogLanguage } from "@/content/partsCatalog";
 import { useCatalogIndex } from "@/hooks/useCatalogProducts";
-import { useTikTokContact } from "@/hooks/useTikTokEvents";
 import { catalogAnalyticsItem, catalogSearchAnalyticsParams, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import {
   catalogBrandLandings,
@@ -265,7 +264,6 @@ export default function Catalog() {
   const copy = catalogCopy[language];
   const ui = enhancementCopy[language];
   const { products, productCount, categorySummary, loading, error, complete, loadComplete } = useCatalogIndex(routeCategory || undefined);
-  const fireContact = useTikTokContact();
   const deferredQuery = useDeferredValue(`${searchMode === "vin" ? "" : partQuery} ${machineModel}`.trim().toLowerCase());
   const activeSearchMode = ui.searchModes.find((item) => item.id === searchMode) || ui.searchModes[0];
 
@@ -477,7 +475,6 @@ export default function Catalog() {
       has_machine_model: Boolean(machineModel.trim()),
       supply_option_selected: Boolean(supplyOption),
     });
-    fireContact("whatsapp");
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener,noreferrer");
   };
 
