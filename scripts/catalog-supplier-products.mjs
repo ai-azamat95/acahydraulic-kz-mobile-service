@@ -3,11 +3,21 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import supplierProducts from '../shared/catalog-supplier-products.json' with { type: 'json' };
+import hydrauvisionProducts from '../shared/catalog-hydrauvision-products.json' with { type: 'json' };
+import hydrauvisionInventory from '../data/hydrauvision-pumps-20261017/source-products.json' with { type: 'json' };
 
 export const SUPPLIER_CATALOG_SUPPLEMENT = '2026-10-supplier-catalog';
-export const supplierCatalogProducts = supplierProducts;
+export const supplierCatalogProducts = [...supplierProducts, ...hydrauvisionProducts];
 const SUPPLIER_CHUNK_SIZE = 250;
 const SAFE_CATEGORY_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const HYDRAUVISION_PRODUCT_IDS = new Set(hydrauvisionProducts.map(product => product.id));
+const HYDRAUVISION_PRODUCTS_BY_ID = new Map(hydrauvisionProducts.map(product => [product.id, product]));
+const HYDRAUVISION_AUDIT = new Map(hydrauvisionInventory.products
+  .filter(product => product.decision === 'published')
+  .map(product => [product.publicId, product]));
+const HYDRAUVISION_CANONICAL_REPLACEMENTS = new Map(hydrauvisionInventory.products
+  .filter(product => product.decision === 'published' && product.canonicalExistingProduct)
+  .map(product => [String(product.canonicalExistingProduct.id), product.canonicalExistingProduct]));
 
 export function supplierCatalogProductByHandle(handle) {
   return supplierCatalogProducts.find(product => product.handle === handle);
@@ -33,13 +43,27 @@ function validateProducts(products) {
       handles.add(handle);
     }
     assert.equal(product.available, false, `${product.handle}: supplier availability must be unconfirmed`);
-    assert.equal(product.minPriceKzt, null, `${product.handle}: supplier minimum price must be unconfirmed`);
-    assert.equal(product.maxPriceKzt, null, `${product.handle}: supplier maximum price must be unconfirmed`);
+    const hydrauvisionAudit = HYDRAUVISION_AUDIT.get(product.id);
+    if (HYDRAUVISION_PRODUCT_IDS.has(product.id)) {
+      assert(hydrauvisionAudit, `${product.handle}: reviewed pump price audit is required`);
+      assert.deepEqual(product, HYDRAUVISION_PRODUCTS_BY_ID.get(product.id), `${product.id}: reviewed pump record changed outside the importer`);
+      assert(hydrauvisionAudit.sourcePriceExclTaxEur > 0, `${product.handle}: positive source price excluding VAT is required`);
+      const expectedPrice = Math.round((hydrauvisionAudit.sourcePriceExclTaxEur
+        * hydrauvisionInventory.pricing.exchangeRateKzt
+        * hydrauvisionInventory.pricing.markup) / hydrauvisionInventory.pricing.roundingKzt)
+        * hydrauvisionInventory.pricing.roundingKzt;
+      assert.equal(product.minPriceKzt, expectedPrice, `${product.handle}: reviewed minimum price does not match the price audit`);
+      assert.equal(product.maxPriceKzt, expectedPrice, `${product.handle}: reviewed maximum price does not match the price audit`);
+      assert.equal(typeof product.catalogPriceNote, 'string', `${product.handle}: reviewed price note is required`);
+    } else {
+      assert.equal(product.minPriceKzt, null, `${product.handle}: supplier minimum price must be unconfirmed`);
+      assert.equal(product.maxPriceKzt, null, `${product.handle}: supplier maximum price must be unconfirmed`);
+    }
     assert(!product.ownerProduct && !product.ownerCase && !product.ownerSale && !product.approvedSale && !product.ownerEvidence, `${product.handle}: supplier products cannot claim owner evidence`);
     assert(Array.isArray(product.variants) && product.variants.length > 0, `${product.handle}: supplier variants are required`);
     for (const variant of product.variants) {
       assert.equal(variant.available, false, `${product.handle}: variant availability must be unconfirmed`);
-      assert.equal(variant.priceKzt, null, `${product.handle}: variant price must be unconfirmed`);
+      assert.equal(variant.priceKzt, hydrauvisionAudit ? product.minPriceKzt : null, `${product.handle}: invalid supplier variant price`);
     }
     for (const category of categoriesFor(product)) {
       assert(SAFE_CATEGORY_ID.test(category || ''), `${product.handle}: invalid supplier category ${category}`);
@@ -105,6 +129,11 @@ export function applySupplierCatalogProducts(catalogDir, {
     for (const product of rows) {
       if (product.catalogSupplement === SUPPLIER_CATALOG_SUPPLEMENT) {
         oldSupplementHandles.add(product.handle);
+        continue;
+      }
+      const canonicalReplacement = HYDRAUVISION_CANONICAL_REPLACEMENTS.get(String(product.id));
+      if (canonicalReplacement) {
+        assert.equal(product.handle, canonicalReplacement.handle, `Canonical replacement handle changed for ${product.id}`);
         continue;
       }
       assert(!supplierIds.has(String(product.id)) && !supplierHandles.has(product.handle), `Supplier product collides with existing catalogue product: ${product.handle}`);

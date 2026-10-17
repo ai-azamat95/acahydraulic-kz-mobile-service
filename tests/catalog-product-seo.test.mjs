@@ -2,6 +2,9 @@ import assert from 'node:assert/strict';
 import { applyOwnerSale } from '../scripts/catalog-owner-sales.mjs';
 import test from 'node:test';
 import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import reviewedCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
 import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
 import pilotCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
@@ -305,5 +308,41 @@ test('all catalog items have useful metadata without mutating imported data', ()
     assert.doesNotMatch(seo.description, /\.\./, `${product.handle}: SEO description has duplicated punctuation`);
     assert.equal(JSON.stringify(product), original);
     assert(catalogProductSelection(product));
+  }
+});
+
+test('static product pages place optional price notes below the price as escaped text', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'aca-catalog-price-note-'));
+  try {
+    const publicDir = path.join(root, 'dist/public');
+    const catalogDir = path.join(publicDir, 'catalog-data');
+    fs.mkdirSync(catalogDir, { recursive: true });
+    fs.writeFileSync(path.join(publicDir, 'index.html'), '<!doctype html><html><head><title>ACA</title></head><body><div id="root"></div></body></html>');
+    fs.writeFileSync(path.join(catalogDir, 'manifest.json'), JSON.stringify({ chunkCount: 1, importedAt: '2026-10-17T00:00:00Z' }));
+    const note = 'Расчётная цена <уточнить> & "согласовать" \'до оплаты\'.';
+    const escapedNote = 'Расчётная цена &lt;уточнить&gt; &amp; &quot;согласовать&quot; &#39;до оплаты&#39;.';
+    const fixture = { title: 'Гидронасос TEST-123', sku: 'TEST-123', category: 'hydraulic-pumps', categories: ['hydraulic-pumps'], fitment: null, minPriceKzt: 125000, maxPriceKzt: 125000, imageUrl: null, tags: [] };
+    const cases = [
+      { ...fixture, id: 'priced-note', handle: 'priced-note', catalogPriceNote: note },
+      { ...fixture, id: 'unpriced-note', handle: 'unpriced-note', minPriceKzt: null, maxPriceKzt: null, catalogPriceNote: note },
+      { ...fixture, id: 'no-note', handle: 'no-note' },
+      { ...fixture, id: 'empty-note', handle: 'empty-note', catalogPriceNote: '' },
+    ];
+    fs.writeFileSync(path.join(catalogDir, 'search-index-001.json'), JSON.stringify(cases));
+    execFileSync(process.execPath, [path.resolve('scripts/create-catalog-route-copies.mjs')], { cwd: root, stdio: 'pipe' });
+
+    for (const product of cases) {
+      const html = fs.readFileSync(path.join(publicDir, 'catalog', product.handle, 'index.html'), 'utf8');
+      if (product.catalogPriceNote) {
+        assert.match(html, /<p><strong>Цена [^<]+<\/strong><\/p>\s*<p data-catalog-price-note>/, product.handle);
+        assert.ok(html.includes(`<p data-catalog-price-note>${escapedNote}</p>`), product.handle);
+        assert.equal(html.split('data-catalog-price-note').length - 1, 1, product.handle);
+        assert.ok(!html.includes(note), 'the note must not become executable HTML');
+      } else {
+        assert.doesNotMatch(html, /data-catalog-price-note/, product.handle);
+      }
+    }
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
   }
 });

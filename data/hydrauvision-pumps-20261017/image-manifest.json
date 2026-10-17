@@ -1,0 +1,566 @@
+{
+  "capturedOn": "2026-10-17",
+  "count": 80,
+  "images": [
+    {
+      "publicId": "ACA-PUMP-214",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-10-002-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_1_snp1nn_tekst.jpg",
+      "sha256": "ba6b2b1615bea0b7a279eb277ab3f9757705f317c2326368786d32bb866c8223",
+      "bytes": 17458
+    },
+    {
+      "publicId": "ACA-PUMP-215",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-10-006-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_1_snp1nn_tekst_1.jpg",
+      "sha256": "ba6b2b1615bea0b7a279eb277ab3f9757705f317c2326368786d32bb866c8223",
+      "bytes": 17458
+    },
+    {
+      "publicId": "ACA-PUMP-218",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-218-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_9.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-219",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-313-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_13.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-223",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-224-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-226",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-226-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_23.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-227",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-228-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_11.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-229",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-212-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_7.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-230",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-258-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_4.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-232",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-023-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_10.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-234",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-027-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_11.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-235",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-028-0a.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_12.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-236",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-211-25-008-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_15.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1526",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83025677.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_1.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1527",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83025920.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_2.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1528",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83027321.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_5.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1529",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83034926.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_6.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1530",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83067514.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_e_series_pump_tekst.jpg",
+      "sha256": "592770d1acdfdeb45e03fb707616912796b46e10f8604e178a23b93c4f5b9311",
+      "bytes": 83004
+    },
+    {
+      "publicId": "ACA-PUMP-1531",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105879.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_e_series_pump_tekst_3.jpg",
+      "sha256": "592770d1acdfdeb45e03fb707616912796b46e10f8604e178a23b93c4f5b9311",
+      "bytes": 83004
+    },
+    {
+      "publicId": "ACA-PUMP-1532",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105880.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_8.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1533",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105881.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_9.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1534",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105885.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_k2_series_tekst_1.jpg",
+      "sha256": "7ccf45984cd3ec8ba65e4571850ac9ba79bfcbbd8d56797e31fc3765770277a2",
+      "bytes": 34522
+    },
+    {
+      "publicId": "ACA-PUMP-1535",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105886.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_k2_series_tekst_2.jpg",
+      "sha256": "7ccf45984cd3ec8ba65e4571850ac9ba79bfcbbd8d56797e31fc3765770277a2",
+      "bytes": 34522
+    },
+    {
+      "publicId": "ACA-PUMP-1536",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105887.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_k2_series_tekst_3.jpg",
+      "sha256": "7ccf45984cd3ec8ba65e4571850ac9ba79bfcbbd8d56797e31fc3765770277a2",
+      "bytes": 34522
+    },
+    {
+      "publicId": "ACA-PUMP-1537",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105888.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_k2_series_tekst_4.jpg",
+      "sha256": "7ccf45984cd3ec8ba65e4571850ac9ba79bfcbbd8d56797e31fc3765770277a2",
+      "bytes": 34522
+    },
+    {
+      "publicId": "ACA-PUMP-1538",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105892.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_10.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1539",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105894.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_k2_series_tekst_5.jpg",
+      "sha256": "7ccf45984cd3ec8ba65e4571850ac9ba79bfcbbd8d56797e31fc3765770277a2",
+      "bytes": 34522
+    },
+    {
+      "publicId": "ACA-PUMP-1540",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83105895.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_k2_series_tekst_6.jpg",
+      "sha256": "7ccf45984cd3ec8ba65e4571850ac9ba79bfcbbd8d56797e31fc3765770277a2",
+      "bytes": 34522
+    },
+    {
+      "publicId": "ACA-PUMP-1541",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83106377.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_11.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1542",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-383-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_19.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1543",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-432-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_16.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1544",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-433-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_18.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1545",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-466-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_1.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1547",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-555-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_3.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1548",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-586-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_5.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1549",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-645-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_20.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1550",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-670-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_15.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1551",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-715-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_8.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1552",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-729-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_12.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1553",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-734-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_22.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1554",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-736-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_24.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1555",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-798-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_17.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1556",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-814-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_6.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1557",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-882-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_2.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    },
+    {
+      "publicId": "ACA-PUMP-1558",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-002-0a.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1559",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-003-0a.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_1.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1560",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-003-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_2.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1561",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-004-0a.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_3.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1562",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-004-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_4.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1563",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-005-0a.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_5.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1564",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-005-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_6.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1565",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-006-0a.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_7.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1566",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-006-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_8.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1567",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-007-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_9.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1568",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-032-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_13.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1569",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-167-0a.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_14.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1605",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83091353.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_e_series_pump_tekst_1.jpg",
+      "sha256": "592770d1acdfdeb45e03fb707616912796b46e10f8604e178a23b93c4f5b9311",
+      "bytes": 83004
+    },
+    {
+      "publicId": "ACA-PUMP-1606",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83099586.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_e_series_pump_tekst_2.jpg",
+      "sha256": "592770d1acdfdeb45e03fb707616912796b46e10f8604e178a23b93c4f5b9311",
+      "bytes": 83004
+    },
+    {
+      "publicId": "ACA-PUMP-1607",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83065097.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_k2_series_tekst.jpg",
+      "sha256": "7ccf45984cd3ec8ba65e4571850ac9ba79bfcbbd8d56797e31fc3765770277a2",
+      "bytes": 34522
+    },
+    {
+      "publicId": "ACA-PUMP-1608",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83026001.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_3.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1609",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83026363.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_4.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1610",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83073386.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_d1p_series_pump_small.jpg",
+      "sha256": "dc529c19bad55a83184363f4b34da2d5c9df96f28b89cccf4992e72a337b6c37",
+      "bytes": 111886
+    },
+    {
+      "publicId": "ACA-PUMP-1612",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-503626.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_90_series_pumps_1.jpg",
+      "sha256": "16b68232abafd32888685d5ab435f27583e09c9732f853f09247b77edbe1ea90",
+      "bytes": 127788
+    },
+    {
+      "publicId": "ACA-PUMP-1614",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83075204.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_7.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1615",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83093051.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_mp1_series_pumps.jpg",
+      "sha256": "bd6e82ab03882c9b1192a32847136080031d7cec47ce9471cbee4956a864a9f5",
+      "bytes": 52388
+    },
+    {
+      "publicId": "ACA-PUMP-1688",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-9510665-26-rf.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+      "sha256": "56d5dc1d77138da23e51e9710cc614741cda35ee89e59dd804ecd7a97c275d44",
+      "bytes": 31176
+    },
+    {
+      "publicId": "ACA-PUMP-1776",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-eaton-pvws250m07r0001r01svmaspc.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/e/a/eaton_hydrokraft_piston_pump_open_loop.png",
+      "sha256": "ef199ed4e63eff53a861c5f6a56b1c1c52bbd79f911ae07f3e2cb60573ee23a2",
+      "bytes": 18456
+    },
+    {
+      "publicId": "ACA-PUMP-1777",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-bosch-rexroth-r902257980.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/b/o/bosch_rexroth_axial_piston_pump_a11v_l_o.jpg",
+      "sha256": "696049652fd5b043a3e5b353980f7a939815dac3c81e887e96c8df1100c55539",
+      "bytes": 38290
+    },
+    {
+      "publicId": "ACA-PUMP-1778",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-521037.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_90_series_pumps_2.jpg",
+      "sha256": "16b68232abafd32888685d5ab435f27583e09c9732f853f09247b77edbe1ea90",
+      "bytes": 127788
+    },
+    {
+      "publicId": "ACA-PUMP-1791",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-bosch-rexroth-r902233773.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/b/o/bosch_rexroth_axial_piston_pump_a11v_l_o_1.jpg",
+      "sha256": "696049652fd5b043a3e5b353980f7a939815dac3c81e887e96c8df1100c55539",
+      "bytes": 38290
+    },
+    {
+      "publicId": "ACA-PUMP-1853",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-25-026-0c.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_3_tekst_16.jpg",
+      "sha256": "c78904811844e631267db04176c1ad4282a9c2edbaf8c71856af304893f54965",
+      "bytes": 13432
+    },
+    {
+      "publicId": "ACA-PUMP-1855",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83108336.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_d1p_series_pump_small_1.jpg",
+      "sha256": "dc529c19bad55a83184363f4b34da2d5c9df96f28b89cccf4992e72a337b6c37",
+      "bytes": 111886
+    },
+    {
+      "publicId": "ACA-PUMP-1857",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83111266.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_d1p_series_pump_small_2.jpg",
+      "sha256": "dc529c19bad55a83184363f4b34da2d5c9df96f28b89cccf4992e72a337b6c37",
+      "bytes": 111886
+    },
+    {
+      "publicId": "ACA-PUMP-1900",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-503630.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_90_series_pumps.jpg",
+      "sha256": "16b68232abafd32888685d5ab435f27583e09c9732f853f09247b77edbe1ea90",
+      "bytes": 127788
+    },
+    {
+      "publicId": "ACA-PUMP-1901",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-515782.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_90_series_pumps_3.jpg",
+      "sha256": "16b68232abafd32888685d5ab435f27583e09c9732f853f09247b77edbe1ea90",
+      "bytes": 127788
+    },
+    {
+      "publicId": "ACA-PUMP-1902",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-7005233s.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_l_and_k_frame.png",
+      "sha256": "ea2eaa9a13dc4711f40a474f233ef21228cd13588bcf3dfce4fd2e196f9b3a51",
+      "bytes": 16130
+    },
+    {
+      "publicId": "ACA-PUMP-1907",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83064181.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_12.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1908",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83113237.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_13.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1909",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-83025895.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_45_j_series_tekst_14.jpg",
+      "sha256": "ddf039f3eaa55ab0bd6f4e51fa9fb2c19c318b5352a43991e314b7427c5a48c2",
+      "bytes": 77788
+    },
+    {
+      "publicId": "ACA-PUMP-1990",
+      "localPath": "/catalog-assets/supplier-pumps-20261017/pump-danfoss-111-20-220-00.webp",
+      "sourceUrl": "https://webshop.hydrauvision.com/media/catalog/product/d/a/danfoss_gear_pump_group_2_9_1.jpg",
+      "sha256": "89498da474fba2a769e5527196e13baf4a51767f98af9128deb578d4b94feceb",
+      "bytes": 36650
+    }
+  ]
+}

@@ -1,0 +1,4667 @@
+{
+  "source": "https://webshop.hydrauvision.com/pumps",
+  "capturedOn": "2026-10-17",
+  "description": "Reduced snapshot of the public storefront render response used for the reviewed import.",
+  "items": [
+    {
+      "id": 6,
+      "type": "virtual",
+      "name": "Danfoss Pump Configurator - Series 45 K2 Frame",
+      "url": "https://webshop.hydrauvision.com/danfoss-45-k2-series-configurator",
+      "price_info": {
+        "final_price": 0,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 0
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_k2_series.jpg",
+          "label": "Danfoss Series K2 Pump Configurator"
+        }
+      ]
+    },
+    {
+      "id": 214,
+      "type": "simple",
+      "name": "111.10.002.00 Danfoss Gear Pump 1.18 cc/rev - SNP1NN",
+      "url": "https://webshop.hydrauvision.com/1111000200-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 240.790001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 199
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_1_snp1nn_tekst.jpg",
+          "label": "111.10.002.00 Danfoss Gear Pump 1.18 cc/rev SNP1NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 215,
+      "type": "simple",
+      "name": "111.10.006.00 Danfoss Gear Pump 2.09 cc/rev - SNP1NN",
+      "url": "https://webshop.hydrauvision.com/1111000600-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 242.943801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 200.78
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_1_snp1nn_tekst_1.jpg",
+          "label": "111.10.006.00 Danfoss Gear Pump 2.09 cc/rev. SNP1NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 217,
+      "type": "simple",
+      "name": "111.10.204.00 Danfoss Gear Pump 4.19 cc/rev",
+      "url": "https://webshop.hydrauvision.com/1111020400-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 247.904801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 204.88
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/1/110048_4.jpg",
+          "label": "111.10.204.00 Danfoss Gear Pump 4.19 cc/rev -  Photo Copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 218,
+      "type": "simple",
+      "name": "111.20.218.00 Danfoss Gear Pump 10.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112021800-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 305.101501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 252.15
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_9.jpg",
+          "label": "111.20.218.00 Danfoss Gear Pump 10.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 219,
+      "type": "simple",
+      "name": "111.20.313.00 Danfoss Gear Pump 10.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112031300-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 305.101501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 252.15
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_13.jpg",
+          "label": "111.20.313.00 Danfoss Gear Pump 10.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 220,
+      "type": "simple",
+      "name": "111.20.282.00 Danfoss Gear Pump 14.4 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112028200-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 308.465301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 254.93
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "111.20.282.00 Danfoss Gear Pump 14.4 cc/rev - SNP2NN"
+        }
+      ]
+    },
+    {
+      "id": 223,
+      "type": "simple",
+      "name": "111.20.224.00 Danfoss Gear Pump 19.2 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112022400-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 307.799801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 254.38
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2.jpg",
+          "label": "111.20.224.00 Danfoss Gear Pump 19.2 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 226,
+      "type": "simple",
+      "name": "111.20.226.00 Danfoss Gear Pump 22.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112022600-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 321.944701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 266.07
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_23.jpg",
+          "label": "111.20.226.00 Danfoss Gear Pump 22.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 227,
+      "type": "simple",
+      "name": "111.20.228.00 Danfoss Gear Pump 25.2 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112022800-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 327.752701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 270.87
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_11.jpg",
+          "label": "111.20.228.00 Danfoss Gear Pump 25.2 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 229,
+      "type": "simple",
+      "name": "111.20.212.00 Danfoss Gear Pump 4.0 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112021200-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 291.948801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 241.28
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_7.jpg",
+          "label": "111.20.212.00 Danfoss Gear Pump 4.0 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 230,
+      "type": "simple",
+      "name": "111.20.258.00 Danfoss Gear Pump 6.0 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112025800-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 289.855501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 239.55
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_4.jpg",
+          "label": "111.20.258.00 Danfoss Gear Pump 6.0 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 232,
+      "type": "simple",
+      "name": "111.25.023.0C Danfoss Gear Pump 26.2 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250230c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 639.969001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 528.9
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_10.jpg",
+          "label": "111.25.023.0C Danfoss Gear Pump 26.2 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 234,
+      "type": "simple",
+      "name": "111.25.027.0C Danfoss Gear Pump 48.3 cm³/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250270c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 679.076201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 561.22
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_11.jpg",
+          "label": "111.25.027.0C Danfoss Gear Pump 48.3 cm³/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 235,
+      "type": "simple",
+      "name": "111.25.028.0A Danfoss Gear Pump 55.1 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250280a-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 686.408801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 567.28
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_12.jpg",
+          "label": "111.25.028.0A Danfoss Gear Pump 55.1 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 236,
+      "type": "simple",
+      "name": "211.25.008.0C Danfoss Gear Pump 44.1 cc/rev - SNW3NN",
+      "url": "https://webshop.hydrauvision.com/211250080c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 703.155201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 581.12
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_15.jpg",
+          "label": "211.25.008.0C Danfoss Gear Pump 44.1 cc/rev SNW3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 255,
+      "type": "virtual",
+      "name": "Danfoss Pump Configurator - Series 45 J Frame",
+      "url": "https://webshop.hydrauvision.com/danfoss-45-j-series-configurator",
+      "price_info": {
+        "final_price": 0,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 0
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst.jpg",
+          "label": "Danfoss Pump Configurator - Series 45 J Frame - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 256,
+      "type": "virtual",
+      "name": "Danfoss Pump Configurator - Series 45 E Frame",
+      "url": "https://webshop.hydrauvision.com/danfoss-45-e-series-configurator",
+      "price_info": {
+        "final_price": 0,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 0
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_e_series_1.jpg",
+          "label": "Danfoss 45 E Series Configurator"
+        }
+      ]
+    },
+    {
+      "id": 257,
+      "type": "virtual",
+      "name": "Danfoss Pump Configurator - Series 90 ",
+      "url": "https://webshop.hydrauvision.com/danfoss-series-90-pump-configurator",
+      "price_info": {
+        "final_price": 0,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 0
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_90_series.jpg",
+          "label": "Danfoss Series 90 Pump Configurator"
+        }
+      ]
+    },
+    {
+      "id": 259,
+      "type": "virtual",
+      "name": "Danfoss Pump Configurator - Series H1P ",
+      "url": "https://webshop.hydrauvision.com/danfoss-h1-pump-configurator",
+      "price_info": {
+        "final_price": 0,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 0
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_h1_series_pump_1.jpg",
+          "label": "Danfoss H1P Series Pump Configurator"
+        }
+      ]
+    },
+    {
+      "id": 261,
+      "type": "virtual",
+      "name": "Danfoss Pump Configurator - Series D1P",
+      "url": "https://webshop.hydrauvision.com/danfoss-d1p-pump-configurator",
+      "price_info": {
+        "final_price": 0,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 0
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_d1p_series_pump.jpg",
+          "label": "Danfoss D1P Pump Configurator"
+        }
+      ]
+    },
+    {
+      "id": 1513,
+      "type": "simple",
+      "name": "4510375 Danfoss Mounting Kit SAE-A 9T J-frame",
+      "url": "https://webshop.hydrauvision.com/4510375-danfoss-mounting-kit",
+      "price_info": {
+        "final_price": 291.053401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 240.54
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/4/5/4586_danfoss_mounting_kit_4510375_-_1.jpg",
+          "label": "4510375 Danfoss Mounting Kit SAE-A 9T J-frame - 1 - Photo Copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1514,
+      "type": "simple",
+      "name": "4510376 Danfoss Mounting Kit SAE-A 9T L+K-frame",
+      "url": "https://webshop.hydrauvision.com/4510376-danfoss-mounting-kit",
+      "price_info": {
+        "final_price": 291.053401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 240.54
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "4510376 Danfoss Mounting Kit SAE-A 9T L+K-frame"
+        }
+      ]
+    },
+    {
+      "id": 1515,
+      "type": "simple",
+      "name": "4510377 Danfoss Mounting Kit SAE-B 13T J-frame",
+      "url": "https://webshop.hydrauvision.com/4510377-danfoss-mounting-kit",
+      "price_info": {
+        "final_price": 374.954801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 309.88
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "4510377 Danfoss Mounting Kit SAE-B 13T J-frame"
+        }
+      ]
+    },
+    {
+      "id": 1516,
+      "type": "simple",
+      "name": "4510378 Danfoss Mounting Kit SAE-B 13T L+K-frame",
+      "url": "https://webshop.hydrauvision.com/4510378-danfoss-mounting-kit",
+      "price_info": {
+        "final_price": 374.954801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 309.88
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "4510378 Danfoss Mounting Kit SAE-B 13T L+K-frame"
+        }
+      ]
+    },
+    {
+      "id": 1517,
+      "type": "simple",
+      "name": "4510381 Danfoss Mounting Kit SAE-C 14T J-frame",
+      "url": "https://webshop.hydrauvision.com/4510381-danfoss-mounting-kit",
+      "price_info": {
+        "final_price": 427.698701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 353.47
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "4510381 Danfoss Mounting Kit SAE-C 14T J-frame"
+        }
+      ]
+    },
+    {
+      "id": 1518,
+      "type": "simple",
+      "name": "4510427 Danfoss Piston Conversion Kit to 130 cc",
+      "url": "https://webshop.hydrauvision.com/4510427-danfoss-piston-kit",
+      "price_info": {
+        "final_price": 164.414801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 135.88
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "4510427 Danfoss Piston Conversion Kit to 130 cc"
+        }
+      ]
+    },
+    {
+      "id": 1519,
+      "type": "simple",
+      "name": "4510428 Danfoss Piston Conversion Kit to 147cc",
+      "url": "https://webshop.hydrauvision.com/4510428-danfoss-piston-kit",
+      "price_info": {
+        "final_price": 163.362101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 135.01
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "4510428 Danfoss Piston Conversion Kit to 147cc"
+        }
+      ]
+    },
+    {
+      "id": 1520,
+      "type": "simple",
+      "name": "4510429 Danfoss Mounting Kit SAE-B 13T E-frame",
+      "url": "https://webshop.hydrauvision.com/4510429-danfoss-mounting-kit",
+      "price_info": {
+        "final_price": 367.610101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 303.81
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "4510429 Danfoss Mounting Kit SAE-B 13T E-frame"
+        }
+      ]
+    },
+    {
+      "id": 1521,
+      "type": "simple",
+      "name": "4510432 Danfoss Mounting Kit SAE-C 14T E-frame",
+      "url": "https://webshop.hydrauvision.com/4510432-danfoss-mounting-kit",
+      "price_info": {
+        "final_price": 485.125301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 400.93
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "4510432 Danfoss Mounting Kit SAE-C 14T E-frame"
+        }
+      ]
+    },
+    {
+      "id": 1522,
+      "type": "simple",
+      "name": "5000364 Danfoss Key Square",
+      "url": "https://webshop.hydrauvision.com/5000364-danfoss-key-square",
+      "price_info": {
+        "final_price": 22.481801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 18.58
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "5000364 Danfoss Key Square"
+        }
+      ]
+    },
+    {
+      "id": 1523,
+      "type": "simple",
+      "name": "5000664 Danfoss Key Square",
+      "url": "https://webshop.hydrauvision.com/5000664-danfoss-key-square",
+      "price_info": {
+        "final_price": 8.518401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7.04
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "5000664 Danfoss Key Square"
+        }
+      ]
+    },
+    {
+      "id": 1524,
+      "type": "simple",
+      "name": "11066789 Danfoss Shaft - For Series 45 K2 serie",
+      "url": "https://webshop.hydrauvision.com/11066789-danfoss-shaft",
+      "price_info": {
+        "final_price": 348.794601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 288.26
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/122605_danfoss_shaft_11066789_-_1_1.jpg",
+          "label": "11066789 Danfoss Shaft - For Series 45 K2 serie - Photo Copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1525,
+      "type": "simple",
+      "name": "11085899 Danfoss Shaft Pump",
+      "url": "https://webshop.hydrauvision.com/11085899-danfoss-shaft-pump",
+      "price_info": {
+        "final_price": 304.605401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 251.74
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "11085899 Danfoss Shaft Pump"
+        }
+      ]
+    },
+    {
+      "id": 1526,
+      "type": "simple",
+      "name": "83025677 Danfoss Axial Piston Pump - 60 cc/rev - JR-L-S60B-LS-20-20-NN-N-3-C2BE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83025677-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 3100.564501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2562.45
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_1.jpg",
+          "label": "83025677 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1527,
+      "type": "simple",
+      "name": "83025920 Danfoss Axial Piston Pump - 75 cc/rev - JR-R-S75C-LS-20-20-NN-N-3-C2BE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83025920-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 3375.633801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2789.78
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_2.jpg",
+          "label": "83025920 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1528,
+      "type": "simple",
+      "name": "83027321 Danfoss Axial Piston Pump - 60 cc/rev - JR-R-S60B-LS-20-20-NN-N-3-C2BE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83027321-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 3100.564501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2562.45
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_5.jpg",
+          "label": "83027321 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1529,
+      "type": "simple",
+      "name": "83034926 Danfoss Axial Piston Pump - 45 cc/rev - JR-R-S45B-LS-20-20-NN-N-3-C2BE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83034926-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2782.987901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2299.99
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_6.jpg",
+          "label": "83034926 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1530,
+      "type": "simple",
+      "name": "83067514 Danfoss Axial Piston Pump - 100 cc/rev - ER-L-100B-LS-20-20-NN-N-3-S1RP-A1N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83067514-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 3659.342501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3024.25
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_e_series_pump_tekst.jpg",
+          "label": "83067514 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1531,
+      "type": "simple",
+      "name": "83105879 Danfoss Axial Piston Pump - 100 cc/rev - ER-R-100B-LS-20-20-NN-N-3-S1RP-A1N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83105879-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 3659.342501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3024.25
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_e_series_pump_tekst_3.jpg",
+          "label": "83105879 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1532,
+      "type": "simple",
+      "name": "83105880 Danfoss Axial Piston Pump - 75 cc/rev - JR-L-S75C-LS-20-20-NN-N-3-C2BE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83105880-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 3375.633801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2789.78
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_8.jpg",
+          "label": "83105880 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1533,
+      "type": "simple",
+      "name": "83105881 Danfoss Axial Piston Pump - 45 cc/rev - JR-L-S45B-LS-20-20-NN-N-3-C2BE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83105881-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2782.987901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2299.99
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_9.jpg",
+          "label": "83105881 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1534,
+      "type": "simple",
+      "name": "83105885 Danfoss Axial Piston Pump - 38 cc/rev - K2-R-038C-LS-20-20-NN-N-3-C2BG-A6N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83105885-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2583.386301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2135.03
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_k2_series_tekst_1.jpg",
+          "label": "83105885 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1535,
+      "type": "simple",
+      "name": "83105886 Danfoss Axial Piston Pump - 38 cc/rev - K2-L-038C-LS-20-20-NN-N-3-C2BG-A6N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83105886-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2583.386301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2135.03
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_k2_series_tekst_2.jpg",
+          "label": "83105886 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1536,
+      "type": "simple",
+      "name": "83105887 Danfoss Axial Piston Pump - 25 cc/rev - K2-L-025C-LS-20-20-NN-N-3-C2BG-A6N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83105887-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2410.707201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1992.32
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_k2_series_tekst_3.jpg",
+          "label": "83105887 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1537,
+      "type": "simple",
+      "name": "83105888 Danfoss Axial Piston Pump - 25 cc/rev - K2-R-025C-LS-20-20-NN-N-3-C2BG-A6N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83105888-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2410.707201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1992.32
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_k2_series_tekst_4.jpg",
+          "label": "83105888 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1538,
+      "type": "simple",
+      "name": "83105892 Danfoss Axial Piston Pump - 51 cc/rev - JR-L-S51B-LS-20-20-NN-N-3-C2BE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83105892-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2910.013701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2404.97
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_10.jpg",
+          "label": "83105892 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1539,
+      "type": "simple",
+      "name": "83105894 Danfoss Axial Piston Pump - 30 cc/rev - K2-L-030C-LS-20-20-NN-N-3-C2BG-A6N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83105894-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2501.251501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2067.15
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_k2_series_tekst_5.jpg",
+          "label": "83105894 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1540,
+      "type": "simple",
+      "name": "83105895 Danfoss Axial Piston Pump - 30 cc/rev - K2-R-030C-LS-20-20-NN-N-3-C2BG-A6N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83105895-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2501.251501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2067.15
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_k2_series_tekst_6.jpg",
+          "label": "83105895 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1541,
+      "type": "simple",
+      "name": "83106377 Danfoss Axial Piston Pump - 51 cc/rev - JR-R-S51B-LS-20-20-NN-N-3-C2BE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83106377-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2910.013701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2404.97
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_11.jpg",
+          "label": "83106377 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1542,
+      "type": "simple",
+      "name": "111.20.383.00 Danfoss Gear Pump 14.4 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112038300-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 305.174101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 252.21
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_19.jpg",
+          "label": "111.20.383.00 Danfoss Gear Pump 14.4 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1543,
+      "type": "simple",
+      "name": "111.20.432.00 Danfoss Gear Pump 16.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112043200-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 302.427401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 249.94
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_16.jpg",
+          "label": "111.20.432.00 Danfoss Gear Pump 16.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1544,
+      "type": "simple",
+      "name": "111.20.433.00 Danfoss Gear Pump 19.2 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112043300-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 308.320101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 254.81
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_18.jpg",
+          "label": "111.20.433.00 Danfoss Gear Pump 19.2 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1545,
+      "type": "simple",
+      "name": "111.20.466.00 Danfoss Gear Pump 22.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112046600-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 315.652701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 260.87
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_1.jpg",
+          "label": "111.20.466.00 Danfoss Gear Pump 22.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1546,
+      "type": "simple",
+      "name": "111.20.472.00 Danfoss Gear Pump 25.2 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112047200-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 324.316301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 268.03
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/4/2/42587_5.jpg",
+          "label": "111.20.472.00 Danfoss Gear Pump 25.2 cc/rev SNP2NN - Picture similar to product - Picture copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1547,
+      "type": "simple",
+      "name": "111.20.555.00 Danfoss Gear Pump 8.4 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112055500-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 286.794201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 237.02
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_3.jpg",
+          "label": "111.20.555.00 Danfoss Gear Pump 8.4 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1548,
+      "type": "simple",
+      "name": "111.20.586.00 Danfoss Gear Pump 8.4 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112058600-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 286.794201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 237.02
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_5.jpg",
+          "label": "111.20.586.00 Danfoss Gear Pump 8.4 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1549,
+      "type": "simple",
+      "name": "111.20.645.00 Danfoss Gear Pump 10.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112064500-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 287.750101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 237.81
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_20.jpg",
+          "label": "111.20.645.00 Danfoss Gear Pump 10.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1550,
+      "type": "simple",
+      "name": "111.20.670.00 Danfoss Gear Pump 10.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112067000-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 287.750101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 237.81
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_15.jpg",
+          "label": "111.20.670.00 Danfoss Gear Pump 10.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1551,
+      "type": "simple",
+      "name": "111.20.715.00 Danfoss Gear Pump 19.2 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112071500-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 308.320101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 254.81
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_8.jpg",
+          "label": "111.20.715.00 Danfoss Gear Pump 19.2 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1552,
+      "type": "simple",
+      "name": "111.20.729.00 Danfoss Gear Pump 14.4 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112072900-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 305.174101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 252.21
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_12.jpg",
+          "label": "111.20.729.00 Danfoss Gear Pump 14.4 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1553,
+      "type": "simple",
+      "name": "111.20.734.00 Danfoss Gear Pump 16.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112073400-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 302.427401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 249.94
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_22.jpg",
+          "label": "111.20.734.00 Danfoss Gear Pump 16.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1554,
+      "type": "simple",
+      "name": "111.20.736.00 Danfoss Gear Pump 22.8 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112073600-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 315.652701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 260.87
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_24.jpg",
+          "label": "111.20.736.00 Danfoss Gear Pump 22.8 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1555,
+      "type": "simple",
+      "name": "111.20.798.00 Danfoss Gear Pump 25.2 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112079800-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 324.316301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 268.03
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_17.jpg",
+          "label": "111.20.798.00 Danfoss Gear Pump 25.2 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1556,
+      "type": "simple",
+      "name": "111.20.814.00 Danfoss Gear Pump 6.0 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112081400-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 289.916001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 239.6
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_6.jpg",
+          "label": "111.20.814.00 Danfoss Gear Pump 6.0 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1557,
+      "type": "simple",
+      "name": "111.20.882.00 Danfoss Gear Pump 6.0 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112088200-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 289.916001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 239.6
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_2.jpg",
+          "label": "111.20.882.00 Danfoss Gear Pump 6.0 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1558,
+      "type": "simple",
+      "name": "111.25.002.0A Danfoss Gear Pump 26.2 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250020a-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 640.791801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 529.58
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst.jpg",
+          "label": "111.25.002.0A Danfoss Gear Pump 26.2 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1559,
+      "type": "simple",
+      "name": "111.25.003.0A Danfoss Gear Pump 33.1 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250030a-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 649.092401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 536.44
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_1.jpg",
+          "label": "111.25.003.0A Danfoss Gear Pump 33.1 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1560,
+      "type": "simple",
+      "name": "111.25.003.0C Danfoss Gear Pump 33.1 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250030c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 649.092401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 536.44
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_2.jpg",
+          "label": "111.25.003.0C Danfoss Gear Pump 33.1 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1561,
+      "type": "simple",
+      "name": "111.25.004.0A Danfoss Gear Pump 37.9 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250040a-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 656.654901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 542.69
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_3.jpg",
+          "label": "111.25.004.0A Danfoss Gear Pump 37.9 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1562,
+      "type": "simple",
+      "name": "111.25.004.0C Danfoss Gear Pump 37.9 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250040c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 656.654901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 542.69
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_4.jpg",
+          "label": "111.25.004.0C Danfoss Gear Pump 37.9 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1563,
+      "type": "simple",
+      "name": "111.25.005.0A Danfoss Gear Pump 44.1 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250050a-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 667.266601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 551.46
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_5.jpg",
+          "label": "111.25.005.0A Danfoss Gear Pump 44.1 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1564,
+      "type": "simple",
+      "name": "111.25.005.0C Danfoss Gear Pump 44.1 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250050c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 667.266601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 551.46
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_6.jpg",
+          "label": "111.25.005.0C Danfoss Gear Pump 44.1 cc/rev - Picture similar to product "
+        }
+      ]
+    },
+    {
+      "id": 1565,
+      "type": "simple",
+      "name": "111.25.006.0A Danfoss Gear Pump 48.3 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250060a-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 678.410701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 560.67
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_7.jpg",
+          "label": "111.25.006.0A Danfoss Gear Pump 48.3 cc/rev SNP3NN - Picture similar to product "
+        }
+      ]
+    },
+    {
+      "id": 1566,
+      "type": "simple",
+      "name": "111.25.006.0C Danfoss Gear Pump 48.3 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250060c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 678.410701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 560.67
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_8.jpg",
+          "label": "111.25.006.0C Danfoss Gear Pump 48.3 cc/rev SNP3NN - Picture similar to product "
+        }
+      ]
+    },
+    {
+      "id": 1567,
+      "type": "simple",
+      "name": "111.25.007.0C Danfoss Gear Pump 55.1 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250070c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 686.711301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 567.53
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_9.jpg",
+          "label": "111.25.007.0C Danfoss Gear Pump 55.1 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1568,
+      "type": "simple",
+      "name": "111.25.032.0C Danfoss Gear Pump 26.2 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111250320c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 640.791801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 529.58
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_13.jpg",
+          "label": "111.25.032.0C Danfoss Gear Pump 26.2 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1569,
+      "type": "simple",
+      "name": "111.25.167.0A Danfoss Gear Pump 55.1 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111251670a-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 686.711301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 567.53
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_14.jpg",
+          "label": "111.25.167.0A Danfoss Gear Pump 55.1 cc/rev SNP3NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1584,
+      "type": "simple",
+      "name": "10102040 Danfoss Connector Kit",
+      "url": "https://webshop.hydrauvision.com/10102040-danfoss-connector-kit",
+      "price_info": {
+        "final_price": 25.034901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 20.69
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/5/3/5338_danfoss_connector_kit_10102040_-_1.jpg",
+          "label": "10102040 Danfoss Connector Kit - 1 - Photo Copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1605,
+      "type": "simple",
+      "name": "83091353 Danfoss Axial Piston Pump - 100 cc/rev - ER-L-100B-LS-26-20-NN-N-3-S1CP-A1N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83091353-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 4058.267401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3353.94
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_e_series_pump_tekst_1.jpg",
+          "label": "83091353 Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1606,
+      "type": "simple",
+      "name": "83099586 Danfoss Axial Piston Pump - 100 cc/rev - ER-R-100B-LS-26-20-NN-N-3-S1CP-A1N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83099586-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 4058.267401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3353.94
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_e_series_pump_tekst_2.jpg",
+          "label": "83099586 Danfoss Axial Piston Pump 100 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1607,
+      "type": "simple",
+      "name": "83065097 Danfoss Axial Piston Pump - 45 cc/rev - K2-R-045C-LS-21-20-NN-N-3-K2MF-A6N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83065097-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2426.933301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2005.73
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_k2_series_tekst.jpg",
+          "label": "83065097 Danfoss Axial Piston Pump 45 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1608,
+      "type": "simple",
+      "name": "83026001 Danfoss Axial Piston Pump - 51 cc/rev - JR-R-S51B-LS-20-20-NN-N-3-K4RE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83026001-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2792.486401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2307.84
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_3.jpg",
+          "label": "83026001 Danfoss Axial Piston Pump 51 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1609,
+      "type": "simple",
+      "name": "83026363 Danfoss Axial Piston Pump - 75 cc/rev - JR-R-S75C-LS-25-20-NN-N-3-S1BF-A2N-FFF-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83026363-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 3431.281701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2835.77
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_4.jpg",
+          "label": "83026363 Danfoss Axial Piston Pump 75 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1610,
+      "type": "simple",
+      "name": "83073386 Danfoss Axial Piston Pump - 130 cc/rev - D1P-130-L-A-TPSN-T-D4-N1-NN-NNN-350-20-NN-FS-FS-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83073386-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 6432.892401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 5316.44
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_d1p_series_pump_small.jpg",
+          "label": "83073386 Danfoss Axial Piston Pump 130 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1612,
+      "type": "simple",
+      "name": "503626 Danfoss Axial Piston Pump - 75 cc/rev - 90R075-CB-5-NN-80-S-3-C7-D-00-GBA-42-42-24-G005",
+      "url": "https://webshop.hydrauvision.com/503626-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 6850.076201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 5661.22
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_90_series_pumps_1.jpg",
+          "label": "503626 Danfoss Axial Piston Pump 75 cc/rev 90R075 - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1613,
+      "type": "simple",
+      "name": "80002881 Danfoss Axial Piston Pump - 74 cc/rev - FR-R-074B-BS-30-25-NN-N-3-S1B2-A1N-NNN-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/80002881-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 3618.492901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2990.49
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/0/107327_danfoss_axial_piston_pump_80002881_-_1_1.jpg",
+          "label": "80002881 Danfoss Axial Piston Pump 74 cc/rev - Picture copyright by Hydrauvision - 1"
+        }
+      ]
+    },
+    {
+      "id": 1614,
+      "type": "simple",
+      "name": "83075204 Danfoss Axial Piston Pump - 45 cc/rev - JR-R-S45B-AT-20-20-NN-N-3-K4RE-A8N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83075204-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2990.744901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2471.69
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_7.jpg",
+          "label": "83075204 Danfoss Axial Piston Pump 45 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1615,
+      "type": "simple",
+      "name": "83093051 Danfoss Axial Piston Pump - 45 cc/rev - MP1-P-45R-AM-NNN-MG8-C4-F-G4-S-D22-B-250-250-NN-N-28-C1-RAF-NNN-NNNN",
+      "url": "https://webshop.hydrauvision.com/83093051-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 4236.488301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3501.23
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_mp1_series_pumps.jpg",
+          "label": "83093051 Danfoss Axial Piston Pump 45 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1616,
+      "type": "simple",
+      "name": "11224630 Danfoss Control Kit",
+      "url": "https://webshop.hydrauvision.com/11224630-danfoss-control-kit",
+      "price_info": {
+        "final_price": 2041.487801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1687.18
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/1/115701_danfoss_d1p-npe2_control_kit_11224630_-_1.jpg",
+          "label": "11224630 Danfoss Control Kit (1)"
+        }
+      ]
+    },
+    {
+      "id": 1618,
+      "type": "simple",
+      "name": "11196157 Danfoss Control Kit",
+      "url": "https://webshop.hydrauvision.com/11196157-danfoss-control-kit",
+      "price_info": {
+        "final_price": 1460.445801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1206.98
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/1/117649_danfoss_control-kit_11196157_-_1.jpg",
+          "label": "11196157 Danfoss Control Kit (1)"
+        }
+      ]
+    },
+    {
+      "id": 1624,
+      "type": "simple",
+      "name": "080010 Sauer Danfoss SPV 15 - SGU90 Shaft Seal",
+      "url": "https://webshop.hydrauvision.com/080010-sauer-danfoss-shaft-seal",
+      "price_info": {
+        "final_price": 48.642001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 40.2
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1625,
+      "type": "simple",
+      "name": "9001310-0001 Sauer Danfoss SPV 15 Bearing",
+      "url": "https://webshop.hydrauvision.com/9001310-0001-sauer-danfoss-bearing",
+      "price_info": {
+        "final_price": 27.709001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 22.9
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1626,
+      "type": "simple",
+      "name": "9001465-0004 Sauer Danfoss SPV 18 Bearing",
+      "url": "https://webshop.hydrauvision.com/9001465-0004-sauer-danfoss-bearing",
+      "price_info": {
+        "final_price": 28.217201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 23.32
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1627,
+      "type": "simple",
+      "name": "509976 Sauer Danfoss SPV 20 Drive shaft spline",
+      "url": "https://webshop.hydrauvision.com/509976-sauer-danfoss-drive-shaft",
+      "price_info": {
+        "final_price": 758.742601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 627.06
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1628,
+      "type": "simple",
+      "name": "K03272 Sauer Danfoss SPV 20 Lever MCV104A ID2",
+      "url": "https://webshop.hydrauvision.com/k03272-sauer-danfoss-lever",
+      "price_info": {
+        "final_price": 482.293901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 398.59
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1629,
+      "type": "simple",
+      "name": "294298 Sauer Danfoss SPV 20 Shim for bearing",
+      "url": "https://webshop.hydrauvision.com/294298-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 9.728401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 8.04
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1630,
+      "type": "simple",
+      "name": "001818 Sauer Danfoss SPV 20-21 Retainer Ring",
+      "url": "https://webshop.hydrauvision.com/001818-sauer-danfoss-retainer-ring",
+      "price_info": {
+        "final_price": 9.583201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7.92
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1631,
+      "type": "simple",
+      "name": "9220419 Sauer Danfoss SPV 20 23 Servo Retainer",
+      "url": "https://webshop.hydrauvision.com/9220419-sauer-danfoss-servo-retainer",
+      "price_info": {
+        "final_price": 10.720601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 8.86
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1632,
+      "type": "simple",
+      "name": "9007300-1906 Sauer Danfoss SPV 20-23 Bolt",
+      "url": "https://webshop.hydrauvision.com/9007300-1906-sauer-danfoss-bolt",
+      "price_info": {
+        "final_price": 3.642101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3.01
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1633,
+      "type": "simple",
+      "name": "9801235 Sauer Danfoss SPV 20-23 Gasket Charge Pump",
+      "url": "https://webshop.hydrauvision.com/9801235-sauer-danfoss-gasket-charge-pump",
+      "price_info": {
+        "final_price": 3.509001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2.9
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1634,
+      "type": "simple",
+      "name": "9800916 Sauer Danfoss SPV 20-27 Lever Manual Servo",
+      "url": "https://webshop.hydrauvision.com/9800916-sauer-danfoss-lever",
+      "price_info": {
+        "final_price": 9.728401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 8.04
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1635,
+      "type": "simple",
+      "name": "9803340 Sauer Danfoss SPV 20-27 Servo Gasket",
+      "url": "https://webshop.hydrauvision.com/9803340-sauer-danfoss-servo-gasket",
+      "price_info": {
+        "final_price": 6.195201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 5.12
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1637,
+      "type": "simple",
+      "name": "003228 Sauer Danfoss SPV 21 Pressure Plate",
+      "url": "https://webshop.hydrauvision.com/003228-sauer-danfoss-pressure-plate",
+      "price_info": {
+        "final_price": 140.105901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 115.79
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1638,
+      "type": "simple",
+      "name": "605683 Sauer Danfoss SPV 21 Swash Plate",
+      "url": "https://webshop.hydrauvision.com/605683-sauer-danfoss-swash-plate",
+      "price_info": {
+        "final_price": 2128.547301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1759.13
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1639,
+      "type": "simple",
+      "name": "515476 Sauer Danfoss SPV 21 Shim for Bearing",
+      "url": "https://webshop.hydrauvision.com/515476-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 9.728401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 8.04
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1640,
+      "type": "simple",
+      "name": "003376 Sauer Danfoss SPV 21 Valve Plate CCW",
+      "url": "https://webshop.hydrauvision.com/003376-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 221.526801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 183.08
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1641,
+      "type": "simple",
+      "name": "003368 Sauer Danfoss SPV 21 Valve Plate CW",
+      "url": "https://webshop.hydrauvision.com/003368-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 221.526801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 183.08
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1642,
+      "type": "simple",
+      "name": "050609 Sauer Danfoss SPV 21 Bearing",
+      "url": "https://webshop.hydrauvision.com/050609-sauer-danfoss-bearing",
+      "price_info": {
+        "final_price": 176.696301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 146.03
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1644,
+      "type": "simple",
+      "name": "537712 Sauer Danfoss SPV 22 Drive Shaft Tapered K",
+      "url": "https://webshop.hydrauvision.com/537712-sauer-danfoss-drive-shaft",
+      "price_info": {
+        "final_price": 820.041201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 677.72
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1645,
+      "type": "simple",
+      "name": "362095 Sauer Danfoss SPV 22 Servo Sleeve FBA",
+      "url": "https://webshop.hydrauvision.com/362095-sauer-danfoss-servo-sleeve",
+      "price_info": {
+        "final_price": 804.395901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 664.79
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1646,
+      "type": "simple",
+      "name": "9510423-0003 Sauer Danfoss SPV 22 Shim for Bearing",
+      "url": "https://webshop.hydrauvision.com/9510423-0003-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 27.394401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 22.64
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1647,
+      "type": "simple",
+      "name": "520146 Sauer Danfoss SPV 22 Valve Plate CCW",
+      "url": "https://webshop.hydrauvision.com/520146-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 274.791001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 227.1
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1648,
+      "type": "simple",
+      "name": "520132 Sauer Danfoss SPV 22 Valve Plate CW",
+      "url": "https://webshop.hydrauvision.com/520132-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 231.993301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 191.73
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1649,
+      "type": "simple",
+      "name": "9006300-0062 Sauer Danfoss SPV 22-23 Retainer Ring",
+      "url": "https://webshop.hydrauvision.com/9006300-0062-sauer-danfoss-retainer-ring",
+      "price_info": {
+        "final_price": 3.714701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3.07
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1650,
+      "type": "simple",
+      "name": "013680 Sauer Danfoss SPV 22-23 Pin",
+      "url": "https://webshop.hydrauvision.com/013680-sauer-danfoss-pin",
+      "price_info": {
+        "final_price": 9.885701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 8.17
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1651,
+      "type": "simple",
+      "name": "9009625-2502 Sauer Danfoss SPV 22-25 Ring",
+      "url": "https://webshop.hydrauvision.com/9009625-2502-sauer-danfoss-ring",
+      "price_info": {
+        "final_price": 3.642101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3.01
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1652,
+      "type": "simple",
+      "name": "9802016 Sauer Danfoss SPV 22-25 Servo Piston Link",
+      "url": "https://webshop.hydrauvision.com/9802016-sauer-danfoss-servo-piston-link",
+      "price_info": {
+        "final_price": 38.865201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 32.12
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1653,
+      "type": "simple",
+      "name": "9510257 Sauer Danfoss SPV 22 Bearing",
+      "url": "https://webshop.hydrauvision.com/9510257-sauer-danfoss-bearing",
+      "price_info": {
+        "final_price": 65.001201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 53.72
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1654,
+      "type": "simple",
+      "name": "594671 Sauer Danfoss SPV 23 Servo Piston Link",
+      "url": "https://webshop.hydrauvision.com/594671-sauer-danfoss-servo-piston-link",
+      "price_info": {
+        "final_price": 70.288901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 58.09
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1655,
+      "type": "simple",
+      "name": "K03274 Sauer Danfoss SPV 23 Lever MCV104A",
+      "url": "https://webshop.hydrauvision.com/k03274-sauer-danfoss-lever",
+      "price_info": {
+        "final_price": 218.997901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 180.99
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1656,
+      "type": "simple",
+      "name": "751198 Sauer Danfoss SPV 23 Shim for Rear Bearing",
+      "url": "https://webshop.hydrauvision.com/751198-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 9.728401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 8.04
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1657,
+      "type": "simple",
+      "name": "9510422-0004 Sauer Danfoss SPV 23 Shim Kit for Bearing",
+      "url": "https://webshop.hydrauvision.com/9510422-0004-sauer-danfoss-shim-kit",
+      "price_info": {
+        "final_price": 12.463001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 10.3
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1658,
+      "type": "simple",
+      "name": "004333 Sauer Danfoss SPV 23 Valve Plate CW",
+      "url": "https://webshop.hydrauvision.com/004333-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 199.553201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 164.92
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1659,
+      "type": "simple",
+      "name": "050666 Sauer Danfoss SPV 23 Bearing",
+      "url": "https://webshop.hydrauvision.com/050666-sauer-danfoss-bearing",
+      "price_info": {
+        "final_price": 75.697601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 62.56
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1660,
+      "type": "simple",
+      "name": "010116 Sauer Danfoss SPV 24 Bolt Servo Sleeve",
+      "url": "https://webshop.hydrauvision.com/010116-sauer-danfoss-bolt-servo-sleeve",
+      "price_info": {
+        "final_price": 8.966101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7.41
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1661,
+      "type": "simple",
+      "name": "050369 Sauer Danfoss SPV 24 Seal Kit",
+      "url": "https://webshop.hydrauvision.com/050369-sauer-danfoss-seal-kit",
+      "price_info": {
+        "final_price": 50.578001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 41.8
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1662,
+      "type": "simple",
+      "name": "594689 Sauer Danfoss SPV 24 Servo Piston Link",
+      "url": "https://webshop.hydrauvision.com/594689-sauer-danfoss-servo-piston-link",
+      "price_info": {
+        "final_price": 188.058201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 155.42
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1663,
+      "type": "simple",
+      "name": "146878 Sauer Danfoss SPV 24 Manual Servo",
+      "url": "https://webshop.hydrauvision.com/146878-sauer-danfoss-manual-servo",
+      "price_info": {
+        "final_price": 2491.898201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2059.42
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1664,
+      "type": "simple",
+      "name": "010124 Sauer Danfoss SPV 24 Ring Servo Sleeve",
+      "url": "https://webshop.hydrauvision.com/010124-sauer-danfoss-ring-servo-sleeve",
+      "price_info": {
+        "final_price": 11.591801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 9.58
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1665,
+      "type": "simple",
+      "name": "9510423-0005 Sauer Danfoss SPV 24 Shim for Bearing",
+      "url": "https://webshop.hydrauvision.com/9510423-0005-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 48.896101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 40.41
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1666,
+      "type": "simple",
+      "name": "004903 Sauer Danfoss SPV 24 Valve Plate CCW",
+      "url": "https://webshop.hydrauvision.com/004903-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 572.124301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 472.83
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1667,
+      "type": "simple",
+      "name": "004895 Sauer Danfoss SPV 24 Valve Plate CW",
+      "url": "https://webshop.hydrauvision.com/004895-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 572.124301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 472.83
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1668,
+      "type": "simple",
+      "name": "9240076 Sauer Danfoss SPV 24-25 Servo Retainer",
+      "url": "https://webshop.hydrauvision.com/9240076-sauer-danfoss-servo-retainer",
+      "price_info": {
+        "final_price": 19.093801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 15.78
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1669,
+      "type": "simple",
+      "name": "9006300-0075 Sauer Danfoss SPV 24-25 Retainer Ring",
+      "url": "https://webshop.hydrauvision.com/9006300-0075-sauer-danfoss-retainer-ring",
+      "price_info": {
+        "final_price": 3.714701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3.07
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1670,
+      "type": "simple",
+      "name": "9004830-0008 Sauer Danfoss SPV 24-25 Pin",
+      "url": "https://webshop.hydrauvision.com/9004830-0008-sauer-danfoss-pin",
+      "price_info": {
+        "final_price": 46.185701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 38.17
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1671,
+      "type": "simple",
+      "name": "9007276-0011 Sauer Danfoss SPV 24-27 Bold",
+      "url": "https://webshop.hydrauvision.com/9007276-0011-sauer-danfoss-bold",
+      "price_info": {
+        "final_price": 3.642101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3.01
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1672,
+      "type": "simple",
+      "name": "9801604 Sauer Danfoss SPV 24-27 Gasket Charge Pump",
+      "url": "https://webshop.hydrauvision.com/9801604-sauer-danfoss-gasket-charge-pump",
+      "price_info": {
+        "final_price": 10.297101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 8.51
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1673,
+      "type": "simple",
+      "name": "054940 Sauer Danfoss SPV 25 Drive Shaft Spline",
+      "url": "https://webshop.hydrauvision.com/054940-sauer-danfoss-drive-shaft",
+      "price_info": {
+        "final_price": 1528.677701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1263.37
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1674,
+      "type": "simple",
+      "name": "047894 Sauer Danfoss SPV 25 Drive Shaft Spline",
+      "url": "https://webshop.hydrauvision.com/047894-sauer-danfoss-drive-shaft",
+      "price_info": {
+        "final_price": 1298.862401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1073.44
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1675,
+      "type": "simple",
+      "name": "005090 Sauer Danfoss SPV 25 Slipper Ret. Guide",
+      "url": "https://webshop.hydrauvision.com/005090-sauer-danfoss-slipper",
+      "price_info": {
+        "final_price": 173.453501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 143.35
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1676,
+      "type": "simple",
+      "name": "050401 Sauer Danfoss SPV 25 Seal Kit",
+      "url": "https://webshop.hydrauvision.com/050401-sauer-danfoss-seal-kit",
+      "price_info": {
+        "final_price": 57.753301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 47.73
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1677,
+      "type": "simple",
+      "name": "9250170 Sauer Danfoss SPV 25 Slipper Retainer",
+      "url": "https://webshop.hydrauvision.com/9250170-sauer-danfoss-slipper-retainer",
+      "price_info": {
+        "final_price": 400.292201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 330.82
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1678,
+      "type": "simple",
+      "name": "K03276 Sauer Danfoss SPV 25 Lever MCV104A ",
+      "url": "https://webshop.hydrauvision.com/k03276-sauer-danfoss-lever",
+      "price_info": {
+        "final_price": 256.265901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 211.79
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1679,
+      "type": "simple",
+      "name": "9802396 Sauer Danfoss SPV 25 Pin for Lever",
+      "url": "https://webshop.hydrauvision.com/9802396-sauer-danfoss-pin-for-lever",
+      "price_info": {
+        "final_price": 36.191101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 29.91
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1680,
+      "type": "simple",
+      "name": "9510423-0006 Sauer Danfoss SPV 25 Shim for Bearing",
+      "url": "https://webshop.hydrauvision.com/9510423-0006-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 47.722401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 39.44
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1681,
+      "type": "simple",
+      "name": "005207 Sauer Danfoss SPV 25 Spring Retain Ring",
+      "url": "https://webshop.hydrauvision.com/005207-sauer-danfoss-spring-retain-ring",
+      "price_info": {
+        "final_price": 41.987001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 34.7
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1682,
+      "type": "simple",
+      "name": "515517 Sauer Danfoss SPV 25 26 Servo Manual",
+      "url": "https://webshop.hydrauvision.com/515517-sauer-danfoss-servo-manual",
+      "price_info": {
+        "final_price": 813.797601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 672.56
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1683,
+      "type": "simple",
+      "name": "046300 Sauer Danfoss SPV 26 Bearing Plate",
+      "url": "https://webshop.hydrauvision.com/046300-sauer-danfoss-bearing-plate",
+      "price_info": {
+        "final_price": 1435.701301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1186.53
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1684,
+      "type": "simple",
+      "name": "611988 Sauer Danfoss SPV 26 Mounting Set Servo MCV140A",
+      "url": "https://webshop.hydrauvision.com/611988-sauer-danfoss-mounting-set",
+      "price_info": {
+        "final_price": 351.710701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 290.67
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1685,
+      "type": "simple",
+      "name": "9510423-0007 Sauer Danfoss SPV 26 Shim for Bearing",
+      "url": "https://webshop.hydrauvision.com/9510423-0007-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 59.592501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 49.25
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1686,
+      "type": "simple",
+      "name": "9510422-0007 Sauer Danfoss SPV 26 Shim Kit for Bearing",
+      "url": "https://webshop.hydrauvision.com/9510422-0007-sauer-danfoss-shim-kit-for-bearing",
+      "price_info": {
+        "final_price": 23.353001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 19.3
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1687,
+      "type": "simple",
+      "name": "9260356 Sauer Danfoss SPV 26 Valve Plate CW",
+      "url": "https://webshop.hydrauvision.com/9260356-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 840.018301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 694.23
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1688,
+      "type": "simple",
+      "name": "9510665-26-RF Sauer Danfoss SPV 26 Charge Pump CW",
+      "url": "https://webshop.hydrauvision.com/9510665-26-rf-sauer-danfoss-charge-pump",
+      "price_info": {
+        "final_price": 3509.000001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2900
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1689,
+      "type": "simple",
+      "name": "9510268 Sauer Danfoss SPV 26 Bearing Plate",
+      "url": "https://webshop.hydrauvision.com/9510268-sauer-danfoss-bearing-plate",
+      "price_info": {
+        "final_price": 265.026301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 219.03
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1690,
+      "type": "simple",
+      "name": "516260 Sauer Danfoss SPV 27 Drive Shaft Charge Pump",
+      "url": "https://webshop.hydrauvision.com/516260-sauer-danfoss-drive-shaft",
+      "price_info": {
+        "final_price": 694.890901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 574.29
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1692,
+      "type": "simple",
+      "name": "K03278 Sauer Danfoss SPV 27 Lever MCV104A",
+      "url": "https://webshop.hydrauvision.com/k03278-sauer-danfoss-lever",
+      "price_info": {
+        "final_price": 256.265901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 211.79
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1693,
+      "type": "simple",
+      "name": "611996 Sauer Danfoss SPV 27 Mounting Kit Servo",
+      "url": "https://webshop.hydrauvision.com/611996-sauer-danfoss-mounting-kit",
+      "price_info": {
+        "final_price": 469.322701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 387.87
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1694,
+      "type": "simple",
+      "name": "731422 Sauer Danfoss SPV 27 Servo Manual",
+      "url": "https://webshop.hydrauvision.com/731422-sauer-danfoss-servo-manual",
+      "price_info": {
+        "final_price": 813.797601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 672.56
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/5/0/5053_sauer_danfoss_servo_manual_731422_-_1.jpg",
+          "label": "731422 Sauer Danfoss SPV 27 Servo Manual - 1 - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1695,
+      "type": "simple",
+      "name": "9510423-0008 Sauer Danfoss SPV 27 Shim for Bearing",
+      "url": "https://webshop.hydrauvision.com/9510423-0008-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 95.481101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 78.91
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1696,
+      "type": "simple",
+      "name": "005520 Sauer Danfoss SPV 27 Shim Kit for Bearing",
+      "url": "https://webshop.hydrauvision.com/005520-sauer-danfoss-shim-kit-for-bearing",
+      "price_info": {
+        "final_price": 27.721101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 22.91
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1697,
+      "type": "simple",
+      "name": "651968 Sauer Danfoss SPV 27 Valve Plate CCW",
+      "url": "https://webshop.hydrauvision.com/651968-sauer-danfoss-valve-plate",
+      "price_info": {
+        "final_price": 1005.885101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 831.31
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1698,
+      "type": "simple",
+      "name": "9001465-0002 Sauer Danfoss SPV SMV 18 Bearing",
+      "url": "https://webshop.hydrauvision.com/9001465-0002-sauer-danfoss-bearing",
+      "price_info": {
+        "final_price": 24.006401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 19.84
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1699,
+      "type": "simple",
+      "name": "3103007-2 Sauer Danfoss SPV-SMF 18 Shim for Rear Bearing",
+      "url": "https://webshop.hydrauvision.com/3103007-2-sauer-danfoss-shim-for-bearing",
+      "price_info": {
+        "final_price": 5.856401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 4.84
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1700,
+      "type": "simple",
+      "name": "9510250 Sauer Danfoss SPV SMF 20 Rear Bearing Kit",
+      "url": "https://webshop.hydrauvision.com/9510250-sauer-danfoss-bearing-kit",
+      "price_info": {
+        "final_price": 279.401101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 230.91
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1701,
+      "type": "simple",
+      "name": "002642 Sauer Danfoss SPV-SMF 20 Slipper Ret. Guide",
+      "url": "https://webshop.hydrauvision.com/002642-sauer-danfoss-slipper",
+      "price_info": {
+        "final_price": 235.296601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 194.46
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1702,
+      "type": "simple",
+      "name": "002667 Sauer Danfoss SPV SMF 20 Slipper Retainer",
+      "url": "https://webshop.hydrauvision.com/002667-sauer-danfoss-slipper",
+      "price_info": {
+        "final_price": 101.579501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 83.95
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1703,
+      "type": "simple",
+      "name": "002501 Sauer Danfoss SPV-SMF 20 Bearing Bushing",
+      "url": "https://webshop.hydrauvision.com/002501-sauer-danfoss-bearing-bushing",
+      "price_info": {
+        "final_price": 9.667901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7.99
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1704,
+      "type": "simple",
+      "name": "049155 Sauer Danfoss SPV SMF 20 Cylinder Block",
+      "url": "https://webshop.hydrauvision.com/049155-sauer-danfoss-cylinder-block",
+      "price_info": {
+        "final_price": 1220.418101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1008.61
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1705,
+      "type": "simple",
+      "name": "9510251 Sauer Danfoss SPV SMF 20 21 Front Bearing Kit",
+      "url": "https://webshop.hydrauvision.com/9510251-sauer-danfoss-bearing-kit",
+      "price_info": {
+        "final_price": 126.033601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 104.16
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1706,
+      "type": "simple",
+      "name": "008821 Sauer Danfoss SPV-SMF 20-21-22 O-Ring",
+      "url": "https://webshop.hydrauvision.com/008821-sauer-danfoss-o-ring",
+      "price_info": {
+        "final_price": 8.978201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7.42
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1707,
+      "type": "simple",
+      "name": "000968 Sauer Danfoss SPV-SMF 20-21-22 O-Ring",
+      "url": "https://webshop.hydrauvision.com/000968-sauer-danfoss-o-ring",
+      "price_info": {
+        "final_price": 8.978201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7.42
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1708,
+      "type": "simple",
+      "name": "050591 Sauer Danfoss SPV SMF 21 Rear Bearing Kit",
+      "url": "https://webshop.hydrauvision.com/050591-sauer-danfoss-bearing-kit",
+      "price_info": {
+        "final_price": 40.946401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 33.84
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1711,
+      "type": "simple",
+      "name": "711309 Sauer Danfoss SPV SMF 21 Piston Kit",
+      "url": "https://webshop.hydrauvision.com/711309-sauer-danfoss-piston-kit",
+      "price_info": {
+        "final_price": 92.504501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 76.45
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1712,
+      "type": "simple",
+      "name": "511519 Sauer Danfoss SPV SMF 21 Piston Kit",
+      "url": "https://webshop.hydrauvision.com/511519-sauer-danfoss-piston-kit",
+      "price_info": {
+        "final_price": 2524.314101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2086.21
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1713,
+      "type": "simple",
+      "name": "014878 Sauer Danfoss SPV SMF 22 Cylinder Block",
+      "url": "https://webshop.hydrauvision.com/014878-sauer-danfoss-cylinder-block",
+      "price_info": {
+        "final_price": 1012.467501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 836.75
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1715,
+      "type": "simple",
+      "name": "008979 Sauer Danfoss SPV-SMF 23-24-25 O-Ring",
+      "url": "https://webshop.hydrauvision.com/008979-sauer-danfoss-o-ring",
+      "price_info": {
+        "final_price": 8.978201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7.42
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1716,
+      "type": "simple",
+      "name": "071860 Sauer Danfoss SPV SMF 23-24-25 O-Ring",
+      "url": "https://webshop.hydrauvision.com/071860-sauer-danfoss-o-ring",
+      "price_info": {
+        "final_price": 8.445801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 6.98
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1717,
+      "type": "simple",
+      "name": "711333 Sauer Danfoss SPV SMF 24 Piston",
+      "url": "https://webshop.hydrauvision.com/711333-sauer-danfoss-piston",
+      "price_info": {
+        "final_price": 103.152501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 85.25
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1718,
+      "type": "simple",
+      "name": "050690 Sauer Danfoss SPV SMF 25 Rear Bearing Kit",
+      "url": "https://webshop.hydrauvision.com/050690-sauer-danfoss-bearing-kit",
+      "price_info": {
+        "final_price": 253.991101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 209.91
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1719,
+      "type": "simple",
+      "name": "634923 Sauer Danfoss SPV SMF 25 Cylinder Block",
+      "url": "https://webshop.hydrauvision.com/634923-sauer-danfoss-cylinder-block",
+      "price_info": {
+        "final_price": 2420.000001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2000
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1720,
+      "type": "simple",
+      "name": "055434 Sauer Danfoss SPV SMF 26 Rear Bearing Kit",
+      "url": "https://webshop.hydrauvision.com/055434-sauer-danfoss-bearing-kit",
+      "price_info": {
+        "final_price": 270.193001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 223.3
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1721,
+      "type": "simple",
+      "name": "046243 Sauer Danfoss SPV SMF 26 Slipper Ret. Guide",
+      "url": "https://webshop.hydrauvision.com/046243-sauer-danfoss-slipper",
+      "price_info": {
+        "final_price": 792.404801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 654.88
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1722,
+      "type": "simple",
+      "name": "9260072 Sauer Danfoss SPV SMF 26 Slipper Guide",
+      "url": "https://webshop.hydrauvision.com/9260072-sauer-danfoss-slipper",
+      "price_info": {
+        "final_price": 422.713501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 349.35
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1723,
+      "type": "simple",
+      "name": "720136 Sauer Danfoss SPV-SMF 26 Piston",
+      "url": "https://webshop.hydrauvision.com/720136-sauer-danfoss-piston",
+      "price_info": {
+        "final_price": 187.719401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 155.14
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_smf_exploded_view.jpg",
+          "label": "Sauer Danfoss Series 20 SMF Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1724,
+      "type": "simple",
+      "name": "9510267 Sauer Danfoss SPV SMF 26 Front Bearing Kit",
+      "url": "https://webshop.hydrauvision.com/9510267-sauer-danfoss-bearing-kit",
+      "price_info": {
+        "final_price": 529.689601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 437.76
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1725,
+      "type": "simple",
+      "name": "050724 Sauer Danfoss SPV SMF 27 Rear Bearing Kit",
+      "url": "https://webshop.hydrauvision.com/050724-sauer-danfoss-bearing-kit",
+      "price_info": {
+        "final_price": 202.312001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 167.2
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1726,
+      "type": "simple",
+      "name": "585927 Sauer Danfoss SPV SMF 27 Bearing Plate",
+      "url": "https://webshop.hydrauvision.com/585927-sauer-danfoss-bearing-plate",
+      "price_info": {
+        "final_price": 940.254701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 777.07
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1727,
+      "type": "simple",
+      "name": "050732 Sauer Danfoss SPV SMF 27 Front Bearing Kit",
+      "url": "https://webshop.hydrauvision.com/050732-sauer-danfoss-bearing-kit",
+      "price_info": {
+        "final_price": 627.808501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 518.85
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_series_20_spv_exploded_view_1.jpg",
+          "label": "Sauer Danfoss Series 20 SPV Exploded View"
+        }
+      ]
+    },
+    {
+      "id": 1763,
+      "type": "simple",
+      "name": "Parker Piston Pump - 270 cc/rev - PV270R1L1T1NUPG",
+      "url": "https://webshop.hydrauvision.com/parker-piston-pump-pv270r1l1t1nupg",
+      "price_info": {
+        "final_price": 4235.000001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3500
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/1/118559_parker_plunger_pump_pv270r1l1t1nupg_-_1.jpg",
+          "label": "Parker Piston Pump PV270R - 270 cc/rev - PV Series (1) - Photo Copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1766,
+      "type": "simple",
+      "name": "Parker Piston Pump - 92 cc/rev - PV092R1K1T1NMM1",
+      "url": "https://webshop.hydrauvision.com/parker-piston-pump-pv092r1k1t1nmm1",
+      "price_info": {
+        "final_price": 8121.883001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 6712.3
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/3/6/36003_parker_plunger_pump_pv092r1k1t1nmm1_-_1.jpg",
+          "label": "Parker Piston Pump PV092R1K1T1NMM1 - 92 cc/rev (1) - PV092R - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1769,
+      "type": "simple",
+      "name": "Parker Piston Pump - 92 cc/rev - PV092R1E1T1NMFC",
+      "url": "https://webshop.hydrauvision.com/parker-piston-pump-pv092r1e1t1nmfc",
+      "price_info": {
+        "final_price": 12666.304201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 10468.02
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/121165_parker_piston_pump_pv092r1e1t1nmfc_-_1.jpg",
+          "label": "Parker Piston Pump PV092R1E1T1NMFC - 92 cc/rev (1) - PV092R - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1770,
+      "type": "simple",
+      "name": "Parker Piston Pump - 92 cc/rev - PV092L1E1T1NMFC",
+      "url": "https://webshop.hydrauvision.com/parker-piston-pump-pv092l1e1t1nmfc",
+      "price_info": {
+        "final_price": 9119.818401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7537.04
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/121168_parker_piston_pump_pv092l1e1t1nmfc_-_1.jpg",
+          "label": "Parker Piston Pump PV092L - PV092L1E1T1NMFC - 92 cc/rev (1) - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1771,
+      "type": "simple",
+      "name": "Parker Mounting Kit MK-PVBG3CMN41",
+      "url": "https://webshop.hydrauvision.com/parker-mounting-kit-mk-pvbg3cmn41",
+      "price_info": {
+        "final_price": 819.170001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 677
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/121166_parker_mounting_kit_mk-pvbg3cmn41.jpg",
+          "label": "Parker Mounting Kit MK-PVBG3CMN41 - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1775,
+      "type": "simple",
+      "name": "Parker Vane Pump TB 004 1R00 A101",
+      "url": "https://webshop.hydrauvision.com/parker-vane-pump-tb0041r00a101",
+      "price_info": {
+        "final_price": 2184.001601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1804.96
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/6/9/6982_parker_vane_pump_tb004_1r00_a101_-_1.jpg",
+          "label": "Parker Vane Pump TB 004 1R00 A101 (1)"
+        }
+      ]
+    },
+    {
+      "id": 1776,
+      "type": "simple",
+      "name": "Eaton Piston Pump PVWS 250 - 250 cc/rev - PVWS250M07R0001R01SVMASPC",
+      "url": "https://webshop.hydrauvision.com/eaton-piston-pump-hc806172000820",
+      "price_info": {
+        "final_price": 14520.242001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 12000.2
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/e/a/eaton_hydrokraft_piston_pump_open_loop.png",
+          "label": "Eaton Piston Pump PVWS 250 - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1777,
+      "type": "simple",
+      "name": "Bosch Rexroth Piston Pump A11VLO260 - 260 cc/rev - EP2G/11R-VPD12N00RH",
+      "url": "https://webshop.hydrauvision.com/bosch-rexroth-piston-pump-r902257980",
+      "price_info": {
+        "final_price": 23344.360601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 19292.86
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/b/o/bosch_rexroth_axial_piston_pump_a11v_l_o.jpg",
+          "label": "Bosch Rexroth Piston Pump A11VLO 260 - R902257980 - 260 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1778,
+      "type": "simple",
+      "name": "521037 Danfoss Axial Piston Pump - 180 cc/rev - 90R180-CB-5-NN-80-S-C-C8-J-00-NNN-42-42",
+      "url": "https://webshop.hydrauvision.com/521037-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 15413.294601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 12738.26
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_90_series_pumps_2.jpg",
+          "label": "521037 Danfoss Axial Piston Pump 90R180 - 180 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1786,
+      "type": "simple",
+      "name": "Daikin Piston Pump J-V 38SA 3BL X-95 - 38 cc/rev",
+      "url": "https://webshop.hydrauvision.com/daikin-piston-pump-jv38sa3blx95",
+      "price_info": {
+        "final_price": 1506.050701,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1244.67
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/2/8/28047_daikin_piston_pump_6070146_-_1.jpg",
+          "label": "Daikin Piston Pump J-V 38SA 3BL X-95 - 1 - Photo copyright: Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1789,
+      "type": "simple",
+      "name": "Danfoss Pump Housing 11001300 - 90P075",
+      "url": "https://webshop.hydrauvision.com/danfoss-pump-housing-11001300",
+      "price_info": {
+        "final_price": 833.060801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 688.48
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/3/3/33591_danfoss_pump_housing_500170_-_1.jpg",
+          "label": "Danfoss Pump Housing 11001300 - 90P075 - 1"
+        }
+      ]
+    },
+    {
+      "id": 1790,
+      "type": "simple",
+      "name": "Bosch Rexroth A11VLO 260 Piston Pump - 260 cc/rev - LRDS/11R-VPD12N00",
+      "url": "https://webshop.hydrauvision.com/bosch-rexroth-piston-pump-r902170281",
+      "price_info": {
+        "final_price": 21255.416601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 17566.46
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/3/7/37772_bosch_rexroth_piston_pump_r902170281_-_1.jpg",
+          "label": "Bosch Rexroth A11VLO 260 Piston Pump R902170281 - Photo copyright by Hydrauvision 1"
+        }
+      ]
+    },
+    {
+      "id": 1791,
+      "type": "simple",
+      "name": "Bosch Rexroth A11VLO 260 Piston Pump - 260 cc/rev - DRL/11R-NPD12N00V",
+      "url": "https://webshop.hydrauvision.com/bosch-rexroth-piston-pump-r902233773",
+      "price_info": {
+        "final_price": 23622.660601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 19522.86
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/b/o/bosch_rexroth_axial_piston_pump_a11v_l_o_1.jpg",
+          "label": "Bosch Rexroth A11 VLO 260 Piston Pump R902233773 - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1797,
+      "type": "simple",
+      "name": "Parker Gear Pump 7049121018 - 80 + 65 cc/rev",
+      "url": "https://webshop.hydrauvision.com/parker-gear-pump-7049121018",
+      "price_info": {
+        "final_price": 1007.325001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 832.5
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/4/2/42214_parker_gear_pump_7049121018_-_2.jpg",
+          "label": "Parker Gear Pump 7049121018 - 1 "
+        }
+      ]
+    },
+    {
+      "id": 1799,
+      "type": "simple",
+      "name": "Bosch Rexroth Internal Gear Pump R901147104 - 50 cc/rev - PGH4-3X/050 RE11VU2",
+      "url": "https://webshop.hydrauvision.com/bosch-rexroth-gear-pump-r901147104",
+      "price_info": {
+        "final_price": 1835.521601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1516.96
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/9/9/99351_bosch_rexroth_gear_pump_r901147104_-_1.jpg",
+          "label": "Bosch Rexroth Internal Gear Pump R901147104 - PGH4-3X/050 - 1"
+        }
+      ]
+    },
+    {
+      "id": 1801,
+      "type": "simple",
+      "name": "599670 Danfoss Piston Pump OPV1/038-R5Z-RQN-914-B1 PUMP OVERHAULED ",
+      "url": "https://webshop.hydrauvision.com/599670-danfoss-piston-pump",
+      "price_info": {
+        "final_price": 1191.729001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 984.9
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/0/105291_danfoss_piston_pump_599670_-_1.jpg",
+          "label": "599670 Danfoss Piston Pump - 38 cc/rev - 1"
+        }
+      ]
+    },
+    {
+      "id": 1811,
+      "type": "simple",
+      "name": "Denison Vane Pump T6CC-B17-B17-1R-19C111",
+      "url": "https://webshop.hydrauvision.com/denison-vane-pump-t6cc-b17-b17-1r-19c111",
+      "price_info": {
+        "final_price": 2202.200001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 1820
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/2/7/27042_veljan_vane_pump_t6cc-b17-b17-1r-19c111_-_2.jpg",
+          "label": "Denison Vane Pump T6CC-B17-B17-1R-19C111 - 1"
+        }
+      ]
+    },
+    {
+      "id": 1818,
+      "type": "simple",
+      "name": "Bosch Rexroth A11VLO 130 Piston Pump - 130 cc/rev - EP2S/10L-NZD 12N00H",
+      "url": "https://webshop.hydrauvision.com/bosch-rexroth-piston-pump-r902077512",
+      "price_info": {
+        "final_price": 8511.140001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7034
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/0/103652_bosch_rexroth_piston_pump_r902077512_-_1.jpg",
+          "label": "Bosch Rexroth A11VLO 130 Piston Pump R902077512 - 130 cc/rev - Photo copyright by Hydrauvision 1 - Used equipment, in good condition. "
+        }
+      ]
+    },
+    {
+      "id": 1826,
+      "type": "simple",
+      "name": "Bosch Rexroth Piston Pump 280 cc/rev – A15VSO 280 E2BHB/10MRVE4B41EU0000-0",
+      "url": "https://webshop.hydrauvision.com/bosch-rexroth-piston-pump-r902492472",
+      "price_info": {
+        "final_price": 11495.000001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 9500
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/123826_bosch_rexroth_piston_pump_r902492472_-_1.jpg",
+          "label": "Bosch Rexroth Piston Pump R902492472 - Direct available in stock - 280 cc/rev - A15VSO 280 - Photo copyright by Hydrauvision 1"
+        }
+      ]
+    },
+    {
+      "id": 1830,
+      "type": "simple",
+      "name": "Parker Mounting Kit MK-PVBG3K1541",
+      "url": "https://webshop.hydrauvision.com/parker-mounting-kit-mk-pvbg3k1541",
+      "price_info": {
+        "final_price": 819.170001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 677
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/121167_parker_mounting_kit_mk-pvbg3k1541.jpg",
+          "label": "Parker Mounting Kit MK-PVBG3K1541 SAE C 14 T - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1843,
+      "type": "simple",
+      "name": "Von Roll Motor / Pump TF50 - M84 - 865 cc/rev",
+      "url": "https://webshop.hydrauvision.com/von-roll-motor-pump-tf50-m84",
+      "price_info": {
+        "final_price": 30250.000001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 25000
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/127177_vonroll_motor_m84_tf50_-_1.jpg",
+          "label": "Von Roll Motor / Pump TF50 - M84 - Hydraulic Piston Motor / Hydraulic Piston Pump"
+        }
+      ]
+    },
+    {
+      "id": 1844,
+      "type": "simple",
+      "name": "Von Roll Motor / Pump TF63 - M148 - 1750 cc/rev",
+      "url": "https://webshop.hydrauvision.com/von-roll-motor-pump-tf63-m148",
+      "price_info": {
+        "final_price": 42350.000001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 35000
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/12178_vonroll_motor_m148_tf63_-_1.jpg",
+          "label": "Von Roll Motor / Pump TF63 - M148 - 1750 cc/rev - Hydraulic Piston Motor / Hydraulic Piston Pump "
+        }
+      ]
+    },
+    {
+      "id": 1845,
+      "type": "simple",
+      "name": "Von Roll Motor / Pump TF40 - P162 - 437 cc/rev",
+      "url": "https://webshop.hydrauvision.com/von-roll-motor-pump-tf40-p162",
+      "price_info": {
+        "final_price": 30250.000001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 25000
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/127181_vonroll_motor_p161_tf40_-_1.jpg",
+          "label": "Von Roll Motor / Pump TF40 - P161 - Hydraulic Piston Motor / Hydraulic Piston Pump (1.1)"
+        }
+      ]
+    },
+    {
+      "id": 1853,
+      "type": "simple",
+      "name": "111.25.026.0C Danfoss Gear Pump 44.1 cc/rev - SNP3NN",
+      "url": "https://webshop.hydrauvision.com/111-25-026-0c-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 666.964101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 551.21
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_3_tekst_16.jpg",
+          "label": "111.25.026.0C Danfoss Gear Pump 44.1 cc/rev - Picture similar to product "
+        }
+      ]
+    },
+    {
+      "id": 1855,
+      "type": "simple",
+      "name": "83108336 Danfoss D1P193 Axial Piston Pump - 193 cc/rev - D1P-193-R-A-TPE2-T-E4-Y2-NN-NNN-350-NN-NN-FS-FS-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83108336-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 9173.978001,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 7581.8
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_d1p_series_pump_small_1.jpg",
+          "label": "83108336 Danfoss Axial Piston Pump D1P193 - 193 cc/rev - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1857,
+      "type": "simple",
+      "name": "83111266 Danfoss Axial Piston Pump - 260 cc/rev - D1P-260-L-A-NPSN-T-E4-Y3-NN-NNN-300-30-NN-FS-FS-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/83111266-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 10763.772801,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 8895.68
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_d1p_series_pump_small_2.jpg",
+          "label": "83111266 Danfoss Axial Piston Pump - 260 cc/rev - D1P260 - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1875,
+      "type": "simple",
+      "name": "111.20.140.00 Danfoss Gear Pump 25.2 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112014000-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 324.316301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 268.03
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "111.20.140.00 Danfoss Gear Pump 25.2 cc/rev - SNP2NN"
+        }
+      ]
+    },
+    {
+      "id": 1889,
+      "type": "simple",
+      "name": "4510426 Danfoss Piston Conversion Kit to 100cc",
+      "url": "https://webshop.hydrauvision.com/4510426-danfoss-piston-kit",
+      "price_info": {
+        "final_price": 164.475301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 135.93
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/5/5/5543_danfoss_piston_kit_4510428_-_1_2.jpg",
+          "label": "4510426 Danfoss Piston Conversion Kit to 100cc"
+        }
+      ]
+    },
+    {
+      "id": 1900,
+      "type": "simple",
+      "name": "503630 Danfoss Axial Piston Pump - 100 cc/rev - 90-R-100-CB-5-NN-80-S-3-C7-E-00-GBA-42-42-24-G005",
+      "url": "https://webshop.hydrauvision.com/503630-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 7769.216401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 6420.84
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_90_series_pumps.jpg",
+          "label": "503630 Danfoss Axial Piston Pump - 100 cc/rev - 90-R-100-CB-5-NN-80-S-3-C7-E-00-GBA-42-42-24-G005"
+        }
+      ]
+    },
+    {
+      "id": 1901,
+      "type": "simple",
+      "name": "515782 Danfoss Axial Piston Pump - 100 cc/rev - 90-R-100-MA-5-NN-60-S-3-C7-F-C6-GBA-42-42-24",
+      "url": "https://webshop.hydrauvision.com/515782-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 7797.760301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 6444.43
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_90_series_pumps_3.jpg",
+          "label": "515782 Danfoss Axial Piston Pump - 100 cc/rev - 90-R-100-MA-5-NN-60-S-3-C7-F-C6-GBA-42-42-24"
+        }
+      ]
+    },
+    {
+      "id": 1902,
+      "type": "simple",
+      "name": "7005233S Danfoss Axial Piston Pump - 25 cc/rev - LR-R-025C-LS-20-20-NN-N-3-K2NF-A6N-AAA-NNN-NNN",
+      "url": "https://webshop.hydrauvision.com/7005233s-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2986.558301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2468.23
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_l_and_k_frame.png",
+          "label": "7005233S Danfoss Axial Piston Pump - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1907,
+      "type": "simple",
+      "name": "83064181 Danfoss Axial Piston Pump - 45 cc/rev - JR-R-S45B-LS-20-20-NN-N-3-C2RF-A8N-FFF-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83064181-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2549.300601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2106.86
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_12.jpg",
+          "label": "83064181 Danfoss Axial Piston Pump - 45 cc/rev - JR R S45B - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1908,
+      "type": "simple",
+      "name": "83113237 Danfoss Axial Piston Pump - 60 cc/rev - JR-L-S60B-LS-20-20-NN-N-3-S1NV-A2N-FFF-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83113237-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2783.157301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2300.13
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_13.jpg",
+          "label": "83113237 Danfoss Axial Piston Pump - 60 cc/rev - JR L S60B - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1909,
+      "type": "simple",
+      "name": "83025895 Danfoss Axial Piston Pump - 60 cc/rev - JR-R-S60B-LS-25-20-NN-N-3-S1RE-A2N-NNN-JJJ-NNN",
+      "url": "https://webshop.hydrauvision.com/83025895-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 2811.265601,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2323.36
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_45_j_series_tekst_14.jpg",
+          "label": "83025895 Danfoss Axial Piston Pump - 60 cc/rev - JR R S60B - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1944,
+      "type": "simple",
+      "name": "Parker Piston Pump F11-010-RB-CV-K-000-0000-00",
+      "url": "https://webshop.hydrauvision.com/parker-piston-pump-f11-010-rb-cv-k-000-0000-00",
+      "price_info": {
+        "final_price": 2881.143101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 2381.11
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "Parker Piston Pump F11-010-RB-CV-K-000-0000-00"
+        }
+      ]
+    },
+    {
+      "id": 1968,
+      "type": "simple",
+      "name": "Bosch Rexroth A4VG90 Piston Pump - 90cc/rev - A4VG90EP4D1/32L",
+      "url": "https://webshop.hydrauvision.com/bosch-rexroth-piston-pump-a4vg90ep4d1-32l",
+      "price_info": {
+        "final_price": 11274.429101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 9317.71
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/b/o/bosch_rexroth_axial_piston_pump_a11v_l_o_2.jpg",
+          "label": "Bosch Rexroth piston pump A4VG90EP4D1/32L"
+        }
+      ]
+    },
+    {
+      "id": 1971,
+      "type": "simple",
+      "name": "83095379 Danfoss Axial Piston Pump – H1-B-060-A-A-TA-DA-N-B-TB-VN-BN-N-A-05-NN-020-Z-16-NNN",
+      "url": "https://webshop.hydrauvision.com/83095379-danfoss-axial-piston-pump",
+      "price_info": {
+        "final_price": 4364.518401,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 3607.04
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/8/3/83095379.png",
+          "label": "83095379 Danfoss Axial Piston Pump – H1-B-060-A-A-TA-DA-N-B-TB-VN-BN-N-A-05-NN-020-Z-16-NNN"
+        }
+      ]
+    },
+    {
+      "id": 1976,
+      "type": "simple",
+      "name": "83070096 Danfoss Piston Pump - 260 cc/rev - D1P-260-R-A-TPE2-T-EA-Y3-E3-NNN-300-NN",
+      "url": "https://webshop.hydrauvision.com/83070096-danfoss-piston-pump",
+      "price_info": {
+        "final_price": 12535.660501,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 10360.05
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "83070096 Danfoss Piston Pump - 260 cc/rev - D1P-260-R-A-TPE2-T-EA-Y3-E3-NNN-300-NN"
+        }
+      ]
+    },
+    {
+      "id": 1978,
+      "type": "simple",
+      "name": "80006071 Danfoss Radial Piston Pump ER-R-147C-LS-25-25-NN-N-3-S1BP-A1N-AAA-N",
+      "url": "https://webshop.hydrauvision.com/80006071-danfoss-radial-piston-pump",
+      "price_info": {
+        "final_price": 6052.323201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 5001.92
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/placeholder/default/logo-hydrauvision-transparant-500px_1.png",
+          "label": "80006071 Danfoss Radial Piston Pump ER-R-147C-LS-25-25-NN-N-3-S1BP-A1N-AAA-N"
+        }
+      ]
+    },
+    {
+      "id": 1990,
+      "type": "simple",
+      "name": "111.20.220.00 Danfoss Gear Pump 14.00 cc/rev - SNP2NN",
+      "url": "https://webshop.hydrauvision.com/1112022000-danfoss-gear-pump",
+      "price_info": {
+        "final_price": 308.465301,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 254.93
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/d/a/danfoss_gear_pump_group_2_9_1.jpg",
+          "label": "111.20.220.00 Danfoss Gear Pump 14 cc/rev SNP2NN - Picture similar to product"
+        }
+      ]
+    },
+    {
+      "id": 1991,
+      "type": "simple",
+      "name": "O-Ring Assortment Box No. 3 – 90 Shore",
+      "url": "https://webshop.hydrauvision.com/o-ring-assortment-box-no-3-90-shore",
+      "price_info": {
+        "final_price": 68.014101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 56.21
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/124454_1.jpg",
+          "label": "O-Ring Assortment Box No. 3 – 90 Shore - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1992,
+      "type": "simple",
+      "name": "O-Ring Assortment Box No. 2 – 90 Shore",
+      "url": "https://webshop.hydrauvision.com/o-ring-assortment-box-no-1-90-shore-2",
+      "price_info": {
+        "final_price": 95.214901,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 78.69
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/124453_2.jpg",
+          "label": "O-Ring Assortment Box No. 2 – 90 Shore - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1994,
+      "type": "simple",
+      "name": "O-Ring Assortment Box No. 1 – 90 Shore",
+      "url": "https://webshop.hydrauvision.com/o-ring-assortment-box-no-3-90-shore-1",
+      "price_info": {
+        "final_price": 68.014101,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 56.21
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/124452_1.jpg",
+          "label": "O-Ring Assortment Box No. 1 – 90 Shore #1 - Photo copyright by Hydrauvision"
+        }
+      ]
+    },
+    {
+      "id": 1995,
+      "type": "simple",
+      "name": "O-Ring Assortment Box No. 4 – 90 Shore",
+      "url": "https://webshop.hydrauvision.com/o-ring-assortment-box-no-3-90-shore-4",
+      "price_info": {
+        "final_price": 125.622201,
+        "extension_attributes": {
+          "tax_adjustments": {
+            "final_price": 103.82
+          }
+        }
+      },
+      "images": [
+        {
+          "url": "https://webshop.hydrauvision.com/media/catalog/product/cache/2765542505660baab28ecd555e27366e/1/2/124455_1.jpg",
+          "label": "O-Ring Assortment Box No. 4 – 90 Shore - Photo copyright by Hydrauvision"
+        }
+      ]
+    }
+  ]
+}
