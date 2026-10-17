@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import B2BLeadForm from "@/components/B2BLeadForm";
 import StickyMobileBar from "@/components/StickyMobileBar";
+import { PumpBrandNavigation } from "@/components/catalog/PumpBrandNavigation";
 import { useTranslation } from "react-i18next";
 import MobileSiteMenu from "@/components/MobileSiteMenu";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -609,6 +610,7 @@ export default function Home() {
               Весь каталог <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
+          <PumpBrandNavigation source="home" className="mt-8" />
           <nav aria-label="Популярные категории запчастей" className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {popularCatalogCategories.map((item) => (
               <Link

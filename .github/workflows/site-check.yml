@@ -17,6 +17,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec vitest run client/src/lib/contactIntent.test.ts server/analyticsGate.test.ts
+      - run: pnpm exec vitest run client/src/lib/catalogLinks.test.ts client/src/lib/caseConversion.test.ts --pool=threads --poolOptions.threads.singleThread
       - run: pnpm build
       - run: node scripts/create-spa-route-copies.mjs
       - run: node scripts/create-case-route-copies.mjs

@@ -17,6 +17,10 @@ const catalogDir = path.join(outDir, 'catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
 const baseUrl = 'https://acahydraulic.kz';
 const minimumModelProducts = 8;
+const pumpBrandHighlights = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-pump-brand-highlights.json'), 'utf8'));
+const catalogContentRevisions = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-content-revisions.json'), 'utf8'));
+const hydrauvisionProducts = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-hydrauvision-products.json'), 'utf8'));
+const categoryCorrectionLedger = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-category-corrections.json'), 'utf8'));
 
 if (!fs.existsSync(indexPath) || !fs.existsSync(manifestPath)) {
   throw new Error('Build output or catalog data is missing. Run the catalog sync and build first.');
@@ -29,6 +33,48 @@ const products = Array.from({ length: manifest.chunkCount }, (_, index) => {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }).flat();
 const lastmod = String(manifest.importedAt || new Date().toISOString()).slice(0, 10);
+const pumpNavigationLastmod = Object.values(pumpBrandHighlights)
+  .map((brand) => brand.modifiedDate)
+  .filter(Boolean)
+  .sort()
+  .at(-1) || lastmod;
+const hydrauvisionCategoryIds = new Set(
+  hydrauvisionProducts.flatMap((product) => product.categories?.length
+    ? product.categories
+    : [product.category]),
+);
+const hydrauvisionBrandSlugs = new Set(
+  hydrauvisionProducts.flatMap((product) => extractBrandSlugs(landingSearchText(product))),
+);
+const correctedCategoryIds = new Set(
+  Object.values(categoryCorrectionLedger.corrections).flatMap((correction) => [
+    correction.previousCategory,
+    ...(correction.categories || [correction.category]),
+  ]),
+);
+
+function landingLastmod(page) {
+  const pumpBrandDate = page.type === 'brand'
+    ? pumpBrandHighlights[page.slug]?.modifiedDate
+    : undefined;
+  const pumpCategoryDate = page.type === 'category' && page.slug === 'hydraulic-pumps'
+    ? pumpNavigationLastmod
+    : undefined;
+  const hydrauvisionDate = (
+    (page.type === 'category' && hydrauvisionCategoryIds.has(page.slug))
+    || (page.type === 'brand' && hydrauvisionBrandSlugs.has(page.slug))
+  ) ? catalogContentRevisions.hydrauvisionProducts.modifiedDate : undefined;
+  const correctionDate = page.type === 'category' && correctedCategoryIds.has(page.slug)
+    ? catalogContentRevisions.categoryCorrections.modifiedDate
+    : undefined;
+  return [
+    lastmod,
+    pumpBrandDate,
+    pumpCategoryDate,
+    hydrauvisionDate,
+    correctionDate,
+  ].filter(Boolean).sort().at(-1);
+}
 const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
 const categorySelectionGuides = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-selection-guides.json'), 'utf8'));
 const brandSelectionGuides = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-brand-selection-guides.json'), 'utf8'));
@@ -80,6 +126,22 @@ function relatedLinks(current, type, matches) {
   <h2>Бренды и модели</h2><p>${brands.map((item) => `<a href="/catalog/brand/${item.slug}/">${escapeHtml(item.name)}</a>`).join(' · ')}</p><p>${models.map((item) => `<a href="/catalog/model/${item.slug}/">${escapeHtml(`${item.brand} ${item.label}`)}</a>`).join(' · ')}</p></section>`;
 }
 
+function pumpBrandNavigation(source) {
+  return `<section data-pump-brand-navigation="${escapeAttr(source)}"><p>Каталог по производителю насоса</p><h2>Bosch Rexroth и Danfoss / Sauer-Danfoss</h2><p>Откройте существующий каталог бренда и выберите насос по точному номеру. Исполнение подтверждаем по шильдику до заказа.</p><nav aria-label="Каталоги насосов Bosch Rexroth и Danfoss"><ul>${Object.values(pumpBrandHighlights).map(brand => `<li><a href="${escapeAttr(brand.pumpHref)}"><strong>${escapeHtml(brand.navigationTitle)}</strong></a> — ${escapeHtml(brand.navigationText)}</li>`).join('')}</ul></nav></section>`;
+}
+
+function brandPumpShowcase(slug) {
+  const brand = pumpBrandHighlights[slug];
+  if (!brand) return '';
+  const whatsappMessage = [
+    `Здравствуйте. Нужен подбор насоса ${brand.displayName} по шильдику.`,
+    'Модель техники: ____',
+    'Фото шильдика и подключений пришлю в чат.',
+    `Раздел: ${baseUrl}${brand.pumpHref}`,
+  ].join('\n');
+  return `<section data-brand-pump-showcase="${escapeAttr(slug)}"><p>Отдельные карточки насосов</p><h2>${escapeHtml(brand.featuredHeading)}</h2><p>${escapeHtml(brand.featuredIntro)}</p><p><a data-aca-contact-event="catalog_whatsapp_click" data-aca-contact-source="static_brand_pump_showcase" href="https://wa.me/77714177925?text=${encodeURIComponent(whatsappMessage)}">Отправить шильдик для подбора</a></p><div>${brand.featuredPumps.map(pump => `<article data-featured-pump-id="${escapeAttr(pump.id)}"><a href="${escapeAttr(pump.href)}"><img src="${escapeAttr(pump.imageUrl)}" alt="${escapeAttr(pump.title)}" width="640" height="480" loading="lazy"><strong>${escapeHtml(pump.title)}</strong><span>Артикул ${escapeHtml(pump.sku)}</span></a></article>`).join('')}</div><aside data-brand-related-catalog><h3>Другие типы продукции — отдельно от насосов</h3><p>Гидромоторы и комплектующие открываются отдельными фильтрами и не входят в подборку насосов выше.</p><nav aria-label="Гидромоторы и комплектующие ${escapeAttr(brand.displayName)}"><ul>${brand.relatedCatalog.map(item => `<li><a href="${escapeAttr(item.href)}">${escapeHtml(item.label)}</a></li>`).join('')}</ul></nav></aside></section>`;
+}
+
 function landingPage({ type, slug, title, description, intro, matches }) {
   const pathName = `/catalog/${type}/${slug}/`;
   const canonical = `${baseUrl}${pathName}`;
@@ -101,6 +163,8 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   });
   const seo = type === 'category' ? categorySeoContent[slug] : null;
   const guide = type === 'category' ? categorySelectionGuides[slug] : type === 'brand' ? brandSelectionGuides[slug] : null;
+  const brandNavigation = type === 'category' && slug === 'hydraulic-pumps' ? pumpBrandNavigation('hydraulic-pumps') : '';
+  const featuredBrandPumps = type === 'brand' ? brandPumpShowcase(slug) : '';
   const decisionGuide = guide ? `<section data-catalog-selection-guide><h2>${escapeHtml(guide.heading)}</h2><details><summary>Проверка перед заказом и полезные ссылки</summary><p>${escapeHtml(guide.text)}</p><nav aria-label="Подбор, диагностика и связанные запчасти"><ul>${guide.links.map(link => `<li><a href="${escapeAttr(link.href)}">${escapeHtml(link.label)}</a></li>`).join('')}</ul></nav></details></section>` : '';
   const selectionGuide = seo ? `<section data-category-selection><h2>Как подобрать запчасть без ошибки</h2><p>${escapeHtml(seo.selection)}</p><p>Также ищут: ${seo.queries.map(escapeHtml).join(' · ')}.</p>
   ${slug === 'hydraulic-pumps' ? '<nav aria-label="Подтверждённые кейсы поставки насосов"><a href="/cases/cat-432e-postavka-gidronasosa-267-2755/">CAT 432E: продажа насоса 267-2755</a> · <a href="/cases/xcmg-xz200-ustanovka-gidronasosa-803001730/">XCMG XZ200: поставка и установка насоса 803001730</a></nav>' : ''}
@@ -114,6 +178,8 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   <p>${escapeHtml(intro || description)}</p>
   <p>Найдено позиций: ${matches.length}. Цена, наличие и срок подтверждаются после проверки OEM-номера, модели, серийного номера и исполнения детали.</p>
   ${selectionGuide}
+  ${brandNavigation}
+  ${featuredBrandPumps}
   ${decisionGuide}
   <section><h2>Товары раздела</h2><ul>${itemList.map((product) => `<li><a href="/catalog/${product.handle}/">${escapeHtml(catalogProductName(product))}</a>${product.fitment ? ` — ${escapeHtml(product.fitment)}` : ''}</li>`).join('')}</ul></section>
   ${relatedLinks(slug, type, matches)}
@@ -137,7 +203,7 @@ function landingPage({ type, slug, title, description, intro, matches }) {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);
     return managed && !/\bdata-rh=/i.test(attrs) ? `<${name} data-rh="true"${attrs}>` : tag;
   });
-  return { html, pathName, count: matches.length };
+  return { html, pathName, count: matches.length, type, slug };
 }
 
 const productBrandSlugs = new Map(products.map((product) => [product.id, extractBrandSlugs(landingSearchText(product))]));
@@ -214,7 +280,7 @@ for (const [from, to] of Object.entries(catalogRedirects)) {
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${written.map((page) => `  <url><loc>${baseUrl}${page.pathName}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>${page.pathName.includes('/category/') ? '0.8' : '0.7'}</priority></url>`).join('\n')}
+${written.map((page) => `  <url><loc>${baseUrl}${page.pathName}</loc><lastmod>${landingLastmod(page)}</lastmod><changefreq>weekly</changefreq><priority>${page.pathName.includes('/category/') ? '0.8' : '0.7'}</priority></url>`).join('\n')}
 </urlset>\n`;
 fs.writeFileSync(path.join(outDir, 'sitemap-catalog-landings.xml'), sitemap);
 fs.writeFileSync(path.join(catalogDir, 'landing-pages.json'), JSON.stringify({

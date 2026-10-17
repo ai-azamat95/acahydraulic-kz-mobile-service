@@ -1,11 +1,15 @@
 import { SEO } from "@/components/SEO";
 import XcmgXz200PumpMedia from "@/components/XcmgXz200PumpMedia";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { buildCaseWhatsAppUrl, caseCatalogHref, trackCaseContactIntent } from "@/lib/caseConversion";
 import sale from "../../../../shared/xcmg-xz200-pump-sale.json";
 import { Link } from "wouter";
 
 const productPath = `/catalog/${sale.handle}/`;
-const message = `Здравствуйте! Нужен гидронасос XCMG 803001730 для буровой ГНБ. Прошу проверить совместимость и подготовить расчёт.\nМодель и серийный номер техники: \nГород: \nКоличество: \nНужен к дате: \nПришлю фото шильдика старого насоса и подключений.\nhttps://acahydraulic.kz${sale.casePath}/`;
+const whatsappHref = buildCaseWhatsAppUrl({
+  caseTitle: sale.caseTitle,
+  casePath: sale.casePath,
+  requestText: "Здравствуйте! Нужен гидронасос XCMG 803001730 для буровой ГНБ. Прошу проверить совместимость и подготовить расчёт.\nМодель и серийный номер техники: \nГород: \nКоличество: \nНужен к дате: \nПришлю фото шильдика старого насоса и подключений.",
+});
 
 const faq = [
   {
@@ -41,6 +45,8 @@ const videoSchema = {
 };
 
 export default function XcmgXz200PumpInstallation() {
+  const attributedProductPath = caseCatalogHref(productPath, "xcmg-xz200-pump-installation");
+  const pumpCatalogPath = caseCatalogHref("/catalog/category/hydraulic-pumps/", "xcmg-xz200-pump-installation");
   return (
     <main className="min-h-screen bg-[#101010] py-10 text-white md:py-16">
       <SEO
@@ -101,7 +107,7 @@ export default function XcmgXz200PumpInstallation() {
                 Для нового заказа подтверждаем наличие, исполнение, срок, доставку и гарантийные условия до оплаты.
               </p>
               <Link
-                href={productPath}
+                href={attributedProductPath}
                 className="mt-5 inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black hover:bg-[#eab000]"
               >
                 Карточка насоса 803001730
@@ -191,17 +197,18 @@ export default function XcmgXz200PumpInstallation() {
             Отправьте фото шильдика и подключения. Проверим номер и исполнение, затем подготовим расчёт насоса, доставки и установки.
           </p>
           <a
-            href={`https://wa.me/77714177925?text=${encodeURIComponent(message)}`}
+            href={whatsappHref}
+            data-aca-contact-managed="react"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCatalogEvent("case_whatsapp_click", { case_id: "xcmg-xz200-pump-installation", request_type: "pump-803001730" })}
+            onClick={() => trackCaseContactIntent({ caseId: "xcmg-xz200-pump-installation", caseModel: "XCMG XZ200", requestType: "pump-803001730" })}
             className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black hover:bg-[#eab000]"
           >
             Проверить насос по шильдику в WhatsApp
           </a>
           <nav className="mt-5 flex flex-wrap gap-x-6 gap-y-3" aria-label="Связанные страницы">
-            <Link href={productPath} className="text-[#FFC000] underline">Карточка 803001730</Link>
-            <Link href="/catalog/category/hydraulic-pumps/" className="text-[#FFC000] underline">Каталог гидронасосов</Link>
+            <Link href={attributedProductPath} className="text-[#FFC000] underline">Карточка 803001730</Link>
+            <Link href={pumpCatalogPath} className="text-[#FFC000] underline">Каталог гидронасосов</Link>
             <Link href="/services/gnb-repair/" className="text-[#FFC000] underline">Ремонт буровых ГНБ</Link>
             <Link href="/blog/zapchasti-po-nomeru-i-shildiku/" className="text-[#FFC000] underline">Как сфотографировать шильдик</Link>
           </nav>

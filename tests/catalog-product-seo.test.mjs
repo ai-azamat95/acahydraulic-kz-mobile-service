@@ -287,7 +287,7 @@ test('Russian catalogue pilot contains 100 canonical, evidence-backed product pa
 });
 
 test('unreviewed parts retain their names and use neutral selection instructions', () => {
-  const product = { handle: 'unreviewed-valve', title: 'Hydraulic Motor Flow Control Valve', category: 'hydraulic-motors', minPriceKzt: null };
+  const product = { handle: 'unreviewed-valve', title: 'Hydraulic Motor Flow Control Valve', category: 'control-valves', minPriceKzt: null };
   assert.equal(catalogProductName(product), product.title);
   assert.match(catalogProductSelection(product), /фотографию детали/);
   assert.doesNotMatch(catalogProductSelection(product), /тормозной клапан/);

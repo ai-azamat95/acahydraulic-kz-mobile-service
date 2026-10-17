@@ -22,7 +22,7 @@ import { useCatalogProduct } from "@/hooks/useCatalogProducts";
 import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import { cartItemFromProduct, preferredCartItem } from "@/lib/cart";
 
-import { catalogOfferHasConfirmedSupply, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductImageIsPlaceholder, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
+import { catalogOfferHasConfirmedSupply, catalogProductBrandLanding, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductImageIsPlaceholder, catalogProductIsHydraulicPump, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
 
 const WHATSAPP_NUMBER = "77714177925";
 const catalogCanonicalAliases: Record<string, string> = catalogCanonicalAliasesData;
@@ -167,6 +167,8 @@ export default function CatalogProduct() {
       : "";
   const productSeo = catalogProductSeo(product, language);
   const productCategories = catalogProductCategories(product);
+  const isHydraulicPump = catalogProductIsHydraulicPump(product);
+  const productBrandLanding = catalogProductBrandLanding(product);
   const canonicalHandle = catalogCanonicalAliases[product.handle] || product.handle;
   const isCanonicalProduct = canonicalHandle === product.handle;
   const seoDescription = productSeo.description;
@@ -491,7 +493,25 @@ export default function CatalogProduct() {
             <Link href="/delivery-and-returns/" className="mt-3 inline-flex min-h-11 items-center text-[#FFC000] underline">{language === "ru" ? "Доставка, оплата и возврат" : language === "kz" ? "Жеткізу, төлем және қайтару" : "Delivery, payment and returns"}</Link>
           </div>
         </section>
-        {product.category === "hydraulic-pumps" && <div className="mt-12"><PumpCaseTeaser /></div>}
+        {isHydraulicPump && <>
+          <section data-pump-product-navigation className="mt-12 rounded-lg border border-[#FFC000]/30 bg-[#151515] p-5 md:p-7" aria-labelledby="pump-navigation-title">
+              <h2 id="pump-navigation-title" className="text-xl font-bold">Бренд и подбор исполнения гидронасоса</h2>
+              <p className="mt-3 max-w-4xl leading-relaxed text-gray-300">Сверим полный артикул, шильдик, вал, фланец, порты, вращение и регулятор до подтверждения заказа. Брендовая ссылка показывается по сохранённому производителю или однозначной маркировке производителя насоса в названии; совместимость подтверждаем отдельно.</p>
+            <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {productBrandLanding && (
+                <Link href={`/catalog/brand/${productBrandLanding.slug}/`} className="inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">
+                    {productBrandLanding.matchSource === "manufacturer"
+                      ? `Насосы бренда ${product.brand || productBrandLanding.name}`
+                      : `Насосы бренда ${productBrandLanding.name} — по названию карточки`}
+                </Link>
+              )}
+              <button type="button" onClick={() => requestProduct("nameplate", "product_pump_selection")} className="inline-flex min-h-11 items-center font-bold text-[#FFC000] underline underline-offset-4">
+                Отправить шильдик для подбора
+              </button>
+            </div>
+          </section>
+          <div className="mt-12"><PumpCaseTeaser /></div>
+        </>}
       </main>
 
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#101010]/95 p-3 shadow-[0_-12px_30px_rgba(0,0,0,0.45)] backdrop-blur lg:hidden">

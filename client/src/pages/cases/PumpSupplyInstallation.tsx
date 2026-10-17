@@ -6,20 +6,25 @@ import { ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { PumpPhoto, SanyPumpVideo } from "@/components/PumpCaseMedia";
 import { pumpCasePath, pumpCaseTitle, pumpCaseDescription, pumpOptions, pumpCaseFaq } from "@/content/pumpCases";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { buildCaseWhatsAppUrl, caseCatalogHref, trackCaseContactIntent } from "@/lib/caseConversion";
 
 const focus = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFC000]";
 const container = "container mx-auto max-w-6xl px-4";
 function Contact({ source, children }: { source: string; children: React.ReactNode }) {
-  const message = `Здравствуйте! Нужен расчёт: ${source}. Модель техники: __. Город: __. Нужен только насос / насос с заменой: __. Пришлю фото шильдика и подключений.`;
-  return <a href={`https://wa.me/77714177925?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer"
-    onClick={() => trackCatalogEvent("case_whatsapp_click", { case_id: "pump-supply", request_type: source })}
+  const whatsappHref = buildCaseWhatsAppUrl({
+    caseTitle: pumpCaseTitle,
+    casePath: pumpCasePath,
+    requestText: `Здравствуйте! Нужен расчёт: ${source}. Модель техники: __. Город: __. Нужен только насос / насос с заменой: __. Пришлю фото шильдика и подключений.`,
+  });
+  return <a href={whatsappHref} data-aca-contact-managed="react" target="_blank" rel="noopener noreferrer"
+    onClick={() => trackCaseContactIntent({ caseId: "pump-supply", caseModel: "SANY SY365H / Hitachi ZX160W", requestType: source })}
     className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-[#FFC000] px-5 py-3 text-center font-bold text-black hover:bg-[#eab000] ${focus}`}>
     <MessageCircle className="h-5 w-5 shrink-0" aria-hidden="true" />{children}
   </a>;
 }
 
 export default function PumpSupplyInstallation() {
+  const allCatalogHref = caseCatalogHref("/catalog", "pump-supply");
   useEffect(() => {
     const target = document.getElementById(window.location.hash.slice(1));
     target?.scrollIntoView({ block: "start" });
@@ -32,7 +37,7 @@ export default function PumpSupplyInstallation() {
       schema={{ "@context": "https://schema.org", "@type": "VideoObject", name: "SANY SY365H: поставка и замена гидронасоса K5V160DT", description: "Реальный заказ ACA Hydraulic: насос, доставка, демонтаж старого насоса, установка нового и запуск экскаватора.", thumbnailUrl: ["https://acahydraulic.kz/media/pump-cases/sany-sy365h.webp"], contentUrl: "https://acahydraulic.kz/media/pump-cases/sany-pump-36s.mp4", uploadDate: "2026-09-17T00:00:00+05:00", duration: "PT36S", inLanguage: "ru" }} />
     <section className="border-b border-white/10 py-10 md:py-16">
       <div className={container}>
-        <Link href="/catalog" className={`${focus} mr-5 inline-block py-2 text-sm font-bold text-[#FFC000] underline`}>Каталог запчастей</Link>
+        <Link href={allCatalogHref} className={`${focus} mr-5 inline-block py-2 text-sm font-bold text-[#FFC000] underline`}>Каталог запчастей</Link>
         <Link href="/cases" className={`inline-block py-2 text-sm text-gray-400 underline ${focus}`}>Все кейсы ремонта</Link>
         <p className="mt-5 text-sm font-bold uppercase tracking-wider text-[#FFC000]">ACA Hydraulic · поставка и сервис по Казахстану</p>
         <h1 className="mt-4 max-w-4xl font-bebas text-4xl leading-tight sm:text-5xl md:text-7xl">Гидронасос — с подбором, доставкой и заменой</h1>
@@ -62,7 +67,7 @@ export default function PumpSupplyInstallation() {
             <PumpPhoto file="sany-installed.webp" alt="Насос в отсеке экскаватора SANY SY365H" caption="Насос на машине: кадр из видео работ на SANY." />
           </div>
           <p className="my-5 text-sm leading-relaxed text-gray-400">Это опыт работы с конкретным экскаватором. Для другого SANY SY365H исполнение насоса также нужно сверить по шильдику и подключениям.</p>
-          <Link href={catalogSearchHref("K5V160DT", "hydraulic-pumps")} className={`mr-5 inline-block py-3 font-bold text-[#FFC000] underline underline-offset-4 ${focus}`}>Найти K5V160DT в запчастях</Link>
+          <Link href={caseCatalogHref(catalogSearchHref("K5V160DT", "hydraulic-pumps"), "pump-supply")} className={`mr-5 inline-block py-3 font-bold text-[#FFC000] underline underline-offset-4 ${focus}`}>Найти K5V160DT в запчастях</Link>
           <Link href="/cases/sany-sy365h-gidravlika-na-goryachuyu" className={`inline-block py-2 text-[#FFC000] underline underline-offset-4 ${focus}`}>Подробнее о диагностике гидравлики SANY</Link>
         </div>
         <SanyPumpVideo />
@@ -76,7 +81,7 @@ export default function PumpSupplyInstallation() {
           <h2 className="mt-4 font-bebas text-4xl md:text-5xl">Hitachi ZX160W: клиент выбрал корейский HANDOK</h2>
           <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">Для заказа рассмотрели китайский и корейский варианты насоса. Клиент выбрал HANDOK, оплатил заказ и сейчас ожидает поставки. Ниже — фотографии выбранного насоса и варианты для расчёта.</p>
           <p className="mt-4 max-w-3xl leading-relaxed text-gray-400">Статус на 17 сентября 2026 года: насос заказан. Установка и запуск по этому заказу ещё не выполнены.</p>
-          <Link href={catalogSearchHref("ZX160W")} className={`mt-4 inline-block py-3 font-bold text-[#FFC000] underline underline-offset-4 ${focus}`}>Искать запчасти для ZX160W</Link>
+          <Link href={caseCatalogHref(catalogSearchHref("ZX160W"), "pump-supply")} className={`mt-4 inline-block py-3 font-bold text-[#FFC000] underline underline-offset-4 ${focus}`}>Искать запчасти для ZX160W</Link>
           <div className="mt-6"><Contact source="HANDOK для Hitachi ZX160W">Обсудить насос для моей техники</Contact></div>
         </div>
         <PumpPhoto file="handok-h5v80dtp.webp" alt="Насос HANDOK из материалов заказа для Hitachi ZX160W" caption="Фото выбранного насоса. Маркировка на шильдике: H5V80DTP-12T, Made in Korea." />
@@ -95,7 +100,7 @@ export default function PumpSupplyInstallation() {
             <p className="mt-2 text-sm text-gray-400">Под заказ · стоимость указанного насоса</p>
             <p className="my-5 flex-1 leading-relaxed text-gray-300">{option.detail}</p>
             <Contact source={option.name}>Проверить совместимость и расчёт</Contact>
-            <Link href={catalogSearchHref(option.id === "china-k5v80dtp" ? "K5V80DTP" : "HANDOK")} className={`mt-3 inline-flex min-h-11 items-center text-[#FFC000] underline underline-offset-4 ${focus}`}>Найти другие запчасти {option.id === "china-k5v80dtp" ? "K5V80DTP" : "HANDOK"}</Link>
+            <Link href={caseCatalogHref(catalogSearchHref(option.id === "china-k5v80dtp" ? "K5V80DTP" : "HANDOK"), "pump-supply")} className={`mt-3 inline-flex min-h-11 items-center text-[#FFC000] underline underline-offset-4 ${focus}`}>Найти другие запчасти {option.id === "china-k5v80dtp" ? "K5V80DTP" : "HANDOK"}</Link>
           </article>)}
         </div>
         <p className="mt-5 max-w-4xl text-sm leading-relaxed text-gray-400">Цены согласованы 17 сентября 2026 года. Комплектацию, итоговую стоимость, доставку, срок и состав работ подтверждаем в расчёте до оплаты. Эти цены не являются стоимостью ремонта под ключ.</p>

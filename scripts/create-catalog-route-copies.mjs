@@ -4,8 +4,12 @@ import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' }
 import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
 import phase2ProductCopy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
 import phase3ProductCopy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
+import pumpBrandHighlights from '../shared/catalog-pump-brand-highlights.json' with { type: 'json' };
+import catalogContentRevisions from '../shared/catalog-content-revisions.json' with { type: 'json' };
+import hydrauvisionProducts from '../shared/catalog-hydrauvision-products.json' with { type: 'json' };
+import categoryCorrectionLedger from '../shared/catalog-category-corrections.json' with { type: 'json' };
 import path from 'node:path';
-import { catalogProductSeo, catalogProductCategories, catalogProductImageIsPlaceholder, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
+import { catalogProductBrandLanding, catalogProductSeo, catalogProductCategories, catalogProductImageIsPlaceholder, catalogProductIsHydraulicPump, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
@@ -24,9 +28,30 @@ const products = Array.from({ length: manifest.chunkCount }, (_, index) => {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }).flat();
 const lastmod = String(manifest.importedAt || new Date().toISOString()).slice(0, 10);
+const pumpNavigationLastmod = Object.values(pumpBrandHighlights)
+  .map((brand) => brand.modifiedDate)
+  .filter(Boolean)
+  .sort()
+  .at(-1) || lastmod;
+const productRevisionLastmods = new Map([
+  ...hydrauvisionProducts.map((product) => [
+    String(product.id),
+    catalogContentRevisions.hydrauvisionProducts.modifiedDate,
+  ]),
+  ...Object.keys(categoryCorrectionLedger.corrections).map((id) => [
+    String(id),
+    catalogContentRevisions.categoryCorrections.modifiedDate,
+  ]),
+]);
 
 function productLastmod(product) {
-  return phase3ProductCopy[product.handle]?.modifiedDate || phase2ProductCopy[product.handle]?.modifiedDate || lastmod;
+  return [
+    lastmod,
+    phase2ProductCopy[product.handle]?.modifiedDate,
+    phase3ProductCopy[product.handle]?.modifiedDate,
+    productRevisionLastmods.get(String(product.id)),
+    catalogProductIsHydraulicPump(product) ? pumpNavigationLastmod : undefined,
+  ].filter(Boolean).sort().at(-1);
 }
 
 function escapeAttr(value) {
@@ -99,6 +124,8 @@ function productPage(product) {
   const isCanonicalProduct = canonicalHandle === product.handle;
   const productSeo = catalogProductSeo(product);
   const productCategories = catalogProductCategories(product);
+  const isHydraulicPump = catalogProductIsHydraulicPump(product);
+  const productBrandLanding = catalogProductBrandLanding(product);
   const title = `${productSeo.title} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
   const equipmentInquiry = product.category === 'construction-machinery' || product.category === 'attachments';
@@ -188,7 +215,7 @@ function productPage(product) {
   <p>Укажите количество, город и нужную дату. Совпадения только модели техники недостаточно: исполнение, комплектацию, цену и срок поставки подтверждаем до оплаты.</p></section>
   <p>Доступны оригинальные, OEM и проверенные аналоговые варианты. Конкретный вариант, наличие, срок доставки и гарантия подтверждаются после проверки.</p>
   <p><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_product_page" href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужна цена и срок на ${productSeo.name}.\nТехника: ____\n${selfUrl}\nФото шильдика пришлю в чате.`)}">Получить цену и срок</a></p>
-  ${product.category === 'hydraulic-pumps' ? `<nav aria-label="Статьи перед покупкой насоса"><ul><li><a href="/blog/k3v112dt-kak-podobrat-gidronasos/">Подбор K3V112DT</a></li><li><a href="/blog/remont-ili-zamena-gidronasosa/">Ремонт или замена гидронасоса</a></li><li><a href="/blog/k5v80dtp-handok-hitachi-zx160w/">K5V80DTP и HANDOK</a></li></ul></nav>` : ''}
+      ${isHydraulicPump ? `<section data-pump-product-navigation><h2>Бренд и подбор исполнения гидронасоса</h2><p>Сверим полный артикул, шильдик, вал, фланец, порты, вращение и регулятор до подтверждения заказа. Брендовая ссылка показывается по сохранённому производителю или однозначной маркировке производителя насоса в названии; совместимость подтверждаем отдельно.</p><nav aria-label="Бренд и подбор гидронасоса"><ul>${productBrandLanding ? `<li><a href="/catalog/brand/${productBrandLanding.slug}/">${productBrandLanding.matchSource === 'manufacturer' ? `Насосы бренда ${escapeHtml(product.brand || productBrandLanding.name)}` : `Насосы бренда ${escapeHtml(productBrandLanding.name)} — по названию карточки`}</a></li>` : ''}<li><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_pump_selection" href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужен подбор гидронасоса ${productSeo.name}.\nТехника: ____\n${selfUrl}\nФото шильдика пришлю в чате.`)}">Отправить шильдик для подбора</a></li></ul></nav><nav aria-label="Статьи перед покупкой насоса"><ul><li><a href="/blog/zapchasti-po-nomeru-i-shildiku/">Какие номера и фото нужны для подбора</a></li><li><a href="/blog/remont-ili-zamena-gidronasosa/">Ремонт или замена гидронасоса</a></li><li><a href="/cases/sany-sy365h-zamena-gidronasosa-video/">Видео: поставка, замена и запуск SANY SY365H</a></li></ul></nav></section>` : ''}
 </main>`;
 
   let html = indexHtml.replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');

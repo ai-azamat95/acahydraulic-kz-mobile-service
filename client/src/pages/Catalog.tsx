@@ -5,9 +5,11 @@ import catalogHomeSeo from "@shared/catalog-home-seo.json";
 import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import CatalogDirectory from "@/components/catalog/CatalogDirectory";
+import { BrandPumpShowcase } from "@/components/catalog/BrandPumpShowcase";
+import { PumpBrandNavigation } from "@/components/catalog/PumpBrandNavigation";
 import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/components/catalog/PumpSupplyOffers";
 import { pumpCasePath } from "@/content/pumpCases";
-import { catalogSearchHref } from "@/lib/catalogLinks";
+import { catalogBrandFilterHref, catalogCategoryParam, catalogSearchHref } from "@/lib/catalogLinks";
 import { catalogMatchesQuery } from "@/lib/catalogSearch";
 import { FormEvent, Fragment, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useParams, useSearch } from "wouter";
@@ -152,9 +154,8 @@ function catalogProgressLabel(loaded: number, total: number, language: CatalogLa
 
 type SearchMode = "part" | "oem" | "vin";
 
-function categoryFromUrl() {
-  if (typeof window === "undefined") return "";
-  const requestedCategory = new URLSearchParams(window.location.search).get("category") || "";
+function categoryFromSearch(search: string) {
+  const requestedCategory = catalogCategoryParam(search);
   return partCategories.some((item) => item.id === requestedCategory) ? requestedCategory : "";
 }
 
@@ -245,7 +246,8 @@ export default function Catalog() {
   const [partQuery, setPartQuery] = useState(urlQuery);
   const [brand, setBrand] = useState(routeBrand?.name || "");
   const [machineModel, setMachineModel] = useState(routeModel?.label || "");
-  const [category, setCategory] = useState(routeCategory || categoryFromUrl);
+  const searchCategory = categoryFromSearch(urlSearch);
+  const [category, setCategory] = useState(routeCategory || searchCategory);
   const [searchMode, setSearchMode] = useState<SearchMode>("part");
   const [supplyOption, setSupplyOption] = useState("");
   const [formError, setFormError] = useState("");
@@ -268,12 +270,12 @@ export default function Catalog() {
   const activeSearchMode = ui.searchModes.find((item) => item.id === searchMode) || ui.searchModes[0];
 
   useEffect(() => {
-    const nextCategory = routeCategory || (params.categoryId ? "" : categoryFromUrl());
+    const nextCategory = routeCategory || (params.categoryId ? "" : searchCategory);
     setCategory(nextCategory);
     setBrand(routeBrand?.name || "");
     setMachineModel(routeModel?.label || "");
     window.scrollTo(0, 0);
-  }, [params.brandSlug, params.categoryId, params.modelSlug, routeBrand?.name, routeCategory, routeModel?.label]);
+  }, [params.brandSlug, params.categoryId, params.modelSlug, routeBrand?.name, routeCategory, routeModel?.label, searchCategory]);
 
   useEffect(() => {
     const id = window.location.hash.slice(1);
@@ -400,7 +402,11 @@ export default function Catalog() {
     );
   }, [brand, category, deferredQuery, searchMode]);
 
-  const categoryLanding = catalogCategoryLandings.find((item) => item.id === category);
+  // A query-string category refines brand/model pages without replacing their
+  // canonical context. On the general catalogue it still opens the existing
+  // category results flow used by the filters.
+  const landingCategoryId = routeCategory || (!routeBrand && !routeModel ? category : "");
+  const categoryLanding = catalogCategoryLandings.find((item) => item.id === landingCategoryId);
   const categorySeo = categorySeoContent(categoryLanding?.id);
   const selectionGuide = categorySelectionGuide(categoryLanding?.id) || brandSelectionGuide(routeBrand?.slug);
   const landingPath = categoryLanding
@@ -510,9 +516,11 @@ export default function Catalog() {
     const submittedText = `${partQuery} ${machineModel}`.trim();
     const brandLanding = catalogBrandLandings.find((item) => item.name === brand);
     const querySuffix = submittedText ? `?q=${encodeURIComponent(submittedText)}` : "";
-    const destination = category
-      ? catalogSearchHref(submittedText, category)
-      : brandLanding
+    const destination = routeBrand
+      ? catalogBrandFilterHref(routeBrand.slug, submittedText, category)
+      : category
+        ? catalogSearchHref(submittedText, category)
+        : brandLanding
         ? `/catalog/brand/${brandLanding.slug}${querySuffix}`
         : catalogSearchHref(submittedText);
     setPartQuery(submittedText);
@@ -691,8 +699,12 @@ export default function Catalog() {
                           const nextCategory = event.target.value;
                           if (routeCategory && nextCategory !== routeCategory) loadComplete();
                           setCategory(nextCategory);
-                          setBrand("");
-                          resetPage();
+                          if (routeBrand) {
+                            navigate(catalogBrandFilterHref(routeBrand.slug, partQuery, nextCategory), { replace: true });
+                          } else {
+                            setBrand("");
+                            resetPage();
+                          }
                         }}
                         className="min-h-11 min-w-0 rounded border border-white/20 bg-[#181818] px-2 text-sm text-white focus:border-[#FFC000] focus:outline-none"
                       >
@@ -900,8 +912,10 @@ export default function Catalog() {
           })}
           {isLandingPage && activeSection && <nav className="aca-sibling-categories" aria-label={activeSection[language]}>
             {activeSection.id === "engines" && <Link href="/parts/engines-complete/">{completeEngineCategoryCopy[language].title}</Link>}
-            {activeSection.categories.map(id => partCategories.find(item => item.id === id)!).map(item => <Link key={item.id} href={catalogSearchHref(partQuery, item.id)} aria-current={category === item.id ? "page" : undefined}>{item[language]}</Link>)}
+            {activeSection.categories.map(id => partCategories.find(item => item.id === id)!).map(item => <Link key={item.id} href={routeBrand ? catalogBrandFilterHref(routeBrand.slug, partQuery, item.id) : catalogSearchHref(partQuery, item.id)} aria-current={category === item.id ? "page" : undefined}>{item[language]}</Link>)}
           </nav>}
+          {categoryLanding?.id === "hydraulic-pumps" && <PumpBrandNavigation source="hydraulic-pumps" className="mt-6" />}
+          {routeBrand && <BrandPumpShowcase brandSlug={routeBrand.slug} activeCategory={category} />}
           {!isLandingPage && (
             <aside className="aca-mobile-promos" aria-label={ui.promoTitle}>
               <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ui.promos[0].text)}`} target="_blank" rel="noopener noreferrer" aria-label={ui.promos[0].text}>

@@ -3,6 +3,7 @@ import path from 'node:path';
 
 import { extractFitment } from './lib/catalog-fitment.mjs';
 import { catalogImageExclusionReason, isExcludedCatalogImage } from './lib/catalog-image-hygiene.mjs';
+import { correctCatalogProductCategories, reviewedCategorySourceProducts, reviewedPumpSourceProducts } from '../shared/catalog-category-corrections.mjs';
 
 const SOURCE_ORIGIN = 'https://sinocmp.com';
 const KAZAKHSTAN_MARKET_COOKIE = 'localization=KZ; _shopify_country=KZ; cart_currency=KZT';
@@ -103,7 +104,7 @@ function strictCategorySourceProducts(category, collectionHandle, categoryCollec
   const products = collection?.products || [];
 
   if (category === 'fuel-common-rails') {
-    return products.filter((product) => !CURATED_COMMON_RAIL_INJECTOR_IDS.has(String(product.id)));
+    return reviewedCategorySourceProducts(category, products.filter((product) => !CURATED_COMMON_RAIL_INJECTOR_IDS.has(String(product.id))), categoryCollections);
   }
 
   if (category === 'fuel-injectors') {
@@ -111,10 +112,10 @@ function strictCategorySourceProducts(category, collectionHandle, categoryCollec
     const curatedInjectors = (commonRailCollection?.products || []).filter((product) =>
       CURATED_COMMON_RAIL_INJECTOR_IDS.has(String(product.id)),
     );
-    return [...products, ...curatedInjectors];
+    return reviewedCategorySourceProducts(category, [...products, ...curatedInjectors], categoryCollections);
   }
 
-  return products;
+  return reviewedCategorySourceProducts(category, products, categoryCollections);
 }
 
 async function fetchJson(url, attempt = 1) {
@@ -424,7 +425,7 @@ function normalizeProduct(
   const salePrices = variants.map((variant) => variant.priceKzt).filter(Number.isFinite);
   const categories = [...new Set([category, ...(strictCategoryMembershipsByProductId.get(String(product.id)) || [])])];
   const gallery = publicProductGallery(product, categories);
-  return {
+  return correctCatalogProductCategories({
     id: String(product.id),
     handle: publicHandle(product.handle, product.id),
     title,
@@ -441,7 +442,7 @@ function normalizeProduct(
     gallery,
     variants,
     chunk: page,
-  };
+  });
 }
 
 function writeJson(fileName, data) {
@@ -653,7 +654,7 @@ async function fetchCategoryCollections() {
   return results;
 }
 
-function verifyPumpImport(sourceProducts, importedProducts, collectionCounts) {
+function verifyPumpImport(sourceProducts, importedProducts, collectionCounts, sourceCollectionCounts = collectionCounts) {
   const failures = [];
   let exactTitleMatches = 0;
   let exactSkuMatches = 0;
@@ -714,7 +715,9 @@ function verifyPumpImport(sourceProducts, importedProducts, collectionCounts) {
 
   const report = {
     checkedAt: new Date().toISOString(),
+    // Reviewed publication groups differ from erroneous raw collection tags.
     collections: collectionCounts,
+    sourceCollections: sourceCollectionCounts,
     uniqueSourceProducts: sourceProducts.size,
     importedProducts: importedProducts.size,
     exactTitleAndHandleMatches: exactTitleMatches,
@@ -1005,15 +1008,14 @@ async function run() {
   }
 
   const pumpCollections = categoryCollections.filter(({ handle }) => PUMP_COLLECTIONS.includes(handle)).map(({ handle, products }) => [handle, products]);
-  const collectionCounts = Object.fromEntries(pumpCollections.map(([handle, products]) => [handle, products.length]));
+  const reviewedPumps = reviewedPumpSourceProducts(pumpCollections, product => detectCategory(product, collectionCategoryByProductId));
+  const collectionCounts = reviewedPumps.collections;
   const sourcePumpProducts = new Map();
-  for (const [, products] of pumpCollections) {
-    for (const product of products) {
+  for (const product of reviewedPumps.products) {
       sourcePumpProducts.set(
         String(product.id),
         pumpSourceSnapshot(product, collectionCategoryByProductId, strictCategoryMembershipsByProductId),
       );
-    }
   }
   const pumpProductIds = new Set(sourcePumpProducts.keys());
   console.log(`Supplier pump collections: ${pumpProductIds.size} unique products`);
@@ -1109,7 +1111,7 @@ async function run() {
   writeJson('product-map.json', productMap);
   const catalogAudit = verifyCatalogImport(sourceCatalogProducts, importedCatalogProducts, marketCurrency, expectedPublishedProducts);
   writeJson('catalog-import-audit.json', catalogAudit);
-  const pumpAudit = verifyPumpImport(sourcePumpProducts, importedPumpProducts, collectionCounts);
+  const pumpAudit = verifyPumpImport(sourcePumpProducts, importedPumpProducts, collectionCounts, reviewedPumps.sourceCollections);
   writeJson('pump-import-audit.json', pumpAudit);
   const strictCategoryAudit = verifyStrictCategoryImports(categoryCollections, importedCatalogProducts);
   writeJson('strict-category-import-audit.json', strictCategoryAudit);

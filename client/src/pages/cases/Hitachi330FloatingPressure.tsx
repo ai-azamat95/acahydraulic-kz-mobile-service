@@ -2,9 +2,17 @@ import { Link } from "wouter";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, CheckCircle2, ExternalLink, Gauge, MessageCircle, Phone, PlayCircle, Waves } from "lucide-react";
+import { buildCaseWhatsAppUrl, trackCaseContactIntent } from "@/lib/caseConversion";
 
 export default function Hitachi330FloatingPressure() {
   const videoUrl = "https://www.tiktok.com/@acaservice01/video/7529938314011380997";
+  const casePath = "/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami";
+  const caseModel = "Hitachi 330-5G";
+  const whatsappHref = buildCaseWhatsAppUrl({
+    caseTitle: `${caseModel} — плавает давление, стрела идёт рывками`,
+    casePath,
+    requestText: "Здравствуйте! Давление гидросистемы нестабильно, техника работает рывками. Нужна консультация по диагностике.",
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white pt-20">
@@ -12,7 +20,7 @@ export default function Hitachi330FloatingPressure() {
         title="Hitachi 330-5G: плавает давление и стрела идёт рывками | ACA Hydraulic"
         description="Реальный выездной ремонт Hitachi 330-5G: машина медленная, давление гидросистемы нестабильное, стрела поднимается рывками. Диагностика и ремонт на объекте, видео процесса."
         keywords="Hitachi 330 5G ремонт, Hitachi плавает давление, стрела поднимается рывками, ремонт гидравлики Hitachi, диагностика Hitachi Казахстан"
-        canonical="/cases/hitachi-330-5g-plavaet-davlenie-strela-ryvkami"
+        canonical={casePath}
       />
 
       <main>
@@ -54,11 +62,11 @@ export default function Hitachi330FloatingPressure() {
               <div className="bg-[#141414] border border-[#FFC000]/30 rounded-xl p-6 md:p-8">
                 <h2 className="font-bebas text-3xl mb-4">Реальный ремонт на видео</h2>
                 <p className="text-gray-400 mb-6">Этот ролик Hitachi 330-5G набрал более 111 000 просмотров и привёл реальные переходы в профиль и телефонные обращения.</p>
+              <Button asChild className="bg-[#FFC000] hover:bg-[#eab000] text-black h-12 px-6 font-bold">
                 <a href={videoUrl} target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-[#FFC000] hover:bg-[#eab000] text-black h-12 px-6 font-bold">
                     <PlayCircle className="w-5 h-5 mr-2"/> Смотреть Hitachi 330-5G <ExternalLink className="w-4 h-4 ml-2"/>
-                  </Button>
                 </a>
+              </Button>
               </div>
 
               <div>
@@ -74,10 +82,14 @@ export default function Hitachi330FloatingPressure() {
               <div className="text-xs uppercase tracking-widest text-gray-500 mb-2">Выездная диагностика</div>
               <div className="font-bebas text-2xl text-[#FFC000] mb-3">Стоимость согласуем до выезда</div>
               <p className="text-sm text-gray-400 leading-relaxed mb-6">Стоимость зависит от города, модели техники и характера неисправности. Ремонт и запчасти рассчитываются отдельно после диагностики.</p>
-              <Link href="/contacts"><Button className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 font-bold mb-3">Отправить данные техники</Button></Link>
-              <a href="https://wa.me/77714177925?text=Hitachi%20330-5G%20плавает%20давление%2C%20стрела%20идёт%20рывками" target="_blank" rel="noopener noreferrer">
-                <Button className="w-full bg-transparent border border-white/20 hover:border-[#25D366] h-12"><MessageCircle className="w-5 h-5 mr-2"/>WhatsApp</Button>
-              </a>
+              <Button asChild className="w-full bg-[#FFC000] hover:bg-[#eab000] text-black h-12 font-bold mb-3">
+                <Link href="/contacts">Отправить данные техники</Link>
+              </Button>
+              <Button asChild className="w-full bg-transparent border border-white/20 hover:border-[#25D366] h-12">
+                <a href={whatsappHref} data-aca-contact-managed="react" target="_blank" rel="noopener noreferrer" onClick={() => trackCaseContactIntent({ caseId: "hitachi-330-5g-floating-pressure", caseModel, requestType: "diagnostics" })}>
+                  <MessageCircle className="w-5 h-5 mr-2"/>WhatsApp
+                </a>
+              </Button>
               <a href="tel:+77714177925" className="mt-4 flex items-center justify-center gap-2 text-[#FFC000] font-bold"><Phone className="w-4 h-4"/>+7 (771) 417-79-25</a>
             </aside>
           </div>
@@ -86,7 +98,9 @@ export default function Hitachi330FloatingPressure() {
         <section className="py-12 border-t border-white/10 bg-[#111]">
           <div className="container mx-auto px-4 max-w-5xl flex items-center justify-between gap-4 flex-wrap">
             <div><div className="font-bebas text-3xl">Другие реальные ремонты</div><p className="text-gray-500">Смотрите диагностику и результат на настоящей технике.</p></div>
-            <Link href="/projects"><Button className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black">Все видеокейсы</Button></Link>
+            <Button asChild className="bg-transparent border border-[#FFC000] text-[#FFC000] hover:bg-[#FFC000] hover:text-black">
+              <Link href="/projects">Все видеокейсы</Link>
+            </Button>
           </div>
         </section>
       </main>

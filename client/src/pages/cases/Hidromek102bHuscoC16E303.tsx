@@ -1,11 +1,15 @@
 import { SEO } from "@/components/SEO";
 import Hidromek102bHuscoMedia from "@/components/Hidromek102bHuscoMedia";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { buildCaseWhatsAppUrl, caseCatalogHref, trackCaseContactIntent } from "@/lib/caseConversion";
 import repairCase from "../../../../shared/husco-hidromek-102b-case.json";
 import { Link } from "wouter";
 
 const productPath = `/catalog/${repairCase.handle}/`;
-const whatsappMessage = `Здравствуйте! Нужен гидрораспределитель HUSCO C16E303 для HIDROMEK HMK 102B. Прошу проверить исполнение и подготовить расчёт.\nМодель и серийный номер машины: \nМаркировка старого распределителя: \nГород: \nКоличество: \nНужен к дате: \nПришлю фото шильдика, портов и разъёмов.\nhttps://acahydraulic.kz${repairCase.casePath}/`;
+const whatsappHref = buildCaseWhatsAppUrl({
+  caseTitle: repairCase.caseTitle,
+  casePath: repairCase.casePath,
+  requestText: "Здравствуйте! Нужен гидрораспределитель HUSCO C16E303 для HIDROMEK HMK 102B. Прошу проверить исполнение и подготовить расчёт.\nМодель и серийный номер машины: \nМаркировка старого распределителя: \nГород: \nКоличество: \nНужен к дате: \nПришлю фото шильдика, портов и разъёмов.",
+});
 
 const faq = [
   {
@@ -41,6 +45,7 @@ const videoSchema = {
 };
 
 export default function Hidromek102bHuscoC16E303() {
+  const attributedProductPath = caseCatalogHref(productPath, "hidromek-102b-husco-c16e303");
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#101010] py-10 text-white md:py-16">
       <SEO
@@ -89,7 +94,7 @@ export default function Hidromek102bHuscoC16E303() {
             <div className="mt-7 rounded-lg border border-[#FFC000]/30 bg-[#181818] p-6">
               <p className="font-bold text-[#FFC000]">Цена и наличие нового заказа — по запросу</p>
               <p className="mt-3 leading-relaxed text-gray-300">Стоимость завершённого заказа не публикуем. Для нового заказа отдельно подтверждаем точное исполнение, цену, наличие, срок, доставку и состав монтажных работ.</p>
-              <Link href={productPath} className="mt-5 inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black">
+              <Link href={attributedProductPath} className="mt-5 inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black">
                 Карточка HUSCO C16E303
               </Link>
             </div>
@@ -141,10 +146,11 @@ export default function Hidromek102bHuscoC16E303() {
           <h2 className="text-3xl font-bold">Нужен HUSCO C16E303 для HIDROMEK 102B?</h2>
           <p className="mt-3 max-w-3xl leading-relaxed">Пришлите шильдик, фото портов и разъёмов. Проверим исполнение и подготовим отдельный расчёт на распределитель, доставку и установку.</p>
           <a
-            href={`https://wa.me/77714177925?text=${encodeURIComponent(whatsappMessage)}`}
+            href={whatsappHref}
+            data-aca-contact-managed="react"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCatalogEvent("case_whatsapp_click", { case_id: "hidromek-102b-husco-c16e303", request_type: "control-valve-c16e303" })}
+            onClick={() => trackCaseContactIntent({ caseId: "hidromek-102b-husco-c16e303", caseModel: "HIDROMEK HMK 102B", requestType: "control-valve-c16e303" })}
             className="mt-6 inline-flex min-h-12 items-center rounded bg-black px-5 py-3 font-bold text-white"
           >
             Отправить данные в WhatsApp

@@ -134,7 +134,12 @@ for (const [alias, canonical] of Object.entries(catalogCanonicalAliases)) {
 for (const [handle, content] of Object.entries(phase3ProductCopy)) {
   const block = sitemap.match(new RegExp(`<url>\\s*<loc>https://acahydraulic\\.kz/catalog/${handle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/</loc>[\\s\\S]*?</url>`))?.[0];
   assert(block, `${handle}: phase-three product missing from sitemap`);
-  assert(block.includes(`<lastmod>${content.modifiedDate}</lastmod>`), `${handle}: phase-three sitemap review date missing`);
+  const publishedLastmod = block.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+  assert(publishedLastmod, `${handle}: phase-three sitemap review date missing`);
+  assert(
+    publishedLastmod >= content.modifiedDate,
+    `${handle}: sitemap lastmod ${publishedLastmod} predates reviewed copy ${content.modifiedDate}`,
+  );
 }
 
 console.log(JSON.stringify({

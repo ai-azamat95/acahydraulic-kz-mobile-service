@@ -17,11 +17,9 @@ export default function PumpCaseTeaser() {
           </Link>
           <nav aria-label="Статьи перед покупкой насоса" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#FFC000] underline underline-offset-4">
             <Link href="/blog/zapchasti-po-nomeru-i-shildiku/" className="py-2">Какие номера и фото нужны для подбора</Link>
-            <Link href="/blog/k3v112dt-kak-podobrat-gidronasos/" className="py-2">Подбор K3V112DT</Link>
             <Link href="/blog/remont-ili-zamena-gidronasosa/" className="py-2">Ремонт или замена?</Link>
-            <Link href="/blog/k5v80dtp-handok-hitachi-zx160w/" className="py-2">K5V80DTP и HANDOK</Link>
+            <Link href="/cases/sany-sy365h-zamena-gidronasosa-video/" className="py-2">Видео: поставка, замена и запуск SANY SY365H</Link>
           </nav>
-          <Link href="/cases/sany-sy365h-zamena-gidronasosa-video/" className="mt-2 inline-flex min-h-11 items-center text-sm text-[#FFC000] underline underline-offset-4">Видео работ ACA Hydraulic: поставка, замена и запуск SANY SY365H</Link>
         </div>
       </div>
     </section>

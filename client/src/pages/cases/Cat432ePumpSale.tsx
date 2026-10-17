@@ -1,11 +1,15 @@
 import { Link } from "wouter";
 import { SEO } from "@/components/SEO";
 import Cat432eSaleMedia from "@/components/Cat432eSaleMedia";
-import { trackCatalogEvent } from "@/lib/catalogAnalytics";
+import { buildCaseWhatsAppUrl, caseCatalogHref, trackCaseContactIntent } from "@/lib/caseConversion";
 import sale from "../../../../shared/cat-432e-sale.json";
 
 const productPath = `/catalog/${sale.handle}/`;
-const message = `Здравствуйте! Интересует новый основной гидронасос 267-2755 для CAT 432E за 1 230 000 ₸. Прошу проверить совместимость и условия поставки.\nМодель и серийный номер: \nГород: \nКоличество: \nНужен к дате: \nПришлю фото шильдика и подключений.\nhttps://acahydraulic.kz${sale.casePath}/`;
+const whatsappHref = buildCaseWhatsAppUrl({
+  caseTitle: sale.caseTitle,
+  casePath: sale.casePath,
+  requestText: "Здравствуйте! Интересует новый основной гидронасос 267-2755 для CAT 432E за 1 230 000 ₸. Прошу проверить совместимость и условия поставки.\nМодель и серийный номер: \nГород: \nКоличество: \nНужен к дате: \nПришлю фото шильдика и подключений.",
+});
 const faq = [
   { question: "Какой насос продали в этом заказе?", answer: "Новый основной гидронасос с маркировкой 267-2755 для экскаватора-погрузчика CAT 432E. Модель машины и номер насоса видны на фотографиях из заказа." },
   { question: "Что входит в цену 1 230 000 ₸?", answer: "Это цена насоса. Комплектацию, наличие, доставку, срок и гарантийные условия согласуем до оплаты. Работы по замене обсуждаются отдельно." },
@@ -13,6 +17,8 @@ const faq = [
 ];
 
 export default function Cat432ePumpSale() {
+  const attributedProductPath = caseCatalogHref(productPath, "cat-432e-pump-sale");
+  const pumpCatalogPath = caseCatalogHref("/catalog/category/hydraulic-pumps/", "cat-432e-pump-sale");
   return <main className="min-h-screen bg-[#101010] py-10 text-white md:py-16">
     <SEO title={sale.caseTitle} description={sale.caseDescription} canonical={sale.casePath}
       ogImage={sale.machineImage} pageType="article" publishedDate="2026-09-22" modifiedDate="2026-09-22"
@@ -30,7 +36,7 @@ export default function Cat432ePumpSale() {
             <p className="mt-2 text-4xl font-bold text-[#FFC000]">1 230 000 ₸</p>
             <p className="mt-3 leading-relaxed text-gray-300">Новый · номер на шильдике 267-2755 · CAT 432E</p>
             <p className="mt-3 text-sm leading-6 text-gray-400">Цена подтверждена 22 сентября 2026 года. Для нового заказа согласуем исполнение, наличие и условия поставки.</p>
-            <Link href={productPath} className="mt-5 inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black hover:bg-[#eab000]">Карточка насоса и подбор</Link>
+            <Link href={attributedProductPath} className="mt-5 inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black hover:bg-[#eab000]">Карточка насоса и подбор</Link>
           </div>
         </div>
         <figure><img src={sale.machineImage} alt="Экскаватор-погрузчик CAT 432E из заказа на основной гидронасос" width={562} height={1280} fetchPriority="high" className="max-h-[620px] w-full rounded-lg bg-[#181818] object-contain" /><figcaption className="mt-3 text-sm leading-6 text-gray-400">CAT 432E из материалов заказа. Модель подтверждена по шильдику машины.</figcaption></figure>
@@ -41,7 +47,7 @@ export default function Cat432ePumpSale() {
       </section>
       <section className="mt-14 border-y border-white/15 py-8"><h2 className="text-3xl font-bold">Как заказать насос для своей машины</h2><ol className="mt-5 list-decimal space-y-3 pl-5 leading-relaxed text-gray-300"><li>Пришлите модель и серийный номер техники, фото шильдика и общий вид насоса.</li><li>Покажите вал, фланец, порты, регулятор и электрические подключения. Укажите город и нужную дату.</li><li>До оплаты согласуем совместимость, комплектацию, наличие, стоимость, доставку и гарантийные условия.</li></ol><p className="mt-5 leading-relaxed text-gray-400">Если причина неисправности ещё не подтверждена, сначала обсудим диагностику. Одних симптомов или внешнего сходства недостаточно для покупки дорогостоящего узла.</p></section>
       <section className="mt-12"><h2 className="text-3xl font-bold">Вопросы перед заказом</h2><div className="mt-5 divide-y divide-white/15">{faq.map(item => <details key={item.question} className="py-5"><summary className="cursor-pointer text-lg font-bold">{item.question}</summary><p className="mt-4 leading-relaxed text-gray-300">{item.answer}</p></details>)}</div></section>
-      <section className="mt-10 rounded-lg bg-[#1a1a1a] p-6 md:p-8"><h2 className="text-3xl font-bold">Нужен основной гидронасос?</h2><p className="my-5 max-w-3xl leading-relaxed text-gray-300">Отправьте шильдик и модель техники. Проверим подходящее исполнение и подготовим расчёт поставки.</p><a href={`https://wa.me/77714177925?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer" onClick={() => trackCatalogEvent("case_whatsapp_click", { case_id: "cat-432e-pump-sale", request_type: "pump-267-2755" })} className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black hover:bg-[#eab000]">Проверить насос по шильдику в WhatsApp</a><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3"><Link href="/catalog/category/hydraulic-pumps/" className="text-[#FFC000] underline">Каталог гидронасосов</Link><Link href="/blog/zapchasti-po-nomeru-i-shildiku/" className="text-[#FFC000] underline">Что сфотографировать для подбора</Link></div></section>
+      <section className="mt-10 rounded-lg bg-[#1a1a1a] p-6 md:p-8"><h2 className="text-3xl font-bold">Нужен основной гидронасос?</h2><p className="my-5 max-w-3xl leading-relaxed text-gray-300">Отправьте шильдик и модель техники. Проверим подходящее исполнение и подготовим расчёт поставки.</p><a href={whatsappHref} data-aca-contact-managed="react" target="_blank" rel="noopener noreferrer" onClick={() => trackCaseContactIntent({ caseId: "cat-432e-pump-sale", caseModel: "CAT 432E", requestType: "pump-267-2755" })} className="inline-flex min-h-12 items-center rounded bg-[#FFC000] px-5 py-3 font-bold text-black hover:bg-[#eab000]">Проверить насос по шильдику в WhatsApp</a><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3"><Link href={pumpCatalogPath} className="text-[#FFC000] underline">Каталог гидронасосов</Link><Link href="/blog/zapchasti-po-nomeru-i-shildiku/" className="text-[#FFC000] underline">Что сфотографировать для подбора</Link></div></section>
     </div>
   </main>;
 }
