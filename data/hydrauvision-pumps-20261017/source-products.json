@@ -46,16 +46,119 @@
     "exchangeRateSource": "https://nationalbank.kz/ru/exchangerates/ezhednevnye-oficialnye-rynochnye-kursy-valyut",
     "markup": 1.5,
     "roundingKzt": 1000,
-    "selectedPriceAdjustment": {
-      "method": "fixed uplift through the selected Daikin price boundary",
-      "sourcePriceCeilingExclTaxEur": 1244.67,
-      "upliftKzt": 348000,
-      "throughBrand": "Daikin",
-      "throughSku": "J-V 38SA 3BL X-95",
-      "affectedPublishedProducts": 49,
-      "minimumRetailPriceKzt": 500000
-    },
-    "formula": "round((sourcePriceExclTaxEur * exchangeRateKzt * markup) / roundingKzt) * roundingKzt + selectedPriceAdjustment.upliftKzt when sourcePriceExclTaxEur <= selectedPriceAdjustment.sourcePriceCeilingExclTaxEur"
+    "priceAdjustments": [
+      {
+        "method": "fixed uplift for exact source IDs at original positions 1-49",
+        "positionFrom": 1,
+        "positionThrough": 49,
+        "sourceIds": [
+          214,
+          215,
+          217,
+          1547,
+          1548,
+          1549,
+          1550,
+          230,
+          1556,
+          1557,
+          229,
+          1543,
+          1553,
+          218,
+          219,
+          1542,
+          1552,
+          223,
+          1544,
+          1551,
+          220,
+          1990,
+          1545,
+          1554,
+          226,
+          1546,
+          1555,
+          1875,
+          227,
+          232,
+          1558,
+          1568,
+          1559,
+          1560,
+          1561,
+          1562,
+          1853,
+          1563,
+          1564,
+          1565,
+          1566,
+          234,
+          235,
+          1567,
+          1569,
+          236,
+          1797,
+          1801,
+          1786
+        ],
+        "upliftKzt": 348000,
+        "throughBrand": "Daikin",
+        "throughSku": "J-V 38SA 3BL X-95",
+        "affectedPublishedProducts": 49,
+        "minimumRetailPriceKzt": 500000
+      },
+      {
+        "method": "fixed uplift for exact source IDs at original positions 50-85",
+        "positionFrom": 50,
+        "positionThrough": 85,
+        "sourceIds": [
+          1799,
+          1775,
+          1811,
+          1536,
+          1537,
+          1607,
+          1539,
+          1540,
+          1907,
+          1534,
+          1535,
+          1529,
+          1533,
+          1908,
+          1608,
+          1909,
+          1944,
+          1538,
+          1541,
+          1902,
+          1614,
+          1526,
+          1528,
+          1527,
+          1532,
+          1609,
+          1688,
+          1613,
+          1530,
+          1531,
+          1605,
+          1606,
+          1763,
+          1615,
+          1978,
+          1610
+        ],
+        "upliftKzt": 430000,
+        "fromBrand": "Bosch Rexroth",
+        "fromSku": "R901147104",
+        "throughBrand": "Danfoss",
+        "throughSku": "83073386",
+        "affectedPublishedProducts": 36
+      }
+    ],
+    "formula": "round((sourcePriceExclTaxEur * exchangeRateKzt * markup) / roundingKzt) * roundingKzt + the uplift assigned to the exact source ID price band"
   },
   "counts": {
     "published": 105,
@@ -656,7 +759,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1526",
-      "calculatedPriceKzt": 1956000
+      "calculatedPriceKzt": 2386000
     },
     {
       "sourceId": 1527,
@@ -673,7 +776,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1527",
-      "calculatedPriceKzt": 2130000
+      "calculatedPriceKzt": 2560000
     },
     {
       "sourceId": 1528,
@@ -690,7 +793,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1528",
-      "calculatedPriceKzt": 1956000
+      "calculatedPriceKzt": 2386000
     },
     {
       "sourceId": 1529,
@@ -707,7 +810,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1529",
-      "calculatedPriceKzt": 1756000
+      "calculatedPriceKzt": 2186000
     },
     {
       "sourceId": 1530,
@@ -724,7 +827,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1530",
-      "calculatedPriceKzt": 2309000
+      "calculatedPriceKzt": 2739000
     },
     {
       "sourceId": 1531,
@@ -741,7 +844,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1531",
-      "calculatedPriceKzt": 2309000
+      "calculatedPriceKzt": 2739000
     },
     {
       "sourceId": 1532,
@@ -758,7 +861,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1532",
-      "calculatedPriceKzt": 2130000
+      "calculatedPriceKzt": 2560000
     },
     {
       "sourceId": 1533,
@@ -775,7 +878,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1533",
-      "calculatedPriceKzt": 1756000
+      "calculatedPriceKzt": 2186000
     },
     {
       "sourceId": 1534,
@@ -792,7 +895,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1534",
-      "calculatedPriceKzt": 1630000
+      "calculatedPriceKzt": 2060000
     },
     {
       "sourceId": 1535,
@@ -809,7 +912,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1535",
-      "calculatedPriceKzt": 1630000
+      "calculatedPriceKzt": 2060000
     },
     {
       "sourceId": 1536,
@@ -826,7 +929,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1536",
-      "calculatedPriceKzt": 1521000
+      "calculatedPriceKzt": 1951000
     },
     {
       "sourceId": 1537,
@@ -843,7 +946,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1537",
-      "calculatedPriceKzt": 1521000
+      "calculatedPriceKzt": 1951000
     },
     {
       "sourceId": 1538,
@@ -860,7 +963,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1538",
-      "calculatedPriceKzt": 1836000
+      "calculatedPriceKzt": 2266000
     },
     {
       "sourceId": 1539,
@@ -877,7 +980,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1539",
-      "calculatedPriceKzt": 1578000
+      "calculatedPriceKzt": 2008000
     },
     {
       "sourceId": 1540,
@@ -894,7 +997,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1540",
-      "calculatedPriceKzt": 1578000
+      "calculatedPriceKzt": 2008000
     },
     {
       "sourceId": 1541,
@@ -911,7 +1014,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1541",
-      "calculatedPriceKzt": 1836000
+      "calculatedPriceKzt": 2266000
     },
     {
       "sourceId": 1542,
@@ -1421,7 +1524,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1605",
-      "calculatedPriceKzt": 2560000
+      "calculatedPriceKzt": 2990000
     },
     {
       "sourceId": 1606,
@@ -1438,7 +1541,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1606",
-      "calculatedPriceKzt": 2560000
+      "calculatedPriceKzt": 2990000
     },
     {
       "sourceId": 1607,
@@ -1455,7 +1558,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1607",
-      "calculatedPriceKzt": 1531000
+      "calculatedPriceKzt": 1961000
     },
     {
       "sourceId": 1608,
@@ -1472,7 +1575,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1608",
-      "calculatedPriceKzt": 1762000
+      "calculatedPriceKzt": 2192000
     },
     {
       "sourceId": 1609,
@@ -1489,7 +1592,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1609",
-      "calculatedPriceKzt": 2165000
+      "calculatedPriceKzt": 2595000
     },
     {
       "sourceId": 1610,
@@ -1506,7 +1609,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1610",
-      "calculatedPriceKzt": 4059000
+      "calculatedPriceKzt": 4489000
     },
     {
       "sourceId": 1612,
@@ -1540,7 +1643,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1613",
-      "calculatedPriceKzt": 2283000
+      "calculatedPriceKzt": 2713000
     },
     {
       "sourceId": 1614,
@@ -1557,7 +1660,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1614",
-      "calculatedPriceKzt": 1887000
+      "calculatedPriceKzt": 2317000
     },
     {
       "sourceId": 1615,
@@ -1574,7 +1677,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1615",
-      "calculatedPriceKzt": 2673000
+      "calculatedPriceKzt": 3103000
     },
     {
       "sourceId": 1616,
@@ -2679,7 +2782,7 @@
       "decision": "published",
       "reason": "Complete charge pump.",
       "publicId": "ACA-PUMP-1688",
-      "calculatedPriceKzt": 2214000
+      "calculatedPriceKzt": 2644000
     },
     {
       "sourceId": 1689,
@@ -3291,7 +3394,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1763",
-      "calculatedPriceKzt": 2672000
+      "calculatedPriceKzt": 3102000
     },
     {
       "sourceId": 1766,
@@ -3376,7 +3479,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1775",
-      "calculatedPriceKzt": 1378000
+      "calculatedPriceKzt": 1808000
     },
     {
       "sourceId": 1776,
@@ -3536,7 +3639,7 @@
         "reason": "Exact existing catalogue match by Rexroth number R901147104 and execution PGH4-3X/050RE11VU2."
       },
       "publicId": "8705189118114",
-      "calculatedPriceKzt": 1158000
+      "calculatedPriceKzt": 1588000
     },
     {
       "sourceId": 1801,
@@ -3570,7 +3673,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1811",
-      "calculatedPriceKzt": 1389000
+      "calculatedPriceKzt": 1819000
     },
     {
       "sourceId": 1818,
@@ -3808,7 +3911,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1902",
-      "calculatedPriceKzt": 1884000
+      "calculatedPriceKzt": 2314000
     },
     {
       "sourceId": 1907,
@@ -3825,7 +3928,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1907",
-      "calculatedPriceKzt": 1608000
+      "calculatedPriceKzt": 2038000
     },
     {
       "sourceId": 1908,
@@ -3842,7 +3945,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1908",
-      "calculatedPriceKzt": 1756000
+      "calculatedPriceKzt": 2186000
     },
     {
       "sourceId": 1909,
@@ -3859,7 +3962,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1909",
-      "calculatedPriceKzt": 1774000
+      "calculatedPriceKzt": 2204000
     },
     {
       "sourceId": 1944,
@@ -3876,7 +3979,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1944",
-      "calculatedPriceKzt": 1818000
+      "calculatedPriceKzt": 2248000
     },
     {
       "sourceId": 1968,
@@ -3948,7 +4051,7 @@
       "decision": "published",
       "reason": "Complete pump listing.",
       "publicId": "ACA-PUMP-1978",
-      "calculatedPriceKzt": 3819000
+      "calculatedPriceKzt": 4249000
     },
     {
       "sourceId": 1990,

@@ -8,9 +8,9 @@ import process from 'node:process';
 import {
   HYDRAUVISION_EXCHANGE_RATE_KZT,
   HYDRAUVISION_MARKUP,
+  HYDRAUVISION_PRICE_ADJUSTMENTS,
   HYDRAUVISION_ROUNDING_KZT,
-  HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT,
-  hasHydrauvisionSelectedPriceAdjustment,
+  hydrauvisionPriceAdjustmentForSourceId,
   hydrauvisionRetailPriceKzt,
 } from './lib/hydrauvision-pricing.mjs';
 
@@ -183,7 +183,7 @@ function publicProduct(item, audit) {
   const canonical = CANONICAL_PRODUCTS_BY_SOURCE_ID.get(Number(item.id));
   const itemHandle = canonical?.handle || `pump-${slug(brand)}-${slug(mpn)}`;
   const id = canonical?.id || `ACA-PUMP-${item.id}`;
-  const calculatedPriceKzt = hydrauvisionRetailPriceKzt(audit.sourcePriceExclTaxEur);
+  const calculatedPriceKzt = hydrauvisionRetailPriceKzt(audit.sourcePriceExclTaxEur, audit.sourceId);
   assert(calculatedPriceKzt, `${item.name}: published pump needs a positive source price`);
   const originalName = normalizeSpace(item.name);
   const condition = /PUMP OVERHAULED/i.test(originalName) ? 'Восстановленный' : /used equipment/i.test(audit.imageLabel) ? 'Бывший в эксплуатации' : null;
@@ -271,7 +271,7 @@ function auditRecord(item) {
     } : {}),
     ...(canonical ? { canonicalExistingProduct: canonical } : {}),
     publicId: decision.decision === 'published' ? (canonical?.id || `ACA-PUMP-${item.id}`) : null,
-    calculatedPriceKzt: decision.decision === 'published' ? hydrauvisionRetailPriceKzt(sourcePriceExclTaxEur) : null,
+    calculatedPriceKzt: decision.decision === 'published' ? hydrauvisionRetailPriceKzt(sourcePriceExclTaxEur, item.id) : null,
   };
 }
 
@@ -333,14 +333,24 @@ assert(!raw.items.some(item => Number(item.id) === missingListingOnlyItem.id), '
 const sourceItems = [...raw.items, missingListingOnlyItem];
 const auditProducts = sourceItems.map(auditRecord);
 const publishedAudit = auditProducts.filter(item => item.decision === 'published');
-const adjustedPublishedAudit = publishedAudit.filter(item => hasHydrauvisionSelectedPriceAdjustment(item.sourcePriceExclTaxEur));
+const adjustedPublishedAuditByBand = HYDRAUVISION_PRICE_ADJUSTMENTS.map(adjustment => ({
+  adjustment,
+  products: publishedAudit.filter(item => hydrauvisionPriceAdjustmentForSourceId(item.sourceId) === adjustment),
+}));
 assert.equal(sourceItems.length, SOURCE_REPORTED_COUNT);
 assert.equal(publishedAudit.length, 105, 'Expected 105 reviewed pump listings');
-assert.equal(
-  adjustedPublishedAudit.length,
-  HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.expectedAffectedPublishedProducts,
-  'Unexpected selected retail price adjustment set; review the Daikin boundary before importing',
-);
+for (const { adjustment, products: adjustedProducts } of adjustedPublishedAuditByBand) {
+  assert.equal(
+    adjustedProducts.length,
+    adjustment.expectedAffectedPublishedProducts,
+    `Unexpected retail price adjustment set for original positions ${adjustment.positionFrom}-${adjustment.positionThrough}`,
+  );
+  assert.deepEqual(
+    adjustedProducts.map(item => item.sourceId).sort((a, b) => a - b),
+    [...adjustment.sourceIds].sort((a, b) => a - b),
+    `Published source IDs changed for original positions ${adjustment.positionFrom}-${adjustment.positionThrough}`,
+  );
+}
 assert.equal(auditProducts.filter(item => item.decision === 'held').length, 1, 'Expected one held source classification conflict');
 
 const sourceById = new Map(sourceItems.map(item => [Number(item.id), item]));
@@ -393,16 +403,19 @@ const inventory = {
     exchangeRateSource: 'https://nationalbank.kz/ru/exchangerates/ezhednevnye-oficialnye-rynochnye-kursy-valyut',
     markup: HYDRAUVISION_MARKUP,
     roundingKzt: HYDRAUVISION_ROUNDING_KZT,
-    selectedPriceAdjustment: {
-      method: 'fixed uplift through the selected Daikin price boundary',
-      sourcePriceCeilingExclTaxEur: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.sourcePriceCeilingExclTaxEur,
-      upliftKzt: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.upliftKzt,
-      throughBrand: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.throughBrand,
-      throughSku: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.throughSku,
-      affectedPublishedProducts: adjustedPublishedAudit.length,
-      minimumRetailPriceKzt: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.expectedMinimumRetailPriceKzt,
-    },
-    formula: 'round((sourcePriceExclTaxEur * exchangeRateKzt * markup) / roundingKzt) * roundingKzt + selectedPriceAdjustment.upliftKzt when sourcePriceExclTaxEur <= selectedPriceAdjustment.sourcePriceCeilingExclTaxEur',
+    priceAdjustments: adjustedPublishedAuditByBand.map(({ adjustment, products: adjustedProducts }) => ({
+      method: `fixed uplift for exact source IDs at original positions ${adjustment.positionFrom}-${adjustment.positionThrough}`,
+      positionFrom: adjustment.positionFrom,
+      positionThrough: adjustment.positionThrough,
+      sourceIds: adjustment.sourceIds,
+      upliftKzt: adjustment.upliftKzt,
+      ...('fromBrand' in adjustment ? { fromBrand: adjustment.fromBrand, fromSku: adjustment.fromSku } : {}),
+      throughBrand: adjustment.throughBrand,
+      throughSku: adjustment.throughSku,
+      affectedPublishedProducts: adjustedProducts.length,
+      ...('expectedMinimumRetailPriceKzt' in adjustment ? { minimumRetailPriceKzt: adjustment.expectedMinimumRetailPriceKzt } : {}),
+    })),
+    formula: 'round((sourcePriceExclTaxEur * exchangeRateKzt * markup) / roundingKzt) * roundingKzt + the uplift assigned to the exact source ID price band',
   },
   counts: Object.fromEntries(['published', 'held', 'excluded'].map(decision => [decision, auditProducts.filter(item => item.decision === decision).length])),
   products: auditProducts,

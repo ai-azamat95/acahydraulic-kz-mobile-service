@@ -9,9 +9,11 @@ import imageManifest from '../data/hydrauvision-pumps-20261017/image-manifest.js
 import sourceSnapshot from '../data/hydrauvision-pumps-20261017/source-snapshot.json' with { type: 'json' };
 import { extractBrandSlugs } from '../scripts/lib/catalog-landings.mjs';
 import {
-  HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT,
+  HYDRAUVISION_PRICE_ADJUSTMENTS,
+  HYDRAUVISION_PRICE_BAND_1_TO_49,
+  HYDRAUVISION_PRICE_BAND_50_TO_85,
   baseHydrauvisionPriceKzt,
-  hasHydrauvisionSelectedPriceAdjustment,
+  hydrauvisionPriceAdjustmentForSourceId,
   hydrauvisionRetailPriceKzt,
 } from '../scripts/lib/hydrauvision-pricing.mjs';
 
@@ -64,6 +66,10 @@ test('reviewed pump inventory reconciles every source category row before public
 });
 
 test('published pumps retain exact identities, reviewed taxonomy and the authorized KZT calculation', () => {
+  assert.throws(
+    () => hydrauvisionRetailPriceKzt(100),
+    /source ID is required/,
+  );
   const auditById = new Map(inventory.products.filter(product => product.decision === 'published').map(product => [product.publicId, product]));
   const brandCounts = Object.fromEntries([...expectedBrandSlugs].map(([brand]) => [brand, products.filter(product => product.brand === brand).length]));
   assert.deepEqual(brandCounts, { Danfoss: 85, Parker: 7, 'Bosch Rexroth': 7, Eaton: 1, Daikin: 1, Denison: 1, 'Von Roll': 3 });
@@ -89,7 +95,7 @@ test('published pumps retain exact identities, reviewed taxonomy and the authori
     );
     assert.equal(product.available, false, product.handle);
     assert.ok(audit.sourcePriceExclTaxEur > 0, product.handle);
-    const expectedPrice = hydrauvisionRetailPriceKzt(audit.sourcePriceExclTaxEur);
+    const expectedPrice = hydrauvisionRetailPriceKzt(audit.sourcePriceExclTaxEur, audit.sourceId);
     assert.equal(product.minPriceKzt, expectedPrice, product.handle);
     assert.equal(product.maxPriceKzt, expectedPrice, product.handle);
     assert.equal(product.variants.length, 1, product.handle);
@@ -129,31 +135,61 @@ test('published pumps retain exact identities, reviewed taxonomy and the authori
   assert.equal(canonicalReplacement.handle, 'pgh4-3x-050re11vu2-internal-gear-pump-rexroth-r901147104');
   assert.match(auditById.get(canonicalReplacement.id).canonicalExistingProduct.reason, /Exact existing catalogue match/);
 
-  const adjustedProducts = products
-    .filter(product => hasHydrauvisionSelectedPriceAdjustment(auditById.get(product.id).sourcePriceExclTaxEur))
-    .sort((a, b) => a.minPriceKzt - b.minPriceKzt);
-  assert.equal(adjustedProducts.length, HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.expectedAffectedPublishedProducts);
-  assert.equal(adjustedProducts[0].sku, '111.10.002.00');
-  assert.equal(adjustedProducts[0].minPriceKzt, HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.expectedMinimumRetailPriceKzt);
-  assert.equal(products.find(product => product.brand === 'Daikin').minPriceKzt, 1_298_000);
-  assert.equal(products.find(product => product.sku === 'R901147104').minPriceKzt, 1_158_000);
-  for (const product of adjustedProducts) {
-    const audit = auditById.get(product.id);
-    assert.equal(
-      product.minPriceKzt,
-      baseHydrauvisionPriceKzt(audit.sourcePriceExclTaxEur) + HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.upliftKzt,
-      product.handle,
-    );
+  const publishedAuditByOriginalPosition = [...auditById.values()]
+    .sort((a, b) => a.sourcePriceExclTaxEur - b.sourcePriceExclTaxEur || a.sourceId - b.sourceId);
+  assert.deepEqual(
+    HYDRAUVISION_PRICE_BAND_1_TO_49.sourceIds,
+    publishedAuditByOriginalPosition.slice(0, 49).map(audit => audit.sourceId),
+  );
+  assert.deepEqual(
+    HYDRAUVISION_PRICE_BAND_50_TO_85.sourceIds,
+    publishedAuditByOriginalPosition.slice(49, 85).map(audit => audit.sourceId),
+  );
+  assert.equal(hydrauvisionPriceAdjustmentForSourceId(publishedAuditByOriginalPosition[85].sourceId), null);
+
+  for (const adjustment of HYDRAUVISION_PRICE_ADJUSTMENTS) {
+    assert.equal(adjustment.sourceIds.length, adjustment.expectedAffectedPublishedProducts);
+    for (const sourceId of adjustment.sourceIds) {
+      const audit = publishedAuditByOriginalPosition.find(item => item.sourceId === sourceId);
+      const product = products.find(item => item.id === audit.publicId);
+      assert.equal(
+        product.minPriceKzt,
+        baseHydrauvisionPriceKzt(audit.sourcePriceExclTaxEur) + adjustment.upliftKzt,
+        product.handle,
+      );
+    }
   }
-  assert.deepEqual(inventory.pricing.selectedPriceAdjustment, {
-    method: 'fixed uplift through the selected Daikin price boundary',
-    sourcePriceCeilingExclTaxEur: 1_244.67,
-    upliftKzt: 348_000,
-    throughBrand: 'Daikin',
-    throughSku: 'J-V 38SA 3BL X-95',
-    affectedPublishedProducts: 49,
-    minimumRetailPriceKzt: 500_000,
-  });
+  assert.equal(products.find(product => product.sku === '111.10.002.00').minPriceKzt, 500_000);
+  assert.equal(products.find(product => product.brand === 'Daikin').minPriceKzt, 1_298_000);
+  assert.equal(products.find(product => product.sku === 'R901147104').minPriceKzt, 1_588_000);
+  assert.equal(products.find(product => product.sku === '83073386').minPriceKzt, 4_489_000);
+  assert.equal(products.find(product => product.sku === '503626').minPriceKzt, 4_322_000);
+
+  assert.deepEqual(inventory.pricing.priceAdjustments, [
+    {
+      method: 'fixed uplift for exact source IDs at original positions 1-49',
+      positionFrom: 1,
+      positionThrough: 49,
+      sourceIds: HYDRAUVISION_PRICE_BAND_1_TO_49.sourceIds,
+      upliftKzt: 348_000,
+      throughBrand: 'Daikin',
+      throughSku: 'J-V 38SA 3BL X-95',
+      affectedPublishedProducts: 49,
+      minimumRetailPriceKzt: 500_000,
+    },
+    {
+      method: 'fixed uplift for exact source IDs at original positions 50-85',
+      positionFrom: 50,
+      positionThrough: 85,
+      sourceIds: HYDRAUVISION_PRICE_BAND_50_TO_85.sourceIds,
+      upliftKzt: 430_000,
+      fromBrand: 'Bosch Rexroth',
+      fromSku: 'R901147104',
+      throughBrand: 'Danfoss',
+      throughSku: '83073386',
+      affectedPublishedProducts: 36,
+    },
+  ]);
 });
 
 test('local pump images are complete, hashed and never replace source placeholders with a false product photo', () => {
