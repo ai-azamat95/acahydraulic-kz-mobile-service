@@ -103,6 +103,8 @@ test('published pumps retain exact identities, reviewed taxonomy and the authori
     assert.doesNotMatch(product.catalogTitle, /см³\/об,.*см³\/об|(?:cc|cm³)\/rev/i, product.handle);
     assert.match(product.catalogPriceNote, /17\.10\.2026/);
     assert.match(product.catalogPriceNote, /не включены/);
+    assert.ok(product.catalogDescription.includes(product.catalogPriceNote), product.handle);
+    assert.doesNotMatch(product.catalogDescription, /рассчитана по курсу НБК/i, product.handle);
     assert.ok(extractBrandSlugs(`${product.title} ${product.tags.join(' ')}`).includes(expectedBrandSlugs.get(product.brand)), product.handle);
     assert.doesNotMatch(JSON.stringify(product), /hydrauvision|sourceUrl|sourcePrice|in stock|lead time/i, product.handle);
   }
