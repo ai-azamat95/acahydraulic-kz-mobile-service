@@ -48,6 +48,7 @@ import {
   catalogCategoryLandings,
   categorySeoContent,
   categorySelectionGuide,
+  brandSelectionGuide,
   extractBrandSlugs,
   extractModelLandings,
   landingSearchText,
@@ -403,7 +404,7 @@ export default function Catalog() {
 
   const categoryLanding = catalogCategoryLandings.find((item) => item.id === category);
   const categorySeo = categorySeoContent(categoryLanding?.id);
-  const selectionGuide = categorySelectionGuide(categoryLanding?.id);
+  const selectionGuide = categorySelectionGuide(categoryLanding?.id) || brandSelectionGuide(routeBrand?.slug);
   const landingPath = categoryLanding
     ? `/catalog/category/${categoryLanding.id}`
     : routeBrand

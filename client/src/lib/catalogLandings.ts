@@ -1,6 +1,7 @@
 import landingData from "@shared/catalog-landings.json";
 import seoContent from "@shared/catalog-seo-content.json";
 import selectionGuides from "@shared/catalog-selection-guides.json";
+import brandSelectionGuides from "@shared/catalog-brand-selection-guides.json";
 
 export type CatalogCategoryLanding = (typeof landingData.categories)[number];
 export type CatalogBrandLanding = (typeof landingData.brands)[number];
@@ -17,6 +18,11 @@ export function categorySeoContent(categoryId?: string) {
 export function categorySelectionGuide(categoryId?: string) {
   if (!categoryId || !(categoryId in selectionGuides)) return null;
   return selectionGuides[categoryId as keyof typeof selectionGuides];
+}
+
+export function brandSelectionGuide(brandSlug?: string) {
+  if (!brandSlug || !(brandSlug in brandSelectionGuides)) return null;
+  return brandSelectionGuides[brandSlug as keyof typeof brandSelectionGuides];
 }
 
 const MODEL_RULES: Array<{ pattern: RegExp; brand: string; engine?: boolean; requiresBrand?: boolean }> = [

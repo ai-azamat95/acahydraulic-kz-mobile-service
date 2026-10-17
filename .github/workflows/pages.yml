@@ -83,6 +83,7 @@ jobs:
           node --test tests/catalog-product-seo.test.mjs
           node --test tests/catalog-first-party-images.test.mjs
           node --test tests/catalog-directory.test.mjs
+          node --test tests/catalog-selection-guides.test.mjs tests/pump-commercial-links.test.mjs
       - name: Publish Markdown discovery links
         run: node scripts/apply-markdown-alternates.mjs
       - name: Verify published site has no supplier identity
