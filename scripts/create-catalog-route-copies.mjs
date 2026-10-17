@@ -171,6 +171,7 @@ function productPage(product) {
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
   ${seriesNote ? `<p>${escapeHtml(seriesNote)}</p>` : ""}
   <p><strong>${escapeHtml(price)}</strong></p>
+  ${product.catalogPriceNote ? `<p data-catalog-price-note>${escapeHtml(product.catalogPriceNote)}</p>` : ''}
   ${images.length ? `<section data-product-gallery><h2>${imageIsCategoryPlaceholder ? `Иллюстрация категории ${escapeHtml(productCategories[0]?.title || 'запчастей')}` : `Фото ${escapeHtml(productSeo.name)}`}</h2>${images.map((src, index) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(imageIsCategoryPlaceholder ? `Иллюстрация категории ${productCategories[0]?.title || 'запчастей'}` : `${productSeo.name} — фото ${index + 1}`)}" width="900" height="900" loading="${index === 0 ? 'eager' : 'lazy'}"${index === 0 ? ' fetchpriority="high"' : ''} decoding="async">`).join('')}</section>` : ''}
   ${product.catalogImageCaption && images.length ? `<p>${escapeHtml(product.catalogImageCaption)}</p>` : ''}
   ${product.catalogVideos?.length ? `<section data-product-videos><h2>Видео осмотра</h2>${product.catalogVideos.map(video => `<figure><video controls playsinline preload="none" poster="${escapeAttr(video.poster)}" width="${video.width}" height="${video.height}" aria-label="${escapeAttr(video.caption)}"><source src="${escapeAttr(video.src)}" type="video/mp4"><a href="${escapeAttr(video.src)}">Открыть видео</a></video><figcaption>${escapeHtml(video.caption)}</figcaption></figure>`).join('')}</section>` : ''}

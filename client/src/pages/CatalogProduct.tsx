@@ -376,6 +376,7 @@ export default function CatalogProduct() {
 
             <div className="mt-7 rounded-lg border border-white/10 bg-[#151515] p-5 md:p-6">
               <p className="text-3xl font-extrabold text-[#FFC000] md:text-4xl">{displayedPrice}</p>
+              {product.catalogPriceNote && <p data-catalog-price-note className="mt-2 text-sm leading-6 text-gray-400">{product.catalogPriceNote}</p>}
               <div className="mt-3 flex items-center gap-2 text-sm text-gray-300">
                 <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
                 {confirmedSupply ? copy.available : copy.checkAvailability}

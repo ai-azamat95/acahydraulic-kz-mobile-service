@@ -8,6 +8,7 @@ export type CatalogIndexProduct = {
   applicationBrand?: string;
   catalogDescription?: string;
   catalogSelection?: string;
+  catalogPriceNote?: string;
   catalogImageCaption?: string;
   catalogImageLabel?: string;
   catalogVideos?: {

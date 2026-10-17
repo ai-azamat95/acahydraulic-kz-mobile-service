@@ -181,6 +181,10 @@ test('invalid confirmed claims, duplicate identities and legacy collisions fail 
       assert.throws(() => applySupplierCatalogProducts(dir, { products }));
       assert.deepEqual(snapshot(dir), before);
     }
+    const reviewedPricedPump = supplierCatalogProducts.find(product => product.minPriceKzt !== null);
+    assert(reviewedPricedPump);
+    assert.throws(() => applySupplierCatalogProducts(dir, { products: [{ ...reviewedPricedPump, catalogTitle: 'Tampered reviewed record' }] }));
+    assert.deepEqual(snapshot(dir), before);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }

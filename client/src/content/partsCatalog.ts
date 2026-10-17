@@ -259,5 +259,5 @@ export const partCategories = [
 ] as const;
 
 export const supportedBrands = [
-  "Caterpillar", "Komatsu", "Hitachi", "Volvo CE", "Hyundai", "SANY", "XCMG", "Shantui", "Doosan", "Kobelco", "Liebherr", "JCB", "Danfoss", "Rexroth", "Kawasaki", "Parker", "HUSCO", "HANDOK", "Cummins", "Perkins", "FPT",
+  "Caterpillar", "Komatsu", "Hitachi", "Volvo CE", "Hyundai", "SANY", "XCMG", "Shantui", "Doosan", "Kobelco", "Liebherr", "JCB", "Danfoss", "Rexroth", "Kawasaki", "Parker", "Eaton", "Daikin", "Denison", "Von Roll", "HUSCO", "HANDOK", "Cummins", "Perkins", "FPT",
 ];
