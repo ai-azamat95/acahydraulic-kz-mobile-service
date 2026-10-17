@@ -49,7 +49,7 @@ function validateProducts(products) {
       assert(hydrauvisionAudit, `${product.handle}: reviewed pump price audit is required`);
       assert.deepEqual(product, HYDRAUVISION_PRODUCTS_BY_ID.get(product.id), `${product.id}: reviewed pump record changed outside the importer`);
       assert(hydrauvisionAudit.sourcePriceExclTaxEur > 0, `${product.handle}: positive source price excluding VAT is required`);
-      const expectedPrice = hydrauvisionRetailPriceKzt(hydrauvisionAudit.sourcePriceExclTaxEur);
+      const expectedPrice = hydrauvisionRetailPriceKzt(hydrauvisionAudit.sourcePriceExclTaxEur, hydrauvisionAudit.sourceId);
       assert.equal(product.minPriceKzt, expectedPrice, `${product.handle}: reviewed minimum price does not match the price audit`);
       assert.equal(product.maxPriceKzt, expectedPrice, `${product.handle}: reviewed maximum price does not match the price audit`);
       assert.equal(typeof product.catalogPriceNote, 'string', `${product.handle}: reviewed price note is required`);
