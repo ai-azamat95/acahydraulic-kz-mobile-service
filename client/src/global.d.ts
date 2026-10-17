@@ -13,6 +13,7 @@ declare global {
     __ACA_GA4_CONFIGURED__?: boolean;
     __ACA_ADS_CONFIGURED__?: boolean;
     __ACA_YANDEX_INITIALIZED__?: boolean;
+    __ACA_TRACK_YANDEX_GOAL__?: (goalName: string, params?: Record<string, unknown>) => boolean;
     __ACA_TIKTOK_INITIALIZED__?: boolean;
     ym?: ((...args: any[]) => void) & { a?: IArguments[]; l?: number };
     ttq?: any;

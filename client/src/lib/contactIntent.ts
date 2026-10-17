@@ -23,6 +23,7 @@ export function trackFormContactIntent(source: 'b2b_form' | 'calculator', contac
   // Each vendor is isolated: a blocked tracker must not break the contact path.
   if (consent?.analytics) {
     try { window.gtag?.('event', 'form_whatsapp_click', params); } catch (_) {}
+    try { window.__ACA_TRACK_YANDEX_GOAL__?.('form_whatsapp_click', params); } catch (_) {}
   }
   if (consent?.marketing) {
     try { window.gtag_report_conversion?.(); } catch (_) {}

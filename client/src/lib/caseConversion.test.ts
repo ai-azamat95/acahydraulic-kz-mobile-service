@@ -59,10 +59,12 @@ describe("case conversion path", () => {
 
   it("records the click only as case contact intent", () => {
     const gtag = vi.fn();
+    const yandexGoal = vi.fn();
     const reportConversion = vi.fn();
     vi.stubGlobal("window", {
       __ACA_COOKIE_CONSENT__: { analytics: true, marketing: true },
       __ACA_ANALYTICS_EXCLUDE__: false,
+      __ACA_TRACK_YANDEX_GOAL__: yandexGoal,
       gtag,
       gtag_report_conversion: reportConversion,
     });
@@ -74,6 +76,7 @@ describe("case conversion path", () => {
     });
 
     expect(gtag).toHaveBeenCalledOnce();
+    expect(yandexGoal).toHaveBeenCalledOnce();
     expect(gtag.mock.calls[0]).toEqual([
       "event",
       "case_whatsapp_click",
@@ -87,6 +90,17 @@ describe("case conversion path", () => {
       },
     ]);
     expect(JSON.stringify(gtag.mock.calls)).not.toMatch(/generate_lead|qualified_lead|purchase|revenue/);
+    expect(yandexGoal.mock.calls[0]).toEqual([
+      "case_whatsapp_click",
+      {
+        case_id: "xcmg-xz200-pump-installation",
+        case_model: "XCMG XZ200",
+        request_type: "pump-803001730",
+        contact_method: "whatsapp",
+        contact_source: "case_page",
+        lead_stage: "contact_intent",
+      },
+    ]);
     expect(reportConversion).not.toHaveBeenCalled();
   });
 });

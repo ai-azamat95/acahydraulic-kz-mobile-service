@@ -184,6 +184,35 @@
     }
   }
 
+  var YANDEX_CONTACT_GOALS = {
+    acahydraulic_whatsapp_click: true,
+    acahydraulic_phone_click: true,
+    catalog_whatsapp_click: true,
+    case_whatsapp_click: true,
+    form_whatsapp_click: true,
+  };
+
+  window.__ACA_TRACK_YANDEX_GOAL__ = function (goalName, params) {
+    var consent = window.__ACA_COOKIE_CONSENT__;
+    if (
+      window.__ACA_ANALYTICS_EXCLUDE__ ||
+      !consent ||
+      !consent.analytics ||
+      !window.__ACA_YANDEX_INITIALIZED__ ||
+      typeof window.ym !== "function" ||
+      !Object.prototype.hasOwnProperty.call(YANDEX_CONTACT_GOALS, goalName)
+    ) {
+      return false;
+    }
+
+    try {
+      window.ym(YANDEX_ID, "reachGoal", goalName, params || {});
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
+
   function prepareTikTokQueue() {
     if (window.ttq) return;
     var ttq = (window.ttq = []);

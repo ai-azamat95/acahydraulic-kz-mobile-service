@@ -1,6 +1,7 @@
 import type { CatalogIndexProduct } from "@/types/catalog";
 
 type AnalyticsParams = Record<string, unknown>;
+const YANDEX_CONTACT_GOALS = new Set(["catalog_whatsapp_click", "case_whatsapp_click"]);
 
 const MAX_SEARCH_VALUE_LENGTH = 80;
 const VIN_LIKE_VALUE = /^[A-HJ-NPR-Z0-9]{17}$/i;
@@ -74,12 +75,20 @@ export function trackCatalogEvent(eventName: string, params: AnalyticsParams = {
   const consent = window.__ACA_COOKIE_CONSENT__;
 
   if (consent?.analytics) {
+    const cleanParams = Object.fromEntries(
+      Object.entries(params).filter(([, value]) => value !== undefined),
+    );
     try {
-      window.gtag?.("event", eventName, Object.fromEntries(
-        Object.entries(params).filter(([, value]) => value !== undefined),
-      ));
+      window.gtag?.("event", eventName, cleanParams);
     } catch {
       // A blocked analytics vendor must not block contact or other vendors.
+    }
+    if (YANDEX_CONTACT_GOALS.has(eventName)) {
+      try {
+        window.__ACA_TRACK_YANDEX_GOAL__?.(eventName, cleanParams);
+      } catch {
+        // A blocked analytics vendor must not block the contact action.
+      }
     }
   }
   if (eventName === "catalog_whatsapp_click" && consent?.marketing) {

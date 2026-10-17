@@ -55,6 +55,24 @@ describe("catalog analytics", () => {
     expect(() => trackCatalogEvent("catalog_whatsapp_click", { item_id: "123" })).not.toThrow();
   });
 
+  it("sends only contact intents as Yandex goals", () => {
+    const yandexCalls: unknown[][] = [];
+    (globalThis as typeof globalThis & { window: unknown }).window = {
+      __ACA_COOKIE_CONSENT__: { analytics: true, marketing: false },
+      gtag: () => undefined,
+      __ACA_TRACK_YANDEX_GOAL__: (...args: unknown[]) => yandexCalls.push(args),
+    };
+
+    trackCatalogEvent("view_item", { item_id: "123" });
+    trackCatalogEvent("catalog_whatsapp_click", { item_id: "123", value: undefined });
+    trackCatalogEvent("case_whatsapp_click", { case_id: "sany-sy365h" });
+
+    expect(yandexCalls).toEqual([
+      ["catalog_whatsapp_click", { item_id: "123" }],
+      ["case_whatsapp_click", { case_id: "sany-sy365h" }],
+    ]);
+  });
+
   it("records normalized OEM and machine model with the search result outcome", () => {
     expect(catalogSearchAnalyticsParams({
       searchMode: "oem",

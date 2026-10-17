@@ -23,14 +23,16 @@ afterEach(() => vi.unstubAllGlobals());
 
 function setup(consent?: { analytics: boolean; marketing: boolean }, excluded = false) {
   let listener: (event: unknown) => void;
-  const gtag = vi.fn(), track = vi.fn(), open = vi.fn();
+  const gtag = vi.fn(), track = vi.fn(), open = vi.fn(), yandexGoal = vi.fn();
   const window: Record<string, any> = {
     __ACA_COOKIE_CONSENT__: consent, __ACA_ANALYTICS_EXCLUDE__: excluded,
+    __ACA_TRACK_YANDEX_GOAL__: yandexGoal,
     gtag, ttq: { track }, open,
     location: { href: `https://acahydraulic.kz/contacts/?text=${PRIVATE}` },
   };
   const context = { window, document: { addEventListener: (_: string, fn: typeof listener) => { listener = fn; } } };
   vm.runInNewContext(helpers, context);
+  window.gtag_whatsapp_conversion = (context as any).gtag_whatsapp_conversion;
   window.gtag_report_conversion = (context as any).gtag_report_conversion;
   vm.runInNewContext(tracker, context);
   vi.stubGlobal('window', window);
@@ -40,7 +42,7 @@ function setup(consent?: { analytics: boolean; marketing: boolean }, excluded = 
     expect(preventDefault).not.toHaveBeenCalled();
   };
   const conversions = () => gtag.mock.calls.filter(call => call[1] === 'conversion');
-  return { window, gtag, track, open, click, conversions };
+  return { window, gtag, track, yandexGoal, open, click, conversions };
 }
 
 function runHandler(file: string, start: string, end: string, name: string, context: Record<string, unknown>, args: unknown[] = []) {
@@ -61,6 +63,27 @@ const choices = [undefined,
 ];
 
 describe('consented contact clicks (no network or vendor SDK)', () => {
+  it('maps existing contact intents to Yandex goals without sending message text', () => {
+    const f = setup({ analytics: true, marketing: false });
+    f.click(catalogAttributes);
+    f.click({ href: 'tel:+77714177925' });
+    trackCatalogEvent('case_whatsapp_click', { case_id: 'sany-sy365h' });
+    trackFormContactIntent('calculator', 'ACA-TEST-123');
+    f.window.gtag_whatsapp_conversion();
+
+    expect(f.yandexGoal.mock.calls.map(call => call[0])).toEqual([
+      'catalog_whatsapp_click', 'acahydraulic_phone_click', 'case_whatsapp_click',
+      'form_whatsapp_click', 'acahydraulic_whatsapp_click',
+    ]);
+    expect(JSON.stringify(f.yandexGoal.mock.calls)).not.toContain(PRIVATE);
+
+    const denied = setup({ analytics: false, marketing: true });
+    denied.click(catalogAttributes);
+    trackFormContactIntent('b2b_form');
+    denied.window.gtag_whatsapp_conversion();
+    expect(denied.yandexGoal).not.toHaveBeenCalled();
+  });
+
   for (const consent of choices) {
     for (const path of ['delegated catalog anchor', 'React catalog button']) {
       it(`${path}: ${JSON.stringify(consent)}`, () => {

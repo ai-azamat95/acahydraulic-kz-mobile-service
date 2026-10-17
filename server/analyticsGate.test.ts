@@ -127,6 +127,38 @@ describe("analytics consent and traffic gate", () => {
     expect(windowMock.dataLayer.at(-1)[1]).toBe("catalog_search");
   });
 
+  it("queues only approved contact goals for the existing Yandex counter", () => {
+    const { windowMock } = runGate({
+      consent: { analytics: true, marketing: false },
+    });
+
+    expect(windowMock.__ACA_TRACK_YANDEX_GOAL__).toBeTypeOf("function");
+    expect(windowMock.__ACA_TRACK_YANDEX_GOAL__(
+      "catalog_whatsapp_click", { item_id: "public-product-123" },
+    )).toBe(true);
+    expect(Array.from(windowMock.ym.a.at(-1))).toEqual([
+      109131701, "reachGoal", "catalog_whatsapp_click",
+      { item_id: "public-product-123" },
+    ]);
+
+    const queuedGoals = windowMock.ym.a.length;
+    expect(windowMock.__ACA_TRACK_YANDEX_GOAL__("purchase", { revenue: 1 })).toBe(false);
+    expect(windowMock.ym.a).toHaveLength(queuedGoals);
+  });
+
+  it("does not queue Yandex goals without analytics consent or for internal traffic", () => {
+    const noConsent = runGate().windowMock;
+    expect(noConsent.__ACA_TRACK_YANDEX_GOAL__("form_whatsapp_click")).toBe(false);
+    expect(noConsent.ym).toBeUndefined();
+
+    const internal = runGate({
+      consent: { analytics: true, marketing: false },
+      search: "?aca_internal=1",
+    }).windowMock;
+    expect(internal.__ACA_TRACK_YANDEX_GOAL__("form_whatsapp_click")).toBe(false);
+    expect(internal.ym).toBeUndefined();
+  });
+
   it("loads advertising vendors only after marketing consent", () => {
     const { scripts, windowMock } = runGate({
       consent: { analytics: false, marketing: true },
