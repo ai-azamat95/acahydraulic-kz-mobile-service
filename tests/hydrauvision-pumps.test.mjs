@@ -8,6 +8,12 @@ import inventory from '../data/hydrauvision-pumps-20261017/source-products.json'
 import imageManifest from '../data/hydrauvision-pumps-20261017/image-manifest.json' with { type: 'json' };
 import sourceSnapshot from '../data/hydrauvision-pumps-20261017/source-snapshot.json' with { type: 'json' };
 import { extractBrandSlugs } from '../scripts/lib/catalog-landings.mjs';
+import {
+  HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT,
+  baseHydrauvisionPriceKzt,
+  hasHydrauvisionSelectedPriceAdjustment,
+  hydrauvisionRetailPriceKzt,
+} from '../scripts/lib/hydrauvision-pricing.mjs';
 
 const publicDir = path.resolve('dist/public');
 const clientPublicDir = path.resolve('client/public');
@@ -83,7 +89,7 @@ test('published pumps retain exact identities, reviewed taxonomy and the authori
     );
     assert.equal(product.available, false, product.handle);
     assert.ok(audit.sourcePriceExclTaxEur > 0, product.handle);
-    const expectedPrice = Math.round((audit.sourcePriceExclTaxEur * inventory.pricing.exchangeRateKzt * inventory.pricing.markup) / inventory.pricing.roundingKzt) * inventory.pricing.roundingKzt;
+    const expectedPrice = hydrauvisionRetailPriceKzt(audit.sourcePriceExclTaxEur);
     assert.equal(product.minPriceKzt, expectedPrice, product.handle);
     assert.equal(product.maxPriceKzt, expectedPrice, product.handle);
     assert.equal(product.variants.length, 1, product.handle);
@@ -120,6 +126,32 @@ test('published pumps retain exact identities, reviewed taxonomy and the authori
   assert.equal(canonicalReplacement.id, '8705189118114');
   assert.equal(canonicalReplacement.handle, 'pgh4-3x-050re11vu2-internal-gear-pump-rexroth-r901147104');
   assert.match(auditById.get(canonicalReplacement.id).canonicalExistingProduct.reason, /Exact existing catalogue match/);
+
+  const adjustedProducts = products
+    .filter(product => hasHydrauvisionSelectedPriceAdjustment(auditById.get(product.id).sourcePriceExclTaxEur))
+    .sort((a, b) => a.minPriceKzt - b.minPriceKzt);
+  assert.equal(adjustedProducts.length, HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.expectedAffectedPublishedProducts);
+  assert.equal(adjustedProducts[0].sku, '111.10.002.00');
+  assert.equal(adjustedProducts[0].minPriceKzt, HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.expectedMinimumRetailPriceKzt);
+  assert.equal(products.find(product => product.brand === 'Daikin').minPriceKzt, 1_298_000);
+  assert.equal(products.find(product => product.sku === 'R901147104').minPriceKzt, 1_158_000);
+  for (const product of adjustedProducts) {
+    const audit = auditById.get(product.id);
+    assert.equal(
+      product.minPriceKzt,
+      baseHydrauvisionPriceKzt(audit.sourcePriceExclTaxEur) + HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.upliftKzt,
+      product.handle,
+    );
+  }
+  assert.deepEqual(inventory.pricing.selectedPriceAdjustment, {
+    method: 'fixed uplift through the selected Daikin price boundary',
+    sourcePriceCeilingExclTaxEur: 1_244.67,
+    upliftKzt: 348_000,
+    throughBrand: 'Daikin',
+    throughSku: 'J-V 38SA 3BL X-95',
+    affectedPublishedProducts: 49,
+    minimumRetailPriceKzt: 500_000,
+  });
 });
 
 test('local pump images are complete, hashed and never replace source placeholders with a false product photo', () => {

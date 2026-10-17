@@ -5,19 +5,24 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import process from 'node:process';
+import {
+  HYDRAUVISION_EXCHANGE_RATE_KZT,
+  HYDRAUVISION_MARKUP,
+  HYDRAUVISION_ROUNDING_KZT,
+  HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT,
+  hasHydrauvisionSelectedPriceAdjustment,
+  hydrauvisionRetailPriceKzt,
+} from './lib/hydrauvision-pricing.mjs';
 
 const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
 const RUN_DATE = '2026-10-17';
 const SOURCE_URL = 'https://webshop.hydrauvision.com/pumps';
 const SOURCE_REPORTED_COUNT = 234;
-const EUR_KZT = 508.95;
-const MARKUP = 1.5;
-const ROUNDING_KZT = 1_000;
 const OUTPUT_DIR = path.join(ROOT, 'data', `hydrauvision-pumps-${RUN_DATE.replaceAll('-', '')}`);
 const PUBLIC_ASSET_FOLDER = `supplier-pumps-${RUN_DATE.replaceAll('-', '')}`;
 const ASSET_DIR = path.join(ROOT, 'client', 'public', 'catalog-assets', PUBLIC_ASSET_FOLDER);
 const PRODUCT_OUTPUT = path.join(ROOT, 'shared', 'catalog-hydrauvision-products.json');
-const PRICE_NOTE = 'Расчётная цена по курсу НБК на 17.10.2026. Доставка, таможенные платежи и налоги не включены. Наличие, исполнение и итоговую стоимость подтверждаем в предложении.';
+const PRICE_NOTE = 'Ориентировочная цена для рынка Казахстана на 17.10.2026. Доставка, таможенные платежи и налоги не включены. Наличие, исполнение и итоговую стоимость подтверждаем в предложении.';
 const CANONICAL_PRODUCTS_BY_SOURCE_ID = new Map([
   [1799, {
     id: '8705189118114',
@@ -63,11 +68,6 @@ function originalImageUrl(images = []) {
 function sourcePrice(item, key) {
   const value = item.price_info?.extension_attributes?.tax_adjustments?.[key];
   return Number.isFinite(value) ? Number(value) : null;
-}
-
-function priceKzt(sourcePriceExclTaxEur) {
-  if (!(sourcePriceExclTaxEur > 0)) return null;
-  return Math.round((sourcePriceExclTaxEur * EUR_KZT * MARKUP) / ROUNDING_KZT) * ROUNDING_KZT;
 }
 
 function decisionFor(name) {
@@ -183,7 +183,7 @@ function publicProduct(item, audit) {
   const canonical = CANONICAL_PRODUCTS_BY_SOURCE_ID.get(Number(item.id));
   const itemHandle = canonical?.handle || `pump-${slug(brand)}-${slug(mpn)}`;
   const id = canonical?.id || `ACA-PUMP-${item.id}`;
-  const calculatedPriceKzt = priceKzt(audit.sourcePriceExclTaxEur);
+  const calculatedPriceKzt = hydrauvisionRetailPriceKzt(audit.sourcePriceExclTaxEur);
   assert(calculatedPriceKzt, `${item.name}: published pump needs a positive source price`);
   const originalName = normalizeSpace(item.name);
   const condition = /PUMP OVERHAULED/i.test(originalName) ? 'Восстановленный' : /used equipment/i.test(audit.imageLabel) ? 'Бывший в эксплуатации' : null;
@@ -271,7 +271,7 @@ function auditRecord(item) {
     } : {}),
     ...(canonical ? { canonicalExistingProduct: canonical } : {}),
     publicId: decision.decision === 'published' ? (canonical?.id || `ACA-PUMP-${item.id}`) : null,
-    calculatedPriceKzt: decision.decision === 'published' ? priceKzt(sourcePriceExclTaxEur) : null,
+    calculatedPriceKzt: decision.decision === 'published' ? hydrauvisionRetailPriceKzt(sourcePriceExclTaxEur) : null,
   };
 }
 
@@ -333,8 +333,14 @@ assert(!raw.items.some(item => Number(item.id) === missingListingOnlyItem.id), '
 const sourceItems = [...raw.items, missingListingOnlyItem];
 const auditProducts = sourceItems.map(auditRecord);
 const publishedAudit = auditProducts.filter(item => item.decision === 'published');
+const adjustedPublishedAudit = publishedAudit.filter(item => hasHydrauvisionSelectedPriceAdjustment(item.sourcePriceExclTaxEur));
 assert.equal(sourceItems.length, SOURCE_REPORTED_COUNT);
 assert.equal(publishedAudit.length, 105, 'Expected 105 reviewed pump listings');
+assert.equal(
+  adjustedPublishedAudit.length,
+  HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.expectedAffectedPublishedProducts,
+  'Unexpected selected retail price adjustment set; review the Daikin boundary before importing',
+);
 assert.equal(auditProducts.filter(item => item.decision === 'held').length, 1, 'Expected one held source classification conflict');
 
 const sourceById = new Map(sourceItems.map(item => [Number(item.id), item]));
@@ -382,12 +388,21 @@ const inventory = {
   pricing: {
     currency: 'EUR',
     sourcePriceField: 'price excluding VAT',
-    exchangeRateKzt: EUR_KZT,
+    exchangeRateKzt: HYDRAUVISION_EXCHANGE_RATE_KZT,
     exchangeRateDate: RUN_DATE,
     exchangeRateSource: 'https://nationalbank.kz/ru/exchangerates/ezhednevnye-oficialnye-rynochnye-kursy-valyut',
-    markup: MARKUP,
-    roundingKzt: ROUNDING_KZT,
-    formula: 'round((sourcePriceExclTaxEur * exchangeRateKzt * markup) / roundingKzt) * roundingKzt',
+    markup: HYDRAUVISION_MARKUP,
+    roundingKzt: HYDRAUVISION_ROUNDING_KZT,
+    selectedPriceAdjustment: {
+      method: 'fixed uplift through the selected Daikin price boundary',
+      sourcePriceCeilingExclTaxEur: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.sourcePriceCeilingExclTaxEur,
+      upliftKzt: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.upliftKzt,
+      throughBrand: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.throughBrand,
+      throughSku: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.throughSku,
+      affectedPublishedProducts: adjustedPublishedAudit.length,
+      minimumRetailPriceKzt: HYDRAUVISION_SELECTED_PRICE_ADJUSTMENT.expectedMinimumRetailPriceKzt,
+    },
+    formula: 'round((sourcePriceExclTaxEur * exchangeRateKzt * markup) / roundingKzt) * roundingKzt + selectedPriceAdjustment.upliftKzt when sourcePriceExclTaxEur <= selectedPriceAdjustment.sourcePriceCeilingExclTaxEur',
   },
   counts: Object.fromEntries(['published', 'held', 'excluded'].map(decision => [decision, auditProducts.filter(item => item.decision === decision).length])),
   products: auditProducts,

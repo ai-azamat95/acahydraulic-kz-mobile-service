@@ -5,6 +5,7 @@ import path from 'node:path';
 import supplierProducts from '../shared/catalog-supplier-products.json' with { type: 'json' };
 import hydrauvisionProducts from '../shared/catalog-hydrauvision-products.json' with { type: 'json' };
 import hydrauvisionInventory from '../data/hydrauvision-pumps-20261017/source-products.json' with { type: 'json' };
+import { hydrauvisionRetailPriceKzt } from './lib/hydrauvision-pricing.mjs';
 
 export const SUPPLIER_CATALOG_SUPPLEMENT = '2026-10-supplier-catalog';
 export const supplierCatalogProducts = [...supplierProducts, ...hydrauvisionProducts];
@@ -48,10 +49,7 @@ function validateProducts(products) {
       assert(hydrauvisionAudit, `${product.handle}: reviewed pump price audit is required`);
       assert.deepEqual(product, HYDRAUVISION_PRODUCTS_BY_ID.get(product.id), `${product.id}: reviewed pump record changed outside the importer`);
       assert(hydrauvisionAudit.sourcePriceExclTaxEur > 0, `${product.handle}: positive source price excluding VAT is required`);
-      const expectedPrice = Math.round((hydrauvisionAudit.sourcePriceExclTaxEur
-        * hydrauvisionInventory.pricing.exchangeRateKzt
-        * hydrauvisionInventory.pricing.markup) / hydrauvisionInventory.pricing.roundingKzt)
-        * hydrauvisionInventory.pricing.roundingKzt;
+      const expectedPrice = hydrauvisionRetailPriceKzt(hydrauvisionAudit.sourcePriceExclTaxEur);
       assert.equal(product.minPriceKzt, expectedPrice, `${product.handle}: reviewed minimum price does not match the price audit`);
       assert.equal(product.maxPriceKzt, expectedPrice, `${product.handle}: reviewed maximum price does not match the price audit`);
       assert.equal(typeof product.catalogPriceNote, 'string', `${product.handle}: reviewed price note is required`);
