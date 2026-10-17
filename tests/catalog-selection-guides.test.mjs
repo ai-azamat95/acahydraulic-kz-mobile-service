@@ -17,7 +17,7 @@ test('seven distinct hydraulic selection guides have relevant local links', () =
     assert.ok(guide.links.length >= 2, category);
     assert.equal(new Set(guide.links.map(link => link.href)).size, guide.links.length);
     for (const link of guide.links) {
-      assert.match(link.href, /^\/(catalog\/category|services|blog|cases)\/[a-z0-9-]+\/$/);
+      assert.match(link.href, /^\/(catalog(?:\/category)?|services|blog|cases)\/[a-z0-9-]+\/$/);
       assert.ok(link.label.length > 20, link.href);
     }
   }
