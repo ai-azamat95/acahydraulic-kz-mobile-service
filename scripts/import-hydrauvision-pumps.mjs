@@ -219,7 +219,7 @@ function publicProduct(item, audit) {
     categories,
     productType: kind.type,
     tags: [...new Set([brand, mpn, kind.type, catalogTitle, ...(brand === 'Danfoss' && /Sauer Danfoss/i.test(originalName) ? ['Sauer Danfoss'] : [])])],
-    catalogDescription: `${catalogTitle}. ${statusSentence} Ориентировочная цена рассчитана по курсу НБК на ${RUN_DATE.split('-').reverse().join('.')}. Наличие, исполнение, доставку и итоговую стоимость подтверждаем до оплаты.`.replace(/\s+/g, ' ').trim(),
+    catalogDescription: `${catalogTitle}. ${statusSentence} ${PRICE_NOTE}`.replace(/\s+/g, ' ').trim(),
     catalogSelection: selection,
     catalogPriceNote: PRICE_NOTE,
     ...(catalogImageCaption ? { catalogImageLabel, catalogImageCaption } : {}),
