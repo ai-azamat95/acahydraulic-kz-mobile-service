@@ -5,7 +5,7 @@ import path from 'node:path';
 const publicDir = path.resolve(process.argv[2] || 'dist/public');
 const textExtensions = new Set(['.css', '.html', '.js', '.json', '.svg', '.txt', '.xml']);
 const forbiddenPatterns = [
-  { label: 'supplier brand', pattern: /sinocmp/i },
+  { label: 'supplier brand', pattern: /sinocmp|hydrauvision/i },
   { label: 'supplier URL field', pattern: /["']sourceUrl["']/ },
   { label: 'supplier price field', pattern: /["']sourcePriceKzt["']/ },
   { label: 'supplier update field', pattern: /["']sourceUpdatedAt["']/ },

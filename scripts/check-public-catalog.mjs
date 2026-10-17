@@ -6,8 +6,8 @@ import { isExcludedCatalogImage } from './lib/catalog-image-hygiene.mjs';
 
 const catalogDir = path.resolve(process.argv[2] || 'client/public/catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
-const forbiddenBrand = /sinocmp/i;
-const forbiddenSupplierHost = /https:\/\/(?:[^/]+\.)?(?:sinocmp\.com|shopify\.com)\//i;
+const forbiddenBrand = /sinocmp|hydrauvision/i;
+const forbiddenSupplierHost = /https:\/\/(?:[^/]+\.)?(?:sinocmp\.com|shopify\.com|hydrauvision\.com)\//i;
 const forbiddenKeys = new Set(['sourceUrl', 'sourcePriceKzt', 'sourceUpdatedAt']);
 const privateFiles = [
   'catalog-import-audit.json',

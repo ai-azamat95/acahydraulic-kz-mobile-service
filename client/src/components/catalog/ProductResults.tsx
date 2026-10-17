@@ -101,7 +101,7 @@ export function ProductResults({ copy, language, products, activeCategory, total
           const productName = catalogProductName(product, language);
           const confirmedSupply = catalogOfferHasConfirmedSupply(merchantPumps.products.find(offer => offer.handle === product.handle));
           const visibleTags = product.tags.slice(0, 2);
-          const whatsappText = encodeURIComponent(`Здравствуйте! Интересует запчасть: ${product.title}\n${window.location.origin}/catalog/${product.handle}`);
+          const whatsappText = encodeURIComponent(`Здравствуйте! Интересует запчасть: ${productName}\n${window.location.origin}/catalog/${product.handle}`);
           return (
             <article
               key={product.id}
@@ -140,7 +140,10 @@ export function ProductResults({ copy, language, products, activeCategory, total
                 </div>
 
                 {visibleTags.length > 0 && (
-                  <div className="mt-3 hidden flex-wrap gap-1.5 sm:flex" aria-label="Product tags">
+                  <div
+                    className="mt-3 hidden flex-wrap gap-1.5 sm:flex"
+                    aria-label={language === "ru" ? "Теги товара" : language === "kz" ? "Тауар белгілері" : "Product tags"}
+                  >
                     {visibleTags.map((tag) => (
                       <span key={tag} className="max-w-full truncate rounded border border-white/10 bg-white/[0.03] px-2 py-1 text-[11px] text-gray-400">
                         {tag}
