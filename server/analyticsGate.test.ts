@@ -92,7 +92,7 @@ describe("analytics consent and traffic gate", () => {
     expect(windowMock.__ACA_ANALYTICS_EXCLUDE__).toBe(false);
     expect(windowMock.__ACA_COOKIE_CONSENT__).toBe(null);
     expect(scripts).toHaveLength(0);
-    expect(windowMock.dataLayer[0]).toEqual([
+    expect(Array.from(windowMock.dataLayer[0])).toEqual([
       "consent",
       "default",
       expect.objectContaining({
@@ -105,6 +105,41 @@ describe("analytics consent and traffic gate", () => {
 
     windowMock.gtag("event", "catalog_search", { query: "K5V80" });
     expect(windowMock.dataLayer).toHaveLength(2);
+  });
+
+  it("uses the Google command protocol and configures GA4 once across consent updates", () => {
+    const { windowMock, scripts } = runGate();
+    const apply = (analytics: boolean, marketing: boolean) =>
+      windowMock.__ACA_APPLY_COOKIE_CONSENT__({
+        version: 1, analytics, marketing, updatedAt: Date.now(),
+      });
+
+    apply(true, false);
+    apply(true, false);
+    apply(true, true);
+    windowMock.gtag("event", "catalog_search", { query: "K5V80" });
+
+    // gtag.js dispatches Arguments commands; arrays use a different dataLayer
+    // protocol and silently leave GA4 unconfigured even when the script loads.
+    for (const command of windowMock.dataLayer) {
+      expect(Object.prototype.toString.call(command)).toBe("[object Arguments]");
+    }
+    const commands = windowMock.dataLayer.map((value: IArguments) => Array.from(value));
+    const configs = commands.filter((value: unknown[]) => value[0] === "config");
+    expect(configs).toEqual([
+      ["config", "G-XZB9KZ4VCH"],
+      ["config", "AW-17847190636"],
+    ]);
+    expect(commands.filter((value: unknown[]) => value[0] === "js")).toHaveLength(1);
+    expect(scripts.filter(script => script.id === "aca-google-tag")).toHaveLength(1);
+    expect(commands.some((value: unknown[]) => value[1] === "page_view")).toBe(false);
+    expect(commands.at(-1)).toEqual(["event", "catalog_search", { query: "K5V80" }]);
+
+    apply(false, false);
+    const count = windowMock.dataLayer.length;
+    windowMock.gtag("event", "catalog_search", { query: "K5V80" });
+    windowMock.gtag("event", "conversion", { send_to: "AW-test" });
+    expect(windowMock.dataLayer).toHaveLength(count);
   });
 
   it("loads only analytics vendors for analytics-only consent", () => {
