@@ -68,7 +68,8 @@
           return;
         }
       }
-      window.dataLayer.push(command);
+      // Google tag commands must retain the Arguments object protocol.
+      window.dataLayer.push(arguments);
     };
 
   window.gtag("consent", "default", {
