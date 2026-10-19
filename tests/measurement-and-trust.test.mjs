@@ -27,7 +27,7 @@ test('the public seller and payment recipient are the acquiring legal entity and
   for (const source of [home, footer]) {
     assert.match(source, /Продавец и получатель оплаты:/);
     assert.match(source, /href="\/offer\/"/);
-    assert.match(source, /ТОО «АСА-ГС» · БИН 240540017992/);
+    assert.match(source, /ТОО «ACA ГИДРАВЛИК СЕРВИС» · БИН 240540017992/);
   }
 });
 

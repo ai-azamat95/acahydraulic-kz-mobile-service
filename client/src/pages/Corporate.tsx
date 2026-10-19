@@ -43,7 +43,7 @@ const Corporate = () => {
                   <FileText className="w-12 h-12 text-[#FFB800] mb-6" />
                   <h3 className="text-xl font-bold mb-4">Полный документооборот</h3>
                   <p className="text-muted-foreground">
-                    Работаем через ТОО «АСА-ГС». Состав документов по поставке и выполненным работам согласуем для конкретного заказа.
+                    Работаем через ТОО «ACA ГИДРАВЛИК СЕРВИС». Состав документов по поставке и выполненным работам согласуем для конкретного заказа.
                   </p>
                 </CardContent>
               </Card>
@@ -87,7 +87,7 @@ const Corporate = () => {
                   </div>
                   <div>
                     <div className="font-bold">Карточка предприятия (Реквизиты)</div>
-                    <div className="text-sm text-muted-foreground">Реквизиты ТОО «АСА-ГС»</div>
+                    <div className="text-sm text-muted-foreground">Реквизиты ТОО «ACA ГИДРАВЛИК СЕРВИС»</div>
                   </div>
                 </div>
                 <FileText className="w-5 h-5 text-gray-400 group-hover:text-[#FFB800]" />

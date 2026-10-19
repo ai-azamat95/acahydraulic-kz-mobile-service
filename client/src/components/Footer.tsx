@@ -82,7 +82,7 @@ export function Footer() {
           </div>
         </div>
         
-        <p className="mb-4 text-sm text-gray-400">Продавец и получатель оплаты: <Link href="/offer/" className="underline underline-offset-4 hover:text-[#FFC000]">ТОО «АСА-ГС» · БИН 240540017992</Link></p>
+        <p className="mb-4 text-sm text-gray-400">Продавец и получатель оплаты: <Link href="/offer/" className="underline underline-offset-4 hover:text-[#FFC000]">ТОО «ACA ГИДРАВЛИК СЕРВИС» · БИН 240540017992</Link></p>
         <CommerceLinks />
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-600 text-xs font-roboto">

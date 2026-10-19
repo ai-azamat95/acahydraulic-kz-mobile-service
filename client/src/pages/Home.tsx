@@ -777,7 +777,7 @@ export default function Home() {
             <p className="text-gray-600 text-xs">
               &copy; {new Date().getFullYear()} ACA Hydraulic. {t('footer.rights')}
             </p>
-            <div className="max-w-full"><p className="text-sm text-gray-500">Продавец и получатель оплаты: <Link href="/offer/" className="underline underline-offset-4 hover:text-[#FFC000]">ТОО «АСА-ГС» · БИН 240540017992</Link></p><CommerceLinks /></div>
+            <div className="max-w-full"><p className="text-sm text-gray-500">Продавец и получатель оплаты: <Link href="/offer/" className="underline underline-offset-4 hover:text-[#FFC000]">ТОО «ACA ГИДРАВЛИК СЕРВИС» · БИН 240540017992</Link></p><CommerceLinks /></div>
           </div>
         </div>
       </footer>

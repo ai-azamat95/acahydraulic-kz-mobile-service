@@ -13,7 +13,7 @@ const links = (source) => [...source.matchAll(/\[[^\]]+\]\((https:\/\/acahydraul
 
 test('llms.txt follows the compact discovery format and names the verified operator', () => {
   assert.match(llms, /^# ACA Hydraulic\n\n> /);
-  assert.match(llms, /ТОО «АСА-ГС»/);
+  assert.match(llms, /ТОО «ACA ГИДРАВЛИК СЕРВИС»/);
   assert.match(llms, /## О компании/);
   assert.match(llms, /## Услуги/);
   assert.match(llms, /## Каталог и поставка/);
