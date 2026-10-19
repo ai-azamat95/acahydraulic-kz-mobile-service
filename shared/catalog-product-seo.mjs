@@ -6,14 +6,37 @@ import phase3ProductCopy from './catalog-product-phase3-copy.json' with { type: 
 import priorityProductCopy from './catalog-product-priority-copy.json' with { type: 'json' };
 import landings from './catalog-landings.json' with { type: 'json' };
 import selectionCopy from './catalog-seo-content.json' with { type: 'json' };
+import { catalogCategoryCorrection } from './catalog-category-corrections.mjs';
 
 const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...phase3ProductCopy, ...priorityProductCopy, ...merchantProductCopy };
+
+const russianPumpTypeByCategory = {
+  'hydraulic-pumps': 'Гидронасос',
+  'gear-pumps': 'Шестерённый насос',
+  'piston-pumps': 'Поршневой гидронасос',
+  'pump-parts': 'Запчасти гидронасоса',
+  'hydraulic-motors': 'Гидромотор',
+  'control-valves': 'Гидравлический клапан',
+  'main-control-valves': 'Основной гидрораспределитель',
+  'fuel-pumps': 'Топливный насос',
+  'other-parts': 'Запчасть для спецтехники',
+};
+
+function russianPumpFallbackName(product) {
+  const categories = product.categories?.length ? product.categories : [product.category];
+  const reviewedCorrection = product.id ? catalogCategoryCorrection(product.id) : undefined;
+  const category = reviewedCorrection?.category || categories.find(id => ['hydraulic-pumps', 'gear-pumps', 'piston-pumps'].includes(id));
+  const sourceName = product.catalogTitle || product.title;
+  if (!category || !sourceName || /[а-яё]/i.test(sourceName)) return sourceName;
+  return `${russianPumpTypeByCategory[category]} ${sourceName}`;
+}
 
 // Keep exact OEM numbers in public product data. Supplier-language source titles
 // belong only in private audit snapshots; reviewed catalogue imports may store a
 // Russian title directly. Handle-specific reviewed copy still takes precedence.
 export function catalogProductName(product, language = 'ru') {
-  return (language === 'ru' && (productCopy[product.handle]?.name || product.catalogTitle)) || product.title;
+  if (language !== 'ru') return product.title;
+  return productCopy[product.handle]?.name || russianPumpFallbackName(product) || product.title;
 }
 
 export function catalogProductSeo(product, language = 'ru') {

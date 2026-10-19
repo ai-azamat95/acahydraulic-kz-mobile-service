@@ -230,10 +230,16 @@ test('the first pump and injector result pages have reviewed Russian product nam
     assert.equal(catalogProductName(product), content.name);
   }
 
-  for (const categoryId of ['hydraulic-pumps', 'fuel-injectors']) {
-    const firstPage = fullSearchIndex.filter(product => (product.categories?.length ? product.categories : [product.category]).includes(categoryId)).slice(0, 10);
+  for (const categoryId of ['hydraulic-pumps', 'gear-pumps', 'piston-pumps']) {
+    const firstPage = fullSearchIndex.filter(product => (product.categories?.length ? product.categories : [product.category]).includes(categoryId)).slice(0, 50);
     assert(firstPage.every(product => /[а-яё]/i.test(catalogProductName(product))), `${categoryId}: first page still contains an untranslated title`);
   }
+
+  const gearPumpPage = fullSearchIndex.filter(product => (product.categories?.length ? product.categories : [product.category]).includes('gear-pumps')).slice(0, 50);
+  assert(gearPumpPage.every(product => !/gear\s?box/i.test(product.title)), 'gear-pumps: gearbox leaked into the first SEO page');
+
+  const hydraulicPumpPage = fullSearchIndex.filter(product => (product.categories?.length ? product.categories : [product.category]).includes('hydraulic-pumps')).slice(0, 50);
+  assert(hydraulicPumpPage.every(product => !/hydraulic pump parts?/i.test(product.title)), 'hydraulic-pumps: pump component leaked into the first SEO page');
 });
 
 test('the competing 2181-1950D5 listing consolidates into the reviewed canonical pump page', () => {

@@ -161,7 +161,7 @@ test("catalog publication revisions cover Hydrauvision and corrected product car
   ];
 
   assert.equal(pumps.length, 105);
-  assert.equal(Object.keys(categoryCorrectionLedger.corrections).length, 29);
+  assert.equal(Object.keys(categoryCorrectionLedger.corrections).length, 41);
   for (const product of expected) {
     assert.ok(product?.handle, product?.id);
     assert.ok(

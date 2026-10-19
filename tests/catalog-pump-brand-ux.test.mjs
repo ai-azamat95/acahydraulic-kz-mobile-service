@@ -200,15 +200,15 @@ test("changed pump landing pages publish their actual content revision date", ()
     "dist/public/sitemap-catalog-landings.xml",
     "utf8",
   );
-  for (const route of [
-    "/catalog/category/hydraulic-pumps/",
-    "/catalog/brand/rexroth/",
-    "/catalog/brand/danfoss/",
+  for (const [route, modifiedDate] of [
+    ["/catalog/category/hydraulic-pumps/", catalogContentRevisions.categoryCorrections.modifiedDate],
+    ["/catalog/brand/rexroth/", catalogContentRevisions.hydrauvisionProducts.modifiedDate],
+    ["/catalog/brand/danfoss/", catalogContentRevisions.hydrauvisionProducts.modifiedDate],
   ]) {
     assert.match(
       sitemap,
       new RegExp(
-        `<loc>https://acahydraulic\\.kz${escapeRegExp(route)}</loc><lastmod>2026-10-17</lastmod>`,
+        `<loc>https://acahydraulic\\.kz${escapeRegExp(route)}</loc><lastmod>${modifiedDate}</lastmod>`,
       ),
       route,
     );
@@ -239,12 +239,16 @@ test("catalog publication revisions cover affected category and brand landings",
     [...hydrauvisionBrands].sort(),
     ["daikin", "danfoss", "denison", "eaton", "parker", "rexroth", "von-roll"],
   );
-  assert.equal(correctedCategories.size, 9);
+  assert.equal(correctedCategories.size, 10);
 
   for (const category of hydrauvisionCategories) {
+    const modifiedDate = [
+      catalogContentRevisions.hydrauvisionProducts.modifiedDate,
+      correctedCategories.has(category) ? catalogContentRevisions.categoryCorrections.modifiedDate : undefined,
+    ].filter(Boolean).sort().at(-1);
     assert.match(
       sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${catalogContentRevisions.hydrauvisionProducts.modifiedDate}</lastmod>`),
+      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${modifiedDate}</lastmod>`),
       category,
     );
   }
