@@ -68,8 +68,8 @@ const explicitMeta = {
   privacy: { title: 'Политика конфиденциальности | ACA Hydraulic', description: 'Обработка обращений и аналитика сайта ACA Hydraulic.' },
   terms: { title: 'Условия использования | ACA Hydraulic', description: 'Информация об услугах, расчёте стоимости и заявках на ремонт.' },
   'delivery-and-returns': { title: deliveryPolicy.title + ' | ACA Hydraulic', description: deliveryPolicy.description },
-  payment: { title: 'Оплата заказа | ACA Hydraulic', description: 'Согласование заказа и оплата ТОО «АСА-ГС» в тенге.' },
-  offer: { title: 'Публичная оферта | ACA Hydraulic', description: 'Условия заказа запчастей и работ у ТОО «АСА-ГС».' },
+  payment: { title: 'Оплата заказа | ACA Hydraulic', description: 'Согласование заказа и оплата ТОО «ACA ГИДРАВЛИК СЕРВИС» в тенге.' },
+  offer: { title: 'Публичная оферта | ACA Hydraulic', description: 'Условия заказа запчастей и работ у ТОО «ACA ГИДРАВЛИК СЕРВИС».' },
   cart: { title: 'Корзина | ACA Hydraulic', description: 'Корзина запчастей ACA Hydraulic.' },
   checkout: { title: 'Оформление заказа | ACA Hydraulic', description: 'Оформление заказа запчастей ACA Hydraulic.' },
   'parts/engines-complete': {
