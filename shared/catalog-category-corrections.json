@@ -232,20 +232,103 @@
       ],
       "previousCategory": "gear-pumps",
       "evidenceTitle": "Hydraulic Piston Pump 250-8337 for Caterpillar C6.6 C9 Engine 120M 140M Motor Grader"
-    }
-  },
-  "deferred": {
+    },
+    "8641959461026": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "14595548 hydraulic pump parts K5V200 for Volvo EC460 EC480"
+    },
+    "8641959657634": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "14603650 hydraulic pump parts K5V140DT for EC290 EC290B"
+    },
+    "8641960050850": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "2181-1950D5 hydraulic pump parts Z3V112DTP-9N24-12T for R225-9T DX225"
+    },
+    "8641959985314": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "31N6-10051 K3V112DT hydraulic pump parts for Hyundai R210-7 R250-7"
+    },
+    "8641958838434": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "31N8-10010 hydraulic pump parts K3V112DT for EC220D machinery parts"
+    },
+    "8641959592098": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "31n8-10051 K3V140DT hydraulic pump parts for EC290 EC290B"
+    },
+    "8641959264418": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "31n8-10051 K3V140DT hydraulic pump parts for Hyundai EC290 EC290B"
+    },
+    "8641958609058": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "K100655 hydraulic pump parts K5V140DTP for DOOSAN Daewoo DX300-7 S300-7"
+    },
+    "8641958936738": {
+      "category": "pump-parts",
+      "categories": [
+        "pump-parts"
+      ],
+      "previousCategory": "hydraulic-pumps",
+      "evidenceTitle": "LC10V00029F4 hydraulic pump parts K5V140DT for EC290 EC290B"
+    },
     "8869102354594": {
-      "evidenceTitle": "Gear Box AUC10298 MIA12567 AM136330 DE19088 for John Deere X710 X730 Tractor",
-      "reason": "Gearbox type is clear, but the title does not establish a final drive or travel reduction unit. Keep pending clarification."
+      "category": "other-parts",
+      "categories": [
+        "other-parts"
+      ],
+      "previousCategory": "gear-pumps",
+      "evidenceTitle": "Gear Box AUC10298 MIA12567 AM136330 DE19088 for John Deere X710 X730 Tractor"
     },
     "8869363450018": {
-      "evidenceTitle": "Gearbox 482486 481516 for Scag Turf Tiger Mower",
-      "reason": "Gearbox type is clear, but the title does not establish a final drive or travel reduction unit. Keep pending clarification."
+      "category": "other-parts",
+      "categories": [
+        "other-parts"
+      ],
+      "previousCategory": "gear-pumps",
+      "evidenceTitle": "Gearbox 482486 481516 for Scag Turf Tiger Mower"
     },
     "8869102616738": {
-      "evidenceTitle": "Gearbox CE17401 for John Deere Mower F910 F915 F925 F935",
-      "reason": "Gearbox type is clear, but the title does not establish a final drive or travel reduction unit. Keep pending clarification."
+      "category": "other-parts",
+      "categories": [
+        "other-parts"
+      ],
+      "previousCategory": "gear-pumps",
+      "evidenceTitle": "Gearbox CE17401 for John Deere Mower F910 F915 F925 F935"
     }
-  }
+  },
+  "deferred": {}
 }

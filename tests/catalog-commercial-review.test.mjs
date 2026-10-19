@@ -19,9 +19,9 @@ test('legacy hydraulic prices stay a review queue and exclude saved confirmation
 });
 
 test('category review reproduces the bounded candidate list without changing catalog data', () => {
-  assert.equal(review.categories.length, 32);
-  assert.equal(review.categories.filter((row) => row.status === 'Исправлено').length, 29);
-  assert.equal(review.categories.filter((row) => row.status === 'Отложено').length, 3);
+  assert.equal(review.categories.length, 41);
+  assert.equal(review.categories.filter((row) => row.status === 'Исправлено').length, 41);
+  assert.equal(review.categories.filter((row) => row.status === 'Отложено').length, 0);
   assert(review.categories.filter((row) => row.status === 'Исправлено').every((row) => row.currentCategory === row.reviewedCategory));
   assert(review.categories.filter((row) => row.status === 'Отложено').every((row) => row.reviewedCategory === ''));
 });

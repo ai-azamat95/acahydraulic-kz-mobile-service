@@ -135,6 +135,8 @@ function summaryMarkdown(priceRows, categoryRows) {
   const categoryTable = categoryRows.map((row) =>
     `| ${row.id} | ${row.title.replaceAll('|', '\\|')} | ${row.previousCategory} | ${row.reviewedCategory || '—'} | ${row.status} |`,
   ).join('\n');
+  const correctedCount = categoryRows.filter((row) => row.status === 'Исправлено').length;
+  const deferredCount = categoryRows.filter((row) => row.status === 'Отложено').length;
   return `# Проверка цен и категорий каталога — ${REPORT_DATE}
 
 Отчёт фиксирует очередь ручной проверки. Он не меняет цены и категории и не является доказательством ошибки каждой позиции.
@@ -150,7 +152,7 @@ function summaryMarkdown(priceRows, categoryRows) {
 
 ## Категории
 
-- ${categoryRows.length} позиций прошли отдельную проверку категории: 29 доказанных исправлений применены, 3 редуктора оставлены без изменения до уточнения типа узла.
+- ${categoryRows.length} позиций прошли отдельную проверку категории: ${correctedCount} доказанных исправлений применены, ${deferredCount} позиций отложены до уточнения типа узла.
 - Исправления ограничены сохранённым списком ID и меняют только поля category/categories.
 - Названия, URL, цены, изображения и коммерческие поля не менялись.
 - CSV: [catalog-category-review-${REPORT_DATE}.csv](./catalog-category-review-${REPORT_DATE}.csv).

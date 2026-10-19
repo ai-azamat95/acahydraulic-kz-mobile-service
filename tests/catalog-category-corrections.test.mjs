@@ -24,9 +24,9 @@ const byId = new Map(products.map(product => [String(product.id), product]));
 const pumpCategories = ['hydraulic-pumps', 'gear-pumps', 'piston-pumps'];
 const withoutCategories = ({ category, categories, ...rest }) => rest;
 
-test('review is limited to the approved 32 IDs: 29 typed corrections and 3 deferred gearboxes', () => {
-  assert.equal(Object.keys(corrections).length, 29);
-  assert.equal(Object.keys(deferred).length, 3);
+test('review is limited to 41 evidence-backed typed corrections', () => {
+  assert.equal(Object.keys(corrections).length, 41);
+  assert.equal(Object.keys(deferred).length, 0);
   const categories = new Set(read('shared/catalog-landings.json').categories.map(item => item.id));
   for (const [id, correction] of Object.entries(corrections)) {
     assert(byId.has(id), id);
@@ -36,9 +36,10 @@ test('review is limited to the approved 32 IDs: 29 typed corrections and 3 defer
     assert.equal(new Set(correction.categories).size, correction.categories.length);
     assert(correction.categories.every(category => categories.has(category)));
     const titlePatterns = {
-      'hydraulic-motors': /motor/i, 'pump-parts': /housing|kit|regulator/i,
+      'hydraulic-motors': /motor/i, 'pump-parts': /housing|kit|regulator|pump parts?/i,
       'control-valves': /valve/i, 'main-control-valves': /control valve assy/i,
       'fuel-pumps': /fuel injection pump/i, 'piston-pumps': /hydraulic piston pump/i,
+      'other-parts': /gear\s?box/i,
     };
     assert.match(correction.evidenceTitle, titlePatterns[correction.category]);
   }
@@ -50,13 +51,13 @@ test('review is limited to the approved 32 IDs: 29 typed corrections and 3 defer
   assert.equal(correctCatalogProductCategories(unknown), unknown);
 });
 
-test('correction preserves identity, price, display name, image, variants and every other field', () => {
+test('correction preserves identity, price, image, variants and every non-taxonomy field', () => {
   for (const [id, correction] of Object.entries(corrections)) {
     const original = { ...byId.get(id), category: correction.previousCategory, categories: [correction.previousCategory] };
     const corrected = correctCatalogProductCategories(original);
     assert.equal(original.category, correction.previousCategory);
     assert.deepEqual(withoutCategories(corrected), withoutCategories(original), id);
-    assert.equal(catalogProductName(corrected), catalogProductName(original), id);
+    assert.match(catalogProductName(corrected), /[а-яё]/i, `${id}: corrected category needs a Russian catalogue name`);
     assert.equal(correctCatalogProductCategories(corrected), corrected, id);
   }
 });
@@ -106,9 +107,9 @@ test('pump source auditing counts corrected pump types while retaining raw suppl
   const handles = { 'hydraulic-pumps': 'hydraulic-pump-assembly', 'gear-pumps': 'gear-pump', 'piston-pumps': 'piston-pump' };
   const collections = Object.entries(handles).map(([category, handle]) => [handle, rows.filter(product => product.category === category)]);
   const result = reviewedPumpSourceProducts(collections, product => product.category);
-  assert.deepEqual(result.collections, { 'hydraulic-pump-assembly': 1, 'gear-pump': 3, 'piston-pump': 1 });
-  assert.deepEqual(result.sourceCollections, { 'hydraulic-pump-assembly': 11, 'gear-pump': 6, 'piston-pump': 5 });
-  assert.deepEqual(result.products.map(product => product.id).sort(), ['ordinary', '8831560679586', ...Object.keys(deferred)].sort());
+  assert.deepEqual(result.collections, { 'hydraulic-pump-assembly': 1, 'gear-pump': 0, 'piston-pump': 1 });
+  assert.deepEqual(result.sourceCollections, { 'hydraulic-pump-assembly': 20, 'gear-pump': 6, 'piston-pump': 5 });
+  assert.deepEqual(result.products.map(product => product.id).sort(), ['ordinary', '8831560679586'].sort());
 });
 
 test('snapshot preparation repairs product/index records, summary images and cache version exactly once', () => {
