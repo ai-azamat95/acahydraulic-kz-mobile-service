@@ -16,28 +16,13 @@ export type CheckoutCustomer = {
 
 export type CheckoutErrors = Partial<Record<keyof CheckoutCustomer | "cart", string>>;
 
-export const CHECKOUT_PAYMENT_PROVIDER = "kaspi-webpay" as const;
-
-export type CheckoutPaymentProvider = typeof CHECKOUT_PAYMENT_PROVIDER;
-
-export type PaymentRequest = {
-  provider: CheckoutPaymentProvider;
-  cartVersion: 1;
-  items: Array<Pick<CartItem, "productId" | "productHandle" | "variantId" | "quantity">>;
-  customer: Omit<CheckoutCustomer, "consent">;
-  returnUrl: string;
-};
-
-export type PaymentResponse = {
-  orderId: string;
-  paymentUrl: string;
-  expiresAt?: string;
-};
+export type { CheckoutPaymentProvider } from "@shared/checkout";
 
 const PHONE_DIGITS_MIN = 10;
 
 export function validateCheckout(customer: CheckoutCustomer, items: CartItem[]): CheckoutErrors {
   const errors: CheckoutErrors = {};
+  if (items.length > 100 || items.some(item => !Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 99)) errors.cart = "Проверьте количество товаров.";
   if (items.length === 0) errors.cart = "Добавьте хотя бы один товар.";
   if (customer.fullName.trim().length < 2) errors.fullName = "Укажите имя получателя.";
   if (customer.phone.replace(/\D/g, "").length < PHONE_DIGITS_MIN) errors.phone = "Укажите корректный номер телефона.";
@@ -79,21 +64,13 @@ export function checkoutWhatsappText(customer: CheckoutCustomer, items: CartItem
   ].filter(Boolean).join("\n");
 }
 
-export function paymentApiUrl() {
-  return (import.meta.env.VITE_CHECKOUT_API_URL || "").trim();
-}
-
-export async function createPayment(request: PaymentRequest): Promise<PaymentResponse> {
-  const endpoint = paymentApiUrl();
-  if (!endpoint) throw new Error("PAYMENT_NOT_CONFIGURED");
-  const response = await fetch(`${endpoint.replace(/\/$/, "")}/payments`, {
-    method: "POST",
-    headers: { "content-type": "application/json", accept: "application/json" },
-    body: JSON.stringify(request),
-  });
-  if (!response.ok) throw new Error("PAYMENT_CREATE_FAILED");
-  const payload = await response.json() as PaymentResponse;
-  const paymentUrl = new URL(payload.paymentUrl);
-  if (paymentUrl.protocol !== "https:") throw new Error("PAYMENT_URL_INVALID");
-  return payload;
+export function checkoutApiUrl() {
+  // Explicit sandbox opt-in. Setting the old API URL alone never enables payment.
+  if (import.meta.env.VITE_CHECKOUT_MODE !== "sandbox") return "";
+  const value = (import.meta.env.VITE_CHECKOUT_API_URL || "").trim();
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "https:" || url.username || url.password || url.search || url.hash) return "";
+    return value.replace(/\/$/, "");
+  } catch { return ""; }
 }
