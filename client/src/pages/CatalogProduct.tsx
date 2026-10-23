@@ -21,10 +21,10 @@ import { useCart } from "@/contexts/CartContext";
 import { useCatalogProduct } from "@/hooks/useCatalogProducts";
 import { catalogAnalyticsItem, trackCatalogEvent } from "@/lib/catalogAnalytics";
 import { cartItemFromProduct, preferredCartItem } from "@/lib/cart";
+import { buildCatalogWhatsappUrl, CATALOG_WHATSAPP_NUMBER } from "@shared/catalog-inquiry.mjs";
 
 import { catalogOfferHasConfirmedSupply, catalogProductBrandLanding, catalogProductSeo, catalogProductCategories, catalogProductHasReviewedCopy, catalogProductImageIsPlaceholder, catalogProductIsHydraulicPump, catalogProductSelection } from "@shared/catalog-product-seo.mjs";
 
-const WHATSAPP_NUMBER = "77714177925";
 const catalogCanonicalAliases: Record<string, string> = catalogCanonicalAliasesData;
 
 function schemaAvailability(value?: string) {
@@ -46,6 +46,7 @@ export default function CatalogProduct() {
   const [language, setLanguage] = useState<CatalogLanguage>("ru");
   const [selectedImage, setSelectedImage] = useState("");
   const [imageFailed, setImageFailed] = useState(false);
+  const [inquiryQuantity, setInquiryQuantity] = useState("");
   const trackedProductRef = useRef("");
   const { product, loading, error, retry } = useCatalogProduct(handle);
   const { addItem } = useCart();
@@ -92,7 +93,14 @@ export default function CatalogProduct() {
       item_id: product.id,
       item_category: product.category,
     });
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    const destination = product.catalogInquiry
+      ? buildCatalogWhatsappUrl({
+          inquiry: product.catalogInquiry,
+          quantity: inquiryQuantity,
+          url: window.location.href,
+        })
+      : `https://wa.me/${CATALOG_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(destination, "_blank", "noopener,noreferrer");
   };
 
   if (loading) {
@@ -354,16 +362,32 @@ export default function CatalogProduct() {
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight [overflow-wrap:anywhere] md:text-5xl">{productSeo.name}</h1>
             {commercialContactFirst && <div className="mt-4">
-              <p className="text-sm leading-6 text-gray-300">{equipmentInquiry
+              <p className="text-sm leading-6 text-gray-300">{product.catalogInquiry
+                ? "Под заказ. Стоимость и срок поставки уточняются после проверки запроса."
+                : equipmentInquiry
                 ? language === "ru" ? "Возможность поставки в Казахстан — по запросу. Модель, комплектацию, цену и срок согласуем в предложении." : language === "kz" ? "Қазақстанға жеткізу мүмкіндігі сұрау бойынша анықталады. Модель, жинақтама, баға мен мерзімді ұсыныста келісеміз." : "Availability for supply to Kazakhstan is checked on request. Model, specification, price and lead time are agreed in the quotation."
                 : language === "ru" ? "Под заказ · поставка по Казахстану. Исполнение, цену и срок подтвердим по шильдику." : language === "kz" ? "Тапсырыс бойынша · Қазақстанға жеткізу. Нұсқа, баға мен мерзімді тақтайша бойынша растаймыз." : "Supply to order across Kazakhstan. Configuration, price and lead time are confirmed using the nameplate."}</p>
               <button type="button" onClick={() => requestProduct()} className="mt-4 inline-flex min-h-12 items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#E6AC00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">
                 <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                {language === "ru" ? "Получить цену и срок" : language === "kz" ? "Баға мен мерзімді білу" : "Get price and lead time"}
+                {product.catalogInquiry ? "Запросить подбор в WhatsApp" : language === "ru" ? "Получить цену и срок" : language === "kz" ? "Баға мен мерзімді білу" : "Get price and lead time"}
               </button>
             </div>}
             {productSeo.name !== product.title && <p className="mt-3 text-sm leading-relaxed text-gray-400" lang="en">{product.title}</p>}
             <p className="mt-5 max-w-3xl leading-relaxed text-gray-300">{(product.ownerSale || product.ownerProduct || product.ownerCase || product.catalogSupplement || hasReviewedCopy) ? seoDescription : copy.productDescription}</p>
+
+            {product.catalogSpecifications?.length ? (
+              <section className="mt-6 rounded-lg border border-white/10 bg-[#151515] p-5" aria-labelledby="specifications-title">
+                <h2 id="specifications-title" className="text-xl font-bold">Подтверждённые характеристики</h2>
+                <dl className="mt-4 divide-y divide-white/10 text-sm">
+                  {product.catalogSpecifications.map(specification => (
+                    <div key={specification.label} className="grid gap-1 py-3 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:gap-4">
+                      <dt className="text-gray-400">{specification.label}</dt>
+                      <dd className="font-medium text-white">{specification.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+            ) : null}
 
             <section className="aca-product-fitment-detail mt-6 border-l-2 border-[#FFC000] bg-white/[0.04] px-4 py-3" aria-labelledby="fitment-title">
               <h2 id="fitment-title" className="text-xs font-bold uppercase tracking-[0.1em] text-[#FFC000]">{fitmentLabel}</h2>
@@ -386,7 +410,21 @@ export default function CatalogProduct() {
               {(product.approvedSale || product.ownerProduct) && <p className="mt-3 text-sm leading-6 text-gray-300">
                 {merchantOffer ? merchantTerms : language === "ru" ? "Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр. Исполнение проверяем по шильдику, валу, фланцу, портам и регулятору." : language === "kz" ? "Жаңа сорғы жинағы. Қазақстан бойынша тапсырыспен жеткізу — 3–14 күн. Жеткізу — кг үшін 3 АҚШ долларынан бастап, бөлек төленеді. Алдын ала төлем 100%. Жеткізудің толық құны төлемге дейін келісіледі. Ақау болса — сервис орталығы арқылы ауыстыру. Сәйкестік тақтайша, білік, фланец, порттар және реттегіш бойынша тексеріледі." : "New complete pump assembly. Supply to order across Kazakhstan in 3–14 days. Shipping from USD 3 per kg, charged separately. 100% prepayment. Final shipping cost agreed before payment. Defective units replaced through our service center. We check the nameplate, shaft, flange, ports and regulator for compatibility."}
               </p>}
-              <div className="mt-6 grid gap-2 sm:grid-cols-2">
+              {product.catalogInquiry && (
+                <label className="mt-6 block text-sm font-medium text-gray-200">
+                  Количество <span className="font-normal text-gray-500">(необязательно)</span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={inquiryQuantity}
+                    onChange={event => setInquiryQuantity(event.target.value.slice(0, 80))}
+                    placeholder="Уточню"
+                    className="mt-2 min-h-12 w-full rounded border border-white/15 bg-[#101010] px-4 text-white outline-none focus:border-[#FFC000]"
+                  />
+                </label>
+              )}
+              <div className={`mt-6 grid gap-2 ${product.catalogInquiry ? "" : "sm:grid-cols-2"}`}>
+                {!product.catalogInquiry && (
                 <button
                   type="button"
                   onClick={addProductToCart}
@@ -395,15 +433,21 @@ export default function CatalogProduct() {
                   <ShoppingCart className="h-5 w-5" aria-hidden="true" />
                   {language === "ru" ? "В корзину" : language === "kz" ? "Себетке" : "Add to cart"}
                 </button>
+                )}
                 <button
                   type="button"
                   onClick={() => requestProduct()}
                   className="inline-flex min-h-13 w-full items-center justify-center gap-2 rounded border border-[#FFC000]/60 px-6 py-3.5 text-base font-bold text-[#FFC000] transition-colors hover:bg-[#FFC000]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
                 >
                   <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                  {copy.requestButton}
+                  {product.catalogInquiry ? "Запросить подбор в WhatsApp" : copy.requestButton}
                 </button>
               </div>
+              {product.catalogInquiry && (
+                <a className="mt-4 inline-flex min-h-11 items-center text-sm text-white underline underline-offset-4" href={`tel:+${CATALOG_WHATSAPP_NUMBER}`}>
+                  Или позвонить: +7 771 417 79 25
+                </a>
+              )}
               <p className="mt-3 text-sm text-gray-500">{copy.requestNote}</p>
               <div className="mt-4 flex flex-col items-start gap-3 text-sm">
                 <button type="button" onClick={() => requestProduct("nameplate")} className="min-h-11 text-[#FFC000] underline underline-offset-4">
@@ -469,17 +513,24 @@ export default function CatalogProduct() {
                     </dd>
                   </div>
                 </dl>
-                <button
-                  type="button"
-                  onClick={() => {
-                    addItem(cartItemFromProduct(product, variant));
-                    toast.success(language === "ru" ? "Исполнение добавлено в корзину" : language === "kz" ? "Нұсқа себетке қосылды" : "Variant added to cart");
-                  }}
-                  className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-4 font-extrabold text-black hover:bg-[#E6AC00]"
-                >
-                  <ShoppingCart className="h-4 w-4" aria-hidden="true" />
-                  {language === "ru" ? "Добавить это исполнение" : language === "kz" ? "Осы нұсқаны қосу" : "Add this variant"}
-                </button>
+                {product.catalogInquiry ? (
+                  <button type="button" onClick={() => requestProduct("part", "product_variant")} className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-4 font-extrabold text-black hover:bg-[#E6AC00]">
+                    <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                    Запросить подбор в WhatsApp
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      addItem(cartItemFromProduct(product, variant));
+                      toast.success(language === "ru" ? "Исполнение добавлено в корзину" : language === "kz" ? "Нұсқа себетке қосылды" : "Variant added to cart");
+                    }}
+                    className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded bg-[#FFC000] px-4 font-extrabold text-black hover:bg-[#E6AC00]"
+                  >
+                    <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                    {language === "ru" ? "Добавить это исполнение" : language === "kz" ? "Осы нұсқаны қосу" : "Add this variant"}
+                  </button>
+                )}
               </article>
             ))}
           </div>
@@ -515,14 +566,16 @@ export default function CatalogProduct() {
       </main>
 
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#101010]/95 p-3 shadow-[0_-12px_30px_rgba(0,0,0,0.45)] backdrop-blur lg:hidden">
-        <div className="mx-auto grid w-full max-w-lg grid-cols-2 gap-2">
-          <button type="button" onClick={addProductToCart} className="flex min-h-12 items-center justify-center gap-2 rounded bg-[#FFC000] px-3 py-3 text-sm font-extrabold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
-            <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-            {language === "ru" ? "В корзину" : language === "kz" ? "Себетке" : "Add"}
-          </button>
+        <div className={`mx-auto grid w-full max-w-lg gap-2 ${product.catalogInquiry ? "grid-cols-1" : "grid-cols-2"}`}>
+          {!product.catalogInquiry && (
+            <button type="button" onClick={addProductToCart} className="flex min-h-12 items-center justify-center gap-2 rounded bg-[#FFC000] px-3 py-3 text-sm font-extrabold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+              {language === "ru" ? "В корзину" : language === "kz" ? "Себетке" : "Add"}
+            </button>
+          )}
           <button type="button" onClick={() => requestProduct("nameplate", "product_page_sticky")} className="flex min-h-12 items-center justify-center gap-2 rounded border border-[#FFC000] px-3 py-3 text-sm font-bold text-[#FFC000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
-            {language === "ru" ? "Проверить" : language === "kz" ? "Тексеру" : "Check fit"}
+            {product.catalogInquiry ? "Запросить подбор в WhatsApp" : language === "ru" ? "Проверить" : language === "kz" ? "Тексеру" : "Check fit"}
           </button>
         </div>
       </div>

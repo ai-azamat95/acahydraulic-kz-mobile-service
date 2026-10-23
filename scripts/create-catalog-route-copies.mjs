@@ -10,6 +10,7 @@ import hydrauvisionProducts from '../shared/catalog-hydrauvision-products.json' 
 import categoryCorrectionLedger from '../shared/catalog-category-corrections.json' with { type: 'json' };
 import path from 'node:path';
 import { catalogProductBrandLanding, catalogProductSeo, catalogProductCategories, catalogProductImageIsPlaceholder, catalogProductIsHydraulicPump, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
+import { buildCatalogWhatsappUrl } from '../shared/catalog-inquiry.mjs';
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
@@ -119,6 +120,9 @@ function productPage(product) {
         }
       : undefined;
   const selfUrl = `${baseUrl}/catalog/${product.handle}/`;
+  const inquiryWhatsappUrl = product.catalogInquiry
+    ? buildCatalogWhatsappUrl({ inquiry: product.catalogInquiry, url: selfUrl })
+    : null;
   const canonicalHandle = catalogCanonicalAliases[product.handle] || product.handle;
   const canonical = `${baseUrl}/catalog/${canonicalHandle}/`;
   const isCanonicalProduct = canonicalHandle === product.handle;
@@ -192,6 +196,7 @@ function productPage(product) {
   <h1>${escapeHtml(productSeo.name)}</h1>
   ${productSeo.name !== product.title ? `<p lang="en">${escapeHtml(product.title)}</p>` : ''}
   <p>${escapeHtml(description)}</p>
+  ${product.catalogSpecifications?.length ? `<section data-catalog-specifications><h2>Подтверждённые характеристики</h2><dl>${product.catalogSpecifications.map(specification => `<div><dt>${escapeHtml(specification.label)}</dt><dd>${escapeHtml(specification.value)}</dd></div>`).join('')}</dl></section>` : ''}
   <p><strong>${equipmentInquiry ? 'Возможность поставки в Казахстан — по запросу. Модель, комплектацию, цену и срок согласуем в предложении.' : 'Поставка под заказ. Цену и срок подтвердим после проверки шильдика.'}</strong></p>
   <h2>${escapeHtml(fitmentLabel)}</h2>
   <p>${escapeHtml(fitment)}</p>
@@ -214,7 +219,8 @@ function productPage(product) {
   <p>${escapeHtml(catalogProductSelection(product))}</p>
   <p>Укажите количество, город и нужную дату. Совпадения только модели техники недостаточно: исполнение, комплектацию, цену и срок поставки подтверждаем до оплаты.</p></section>
   <p>Доступны оригинальные, OEM и проверенные аналоговые варианты. Конкретный вариант, наличие, срок доставки и гарантия подтверждаются после проверки.</p>
-  <p><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_product_page" href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужна цена и срок на ${productSeo.name}.\nТехника: ____\n${selfUrl}\nФото шильдика пришлю в чате.`)}">Получить цену и срок</a></p>
+  <p><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_product_page" href="${escapeAttr(inquiryWhatsappUrl || `https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужна цена и срок на ${productSeo.name}.\nТехника: ____\n${selfUrl}\nФото шильдика пришлю в чате.`)}`)}">${product.catalogInquiry ? 'Запросить подбор в WhatsApp' : 'Получить цену и срок'}</a></p>
+  ${product.catalogInquiry ? '<p><a href="tel:+77714177925">Или позвонить: +7 771 417 79 25</a></p>' : ''}
       ${isHydraulicPump ? `<section data-pump-product-navigation><h2>Бренд и подбор исполнения гидронасоса</h2><p>Сверим полный артикул, шильдик, вал, фланец, порты, вращение и регулятор до подтверждения заказа. Брендовая ссылка показывается по сохранённому производителю или однозначной маркировке производителя насоса в названии; совместимость подтверждаем отдельно.</p><nav aria-label="Бренд и подбор гидронасоса"><ul>${productBrandLanding ? `<li><a href="/catalog/brand/${productBrandLanding.slug}/">${productBrandLanding.matchSource === 'manufacturer' ? `Насосы бренда ${escapeHtml(product.brand || productBrandLanding.name)}` : `Насосы бренда ${escapeHtml(productBrandLanding.name)} — по названию карточки`}</a></li>` : ''}<li><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_pump_selection" href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужен подбор гидронасоса ${productSeo.name}.\nТехника: ____\n${selfUrl}\nФото шильдика пришлю в чате.`)}">Отправить шильдик для подбора</a></li></ul></nav><nav aria-label="Статьи перед покупкой насоса"><ul><li><a href="/blog/zapchasti-po-nomeru-i-shildiku/">Какие номера и фото нужны для подбора</a></li><li><a href="/blog/remont-ili-zamena-gidronasosa/">Ремонт или замена гидронасоса</a></li><li><a href="/cases/sany-sy365h-zamena-gidronasosa-video/">Видео: поставка, замена и запуск SANY SY365H</a></li></ul></nav></section>` : ''}
 </main>`;
 
