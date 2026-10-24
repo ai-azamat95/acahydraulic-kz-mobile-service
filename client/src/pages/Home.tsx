@@ -250,7 +250,7 @@ export default function Home() {
                 <Truck className="w-6 h-6 text-[#FFC000]" />
               </div>
               <div>
-                <h3 className="font-bebas text-xl text-white mb-1">{t('benefits.mobileService')}</h3>
+                <h2 className="font-bebas text-xl text-white mb-1">{t('benefits.mobileService')}</h2>
                 <p className="text-sm text-gray-400">{t('benefits.mobileServiceDesc')}</p>
               </div>
             </div>
@@ -259,7 +259,7 @@ export default function Home() {
                 <ShieldCheck className="w-6 h-6 text-[#FFC000]" />
               </div>
               <div>
-                <h3 className="font-bebas text-xl text-white mb-1">Гарантия на работы — 6 месяцев</h3>
+                <h2 className="font-bebas text-xl text-white mb-1">Гарантия на работы — 6 месяцев</h2>
                 <p className="text-sm text-gray-400">При соблюдении рекомендаций</p>
               </div>
             </div>
@@ -268,7 +268,7 @@ export default function Home() {
                 <Wrench className="w-6 h-6 text-[#FFC000]" />
               </div>
               <div>
-                <h3 className="font-bebas text-xl text-white mb-1">{t('benefits.complexRepair')}</h3>
+                <h2 className="font-bebas text-xl text-white mb-1">{t('benefits.complexRepair')}</h2>
                 <p className="text-sm text-gray-400">{t('benefits.complexRepairDesc')}</p>
               </div>
             </div>
@@ -544,7 +544,7 @@ export default function Home() {
                     <Settings size={20} />
                   </div>
                   <div>
-                    <h4 className="font-bebas text-xl text-white">{t('comprehensiveApproach.pumpsMotors')}</h4>
+                    <h3 className="font-bebas text-xl text-white">{t('comprehensiveApproach.pumpsMotors')}</h3>
                     <p className="text-sm text-gray-500">{t('comprehensiveApproach.pumpsMotorsDesc')}</p>
                   </div>
                 </div>
@@ -554,7 +554,7 @@ export default function Home() {
                     <Gauge size={20} />
                   </div>
                   <div>
-                    <h4 className="font-bebas text-xl text-white">{t('comprehensiveApproach.distributors')}</h4>
+                    <h3 className="font-bebas text-xl text-white">{t('comprehensiveApproach.distributors')}</h3>
                     <p className="text-sm text-gray-500">{t('comprehensiveApproach.distributorsDesc')}</p>
                   </div>
                 </div>
@@ -631,7 +631,7 @@ export default function Home() {
       <section className="py-16 bg-[#111111] border-t border-white/10">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center">
-            <h3 className="font-bebas font-bold text-[#FFC000] text-center text-2xl md:text-3xl uppercase tracking-wide mb-4">СОВРЕМЕННОЕ ОБОРУДОВАНИЕ</h3>
+            <h2 className="font-bebas font-bold text-[#FFC000] text-center text-2xl md:text-3xl uppercase tracking-wide mb-4">СОВРЕМЕННОЕ ОБОРУДОВАНИЕ</h2>
             <p className="text-gray-400 text-center font-roboto text-base md:text-lg mb-10 max-w-2xl mx-auto">Диагностические стенды и инструменты</p>
             
             {/* Equipment brands - Mobile Only */}
@@ -728,7 +728,7 @@ export default function Home() {
             </div>
             
             <div>
-              <h4 className="font-bebas text-xl text-white mb-6 uppercase tracking-wide">{t('footer.servicesTitle')}</h4>
+              <h2 className="font-bebas text-xl text-white mb-6 uppercase tracking-wide">{t('footer.servicesTitle')}</h2>
               <ul className="space-y-3 text-gray-400 text-sm">
                 <li><Link href="/services/mobile-repair" className="hover:text-[#FFC000] transition-colors">{t('footer.mobileRepair')}</Link></li>
                 <li><Link href="/services/hydraulic-pumps" className="hover:text-[#FFC000] transition-colors">{t('footer.pumpRepair')}</Link></li>
@@ -741,7 +741,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h4 className="font-bebas text-xl text-white mb-6 uppercase tracking-wide">{t('footer.companyTitle')}</h4>
+              <h2 className="font-bebas text-xl text-white mb-6 uppercase tracking-wide">{t('footer.companyTitle')}</h2>
               <ul className="space-y-3 text-gray-400 text-sm">
                 <li><Link href="/about" className="hover:text-[#FFC000] transition-colors">{t('footer.about')}</Link></li>
                 <li><Link href="/cases" className="hover:text-[#FFC000] transition-colors">{t('footer.ourWork')}</Link></li>
@@ -751,7 +751,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h4 className="font-bebas text-xl text-white mb-6 uppercase tracking-wide">{t('footer.contactsTitle')}</h4>
+              <h2 className="font-bebas text-xl text-white mb-6 uppercase tracking-wide">{t('footer.contactsTitle')}</h2>
               <ul className="space-y-4 text-gray-400 text-sm">
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#FFC000] flex-shrink-0" />
