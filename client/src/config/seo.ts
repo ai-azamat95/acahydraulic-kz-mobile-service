@@ -136,7 +136,7 @@ export const localBusinessSchema = {
   "@id": "https://acahydraulic.kz/#business",
   "name": "ACA Hydraulic",
   "legalName": merchant.name,
-  "image": "https://acahydraulic.kz/webdev-static-assets/og-image.webp",
+  "image": "https://acahydraulic.kz/webdev-static-assets/og-image-20261024.webp",
   "logo": {
     "@type": "ImageObject",
     "url": "https://acahydraulic.kz/apple-touch-icon.png",

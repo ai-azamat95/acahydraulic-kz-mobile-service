@@ -39,7 +39,7 @@ interface SEOProps {
 
 const BASE_URL = "https://acahydraulic.kz";
 const DEFAULT_OG_IMAGE =
-  publicAsset("webdev-static-assets/og-image.jpg");
+  publicAsset("webdev-static-assets/og-image-20261024.jpg");
 const SITE_NAME = "ACA Hydraulic";
 const PHONE = "+77714177925";
 const BUSINESS_ID = `${BASE_URL}/#business`;
@@ -209,6 +209,7 @@ export function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={imageUrl} />
+      <meta property="og:image:type" content="image/jpeg" />
       {imageDimensions && <meta property="og:image:width" content={String(imageDimensions.width)} />}
       {imageDimensions && <meta property="og:image:height" content={String(imageDimensions.height)} />}
       <meta property="og:image:alt" content={title} />
