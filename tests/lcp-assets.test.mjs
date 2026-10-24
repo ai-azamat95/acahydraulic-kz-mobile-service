@@ -74,11 +74,12 @@ test('Google Fonts CSS does not block first render when JavaScript is available'
 });
 
 test('the social preview is lightweight and matches its Open Graph dimensions', () => {
-  const asset = 'client/public/webdev-static-assets/og-image.jpg';
+  const asset = 'client/public/webdev-static-assets/og-image-20261024.jpg';
   const image = fs.readFileSync(asset);
 
   assert.ok(image.length < 200 * 1024, 'social preview should remain below 200 KiB');
   assert.deepEqual(readJpegDimensions(image), { width: 1200, height: 630 });
+  assert.match(html, /https:\/\/acahydraulic\.kz\/webdev-static-assets\/og-image-20261024\.jpg/);
   assert.match(html, /<meta property="og:image:type" content="image\/jpeg" \/>/);
   assert.match(html, /<meta property="og:image:width" content="1200" \/>/);
   assert.match(html, /<meta property="og:image:height" content="630" \/>/);
