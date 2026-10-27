@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "category": "seals-filters",
+  "publicBrand": null,
+  "publicationPolicy": "Only entries marked ready after supplier confirmation may enter the public catalogue.",
+  "sourceSummary": {
+    "shortlist": "Supplier email dated 2026-10-16, shortened list of 12 positions",
+    "commercialTerms": "Supplier correspondence dated 2026-10-15 through 2026-10-20",
+    "rights": "No permission to use supplier brand assets, catalogue images, drawings or logos"
+  },
+  "products": [
+    {
+      "id": "seal-dlw06000750040u",
+      "handle": "uplotnenie-dlw06000750040u",
+      "partNumber": "DLW06000750040U",
+      "sourceDesignation": "Pin dust seal",
+      "confirmedType": "Пылезащитное уплотнение пальца",
+      "dimensionString": "60 × 75 × 4 мм",
+      "dimensions": [
+        { "position": 1, "value": 60, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 75, "unit": "mm", "meaning": null },
+        { "position": 3, "value": 4, "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "DLW profile; supplier catalogue pages 110-111; series-level PU + SPCC statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, DLW profile, pages 110-111"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the three dimensions", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Пылезащитное уплотнение пальца DLW06000750040U",
+        "description": "Пылезащитное уплотнение пальца DLW06000750040U для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "DLW06000750040U — пылезащитное уплотнение пальца под заказ",
+        "seoDescription": "Запросить подбор уплотнения DLW06000750040U по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-dlw07000850050u",
+      "handle": "uplotnenie-dlw07000850050u",
+      "partNumber": "DLW07000850050U",
+      "sourceDesignation": "Pin dust seal",
+      "confirmedType": "Пылезащитное уплотнение пальца",
+      "dimensionString": "70 × 85 × 5 мм",
+      "dimensions": [
+        { "position": 1, "value": 70, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 85, "unit": "mm", "meaning": null },
+        { "position": 3, "value": 5, "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "DLW profile; supplier catalogue pages 110-111; series-level PU + SPCC statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, DLW profile, pages 110-111"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the three dimensions", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Пылезащитное уплотнение пальца DLW07000850050U",
+        "description": "Пылезащитное уплотнение пальца DLW07000850050U для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "DLW07000850050U — пылезащитное уплотнение пальца под заказ",
+        "seoDescription": "Запросить подбор уплотнения DLW07000850050U по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-dlw08000950080u",
+      "handle": "uplotnenie-dlw08000950080u",
+      "partNumber": "DLW08000950080U",
+      "sourceDesignation": "Pin dust seal",
+      "confirmedType": "Пылезащитное уплотнение пальца",
+      "dimensionString": "80 × 95 × 8 мм",
+      "dimensions": [
+        { "position": 1, "value": 80, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 95, "unit": "mm", "meaning": null },
+        { "position": 3, "value": 8, "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "DLW profile; supplier catalogue pages 110-111; series-level PU + SPCC statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, DLW profile, pages 110-111"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the three dimensions", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Пылезащитное уплотнение пальца DLW08000950080U",
+        "description": "Пылезащитное уплотнение пальца DLW08000950080U для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "DLW08000950080U — пылезащитное уплотнение пальца под заказ",
+        "seoDescription": "Запросить подбор уплотнения DLW08000950080U по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-dlw09001050060u",
+      "handle": "uplotnenie-dlw09001050060u",
+      "partNumber": "DLW09001050060U",
+      "sourceDesignation": "Pin dust seal",
+      "confirmedType": "Пылезащитное уплотнение пальца",
+      "dimensionString": "90 × 105 × 6 мм",
+      "dimensions": [
+        { "position": 1, "value": 90, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 105, "unit": "mm", "meaning": null },
+        { "position": 3, "value": 6, "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "DLW profile; supplier catalogue pages 110-111; series-level PU + SPCC statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, DLW profile, pages 110-111"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the three dimensions", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Пылезащитное уплотнение пальца DLW09001050060U",
+        "description": "Пылезащитное уплотнение пальца DLW09001050060U для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "DLW09001050060U — пылезащитное уплотнение пальца под заказ",
+        "seoDescription": "Запросить подбор уплотнения DLW09001050060U по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-dkbw06000740080u",
+      "handle": "uplotnenie-dkbw06000740080u",
+      "partNumber": "DKBW06000740080U",
+      "sourceDesignation": "Dust seal",
+      "confirmedType": "Грязесъёмное уплотнение",
+      "dimensionString": "60 × 74 × 8/11 мм",
+      "dimensions": [
+        { "position": 1, "value": 60, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 74, "unit": "mm", "meaning": null },
+        { "position": 3, "values": [8, 11], "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "DKBW profile; supplier catalogue pages 91-92; series-level PU + SPCC statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, DKBW profile, pages 91-92"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the dimensions, including 8/11", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Грязесъёмное уплотнение DKBW06000740080U",
+        "description": "Грязесъёмное уплотнение DKBW06000740080U для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "DKBW06000740080U — грязесъёмное уплотнение под заказ",
+        "seoDescription": "Запросить подбор уплотнения DKBW06000740080U по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-dkbw07000840080u",
+      "handle": "uplotnenie-dkbw07000840080u",
+      "partNumber": "DKBW07000840080U",
+      "sourceDesignation": "Dust seal",
+      "confirmedType": "Грязесъёмное уплотнение",
+      "dimensionString": "70 × 84 × 8/11 мм",
+      "dimensions": [
+        { "position": 1, "value": 70, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 84, "unit": "mm", "meaning": null },
+        { "position": 3, "values": [8, 11], "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "DKBW profile; supplier catalogue pages 91-92; series-level PU + SPCC statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, DKBW profile, pages 91-92"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the dimensions, including 8/11", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Грязесъёмное уплотнение DKBW07000840080U",
+        "description": "Грязесъёмное уплотнение DKBW07000840080U для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "DKBW07000840080U — грязесъёмное уплотнение под заказ",
+        "seoDescription": "Запросить подбор уплотнения DKBW07000840080U по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-dkbw09001040080u",
+      "handle": "uplotnenie-dkbw09001040080u",
+      "partNumber": "DKBW09001040080U",
+      "sourceDesignation": "Dust seal",
+      "confirmedType": "Грязесъёмное уплотнение",
+      "dimensionString": "90 × 104 × 8/11 мм",
+      "dimensions": [
+        { "position": 1, "value": 90, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 104, "unit": "mm", "meaning": null },
+        { "position": 3, "values": [8, 11], "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "DKBW profile; supplier catalogue pages 91-92; series-level PU + SPCC statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, DKBW profile, pages 91-92"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the dimensions, including 8/11", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Грязесъёмное уплотнение DKBW09001040080U",
+        "description": "Грязесъёмное уплотнение DKBW09001040080U для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "DKBW09001040080U — грязесъёмное уплотнение под заказ",
+        "seoDescription": "Запросить подбор уплотнения DKBW09001040080U по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-dkbw10001140080u",
+      "handle": "uplotnenie-dkbw10001140080u",
+      "partNumber": "DKBW10001140080U",
+      "sourceDesignation": "Dust seal",
+      "confirmedType": "Грязесъёмное уплотнение",
+      "dimensionString": "100 × 114 × 8/11 мм",
+      "dimensions": [
+        { "position": 1, "value": 100, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 114, "unit": "mm", "meaning": null },
+        { "position": 3, "values": [8, 11], "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "DKBW profile; supplier catalogue pages 91-92; series-level PU + SPCC statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, DKBW profile, pages 91-92"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the dimensions, including 8/11", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Грязесъёмное уплотнение DKBW10001140080U",
+        "description": "Грязесъёмное уплотнение DKBW10001140080U для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "DKBW10001140080U — грязесъёмное уплотнение под заказ",
+        "seoDescription": "Запросить подбор уплотнения DKBW10001140080U по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-iuw207000830100h",
+      "handle": "uplotnenie-iuw207000830100h",
+      "partNumber": "IUW207000830100H",
+      "sourceDesignation": "Rod seal",
+      "confirmedType": "Штоковое уплотнение",
+      "dimensionString": "70 × 83 × 10 мм",
+      "dimensions": [
+        { "position": 1, "value": 70, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 83, "unit": "mm", "meaning": null },
+        { "position": 3, "value": 10, "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "IUW2 profile; supplier catalogue pages 65-76; series-level A9516 NBR statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, IUW2 profile, pages 65-76"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the three dimensions", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Штоковое уплотнение IUW207000830100H",
+        "description": "Штоковое уплотнение IUW207000830100H для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "IUW207000830100H — штоковое уплотнение под заказ",
+        "seoDescription": "Запросить подбор уплотнения IUW207000830100H по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-iuw208000950100h",
+      "handle": "uplotnenie-iuw208000950100h",
+      "partNumber": "IUW208000950100H",
+      "sourceDesignation": "Rod seal",
+      "confirmedType": "Штоковое уплотнение",
+      "dimensionString": "80 × 95 × 10 мм",
+      "dimensions": [
+        { "position": 1, "value": 80, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 95, "unit": "mm", "meaning": null },
+        { "position": 3, "value": 10, "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "IUW2 profile; supplier catalogue pages 65-76; series-level A9516 NBR statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, IUW2 profile, pages 65-76"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the three dimensions", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Штоковое уплотнение IUW208000950100H",
+        "description": "Штоковое уплотнение IUW208000950100H для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "IUW208000950100H — штоковое уплотнение под заказ",
+        "seoDescription": "Запросить подбор уплотнения IUW208000950100H по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-iuw209001050100h",
+      "handle": "uplotnenie-iuw209001050100h",
+      "partNumber": "IUW209001050100H",
+      "sourceDesignation": "Rod seal",
+      "confirmedType": "Штоковое уплотнение",
+      "dimensionString": "90 × 105 × 10 мм",
+      "dimensions": [
+        { "position": 1, "value": 90, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 105, "unit": "mm", "meaning": null },
+        { "position": 3, "value": 10, "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "IUW2 profile; supplier catalogue pages 65-76; series-level A9516 NBR statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, IUW2 profile, pages 65-76"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the three dimensions", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Штоковое уплотнение IUW209001050100H",
+        "description": "Штоковое уплотнение IUW209001050100H для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "IUW209001050100H — штоковое уплотнение под заказ",
+        "seoDescription": "Запросить подбор уплотнения IUW209001050100H по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    },
+    {
+      "id": "seal-iuw210001150100h",
+      "handle": "uplotnenie-iuw210001150100h",
+      "partNumber": "IUW210001150100H",
+      "sourceDesignation": "Rod seal",
+      "confirmedType": "Штоковое уплотнение",
+      "dimensionString": "100 × 115 × 10 мм",
+      "dimensions": [
+        { "position": 1, "value": 100, "unit": "mm", "meaning": null },
+        { "position": 2, "value": 115, "unit": "mm", "meaning": null },
+        { "position": 3, "value": 10, "unit": "mm", "meaning": null }
+      ],
+      "material": null,
+      "materialStatus": "unconfirmed-for-sku",
+      "seriesEvidence": "IUW2 profile; supplier catalogue pages 65-76; series-level A9516 NBR statement",
+      "sources": ["Supplier email 2026-10-16, 12-position shortlist", "Supplier catalogue, IUW2 profile, pages 65-76"],
+      "publicationStatus": "draft",
+      "blockingQuestions": ["Meaning and order of the three dimensions", "Material for this exact SKU"],
+      "proposed": {
+        "title": "Штоковое уплотнение IUW210001150100H",
+        "description": "Штоковое уплотнение IUW210001150100H для предварительного подбора по точному артикулу и подтверждённым размерам. Возможность поставки, стоимость и срок проверяются по запросу.",
+        "seoTitle": "IUW210001150100H — штоковое уплотнение под заказ",
+        "seoDescription": "Запросить подбор уплотнения IUW210001150100H по артикулу и подтверждённым размерам. Стоимость и срок поставки уточняются после проверки запроса."
+      }
+    }
+  ]
+}
