@@ -25,7 +25,7 @@ test('service directory links resolve to published pages and real application ro
 });
 
 test('HTML service directory exposes every redesigned service entry without JavaScript', () => {
-  assert.ok(html.includes('Ремонт гидравлики и спецтехники в Астане — услуги ACA Hydraulic'));
+  assert.ok(html.includes('Ремонт гидравлики с выездом по Казахстану | ACA Hydraulic'));
   assert.equal([...html.matchAll(/<h1\b/g)].length, 1);
   for (const [slug, service] of Object.entries(showcase)) {
     assert.ok(html.includes(`href="/services/${slug}/"`), slug);

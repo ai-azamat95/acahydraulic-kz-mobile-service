@@ -17,7 +17,7 @@ export async function checkSiteNavigation(browser, origin, productHandle) {
         logo.click(),
       ]);
       assert.equal(new URL(page.url()).pathname,'/','logo must load homepage document');
-      await page.getByRole('heading',{name:'Ремонт гидравлики в Астане',exact:true}).waitFor();
+      await page.getByRole('heading',{name:'Ремонт гидравлики с выездом по Казахстану',exact:true}).waitFor();
     }
     for (const width of [320,390,768,1024,1440]) {
       await page.setViewportSize({width,height:740});

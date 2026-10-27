@@ -1,7 +1,8 @@
+import { seoConfig } from "@/config/seo";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
-import { Phone, MessageCircle, Star, Quote, FileText, Mail } from "lucide-react";
+import { Phone, MessageCircle, Mail } from "lucide-react";
 import { Link } from "wouter";
 import MobileSiteMenu from "@/components/MobileSiteMenu";
 
@@ -10,9 +11,9 @@ export default function Reviews() {
   return (
     <div className="min-h-[100dvh] bg-[#111111] text-white font-roboto flex flex-col overflow-x-hidden">
       <SEO 
-        title="Отзывы клиентов" 
-        description="Отзывы о работе ACA Hydraulic. Благодарственные письма от ведущих строительных и горнодобывающих компаний Казахстана."
-        keywords="отзывы ACA Hydraulic, рекомендации клиентов, благодарственные письма, качество ремонта гидравлики"
+        title={seoConfig.reviews.title}
+        description={seoConfig.reviews.description}
+        canonical="/reviews"
       />
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-transparent pt-2 pb-2 px-4 md:pt-6 md:pb-8 backdrop-blur-sm border-b border-white/5">
@@ -67,10 +68,10 @@ export default function Reviews() {
         
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="font-bebas font-bold text-[42px] md:text-[72px] leading-[0.9] text-white mb-6 uppercase tracking-normal">
-            Отзывы <span className="text-[#FFC000]">Клиентов</span>
+            Отзывы и <span className="text-[#FFC000]">источники</span>
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl font-roboto">
-            Доверие клиентов — наш главный актив. Узнайте, что говорят о сотрудничестве с ACA Hydraulic ведущие компании Казахстана.
+            Отзывы клиентов и собственные описания ремонта — разные источники. Для оценки выполненных работ доступны кейсы с фотографиями и видео.
           </p>
         </div>
       </section>
@@ -79,59 +80,23 @@ export default function Reviews() {
       <section className="relative py-12 md:py-20 bg-[#111111] overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            
-            {/* Review 1 */}
-            <div className="bg-[#1a1a1a] p-8 border border-white/10 rounded-sm hover:border-[#FFC000]/50 transition-colors group relative">
-              <Quote className="absolute top-6 right-6 w-10 h-10 text-[#FFC000]/20 group-hover:text-[#FFC000]/40 transition-colors" />
-              <div className="flex items-center gap-1 mb-4">
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-              </div>
-              <p className="text-gray-300 italic mb-6 leading-relaxed">
-                "Сотрудничаем с ACA Hydraulic уже более 3 лет. Ребята всегда оперативно реагируют на заявки, что критически важно для нашего карьера. Качество ремонта гидронасосов на высоте, ни одного возврата по гарантии."
-              </p>
-              <div className="flex items-center gap-4 border-t border-white/5 pt-4">
-                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center font-bold text-white">
-                  KZ
-                </div>
-                <div>
-                  <div className="font-bold text-white">ТОО "KazMinerals"</div>
-                  <div className="text-xs text-gray-500 uppercase">Главный механик</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Review 2 */}
-            <div className="bg-[#1a1a1a] p-8 border border-white/10 rounded-sm hover:border-[#FFC000]/50 transition-colors group relative">
-              <Quote className="absolute top-6 right-6 w-10 h-10 text-[#FFC000]/20 group-hover:text-[#FFC000]/40 transition-colors" />
-              <div className="flex items-center gap-1 mb-4">
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-                <Star className="w-4 h-4 text-[#FFC000] fill-current" />
-              </div>
-              <p className="text-gray-300 italic mb-6 leading-relaxed">
-                "Вызывали мобильную бригаду для ремонта экскаватора Hitachi в степи. Приехали быстро, с собой было все необходимое оборудование. Запустили технику в тот же день. Профессионалы своего дела."
-              </p>
-              <div className="flex items-center gap-4 border-t border-white/5 pt-4">
-                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center font-bold text-white">
-                  BI
-                </div>
-                <div>
-                  <div className="font-bold text-white">BI Group</div>
-                  <div className="text-xs text-gray-500 uppercase">Начальник участка</div>
-                </div>
-              </div>
-            </div>
-
-
-
+          <div className="grid gap-6 md:grid-cols-2 mb-12">
+            <section className="bg-[#1a1a1a] border border-white/10 p-6 md:p-8">
+              <h2 className="text-2xl font-bold mb-4">Отзывы с источником</h2>
+              <p className="text-gray-300 leading-relaxed">Отзыв — мнение заказчика. Для его публикации нужна ссылка на первоисточник или разрешение автора. Именованные цитаты и оценки без такого подтверждения на этой странице не размещаем.</p>
+              <p className="mt-4 text-gray-400 leading-relaxed">Это не означает, что внешних отзывов нет. Их содержание, дату и принадлежность организации следует проверять в исходной карточке.</p>
+            </section>
+            <section className="bg-[#1a1a1a] border border-white/10 p-6 md:p-8">
+              <h2 className="text-2xl font-bold mb-4">Кейсы компании</h2>
+              <p className="text-gray-300 leading-relaxed">В кейсах ACA Hydraulic описывает исходную задачу, выполненные работы и доступную проверку после ремонта или установки. Эти материалы показывают нашу практику и не являются независимыми отзывами клиентов.</p>
+              <a href="/cases/" className="mt-4 inline-flex min-h-11 items-center text-[#FFC000] underline underline-offset-4">Посмотреть работы и видео проверки</a>
+            </section>
           </div>
+          <section className="mb-12 border border-white/10 p-6 md:p-8">
+            <h2 className="text-2xl font-bold mb-4">Внешнее отраслевое упоминание</h2>
+            <p className="text-gray-300 leading-relaxed">В каталоге партнёров СТАНЭКСПЕРТ указаны ТОО «АСА Гидравлик Сервис», наш телефон, ПИОНЕР-2 ЦПУ и 2024 год. Это упоминание в каталоге партнёров, а не клиентский отзыв или подтверждение конкретного ремонта.</p>
+            <a href="https://stanki-stanexpert.ru/partnery/partnery-v-kazahstane/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center text-[#FFC000] underline underline-offset-4">Открыть первоисточник СТАНЭКСПЕРТ</a>
+          </section>
 
           {/* CTA Section */}
           <div className="bg-[#1a1a1a] border border-white/10 p-8 md:p-12 rounded-sm text-center">

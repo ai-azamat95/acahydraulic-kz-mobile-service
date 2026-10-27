@@ -1,3 +1,4 @@
+import RepairEvidence from "@/components/RepairEvidence";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import CaseImage from "@/components/CaseImage";
 import { Button } from "@/components/ui/button";
@@ -33,9 +34,9 @@ export default function MobileRepair() {
         ]}
         serviceSchema={{
           serviceName: "Выездной ремонт гидравлики спецтехники",
-          serviceDescription: "Мобильный сервис ACA Hydraulic для диагностики и ремонта гидравлики спецтехники на объекте по Казахстану.",
+          serviceDescription: content.description,
           serviceUrl: "/services/mobile-repair",
-          areaServed: ["Астана", "Алматы", "Казахстан"],
+          areaServed: ["Астана", "Казахстан"],
         }}
       />
       <div className="min-h-screen bg-[#111111] text-white font-roboto pt-20">
@@ -67,8 +68,8 @@ export default function MobileRepair() {
               <span className="text-[#FFC000]">по Казахстану</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Диагностируем неисправность на объекте и согласуем план ремонта до начала работ.
-              Работаем с предприятиями по договору. Условия выезда по Казахстану рассчитываем для вашего объекта.
+              База — Астана. Выезжаем на объекты по Казахстану по согласованию: диагностируем неисправность, согласуем ремонт, выполняем работы и проверяем затронутые функции после сборки.
+              Работаем с предприятиями по договору. Возможность ремонта на месте уточняем по результатам проверки.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -87,6 +88,7 @@ export default function MobileRepair() {
         </div>
       </section>
 
+      <RepairEvidence service="mobile-repair" />
       <ServiceDetails content={content} />
 
       {/* Target Audience - Who is this for? */}
@@ -100,7 +102,7 @@ export default function MobileRepair() {
             <div className="bg-[#1a1a1a] p-6 border border-white/5 rounded hover:border-[#FFC000]/30 transition-colors">
               <HardHat className="w-10 h-10 text-[#FFC000] mb-4" />
               <h3 className="font-bebas text-xl mb-2">Строительные компании</h3>
-              <p className="text-gray-400 text-sm">Минимизация простоя техники на объектах. Срочный выезд при аварийных остановках.</p>
+              <p className="text-gray-400 text-sm">Ремонт техники на строительных объектах. Возможность и время выезда при остановке машины согласуем по обращению.</p>
             </div>
             <div className="bg-[#1a1a1a] p-6 border border-white/5 rounded hover:border-[#FFC000]/30 transition-colors">
               <Wrench className="w-10 h-10 text-[#FFC000] mb-4" />
@@ -332,7 +334,7 @@ export default function MobileRepair() {
       <ServiceFAQ items={content.faq} />
       <section className="py-20 bg-[#FFC000] text-black">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-bebas font-bold text-4xl md:text-5xl mb-6 uppercase">
+          <h2 className="font-bebas font-bold break-words text-3xl sm:text-4xl md:text-5xl mb-6 uppercase">
             Нужен профессиональный ремонт гидравлики?
           </h2>
           <p className="text-xl font-medium mb-8 max-w-2xl mx-auto">
