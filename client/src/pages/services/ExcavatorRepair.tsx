@@ -1,3 +1,4 @@
+import RepairEvidence from "@/components/RepairEvidence";
 import { SEO } from "@/components/SEO";
 import LocalRepairInfo from '@/components/LocalRepairInfo';
 import { Phone, MessageCircle, CheckCircle, ArrowRight, Wrench, Clock, Shield, Mail } from "lucide-react";
@@ -12,8 +13,8 @@ export default function ExcavatorRepair() {
   return (
     <div className="min-h-screen bg-[#111111] text-white font-roboto">
       <SEO 
-        title="Ремонт экскаваторов в Астане — гидравлика и ДВС | ACA Hydraulic"
-        description="Выездной ремонт экскаваторов CAT, Komatsu, Hitachi, Hyundai и SANY в Астане. Диагностика платная, стоимость согласуем до выезда. Гидравлика, двигатель, проверка под нагрузкой."
+        title="Ремонт экскаваторов с выездом по Казахстану | ACA Hydraulic"
+        description="Ремонт экскаваторов с выездом по Казахстану по согласованию. База в Астане. Диагностика, согласование ремонта и проверка результата; кейсы CAT и SANY с видео."
         keywords="ремонт гидравлики экскаватора, ремонт экскаватора Астана, ремонт CAT экскаватор, ремонт Komatsu PC, ремонт Hitachi ZX, ремонт гидронасоса экскаватора, выездной ремонт экскаватора"
         canonical="/services/excavator-repair"
         breadcrumbs={[
@@ -22,7 +23,7 @@ export default function ExcavatorRepair() {
         ]}
         serviceSchema={{
           serviceName: 'Ремонт гидравлики экскаваторов',
-          serviceDescription: 'Ремонт гидравлики экскаваторов CAT, Komatsu, Hitachi, Hyundai в Астане и Казахстане. Выездная диагностика и ремонт на объекте.',
+          serviceDescription: 'Ремонт экскаваторов с выездом по Казахстану по согласованию. База в Астане. Диагностика, согласование ремонта и проверка результата; кейсы CAT и SANY с видео.',
           serviceUrl: '/services/excavator-repair',
           areaServed: ['Астана', 'Казахстан'],
         }}
@@ -79,8 +80,8 @@ export default function ExcavatorRepair() {
               <span className="text-[#FFC000] font-bebas text-sm tracking-wide">ВЫЕЗДНОЙ СЕРВИС по согласованию</span>
             </div>
             <h1 className="font-bebas text-5xl md:text-7xl text-white mb-6 leading-none tracking-wide">
-              Ремонт экскаваторов в Астане<br/>
-              <span className="text-[#FFC000]">с выездом на объект</span>
+              Ремонт экскаваторов<br/>
+              <span className="text-[#FFC000]">с выездом по Казахстану</span>
             </h1>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl font-roboto">
               Диагностика и ремонт гидравлики, двигателей и ходовой части гусеничных и колёсных экскаваторов. Выезжаем на строительные объекты, карьеры и площадки предприятий в Астане и по Казахстану.
@@ -99,6 +100,7 @@ export default function ExcavatorRepair() {
       </section>
 
       <LocalRepairInfo route="/services/excavator-repair" />
+      <RepairEvidence service="excavator-repair" />
       {/* Services Grid */}
       <section className="py-20 bg-[#0a0a0a]">
         <div className="container mx-auto px-4">

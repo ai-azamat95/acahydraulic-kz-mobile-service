@@ -1,3 +1,4 @@
+import RepairEvidence from "@/components/RepairEvidence";
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, ClipboardList, MessageCircle, Phone, Search, Wrench } from "lucide-react";
@@ -34,8 +35,8 @@ export default function Services() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f6f5f0] pb-8 text-[#17242b]">
       <SEO
-        title="Ремонт гидравлики и спецтехники в Астане — услуги ACA Hydraulic"
-        description="Найдите сервис по типу спецтехники или гидравлическому узлу. Выездная диагностика, ремонт по согласованной смете и реальные примеры работ ACA Hydraulic."
+        title="Ремонт гидравлики с выездом по Казахстану | ACA Hydraulic"
+        description="Выездной сервис гидравлики по Казахстану по согласованию, база в Астане. Диагностика, смета, ремонт и проверка результата. Услуги и кейсы с видео."
         canonical="/services"
         ogImage="/images/services/field-diagnostics-illustration.webp"
         breadcrumbs={[{ name: "Услуги", url: "/services" }]}
@@ -73,7 +74,7 @@ export default function Services() {
                 <Wrench size={14} /> ACA Hydraulic · сервис спецтехники
               </span>
               <h1 className="max-w-2xl font-sans text-4xl font-extrabold leading-[1.08] tracking-tight md:text-6xl">Найдём причину. <span className="text-[#a37500]">Вернём технику в работу.</span></h1>
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-[#465957] md:text-lg">Выберите технику или гидравлический узел. Если причина поломки неизвестна — начнём с диагностики и согласуем ремонт после проверки.</p>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-[#465957] md:text-lg">Выберите технику или гидравлический узел. База в Астане; выезды по Казахстану по согласованию. Начинаем с диагностики, согласуем ремонт и проверяем работу после сборки.</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a href="#service-search" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#f4bc2a] px-6 font-bold text-[#17242b] transition hover:bg-[#e9ae13]">Выбрать услугу <ArrowRight size={18} /></a>
                 <a href="https://wa.me/77714177925?text=%D0%9D%D1%83%D0%B6%D0%BD%D0%B0%20%D0%B4%D0%B8%D0%B0%D0%B3%D0%BD%D0%BE%D1%81%D1%82%D0%B8%D0%BA%D0%B0%20%D0%B3%D0%B8%D0%B4%D1%80%D0%B0%D0%B2%D0%BB%D0%B8%D0%BA%D0%B8" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-[#aab9b0] bg-white/75 px-6 font-semibold transition hover:bg-white"><MessageCircle size={18} /> Написать инженеру</a>
@@ -81,6 +82,8 @@ export default function Services() {
             </div>
           </div>
         </section>
+
+        <RepairEvidence />
 
         <section id="service-search" className="mx-auto max-w-7xl scroll-mt-6 px-4 py-12 md:py-16">
           <div className="mb-8 grid gap-5 md:grid-cols-[1fr_auto] md:items-end">

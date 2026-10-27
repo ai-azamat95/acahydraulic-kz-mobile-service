@@ -1,3 +1,4 @@
+import RepairEvidence from "@/components/RepairEvidence";
 import PumpCaseTeaser from "@/components/PumpCaseTeaser";
 import { useState } from "react";
 import { Link } from "wouter";
@@ -145,10 +146,12 @@ export default function Cases() {
             Ремонты и поставки <span className="text-[#FFC000]">из практики</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed">
-            Кейсы диагностики, ремонта и поставки запчастей ACA Hydraulic. Фото и видео реальной техники, детали заказа и подтверждённый результат.
+            Собственные кейсы диагностики, ремонта и поставки запчастей ACA Hydraulic. Ниже отдельно показаны работы с видео проверки после ремонта или установки. Объём опубликованных доказательств различается по кейсам.
           </p>
         </div>
       </section>
+
+      <RepairEvidence showProcess={false} />
 
       <section className="border-b border-[#FFC000]/30 bg-[#191600] py-8 md:py-10">
         <div className="container mx-auto flex flex-col items-start justify-between gap-6 px-4 md:flex-row md:items-center">
