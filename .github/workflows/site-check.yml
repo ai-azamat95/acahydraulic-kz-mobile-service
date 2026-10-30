@@ -16,8 +16,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec vitest run client/src/lib/contactIntent.test.ts server/analyticsGate.test.ts
-      - run: pnpm exec vitest run client/src/lib/catalogLinks.test.ts client/src/lib/caseConversion.test.ts --pool=threads --poolOptions.threads.singleThread
+      - run: pnpm check
+      - run: pnpm exec vitest run --pool=threads --poolOptions.threads.singleThread
       - run: pnpm build
       - run: node scripts/create-spa-route-copies.mjs
       - run: node scripts/create-case-route-copies.mjs
@@ -26,4 +26,6 @@ jobs:
       - run: pnpm catalog:routes
       - run: node scripts/create-catalog-landing-routes.mjs
       - run: node scripts/apply-markdown-alternates.mjs
+      - name: Reject private supplier data in the public build
+        run: node scripts/check-public-site.mjs
       - run: node --test tests/*.test.mjs

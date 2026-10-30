@@ -208,6 +208,12 @@
           contactParams.item_id = link.getAttribute('data-aca-item-id') || undefined;
           contactParams.item_category = link.getAttribute('data-aca-item-category') || undefined;
           contactParams.catalog_source = link.getAttribute('data-aca-contact-source') || 'product_page';
+          var pumpFamily = link.getAttribute('data-aca-pump-family');
+          if (['a10vso', 'a11vo', 'k3v', 'k5v', 'danfoss-90'].includes(pumpFamily)) {
+            contactParams.pump_family = pumpFamily;
+            contactParams.lead_stage = 'contact_intent';
+            contactParams.request_type = 'nameplate_selection';
+          }
         }
         try {
           // Do not send WhatsApp query text (client details) to analytics.

@@ -6,6 +6,8 @@ import { catalogProductName } from "@shared/catalog-product-seo.mjs";
 import SiteHomeLink from "@/components/SiteHomeLink";
 import CatalogDirectory from "@/components/catalog/CatalogDirectory";
 import { BrandPumpShowcase } from "@/components/catalog/BrandPumpShowcase";
+import { PumpOrderNavigation, PumpOrderSelection } from "@/components/catalog/PumpOrderSelection";
+import { pumpOrderBrand } from "@shared/pump-order-selection.mjs";
 import { PumpBrandNavigation } from "@/components/catalog/PumpBrandNavigation";
 import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/components/catalog/PumpSupplyOffers";
 import { pumpCasePath } from "@/content/pumpCases";
@@ -279,7 +281,8 @@ export default function Catalog() {
 
   useEffect(() => {
     const id = window.location.hash.slice(1);
-    if (id.startsWith("section-")) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start" }));
+    const pumpFamily = pumpOrderBrand(params.brandSlug || "")?.families.some(family => family.id === id);
+    if (id.startsWith("section-") || pumpFamily) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start" }));
   }, [params.categoryId, params.brandSlug, params.modelSlug]);
 
   const selectedCategory = useMemo(
@@ -915,6 +918,8 @@ export default function Catalog() {
             {activeSection.categories.map(id => partCategories.find(item => item.id === id)!).map(item => <Link key={item.id} href={routeBrand ? catalogBrandFilterHref(routeBrand.slug, partQuery, item.id) : catalogSearchHref(partQuery, item.id)} aria-current={category === item.id ? "page" : undefined}>{item[language]}</Link>)}
           </nav>}
           {categoryLanding?.id === "hydraulic-pumps" && <PumpBrandNavigation source="hydraulic-pumps" className="mt-6" />}
+          {categoryLanding?.id === "hydraulic-pumps" && <PumpOrderNavigation />}
+          {routeBrand && <PumpOrderSelection brandSlug={routeBrand.slug} activeCategory={category} />}
           {routeBrand && <BrandPumpShowcase brandSlug={routeBrand.slug} activeCategory={category} />}
           {!isLandingPage && (
             <aside className="aca-mobile-promos" aria-label={ui.promoTitle}>

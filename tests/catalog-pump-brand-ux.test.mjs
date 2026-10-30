@@ -8,6 +8,7 @@ import highlights from "../shared/catalog-pump-brand-highlights.json" with { typ
 import pumps from "../shared/catalog-hydrauvision-products.json" with { type: "json" };
 import categoryCorrectionLedger from "../shared/catalog-category-corrections.json" with { type: "json" };
 import catalogContentRevisions from "../shared/catalog-content-revisions.json" with { type: "json" };
+import pumpOrderSelection from "../shared/pump-order-selection.json" with { type: "json" };
 
 const expected = {
   rexroth: [
@@ -201,9 +202,9 @@ test("changed pump landing pages publish their actual content revision date", ()
     "utf8",
   );
   for (const [route, modifiedDate] of [
-    ["/catalog/category/hydraulic-pumps/", catalogContentRevisions.categoryCorrections.modifiedDate],
-    ["/catalog/brand/rexroth/", catalogContentRevisions.hydrauvisionProducts.modifiedDate],
-    ["/catalog/brand/danfoss/", catalogContentRevisions.hydrauvisionProducts.modifiedDate],
+    ["/catalog/category/hydraulic-pumps/", pumpOrderSelection.modifiedDate],
+    ["/catalog/brand/rexroth/", pumpOrderSelection.modifiedDate],
+    ["/catalog/brand/danfoss/", pumpOrderSelection.modifiedDate],
   ]) {
     assert.match(
       sitemap,
@@ -245,6 +246,7 @@ test("catalog publication revisions cover affected category and brand landings",
     const modifiedDate = [
       catalogContentRevisions.hydrauvisionProducts.modifiedDate,
       correctedCategories.has(category) ? catalogContentRevisions.categoryCorrections.modifiedDate : undefined,
+      category === 'hydraulic-pumps' ? pumpOrderSelection.modifiedDate : undefined,
     ].filter(Boolean).sort().at(-1);
     assert.match(
       sitemap,
@@ -253,16 +255,22 @@ test("catalog publication revisions cover affected category and brand landings",
     );
   }
   for (const brand of hydrauvisionBrands) {
+    const modifiedDate = [catalogContentRevisions.hydrauvisionProducts.modifiedDate,
+      pumpOrderSelection.brands[brand] ? pumpOrderSelection.modifiedDate : undefined,
+    ].filter(Boolean).sort().at(-1);
     assert.match(
       sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/brand/${brand}/</loc><lastmod>${catalogContentRevisions.hydrauvisionProducts.modifiedDate}</lastmod>`),
+      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/brand/${brand}/</loc><lastmod>${modifiedDate}</lastmod>`),
       brand,
     );
   }
   for (const category of correctedCategories) {
+    const modifiedDate = category === 'hydraulic-pumps'
+      ? [catalogContentRevisions.categoryCorrections.modifiedDate, pumpOrderSelection.modifiedDate].sort().at(-1)
+      : catalogContentRevisions.categoryCorrections.modifiedDate;
     assert.match(
       sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${catalogContentRevisions.categoryCorrections.modifiedDate}</lastmod>`),
+      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${modifiedDate}</lastmod>`),
       category,
     );
   }

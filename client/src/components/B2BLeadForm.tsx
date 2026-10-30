@@ -177,8 +177,8 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
             </div>
           </label>
 
-          <Button type="submit" className="w-full bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg h-12 disabled:opacity-50" disabled={isSubmitting || !budgetAccepted}>
-            {isSubmitting ? 'Подготовка...' : <span className="flex items-center gap-2">ПОДТВЕРДИТЬ И ПЕРЕЙТИ В WHATSAPP <Send className="w-5 h-5" /></span>}
+          <Button type="submit" className="w-full min-w-0 min-h-12 h-auto whitespace-normal bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-base sm:text-lg px-3 py-3 disabled:opacity-50" disabled={isSubmitting || !budgetAccepted}>
+            {isSubmitting ? 'Подготовка...' : <span className="flex min-w-0 items-center justify-center gap-2"><span>ПОДТВЕРДИТЬ И ПЕРЕЙТИ В WHATSAPP</span><Send className="w-5 h-5 shrink-0" aria-hidden="true" /></span>}
           </Button>
 
           {!budgetAccepted && <p className="text-xs text-center text-amber-700 dark:text-amber-400">Чтобы продолжить, подтвердите условия платной диагностики.</p>}

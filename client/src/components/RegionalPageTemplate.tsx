@@ -155,9 +155,9 @@ const RegionalPageTemplate: React.FC<RegionalPageProps> = ({
               Нужен ремонт гидравлики в г. {city}?
             </h2>
             <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-              <div className="flex items-center gap-4 bg-white/10 px-8 py-4 rounded-lg">
-                <Phone className="w-8 h-8 text-[#FFB800]" />
-                <div className="text-left">
+              <div className="flex max-w-full items-center gap-3 bg-white/10 px-4 py-4 sm:px-8 rounded-lg">
+                <Phone className="w-8 h-8 shrink-0 text-[#FFB800]" />
+                <div className="min-w-0 text-left">
                   <div className="text-sm text-gray-400">Круглосуточная диспетчерская</div>
                   <a href="tel:+77714177925" className="text-xl font-bold">+7 (771) 417-79-25</a>
                 </div>
