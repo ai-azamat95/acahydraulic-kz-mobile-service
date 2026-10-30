@@ -4,12 +4,12 @@ import path from 'node:path';
 
 import { isExcludedCatalogImage } from './lib/catalog-image-hygiene.mjs';
 import { catalogCategoryCorrection } from '../shared/catalog-category-corrections.mjs';
+import { isPrivateSupplierKey, publicJsonFiles } from './lib/public-supplier-guard.mjs';
 
 const catalogDir = path.resolve(process.argv[2] || 'client/public/catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
 const forbiddenBrand = /sinocmp|hydrauvision/i;
 const forbiddenSupplierHost = /https:\/\/(?:[^/]+\.)?(?:sinocmp\.com|shopify\.com|hydrauvision\.com)\//i;
-const forbiddenKeys = new Set(['sourceUrl', 'sourcePriceKzt', 'sourceUpdatedAt']);
 const privateFiles = [
   'catalog-import-audit.json',
   'pump-import-audit.json',
@@ -24,7 +24,7 @@ for (const fileName of privateFiles) {
   assert.equal(fs.existsSync(path.join(catalogDir, fileName)), false, `${fileName} must not be published`);
 }
 
-const jsonFiles = fs.readdirSync(catalogDir).filter((fileName) => fileName.endsWith('.json'));
+const jsonFiles = publicJsonFiles(catalogDir);
 const sensitiveKeyHits = [];
 
 function inspectKeys(value, fileName, location = '$') {
@@ -34,7 +34,7 @@ function inspectKeys(value, fileName, location = '$') {
     return;
   }
   for (const [key, child] of Object.entries(value)) {
-    if (forbiddenKeys.has(key)) sensitiveKeyHits.push(`${fileName}:${location}.${key}`);
+    if (isPrivateSupplierKey(key)) sensitiveKeyHits.push(`${fileName}:${location}.${key}`);
     inspectKeys(child, fileName, `${location}.${key}`);
   }
 }

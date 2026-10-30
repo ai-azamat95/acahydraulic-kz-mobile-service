@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { catalogProductName } from '../shared/catalog-product-seo.mjs';
 import { groupCatalogModels } from '../shared/catalog-directory.mjs';
+import pumpOrderSelection from '../shared/pump-order-selection.json' with { type: 'json' };
+import { pumpOrderBrand, renderPumpOrderNavigation, renderPumpOrderSelection } from '../shared/pump-order-selection.mjs';
 
 import {
   catalogBrandLandings,
@@ -73,6 +75,8 @@ function landingLastmod(page) {
     pumpCategoryDate,
     hydrauvisionDate,
     correctionDate,
+    ((page.type === 'brand' && pumpOrderBrand(page.slug))
+      || (page.type === 'category' && page.slug === 'hydraulic-pumps')) ? pumpOrderSelection.modifiedDate : undefined,
   ].filter(Boolean).sort().at(-1);
 }
 const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
@@ -163,8 +167,9 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   });
   const seo = type === 'category' ? categorySeoContent[slug] : null;
   const guide = type === 'category' ? categorySelectionGuides[slug] : type === 'brand' ? brandSelectionGuides[slug] : null;
-  const brandNavigation = type === 'category' && slug === 'hydraulic-pumps' ? pumpBrandNavigation('hydraulic-pumps') : '';
+  const brandNavigation = type === 'category' && slug === 'hydraulic-pumps' ? pumpBrandNavigation('hydraulic-pumps') + renderPumpOrderNavigation() : '';
   const featuredBrandPumps = type === 'brand' ? brandPumpShowcase(slug) : '';
+  const pumpOrderContent = type === 'brand' ? renderPumpOrderSelection(slug) : '';
   const decisionGuide = guide ? `<section data-catalog-selection-guide><h2>${escapeHtml(guide.heading)}</h2><details><summary>Проверка перед заказом и полезные ссылки</summary><p>${escapeHtml(guide.text)}</p><nav aria-label="Подбор, диагностика и связанные запчасти"><ul>${guide.links.map(link => `<li><a href="${escapeAttr(link.href)}">${escapeHtml(link.label)}</a></li>`).join('')}</ul></nav></details></section>` : '';
   const selectionGuide = seo ? `<section data-category-selection><h2>Как подобрать запчасть без ошибки</h2><p>${escapeHtml(seo.selection)}</p><p>Также ищут: ${seo.queries.map(escapeHtml).join(' · ')}.</p>
   ${slug === 'hydraulic-pumps' ? '<nav aria-label="Подтверждённые кейсы поставки насосов"><a href="/cases/cat-432e-postavka-gidronasosa-267-2755/">CAT 432E: продажа насоса 267-2755</a> · <a href="/cases/xcmg-xz200-ustanovka-gidronasosa-803001730/">XCMG XZ200: поставка и установка насоса 803001730</a></nav>' : ''}
@@ -179,6 +184,7 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   <p>Найдено позиций: ${matches.length}. Цена, наличие и срок подтверждаются после проверки OEM-номера, модели, серийного номера и исполнения детали.</p>
   ${selectionGuide}
   ${brandNavigation}
+  ${pumpOrderContent}
   ${featuredBrandPumps}
   ${decisionGuide}
   <section><h2>Товары раздела</h2><ul>${itemList.map((product) => `<li><a href="/catalog/${product.handle}/">${escapeHtml(catalogProductName(product))}</a>${product.fitment ? ` — ${escapeHtml(product.fitment)}` : ''}</li>`).join('')}</ul></section>

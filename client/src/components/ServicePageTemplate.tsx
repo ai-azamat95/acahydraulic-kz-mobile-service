@@ -81,10 +81,10 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg px-8">
+                <Button asChild size="lg" className="min-h-12 h-auto whitespace-normal bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-base sm:text-lg px-4 py-3 sm:px-8">
                   <a href="#service-request">ОБСУДИТЬ ДИАГНОСТИКУ</a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8">
+                <Button asChild size="lg" variant="outline" className="min-h-12 h-auto whitespace-normal border-white text-white hover:bg-white/10 font-bold text-base sm:text-lg px-4 py-3 sm:px-8">
                   <a href="tel:+77714177925">ПОЗВОНИТЬ</a>
                 </Button>
               </div>

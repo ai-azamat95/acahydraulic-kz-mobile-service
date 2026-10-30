@@ -63,6 +63,23 @@ const choices = [undefined,
 ];
 
 describe('consented contact clicks (no network or vendor SDK)', () => {
+  it('static pump family clicks carry only a fixed family and intent stage', () => {
+    for (const family of ['a10vso', 'a11vo', 'k3v', 'k5v', 'danfoss-90']) {
+      const f = setup({ analytics: true, marketing: false });
+      f.click({ ...catalogAttributes, 'data-aca-pump-family': family });
+      expect(f.gtag).toHaveBeenCalledOnce();
+      expect(f.gtag.mock.calls[0][1]).toBe('catalog_whatsapp_click');
+      expect(f.gtag.mock.calls[0][2]).toMatchObject({
+        pump_family: family, lead_stage: 'contact_intent', request_type: 'nameplate_selection',
+      });
+      expect(JSON.stringify(f.gtag.mock.calls)).not.toContain(PRIVATE);
+      expect(f.conversions()).toEqual([]);
+    }
+    const f = setup({ analytics: true, marketing: false });
+    f.click({ ...catalogAttributes, 'data-aca-pump-family': PRIVATE });
+    expect(f.gtag.mock.calls[0][2]).not.toHaveProperty('pump_family');
+  });
+
   it('maps existing contact intents to Yandex goals without sending message text', () => {
     const f = setup({ analytics: true, marketing: false });
     f.click(catalogAttributes);

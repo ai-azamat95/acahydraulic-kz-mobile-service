@@ -1,4 +1,4 @@
-import generatedProducts from "./catalog.generated.json";
+import generatedProducts from "./catalog.public.json";
 
 export type CatalogAvailability = "in_stock" | "on_request" | "out_of_stock";
 
@@ -13,21 +13,10 @@ export interface CatalogProduct {
   machineModels: string[];
   description: string;
   image?: string;
-  sourcePrice?: number;
-  sourceCurrency?: "CNY" | "USD" | "KZT";
-  markupPercent: number;
   priceKzt?: number;
   availability: CatalogAvailability;
   featured?: boolean;
   isDemo?: boolean;
-}
-
-/**
- * Applies a commercial markup without changing currency.
- * Currency conversion is intentionally kept separate because FX rates are dynamic.
- */
-export function applyMarkup(basePrice: number, markupPercent = 50): number {
-  return Math.round(basePrice * (1 + markupPercent / 100));
 }
 
 export function formatKzt(price?: number): string {
