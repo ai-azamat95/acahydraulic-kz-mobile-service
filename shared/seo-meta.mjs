@@ -18,7 +18,7 @@ export function compactSeoTitleBase(value, maxLength = 52) {
     ? candidate.slice(0, boundary)
     : normalized.slice(0, maxLength);
   let result = compacted.replace(/[\s,:;|/—-]+$/u, '').trim();
-  const trailingConnector = /\s+(?:and|for|from|of|the|to|with|для|и|из|на|от|по|с)$/iu;
+  const trailingConnector = /\s+(?:and|for|from|of|the|to|with|без|в|для|и|из|к|на|о|об|от|по|с|у)$/iu;
   while (trailingConnector.test(result)) result = result.replace(trailingConnector, '').trim();
   return result;
 }

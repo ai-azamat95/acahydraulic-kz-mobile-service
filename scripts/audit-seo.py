@@ -105,6 +105,12 @@ for url in sorted(urls):
         store[value].append(route)
         if field == "title" and len(value) > 75:
             issues["title_too_long"].append([route, len(value)])
+        if field == "title" and re.search(
+            r"(?:^|\s)(?:and|for|from|of|the|to|with|без|в|для|и|из|к|на|о|об|от|по|с|у)\s*\|\s*ACA Hydraulic$",
+            value,
+            re.IGNORECASE,
+        ):
+            issues["title_dangling_connector"].append([route, value])
         if field == "description" and len(value) > 180:
             issues["description_too_long"].append([route, len(value)])
 

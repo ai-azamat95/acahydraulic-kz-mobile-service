@@ -21,6 +21,14 @@ test('SEO title base does not split a word when a useful boundary is available',
   assert.doesNotMatch(title, /экскаватор$/u);
   assert.match(title, /708-2L-00500/u);
   assert.doesNotMatch(compactSeoTitleBase('Электрическая запчасть 0437411 Solenoid Valve for Hitachi EX200-3', 52), /\bfor$/iu);
+  assert.doesNotMatch(
+    formatSeoTitle('Уплотнения и ремкомплекты гидроцилиндров в Казахстане'),
+    /\sв\s\|\sACA Hydraulic$/u,
+  );
+  assert.equal(
+    formatSeoTitle('Ремонт гидравлики по Казахстану — база в Астане'),
+    'Ремонт гидравлики по Казахстану — база в Астане | ACA Hydraulic',
+  );
 });
 
 test('SEO descriptions prefer complete sentences and enforce the snippet budget', () => {
