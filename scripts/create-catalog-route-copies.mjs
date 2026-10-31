@@ -47,6 +47,7 @@ const productRevisionLastmods = new Map([
 function productLastmod(product) {
   return [
     lastmod,
+    catalogContentRevisions.sitewideSeo.modifiedDate,
     phase2ProductCopy[product.handle]?.modifiedDate,
     phase3ProductCopy[product.handle]?.modifiedDate,
     productRevisionLastmods.get(String(product.id)),
@@ -56,6 +57,15 @@ function productLastmod(product) {
 
 function escapeAttr(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+}
+
+function imageMimeType(imageUrl) {
+  const pathname = new URL(imageUrl, baseUrl).pathname.toLowerCase();
+  if (pathname.endsWith('.webp')) return 'image/webp';
+  if (pathname.endsWith('.png')) return 'image/png';
+  if (pathname.endsWith('.avif')) return 'image/avif';
+  if (pathname.endsWith('.gif')) return 'image/gif';
+  return 'image/jpeg';
 }
 
 function escapeHtml(value) {
@@ -146,6 +156,7 @@ function productPage(product) {
         ? 'Новый насос в сборе. Поставка под заказ по Казахстану — 3–14 дней. Доставка — от 3 долларов США за кг, оплачивается отдельно. Предоплата 100%. Итоговую стоимость доставки согласуем до оплаты. При браке — замена через сервисный центр.'
         : '';
   const description = productSeo.description;
+  const metaDescription = productSeo.metaDescription;
   const imageIsCategoryPlaceholder = catalogProductImageIsPlaceholder(product);
   const gallery = product.ownerSale?.casePath === catSale.casePath ? catSale.gallery : (product.gallery ?? []);
   const images = [...new Set([product.imageUrl, ...gallery]
@@ -220,14 +231,15 @@ function productPage(product) {
 
   let html = indexHtml.replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
   html = setTag(html, /<title[^>]*>.*?<\/title>/is, `<title>${escapeHtml(title)}</title>`);
-  html = setTag(html, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${escapeAttr(metaDescription)}">`);
   html = html.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
   html = html.replace('</head>', `<link data-rh="true" rel="canonical" href="${canonical}">\n</head>`);
   html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:url["'])[^>]*>/i, `<meta property="og:url" content="${canonical}">`);
   html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)}">`);
-  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${escapeAttr(metaDescription)}">`);
   if (image && !imageIsCategoryPlaceholder) {
     html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:image["'])[^>]*>/i, `<meta property="og:image" content="${escapeAttr(image)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:image:type["'])[^>]*>/i, `<meta property="og:image:type" content="${imageMimeType(image)}">`);
     html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:image:alt["'])[^>]*>/i, `<meta property="og:image:alt" content="${escapeAttr(productSeo.name)}">`);
     html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:image["'])[^>]*>/i, `<meta name="twitter:image" content="${escapeAttr(image)}">`);
   }
@@ -238,7 +250,7 @@ function productPage(product) {
     html = html.replace('</head>', '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">\n</head>');
   }
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(title)}">`);
-  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(metaDescription)}">`);
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:url["'])[^>]*>/i, `<meta name="twitter:url" content="${escapeAttr(canonical)}">`);
   if (schema) {
     html = html.replace('</head>', `<script type="application/ld+json" data-static-product-schema data-rh="true">${schema}</script>\n</head>`);

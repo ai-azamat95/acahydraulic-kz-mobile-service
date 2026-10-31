@@ -1,9 +1,11 @@
 import fs from 'node:fs';
+import catalogContentRevisions from '../shared/catalog-content-revisions.json' with { type: 'json' };
 import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
 import xcmgRepair from '../shared/xcmg-xz320e-repair-case.json' with { type: 'json' };
 import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
 import path from 'node:path';
+import { compactSeoDescription, formatSeoTitle } from '../shared/seo-meta.mjs';
 const { renderStaticPage } = await import(path.resolve('dist/seo-page-renderer.mjs'));
 
 const outDir = path.resolve('dist/public');
@@ -21,7 +23,11 @@ if (!fs.existsSync(sitemapPath)) {
 }
 
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
-const sitemap = fs.readFileSync(sitemapPath, 'utf8');
+const sitemap = fs.readFileSync(sitemapPath, 'utf8').replace(
+  /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g,
+  `<lastmod>${catalogContentRevisions.sitewideSeo.modifiedDate}</lastmod>`,
+);
+fs.writeFileSync(sitemapPath, sitemap);
 const routes = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+\/([^<]*)<\/loc>/g)]
   .map((match) => match[1].replace(/^\/+|\/+$/g, ''))
   .filter((route) => route && !/\.[a-z0-9]+$/i.test(route));
@@ -92,8 +98,10 @@ function setMeta(html, route) {
     html = html.replace('</head>', `${rendered.head}</head>`);
     return replaceRootContent(html, rendered.body);
   }
-  html = html.replace(/<title\b[^>]*>.*?<\/title>/is, `<title data-rh="true">${meta.title}</title>`);
-  html = html.replace(/<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" data-rh="true" content="${escapeAttr(meta.description)}">`);
+  const metaTitle = formatSeoTitle(meta.title);
+  const metaDescription = compactSeoDescription(meta.description);
+  html = html.replace(/<title\b[^>]*>.*?<\/title>/is, `<title data-rh="true">${metaTitle}</title>`);
+  html = html.replace(/<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" data-rh="true" content="${escapeAttr(metaDescription)}">`);
   // The root document is already managed by react-helmet and can contain
   // attributes before rel="canonical". Remove every existing canonical first
   // so generated route copies always expose exactly one route-specific URL.
@@ -101,9 +109,10 @@ function setMeta(html, route) {
   html = html.replace('</head>', `<link data-rh="true" rel="canonical" href="${canonical}">\n</head>`);
   if (route === 'cases/postavka-zamena-gidronasosa') {
     const socialMeta = {
-      'og:title': meta.title, 'og:description': meta.description, 'og:url': canonical,
+      'og:title': metaTitle, 'og:description': metaDescription, 'og:url': canonical,
       'og:image': `${baseUrl}/media/pump-cases/sany-sy365h.webp`,
-      'twitter:title': meta.title, 'twitter:description': meta.description,
+      'og:image:type': 'image/webp',
+      'twitter:title': metaTitle, 'twitter:description': metaDescription,
       'twitter:image': `${baseUrl}/media/pump-cases/sany-sy365h.webp`,
     };
     for (const [name, value] of Object.entries(socialMeta)) {

@@ -292,12 +292,27 @@ test('Russian catalogue pilot contains 100 canonical, evidence-backed product pa
   }
 });
 
-test('unreviewed parts retain their names and use neutral selection instructions', () => {
+test('unreviewed parts gain a Russian category term and retain neutral selection instructions', () => {
   const product = { handle: 'unreviewed-valve', title: 'Hydraulic Motor Flow Control Valve', category: 'control-valves', minPriceKzt: null };
-  assert.equal(catalogProductName(product), product.title);
+  assert.equal(catalogProductName(product), `Гидравлический клапан ${product.title}`);
   assert.match(catalogProductSelection(product), /фотографию детали/);
   assert.doesNotMatch(catalogProductSelection(product), /тормозной клапан/);
   assert.match(catalogProductSeo(product).description, /Цена по запросу/);
+});
+
+test('all catalogue products expose a Russian search term', () => {
+  const missingRussianTerm = products.filter(product => !/[а-яё]/iu.test(catalogProductName(product)));
+  assert.deepEqual(missingRussianTerm.map(product => product.handle), []);
+});
+
+test('canonical catalogue pages have unique compact titles and descriptions', () => {
+  const canonicalProducts = [...new Map(products.map(product => [product.handle, product])).values()]
+    .filter(product => !catalogAliases[product.handle]);
+  const metadata = canonicalProducts.map(product => catalogProductSeo(product));
+  assert.equal(new Set(metadata.map(item => item.title)).size, canonicalProducts.length);
+  assert.equal(new Set(metadata.map(item => item.metaDescription)).size, canonicalProducts.length);
+  assert(metadata.every(item => item.title.length <= 59));
+  assert(metadata.every(item => item.metaDescription.length <= 165));
 });
 
 test('product navigation deduplicates only valid catalog categories', () => {
@@ -309,8 +324,9 @@ test('all catalog items have useful metadata without mutating imported data', ()
   for (const product of products) {
     const original = JSON.stringify(product);
     const seo = catalogProductSeo(product);
-    assert(seo.name && seo.title && seo.description, product.handle);
-    assert(seo.title.length <= 110 || Object.hasOwn(copy, product.handle), product.handle);
+    assert(seo.name && seo.title && seo.description && seo.metaDescription, product.handle);
+    assert(seo.title.length <= 59, product.handle);
+    assert(seo.metaDescription.length <= 165, product.handle);
     assert.doesNotMatch(seo.description, /\.\./, `${product.handle}: SEO description has duplicated punctuation`);
     assert.equal(JSON.stringify(product), original);
     assert(catalogProductSelection(product));

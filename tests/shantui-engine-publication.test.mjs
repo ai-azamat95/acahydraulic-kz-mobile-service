@@ -12,7 +12,7 @@ const landingHtml = fs.readFileSync(path.join(root, landingRoute, "index.html"),
 
 test("Shantui case separates the historical engine price from installation", () => {
   assert.equal((caseHtml.match(/<h1[\s>]/g) || []).length, 1);
-  assert.match(caseHtml, /<title[^>]*>Двигатель Shantui SD32 Cummins NTA855: поставка и установка/);
+  assert.match(caseHtml, /<title[^>]*>Двигатель Shantui SD32 Cummins NTA855: поставка \| ACA Hydraulic<\/title>/);
   assert.match(caseHtml, /12 860 000 ₸/);
   assert.match(caseHtml, /Монтаж не входил в указанную цену/);
   assert.match(caseHtml, /гидротрансформатор/i);

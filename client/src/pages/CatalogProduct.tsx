@@ -221,7 +221,8 @@ export default function CatalogProduct() {
     <div className="min-h-[100dvh] bg-[#101010] pb-20 text-white font-roboto lg:pb-0">
       <SEO
         title={productSeo.title}
-        description={seoDescription}
+        titleMaxLength={75}
+        description={productSeo.metaDescription}
         canonical={`/catalog/${canonicalHandle}`}
         ogImage={imageIsCategoryPlaceholder ? undefined : gallery[0]}
         ogImageWidth={imageIsCategoryPlaceholder ? 1200 : managedSquareOgImage ? 1000 : null}
