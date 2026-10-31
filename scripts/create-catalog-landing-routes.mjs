@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { catalogProductName } from '../shared/catalog-product-seo.mjs';
 import { groupCatalogModels } from '../shared/catalog-directory.mjs';
+import { compactSeoDescription, formatSeoTitle } from '../shared/seo-meta.mjs';
 
 import {
   catalogBrandLandings,
@@ -69,6 +70,7 @@ function landingLastmod(page) {
     : undefined;
   return [
     lastmod,
+    catalogContentRevisions.sitewideSeo.modifiedDate,
     pumpBrandDate,
     pumpCategoryDate,
     hydrauvisionDate,
@@ -145,6 +147,8 @@ function brandPumpShowcase(slug) {
 function landingPage({ type, slug, title, description, intro, matches }) {
   const pathName = `/catalog/${type}/${slug}/`;
   const canonical = `${baseUrl}${pathName}`;
+  const metaTitle = formatSeoTitle(title);
+  const metaDescription = compactSeoDescription(description);
   const itemList = matches;
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
@@ -187,15 +191,15 @@ function landingPage({ type, slug, title, description, intro, matches }) {
 </main>`;
 
   let html = indexHtml.replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
-  html = setTag(html, /<title[^>]*>.*?<\/title>/is, `<title>${escapeHtml(title)} | ACA Hydraulic</title>`);
-  html = setTag(html, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<title[^>]*>.*?<\/title>/is, `<title>${escapeHtml(metaTitle)}</title>`);
+  html = setTag(html, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${escapeAttr(metaDescription)}">`);
   html = html.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
   html = html.replace('</head>', `<link data-rh="true" rel="canonical" href="${canonical}">\n</head>`);
   html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:url["'])[^>]*>/i, `<meta property="og:url" content="${canonical}">`);
-  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i, `<meta property="og:title" content="${escapeAttr(title)} | ACA Hydraulic">`);
-  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${escapeAttr(description)}">`);
-  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(`${title} | ACA Hydraulic`)}">`);
-  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(description)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:title["'])[^>]*>/i, `<meta property="og:title" content="${escapeAttr(metaTitle)}">`);
+  html = setTag(html, /<meta(?=[^>]*\bproperty=["']og:description["'])[^>]*>/i, `<meta property="og:description" content="${escapeAttr(metaDescription)}">`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(metaTitle)}">`);
+  html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(metaDescription)}">`);
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:url["'])[^>]*>/i, `<meta name="twitter:url" content="${escapeAttr(canonical)}">`);
   html = html.replace('</head>', `<script type="application/ld+json" data-static-collection-schema data-rh="true">${schema}</script>\n</head>`);
   html = setRootFallback(html, fallback);

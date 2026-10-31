@@ -1,9 +1,11 @@
 import catalogSections from "../shared/catalog-sections.json" with { type: "json" };
+import catalogContentRevisions from "../shared/catalog-content-revisions.json" with { type: "json" };
 import fs from 'node:fs';
 import path from 'node:path';
 import { build } from 'esbuild';
 import { createRequire } from 'node:module';
 import { articles, articleForRoute, articleList, articleSchema, renderArticle } from './seo-article-content.mjs';
+import { compactSeoDescription, formatSeoTitle } from '../shared/seo-meta.mjs';
 
 const outDir = path.resolve('dist/public');
 const indexPath = path.join(outDir, 'index.html');
@@ -37,6 +39,9 @@ if (!fs.existsSync(indexPath)) {
 
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 let sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
+if (sitemap) {
+  sitemap = sitemap.replace(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g, `<lastmod>${catalogContentRevisions.sitewideSeo.modifiedDate}</lastmod>`);
+}
 for (const route of ['payment', 'offer', 'sitemap']) {
   if (!sitemap.includes(`<loc>${baseUrl}/${route}/</loc>`)) sitemap = sitemap.replace('</urlset>', `<url><loc>${baseUrl}/${route}/</loc></url>\n</urlset>`);
 }
@@ -421,8 +426,8 @@ function withRouteHead(html, route) {
   const routePath = route ? `/${route}` : '/';
   const canonical = routePath === '/' ? `${baseUrl}/` : `${baseUrl}${routePath}/`;
   const { title, description } = metaForRoute(route);
-  const t = escapeAttr(title);
-  const d = escapeAttr(description);
+  const t = escapeAttr(formatSeoTitle(title));
+  const d = escapeAttr(compactSeoDescription(description));
   const c = escapeAttr(canonical);
 
   let out = html;
@@ -456,7 +461,13 @@ function withRouteHead(html, route) {
   const articleImage = article?.image || staticBlogArticle?.image || serviceImage;
   if (articleImage) {
     const image = escapeAttr(new URL(articleImage, baseUrl).href);
+    const imageType = articleImage.toLowerCase().split(/[?#]/u)[0].endsWith('.webp')
+      ? 'image/webp'
+      : articleImage.toLowerCase().split(/[?#]/u)[0].endsWith('.png')
+        ? 'image/png'
+        : 'image/jpeg';
     out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:image["'])[^>]*>/i, `<meta property="og:image" content="${image}">`);
+    out = setTag(out, /<meta(?=[^>]*\bproperty=["']og:image:type["'])[^>]*>/i, `<meta property="og:image:type" content="${imageType}">`);
     out = setTag(out, /<meta(?=[^>]*\b(?:name|property)=["']twitter:image["'])[^>]*>/i, `<meta name="twitter:image" content="${image}">`);
   }
   const pageSchema = JSON.stringify(article ? articleSchema(article) : staticBlogArticle ? staticBlogArticleSchema(staticBlogArticle, canonical) : {

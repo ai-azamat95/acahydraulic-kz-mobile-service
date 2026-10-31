@@ -4,6 +4,7 @@ import catSale from '../shared/cat-432e-sale.json' with { type: 'json' };
 import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' };
 import xcmgRepair from '../shared/xcmg-xz320e-repair-case.json' with { type: 'json' };
 import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
+import { compactSeoDescription, formatSeoTitle } from '../shared/seo-meta.mjs';
 
 const out = path.resolve('dist/public');
 const base = 'https://acahydraulic.kz';
@@ -97,19 +98,25 @@ function writeRoute(route, html) {
 }
 for (const item of cases) {
   const url = `${base}/cases/${item.slug}/`;
-  const title = `${item.title} | ACA Hydraulic`;
+  const title = formatSeoTitle(item.title);
+  const description = compactSeoDescription(item.description);
+  const posterPath = item.poster.toLowerCase().split(/[?#]/u)[0];
+  const posterType = posterPath.endsWith('.webp') ? 'image/webp' : posterPath.endsWith('.png') ? 'image/png' : 'image/jpeg';
   const schema = videoSchema(item);
   let html = template.replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, '')
     .replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
     .replace(/<meta(?=[^>]*\b(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["'])[^>]*>/gi, '')
     .replace(/<script(?=[^>]*\btype=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, '');
   const head = `<title data-rh="true">${escape(title)}</title>
-<meta data-rh="true" name="description" content="${escape(item.description)}">
+<meta data-rh="true" name="description" content="${escape(description)}">
 <meta data-rh="true" name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
 <link data-rh="true" rel="canonical" href="${url}">
-<meta data-rh="true" property="og:title" content="${escape(title)}"><meta data-rh="true" property="og:description" content="${escape(item.description)}">
+<meta data-rh="true" property="og:title" content="${escape(title)}"><meta data-rh="true" property="og:description" content="${escape(description)}">
 <meta data-rh="true" property="og:url" content="${url}"><meta data-rh="true" property="og:image" content="${base}${item.poster}">
+<meta data-rh="true" property="og:image:type" content="${posterType}">
 <meta data-rh="true" property="og:type" content="website">
+<meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="twitter:title" content="${escape(title)}">
+<meta data-rh="true" name="twitter:description" content="${escape(description)}"><meta data-rh="true" name="twitter:image" content="${base}${item.poster}">
 <script data-rh="true" type="application/ld+json">${JSON.stringify(pageSchema(item)).replace(/</g, '\\u003c')}</script>
 <script data-rh="true" type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>`;
   html = html.replace('</head>', `${head}</head>`);

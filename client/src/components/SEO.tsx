@@ -2,6 +2,7 @@ import { useLocation } from "wouter";
 import { Helmet } from "react-helmet-async";
 
 import { publicAsset } from "@/lib/assets";
+import { compactSeoDescription, formatSeoTitle } from "@shared/seo-meta.mjs";
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -35,6 +36,7 @@ interface SEOProps {
   pageType?: "website" | "article" | "service";
   publishedDate?: string;
   modifiedDate?: string;
+  titleMaxLength?: number;
 }
 
 const BASE_URL = "https://acahydraulic.kz";
@@ -43,6 +45,15 @@ const DEFAULT_OG_IMAGE =
 const SITE_NAME = "ACA Hydraulic";
 const PHONE = "+77714177925";
 const BUSINESS_ID = `${BASE_URL}/#business`;
+
+function imageMimeType(imageUrl: string) {
+  const pathname = new URL(imageUrl, BASE_URL).pathname.toLowerCase();
+  if (pathname.endsWith(".webp")) return "image/webp";
+  if (pathname.endsWith(".png")) return "image/png";
+  if (pathname.endsWith(".avif")) return "image/avif";
+  if (pathname.endsWith(".gif")) return "image/gif";
+  return "image/jpeg";
+}
 
 export function SEO({
   title,
@@ -60,11 +71,10 @@ export function SEO({
   pageType = "website",
   publishedDate,
   modifiedDate,
+  titleMaxLength = 68,
 }: SEOProps) {
-  // Smart title: don't duplicate brand name
-  const fullTitle = title.includes(SITE_NAME)
-    ? title
-    : `${title} | ${SITE_NAME}`;
+  const fullTitle = formatSeoTitle(title, SITE_NAME, titleMaxLength);
+  const metaDescription = compactSeoDescription(description);
   const [location] = useLocation();
   const canonicalPath = canonical || location;
   const rawCanonicalUrl = canonicalPath.startsWith("http")
@@ -72,6 +82,7 @@ export function SEO({
     : `${BASE_URL}${canonicalPath.startsWith("/") ? canonicalPath : `/${canonicalPath}`}`;
   const canonicalUrl = rawCanonicalUrl.split(/[?#]/)[0].replace(/\/+$/, "") + "/";
   const imageUrl = new URL(ogImage || DEFAULT_OG_IMAGE, BASE_URL).href;
+  const ogImageType = imageMimeType(imageUrl);
   const imageDimensions = ogImageWidth && ogImageHeight
     ? { width: ogImageWidth, height: ogImageHeight }
     : null;
@@ -187,7 +198,7 @@ export function SEO({
     <Helmet>
       {/* ── Basic Meta ─────────────────────────────────────────────────── */}
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      <meta name="description" content={metaDescription} />
       {keywords && <meta name="keywords" content={keywords} />}
       <meta
         name="robots"
@@ -207,9 +218,9 @@ export function SEO({
       <meta property="og:type" content={pageType === "article" ? "article" : "website"} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={metaDescription} />
       <meta property="og:image" content={imageUrl} />
-      <meta property="og:image:type" content="image/jpeg" />
+      <meta property="og:image:type" content={ogImageType} />
       {imageDimensions && <meta property="og:image:width" content={String(imageDimensions.width)} />}
       {imageDimensions && <meta property="og:image:height" content={String(imageDimensions.height)} />}
       <meta property="og:image:alt" content={title} />
@@ -225,7 +236,7 @@ export function SEO({
       {/* ── Twitter Card ───────────────────────────────────────────────── */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={imageUrl} />
 
       {/* ── Custom Schema ──────────────────────────────────────────────── */}

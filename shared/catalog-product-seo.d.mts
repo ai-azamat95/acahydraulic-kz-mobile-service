@@ -20,7 +20,7 @@ export function catalogProductName(
   product: Pick<SeoProduct, "handle" | "title"> & Partial<Pick<SeoProduct, "catalogTitle" | "category" | "categories" | "id">>,
   language?: string,
 ): string;
-export function catalogProductSeo(product: SeoProduct, language?: string): { name: string; title: string; description: string };
+export function catalogProductSeo(product: SeoProduct, language?: string): { name: string; title: string; description: string; metaDescription: string };
 export function catalogProductHasReviewedCopy(product: Pick<SeoProduct, "handle">, language?: string): boolean;
 export function catalogProductImageIsPlaceholder(product: { imageUrl?: string | null }): boolean;
 export function catalogOfferHasConfirmedSupply(merchantOffer?: { availability?: string }): boolean;

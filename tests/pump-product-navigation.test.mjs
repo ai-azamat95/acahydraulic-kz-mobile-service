@@ -139,7 +139,7 @@ test("changed pump product pages publish their navigation revision date", { skip
     assert.ok(product, expected.sku);
     assert.ok(
       sitemap.includes(
-        `<loc>https://acahydraulic.kz/catalog/${product.handle}/</loc>\n    <lastmod>2026-10-17</lastmod>`,
+        `<loc>https://acahydraulic.kz/catalog/${product.handle}/</loc>\n    <lastmod>${catalogContentRevisions.sitewideSeo.modifiedDate}</lastmod>`,
       ),
       expected.sku,
     );
@@ -152,11 +152,11 @@ test("catalog publication revisions cover Hydrauvision and corrected product car
   const expected = [
     ...pumps.map((product) => ({
       ...product,
-      modifiedDate: catalogContentRevisions.hydrauvisionProducts.modifiedDate,
+      modifiedDate: [catalogContentRevisions.hydrauvisionProducts.modifiedDate, catalogContentRevisions.sitewideSeo.modifiedDate].sort().at(-1),
     })),
     ...Object.keys(categoryCorrectionLedger.corrections).map((id) => ({
       ...byId.get(String(id)),
-      modifiedDate: catalogContentRevisions.categoryCorrections.modifiedDate,
+      modifiedDate: [catalogContentRevisions.categoryCorrections.modifiedDate, catalogContentRevisions.sitewideSeo.modifiedDate].sort().at(-1),
     })),
   ];
 

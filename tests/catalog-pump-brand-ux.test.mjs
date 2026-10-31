@@ -201,9 +201,9 @@ test("changed pump landing pages publish their actual content revision date", ()
     "utf8",
   );
   for (const [route, modifiedDate] of [
-    ["/catalog/category/hydraulic-pumps/", catalogContentRevisions.categoryCorrections.modifiedDate],
-    ["/catalog/brand/rexroth/", catalogContentRevisions.hydrauvisionProducts.modifiedDate],
-    ["/catalog/brand/danfoss/", catalogContentRevisions.hydrauvisionProducts.modifiedDate],
+    ["/catalog/category/hydraulic-pumps/", catalogContentRevisions.sitewideSeo.modifiedDate],
+    ["/catalog/brand/rexroth/", catalogContentRevisions.sitewideSeo.modifiedDate],
+    ["/catalog/brand/danfoss/", catalogContentRevisions.sitewideSeo.modifiedDate],
   ]) {
     assert.match(
       sitemap,
@@ -245,6 +245,7 @@ test("catalog publication revisions cover affected category and brand landings",
     const modifiedDate = [
       catalogContentRevisions.hydrauvisionProducts.modifiedDate,
       correctedCategories.has(category) ? catalogContentRevisions.categoryCorrections.modifiedDate : undefined,
+      catalogContentRevisions.sitewideSeo.modifiedDate,
     ].filter(Boolean).sort().at(-1);
     assert.match(
       sitemap,
@@ -255,14 +256,14 @@ test("catalog publication revisions cover affected category and brand landings",
   for (const brand of hydrauvisionBrands) {
     assert.match(
       sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/brand/${brand}/</loc><lastmod>${catalogContentRevisions.hydrauvisionProducts.modifiedDate}</lastmod>`),
+      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/brand/${brand}/</loc><lastmod>${catalogContentRevisions.sitewideSeo.modifiedDate}</lastmod>`),
       brand,
     );
   }
   for (const category of correctedCategories) {
     assert.match(
       sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${catalogContentRevisions.categoryCorrections.modifiedDate}</lastmod>`),
+      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${catalogContentRevisions.sitewideSeo.modifiedDate}</lastmod>`),
       category,
     );
   }
