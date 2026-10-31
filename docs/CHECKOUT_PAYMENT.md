@@ -1,59 +1,34 @@
-# ACA Hydraulic checkout and payment boundary
+# Checkout architecture
 
-The catalogue UI supports a persisted cart, checkout data collection, a WhatsApp order handoff, and a protected online-payment step. ACA selected `kaspi-webpay` as the intended provider.
+Current implementation: [Halyk epay sandbox](./HALYK_EPAY.md), prepared 2026-10-20.
 
-Online payment is intentionally disabled until `VITE_CHECKOUT_API_URL` points to a protected backend. GitHub Pages must never contain acquiring credentials or decide the charge amount.
+The public catalogue is deployed to GitHub Pages. It has no payment server and must
+never contain acquiring secrets. `VITE_CHECKOUT_API_URL` alone no longer enables
+online payment. Kaspi is not selected or called by Checkout.
 
-Kaspi's official public onboarding page is <https://kaspi.kz/webpay/partnership>. It describes three onboarding steps: submit an application, sign the agreement, and start accepting payments. The public page does not expose the technical API contract, signature algorithm, test endpoint, or credential names. Implement those details only from the integration package issued to ACA after approval; do not infer them from third-party examples.
+Default flow: cart → contact/delivery details → WhatsApp manager handoff or bank
+invoice request → manager verifies compatibility, availability, final price and
+supply/delivery terms. Catalogue totals are preliminary, including fixed-price
+items. Existing WhatsApp contact and merchant details remain in place.
 
-## Browser request
+The optional sandbox flow uses a separate HTTPS API and persisted order snapshot:
 
-`POST {VITE_CHECKOUT_API_URL}/payments`
+1. Browser submits identifiers/variants/quantities/contact details and consent.
+   It cannot submit a price or approval. Server verifies catalogue identities.
+2. Order is saved as `awaiting_review`. A separate manager bearer credential is
+   required to confirm terms. No bank call is made at this stage.
+3. Manager confirms final KZT amount including delivery/taxes, compatibility,
+   availability, supply/delivery terms, and quote expiry. Confirmation is versioned.
+4. Customer views and accepts the specific confirmed snapshot. Cart changes do
+   not change that order. Server rejects expired/stale/unconfirmed terms.
+5. Server reserves one invoice durably, then requests a sandbox payment token.
+   The browser receives only the payment-scoped token and opens Halyk's test form.
+6. Bank postlink is authenticated with the per-attempt `secret_hash`. A separate
+   server-to-server status request verifies invoice, terminal, currency, amount
+   and transaction identity. Only `CHARGE` means paid; `AUTH` means authorized.
+   Browser redirects and callback `code=ok` never establish payment success.
 
-```json
-{
-  "provider": "kaspi-webpay",
-  "cartVersion": 1,
-  "items": [
-    {
-      "productId": "supplier-product-id",
-      "productHandle": "catalog-handle",
-      "variantId": "optional-variant-id",
-      "quantity": 1
-    }
-  ],
-  "customer": {
-    "fullName": "Customer name",
-    "phone": "+7 700 000 00 00",
-    "email": "optional@example.kz",
-    "city": "Astana",
-    "deliveryMethod": "transport-company",
-    "deliveryAddress": "Terminal or address",
-    "bin": "optional 12 digits",
-    "comment": "Optional"
-  },
-  "returnUrl": "https://acahydraulic.kz/checkout?payment=return"
-}
-```
-
-No client-supplied price or total is sent. The backend must:
-
-1. Look up each product and variant from an authoritative ACA source.
-2. Reject unavailable, changed, or quote-only lines.
-3. Recalculate the KZT amount and delivery server-side.
-4. Store an idempotent order before calling the selected acquiring provider.
-5. Return an HTTPS payment URL and verify the provider webhook signature before marking the order paid.
-
-For Kaspi, the backend adapter remains blocked until ACA receives the official merchant identifier, test/production endpoints, credentials or certificates, request-signing rules, callback requirements, and payment-status semantics. See [`KASPI_WEBPAY_ONBOARDING.md`](./KASPI_WEBPAY_ONBOARDING.md).
-
-## Browser response
-
-```json
-{
-  "orderId": "ACA-2026-000001",
-  "paymentUrl": "https://provider.example/payment/session-id",
-  "expiresAt": "2026-09-28T19:00:00Z"
-}
-```
-
-The current catalogue's supplier price source must be reconciled to an authoritative KZT price before enabling the environment variable. Quote-only items remain eligible for manager-assisted checkout but not automatic payment.
+No real payment can be enabled in this version: only sandbox endpoints exist in
+the adapter, and every other server mode returns disabled. There is no deployment
+or bank approval implied by this code. See the integration guide for operational
+requirements and remaining bank acceptance tests.

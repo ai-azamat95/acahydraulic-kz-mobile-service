@@ -1,7 +1,8 @@
+import { CheckoutSandbox } from "@/components/cart/CheckoutSandbox";
 import { CommerceLinks } from "@/components/CommerceInfo";
 import merchant from "../../../shared/merchant.json";
 import { type FormEvent, useRef, useState } from "react";
-import { CreditCard, LockKeyhole, MessageCircle, PackageCheck, ShieldCheck } from "lucide-react";
+import { MessageCircle, PackageCheck, ShieldCheck } from "lucide-react";
 import { Link } from "wouter";
 
 import { CommerceHeader } from "@/components/cart/CommerceHeader";
@@ -9,10 +10,7 @@ import { SEO } from "@/components/SEO";
 import { useCart } from "@/contexts/CartContext";
 import { formatKzt } from "@/lib/cart";
 import {
-  CHECKOUT_PAYMENT_PROVIDER,
   checkoutWhatsappText,
-  createPayment,
-  paymentApiUrl,
   validateCheckout,
   type CheckoutCustomer,
   type CheckoutErrors,
@@ -38,11 +36,7 @@ export default function Checkout() {
   const { items, summary } = useCart();
   const [customer, setCustomer] = useState(initialCustomer);
   const [errors, setErrors] = useState<CheckoutErrors>({});
-  const [paymentError, setPaymentError] = useState("");
-  const [paymentLoading, setPaymentLoading] = useState(false);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
-  const providerConfigured = Boolean(paymentApiUrl());
-  const paymentEnabled = providerConfigured && summary.canRequestOnlinePayment;
 
   const setField = <Key extends keyof CheckoutCustomer>(key: Key, value: CheckoutCustomer[Key]) => {
     setCustomer((current) => ({ ...current, [key]: value }));
@@ -65,27 +59,6 @@ export default function Checkout() {
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(checkoutWhatsappText(customer, items))}`, "_blank", "noopener,noreferrer");
   };
 
-  const startPayment = async () => {
-    if (!paymentEnabled || !validate()) return;
-    setPaymentError("");
-    setPaymentLoading(true);
-    try {
-      const { consent: _consent, ...customerPayload } = customer;
-      const payment = await createPayment({
-        provider: CHECKOUT_PAYMENT_PROVIDER,
-        cartVersion: 1,
-        items: items.map(({ productId, productHandle, variantId, quantity }) => ({ productId, productHandle, variantId, quantity })),
-        customer: customerPayload,
-        returnUrl: `${window.location.origin}/checkout?payment=return`,
-      });
-      window.location.assign(payment.paymentUrl);
-    } catch {
-      setPaymentError("Не удалось создать оплату через Kaspi.kz. Корзина не списана — отправьте заказ менеджеру или попробуйте позже.");
-    } finally {
-      setPaymentLoading(false);
-    }
-  };
-
   return (
     <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto">
       <SEO title="Оформление заказа — ACA Hydraulic" description="Оформление заказа запчастей ACA Hydraulic с проверкой совместимости, цены и способа доставки." canonical="/checkout" noIndex />
@@ -97,6 +70,8 @@ export default function Checkout() {
 
         <p className="mt-3 text-sm text-gray-300">{merchant.name} · БИН {merchant.bin}</p>
         <CommerceLinks />
+
+        <CheckoutSandbox customer={customer} items={items} validate={validate} />
 
         {items.length === 0 ? (
           <section className="mt-10 rounded border border-white/10 bg-[#151515] p-8 text-center">
@@ -168,8 +143,8 @@ export default function Checkout() {
               <ul className="mt-4 grid gap-3 border-b border-white/10 pb-4">
                 {items.map((item) => <li key={item.id} className="flex justify-between gap-4 text-sm"><span className="line-clamp-2 text-gray-300">{item.title} × {item.quantity}</span><span className="shrink-0 font-bold text-white">{item.unitPriceKzt === null ? "Расчёт" : formatKzt(item.unitPriceKzt * item.quantity)}</span></li>)}
               </ul>
-              <div className="mt-4 flex items-end justify-between gap-4"><span className="text-sm text-gray-400">Подтверждённая сумма</span><strong className="text-2xl text-[#FFC000]">{formatKzt(summary.totalKzt)}</strong></div>
-              {summary.quoteLineCount > 0 && <p className="mt-2 text-xs leading-5 text-gray-400">{summary.quoteLineCount} поз. требуют проверки цены. Онлайн-оплата для смешанного заказа недоступна.</p>}
+              <div className="mt-4 flex items-end justify-between gap-4"><span className="text-sm text-gray-400">Предварительная сумма</span><strong className="text-2xl text-[#FFC000]">{formatKzt(summary.totalKzt)}</strong></div>
+              {summary.quoteLineCount > 0 && <p className="mt-2 text-xs leading-5 text-gray-400">{summary.quoteLineCount} поз. требуют проверки цены. Итоговую сумму подтвердит менеджер.</p>}
 
               <label className="mt-5 flex min-h-11 items-start gap-3 text-sm leading-6 text-gray-300">
                 <input type="checkbox" checked={customer.consent} onChange={(event) => setField("consent", event.target.checked)} className="mt-1 h-5 w-5 accent-[#FFC000]" aria-invalid={Boolean(errors.consent)} />
@@ -182,23 +157,17 @@ export default function Checkout() {
                 Отправить заказ менеджеру
               </button>
 
-              <div className="my-5 flex items-center gap-3 text-xs text-gray-500"><span className="h-px flex-1 bg-white/10" />или онлайн<span className="h-px flex-1 bg-white/10" /></div>
-
-              <button
-                type="button"
-                onClick={() => void startPayment()}
-                disabled={!paymentEnabled || paymentLoading}
-                className="flex min-h-12 w-full items-center justify-center gap-2 rounded border border-white/20 px-4 font-bold text-white hover:border-[#FFC000] disabled:cursor-not-allowed disabled:opacity-45"
-                aria-describedby="payment-status"
-              >
-                {paymentLoading ? <LockKeyhole className="h-5 w-5 animate-pulse" aria-hidden="true" /> : <CreditCard className="h-5 w-5" aria-hidden="true" />}
-                {paymentLoading ? "Создаём оплату в Kaspi.kz…" : providerConfigured ? "Оплатить через Kaspi.kz" : "Kaspi.kz — подключение"}
+              <button type="button" onClick={() => {
+                if (!validate()) return;
+                const text = `${checkoutWhatsappText(customer, items)}\nПрошу выставить банковский счёт после согласования заказа.`;
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+              }} className="mt-3 flex min-h-12 w-full items-center justify-center rounded border border-white/20 px-4 font-bold hover:border-[#FFC000]">
+                Запросить банковский счёт
               </button>
-              <div id="payment-status" className="mt-3 flex items-start gap-2 text-xs leading-5 text-gray-400">
+              <div className="mt-4 flex items-start gap-2 text-xs leading-5 text-gray-400">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#FFC000]" aria-hidden="true" />
-                <span>{!providerConfigured ? "Kaspi выбран для онлайн-оплаты. Для запуска нужны договор Kaspi, выданные параметры интеграции и защищённый платёжный сервер." : summary.quoteLineCount > 0 ? "Сначала менеджер подтвердит цены всех позиций и сформирует сумму для Kaspi." : "Оплата Kaspi создаётся сервером после повторной проверки цен. Секреты Kaspi и платёжные данные не попадают в браузер."}</span>
+                <span>До оплаты менеджер подтвердит совместимость, наличие, итоговую сумму и срок поставки. Онлайн-оплата Halyk epay готовится к подключению. Сейчас заказ можно согласовать через WhatsApp и оплатить по банковскому счёту.</span>
               </div>
-              {paymentError && <p className="mt-3 text-sm text-[#FFD24A]" role="alert">{paymentError}</p>}
             </aside>
           </form>
         )}
