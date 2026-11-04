@@ -1,0 +1,3 @@
+:root { font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #142333; background: #f3f5f7; }
+main { max-width: 640px; margin: 10vh auto; padding: 32px; background: white; border: 1px solid #dce2e8; border-radius: 12px; }
+.brand { font-weight: 800; letter-spacing: .05em; } h1 { font-size: 30px; line-height: 1.25; } a { color: #15548a; }

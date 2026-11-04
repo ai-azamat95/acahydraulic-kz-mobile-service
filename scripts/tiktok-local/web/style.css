@@ -1,0 +1,21 @@
+:root { color-scheme: light; font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #142333; background: #f3f5f7; }
+* { box-sizing: border-box; } body { margin: 0; }
+main { max-width: 980px; padding: 32px 24px 56px; margin: auto; }
+header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+header a { color: #142333; font-weight: 800; letter-spacing: .05em; text-decoration: none; }
+header span { font-size: 14px; padding: 6px 12px; border: 1px solid #c9d2db; border-radius: 18px; }
+h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.2; margin-top: 40px; } h2 { font-size: 21px; margin: 0 0 16px; }
+.intro { max-width: 760px; color: #445669; }
+section { padding: 26px; margin-top: 24px; border: 1px solid #dce2e8; border-radius: 14px; background: white; }
+button { background: #142333; color: white; border: 0; border-radius: 8px; padding: 13px 19px; font: inherit; cursor: pointer; }
+button:disabled { opacity: .45; cursor: default; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #d36b13; outline-offset: 4px; }
+input[type=file] { display: block; max-width: 100%; margin: 12px 0; font: inherit; }
+video { width: 100%; max-height: 470px; background: #101820; margin-top: 16px; border-radius: 8px; }
+.consent { display: flex; gap: 10px; align-items: flex-start; margin: 18px 0; } .consent input { margin-top: 6px; }
+#message:empty { display: none; } #message { background: #fff0cf; border-left: 4px solid #b56800; padding: 16px; overflow-wrap: anywhere; }
+.metrics { display: flex; flex-wrap: wrap; gap: 24px; margin: 20px 0; } .metric { min-width: 140px; }
+.metric strong { display: block; font-size: 27px; } .metric span { color: #526173; }
+.video-row, .operation { border-top: 1px solid #e2e7ec; padding: 16px 0; overflow-wrap: anywhere; }
+a { color: #15548a; } .operation button { margin-top: 8px; } footer { padding-top: 30px; font-size: 14px; }
+@media (max-width: 600px) { main { padding: 22px 16px; } section { padding: 20px; } button { width: 100%; } }
