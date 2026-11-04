@@ -6,9 +6,10 @@ import supplierProducts from '../shared/catalog-supplier-products.json' with { t
 import hydrauvisionProducts from '../shared/catalog-hydrauvision-products.json' with { type: 'json' };
 import hydrauvisionInventory from '../data/hydrauvision-pumps-20261017/source-products.json' with { type: 'json' };
 import { hydrauvisionRetailPriceKzt } from './lib/hydrauvision-pricing.mjs';
+import { publishedSealProducts } from './catalog-seal-products.mjs';
 
 export const SUPPLIER_CATALOG_SUPPLEMENT = '2026-10-supplier-catalog';
-export const supplierCatalogProducts = [...supplierProducts, ...hydrauvisionProducts];
+export const supplierCatalogProducts = [...supplierProducts, ...hydrauvisionProducts, ...publishedSealProducts];
 const SUPPLIER_CHUNK_SIZE = 250;
 const SAFE_CATEGORY_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const HYDRAUVISION_PRODUCT_IDS = new Set(hydrauvisionProducts.map(product => product.id));

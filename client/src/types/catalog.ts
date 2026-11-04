@@ -11,6 +11,16 @@ export type CatalogIndexProduct = {
   catalogPriceNote?: string;
   catalogImageCaption?: string;
   catalogImageLabel?: string;
+  catalogSpecifications?: {
+    label: string;
+    value: string;
+  }[];
+  catalogInquiry?: {
+    kind: "hydraulic-seal";
+    partNumber: string;
+    type: string;
+    dimensions: string;
+  };
   catalogVideos?: {
     src: string;
     poster: string;
