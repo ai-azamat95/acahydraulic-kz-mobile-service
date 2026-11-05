@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { DESKTOP_REDIRECT_URI, SCOPES } from './api.mjs';
+import { REDIRECT_URI, SCOPES } from './api.mjs';
 
 if (process.platform !== 'darwin') throw new Error('macOS required');
 const source = path.dirname(fileURLToPath(import.meta.url));
@@ -16,7 +16,7 @@ for (const name of ['api.mjs', 'server.mjs', 'storage.mjs', 'media.mjs', 'README
   await fs.chmod(path.join(destination, name), 0o600);
 }
 const config = {
-  environment: 'sandbox', app_id: '7704346740707575816', oauth_mode: 'desktop', redirect_uri: DESKTOP_REDIRECT_URI, scopes: SCOPES,
+  environment: 'sandbox', app_id: '7704724301157304327', oauth_mode: 'web', redirect_uri: REDIRECT_URI, scopes: SCOPES,
   client_key_item: 'sandbox-client-key', client_secret_item: 'sandbox-client-secret', token_item: 'sandbox-grant',
 };
 try { await fs.writeFile(path.join(settings, 'local-config.json'), JSON.stringify(config, null, 2) + '\n', { flag: 'wx', mode: 0o600 }); }

@@ -13,7 +13,7 @@ node "$HOME/Library/Application Support/ACA Hydraulic/TikTok/server.mjs"
 
 Open `http://127.0.0.1:8789/` in Safari on the same Mac. The local session expires after eight hours. Stop with Control-C. The installer also saves `~/.config/aca-api/tiktok/ACA TikTok.command`. It does not create a background service.
 
-`~/.config/aca-api/tiktok/local-config.json` contains only nonsecret item references. Sandbox app `7704346740707575816` uses its own Keychain account and these services:
+`~/.config/aca-api/tiktok/local-config.json` contains only nonsecret item references. Sandbox app `ACA Hydraulic Mac Test v2` (`7704724301157304327`) uses its own Keychain account and these services:
 
 - `kz.acahydraulic.tiktok.sandbox-client-key`
 - `kz.acahydraulic.tiktok.sandbox-client-secret`
@@ -23,7 +23,7 @@ Credentials and rotated OAuth grants are stored only in macOS Keychain. Producti
 
 ## OAuth and uploads
 
-For the Mac companion, enable the Desktop platform and register the exact Desktop redirect `http://127.0.0.1:8789/oauth/callback`. Set `oauth_mode` to `desktop` and `redirect_uri` to that URI in local-config.json. The Desktop flow uses a fresh cryptographic PKCE verifier for each login; its SHA-256 hex challenge follows TikTok's Desktop specification. Only the one-use code exchange sends the verifier to TikTok. It never appears in browser URLs, frontend responses or logs. This flow returns directly to the running Mac companion and does not require public callback hosting.
+The installer defaults to the current registered Web flow. Existing local configuration is preserved. To enable the optional Desktop flow, first enable the Desktop platform in TikTok and register the exact Desktop redirect `http://127.0.0.1:8789/oauth/callback`. Then set `oauth_mode` to `desktop` and `redirect_uri` to that URI in local-config.json. The Desktop flow uses a fresh cryptographic PKCE verifier for each login; its SHA-256 hex challenge follows TikTok's Desktop specification. Only the one-use code exchange sends the verifier to TikTok. It never appears in browser URLs, frontend responses or logs. This flow returns directly to the running Mac companion and does not require public callback hosting.
 
 Legacy Web mode remains available with `oauth_mode: web` and the exact Web redirect `https://acahydraulic.kz/tiktok/callback/`. Its static bridge has no analytics or third-party scripts; it strips the query from browser history and forwards code/state to the fixed loopback callback. Client Secret and tokens never pass through public JavaScript. The Mac must be running and the same browser session must have initiated login. Denial, expired state and replay are rejected. Partial scope grants are displayed; API fields are requested according to granted scopes.
 
