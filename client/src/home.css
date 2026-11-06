@@ -1,4 +1,5 @@
 /* All redesign rules are scoped to the home route. */
+@font-face{font-family:'ACA Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/aca-inter-variable.woff2') format('woff2')}
 /* Color refinement is appended below, scoped strictly to .home-v2. */
 .home-v2{--gold:#c19a48;--muted:#a9abb4;background:#0b0e11;color:#c7c7d1;font-family:Inter,Arial,sans-serif;padding-top:64px;padding-bottom:calc(76px + env(safe-area-inset-bottom));isolation:isolate}
 .home-v2 :where(a,button,summary):focus-visible{outline:3px solid #edd098;outline-offset:5px}
@@ -87,3 +88,109 @@
     background: linear-gradient(90deg,#121719ce,#12171958),linear-gradient(0deg,#15191b 5%,transparent 75%);
   }
 }
+
+/* Visual review: real local font, open statistics, textured material and
+   compact rectangular actions. All content/consent handlers are retained. */
+.home-v2,.home-v2 h1,.home-v2 .home-copy h2,.home-v2 .home-map text,.home-v2 .home-globe text{font-family:'ACA Inter',Arial,sans-serif}
+.home-v2 .home-screen:not(.home-hero){background:linear-gradient(#10121726,#10121738 55%,#10121780),#101217 url('/images/home/industrial-texture.webp') center/100% 100% no-repeat}
+.home-v2 .home-copy h2{font-weight:800;letter-spacing:-.025em;line-height:1.02}
+.home-v2 .home-eyebrow{font-weight:650;letter-spacing:.035em}
+.home-v2 .home-button{border-radius:0;border-width:1.5px;background:transparent;color:#d0d1dc;min-height:44px;padding:9px 16px;font-size:16px;line-height:1.35}
+.home-v2 .home-button svg{width:28px;stroke-width:1.4}
+.home-v2 .home-button-secondary{border-color:#bfc0c6;color:#d0d1dc;background:transparent}
+.home-v2 .home-button-secondary svg{display:none}
+.home-v2 .home-stats{text-align:center}
+.home-v2 .home-stats dt{justify-content:center;gap:9px}
+.home-v2 .home-stats dt>svg{display:none}
+.home-v2 .home-stats dt::before,.home-v2 .home-stats dt::after{content:'';width:16px;height:1px;background:var(--gold);flex-shrink:0}
+.home-v2 .home-stats strong{font-weight:650;letter-spacing:-.04em}
+.home-v2 .home-stats dd{margin-inline:auto;color:#bfc0c5}
+.home-v2 .home-origin,.home-v2 .home-warranty{color:#c0c1cc}
+.home-v2 .home-origin svg,.home-v2 .home-warranty svg{color:var(--gold);width:18px}
+.home-v2 .home-map text{stroke-width:1.5px;font-weight:400}
+.home-v2 .home-map svg,.home-v2 .home-globe svg{filter:none}
+.home-v2 .home-video{box-shadow:none;border:0;border-radius:0;background:transparent;overflow:visible}
+.home-v2 .home-video>a{border:1px solid #858589}
+.home-v2 .home-video img{aspect-ratio:1.9;object-fit:cover}
+.home-v2 .home-video figcaption{padding:10px 0 0;gap:2px}
+.home-v2 .home-video figcaption strong{font-size:17px;font-weight:650}
+.home-v2 .home-play{width:56px;height:56px;border-width:2px;background:#171a1d88}
+.home-v2 .home-play svg{width:23px;height:23px}
+.home-v2 .home-channel-links{gap:12px;margin-top:12px}
+.home-v2 .home-channel-links a{flex:1;display:flex;align-items:center;gap:10px;border:1px solid #a5a6ad;padding:7px 10px;font-size:14px;color:#d0d1dc}
+.home-v2 .home-channel-links svg{width:24px;height:24px;flex-shrink:0}
+.home-v2 .home-channel-links span{font-size:11px}
+.home-v2 .home-channel-links b{font-weight:500}
+.home-v2 .home-company-links{gap:0;margin-top:16px;padding-top:0}
+.home-v2 .home-company-links a{flex-direction:row;justify-content:flex-start;gap:9px;border-bottom:1px solid #ffffff20;font-size:13px;padding:10px 5px}
+.home-v2 .home-company-links a:nth-child(odd){border-right:1px solid #ffffff20;padding-right:10px}
+.home-v2 .home-company-links a:nth-child(even){padding-left:14px}
+.home-v2 .home-company-links svg{color:var(--gold);width:20px;height:20px;flex-shrink:0}
+.home-v2 .home-company-links small{display:block}
+.home-v2 .sticky-home a{font-family:'ACA Inter',Arial,sans-serif;text-transform:none;letter-spacing:0;font-weight:400}
+.home-v2 .supply-label strong{color:#d0d1dc;font-weight:600}
+@media(max-width:767px){
+ .home-v2 .home-screen-inner{gap:18px;padding:30px 28px 36px}
+ .home-v2 h1{font-size:clamp(30px,10.1vw,44px);font-weight:750;letter-spacing:-.035em}
+ .home-v2 .home-copy h2{font-size:clamp(36px,11.8vw,50px);margin-bottom:12px}
+ .home-v2 .home-eyebrow{font-size:15px;margin-bottom:16px}
+ .home-v2 .home-lead{font-weight:400;font-size:19px;line-height:1.23}
+ .home-v2 .home-hero .home-lead{font-size:17px}
+ .home-v2 .home-subtitle{font-size:16px;line-height:1.3}
+ .home-v2 .home-hero .home-screen-inner{justify-content:flex-start;min-height:760px;gap:0;padding-top:34px}
+ .home-v2 .home-hero .home-stats{margin-top:135px;margin-bottom:30px;gap:22px 24px}
+ .home-v2 .home-stats strong{font-size:32px}
+ .home-v2 .home-stats dd{font-size:12px;line-height:1.4}
+ .home-v2 .home-hero-actions>p:first-child{font-size:14px;margin-bottom:16px}
+ .home-v2 .home-hero-image img{object-fit:cover;object-position:65% center}
+ .home-v2 .home-hero::after{background:linear-gradient(90deg,#12171980,#12171915),linear-gradient(0deg,#15191b80 0%,transparent 65%)}
+ .home-v2 .home-button{max-width:250px;min-height:44px;font-size:16px}
+ .home-v2 .home-button-secondary{margin-top:12px}
+ .home-v2 .home-actions>p{font-size:17px;margin-bottom:14px}
+ .home-v2 .home-note{font-size:11px!important;line-height:1.5}
+ .home-v2 .home-map{width:calc(100% + 32px);margin:0 -16px}
+ .home-v2 .home-map text{font-size:19px}
+ .home-v2 .home-map text.home-map-origin{font-size:24px}
+ .home-v2 .home-map figcaption,.home-v2 .home-globe figcaption{font-size:11px;line-height:1.5;padding-inline:12px}
+ .home-v2 .home-parts .home-copy h2{font-size:clamp(36px,11.3vw,48px);margin-bottom:10px}
+ .home-v2 .home-parts .home-lead{font-size:16px;line-height:1.3;margin-bottom:2px}
+ .home-v2 .home-parts .home-subtitle{font-size:15px}
+ .home-v2 .home-warranty{margin-top:12px;font-size:12px;gap:7px}
+ .home-v2 .home-globe{width:100%;margin:0}
+ .home-v2 .home-globe>svg{width:86%;margin:auto}
+ .home-v2 .supply-labels{inset:0 0 65px}
+ .home-v2 .supply-label{font-size:10px;line-height:1.5}
+ .home-v2 .supply-0{top:9%;left:0}
+ .home-v2 .supply-1{top:54%;left:0}
+ .home-v2 .supply-2{top:20%;right:0}
+ .home-v2 .supply-3{top:54%;right:0}
+ .home-v2 .supply-4{bottom:4%;right:5%}
+ .home-v2 .home-work .home-screen-inner{justify-content:flex-start;gap:16px}
+ .home-v2 .home-work .home-copy h2{font-size:clamp(36px,10.3vw,44px);line-height:.98;max-width:260px;margin-bottom:12px}
+ .home-v2 .home-work .home-lead{font-size:16px;line-height:1.25;margin:0}
+ .home-v2 .home-work .home-lead br{display:initial}
+ .home-v2 .home-work .home-button{max-width:none;font-weight:600}
+ .home-v2 .home-video{margin-top:0}
+ .home-v2 h1{font-size:clamp(30px,10.7vw,44px);letter-spacing:-.015em;font-weight:700}
+ .home-v2 .home-stats dd{max-width:135px}
+ .home-v2 .home-button{gap:10px;padding-inline:12px;white-space:nowrap;font-size:15px;width:237px;max-width:100%}
+ .home-v2 .home-button svg{flex-shrink:0}
+ .home-v2 .home-work .home-button{width:100%}
+ .home-v2 .home-parts .home-screen-inner{padding-top:18px;gap:12px}
+ .home-v2 .home-parts .home-copy h2{letter-spacing:0}
+ .home-v2 .home-hero-image{background:#101217}
+ .home-v2 .home-hero-image img{height:660px;width:100%;object-fit:cover;object-position:center;opacity:.75;mask-image:linear-gradient(#000 80%,transparent)}
+ .home-v2 .home-hero::after{background:linear-gradient(0deg,#101217 0%,#101217a0 35%,transparent 70%)}
+ /* Final reference review: wider headings and tighter video caption rhythm.
+    Keep the full approved work description and explanatory disclaimers. */
+ .home-v2 .home-copy h2{letter-spacing:0;font-size:clamp(36px,12.3vw,50px)}
+ .home-v2 .home-work .home-copy h2{font-size:clamp(36px,11.2vw,46px)}
+ .home-v2 .home-parts .home-copy h2{font-size:clamp(36px,11.6vw,48px)}
+ .home-v2 .home-button{border-width:2px}
+ .home-v2 .home-video figcaption{padding-top:6px;line-height:1.25}
+ .home-v2 .home-channel-links a{padding-block:5px}
+ .home-v2 .home-channel-links svg{padding-right:6px;border-right:1px solid #a5a6ad;width:30px}
+ .home-v2 .supply-label strong{font-size:13px}
+ .home-v2 .home-globe text{font-size:24px;fill:#d5b775;font-weight:600}
+}
+
