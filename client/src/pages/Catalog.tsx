@@ -10,6 +10,7 @@ import { PumpBrandNavigation } from "@/components/catalog/PumpBrandNavigation";
 import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/components/catalog/PumpSupplyOffers";
 import { pumpCasePath } from "@/content/pumpCases";
 import { catalogBrandFilterHref, catalogCategoryParam, catalogSearchHref } from "@/lib/catalogLinks";
+import { catalogQuickSearchStatus } from "@/lib/catalogAvailability";
 import { catalogMatchesQuery } from "@/lib/catalogSearch";
 import { FormEvent, Fragment, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useParams, useSearch } from "wouter";
@@ -655,7 +656,7 @@ export default function Catalog() {
                     {filteredProducts.slice(0, 5).map((product) => (
                         <Link key={product.id} href={`/catalog/${product.handle}`} className="flex min-h-16 items-center gap-3 border-b border-white/10 p-3 last:border-0 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">
                           {product.imageUrl && <img src={product.imageUrl} alt="" width={44} height={44} loading="lazy" className="h-11 w-11 rounded bg-white object-contain" />}
-                          <span className="min-w-0"><span className="line-clamp-2 text-sm text-white">{catalogProductName(product, language)}</span><span className="mt-1 block text-xs text-[#FFC000]">{language === "ru" ? "Под заказ · Проверить цену и срок" : language === "kz" ? "Тапсырыс бойынша · Баға мен мерзімді нақтылау" : "To order · Confirm price and lead time"}</span></span>
+                          <span className="min-w-0"><span className="line-clamp-2 text-sm text-white">{catalogProductName(product, language)}</span><span className="mt-1 block text-xs text-[#FFC000]">{catalogQuickSearchStatus(product, copy, language)}</span></span>
                         </Link>
                       ))}
                       {filteredProducts.length === 0 && matchingSupplyOffers.length === 0 && <p className="p-3 text-sm text-gray-400">{loading || !complete ? copy.loadingProducts : copy.noResults}</p>}
