@@ -8,7 +8,8 @@ const publicDir = path.resolve('dist/public');
 const landingIndex = JSON.parse(fs.readFileSync(path.join(publicDir, 'catalog-data', 'landing-pages.json'), 'utf8'));
 const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap-catalog-landings.xml'), 'utf8');
 const robots = fs.readFileSync(path.join(publicDir, 'robots.txt'), 'utf8');
-const homeSource = fs.readFileSync(path.resolve('client/src/pages/Home.tsx'), 'utf8');
+const homeSource = fs.readFileSync(path.resolve('client/src/components/home/HomePage.tsx'), 'utf8');
+assert.match(fs.readFileSync('client/src/pages/Home.tsx', 'utf8'), /export \{ default \} from ['"]@\/components\/home\/HomePage['"]/);
 const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
 const legacyRedirects = JSON.parse(fs.readFileSync(path.resolve('shared/legacy-redirects.json'), 'utf8'));
 const catalogRedirects = Object.fromEntries(Object.entries(legacyRedirects).filter(([from]) => from.startsWith('/catalog/')));
@@ -82,7 +83,7 @@ for (const slug of [
   'controllers',
   'monitors',
 ]) {
-  assert(homeSource.includes(`id: "${slug}"`), `home page must link directly to ${slug}`);
+  assert(fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8').includes(`href="/catalog/category/${slug}"`), `home page must link directly to ${slug} before JavaScript`);
 }
 
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;

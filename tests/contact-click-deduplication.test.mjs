@@ -51,7 +51,7 @@ function contactClickHarness(attributes) {
 }
 
 test('one React-managed WhatsApp DOM click emits only its source-specific contact-intent event', () => {
-  for (const eventName of ['case_whatsapp_click', 'catalog_whatsapp_click']) {
+  for (const eventName of ['case_whatsapp_click', 'catalog_whatsapp_click', 'form_whatsapp_click']) {
     const { anchor, gtagCalls, tiktokCalls, window } = contactClickHarness({
       href: 'https://wa.me/77714177925?text=test',
       'data-aca-contact-managed': 'react',

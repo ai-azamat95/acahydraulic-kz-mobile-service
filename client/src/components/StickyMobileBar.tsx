@@ -1,13 +1,13 @@
 import { Phone } from "lucide-react";
 import { useTikTokContact } from "@/hooks/useTikTokEvents";
 
-export default function StickyMobileBar() {
+export default function StickyMobileBar({ variant }: { variant?: "home" }) {
   const fireTikTokContact = useTikTokContact();
 
   return (
     <>
       {/* Sticky Bottom Bar - Mobile Only */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 flex pb-[env(safe-area-inset-bottom)] bg-black shadow-[0_-4px_12px_rgba(0,0,0,0.3)]">
+      <div className={`${variant === "home" ? "sticky-home" : ""} md:hidden fixed bottom-0 left-0 right-0 z-50 flex pb-[env(safe-area-inset-bottom)] bg-black shadow-[0_-4px_12px_rgba(0,0,0,0.3)]`}>
         {/* Call Button */}
         <a 
           href="tel:+77714177925"

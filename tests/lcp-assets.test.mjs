@@ -2,7 +2,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import test from 'node:test';
 
-const home = fs.readFileSync('client/src/pages/Home.tsx', 'utf8');
+const homeRoute = fs.readFileSync('client/src/pages/Home.tsx', 'utf8');
+assert.match(homeRoute, /export \{ default \} from ['"]@\/components\/home\/HomePage['"]/);
+const home = fs.readFileSync('client/src/components/home/HomePage.tsx', 'utf8');
 const html = fs.readFileSync('client/index.html', 'utf8');
 const responsiveBackgroundPages = [
   'client/src/pages/Blog.tsx',
@@ -54,8 +56,8 @@ test('the mobile LCP hero uses a right-sized high-priority asset', () => {
   assert.ok(fs.statSync(asset).size < 150 * 1024, 'mobile hero should remain below 150 KiB');
   assert.match(home, /<picture/);
   assert.match(home, /media="\(max-width: 767px\)" srcSet="\/images\/hero-bg-v4-mobile\.webp"/);
-  assert.match(home, /width=\{1536\}/);
-  assert.match(home, /height=\{2752\}/);
+  assert.match(home, /width=(?:\{1536\}|"1536")/);
+  assert.match(home, /height=(?:\{2752\}|"2752")/);
   assert.match(home, /fetchPriority="high"/);
 });
 

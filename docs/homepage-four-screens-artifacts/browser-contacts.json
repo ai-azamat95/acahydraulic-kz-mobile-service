@@ -1,0 +1,451 @@
+{
+  "base": "http://127.0.0.1:4177",
+  "checks": [
+    {
+      "state": "allowed",
+      "event": "acahydraulic_phone_click",
+      "source": null,
+      "calls": [
+        [
+          "ga",
+          "event",
+          "acahydraulic_phone_click",
+          {
+            "event_category": "phone",
+            "transport_type": "beacon"
+          }
+        ],
+        [
+          "ym",
+          "acahydraulic_phone_click",
+          {
+            "event_category": "phone",
+            "transport_type": "beacon"
+          }
+        ],
+        [
+          "ga",
+          "event",
+          "conversion",
+          {
+            "send_to": "AW-17847190636/MNy9COmB06QcEOyImr5C"
+          }
+        ]
+      ]
+    },
+    {
+      "state": "allowed",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "acahydraulic_whatsapp_click",
+          {
+            "event_category": "whatsapp",
+            "transport_type": "beacon"
+          }
+        ],
+        [
+          "ym",
+          "acahydraulic_whatsapp_click",
+          {
+            "event_category": "whatsapp",
+            "transport_type": "beacon"
+          }
+        ]
+      ]
+    },
+    {
+      "state": "allowed",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "acahydraulic_whatsapp_click",
+          {
+            "event_category": "whatsapp",
+            "transport_type": "beacon"
+          }
+        ],
+        [
+          "ym",
+          "acahydraulic_whatsapp_click",
+          {
+            "event_category": "whatsapp",
+            "transport_type": "beacon"
+          }
+        ]
+      ]
+    },
+    {
+      "state": "denied",
+      "event": "acahydraulic_phone_click",
+      "source": null,
+      "calls": []
+    },
+    {
+      "state": "denied",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": []
+    },
+    {
+      "state": "denied",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": []
+    },
+    {
+      "state": "analytics-only",
+      "event": "acahydraulic_phone_click",
+      "source": null,
+      "calls": [
+        [
+          "ga",
+          "event",
+          "acahydraulic_phone_click",
+          {
+            "event_category": "phone",
+            "transport_type": "beacon"
+          }
+        ],
+        [
+          "ym",
+          "acahydraulic_phone_click",
+          {
+            "event_category": "phone",
+            "transport_type": "beacon"
+          }
+        ]
+      ]
+    },
+    {
+      "state": "analytics-only",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "acahydraulic_whatsapp_click",
+          {
+            "event_category": "whatsapp",
+            "transport_type": "beacon"
+          }
+        ],
+        [
+          "ym",
+          "acahydraulic_whatsapp_click",
+          {
+            "event_category": "whatsapp",
+            "transport_type": "beacon"
+          }
+        ]
+      ]
+    },
+    {
+      "state": "analytics-only",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "acahydraulic_whatsapp_click",
+          {
+            "event_category": "whatsapp",
+            "transport_type": "beacon"
+          }
+        ],
+        [
+          "ym",
+          "acahydraulic_whatsapp_click",
+          {
+            "event_category": "whatsapp",
+            "transport_type": "beacon"
+          }
+        ]
+      ]
+    },
+    {
+      "state": "marketing-only",
+      "event": "acahydraulic_phone_click",
+      "source": null,
+      "calls": [
+        [
+          "ga",
+          "event",
+          "conversion",
+          {
+            "send_to": "AW-17847190636/MNy9COmB06QcEOyImr5C"
+          }
+        ]
+      ]
+    },
+    {
+      "state": "marketing-only",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": []
+    },
+    {
+      "state": "marketing-only",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": []
+    },
+    {
+      "state": "excluded",
+      "event": "acahydraulic_phone_click",
+      "source": null,
+      "calls": []
+    },
+    {
+      "state": "excluded",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": []
+    },
+    {
+      "state": "excluded",
+      "event": "acahydraulic_whatsapp_click",
+      "calls": []
+    },
+    {
+      "state": "allowed",
+      "event": "form_whatsapp_click",
+      "source": "b2b_form",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "form_whatsapp_click",
+          {
+            "form_source": "b2b_form",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BH1W4-8D3C4A10",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ],
+        [
+          "ym",
+          "form_whatsapp_click",
+          {
+            "form_source": "b2b_form",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BH1W4-8D3C4A10",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ],
+        [
+          "ga",
+          "event",
+          "conversion",
+          {
+            "send_to": "AW-17847190636/JZkfCOu_84McEOyImr5C"
+          }
+        ],
+        [
+          "tt",
+          "Contact",
+          {
+            "content_type": "service",
+            "form_source": "b2b_form",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BH1W4-8D3C4A10",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ]
+      ]
+    },
+    {
+      "state": "denied",
+      "event": "form_whatsapp_click",
+      "source": "b2b_form",
+      "calls": []
+    },
+    {
+      "state": "analytics-only",
+      "event": "form_whatsapp_click",
+      "source": "b2b_form",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "form_whatsapp_click",
+          {
+            "form_source": "b2b_form",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BH25V-AE0E2B19",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ],
+        [
+          "ym",
+          "form_whatsapp_click",
+          {
+            "form_source": "b2b_form",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BH25V-AE0E2B19",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ]
+      ]
+    },
+    {
+      "state": "marketing-only",
+      "event": "form_whatsapp_click",
+      "source": "b2b_form",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "conversion",
+          {
+            "send_to": "AW-17847190636/JZkfCOu_84McEOyImr5C"
+          }
+        ],
+        [
+          "tt",
+          "Contact",
+          {
+            "content_type": "service",
+            "form_source": "b2b_form",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BH2AV-278AA941",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ]
+      ]
+    },
+    {
+      "state": "excluded",
+      "event": "form_whatsapp_click",
+      "source": "b2b_form",
+      "calls": []
+    },
+    {
+      "state": "allowed",
+      "event": "form_whatsapp_click",
+      "source": "calculator",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "form_whatsapp_click",
+          {
+            "form_source": "calculator",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BGZAF-555ED76A",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ],
+        [
+          "ym",
+          "form_whatsapp_click",
+          {
+            "form_source": "calculator",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BGZAF-555ED76A",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ],
+        [
+          "ga",
+          "event",
+          "conversion",
+          {
+            "send_to": "AW-17847190636/JZkfCOu_84McEOyImr5C"
+          }
+        ],
+        [
+          "tt",
+          "Contact",
+          {
+            "content_type": "service",
+            "form_source": "calculator",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BGZAF-555ED76A",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ]
+      ]
+    },
+    {
+      "state": "denied",
+      "event": "form_whatsapp_click",
+      "source": "calculator",
+      "calls": []
+    },
+    {
+      "state": "analytics-only",
+      "event": "form_whatsapp_click",
+      "source": "calculator",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "form_whatsapp_click",
+          {
+            "form_source": "calculator",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BGZAF-555ED76A",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ],
+        [
+          "ym",
+          "form_whatsapp_click",
+          {
+            "form_source": "calculator",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BGZAF-555ED76A",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ]
+      ]
+    },
+    {
+      "state": "marketing-only",
+      "event": "form_whatsapp_click",
+      "source": "calculator",
+      "calls": [
+        [
+          "ga",
+          "event",
+          "conversion",
+          {
+            "send_to": "AW-17847190636/JZkfCOu_84McEOyImr5C"
+          }
+        ],
+        [
+          "tt",
+          "Contact",
+          {
+            "content_type": "service",
+            "form_source": "calculator",
+            "lead_stage": "contact_intent",
+            "contact_intent_id": "ACA-MW5BGZAF-555ED76A",
+            "paid_diagnostics_acknowledged": true,
+            "price_agreement_pending": true
+          }
+        ]
+      ]
+    },
+    {
+      "state": "excluded",
+      "event": "form_whatsapp_click",
+      "source": "calculator",
+      "calls": []
+    }
+  ],
+  "errors": [],
+  "navigation": "services/catalog/cases and browser Back pass; video intercepted without contact event",
+  "passed": true
+}
