@@ -119,6 +119,9 @@ test('Rexroth stock card uses a unique local real-photo gallery and local inspec
   assert.equal(videoBytes.toString('ascii', 4, 8), 'ftyp');
   assert(videoBytes.includes(Buffer.from('avc1')), 'Product video must be H.264');
   assert(videoBytes.indexOf(Buffer.from('moov')) < videoBytes.indexOf(Buffer.from('mdat')), 'Product video must use faststart');
+  const productPageSource = fs.readFileSync(new URL('client/src/pages/CatalogProduct.tsx', root), 'utf8');
+  assert.match(productPageSource, /aspectRatio:\s*`\$\{video\.width\} \/ \$\{video\.height\}`/);
+  assert.match(productPageSource, /maxWidth:\s*`min\(100%, \$\{\(70 \* video\.width\) \/ video\.height\}vh\)`/);
 });
 
 const publishedPath = new URL(`dist/public/catalog/${handle}/index.html`, root);
@@ -137,6 +140,7 @@ test('published Rexroth card says in stock and price on request without a suppli
   assert.match(html, /data-product-gallery/);
   assert.match(html, /data-product-videos/);
   assert.match(html, /catalog-media\/rexroth-r901147102-pgh4-032\/inspection\.mp4/);
+  assert.match(html, /<video[^>]+style="[^"]*aspect-ratio:720 \/ 1280;[^"]*max-width:min\(100%,39\.375vh\)/);
   assert.match(html, new RegExp(`<link[^>]+rel="canonical"[^>]+href="https://acahydraulic\\.kz/catalog/${handle}/"`));
   assert.match(html, /data-static-breadcrumb-schema/);
   assert.equal(html.match(/"@type":"BreadcrumbList"/g)?.length, 1);

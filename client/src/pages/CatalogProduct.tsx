@@ -336,8 +336,12 @@ export default function CatalogProduct() {
                       poster={video.poster}
                       width={video.width}
                       height={video.height}
+                      style={{
+                        aspectRatio: `${video.width} / ${video.height}`,
+                        maxWidth: `min(100%, ${(70 * video.width) / video.height}vh)`,
+                      }}
                       aria-label={video.caption}
-                      className="mx-auto max-h-[70vh] w-full rounded-lg bg-black object-contain"
+                      className="mx-auto block max-h-[70vh] w-full rounded-lg bg-black object-contain"
                     >
                       <source src={video.src} type="video/mp4" />
                       <a href={video.src}>Открыть видео</a>
