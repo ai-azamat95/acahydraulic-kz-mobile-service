@@ -120,7 +120,8 @@
 .home-v2 .home-channel-links a{flex:1;display:flex;align-items:center;gap:10px;border:1px solid #a5a6ad;padding:7px 10px;font-size:14px;color:#d0d1dc}
 .home-v2 .home-channel-links svg{width:24px;height:24px;flex-shrink:0}
 .home-v2 .home-channel-links span{font-size:11px}
-.home-v2 .home-channel-links b{font-weight:500}
+.home-v2 .home-channel-links b{font-weight:500;min-width:0;overflow-wrap:anywhere}
+.home-v2 .home-channel-links a{min-width:0}
 .home-v2 .home-company-links{gap:0;margin-top:16px;padding-top:0}
 .home-v2 .home-company-links a{flex-direction:row;justify-content:flex-start;gap:9px;border-bottom:1px solid #ffffff20;font-size:13px;padding:10px 5px}
 .home-v2 .home-company-links a:nth-child(odd){border-right:1px solid #ffffff20;padding-right:10px}
