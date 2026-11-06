@@ -582,6 +582,7 @@ export default function CostCalculator() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={openWhatsApp}
+              data-aca-contact-managed="react"
               className={!selection.phone.trim() ? "pointer-events-none opacity-50" : ""}
             >
               <Button

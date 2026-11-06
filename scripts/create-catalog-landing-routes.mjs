@@ -100,7 +100,7 @@ function setTag(html, regex, replacement) {
 function setRootFallback(html, fallback) {
   const replacement = `<div id="root">${fallback}</div>`;
   if (html.includes('<div id="root"></div>')) return html.replace('<div id="root"></div>', replacement);
-  const populatedRoot = /<div id="root">[\s\S]*?<\/main><\/div>/;
+  const populatedRoot = /<div id="root">[\s\S]*?<\/div>(?=\s*<!-- Contact-intent tracker\.)/;
   if (populatedRoot.test(html)) return html.replace(populatedRoot, replacement);
   throw new Error('Unable to locate the application root for static catalogue landing content.');
 }

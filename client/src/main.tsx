@@ -9,6 +9,7 @@ import App from "./App";
 import { getLoginUrl } from "./const";
 import { installVitePreloadRecovery } from "./lib/vitePreloadRecovery";
 import "./index.css";
+import "./home.css";
 import "./i18n";
 
 installVitePreloadRecovery();

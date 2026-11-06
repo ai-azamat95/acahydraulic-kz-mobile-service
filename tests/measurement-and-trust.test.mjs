@@ -5,7 +5,8 @@ import test from 'node:test';
 const contactIntent = fs.readFileSync('client/src/lib/contactIntent.ts', 'utf8');
 const b2bForm = fs.readFileSync('client/src/components/B2BLeadForm.tsx', 'utf8');
 const calculator = fs.readFileSync('client/src/components/CostCalculator.tsx', 'utf8');
-const home = fs.readFileSync('client/src/pages/Home.tsx', 'utf8');
+const home = fs.readFileSync('client/src/components/home/HomeFooter.tsx', 'utf8');
+assert.match(fs.readFileSync('client/src/components/home/HomePage.tsx', 'utf8'), /<HomeFooter\s*\/>/);
 const footer = fs.readFileSync('client/src/components/Footer.tsx', 'utf8');
 const ru = JSON.parse(fs.readFileSync('client/src/locales/ru/translation.json', 'utf8'));
 

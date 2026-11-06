@@ -100,7 +100,7 @@ function setRootFallback(html, fallback) {
     return html.replace('<div id="root"></div>', replacement);
   }
 
-  const populatedRoot = /<div id="root">[\s\S]*?<\/main><\/div>/;
+  const populatedRoot = /<div id="root">[\s\S]*?<\/div>(?=\s*<!-- Contact-intent tracker\.)/;
   if (populatedRoot.test(html)) return html.replace(populatedRoot, replacement);
   throw new Error('Unable to locate the application root for static product content.');
 }

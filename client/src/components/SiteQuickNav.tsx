@@ -6,7 +6,7 @@ export default function SiteQuickNav() {
   const onCatalog = location === "/catalog" || location.startsWith("/catalog/");
 
   return (
-    <nav aria-label="Быстрые переходы" className="fixed inset-x-0 top-0 z-[60] h-12 border-b border-white/15 bg-[#101010] text-white">
+    <nav aria-label="Быстрые переходы" className={`${onHome ? "site-quick-nav-home" : ""} fixed inset-x-0 top-0 z-[60] h-12 border-b border-white/15 bg-[#101010] text-white`}>
       <div className="container mx-auto flex h-full items-center gap-2 px-4 text-sm font-semibold sm:gap-4">
         <Link href="/" aria-current={onHome ? "page" : undefined}
           className="inline-flex min-h-11 items-center rounded px-3 text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] aria-[current=page]:text-[#FFC000]">
