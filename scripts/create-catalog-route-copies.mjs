@@ -48,6 +48,7 @@ function productLastmod(product) {
   return [
     lastmod,
     catalogContentRevisions.sitewideSeo.modifiedDate,
+    product.ownerInventory?.confirmedOn,
     phase2ProductCopy[product.handle]?.modifiedDate,
     phase3ProductCopy[product.handle]?.modifiedDate,
     productRevisionLastmods.get(String(product.id)),
@@ -134,12 +135,14 @@ function productPage(product) {
   const isCanonicalProduct = canonicalHandle === product.handle;
   const productSeo = catalogProductSeo(product);
   const productCategories = catalogProductCategories(product);
+  const primaryCategory = productCategories.find(category => category.id === product.category);
   const isHydraulicPump = catalogProductIsHydraulicPump(product);
   const productBrandLanding = catalogProductBrandLanding(product);
+  const inStock = product.ownerInventory?.availability === 'in_stock';
   const title = `${productSeo.title} | ACA Hydraulic`;
   const fitment = product.fitment || 'совместимость уточняется по OEM, модели и шильдику техники';
   const equipmentInquiry = product.category === 'construction-machinery' || product.category === 'attachments';
-  const fitmentLabel = equipmentInquiry ? 'Модель и условия подбора' : (product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase || product.catalogSupplement) ? 'Применяемость этого исполнения' : 'Применяемость';
+  const fitmentLabel = equipmentInquiry ? 'Модель и условия подбора' : (inStock || product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase || product.catalogSupplement) ? 'Применяемость этого исполнения' : 'Применяемость';
   const isHuscoOwnerCase = product.ownerCase?.casePath === huscoCase.casePath;
   const seriesNote = isHuscoOwnerCase
     ? 'У распределителей одной серии могут отличаться секции, порты, клапаны, электромагниты и разъёмы. Совпадение только C16E303 не подтверждает взаимозаменяемость.'
@@ -197,13 +200,33 @@ function productPage(product) {
       url: canonical,
     },
   }) : null;
+  const breadcrumbSchema = inStock ? JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: `${baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Каталог запчастей', item: `${baseUrl}/catalog/` },
+      ...(primaryCategory ? [{
+        '@type': 'ListItem',
+        position: 3,
+        name: primaryCategory.title,
+        item: `${baseUrl}/catalog/category/${primaryCategory.id}/`,
+      }] : []),
+      {
+        '@type': 'ListItem',
+        position: primaryCategory ? 4 : 3,
+        name: productSeo.name,
+        item: canonical,
+      },
+    ],
+  }) : null;
   const fallback = `<main aria-label="${escapeAttr(productSeo.name)}">
   <p><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a></p>
   <nav aria-label="Разделы каталога">${productCategories.map(category => `<a href="/catalog/category/${category.id}/">${escapeHtml(category.title)}</a>`).join(' · ')}</nav>
   <h1>${escapeHtml(productSeo.name)}</h1>
   ${productSeo.name !== product.title ? `<p lang="en">${escapeHtml(product.title)}</p>` : ''}
   <p>${escapeHtml(description)}</p>
-  <p><strong>${equipmentInquiry ? 'Возможность поставки в Казахстан — по запросу. Модель, комплектацию, цену и срок согласуем в предложении.' : 'Поставка под заказ. Цену и срок подтвердим после проверки шильдика.'}</strong></p>
+  <p><strong>${inStock ? 'В наличии' : equipmentInquiry ? 'Возможность поставки в Казахстан — по запросу. Модель, комплектацию, цену и срок согласуем в предложении.' : 'Поставка под заказ. Цену и срок подтвердим после проверки шильдика.'}</strong>${inStock ? ' на складе ACA Hydraulic. Цену подтвердим по запросу; перед продажей сверим исполнение по шильдику и присоединительным размерам.' : ''}</p>
   <h2>${escapeHtml(fitmentLabel)}</h2>
   <p>${escapeHtml(fitment)}</p>
   ${product.catalogTitle ? `<p>${escapeHtml(product.catalogTitle)}</p>` : ""}
@@ -212,7 +235,7 @@ function productPage(product) {
   ${product.catalogPriceNote ? `<p data-catalog-price-note>${escapeHtml(product.catalogPriceNote)}</p>` : ''}
   ${images.length ? `<section data-product-gallery><h2>${imageIsCategoryPlaceholder ? `Иллюстрация категории ${escapeHtml(productCategories[0]?.title || 'запчастей')}` : `Фото ${escapeHtml(productSeo.name)}`}</h2>${images.map((src, index) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(imageIsCategoryPlaceholder ? `Иллюстрация категории ${productCategories[0]?.title || 'запчастей'}` : `${productSeo.name} — фото ${index + 1}`)}" width="900" height="900" loading="${index === 0 ? 'eager' : 'lazy'}"${index === 0 ? ' fetchpriority="high"' : ''} decoding="async">`).join('')}</section>` : ''}
   ${product.catalogImageCaption && images.length ? `<p>${escapeHtml(product.catalogImageCaption)}</p>` : ''}
-  ${product.catalogVideos?.length ? `<section data-product-videos><h2>Видео осмотра</h2>${product.catalogVideos.map(video => `<figure><video controls playsinline preload="none" poster="${escapeAttr(video.poster)}" width="${video.width}" height="${video.height}" aria-label="${escapeAttr(video.caption)}"><source src="${escapeAttr(video.src)}" type="video/mp4"><a href="${escapeAttr(video.src)}">Открыть видео</a></video><figcaption>${escapeHtml(video.caption)}</figcaption></figure>`).join('')}</section>` : ''}
+  ${product.catalogVideos?.length ? `<section data-product-videos><h2>Видео осмотра</h2>${product.catalogVideos.map(video => `<figure><video controls playsinline preload="none" poster="${escapeAttr(video.poster)}" width="${video.width}" height="${video.height}" style="aspect-ratio:${video.width} / ${video.height};max-width:min(100%,${(70 * video.width) / video.height}vh);width:100%;max-height:70vh;object-fit:contain;display:block;margin-inline:auto" aria-label="${escapeAttr(video.caption)}"><source src="${escapeAttr(video.src)}" type="video/mp4"><a href="${escapeAttr(video.src)}">Открыть видео</a></video><figcaption>${escapeHtml(video.caption)}</figcaption></figure>`).join('')}</section>` : ''}
   ${product.ownerSale ? (isXcmgOwnerSale
     ? `<section><h2>Реальная поставка и установка этого насоса</h2><p>${escapeHtml(xcmgSale.terms.ru)}</p><p><a href="${xcmgSale.casePath}/">Кейс XCMG XZ200: насос 803001730</a></p>${xcmgSale.videos.map(video => `<video controls preload="none" poster="${video.poster}" width="720" height="1280"><source src="${video.src}" type="video/mp4"></video>`).join('')}</section>`
     : `<p>${escapeHtml(catSale.terms.ru)}</p><p><a href="${catSale.casePath}/">Кейс продажи нового насоса для CAT 432E</a></p><video controls preload="none" poster="${catSale.poster}" width="960" height="540"><source src="${catSale.video}" type="video/mp4"></video>`
@@ -229,7 +252,9 @@ function productPage(product) {
       ${isHydraulicPump ? `<section data-pump-product-navigation><h2>Бренд и подбор исполнения гидронасоса</h2><p>Сверим полный артикул, шильдик, вал, фланец, порты, вращение и регулятор до подтверждения заказа. Брендовая ссылка показывается по сохранённому производителю или однозначной маркировке производителя насоса в названии; совместимость подтверждаем отдельно.</p><nav aria-label="Бренд и подбор гидронасоса"><ul>${productBrandLanding ? `<li><a href="/catalog/brand/${productBrandLanding.slug}/">${productBrandLanding.matchSource === 'manufacturer' ? `Насосы бренда ${escapeHtml(product.brand || productBrandLanding.name)}` : `Насосы бренда ${escapeHtml(productBrandLanding.name)} — по названию карточки`}</a></li>` : ''}<li><a data-aca-contact-event="catalog_whatsapp_click" data-aca-item-id="${escapeAttr(product.id)}" data-aca-item-category="${escapeAttr(product.category)}" data-aca-contact-source="static_pump_selection" href="https://wa.me/77714177925?text=${encodeURIComponent(`Здравствуйте. Нужен подбор гидронасоса ${productSeo.name}.\nТехника: ____\n${selfUrl}\nФото шильдика пришлю в чате.`)}">Отправить шильдик для подбора</a></li></ul></nav><nav aria-label="Статьи перед покупкой насоса"><ul><li><a href="/blog/zapchasti-po-nomeru-i-shildiku/">Какие номера и фото нужны для подбора</a></li><li><a href="/blog/remont-ili-zamena-gidronasosa/">Ремонт или замена гидронасоса</a></li><li><a href="/cases/sany-sy365h-zamena-gidronasosa-video/">Видео: поставка, замена и запуск SANY SY365H</a></li></ul></nav></section>` : ''}
 </main>`;
 
-  let html = indexHtml.replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '');
+  let html = indexHtml
+    .replace(/<script\b[^>]*\bdata-static-page-schema[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<script\b[^>]*\bdata-static-breadcrumb-schema[^>]*>[\s\S]*?<\/script>/gi, '');
   html = setTag(html, /<title[^>]*>.*?<\/title>/is, `<title>${escapeHtml(title)}</title>`);
   html = setTag(html, /<meta(?=[^>]*\bname=["']description["'])[^>]*>/i, `<meta name="description" content="${escapeAttr(metaDescription)}">`);
   html = html.replace(/<link(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi, '');
@@ -254,6 +279,9 @@ function productPage(product) {
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:url["'])[^>]*>/i, `<meta name="twitter:url" content="${escapeAttr(canonical)}">`);
   if (schema) {
     html = html.replace('</head>', `<script type="application/ld+json" data-static-product-schema data-rh="true">${schema}</script>\n</head>`);
+  }
+  if (breadcrumbSchema) {
+    html = html.replace('</head>', `<script type="application/ld+json" data-static-breadcrumb-schema data-rh="true">${breadcrumbSchema}</script>\n</head>`);
   }
   html = setRootFallback(html, fallback);
   html = html.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {

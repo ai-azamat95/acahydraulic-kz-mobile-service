@@ -28,6 +28,10 @@ export type CatalogIndexProduct = {
   tags: string[];
   available: boolean;
   minPriceKzt: number | null;
+  ownerInventory?: {
+    availability: "in_stock";
+    confirmedOn: string;
+  };
   ownerEvidence?: {
     heading: string;
     facts: string[];

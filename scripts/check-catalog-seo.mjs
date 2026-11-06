@@ -32,7 +32,7 @@ assert(fitmentCoverage >= 0.75, `explicit fitment coverage is too low: ${(fitmen
 const productsWithOffers = products.filter((product) => Number.isFinite(product.minPriceKzt));
 const productsWithProductSchema = productsWithOffers.filter(product => !catalogCanonicalAliases[product.handle]);
 const priceOnRequestProducts = products.filter((product) => !Number.isFinite(product.minPriceKzt));
-assert.equal(Object.keys(productCopy).length, 931, 'reviewed Russian catalogue coverage must include all three cohorts');
+assert.equal(Object.keys(productCopy).length, 932, 'reviewed Russian catalogue coverage must include all three cohorts');
 
 for (const product of [
   productsWithOffers.find(item => item.fitment && !merchantHandles.has(item.handle)),

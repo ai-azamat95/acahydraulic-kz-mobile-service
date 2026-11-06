@@ -36,6 +36,7 @@ export type CatalogCopy = {
   noResults: string;
   fromPrice: string;
   priceOnRequest: string;
+  inStock: string;
   available: string;
   checkAvailability: string;
   viewPart: string;
@@ -95,6 +96,7 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
     noResults: "Совпадений не найдено. Отправьте данные техники, мы выполним ручной поиск.",
     fromPrice: "от",
     priceOnRequest: "Цена по запросу",
+    inStock: "В наличии",
     available: "Поставка под заказ",
     checkAvailability: "Наличие уточняется",
     viewPart: "Открыть карточку",
@@ -152,6 +154,7 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
     noResults: "Сәйкестік табылмады. Техника деректерін жіберіңіз, қолмен іздейміз.",
     fromPrice: "бастап",
     priceOnRequest: "Бағасы сұрау бойынша",
+    inStock: "Қоймада бар",
     available: "Тапсырысқа қолжетімді",
     checkAvailability: "Қолжетімділігі нақтыланады",
     viewPart: "Карточканы ашу",
@@ -209,6 +212,7 @@ export const catalogCopy: Record<CatalogLanguage, CatalogCopy> = {
     noResults: "No match found. Send the machine details and we will run a manual search.",
     fromPrice: "from",
     priceOnRequest: "Price on request",
+    inStock: "In stock",
     available: "Supplied to order",
     checkAvailability: "Availability to be confirmed",
     viewPart: "View part",

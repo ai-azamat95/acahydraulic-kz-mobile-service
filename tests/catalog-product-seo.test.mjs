@@ -45,7 +45,7 @@ const codes = text => text.toUpperCase().match(/\b[A-Z0-9]+(?:[-./][A-Z0-9]+)*\b
 const normalizedIdentity = text => text.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
 test('reviewed Russian names preserve every source part number and equipment model', () => {
-  assert.equal(Object.keys(copy).length, 431);
+  assert.equal(Object.keys(copy).length, 432);
   for (const [handle, content] of Object.entries(copy)) {
     const imported = products.find(item => item.handle === handle);
     const product = imported && applyOwnerSale(imported);
@@ -125,7 +125,7 @@ test('phase-two Russian catalogue cohort is deterministic and evidence-backed', 
 
 test('phase-three Russian catalogue cohort is deterministic, distinct and evidence-backed', () => {
   assert.equal(Object.keys(phase3Copy).length, 500);
-  assert.equal(Object.keys(copyWithPhase3).length, 931);
+  assert.equal(Object.keys(copyWithPhase3).length, 932);
   assert.deepEqual(
     Object.values(phase3Copy).reduce((counts, content) => {
       counts[content.reviewFamily] = (counts[content.reviewFamily] || 0) + 1;

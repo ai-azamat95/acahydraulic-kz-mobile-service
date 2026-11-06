@@ -18,6 +18,7 @@ on:
       - "scripts/sync-priority-catalog-images.mjs"
       - "scripts/apply-priority-catalog-images.mjs"
       - "scripts/lib/catalog-fitment.mjs"
+      - "scripts/lib/catalog-image-manifest.mjs"
       - "scripts/check-catalog-import.mjs"
       - "scripts/check-catalog-seo.mjs"
       - "scripts/check-catalog-landings.mjs"
@@ -42,6 +43,9 @@ on:
       - "tests/catalog-owner-products.test.mjs"
       - "tests/husco-owner-product.test.mjs"
       - "client/public/catalog-assets/husco-6600-f163-a00/**"
+      - "tests/rexroth-pgh4-stock-product.test.mjs"
+      - "client/public/catalog-assets/rexroth-r901147102-pgh4-032/**"
+      - "client/public/catalog-media/rexroth-r901147102-pgh4-032/**"
       - "shared/cat-432e-sale.json"
       - "scripts/catalog-owner-sales.mjs"
       - "scripts/prepare-public-catalog.mjs"
@@ -84,7 +88,7 @@ jobs:
         run: node scripts/check-catalog-image-audit.mjs
       - name: Verify ACA-owned catalogue products and HUSCO evidence
         run: |
-          node --test tests/catalog-owner-products.test.mjs tests/catalog-supplier-products.test.mjs tests/husco-owner-product.test.mjs tests/owner-catalog-deployment.test.mjs
+          node --test tests/catalog-owner-products.test.mjs tests/catalog-supplier-products.test.mjs tests/husco-owner-product.test.mjs tests/owner-catalog-deployment.test.mjs tests/rexroth-pgh4-stock-product.test.mjs
           node scripts/prepare-public-catalog.mjs
           node scripts/check-owner-catalog-inputs.mjs client/public/catalog-data
       - name: Verify reviewed product names and selection copy
@@ -100,6 +104,8 @@ jobs:
           pnpm catalog:routes
           pnpm catalog:landing-routes
           node scripts/check-owner-catalog-inputs.mjs dist/public/catalog-data --routes
+      - name: Verify Rexroth stock product static route
+        run: node --test tests/rexroth-pgh4-stock-product.test.mjs
       - name: Verify product and landing-page SEO
         run: |
           pnpm catalog:verify-seo

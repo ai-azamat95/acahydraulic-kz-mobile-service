@@ -3,6 +3,7 @@ import { applyOwnerCatalogSales } from './catalog-owner-sales.mjs';
 import { applyOwnerCatalogProducts } from './catalog-owner-products.mjs';
 import { applySupplierCatalogProducts } from './catalog-supplier-products.mjs';
 import { createCategorySearchIndexes } from './lib/catalog-category-indexes.mjs';
+import { reconcileCatalogImageManifest } from './lib/catalog-image-manifest.mjs';
 import path from 'node:path';
 import { applyApprovedCatalogPrices } from './catalog-approved-prices.mjs';
 import { applyCatalogCategoryCorrections } from './catalog-category-corrections.mjs';
@@ -20,6 +21,7 @@ applyOwnerCatalogSales(catalogDir);
 const ownerProducts = applyOwnerCatalogProducts(catalogDir);
 const supplierProducts = applySupplierCatalogProducts(catalogDir);
 const categoryCorrections = applyCatalogCategoryCorrections(catalogDir);
+const catalogImages = reconcileCatalogImageManifest(catalogDir);
 const preparedManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 const categoryIndexes = createCategorySearchIndexes({
   catalogDir,
@@ -58,4 +60,4 @@ const publicManifest = {
 };
 
 fs.writeFileSync(manifestPath, JSON.stringify(publicManifest));
-console.log(JSON.stringify({ prepared: true, approvedPrices, ownerProducts, supplierProducts, categoryCorrections, categoryIndexes: { categories: Object.keys(categoryIndexes.files).length, totalBytes: categoryIndexes.totalBytes }, removedPrivateFiles: privateFiles, manifestFields: Object.keys(publicManifest) }, null, 2));
+console.log(JSON.stringify({ prepared: true, approvedPrices, ownerProducts, supplierProducts, categoryCorrections, catalogImages, categoryIndexes: { categories: Object.keys(categoryIndexes.files).length, totalBytes: categoryIndexes.totalBytes }, removedPrivateFiles: privateFiles, manifestFields: Object.keys(publicManifest) }, null, 2));
