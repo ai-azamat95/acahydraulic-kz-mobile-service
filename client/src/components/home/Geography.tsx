@@ -35,18 +35,24 @@ export function SupplyGlobe() {
         <radialGradient id="sphere" cx="35%" cy="27%" r="76%"><stop stopColor="#454b4d"/><stop offset=".55" stopColor="#242b2f"/><stop offset="1" stopColor="#080b0e"/></radialGradient>
         <radialGradient id="shade" cx="32%" cy="25%" r="78%"><stop stopColor="#b1b7b8" stopOpacity=".09"/><stop offset=".6" stopColor="#000" stopOpacity="0"/><stop offset="1" stopColor="#000" stopOpacity=".85"/></radialGradient>
         <clipPath id="globe-disc"><circle cx="300" cy="270" r="240"/></clipPath>
+        <filter id="globe-terrain"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="8"/><feColorMatrix type="saturate" values="0"/><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+        <radialGradient id="globe-rim" cx="10%" cy="30%" r="80%"><stop stopColor="#b49a68" stopOpacity=".38"/><stop offset=".5" stopColor="#b49a68" stopOpacity="0"/></radialGradient>
+        <marker id="supply-arrow" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0 0L5 2.5L0 5" fill="none" stroke="#c9a35e" strokeWidth="1"/></marker>
       </defs>
       <ellipse cx="300" cy="517" rx="190" ry="13" fill="#000" opacity=".5"/>
       <circle cx="300" cy="270" r="240" fill="url(#sphere)" stroke="#596063" strokeWidth=".8"/>
       <g clipPath="url(#globe-disc)">
         {geography.globe.map((country,i)=><path key={i} d={country.d} fill={country.name==='Kazakhstan'?'#a3884f':'#464b4c'} stroke="#151b1f" strokeWidth=".65"/>)}
+        <circle cx="300" cy="270" r="240" fill="#777" filter="url(#globe-terrain)" opacity=".12"/>
         <circle cx="300" cy="270" r="240" fill="url(#shade)"/>
-        <g stroke="#b59a63" strokeWidth="1.2" fill="none" opacity=".8">
+        <circle cx="300" cy="270" r="240" fill="url(#globe-rim)"/>
+        <g stroke="#c9a35e" strokeWidth="1.8" fill="none" opacity=".9" markerEnd="url(#supply-arrow)">
           <path d="M150 170 Q220 75 306 193"/><path d="M68 285 Q160 110 306 193"/>
           <path d="M480 230 Q390 100 306 193"/><path d="M440 270 Q375 135 306 193"/>
           <path d="M390 325 Q380 220 306 193"/>
         </g>
         <circle cx="306" cy="193" r="5" fill="#c19a48"/>
+        <text x="306" y="220" textAnchor="middle" fill="#ddd5c3" fontSize="20" stroke="#15191d" strokeWidth="3" paintOrder="stroke">Казахстан</text>
       </g>
     </svg>
     <div className="supply-labels">{groups.map(([region,...brands],i)=><div className={`supply-label supply-${i}`} key={region}><strong>{region}</strong>{brands.map(line=><span key={line}>{line}</span>)}</div>)}</div>
