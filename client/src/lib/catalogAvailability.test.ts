@@ -13,8 +13,8 @@ describe("catalog quick-search availability", () => {
       catalogQuickSearchStatus(
         { ownerInventory: { availability: "in_stock" } },
         stockCopy,
-        "ru",
-      ),
+        "ru"
+      )
     ).toBe("В наличии · Цена по запросу");
   });
 
@@ -22,7 +22,10 @@ describe("catalog quick-search availability", () => {
     ["ru", "Под заказ · Проверить цену и срок"],
     ["kz", "Тапсырыс бойынша · Баға мен мерзімді нақтылау"],
     ["en", "To order · Confirm price and lead time"],
-  ] as const)("keeps the existing %s preorder label for other products", (language, label) => {
-    expect(catalogQuickSearchStatus({}, stockCopy, language)).toBe(label);
-  });
+  ] as const)(
+    "keeps the existing %s preorder label for other products",
+    (language, label) => {
+      expect(catalogQuickSearchStatus({}, stockCopy, language)).toBe(label);
+    }
+  );
 });

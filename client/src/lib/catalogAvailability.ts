@@ -15,7 +15,7 @@ const preorderStatus: Record<CatalogLanguage, string> = {
 export function catalogQuickSearchStatus(
   product: QuickSearchProduct,
   copy: Pick<CatalogCopy, "inStock" | "priceOnRequest">,
-  language: CatalogLanguage,
+  language: CatalogLanguage
 ) {
   if (product.ownerInventory?.availability === "in_stock") {
     return `${copy.inStock} · ${copy.priceOnRequest}`;
