@@ -37,3 +37,8 @@ test('featured product links use a client-routable product URL', () => {
   assert.match(supplyOffers, /href: "\/catalog\/handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump"/);
   assert.doesNotMatch(supplyOffers, /handok-h5v80dtp-12t-ykskr-9k00-korean-hydraulic-pump\/"/);
 });
+
+test('quick search uses confirmed owner stock instead of a hard-coded preorder label', () => {
+  assert.match(catalogPage, /import \{ catalogQuickSearchStatus \} from "@\/lib\/catalogAvailability";/);
+  assert.match(catalogPage, /\{catalogQuickSearchStatus\(product, copy, language\)\}/);
+});
