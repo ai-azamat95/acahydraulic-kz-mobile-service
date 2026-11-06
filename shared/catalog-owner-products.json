@@ -373,5 +373,60 @@
       "priceKzt": null,
       "options": ["Цена и наличие по запросу", "Проверка всех трёх номеров", "Комплектация согласуется"]
     }]
+  },
+  {
+    "id": "8705188397218",
+    "handle": "pgh4-3x-032re11vu2-internal-gear-pump-rexroth-r901147102",
+    "legacyHandles": ["bosch-rexroth-r901147102-pgh4-31-032re11vu2"],
+    "title": "Bosch Rexroth PGH4-31/032RE11VU2 internal gear pump R901147102",
+    "catalogTitle": "Шестерёнчатый насос внутреннего зацепления Bosch Rexroth R901147102, PGH4-31/032RE11VU2",
+    "fitment": "Фактическое исполнение подтверждено по шильдику насоса: Bosch Rexroth PGH4-31/032RE11VU2, материальный номер R901147102. Для установки на конкретную технику дополнительно сверяем направление вращения, вал, фланец, расположение и размеры портов старого насоса.",
+    "sku": "R901147102",
+    "brand": "Bosch Rexroth",
+    "model": "PGH4-31/032RE11VU2",
+    "mpn": "R901147102",
+    "category": "gear-pumps",
+    "categories": ["hydraulic-pumps", "gear-pumps"],
+    "productType": "Шестерёнчатый насос внутреннего зацепления",
+    "tags": ["Bosch Rexroth", "Rexroth", "R901147102", "PGH4", "PGH4-31", "PGH4-31/032RE11VU2", "PGH4-3X/032RE11VU2", "032RE11VU2", "шестерёнчатый насос", "насос внутреннего зацепления"],
+    "catalogDescription": "Шестерёнчатый насос внутреннего зацепления с маркировкой Bosch Rexroth R901147102, исполнение PGH4-31/032RE11VU2 (обозначение серии PGH4-3X/032RE11VU2). Фактический насос находится на складе ACA Hydraulic; в карточке размещены его реальные фотографии и видео осмотра. Цена предоставляется по запросу.",
+    "catalogSelection": "Перед продажей сверяем полный материальный номер R901147102 и код PGH4-31/032RE11VU2, направление вращения, вал, фланец, порты и присоединительные размеры. Совпадение только серии PGH4 не подтверждает взаимозаменяемость.",
+    "catalogPriceNote": "Цена по запросу. Наличие подтверждено по фактическому товару на складе; перед оплатой повторно подтвердим комплектность и резерв.",
+    "catalogImageLabel": "Реальное фото товара",
+    "catalogImageCaption": "Реальные фотографии фактического насоса Bosch Rexroth R901147102 на складе ACA Hydraulic. Исполнение и совместимость с конкретной техникой проверяем отдельно перед продажей.",
+    "available": true,
+    "minPriceKzt": null,
+    "maxPriceKzt": null,
+    "ownerInventory": {
+      "availability": "in_stock",
+      "confirmedOn": "2026-11-06"
+    },
+    "imageUrl": "/catalog-assets/rexroth-r901147102-pgh4-032/01-main.webp",
+    "gallery": [
+      "/catalog-assets/rexroth-r901147102-pgh4-032/01-main.webp",
+      "/catalog-assets/rexroth-r901147102-pgh4-032/03-front-port.webp",
+      "/catalog-assets/rexroth-r901147102-pgh4-032/04-rear.webp",
+      "/catalog-assets/rexroth-r901147102-pgh4-032/05-side.webp",
+      "/catalog-assets/rexroth-r901147102-pgh4-032/07-flange.webp"
+    ],
+    "catalogVideos": [
+      {
+        "src": "/catalog-media/rexroth-r901147102-pgh4-032/inspection.mp4",
+        "poster": "/catalog-assets/rexroth-r901147102-pgh4-032/01-main.webp",
+        "caption": "Видео осмотра фактического насоса Bosch Rexroth R901147102, PGH4-31/032RE11VU2, находящегося на складе ACA Hydraulic.",
+        "width": 720,
+        "height": 1280
+      }
+    ],
+    "variants": [
+      {
+        "id": "45636706959522",
+        "title": "Bosch Rexroth PGH4-31/032RE11VU2",
+        "sku": "R901147102",
+        "available": true,
+        "priceKzt": null,
+        "options": ["В наличии", "Цена по запросу", "Совместимость подтверждается по полному исполнению"]
+      }
+    ]
   }
 ]

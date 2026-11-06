@@ -42,7 +42,7 @@ jobs:
       - name: Create approved pump feed
         run: node scripts/create-merchant-feed.mjs
       - name: Verify owner catalogue products
-        run: node --test tests/catalog-owner-products.test.mjs tests/catalog-supplier-products.test.mjs tests/catalog-category-indexes.test.mjs
+        run: node --test tests/catalog-owner-products.test.mjs tests/catalog-supplier-products.test.mjs tests/catalog-category-indexes.test.mjs tests/rexroth-pgh4-stock-product.test.mjs
       - name: Create Industrial AI route copy
         run: node scripts/create-industrial-ai-route.mjs
       - name: Create static case route copies

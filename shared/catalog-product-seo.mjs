@@ -139,7 +139,7 @@ export function catalogProductSeo(product, language = 'ru') {
     ? `Цена ${fixedOwnerOffer ? '' : 'от '}${new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(product.minPriceKzt)} ₸.`
     : 'Цена по запросу.';
   const fitment = (product.fitment || 'уточняется по номеру детали, модели и шильдику техники').replace(/[.!?]+$/, '');
-  const description = copy?.description || (product.catalogSupplement && product.catalogDescription) || `${name}. Применяемость: ${fitment}. ${price} Комплектацию и срок поставки подтвердим до оплаты.`;
+  const description = copy?.description || ((product.catalogSupplement || product.ownerInventory) && product.catalogDescription) || `${name}. Применяемость: ${fitment}. ${price} Комплектацию и срок поставки подтвердим до оплаты.`;
   const title = language === 'ru'
     ? catalogProductMetaTitle(product, name, copy)
     : compactSeoTitleBase(copy?.title || name, 59);
@@ -147,12 +147,12 @@ export function catalogProductSeo(product, language = 'ru') {
     name,
     title,
     description,
-    metaDescription: compactSeoDescription(`${title}. ${price} Подбор по OEM-номеру, модели и шильдику; комплектацию и срок подтверждаем до оплаты.`),
+    metaDescription: compactSeoDescription(copy?.metaDescription || `${title}. ${price} Подбор по OEM-номеру, модели и шильдику; комплектацию и срок подтверждаем до оплаты.`),
   };
 }
 
 export function catalogProductHasReviewedCopy(product, language = 'ru') {
-  return language === 'ru' && Boolean(productCopy[product.handle]);
+  return language === 'ru' && Boolean(productCopy[product.handle] || (product.ownerInventory && product.catalogDescription));
 }
 
 export function catalogProductImageIsPlaceholder(product) {
@@ -220,9 +220,9 @@ export function catalogProductBrandLanding(product) {
 }
 
 export function catalogProductSelection(product) {
-  if (product.catalogSupplement && product.catalogSelection) return product.catalogSelection;
+  if ((product.catalogSupplement || product.ownerInventory) && product.catalogSelection) return product.catalogSelection;
   if (product.ownerEvidence?.selection) return product.ownerEvidence.selection;
   // Imported categories can be broad; use technical instructions only for reviewed products.
-  const category = productCopy[product.handle]?.selectionCategory || ((product.approvedSale || product.ownerSale || product.ownerProduct) ? 'hydraulic-pumps' : 'other-parts');
+  const category = productCopy[product.handle]?.selectionCategory || ((product.ownerInventory || product.approvedSale || product.ownerSale || product.ownerProduct) ? 'hydraulic-pumps' : 'other-parts');
   return productCopy[product.handle]?.selection || selectionCopy[category].selection;
 }

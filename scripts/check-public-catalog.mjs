@@ -205,11 +205,14 @@ assert(fs.existsSync(imageManifestPath), `missing image integrity manifest: ${ma
 const imageManifest = JSON.parse(fs.readFileSync(imageManifestPath, 'utf8'));
 assert.equal(imageManifest.imageBaseUrl, manifest.imageBaseUrl, 'image base URL must match the image integrity manifest');
 assert.equal(imageManifest.imageCount, manifest.mirroredImageCount, 'mirrored image count must match the image integrity manifest');
+assert.equal(imageManifest.productCount, manifest.mirroredProductCount, 'mirrored product count must match the image integrity manifest');
 assert.equal(imageManifest.entries.length, imageManifest.imageCount, 'image integrity entry count must match');
 const imageManifestKeys = new Set(imageManifest.entries.map((entry) => entry.key));
 assert.equal(imageManifestKeys.size, imageManifest.entries.length, 'image integrity keys must be unique');
+assert.equal(new Set(imageManifest.entries.map(entry => String(entry.productId))).size, imageManifest.productCount, 'image integrity product count must match');
+assert.equal(imageManifest.entries.reduce((total, entry) => total + entry.bytes, 0), imageManifest.totalBytes, 'image integrity byte count must match');
 const managedRemoteKeys = new Set(
-  products.flatMap((product) => product.gallery.map(managedImageKey).filter((key) => key && !key.startsWith('local:'))),
+  products.flatMap((product) => [product.imageUrl, ...product.gallery].map(managedImageKey).filter((key) => key && !key.startsWith('local:'))),
 );
 assert.deepEqual(managedRemoteKeys, imageManifestKeys, 'every ACA-managed gallery image must have exactly one integrity entry');
 assert(

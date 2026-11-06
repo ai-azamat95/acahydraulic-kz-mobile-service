@@ -128,7 +128,8 @@ export default function CatalogProduct() {
   const isHuscoOwnerCase = product.ownerCase?.casePath === huscoCase.casePath;
   const ownerSaleTerms = isXcmgOwnerSale ? xcmgSale.terms[language] : catSale.terms[language];
   const fixedOffer = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct);
-  const commercialContactFirst = Boolean(product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerEvidence || product.ownerCase || product.catalogSupplement);
+  const inStock = product.ownerInventory?.availability === "in_stock";
+  const commercialContactFirst = Boolean(inStock || product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerEvidence || product.ownerCase || product.catalogSupplement);
   const displayedPrice = product.minPriceKzt !== null
     ? `${fixedOffer ? "" : `${copy.fromPrice} `}${formatKzt(product.minPriceKzt, language)}`
     : copy.priceOnRequest;
@@ -157,7 +158,7 @@ export default function CatalogProduct() {
   const equipmentInquiry = product.category === "construction-machinery" || product.category === "attachments";
   const fitmentLabel = equipmentInquiry
     ? language === "ru" ? "Модель и условия подбора" : language === "kz" ? "Модель және іріктеу шарттары" : "Model and selection requirements"
-    : (product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase || product.catalogSupplement)
+    : (inStock || product.approvedSale || product.ownerSale || product.ownerProduct || product.ownerCase || product.catalogSupplement)
     ? language === "ru" ? "Применяемость этого исполнения" : language === "kz" ? "Осы нұсқаның қолданылуы" : "Applications of this configuration"
     : copy.fitmentLabel;
   const seriesNote = isHuscoOwnerCase
@@ -167,6 +168,8 @@ export default function CatalogProduct() {
       : "";
   const productSeo = catalogProductSeo(product, language);
   const productCategories = catalogProductCategories(product);
+  const primaryCategory = productCategories.find(category => category.id === product.category);
+  const breadcrumbCategories = inStock && primaryCategory ? [primaryCategory] : productCategories.slice(0, 1);
   const isHydraulicPump = catalogProductIsHydraulicPump(product);
   const productBrandLanding = catalogProductBrandLanding(product);
   const canonicalHandle = catalogCanonicalAliases[product.handle] || product.handle;
@@ -230,7 +233,7 @@ export default function CatalogProduct() {
         schema={productSchema}
         breadcrumbs={[
           { name: "Каталог запчастей", url: "/catalog/" },
-          ...productCategories.slice(0, 1).map(category => ({ name: category.title, url: `/catalog/category/${category.id}/` })),
+        ...breadcrumbCategories.map(category => ({ name: category.title, url: `/catalog/category/${category.id}/` })),
           { name: productSeo.name, url: `/catalog/${canonicalHandle}` },
         ]}
       />
@@ -355,7 +358,9 @@ export default function CatalogProduct() {
             </div>
             <h1 className="mt-4 text-3xl font-bold leading-tight [overflow-wrap:anywhere] md:text-5xl">{productSeo.name}</h1>
             {commercialContactFirst && <div className="mt-4">
-              <p className="text-sm leading-6 text-gray-300">{equipmentInquiry
+              <p className="text-sm leading-6 text-gray-300">{inStock
+                ? language === "ru" ? "В наличии на складе ACA Hydraulic. Цену подтвердим по запросу; перед продажей сверим исполнение по шильдику и присоединительным размерам." : language === "kz" ? "ACA Hydraulic қоймасында бар. Бағаны сұрау бойынша растаймыз; сатудан бұрын нұсқасын тақтайша және қосылу өлшемдері бойынша тексереміз." : "In stock at ACA Hydraulic. Price is confirmed on request; configuration is checked against the nameplate and mounting dimensions before sale."
+                : equipmentInquiry
                 ? language === "ru" ? "Возможность поставки в Казахстан — по запросу. Модель, комплектацию, цену и срок согласуем в предложении." : language === "kz" ? "Қазақстанға жеткізу мүмкіндігі сұрау бойынша анықталады. Модель, жинақтама, баға мен мерзімді ұсыныста келісеміз." : "Availability for supply to Kazakhstan is checked on request. Model, specification, price and lead time are agreed in the quotation."
                 : language === "ru" ? "Под заказ · поставка по Казахстану. Исполнение, цену и срок подтвердим по шильдику." : language === "kz" ? "Тапсырыс бойынша · Қазақстанға жеткізу. Нұсқа, баға мен мерзімді тақтайша бойынша растаймыз." : "Supply to order across Kazakhstan. Configuration, price and lead time are confirmed using the nameplate."}</p>
               <button type="button" onClick={() => requestProduct()} className="mt-4 inline-flex min-h-12 items-center justify-center gap-2 rounded bg-[#FFC000] px-6 py-3 font-extrabold text-black hover:bg-[#E6AC00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]">
@@ -381,7 +386,7 @@ export default function CatalogProduct() {
               {product.catalogPriceNote && <p data-catalog-price-note className="mt-2 text-sm leading-6 text-gray-400">{product.catalogPriceNote}</p>}
               <div className="mt-3 flex items-center gap-2 text-sm text-gray-300">
                 <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
-                {confirmedSupply ? copy.available : copy.checkAvailability}
+                {inStock ? copy.inStock : confirmedSupply ? copy.available : copy.checkAvailability}
               </div>
               {product.ownerSale && <p className="mt-3 text-sm leading-6 text-gray-300">{ownerSaleTerms}</p>}
               {(product.approvedSale || product.ownerProduct) && <p className="mt-3 text-sm leading-6 text-gray-300">
@@ -466,7 +471,7 @@ export default function CatalogProduct() {
                     <dt className="text-gray-500">{copy.status}</dt>
                     <dd className="mt-1 flex items-center gap-2 text-gray-200">
                       <Check className="h-4 w-4 text-[#FFC000]" aria-hidden="true" />
-                      {confirmedSupply && variant.available ? copy.available : copy.checkAvailability}
+                      {inStock && variant.available ? copy.inStock : confirmedSupply && variant.available ? copy.available : copy.checkAvailability}
                     </dd>
                   </div>
                 </dl>
