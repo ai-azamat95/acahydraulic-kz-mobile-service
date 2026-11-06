@@ -1,4 +1,5 @@
 /* All redesign rules are scoped to the home route. */
+/* Color refinement is appended below, scoped strictly to .home-v2. */
 .home-v2{--gold:#c19a48;--muted:#a9abb4;background:#0b0e11;color:#c7c7d1;font-family:Inter,Arial,sans-serif;padding-top:64px;padding-bottom:calc(76px + env(safe-area-inset-bottom));isolation:isolate}
 .home-v2 :where(a,button,summary):focus-visible{outline:3px solid #edd098;outline-offset:5px}
 .home-header{position:fixed;inset:0 0 auto;z-index:45;height:64px;background:#141819f5;border-bottom:1px solid #ffffff12}
@@ -19,3 +20,70 @@
 @media(max-width:767px){.home-screen-inner{padding-top:30px;padding-bottom:36px}.home-hero .home-screen-inner{min-height:calc(100svh - 112px);gap:26px}.home-hero-image img{object-position:65% center}.home-hero::after{background:linear-gradient(90deg,#121719ce,#12171968),linear-gradient(0deg,#15191b 5%,transparent 75%)}.home-split{gap:24px}.home-repair .home-screen-inner,.home-parts .home-screen-inner{justify-content:space-between;min-height:calc(100svh - 112px)}.home-map,.home-globe{margin:0 -8px;width:calc(100% + 16px)}.home-map text{font-size:22px}.home-map text.home-map-origin{font-size:24px}.home-v2 .home-copy h2{font-size:clamp(32px,8.4vw,42px)}.home-video{margin-top:4px}.site-quick-nav-home{padding:0 8px!important}.site-quick-nav-home>div{justify-content:space-between!important;gap:0!important}.site-quick-nav-home a{padding:8px!important;font-size:11px!important;gap:4px!important}.site-quick-nav-home svg{width:13px!important}.home-work .home-lead br{display:none}}
 .home-globe{position:relative}.supply-labels{position:absolute;inset:0 0 65px;pointer-events:none}.supply-label{position:absolute;display:flex;flex-direction:column;font-size:clamp(12px,1.1vw,15px);line-height:1.5;color:#c7c7d1;text-shadow:0 1px 5px #000,0 1px 8px #000}.supply-label strong{font-size:1.1em;color:#d0b57f;font-weight:500}.supply-0{left:0;top:8%}.supply-1{left:0;top:55%}.supply-2{right:0;top:17%}.supply-3{right:0;top:51%}.supply-4{right:12%;bottom:0}.home-v2 .sticky-home svg{color:#c19a48}.home-form-dialog{background:#1b2023}.home-form-dialog>div{background:#1b2023!important;color:#c7c7d1}.home-form-dialog input,.home-form-dialog textarea,.home-form-dialog button[role=combobox]{background:#121719;color:#c7c7d1}.home-form-dialog label{color:#c7c7d1}.home-form-dialog [data-slot="card-header"]{background:#252b2e}.home-form-dialog button[type="submit"]{white-space:normal;height:auto;min-height:48px;padding:12px;font-size:14px}.home-form-dialog label:has(input[type="checkbox"]){background:#252b2e}.home-form-dialog .text-zinc-900{color:#e2e1dd}.home-form-dialog .text-zinc-600{color:#bfc2c6}@media(min-width:768px) and (max-width:1023px){.home-desktop-nav{gap:12px;font-size:12px}.home-header-inner{gap:10px;padding-inline:16px}.home-split{grid-template-columns:1fr}.home-split>.home-copy,.home-split>.home-actions,.home-split>figure{grid-column:1;grid-row:auto}.home-split>figure{max-width:640px}.home-split>.home-actions{max-width:100%}}
 @media(prefers-reduced-motion:reduce){.home-v2 *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Reference-led graphite/gold palette. Typography/spacing measured from
+   supplied 607/720px reference rasters normalized to a 390px viewport.
+   Content and shared-route styles remain unchanged. */
+.home-v2 {
+  --gold: #c9a35e;
+  --muted: #c0c1cc;
+  color: #d0d1dc;
+  background: #101217;
+}
+.home-v2 .home-screen {
+  background: radial-gradient(ellipse at 70% 45%,#22262d 0,transparent 62%),#101217;
+}
+.home-v2 h1 { color: #caccd1; }
+.home-v2 .home-copy h2 { color: #e6e6f0; font-weight: 500; letter-spacing: .01em; }
+.home-v2 .home-eyebrow { font-size: 16px; font-weight: 500; letter-spacing: .06em; }
+.home-v2 .home-subtitle { color: #c0c1cc; }
+.home-v2 .home-button { font-weight: 400; }
+@media(max-width:767px) {
+  .home-v2 .home-screen-inner { padding: 30px 28px 40px; gap: 28px; }
+  .home-v2 .home-hero .home-screen-inner { padding-inline: 24px; gap: 30px; }
+  .home-v2 h1 { font-size: clamp(30px,9.8vw,44px); font-weight: 600; line-height: 1.1; letter-spacing: 0; margin-bottom: 18px; }
+  .home-v2 .home-copy h2 { font-size: clamp(36px,12.3vw,54px); line-height: 1.02; margin-bottom: 16px; }
+  .home-v2 .home-work .home-copy h2 { max-width: 260px; }
+  .home-v2 .home-eyebrow { margin-bottom: 16px; }
+  .home-v2 .home-lead { font-size: 20px; line-height: 1.2; margin-bottom: 16px; }
+  .home-v2 .home-hero .home-lead { font-size: 18px; }
+  .home-v2 .home-subtitle { font-size: 17px; line-height: 1.25; }
+  .home-v2 .home-parts .home-lead { font-size: 17px; margin-bottom: 6px; }
+  .home-v2 .home-origin { margin-top: 18px; font-size: 15px; }
+  .home-v2 .home-warranty { margin-top: 16px; font-size: 14px; }
+  .home-v2 .home-button { font-size: 18px; min-height: 54px; padding: 14px 18px; }
+  .home-v2 .home-stats { gap: 22px 24px; }
+  .home-v2 .home-stats strong { font-size: 34px; font-weight: 400; }
+  .home-v2 .home-stats dd { font-size: 13px; line-height: 1.35; }
+  .home-v2 .home-actions>p { font-size: 18px; margin-bottom: 18px; }
+}
+.home-v2 .home-button {
+  color: #d8bd88;
+  border-color: var(--gold);
+  background: #24231e80;
+}
+.home-v2 .home-button-secondary {
+  color: var(--gold);
+  border-color: #c49b527a;
+  background: #ffffff04;
+}
+.home-v2 .home-hero-image img { filter: saturate(.82); }
+.home-v2 .home-video img { filter: saturate(.88); }
+.home-v2 .home-hero::after {
+  background: linear-gradient(90deg,#111619ee,#1116195c 65%,#11161920),linear-gradient(0deg,#15191b 2%,transparent 65%);
+}
+.home-v2 .home-map svg,
+.home-v2 .home-globe svg { filter: saturate(1.15) brightness(1.1); }
+.home-v2 .supply-label,
+.home-v2 .sticky-home a,
+.home-v2 .sticky-home a:last-child { color: #d7d9df; }
+.home-v2 .supply-label strong { color: #dfbb79; }
+.home-v2 .sticky-home svg { color: var(--gold); }
+.home-v2 footer p,
+.home-v2 footer .text-gray-600,
+.home-v2 footer .text-gray-500 { color: #bdc0c8; }
+@media(max-width:767px) {
+  .home-v2 .home-hero::after {
+    background: linear-gradient(90deg,#121719ce,#12171958),linear-gradient(0deg,#15191b 5%,transparent 75%);
+  }
+}
