@@ -17,14 +17,15 @@ export async function checkSiteNavigation(browser, origin, productHandle) {
         logo.click(),
       ]);
       assert.equal(new URL(page.url()).pathname,'/','logo must load homepage document');
-      await page.getByRole('heading',{name:'Ремонт гидравлики с выездом по Казахстану',exact:true}).waitFor();
+      await page.getByRole('heading',{name:'ACA HYDRAULIC',level:1,exact:true}).waitFor();
+      assert.equal(await page.locator('.home-screen').count(),4);
     }
     for (const width of [320,390,768,1024,1440]) {
       await page.setViewportSize({width,height:740});
       await page.goto(origin,{waitUntil:'networkidle'});
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true);
       if (width >= 1280) {
-        assert.equal(await page.getByRole('button',{name:'Открыть меню',exact:true}).isVisible(),false);
+        assert.equal(await page.getByRole('button',{name:'Открыть меню',exact:true}).isVisible(),true);
         continue;
       }
       let expectedLinks;
