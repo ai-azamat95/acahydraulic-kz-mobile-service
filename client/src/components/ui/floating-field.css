@@ -84,7 +84,8 @@
 .floating-field--textarea .floating-field__control {
   height: auto;
   min-height: 144px;
-  padding-top: 32px;
+  /* Reserve two label lines for narrower screens and fallback fonts. */
+  padding-top: 48px;
   resize: vertical;
   field-sizing: fixed;
 }
