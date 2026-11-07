@@ -201,6 +201,15 @@
 .home-v2{--gold:#dfb76c;--muted:#d0d2db;color:#e3e4eb;background:#171a20}
 .home-v2 .home-header{background:#1d2228;color:#eceef3;border-bottom-color:#ffffff26}
 .home-v2 .home-brand{color:#f1f2f5}
+/* Reference-proportioned outlined artwork: no CSS-built mark or font-dependent wordmark. */
+.home-v2 .home-brand-logo{display:block;width:124px;height:32px;object-fit:contain;flex-shrink:0}
+.home-v2 .home-social{gap:4px;flex-shrink:0}
+.home-v2 .home-header-inner{gap:8px}
+.home-v2 .home-social .home-brand-icon,.home-v2 .home-channel-links .home-brand-icon{display:block;width:24px;height:24px;flex:0 0 24px;padding:0;border:0}
+.home-v2 .home-social>a,.home-v2 .home-channel-links>a{min-width:44px;min-height:44px;border-radius:4px;transition:background-color .15s,color .15s}
+.home-v2 .home-social>a:hover,.home-v2 .home-channel-links>a:hover{background:#ffffff12;color:#fff}
+.home-v2 .home-social>a:focus-visible,.home-v2 .home-channel-links>a:focus-visible,.home-v2 .home-brand:focus-visible{outline:2px solid #e6bd70;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.home-v2 .home-social>a,.home-v2 .home-channel-links>a{transition:none}}
 .home-v2 .home-mark i{background:#e6bd70}
 .site-quick-nav-home{background:#20262d!important;border-bottom-color:#ffffff26!important}
 .site-quick-nav-home a{color:#e5e7ec!important}

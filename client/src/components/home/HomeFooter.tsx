@@ -7,17 +7,7 @@ export default function HomeFooter(){const {t}=useTranslation();return (<>      
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex gap-[3px] h-[24px]">
-                  <div className="w-[8px] h-full bg-[#FFC000]"></div>
-                  <div className="flex flex-col justify-between h-full">
-                    <div className="w-[8px] h-[10.5px] bg-[#FFC000]"></div>
-                    <div className="w-[8px] h-[10.5px] bg-[#FFC000]"></div>
-                  </div>
-                </div>
-                <div className="flex flex-col justify-center">
-                  <span className="font-sans font-bold text-[16px] text-white leading-none tracking-wide">ACA</span>
-                  <span className="font-sans font-medium text-[10px] text-white leading-none tracking-wider mt-[2px]">HYDRAULIC</span>
-                </div>
+                <img src="/images/home/aca-hydraulic-reference.svg" width="124" height="32" alt="ACA Hydraulic" className="home-brand-logo" loading="lazy"/>
               </div>
               <p className="text-gray-500 text-sm leading-relaxed">
                 {t('footer.description')}

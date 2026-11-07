@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
-import { ArrowRight, MapPin, Play, ShieldCheck, Youtube, Wrench, Truck, Settings, Package, Building2, MessageSquare, Star, Music2 } from 'lucide-react';
+import { ArrowRight, MapPin, Play, ShieldCheck, Wrench, Truck, Settings, Package, Building2, MessageSquare, Star } from 'lucide-react';
+import BrandIcon from './BrandIcon';
 import { SEO } from '@/components/SEO';
 import { seoConfig } from '@/config/seo';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
@@ -24,9 +25,9 @@ export default function Home() {
   return <div className="home-v2">
     <SEO title={seoConfig.home.title} description={seoConfig.home.description} keywords={seoConfig.home.keywords} canonical={seoConfig.home.canonical}/>
     <header className="home-header"><div className="home-header-inner">
-      <Link href="/" aria-label="ACA Hydraulic" className="home-brand"><span className="home-mark" aria-hidden="true"><i/><i/><i/></span><span><b>ACA</b><small>HYDRAULIC</small></span></Link>
+      <Link href="/" aria-label="ACA Hydraulic" className="home-brand"><img src="/images/home/aca-hydraulic-reference.svg" width="124" height="32" alt="" className="home-brand-logo"/></Link>
       <nav className="home-desktop-nav" aria-label="Основные разделы главной"><Link href="/services/">Услуги</Link><Link href="/catalog/">Каталог</Link><Link href="/cases/">Наши работы</Link><a href={phone}>+7 (771) 417-79-25</a></nav>
-      <div className="home-social"><a href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer" aria-label="TikTok ACA Hydraulic"><span aria-hidden="true">♪</span></a><a href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer" aria-label="YouTube ACA Hydraulic"><Youtube/></a><MobileSiteMenu/></div>
+      <div className="home-social"><a href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer" aria-label="TikTok ACA Hydraulic"><BrandIcon brand="tiktok"/></a><a href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer" aria-label="YouTube ACA Hydraulic"><BrandIcon brand="youtube"/></a><MobileSiteMenu/></div>
     </div></header>
     <main id="home-main">
       <section className="home-screen home-hero" id="home-brand" aria-labelledby="home-title">
@@ -50,7 +51,7 @@ export default function Home() {
       <section className="home-screen home-work" id="home-work" aria-labelledby="work-title"><div className="home-screen-inner home-split">
         <div className="home-copy"><p className="home-eyebrow">ВИДЕО И ОТЗЫВЫ</p><h2 id="work-title">НАШИ РАБОТЫ</h2><p className="home-lead">Диагностика, ремонт, поставка<br/>{' '}и установка запасных частей —<br/>{' '}в наших видео</p></div>
         <figure className="home-video"><a href="https://www.youtube.com/watch?v=spniTTX9ECI" target="_blank" rel="noopener noreferrer" aria-label="Смотреть видео CAT M318 не едет на YouTube"><img src="/images/home/cat-m318.jpg" alt="Реальный кадр видео диагностики CAT M318" width="480" height="360" loading="lazy" decoding="async"/><span className="home-play"><Play aria-hidden="true"/></span></a><figcaption><strong>CAT M318 не едет</strong><span>Диагностика гидравлики</span></figcaption></figure>
-        <div className="home-actions"><Link className="home-button" href="/cases/">Смотреть все работы <Arrow/></Link><div className="home-channel-links"><a href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer"><Music2 aria-hidden="true"/><b>TikTok <span>@acaservice01</span></b></a><a href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer"><Youtube aria-hidden="true"/><b>YouTube <span>@acahydraulic</span></b></a></div><nav className="home-company-links" aria-label="Компания и отзывы"><Link href="/about/"><Building2 aria-hidden="true"/>О компании</Link><Link href="/contacts/"><MapPin aria-hidden="true"/>Мы на карте</Link><Link href="/reviews/"><MessageSquare aria-hidden="true"/>Отзывы клиентов</Link><a href={'https://wa.me/77714177925?text='+encodeURIComponent('Здравствуйте! Хочу оставить отзыв о работе вашей компании.')} target="_blank" rel="noopener noreferrer"><Star aria-hidden="true"/><span>Оставить отзыв <small>(сообщение компании)</small></span></a></nav></div>
+        <div className="home-actions"><Link className="home-button" href="/cases/">Смотреть все работы <Arrow/></Link><div className="home-channel-links"><a href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer"><BrandIcon brand="tiktok"/><b>TikTok <span>@acaservice01</span></b></a><a href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer"><BrandIcon brand="youtube"/><b>YouTube <span>@acahydraulic</span></b></a></div><nav className="home-company-links" aria-label="Компания и отзывы"><Link href="/about/"><Building2 aria-hidden="true"/>О компании</Link><Link href="/contacts/"><MapPin aria-hidden="true"/>Мы на карте</Link><Link href="/reviews/"><MessageSquare aria-hidden="true"/>Отзывы клиентов</Link><a href={'https://wa.me/77714177925?text='+encodeURIComponent('Здравствуйте! Хочу оставить отзыв о работе вашей компании.')} target="_blank" rel="noopener noreferrer"><Star aria-hidden="true"/><span>Оставить отзыв <small>(сообщение компании)</small></span></a></nav></div>
       </div></section>
       <section className="home-resources" aria-labelledby="home-details-title"><div className="home-container">
         <h2 id="home-details-title">Подробности ремонта и подбора</h2><p>Техника теряет мощность, глохнет под нагрузкой или не работает ход? Определим причину и согласуем ремонт. Собственная ремонтная база в Астане. Гарантия на работы — 6 месяцев при соблюдении рекомендаций.</p><a href="#calculator" className="home-text-action">Подготовить запрос на оценку ремонта <Arrow/></a>
