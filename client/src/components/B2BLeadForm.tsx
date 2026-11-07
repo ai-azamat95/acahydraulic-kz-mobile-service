@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { Send, Paperclip, Building2, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { FloatingField, FloatingInput, FloatingTextarea } from '@/components/ui/floating-field';
+import './service-form.css';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { createContactIntentId, trackFormContactIntent } from '@/lib/contactIntent';
@@ -16,6 +15,8 @@ interface B2BLeadFormProps {
 const DIAGNOSTIC_TERMS = 'Стоимость согласуем до выезда';
 
 const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
+  const formId = useId();
+  const fieldId = (name: string) => `${formId}-${name}`;
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -96,94 +97,93 @@ const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto border-2 border-[#FFB800]/20 shadow-xl bg-white dark:bg-zinc-900">
-      <CardHeader className="bg-zinc-50 dark:bg-zinc-800/50 border-b border-zinc-100 dark:border-zinc-800">
-        <CardTitle className="flex items-center gap-2 text-2xl">
-          <Building2 className="text-[#FFB800]" />
+    <Card className="service-lead-form">
+      <CardHeader className="service-lead-form__header">
+        <CardTitle className="service-lead-form__title">
+          <Building2 aria-hidden="true" className="shrink-0 text-[#dfb76c]" />
           Заявка на выездную диагностику
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="service-lead-form__description">
           Укажите технику и место работ. Ремонт и запчасти рассчитываются отдельно после диагностики.
         </CardDescription>
-        <div className="mt-3 rounded-lg border border-[#FFB800]/40 bg-[#FFB800]/10 p-4">
+        <div className="service-lead-form__terms">
           <div className="flex items-center justify-between gap-3 flex-wrap">
-            <span className="font-semibold text-zinc-900 dark:text-white">Выездная диагностика спецтехники</span>
-            <strong className="text-xl text-[#B87900] dark:text-[#FFB800]">{DIAGNOSTIC_TERMS}</strong>
+            <span className="font-semibold">Выездная диагностика спецтехники</span>
+            <strong className="service-lead-form__price">{DIAGNOSTIC_TERMS}</strong>
           </div>
-          <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2">
+          <p className="service-lead-form__description mt-2">
             Диагностика платная. Стоимость зависит от местонахождения и характера неисправности. Стоимость диагностики и выезда согласуем заранее; ремонт и запчасти — отдельно.
           </p>
         </div>
       </CardHeader>
 
-      <CardContent className="p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <CardContent className="service-lead-form__body">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <p className="service-lead-form__description">Поля со звёздочкой * обязательны.</p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2"><Label htmlFor="location">Где находится техника? *</Label><Input id="location" required placeholder="Город, посёлок или объект" value={formData.location} onChange={e => setFormData({...formData, location:e.target.value})} /></div>
-            <div className="space-y-2"><Label htmlFor="model">Марка и модель *</Label><Input id="model" required placeholder="Например, Hitachi ZX330" value={formData.model} onChange={e => setFormData({...formData, model:e.target.value})} /></div>
+            <FloatingInput id={fieldId("location")} name="location" label="Где находится техника? *" autoComplete="address-level2" required placeholder="Город, посёлок или объект" value={formData.location} onChange={e => setFormData({...formData, location:e.target.value})} />
+            <FloatingInput id={fieldId("model")} name="model" label="Марка и модель *" required placeholder="Например, Hitachi ZX330" value={formData.model} onChange={e => setFormData({...formData, model:e.target.value})} />
           </div>
 
-          <details className="rounded border p-3">
-            <summary className="cursor-pointer">Реквизиты компании (необязательно)</summary>
+          <details className="service-lead-form__company">
+            <summary>Реквизиты компании (необязательно)</summary>
             <div className="grid md:grid-cols-2 gap-4 mt-3">
-              <div className="space-y-2"><Label htmlFor="company">Название компании</Label><Input id="company" placeholder="ТОО «СтройМашСервис»" value={formData.company} onChange={e => setFormData({...formData, company:e.target.value})} className="bg-zinc-50 dark:bg-zinc-950" /></div>
-              <div className="space-y-2"><Label htmlFor="bin">БИН (опционально)</Label><Input id="bin" placeholder="Для выставления счета" value={formData.bin} onChange={e => setFormData({...formData, bin:e.target.value})} className="bg-zinc-50 dark:bg-zinc-950" /></div>
+              <FloatingInput id={fieldId("company")} name="company" label="Название компании" autoComplete="organization" placeholder="ТОО «СтройМашСервис»" value={formData.company} onChange={e => setFormData({...formData, company:e.target.value})} />
+              <FloatingInput id={fieldId("bin")} name="bin" label="БИН (опционально)" inputMode="numeric" placeholder="Для выставления счета" value={formData.bin} onChange={e => setFormData({...formData, bin:e.target.value})} />
             </div>
           </details>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2"><Label htmlFor="name">Контактное лицо *</Label><Input id="name" required placeholder="Имя" value={formData.name} onChange={e => setFormData({...formData, name:e.target.value})} className="bg-zinc-50 dark:bg-zinc-950" /></div>
-            <div className="space-y-2"><Label htmlFor="phone">Телефон *</Label><Input id="phone" type="tel" required placeholder="+7 (777) 000-00-00" value={formData.phone} onChange={e => setFormData({...formData, phone:e.target.value})} className="bg-zinc-50 dark:bg-zinc-950" /></div>
+            <FloatingInput id={fieldId("name")} name="name" label="Контактное лицо *" autoComplete="name" required placeholder="Имя" value={formData.name} onChange={e => setFormData({...formData, name:e.target.value})} />
+            <FloatingInput id={fieldId("phone")} name="phone" label="Телефон *" autoComplete="tel" inputMode="tel" type="tel" required placeholder="+7 (777) 000-00-00" value={formData.phone} onChange={e => setFormData({...formData, phone:e.target.value})} />
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2"><Label htmlFor="email">Email (опционально)</Label><Input id="email" type="email" value={formData.email} onChange={e => setFormData({...formData, email:e.target.value})} className="bg-zinc-50 dark:bg-zinc-950" /></div>
-            <div className="space-y-2"><Label htmlFor="whatsapp">WhatsApp (опционально)</Label><Input id="whatsapp" type="tel" value={formData.whatsapp} onChange={e => setFormData({...formData, whatsapp:e.target.value})} className="bg-zinc-50 dark:bg-zinc-950" /></div>
+            <FloatingInput id={fieldId("email")} name="email" label="Email (опционально)" autoComplete="email" type="email" value={formData.email} onChange={e => setFormData({...formData, email:e.target.value})} />
+            <FloatingInput id={fieldId("whatsapp")} name="whatsapp" label="WhatsApp (опционально)" autoComplete="tel" inputMode="tel" type="tel" value={formData.whatsapp} onChange={e => setFormData({...formData, whatsapp:e.target.value})} />
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="equipmentType">Тип техники</Label>
+            <FloatingField id={fieldId("equipmentType")} label="Тип техники" alwaysFloat>
               <Select value={formData.equipmentType} onValueChange={value => setFormData({...formData, equipmentType:value})}>
-                <SelectTrigger id="equipmentType" aria-label="Тип техники" className="bg-zinc-50 dark:bg-zinc-950"><SelectValue placeholder="Выберите тип" /></SelectTrigger>
-                <SelectContent>
+                <SelectTrigger id={fieldId("equipmentType")} aria-label="Тип техники" className="floating-field__control"><SelectValue placeholder="Выберите тип" /></SelectTrigger>
+                <SelectContent className="service-form-options">
                   <SelectItem value="excavator">Экскаватор</SelectItem><SelectItem value="loader">Погрузчик</SelectItem><SelectItem value="crane">Автокран</SelectItem><SelectItem value="bulldozer">Бульдозер</SelectItem><SelectItem value="drilling">Буровая установка</SelectItem><SelectItem value="other">Другое</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="urgency">Срочность</Label>
+            </FloatingField>
+            <FloatingField id={fieldId("urgency")} label="Срочность" alwaysFloat>
               <Select value={formData.urgency} onValueChange={value => setFormData({...formData, urgency:value})}>
-                <SelectTrigger id="urgency" aria-label="Срочность ремонта" className="bg-zinc-50 dark:bg-zinc-950"><SelectValue placeholder="Выберите приоритет" /></SelectTrigger>
-                <SelectContent><SelectItem value="emergency">Срочно</SelectItem><SelectItem value="planned">Плановый ремонт</SelectItem><SelectItem value="maintenance">Техническое обслуживание</SelectItem><SelectItem value="tender">Тендер / Запрос КП</SelectItem></SelectContent>
+                <SelectTrigger id={fieldId("urgency")} aria-label="Срочность ремонта" className="floating-field__control"><SelectValue placeholder="Выберите приоритет" /></SelectTrigger>
+                <SelectContent className="service-form-options"><SelectItem value="emergency">Срочно</SelectItem><SelectItem value="planned">Плановый ремонт</SelectItem><SelectItem value="maintenance">Техническое обслуживание</SelectItem><SelectItem value="tender">Тендер / Запрос КП</SelectItem></SelectContent>
               </Select>
-            </div>
+            </FloatingField>
           </div>
 
-          <div className="space-y-2"><Label htmlFor="problem">Описание проблемы</Label><Textarea id="problem" placeholder="Например: после прогрева падает давление, машина теряет мощность..." className="min-h-[100px] bg-zinc-50 dark:bg-zinc-950" value={formData.problem} onChange={e => setFormData({...formData, problem:e.target.value})} /></div>
+          <FloatingTextarea id={fieldId("problem")} name="problem" label="Описание проблемы" placeholder="Например: после прогрева падает давление, машина теряет мощность..." value={formData.problem} onChange={e => setFormData({...formData, problem:e.target.value})} />
 
-          <div className="flex items-center gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-900/30 text-sm text-blue-700 dark:text-blue-300">
-            <Paperclip className="w-5 h-5 shrink-0" /><div><span className="font-semibold">Фото шильдика и видео неисправности</span><br/>Их можно отправить сразу после перехода в WhatsApp.</div>
+          <div className="service-lead-form__attachment">
+            <Paperclip aria-hidden="true" className="w-5 h-5 shrink-0" /><div><span className="font-semibold">Фото шильдика и видео неисправности</span><br/>Их можно отправить сразу после перехода в WhatsApp.</div>
           </div>
 
-          <label className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-colors ${budgetAccepted ? 'border-green-500/50 bg-green-50 dark:bg-green-950/20' : 'border-amber-300 bg-amber-50 dark:bg-amber-950/20'}`}>
-            <input type="checkbox" checked={budgetAccepted} onChange={e => setBudgetAccepted(e.target.checked)} className="mt-1 h-5 w-5 accent-[#FFB800]" />
+          <label className="service-lead-form__consent" data-accepted={budgetAccepted}>
+            <input type="checkbox" checked={budgetAccepted} onChange={e => setBudgetAccepted(e.target.checked)} className="shrink-0 mt-1 h-5 w-5 accent-[#dfb76c]" aria-describedby={`${formId}-terms`} />
             <div>
-              <div className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-                {budgetAccepted ? <CheckCircle2 className="w-5 h-5 text-green-600" /> : <AlertTriangle className="w-5 h-5 text-amber-600" />}
+              <div className="font-semibold flex items-start gap-2">
+                {budgetAccepted ? <CheckCircle2 aria-hidden="true" className="w-5 h-5 shrink-0 text-green-300" /> : <AlertTriangle aria-hidden="true" className="w-5 h-5 shrink-0 text-[#dfb76c]" />}
                 Условия платной диагностики мне понятны
               </div>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Понимаю, что диагностика платная. Стоимость диагностики и выезда согласуем заранее. Ремонт, запчасти и дополнительные расходы согласуются отдельно.</p>
+              <p id={`${formId}-terms`} className="service-lead-form__description mt-1">Понимаю, что диагностика платная. Стоимость диагностики и выезда согласуем заранее. Ремонт, запчасти и дополнительные расходы согласуются отдельно.</p>
             </div>
           </label>
 
-          <Button type="submit" className="w-full bg-[#FFB800] text-black hover:bg-[#FFB800]/90 font-bold text-lg h-12 disabled:opacity-50" disabled={isSubmitting || !budgetAccepted}>
-            {isSubmitting ? 'Подготовка...' : <span className="flex items-center gap-2">ПОДТВЕРДИТЬ И ПЕРЕЙТИ В WHATSAPP <Send className="w-5 h-5" /></span>}
+          <Button type="submit" className="service-lead-form__submit" disabled={isSubmitting || !budgetAccepted}>
+            {isSubmitting ? 'Подготовка...' : <span className="flex items-center gap-2">ПОДТВЕРДИТЬ И ПЕРЕЙТИ В WHATSAPP <Send aria-hidden="true" className="w-5 h-5 shrink-0" /></span>}
           </Button>
 
-          {!budgetAccepted && <p className="text-xs text-center text-amber-700 dark:text-amber-400">Чтобы продолжить, подтвердите условия платной диагностики.</p>}
-          <p className="text-xs text-center text-muted-foreground">Заявка считается отправленной после отправки подготовленного сообщения в WhatsApp.</p>
-          <p className="text-xs text-center text-muted-foreground">Нажимая кнопку, вы передаёте указанные сведения в WhatsApp для обработки обращения. <a href="/privacy/" className="underline">Политика конфиденциальности</a>.</p>
+          {!budgetAccepted && <p className="service-lead-form__notice">Чтобы продолжить, подтвердите условия платной диагностики.</p>}
+          <p className="service-lead-form__legal">Заявка считается отправленной после отправки подготовленного сообщения в WhatsApp.</p>
+          <p className="service-lead-form__legal">Нажимая кнопку, вы передаёте указанные сведения в WhatsApp для обработки обращения. <a href="/privacy/" className="underline">Политика конфиденциальности</a>.</p>
         </form>
       </CardContent>
     </Card>

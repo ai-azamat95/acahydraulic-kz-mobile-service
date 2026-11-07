@@ -1,0 +1,179 @@
+.service-lead-form {
+  width: 100%;
+  max-width: 672px;
+  margin-inline: auto;
+  padding: 0;
+  gap: 0;
+  background: #1b242c;
+  color: #f0f1f4;
+  border: 1px solid #46535f;
+  border-radius: 16px;
+  box-shadow: none;
+  overflow: hidden;
+}
+.service-lead-form__header {
+  padding: 24px;
+  gap: 12px;
+  background: #222d36;
+  border-bottom: 1px solid #46535f;
+}
+.service-lead-form__title {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: clamp(20px, 3vw, 24px);
+  line-height: 1.3;
+}
+.service-lead-form__description {
+  color: #c0c7ce;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.service-lead-form__terms {
+  padding: 16px;
+  border: 1px solid #8f794f;
+  border-radius: 12px;
+  background: #dfb76c0b;
+}
+.service-lead-form__price {
+  color: #dfb76c;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.service-lead-form__body {
+  padding: 24px;
+}
+.service-lead-form__company {
+  border: 1px solid #65717c;
+  border-radius: 12px;
+  padding: 0 16px;
+}
+.service-lead-form__company summary {
+  min-height: 48px;
+  padding-block: 13px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.service-lead-form__company[open] {
+  padding-bottom: 16px;
+}
+.service-lead-form__company summary:focus-visible,
+.service-lead-form a:focus-visible {
+  outline: 2px solid #dfb76c;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.service-lead-form__attachment {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid #46535f;
+  border-radius: 12px;
+  color: #c5d5e5;
+  background: #24313d;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.service-lead-form .service-lead-form__consent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid #8f794f;
+  border-radius: 12px;
+  color: #f0f1f4;
+  background: #dfb76c0b;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.service-lead-form .service-lead-form__consent[data-accepted="true"] {
+  border-color: #83b49b;
+  background: #83b49b0b;
+}
+.service-lead-form__consent:focus-within {
+  outline: 2px solid #dfb76c;
+  outline-offset: 3px;
+}
+.service-lead-form .service-lead-form__submit {
+  width: 100%;
+  min-height: 52px;
+  height: auto;
+  padding: 14px 16px;
+  white-space: normal;
+  border-radius: 12px;
+  background: #dfb76c;
+  color: #151b20;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.service-lead-form .service-lead-form__submit:hover {
+  background: #eac98e;
+}
+.service-lead-form .service-lead-form__submit:disabled {
+  opacity: 0.55;
+}
+.service-lead-form__notice {
+  font-size: 12px;
+  text-align: center;
+  color: #e3c78f;
+  line-height: 1.6;
+}
+.service-lead-form__legal {
+  font-size: 12px;
+  text-align: center;
+  color: #c0c7ce;
+  line-height: 1.6;
+}
+.home-form-dialog {
+  padding: 16px;
+  border-radius: 20px;
+  overscroll-behavior: contain;
+  scroll-padding-block: 24px;
+}
+.home-form-dialog > [data-slot="dialog-close"] {
+  width: 44px;
+  height: 44px;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #1b242c;
+  opacity: 1;
+}
+.home-form-dialog .service-lead-form__title {
+  padding-right: 12px;
+}
+@media (max-width: 639px) {
+  .home-form-dialog {
+    padding: 12px;
+    max-width: calc(100% - 16px);
+  }
+  .service-lead-form__header,
+  .service-lead-form__body {
+    padding: 20px 16px;
+  }
+  .service-lead-form__terms,
+  .service-lead-form__consent,
+  .service-lead-form__attachment {
+    padding: 12px;
+  }
+}
+/* Keep dismissal reachable while a long form scrolls on a phone. Both items
+   share a grid cell, so the sticky close button adds no empty content row. */
+.home-form-dialog > .service-lead-form {
+  grid-area: 1 / 1;
+}
+.home-form-dialog > [data-slot="dialog-close"] {
+  position: sticky;
+  grid-area: 1 / 1;
+  align-self: start;
+  justify-self: end;
+  margin-top: -8px;
+  margin-right: -8px;
+  z-index: 1;
+}

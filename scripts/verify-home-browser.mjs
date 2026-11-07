@@ -38,7 +38,7 @@ for (const [width,height] of [[360,800],[390,844],[768,1024],[1440,900],[1920,10
  }
  await page.getByRole('button',{name:'Описать поломку',exact:false}).click();
  const dialog=page.getByRole('dialog');await dialog.waitFor();
- assert.ok(await dialog.locator('input#location').isVisible());
+ assert.ok(await dialog.getByLabel('Где находится техника? *', { exact: true }).isVisible());
  assert.ok(await dialog.locator('button[type=submit]').isDisabled());
  const bounds=await dialog.boundingBox();assert.ok(bounds.x>=0 && bounds.x+bounds.width<=width+1);
  await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});
