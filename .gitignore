@@ -117,3 +117,9 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+
+# Checkout runtime database sidecars and local secrets
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+.checkout/

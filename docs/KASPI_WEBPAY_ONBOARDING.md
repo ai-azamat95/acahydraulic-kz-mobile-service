@@ -1,3 +1,5 @@
+> Historical document. Superseded on 2026-10-20 by [Halyk epay sandbox integration](./HALYK_EPAY.md). Kaspi is no longer selected by Checkout; do not use this document to activate payments.
+
 # Kaspi online payment onboarding for ACA Hydraulic
 
 ## Confirmed provider
