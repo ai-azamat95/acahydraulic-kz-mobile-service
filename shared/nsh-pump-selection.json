@@ -1,0 +1,41 @@
+{
+  "modifiedDate": "2026-11-08",
+  "series": [
+    { "id": "nsh-10", "name": "НШ-10" },
+    { "id": "nsh-32", "name": "НШ-32" },
+    { "id": "nsh-50", "name": "НШ-50" },
+    { "id": "nsh-100", "name": "НШ-100" }
+  ],
+  "copy": {
+    "ru": {
+      "heading": "Нужен насос НШ? Выберите серию",
+      "intro": "Откроется запрос в WhatsApp. Пришлите полную маркировку и фото снятого насоса — проверим исполнение и возможность поставки.",
+      "action": "Запросить подбор",
+      "other": "Другая серия или не читается шильдик",
+      "note": "Одного обозначения НШ-32 или НШ-50 недостаточно: сверяем вращение, вал, фланец и порты. Цену, наличие и срок подтверждаем после проверки.",
+      "request": "Здравствуйте! Нужен насос {series} под заказ.",
+      "requestOther": "Здравствуйте! Нужен подбор шестерёнчатого насоса по маркировке или фотографии.",
+      "details": "Модель техники: ____\nПолная маркировка насоса: ____\nГород и количество: ____\nФото шильдика, вала, фланца и портов пришлю в чат.\nПрошу проверить исполнение, вращение, цену и срок поставки."
+    },
+    "kz": {
+      "heading": "НШ сорғысы керек пе? Серияны таңдаңыз",
+      "intro": "WhatsApp-та сұрау ашылады. Толық таңбалауды және ескі сорғының фотосын жіберіңіз — орындалуын және жеткізу мүмкіндігін тексереміз.",
+      "action": "Таңдауды сұрау",
+      "other": "Басқа серия немесе тақтайша оқылмайды",
+      "note": "НШ-32 немесе НШ-50 атауы жеткіліксіз: айналу бағытын, білікті, фланецті және порттарды салыстырамыз. Баға, қолда бар болуы және мерзім тексеруден кейін расталады.",
+      "request": "Сәлеметсіз бе! Тапсырыс бойынша {series} сорғысы керек.",
+      "requestOther": "Сәлеметсіз бе! Таңбалау немесе фото бойынша тісті сорғыны таңдау керек.",
+      "details": "Техника моделі: ____\nСорғының толық таңбалауы: ____\nҚала және саны: ____\nТақтайша, білік, фланец және порттардың фотосын чатқа жіберемін.\nОрындалуын, айналу бағытын, бағасын және жеткізу мерзімін тексеріңіз."
+    },
+    "en": {
+      "heading": "Need an NSh pump? Choose the series",
+      "intro": "Open a WhatsApp enquiry. Send the full marking and photos of the removed pump so we can check the configuration and supply options.",
+      "action": "Request selection",
+      "other": "Another series or an unreadable nameplate",
+      "note": "NSh-32 or NSh-50 alone does not confirm fitment. We check rotation, shaft, flange and ports before confirming price, availability and lead time.",
+      "request": "Hello! I would like to order a {series} pump.",
+      "requestOther": "Hello! I need a gear pump selected by its marking or photos.",
+      "details": "Machine model: ____\nFull pump marking: ____\nCity and quantity: ____\nI will send photos of the nameplate, shaft, flange and ports in the chat.\nPlease check configuration, rotation, price and lead time."
+    }
+  }
+}

@@ -4,6 +4,7 @@ import xcmgSale from '../shared/xcmg-xz200-pump-sale.json' with { type: 'json' }
 import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'json' };
 import phase2ProductCopy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
 import phase3ProductCopy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
+import priorityProductCopy from '../shared/catalog-product-priority-copy.json' with { type: 'json' };
 import pumpBrandHighlights from '../shared/catalog-pump-brand-highlights.json' with { type: 'json' };
 import catalogContentRevisions from '../shared/catalog-content-revisions.json' with { type: 'json' };
 import hydrauvisionProducts from '../shared/catalog-hydrauvision-products.json' with { type: 'json' };
@@ -51,6 +52,7 @@ function productLastmod(product) {
     product.ownerInventory?.confirmedOn,
     phase2ProductCopy[product.handle]?.modifiedDate,
     phase3ProductCopy[product.handle]?.modifiedDate,
+    priorityProductCopy[product.handle]?.modifiedDate,
     productRevisionLastmods.get(String(product.id)),
     catalogProductIsHydraulicPump(product) ? pumpNavigationLastmod : undefined,
   ].filter(Boolean).sort().at(-1);

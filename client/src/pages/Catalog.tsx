@@ -8,6 +8,7 @@ import CatalogDirectory from "@/components/catalog/CatalogDirectory";
 import { BrandPumpShowcase } from "@/components/catalog/BrandPumpShowcase";
 import { PumpBrandNavigation } from "@/components/catalog/PumpBrandNavigation";
 import PumpSupplyOffers, { supplyPumpOffers, pumpSupplyLabels } from "@/components/catalog/PumpSupplyOffers";
+import NshPumpSelection from "@/components/catalog/NshPumpSelection";
 import { pumpCasePath } from "@/content/pumpCases";
 import { catalogBrandFilterHref, catalogCategoryParam, catalogSearchHref } from "@/lib/catalogLinks";
 import { catalogQuickSearchStatus } from "@/lib/catalogAvailability";
@@ -609,6 +610,8 @@ export default function Catalog() {
                   </h1>
                   <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{isLandingPage ? `${language === "ru" ? "Поставка под заказ." : language === "kz" ? "Тапсырыс бойынша." : "Supplied to order."} ${landingDescription}` : copy.pageDescription}</p>
                 </div>
+
+                {categoryLanding?.id === "gear-pumps" && <NshPumpSelection language={language} />}
 
                 <div className="mt-6 flex gap-2 overflow-x-auto pb-1" aria-label={ui.searchType}>
                   {ui.searchModes.map((item) => {

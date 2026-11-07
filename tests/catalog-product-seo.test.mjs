@@ -218,7 +218,7 @@ test('only a current ACA merchant offer is exposed as confirmed supply', () => {
 });
 
 test('the first pump and injector result pages have reviewed Russian product names', () => {
-  assert.equal(Object.keys(priorityCopy).length, 7);
+  assert.equal(Object.keys(priorityCopy).length, 10);
   for (const [handle, content] of Object.entries(priorityCopy)) {
     const product = products.find(item => item.handle === handle);
     assert(product, `${handle}: priority product must exist`);

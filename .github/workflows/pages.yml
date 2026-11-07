@@ -84,6 +84,7 @@ jobs:
           node --test tests/catalog-first-party-images.test.mjs
           node --test tests/catalog-directory.test.mjs
           node --test tests/catalog-selection-guides.test.mjs tests/pump-commercial-links.test.mjs
+          node --test tests/nsh-pump-selection.test.mjs tests/nsh-commercial-publication.test.mjs
           node --test tests/catalog-category-corrections.test.mjs tests/catalog-category-indexes.test.mjs
           node --test tests/catalog-pump-brand-ux.test.mjs tests/pump-product-navigation.test.mjs tests/catalog-commercial-review.test.mjs tests/contact-click-deduplication.test.mjs
           pnpm exec vitest run client/src/lib/catalogLinks.test.ts client/src/lib/caseConversion.test.ts --pool=threads --poolOptions.threads.singleThread
