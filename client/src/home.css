@@ -1,4 +1,5 @@
 /* All redesign rules are scoped to the home route. */
+/* Brightness refinement: scoped colors only; preserve geometry and handlers. */
 @font-face{font-family:'ACA Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/aca-inter-variable.woff2') format('woff2')}
 /* Color refinement is appended below, scoped strictly to .home-v2. */
 .home-v2{--gold:#c19a48;--muted:#a9abb4;background:#0b0e11;color:#c7c7d1;font-family:Inter,Arial,sans-serif;padding-top:64px;padding-bottom:calc(76px + env(safe-area-inset-bottom));isolation:isolate}
@@ -193,5 +194,32 @@
  .home-v2 .home-channel-links svg{padding-right:6px;border-right:1px solid #a5a6ad;width:30px}
  .home-v2 .supply-label strong{font-size:13px}
  .home-v2 .home-globe text{font-size:24px;fill:#d5b775;font-weight:600}
+}
+
+/* Fixed navigation must not pick up the photograph or dark sections below.
+   The logo is CSS geometry + live text (not a filtered raster asset). */
+.home-v2{--gold:#dfb76c;--muted:#d0d2db;color:#e3e4eb;background:#171a20}
+.home-v2 .home-header{background:#1d2228;color:#eceef3;border-bottom-color:#ffffff26}
+.home-v2 .home-brand{color:#f1f2f5}
+.home-v2 .home-mark i{background:#e6bd70}
+.site-quick-nav-home{background:#20262d!important;border-bottom-color:#ffffff26!important}
+.site-quick-nav-home a{color:#e5e7ec!important}
+.site-quick-nav-home a[aria-current=page]{color:#e6bd70!important}
+.home-v2 h1{color:#e7e9ee}
+.home-v2 .home-copy h2{color:#f0f0f5}
+.home-v2 .home-subtitle,.home-v2 .home-origin,.home-v2 .home-warranty{color:var(--muted)}
+.home-v2 .home-stats dd,.home-v2 .home-note,.home-v2 .home-map figcaption,.home-v2 .home-globe figcaption{color:#d0d2d9}
+.home-v2 .home-button,.home-v2 .home-button-secondary,.home-v2 .home-channel-links a,.home-v2 .supply-label,.home-v2 .supply-label strong{color:#e3e4eb}
+.home-v2 .home-button-secondary{border-color:#cdd0d8}
+.home-v2 .home-screen:not(.home-hero){background:linear-gradient(#252a3226,#252a3212 55%,#171a2040),#171a20 url('/images/home/industrial-texture.webp') center/100% 100% no-repeat}
+.home-v2 .home-hero-image img{filter:saturate(.88) brightness(1.12)}
+.home-v2 .home-hero::after{background:linear-gradient(90deg,#111619db,#11161940 65%,#11161912),linear-gradient(0deg,#171a20 2%,transparent 65%)}
+.home-v2 .home-video img{filter:saturate(.88) brightness(1.08)}
+.home-v2 .home-resources,.home-v2 .home-calculator{background:#1a2025}
+.home-v2 .sticky-home{background:#1d2228!important}
+@media(max-width:767px){
+ .home-v2 .home-hero-image{background:#171a20}
+ .home-v2 .home-hero-image img{opacity:.9}
+ .home-v2 .home-hero::after{background:linear-gradient(0deg,#171a20 0%,#171a2070 35%,transparent 70%)}
 }
 
