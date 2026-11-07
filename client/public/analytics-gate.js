@@ -8,6 +8,7 @@
   var ADS_ID = "AW-17847190636";
   var YANDEX_ID = 109131701;
   var TIKTOK_ID = "D6M5H3JC77U9JTU04Q60";
+  var OPENAI_PIXEL_ID = "RAqt8xZo4eBECsuc32zrtP";
   var internal = false;
 
   try {
@@ -269,12 +270,67 @@
     }
   }
 
+
+  function loadOpenAI() {
+    if (!window.oaiq) {
+      var queue = function () { queue.q.push(arguments); };
+      queue.q = [];
+      window.oaiq = queue;
+    }
+    if (!window.__ACA_OPENAI_INITIALIZED__) {
+      // Set consent before init; production logging stays disabled.
+      window.oaiq("consent", true);
+      window.oaiq("init", { pixelId: OPENAI_PIXEL_ID });
+      window.__ACA_OPENAI_INITIALIZED__ = true;
+    } else {
+      window.oaiq("consent", true);
+    }
+    appendScript("aca-openai-pixel", "https://bzrcdn.openai.com/sdk/oaiq.min.js");
+  }
+
+  var OPENAI_CONTACT_EVENTS = {
+    whatsapp_click: true,
+    phone_click: true,
+    form_whatsapp_click: true,
+    checkout_whatsapp_click: true
+  };
+
+  function measureOpenAIContact(name) {
+    if (window.__ACA_ANALYTICS_EXCLUDE__ ||
+        !window.__ACA_COOKIE_CONSENT__?.marketing ||
+        !window.__ACA_OPENAI_INITIALIZED__ ||
+        !Object.prototype.hasOwnProperty.call(OPENAI_CONTACT_EVENTS, name)) return;
+    try {
+      // No URL query, message text, contact data, price or invented lead value.
+      window.oaiq("measure", "custom", { type: "custom" }, {
+        custom_event_name: name
+      });
+    } catch (_) {}
+  }
+
+  // One capture listener covers both static and React-managed anchors.
+  // Do not mirror GA/TikTok events, which could count the same click twice.
+  document.addEventListener("click", function (event) {
+    if (event.isTrusted !== true) return;
+    var target = event.target;
+    var link = target && target.closest ? target.closest("a[href]") : null;
+    if (!link) return;
+    var href = link.getAttribute("href") || "";
+    if (/^tel:/i.test(href)) measureOpenAIContact("phone_click");
+    else if (/^https:\/\/wa\.me\//i.test(href)) measureOpenAIContact("whatsapp_click");
+  }, true);
+
+  // Programmatic WhatsApp opens happen only after their form validates.
+  window.addEventListener("aca:openai-contact-intent", function (event) {
+    measureOpenAIContact(event.detail);
+  });
+
   function clearTrackingCookies(consent) {
     if (!document.cookie) return;
     var knownPrefixes = [];
     if (!consent.analytics) knownPrefixes.push("_ga", "_ym_");
     if (!consent.marketing) {
-      knownPrefixes.push("_gcl_", "_ttp", "_tt_enable_cookie", "ttcsid");
+      knownPrefixes.push("_gcl_", "_ttp", "_tt_enable_cookie", "ttcsid", "__oppref", "__obref");
     }
     var host = window.location.hostname || "";
     document.cookie.split(";").forEach(function (part) {
@@ -321,11 +377,15 @@
 
       if (consent.marketing) {
         loadTikTok();
+        loadOpenAI();
       } else if (window.ttq && window.ttq.revokeConsent) {
         window.ttq.revokeConsent();
       }
     }
 
+    if (!consent.marketing && window.__ACA_OPENAI_INITIALIZED__) {
+      try { window.oaiq("consent", false); } catch (_) {}
+    }
     if (!consent.analytics || !consent.marketing) clearTrackingCookies(consent);
     dispatchConsentChange(consent);
   }
