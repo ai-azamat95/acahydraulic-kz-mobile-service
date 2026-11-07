@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { ArrowRight, MapPin, Play, ShieldCheck, Wrench, Truck, Settings, Package, Building2, MessageSquare, Star } from 'lucide-react';
 import BrandIcon from './BrandIcon';
@@ -22,6 +22,7 @@ const Arrow = () => <ArrowRight aria-hidden="true"/>;
 
 export default function Home() {
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+  const formTriggerRef = useRef<HTMLButtonElement>(null);
   return <div className="home-v2">
     <SEO title={seoConfig.home.title} description={seoConfig.home.description} keywords={seoConfig.home.keywords} canonical={seoConfig.home.canonical}/>
     <header className="home-header"><div className="home-header-inner">
@@ -35,7 +36,7 @@ export default function Home() {
         <div className="home-screen-inner">
           <div className="home-copy"><h1 id="home-title">ACA HYDRAULIC</h1><p className="home-lead">Полный комплекс услуг<br/>по ремонту вашей спецтехники</p><p className="home-subtitle">Аварийный, плановый<br/>и капитальный ремонт</p></div>
           <dl className="home-stats">{stats.map(([value,label,Icon])=><div key={value}><dt><Icon aria-hidden="true"/><strong>{value}</strong></dt><dd>{label}</dd></div>)}</dl>
-          <div className="home-hero-actions"><p>Выезд на объект заказчика по Казахстану</p><a className="home-button" href={phone}>Вызвать специалиста <Arrow/></a><button className="home-text-action" onClick={()=>setIsFormDialogOpen(true)}>Описать поломку <Arrow/></button><p className="home-note">Работаем по договору. Стоимость согласуем заранее. Диагностика платная.</p><p className="home-note">Диагностика и ремонт гидравлики спецтехники. Астана, Казахстан.</p></div>
+          <div className="home-hero-actions"><p>Выезд на объект заказчика по Казахстану</p><a className="home-button" href={phone}>Вызвать специалиста <Arrow/></a><button ref={formTriggerRef} className="home-text-action" onClick={()=>setIsFormDialogOpen(true)}>Описать поломку <Arrow/></button><p className="home-note">Работаем по договору. Стоимость согласуем заранее. Диагностика платная.</p><p className="home-note">Диагностика и ремонт гидравлики спецтехники. Астана, Казахстан.</p></div>
         </div>
       </section>
       <section className="home-screen home-repair" id="home-repair" aria-labelledby="repair-title"><div className="home-screen-inner home-split">
@@ -62,7 +63,7 @@ export default function Home() {
       <section id="calculator" className="home-calculator"><div className="home-container"><h2>Предварительная оценка ремонта</h2><p>Диагностика платная. Стоимость диагностики и выезда согласуем заранее. Ремонт и запчасти — отдельно.</p><CostCalculator/></div></section>
     </main>
     <HomeFooter/>
-    <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}><DialogContent className="home-form-dialog bg-zinc-900 sm:max-w-[600px] max-h-[85dvh] overflow-y-auto"><DialogTitle className="sr-only">Заявка на ремонт</DialogTitle><DialogDescription className="sr-only">Укажите технику, место работ и контакты, чтобы подготовить сообщение для WhatsApp.</DialogDescription><B2BLeadForm/></DialogContent></Dialog>
+    <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}><DialogContent onCloseAutoFocus={event => { event.preventDefault(); formTriggerRef.current?.focus(); }} className="home-form-dialog bg-zinc-900 sm:max-w-[600px] max-h-[85dvh] overflow-y-auto"><DialogTitle className="sr-only">Заявка на ремонт</DialogTitle><DialogDescription className="sr-only">Укажите технику, место работ и контакты, чтобы подготовить сообщение для WhatsApp.</DialogDescription><B2BLeadForm/></DialogContent></Dialog>
     <StickyMobileBar variant="home"/>
   </div>;
 }
