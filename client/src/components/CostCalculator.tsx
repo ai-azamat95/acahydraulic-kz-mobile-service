@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { FloatingField, FloatingInput, FloatingTextarea } from "@/components/ui/floating-field";
 import { createContactIntentId, trackFormContactIntent } from "@/lib/contactIntent";
 import {
   AlertTriangle,
@@ -173,6 +173,8 @@ function trackTikTok(eventName: string, params: Record<string, unknown> = {}) {
 }
 
 export default function CostCalculator() {
+  const formId = useId();
+  const fieldId = (name: string) => `${formId}-${name}`;
   const [step, setStep] = useState(1);
   const [selection, setSelection] = useState<Selection>(initialSelection);
   const [budgetRejected, setBudgetRejected] = useState(false);
@@ -347,28 +349,27 @@ export default function CostCalculator() {
             <h4 className="text-2xl text-white mb-2 font-semibold">Марка и модель техники</h4>
             <p className="text-gray-400 mb-7">Если модели нет в подсказках, просто введите её вручную.</p>
 
-            <label className="block text-sm font-semibold text-gray-300 mb-2">Марка *</label>
-            <select
+            <FloatingField id={fieldId("brand")} label="Марка *" alwaysFloat className="mb-5">
+            <select id={fieldId("brand")}
               value={selection.brand}
               onChange={(e) => {
                 update("brand", e.target.value);
                 update("model", "");
               }}
-              className="w-full h-12 rounded-lg bg-[#1F1F1F] border-2 border-[#3A3A3A] text-white px-4 focus:outline-none focus:border-[#FFB800] mb-5"
+              className="floating-field__control"
             >
               <option value="">Выберите марку</option>
               {brands.map((brand) => (
                 <option key={brand} value={brand}>{brand}</option>
               ))}
             </select>
+            </FloatingField>
 
-            <label className="block text-sm font-semibold text-gray-300 mb-2">Модель *</label>
-            <Input
+            <FloatingInput id={fieldId("model")} label="Модель *"
               value={selection.model}
               onChange={(e) => update("model", e.target.value)}
               list="equipment-models"
               placeholder="Например: SY365H, CAT 330, ZX330, PC300"
-              className="h-12 bg-[#1F1F1F] border-2 border-[#3A3A3A] text-white placeholder:text-gray-500 focus-visible:ring-[#FFB800]"
             />
             <datalist id="equipment-models">
               {modelSuggestions.map((model) => <option key={model} value={model} />)}
@@ -413,23 +414,22 @@ export default function CostCalculator() {
               })}
             </div>
 
-            <label className="block text-sm font-semibold text-gray-300 mb-2">Какой узел подозреваете?</label>
-            <select
+            <FloatingField id={fieldId("component")} label="Какой узел подозреваете?" alwaysFloat className="mb-5">
+            <select id={fieldId("component")}
               value={selection.component}
               onChange={(e) => update("component", e.target.value)}
-              className="w-full h-12 rounded-lg bg-[#1F1F1F] border-2 border-[#3A3A3A] text-white px-4 focus:outline-none focus:border-[#FFB800] mb-5"
+              className="floating-field__control"
             >
               <option value="">Выберите, если знаете</option>
               {componentOptions.map((item) => <option key={item} value={item}>{item}</option>)}
             </select>
+            </FloatingField>
 
-            <label className="block text-sm font-semibold text-gray-300 mb-2">Коротко опишите неисправность</label>
-            <textarea
+            <FloatingTextarea label="Коротко опишите неисправность"
               value={selection.details}
               onChange={(e) => update("details", e.target.value)}
               placeholder="Например: после 40 минут работы теряет мощность, давление падает, стрела поднимается медленно..."
               rows={3}
-              className="w-full rounded-lg bg-[#1F1F1F] border-2 border-[#3A3A3A] text-white placeholder:text-gray-500 p-4 focus:outline-none focus:border-[#FFB800]"
             />
 
             <div className="mt-7 flex justify-between gap-3">
@@ -450,22 +450,21 @@ export default function CostCalculator() {
             <h4 className="text-2xl text-white mb-2 font-semibold">Где находится техника?</h4>
             <p className="text-gray-400 mb-7">ACA Hydraulic выезжает на объекты по Казахстану.</p>
 
-            <label className="block text-sm font-semibold text-gray-300 mb-2">Город / регион *</label>
-            <select
+            <FloatingField id={fieldId("city")} label="Город / регион *" alwaysFloat className="mb-5">
+            <select id={fieldId("city")}
               value={selection.city}
               onChange={(e) => update("city", e.target.value)}
-              className="w-full h-12 rounded-lg bg-[#1F1F1F] border-2 border-[#3A3A3A] text-white px-4 focus:outline-none focus:border-[#FFB800] mb-5"
+              className="floating-field__control"
             >
               <option value="">Выберите город</option>
               {cities.map((city) => <option key={city} value={city}>{city}</option>)}
             </select>
+            </FloatingField>
 
-            <label className="block text-sm font-semibold text-gray-300 mb-2">Объект / район / ближайший населённый пункт</label>
-            <Input
+            <FloatingInput id={fieldId("locationDetails")} label="Объект / район / ближайший населённый пункт" alwaysFloat fieldClassName="floating-field--long"
               value={selection.locationDetails}
               onChange={(e) => update("locationDetails", e.target.value)}
               placeholder="Например: карьер, 80 км от Караганды"
-              className="h-12 bg-[#1F1F1F] border-2 border-[#3A3A3A] text-white placeholder:text-gray-500 focus-visible:ring-[#FFB800]"
             />
 
             <div className="mt-8 flex justify-between gap-3">
@@ -557,22 +556,18 @@ export default function CostCalculator() {
 
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">Контактное лицо</label>
-                <Input
+                <FloatingInput id={fieldId("name")} label="Контактное лицо" autoComplete="name"
                   value={selection.name}
                   onChange={(e) => update("name", e.target.value)}
                   placeholder="Ваше имя"
-                  className="h-12 bg-[#1F1F1F] border-2 border-[#3A3A3A] text-white placeholder:text-gray-500 focus-visible:ring-[#FFB800]"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">Телефон / WhatsApp *</label>
-                <Input
+                <FloatingInput id={fieldId("phone")} label="Телефон / WhatsApp *" type="tel" autoComplete="tel"
                   value={selection.phone}
                   onChange={(e) => update("phone", e.target.value)}
                   placeholder="+7 7__ ___ __ __"
                   inputMode="tel"
-                  className="h-12 bg-[#1F1F1F] border-2 border-[#3A3A3A] text-white placeholder:text-gray-500 focus-visible:ring-[#FFB800]"
                 />
               </div>
             </div>

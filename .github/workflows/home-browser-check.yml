@@ -10,6 +10,10 @@ on:
       - 'client/public/images/home/aca-hydraulic-reference.svg'
       - 'client/src/components/ui/dialog.tsx'
       - 'client/src/components/ui/select.tsx'
+      - 'client/src/components/ui/floating-field.*'
+      - 'client/src/components/service-form.css'
+      - 'scripts/verify-floating-fields.mjs'
+      - 'tests/floating-fields.test.mjs'
       - 'client/src/components/SiteQuickNav.tsx'
       - 'scripts/verify-dialog-layers.mjs'
       - 'tests/dialog-layers.test.mjs'
@@ -116,6 +120,10 @@ jobs:
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/aca-ui/node_modules/playwright/index.mjs
         run: node scripts/verify-dialog-layers.mjs
+      - name: Check floating labels and service intake
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/aca-ui/node_modules/playwright/index.mjs
+        run: node scripts/verify-floating-fields.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
