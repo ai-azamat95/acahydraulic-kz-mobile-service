@@ -7,6 +7,13 @@ on:
       - 'client/src/pages/Home.tsx'
       - 'client/src/components/home/**'
       - 'client/src/home.css'
+      - 'client/public/images/home/aca-hydraulic-reference.svg'
+      - 'client/src/components/ui/dialog.tsx'
+      - 'client/src/components/ui/select.tsx'
+      - 'client/src/components/SiteQuickNav.tsx'
+      - 'scripts/verify-dialog-layers.mjs'
+      - 'tests/dialog-layers.test.mjs'
+      - 'tests/home-brand-artwork.test.mjs'
       - 'scripts/verify-home-*.mjs'
       - 'client/src/components/B2BLeadForm.tsx'
       - 'client/src/components/CostCalculator.tsx'
@@ -105,6 +112,10 @@ jobs:
             server.close();
           }
           JS
+      - name: Check modal layers, dropdowns and keyboard dismissal
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/aca-ui/node_modules/playwright/index.mjs
+        run: node scripts/verify-dialog-layers.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

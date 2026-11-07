@@ -16,3 +16,12 @@ test('same brand SVG components are used in header and work channels',()=>{
  for(const url of ['https://www.tiktok.com/@acaservice01','https://www.youtube.com/@acahydraulic']) assert.equal(home.split(url).length-1,2);
  const css=read('client/src/home.css');assert.match(css,/min-width:44px;min-height:44px/);assert.match(css,/home-social>a:focus-visible/);assert.match(css,/home-channel-links>a:hover/);assert.match(css,/home-header\{background:#1d2228/);
 });
+
+test('logo uses the homepage accent and text palette without changing its paths', () => {
+ const svg=read('client/public/images/home/aca-hydraulic-reference.svg');
+ const css=read('client/src/home.css');
+ assert.match(svg, /<g fill="#dfb76c">/);
+ assert.match(svg, /<g fill="#e3e4eb">/);
+ assert.match(css, /--gold:#dfb76c;--muted:#d0d2db;color:#e3e4eb/);
+ assert.doesNotMatch(svg, /#e6bd70|#f1f2f5/);
+});
