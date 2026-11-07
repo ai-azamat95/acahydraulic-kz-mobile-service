@@ -56,7 +56,12 @@ try {
   await page.evaluate(()=>document.fonts.ready);
   const logo=page.locator('.home-brand-logo');
   assert.equal(await logo.count(),2,'header/footer share logo');
-  assert.ok(await logo.evaluateAll(es=>es.every(e=>e.complete&&e.naturalWidth>0)));
+  // Footer artwork is lazy-loaded. Bring each image into view before decoding,
+  // rather than assuming networkidle eagerly loads off-screen images.
+  for (const image of await logo.all()) {
+   await image.scrollIntoViewIfNeeded();
+   await image.evaluate(async el=>{ await el.decode(); if(!el.naturalWidth) throw new Error('Logo image failed to load'); });
+  }
   const trigger=page.getByRole('button',{name:'Описать поломку',exact:true});
   await trigger.click();
   const dialog=page.locator('[data-slot="dialog-content"]'); await dialog.waitFor();
