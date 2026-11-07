@@ -3,32 +3,94 @@
     "heading": "Заказать гидронасос или сначала проверить гидросистему?",
     "text": "Если номер снятого насоса известен, начинайте с подбора по OEM и полному индексу исполнения. Если причина только в слабой работе или перегреве техники, симптомы ещё не доказывают неисправность насоса: сначала проверяют давление, управление и утечки в контуре. Покупку нового агрегата и ремонт существующего сравнивают после диагностики.",
     "links": [
-      { "href": "/catalog/pgh4-3x-050re11vu2-internal-gear-pump-rexroth-r901147104/", "label": "Шестерёнчатый насос Bosch Rexroth R901147104 / PGH4" },
-      { "href": "/catalog/pump-danfoss-83073386/", "label": "Аксиально-поршневой насос Danfoss 83073386 / D1P-130" },
-      { "href": "/blog/zapchasti-po-nomeru-i-shildiku/", "label": "Какие номера и фото нужны для подбора гидронасоса" },
-      { "href": "/blog/remont-ili-zamena-gidronasosa/", "label": "Ремонт или замена гидронасоса: что проверить до покупки" },
-      { "href": "/cases/sany-sy365h-zamena-gidronasosa-video/", "label": "Видео работ ACA Hydraulic: замена K5V160DT на SANY SY365H" },
-      { "href": "/catalog/category/piston-pumps/", "label": "Аксиально-поршневые насосы по маркировке" },
-      { "href": "/catalog/category/gear-pumps/", "label": "Шестерёнчатые насосы: вал, фланец и вращение" },
-      { "href": "/services/hydraulic-pumps/", "label": "Диагностика и ремонт гидронасосов" },
-      { "href": "/blog/padaet-davlenie-gidravliki-ekskavatora/", "label": "Почему падает давление гидравлики экскаватора" }
+      {
+        "href": "/catalog/pgh4-3x-050re11vu2-internal-gear-pump-rexroth-r901147104/",
+        "label": "Шестерёнчатый насос Bosch Rexroth R901147104 / PGH4"
+      },
+      {
+        "href": "/catalog/pump-danfoss-83073386/",
+        "label": "Аксиально-поршневой насос Danfoss 83073386 / D1P-130"
+      },
+      {
+        "href": "/catalog/31n9-10010-excavator-hydraulic-pump-k3v180dtp-9c69-17t-for-r320-7-r335-7/",
+        "label": "K3V180DTP-9C69-17T / 31N9-10010: подбор для R320-7 и R335-7"
+      },
+      {
+        "href": "/catalog/new-hydraulic-pump-k5v200dth-9nob-for-volvo-ec460-excavator/",
+        "label": "K5V200DTH-9NOB: сверка исполнения для Volvo EC460"
+      },
+      {
+        "href": "/blog/zapchasti-po-nomeru-i-shildiku/",
+        "label": "Какие номера и фото нужны для подбора гидронасоса"
+      },
+      {
+        "href": "/blog/remont-ili-zamena-gidronasosa/",
+        "label": "Ремонт или замена гидронасоса: что проверить до покупки"
+      },
+      {
+        "href": "/cases/sany-sy365h-zamena-gidronasosa-video/",
+        "label": "Видео работ ACA Hydraulic: замена K5V160DT на SANY SY365H"
+      },
+      {
+        "href": "/catalog/category/piston-pumps/",
+        "label": "Аксиально-поршневые насосы по маркировке"
+      },
+      {
+        "href": "/catalog/category/gear-pumps/",
+        "label": "Насосы НШ-10/32/50/100 и другие шестерёнчатые насосы"
+      },
+      {
+        "href": "/services/hydraulic-pumps/",
+        "label": "Диагностика и ремонт гидронасосов"
+      },
+      {
+        "href": "/blog/padaet-davlenie-gidravliki-ekskavatora/",
+        "label": "Почему падает давление гидравлики экскаватора"
+      }
     ]
   },
   "gear-pumps": {
     "heading": "Как выбрать шестерёнчатый насос по исполнению",
     "text": "Номер серии или обозначение НШ не заменяет проверку конкретного исполнения. При подборе сопоставляют рабочий объём, направление вращения, вал, фланец и присоединения. Фотографируйте шильдик и обе стороны снятого узла. Если старый насос потерял производительность, перед заменой нужно установить причину и проверить состояние масла и фильтрации.",
     "links": [
-      { "href": "/catalog/category/hydraulic-pumps/", "label": "Все гидронасосы для спецтехники" },
-      { "href": "/services/hydraulic-pumps/", "label": "Проверка насоса перед решением о ремонте или замене" }
+      {
+        "href": "/catalog/hydraulic-gear-pump-705-51-20170-for-komatsu-wheel-loader-wa150-1-wa200-1-wa250-1/",
+        "label": "705-51-20170: подбор для Komatsu WA150-1, WA200-1 и WA250-1"
+      },
+      {
+        "href": "/catalog/category/hydraulic-pumps/",
+        "label": "Все гидронасосы для спецтехники"
+      },
+      {
+        "href": "/services/hydraulic-pumps/",
+        "label": "Проверка насоса перед решением о ремонте или замене"
+      }
     ]
   },
   "piston-pumps": {
     "heading": "Почему для поршневого насоса нужен полный индекс",
     "text": "Насосы одной серии могут различаться регулятором, управлением, датчиками, валом и расположением портов. Для заказа пришлите читаемое фото шильдика, модель и серийный номер машины, а также фотографии подключений. Механическая установка подходящего агрегата не означает, что настройка и запуск уже выполнены: эти работы согласуются отдельно.",
     "links": [
-      { "href": "/catalog/category/pump-parts/", "label": "Комплектующие для ремонта гидронасоса" },
-      { "href": "/services/hydraulic-pumps/", "label": "Дефектовка и ремонт поршневых гидронасосов" },
-      { "href": "/cases/xcmg-xz200-ustanovka-gidronasosa-803001730/", "label": "XCMG XZ200: реальная поставка и установка насоса 803001730" }
+      {
+        "href": "/catalog/31n9-10010-excavator-hydraulic-pump-k3v180dtp-9c69-17t-for-r320-7-r335-7/",
+        "label": "K3V180DTP-9C69-17T / 31N9-10010: подбор для R320-7 и R335-7"
+      },
+      {
+        "href": "/catalog/new-hydraulic-pump-k5v200dth-9nob-for-volvo-ec460-excavator/",
+        "label": "K5V200DTH-9NOB: сверка исполнения для Volvo EC460"
+      },
+      {
+        "href": "/catalog/category/pump-parts/",
+        "label": "Комплектующие для ремонта гидронасоса"
+      },
+      {
+        "href": "/services/hydraulic-pumps/",
+        "label": "Дефектовка и ремонт поршневых гидронасосов"
+      },
+      {
+        "href": "/cases/xcmg-xz200-ustanovka-gidronasosa-803001730/",
+        "label": "XCMG XZ200: реальная поставка и установка насоса 803001730"
+      }
     ]
   },
   "pump-parts": {

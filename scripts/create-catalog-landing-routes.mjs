@@ -3,6 +3,7 @@ import path from 'node:path';
 import { catalogProductName } from '../shared/catalog-product-seo.mjs';
 import { groupCatalogModels } from '../shared/catalog-directory.mjs';
 import { compactSeoDescription, formatSeoTitle } from '../shared/seo-meta.mjs';
+import { renderNshPumpSelection } from '../shared/nsh-pump-selection.mjs';
 
 import {
   catalogBrandLandings,
@@ -68,6 +69,9 @@ function landingLastmod(page) {
   const correctionDate = page.type === 'category' && correctedCategoryIds.has(page.slug)
     ? catalogContentRevisions.categoryCorrections.modifiedDate
     : undefined;
+  const commercialDate = page.type === 'category' && catalogContentRevisions.pumpCommercialSeo.categories.includes(page.slug)
+    ? catalogContentRevisions.pumpCommercialSeo.modifiedDate
+    : undefined;
   return [
     lastmod,
     catalogContentRevisions.sitewideSeo.modifiedDate,
@@ -75,6 +79,7 @@ function landingLastmod(page) {
     pumpCategoryDate,
     hydrauvisionDate,
     correctionDate,
+    commercialDate,
   ].filter(Boolean).sort().at(-1);
 }
 const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
@@ -180,6 +185,7 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   <nav aria-label="Хлебные крошки"><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a> / ${escapeHtml(title)}</nav>
   <h1>${escapeHtml(title)}</h1>
   <p>${escapeHtml(intro || description)}</p>
+  ${type === 'category' && slug === 'gear-pumps' ? renderNshPumpSelection() : ''}
   <p>Найдено позиций: ${matches.length}. Цена, наличие и срок подтверждаются после проверки OEM-номера, модели, серийного номера и исполнения детали.</p>
   ${selectionGuide}
   ${brandNavigation}

@@ -201,7 +201,9 @@ test("changed pump landing pages publish their actual content revision date", ()
     "utf8",
   );
   for (const [route, modifiedDate] of [
-    ["/catalog/category/hydraulic-pumps/", catalogContentRevisions.sitewideSeo.modifiedDate],
+    ["/catalog/category/hydraulic-pumps/", catalogContentRevisions.pumpCommercialSeo.modifiedDate],
+    ["/catalog/category/gear-pumps/", catalogContentRevisions.pumpCommercialSeo.modifiedDate],
+    ["/catalog/category/piston-pumps/", catalogContentRevisions.pumpCommercialSeo.modifiedDate],
     ["/catalog/brand/rexroth/", catalogContentRevisions.sitewideSeo.modifiedDate],
     ["/catalog/brand/danfoss/", catalogContentRevisions.sitewideSeo.modifiedDate],
   ]) {
@@ -245,6 +247,7 @@ test("catalog publication revisions cover affected category and brand landings",
     const modifiedDate = [
       catalogContentRevisions.hydrauvisionProducts.modifiedDate,
       correctedCategories.has(category) ? catalogContentRevisions.categoryCorrections.modifiedDate : undefined,
+      catalogContentRevisions.pumpCommercialSeo.categories.includes(category) ? catalogContentRevisions.pumpCommercialSeo.modifiedDate : undefined,
       catalogContentRevisions.sitewideSeo.modifiedDate,
     ].filter(Boolean).sort().at(-1);
     assert.match(
@@ -261,9 +264,12 @@ test("catalog publication revisions cover affected category and brand landings",
     );
   }
   for (const category of correctedCategories) {
+    const modifiedDate = catalogContentRevisions.pumpCommercialSeo.categories.includes(category)
+      ? catalogContentRevisions.pumpCommercialSeo.modifiedDate
+      : catalogContentRevisions.sitewideSeo.modifiedDate;
     assert.match(
       sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${catalogContentRevisions.sitewideSeo.modifiedDate}</lastmod>`),
+      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${modifiedDate}</lastmod>`),
       category,
     );
   }
