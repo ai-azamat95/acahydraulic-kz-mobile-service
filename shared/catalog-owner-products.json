@@ -186,6 +186,80 @@
     ]
   },
   {
+    "id": "ACA-DANFOSS-90M075-90-420",
+    "handle": "danfoss-90m075-90-420-fixed-displacement-hydraulic-motor",
+    "title": "Danfoss Series 90 90M075 fixed displacement hydraulic motor 90-420",
+    "catalogTitle": "Гидромотор Danfoss Series 90 90M075, Model No. 90-420",
+    "fitment": "Точное исполнение подтверждено по шильдику: 90M075NC0N8N0C6W00NNN0000E6, Model No. 90-420, S/N C261802422. Модель техники на предоставленных фотографиях не указана. Перед заказом сверяем полный код старого гидромотора, серийный номер машины, рабочий объём, вал, фланец, порты A/B, промывочный клапан и настройку подпитки.",
+    "sku": "90-420",
+    "brand": "Danfoss",
+    "model": "90M075NC0N8N0C6W00NNN0000E6",
+    "mpn": "90-420",
+    "category": "hydraulic-motors",
+    "categories": [
+      "hydraulic-motors"
+    ],
+    "productType": "Фиксированный аксиально-поршневой гидромотор 75 см³/об",
+    "tags": [
+      "Danfoss",
+      "Sauer-Danfoss",
+      "Series 90",
+      "90M075",
+      "90M075NC0N8N0C6W00NNN0000E6",
+      "90-M-075-NC-0-N-8-N-0-C6-W-00-NNN-00-00-E6",
+      "90-420",
+      "90420",
+      "C261802422",
+      "75 cc",
+      "75 см3",
+      "фиксированный гидромотор",
+      "аксиально-поршневой гидромотор"
+    ],
+    "catalogDescription": "Фиксированный аксиально-поршневой гидромотор Danfoss Series 90 с рабочим объёмом 75 см³/об. Полное исполнение 90M075NC0N8N0C6W00NNN0000E6, Model No. 90-420 и S/N C261802422 считаны с шильдика. По коду исполнения: шлицевой вал C6, контур промывки W и настройка E6. Цена и наличие подтверждаются по запросу.",
+    "catalogSelection": "Для подбора пришлите фото шильдика старого гидромотора, марку, модель и серийный номер техники. Сверяем полный код 90M075NC0N8N0C6W00NNN0000E6 без сокращения, Model No. 90-420, рабочий объём 75 см³/об, шлицевой вал C6, фланец, расположение и резьбы портов A/B, промывочный клапан, настройку подпитки и направление установки. Совпадение только серии 90M075 не подтверждает взаимозаменяемость.",
+    "catalogPriceNote": "Цена и фактическое наличие по запросу после проверки полного кода исполнения и совместимости.",
+    "catalogImageLabel": "Реальные фотографии гидромотора и шильдика",
+    "catalogImageCaption": "Шесть фотографий показывают гидромотор, шлицевой вал, фланец, порты и шильдик Danfoss с кодом 90M075NC0N8N0C6W00NNN0000E6, Model No. 90-420 и S/N C261802422.",
+    "available": false,
+    "minPriceKzt": null,
+    "maxPriceKzt": null,
+    "ownerEvidence": {
+      "heading": "Подтверждённая маркировка и исполнение",
+      "facts": [
+        "Шильдик: Danfoss, Model No. 90-420, Model Code 90M075NC0N8N0C6W00NNN0000E6, Serial No. C261802422.",
+        "Маркировка 90M075 соответствует фиксированному аксиально-поршневому гидромотору Series 90 рабочим объёмом 75 см³/об.",
+        "Код C6 обозначает шлицевой вал 21 зуб, 16/32; W — контур промывки; E6 — настройка 16 бар, 7 л/мин.",
+        "На шильдике указано Made in P.R.C.; Danfoss A/S, Nordborg, Denmark."
+      ],
+      "photoCaption": "Реальные фотографии гидромотора, вала, фланца, портов и шильдика; цену, состояние, наличие и совместимость подтверждаем отдельно.",
+      "photoAlt": "Гидромотор Danfoss Series 90 90M075, Model No. 90-420"
+    },
+    "imageUrl": "/catalog-assets/danfoss-90m075-90-420/01-main.webp",
+    "gallery": [
+      "/catalog-assets/danfoss-90m075-90-420/01-main.webp",
+      "/catalog-assets/danfoss-90m075-90-420/02-ports.webp",
+      "/catalog-assets/danfoss-90m075-90-420/03-shaft.webp",
+      "/catalog-assets/danfoss-90m075-90-420/04-nameplate.webp",
+      "/catalog-assets/danfoss-90m075-90-420/05-nameplate-angle.webp",
+      "/catalog-assets/danfoss-90m075-90-420/06-overview.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-DANFOSS-90M075-90-420",
+        "title": "Danfoss Series 90 90M075 / 90-420",
+        "sku": "90-420",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Фиксированный гидромотор 75 см³/об",
+          "Полный код по шильдику",
+          "Цена и наличие по запросу",
+          "Совместимость по полному исполнению"
+        ]
+      }
+    ]
+  },
+  {
     "id": "ACA-XCMG-803001730-XZ200E",
     "handle": "803001730-hydraulic-pump-xcmg-xz200-xz200e-hdd",
     "title": "XCMG 803001730 hydraulic pump for XZ200 XZ200E HDD drilling rig",
