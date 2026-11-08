@@ -113,6 +113,79 @@
     ]
   },
   {
+    "id": "ACA-KAWASAKI-K7V63DTP-29100601-4585",
+    "handle": "kawasaki-kpm-k7v63dtp1x9r-9n0e-2av-original-hydraulic-pump",
+    "title": "Kawasaki KPM K7V63DTP1X9R-9N0E-2AV original hydraulic pump 29100601-4585",
+    "catalogTitle": "Оригинальный гидронасос Kawasaki KPM K7V63DTP1X9R-9N0E-2AV, Part No. 29100601-4585",
+    "fitment": "Точное исполнение подтверждено по шильдику и сертификату: K7V63DTP1X9R-9N0E-2AV, Part No. 29100601-4585. Модель техники на предоставленных материалах не указана. Перед заказом сверяем полный код старого насоса, модель и серийный номер машины, направление вращения, вал, фланец, порты, регуляторы, разъёмы и комплектацию.",
+    "sku": "29100601-4585",
+    "brand": "Kawasaki",
+    "model": "K7V63DTP1X9R-9N0E-2AV",
+    "mpn": "29100601-4585",
+    "category": "piston-pumps",
+    "categories": [
+      "hydraulic-pumps",
+      "piston-pumps"
+    ],
+    "productType": "Тандемный аксиально-поршневой гидронасос переменной производительности",
+    "tags": [
+      "Kawasaki",
+      "KPM",
+      "Kawasaki Heavy Industries",
+      "K7V63DTP1X9R-9N0E-2AV",
+      "K7V63DTP",
+      "K7V63DT",
+      "9N0E-2AV",
+      "29100601-4585",
+      "291006014585",
+      "18628158",
+      "Made in Japan",
+      "оригинальный гидронасос",
+      "тандемный насос",
+      "аксиально-поршневой насос"
+    ],
+    "catalogDescription": "Оригинальный тандемный аксиально-поршневой гидронасос KPM / Kawasaki Heavy Industries. Полное исполнение K7V63DTP1X9R-9N0E-2AV и Part No. 29100601-4585 подтверждены шильдиком и сертификатом с одинаковым серийным номером 18628158. Цена и наличие подтверждаются по запросу.",
+    "catalogSelection": "Для подбора пришлите фотографию шильдика старого насоса, марку, модель и серийный номер техники. Сверяем полный код K7V63DTP1X9R-9N0E-2AV без сокращения, Part No. 29100601-4585, направление вращения, вал, фланец, расположение и размеры портов, регуляторы, датчики, разъёмы и комплектацию. Совпадение только серии K7V63 не подтверждает взаимозаменяемость.",
+    "catalogPriceNote": "Цена и фактическое наличие по запросу после проверки полного исполнения и совместимости.",
+    "catalogImageLabel": "Реальные фотографии оригинального насоса",
+    "catalogImageCaption": "Фотографии показывают насос KPM / Kawasaki, его шильдик и сертификат с Model Code K7V63DTP1X9R-9N0E-2AV, Part No. 29100601-4585 и S/N 18628158.",
+    "available": false,
+    "minPriceKzt": null,
+    "maxPriceKzt": null,
+    "ownerEvidence": {
+      "heading": "Подтверждённая маркировка и происхождение",
+      "facts": [
+        "Шильдик: KPM, TYPE K7V63DTP1X9R-9N0E-2AV, NO. 18628158.",
+        "Сертификат Kawasaki Heavy Industries: Model Code K7V63DTP1X9R-9N0E-2AV, Part No. 29100601-4585, S/No. 18628158.",
+        "На шильдике и сертификате указано Made in Japan; серийный номер совпадает."
+      ],
+      "photoCaption": "Реальные фотографии насоса, шильдика и сертификата; цену, наличие и совместимость подтверждаем отдельно.",
+      "photoAlt": "Оригинальный гидронасос Kawasaki KPM K7V63DTP1X9R-9N0E-2AV, Part No. 29100601-4585"
+    },
+    "imageUrl": "/catalog-assets/kawasaki-k7v63dtp-9n0e-2av/01-main.webp",
+    "gallery": [
+      "/catalog-assets/kawasaki-k7v63dtp-9n0e-2av/01-main.webp",
+      "/catalog-assets/kawasaki-k7v63dtp-9n0e-2av/02-rear-side.webp",
+      "/catalog-assets/kawasaki-k7v63dtp-9n0e-2av/03-nameplate.webp",
+      "/catalog-assets/kawasaki-k7v63dtp-9n0e-2av/04-certificate.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-KAWASAKI-K7V63DTP-29100601-4585",
+        "title": "Kawasaki KPM K7V63DTP1X9R-9N0E-2AV",
+        "sku": "29100601-4585",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Оригинальный KPM / Kawasaki",
+          "Made in Japan",
+          "Цена и наличие по запросу",
+          "Совместимость по полному коду исполнения"
+        ]
+      }
+    ]
+  },
+  {
     "id": "ACA-XCMG-803001730-XZ200E",
     "handle": "803001730-hydraulic-pump-xcmg-xz200-xz200e-hdd",
     "title": "XCMG 803001730 hydraulic pump for XZ200 XZ200E HDD drilling rig",
