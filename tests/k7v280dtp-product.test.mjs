@@ -19,6 +19,7 @@ test('K7V280DTP has one inquiry-only card without invented OEM, stock or manufac
   assert.equal(item.brand, null);
   assert.equal(item.mpn, undefined);
   assert.equal(catalogProductBrandLanding(item), undefined);
+  assert.equal(item.category, 'piston-pumps');
   assert.deepEqual(item.categories, ['hydraulic-pumps', 'piston-pumps']);
   assert.equal(item.available, false);
   assert.equal(item.minPriceKzt, null);
