@@ -50,6 +50,7 @@ function productLastmod(product) {
     lastmod,
     catalogContentRevisions.sitewideSeo.modifiedDate,
     product.ownerInventory?.confirmedOn,
+    product.catalogModifiedOn,
     phase2ProductCopy[product.handle]?.modifiedDate,
     phase3ProductCopy[product.handle]?.modifiedDate,
     priorityProductCopy[product.handle]?.modifiedDate,
