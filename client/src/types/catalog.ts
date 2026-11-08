@@ -5,6 +5,7 @@ export type CatalogIndexProduct = {
   title: string;
   catalogTitle?: string;
   catalogSupplement?: string;
+  catalogModifiedOn?: string;
   applicationBrand?: string;
   catalogDescription?: string;
   catalogSelection?: string;
