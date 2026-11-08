@@ -67,6 +67,8 @@ test('static route has price on request, photos, selection, canonical and revisi
   assert.match(html, /промышленного оборудования с открытым контуром/);
   assert(html.includes(catalogProductSelection(product)));
   for (const photo of product.gallery) assert(html.includes(photo));
+  assert(html.includes(product.catalogQualityNote));
+  assert.doesNotMatch(html, /Доступны оригинальные, OEM и проверенные аналоговые варианты/);
   assert.doesNotMatch(html, /data-static-product-schema|"@type":"Product"|"@type":"Offer"|InStock/);
   const sitemap = fs.readFileSync('dist/public/sitemap-products.xml', 'utf8');
   const entry = sitemap.match(/<url>[\s\S]*?<\/url>/g).find(block => block.includes(canonical));

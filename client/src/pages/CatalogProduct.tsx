@@ -499,7 +499,7 @@ export default function CatalogProduct() {
           <ShieldCheck className="h-7 w-7 shrink-0 text-[#FFC000]" aria-hidden="true" />
           <div>
             <h2 className="text-xl font-bold">{copy.qualityTitle}</h2>
-            <p className="mt-2 leading-relaxed text-gray-400">{copy.qualityText}</p>
+            <p className="mt-2 leading-relaxed text-gray-400">{product.catalogQualityNote || copy.qualityText}</p>
             <Link href="/delivery-and-returns/" className="mt-3 inline-flex min-h-11 items-center text-[#FFC000] underline">{language === "ru" ? "Доставка, оплата и возврат" : language === "kz" ? "Жеткізу, төлем және қайтару" : "Delivery, payment and returns"}</Link>
           </div>
         </section>

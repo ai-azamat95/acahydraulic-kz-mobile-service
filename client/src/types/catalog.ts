@@ -10,6 +10,7 @@ export type CatalogIndexProduct = {
   catalogDescription?: string;
   catalogSelection?: string;
   catalogPriceNote?: string;
+  catalogQualityNote?: string;
   catalogImageCaption?: string;
   catalogImageLabel?: string;
   catalogVideos?: {
