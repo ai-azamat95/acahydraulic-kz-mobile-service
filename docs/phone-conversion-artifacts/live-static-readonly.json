@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-11-10T19:58:42.510759+00:00",
+  "pages": [
+    {
+      "url": "https://acahydraulic.kz/",
+      "status": 200,
+      "sha256": "a5ce4737145ca458d0f9be2fb0ee3a96b3bc7321bd6f227c5bfe94e24da76c83",
+      "direct_phone_label_present": true,
+      "analytics_exclusion_on_direct_present": false,
+      "consent_gate_before_tracker": true,
+      "tracker_sha256": "a24a0db396fdaf522a801e650bebc88afcb7ade6b4d563e14bbef9fda742bd36"
+    },
+    {
+      "url": "https://acahydraulic.kz/catalog/brand/rexroth/",
+      "status": 200,
+      "sha256": "3108f4e67098b40d4be4e8e78361b9493d9e00cbfc996673b184b2bade73123d",
+      "direct_phone_label_present": true,
+      "analytics_exclusion_on_direct_present": false,
+      "consent_gate_before_tracker": true,
+      "tracker_sha256": "a24a0db396fdaf522a801e650bebc88afcb7ade6b4d563e14bbef9fda742bd36"
+    },
+    {
+      "url": "https://acahydraulic.kz/analytics-gate.js",
+      "status": 200,
+      "sha256": "d785b545dc1cb305ffb92aa3a0e0653dbb4be7cd453f6278e96100d9352b23a9",
+      "ga4_id_present": true,
+      "marketing_only_google_supported": true
+    }
+  ]
+}

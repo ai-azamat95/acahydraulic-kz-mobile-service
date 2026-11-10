@@ -1,0 +1,112 @@
+{
+  "checks": [
+    {
+      "route": "/",
+      "consent": "no-choice",
+      "googleEvents": [],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/",
+      "consent": "denied",
+      "googleEvents": [],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/",
+      "consent": "analytics-only",
+      "googleEvents": [
+        "acahydraulic_phone_click"
+      ],
+      "yandexEvents": 1
+    },
+    {
+      "route": "/",
+      "consent": "marketing-only",
+      "googleEvents": [
+        "conversion"
+      ],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/",
+      "consent": "both",
+      "googleEvents": [
+        "acahydraulic_phone_click"
+      ],
+      "yandexEvents": 1
+    },
+    {
+      "route": "/",
+      "consent": "withdrawn",
+      "googleEvents": [],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/",
+      "consent": "excluded",
+      "googleEvents": [],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/",
+      "consent": "both",
+      "scenario": "two distinct clicks preserved"
+    },
+    {
+      "route": "/catalog/brand/rexroth/",
+      "consent": "no-choice",
+      "googleEvents": [],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/catalog/brand/rexroth/",
+      "consent": "denied",
+      "googleEvents": [],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/catalog/brand/rexroth/",
+      "consent": "analytics-only",
+      "googleEvents": [
+        "acahydraulic_phone_click"
+      ],
+      "yandexEvents": 1
+    },
+    {
+      "route": "/catalog/brand/rexroth/",
+      "consent": "marketing-only",
+      "googleEvents": [
+        "conversion"
+      ],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/catalog/brand/rexroth/",
+      "consent": "both",
+      "googleEvents": [
+        "acahydraulic_phone_click"
+      ],
+      "yandexEvents": 1
+    },
+    {
+      "route": "/catalog/brand/rexroth/",
+      "consent": "withdrawn",
+      "googleEvents": [],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/catalog/brand/rexroth/",
+      "consent": "excluded",
+      "googleEvents": [],
+      "yandexEvents": 0
+    },
+    {
+      "route": "/catalog/brand/rexroth/",
+      "consent": "both",
+      "scenario": "two distinct clicks preserved"
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

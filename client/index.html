@@ -219,7 +219,11 @@
         } catch (_) {}
         try { if (window.__ACA_COOKIE_CONSENT__.analytics) window.__ACA_TRACK_YANDEX_GOAL__?.(contactGoal, contactParams); } catch (_) {}
         try {
-          if (kind === 'phone' && window.__ACA_COOKIE_CONSENT__.marketing && typeof window.gtag === 'function') {
+          // The existing GA4 phone event is imported into Google Ads.
+          // Do not also send the direct Ads action for the same click.
+          // Keep direct measurement when only marketing consent is granted,
+          // since GA4 is intentionally not loaded in that consent state.
+          if (kind === 'phone' && window.__ACA_COOKIE_CONSENT__.marketing && !window.__ACA_COOKIE_CONSENT__.analytics && typeof window.gtag === 'function') {
             window.gtag('event', 'conversion', {send_to: 'AW-17847190636/MNy9COmB06QcEOyImr5C'});
           }
         } catch (_) {}
