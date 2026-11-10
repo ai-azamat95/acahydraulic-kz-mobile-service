@@ -26,14 +26,13 @@ test('structured data is valid JSON and does not advertise a nonexistent search'
 
 const html = fs.readFileSync('client/index.html', 'utf8');
 const tracker = html.split('<!-- Contact-intent tracker.')[1].match(/<script>([\s\S]*?)<\/script>/)[1];
-test('contact intent is tracked once; only phone immediately converts; no personal query data', () => {
+test('contact intent is tracked once through GA4 when analytics is allowed; no personal query data', () => {
   for (const href of ['tel:+77714177925', 'https://wa.me/77714177925?text=PRIVATE_CLIENT_DATA']) {
     let listener; const calls = [];
     vm.runInNewContext(tracker, {document:{addEventListener:(_, fn) => listener = fn}, window:{gtag:(...args) => calls.push(args), __ACA_COOKIE_CONSENT__:{analytics:true, marketing:true}}});
     listener({target:{closest:() => ({getAttribute:() => href})}});
-    const isPhone = href.startsWith('tel:');
-    assert.equal(calls.length, isPhone ? 2 : 1);
-    assert.equal(calls.filter(c => c[1] === 'conversion').length, isPhone ? 1 : 0);
+    assert.equal(calls.length, 1);
+    assert.equal(calls.filter(c => c[1] === 'conversion').length, 0);
     assert.ok(!JSON.stringify(calls).includes('PRIVATE_CLIENT_DATA'));
   }
 });
@@ -42,6 +41,7 @@ test('contact intent respects analytics and marketing consent categories', () =>
     [{analytics:false, marketing:false}, []],
     [{analytics:true, marketing:false}, ['acahydraulic_phone_click']],
     [{analytics:false, marketing:true}, ['conversion']],
+    [{analytics:true, marketing:true}, ['acahydraulic_phone_click']],
   ]) {
     let listener;
     const events = [];

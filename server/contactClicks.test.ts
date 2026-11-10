@@ -112,6 +112,68 @@ describe('consented contact clicks (no network or vendor SDK)', () => {
     });
   }
 
+  for (const consent of choices) {
+    it(`phone uses one Ads measurement source per click: ${JSON.stringify(consent)}`, () => {
+      const f = setup(consent);
+      f.click({ href: 'tel:+77714177925' });
+      const expectedEvents = consent?.analytics
+        ? ['acahydraulic_phone_click']
+        : consent?.marketing ? ['conversion'] : [];
+      expect(f.gtag.mock.calls.map(call => call[1])).toEqual(expectedEvents);
+      expect(f.yandexGoal).toHaveBeenCalledTimes(consent?.analytics ? 1 : 0);
+      expect(f.conversions()).toEqual(consent?.marketing && !consent?.analytics
+        ? [['event', 'conversion', { send_to: ADS_PHONE }]] : []);
+      expect(f.track).not.toHaveBeenCalled();
+    });
+  }
+
+  it('phone routing follows consent changes and does not replay earlier clicks', () => {
+    const f = setup();
+    for (const consent of choices) {
+      f.window.__ACA_COOKIE_CONSENT__ = consent;
+      f.gtag.mockClear(); f.yandexGoal.mockClear();
+      expect(f.gtag).not.toHaveBeenCalled();
+      f.click({ href: 'tel:+77714177925' });
+      expect(f.gtag.mock.calls.map(call => call[1])).toEqual(consent?.analytics
+        ? ['acahydraulic_phone_click'] : consent?.marketing ? ['conversion'] : []);
+    }
+    f.window.__ACA_COOKIE_CONSENT__ = { analytics: false, marketing: false };
+    f.gtag.mockClear(); f.yandexGoal.mockClear();
+    f.click({ href: 'tel:+77714177925' });
+    expect(f.gtag).not.toHaveBeenCalled();
+    expect(f.yandexGoal).not.toHaveBeenCalled();
+  });
+
+  it('keeps distinct phone clicks instead of time-based or session-wide suppression', () => {
+    const f = setup({ analytics: true, marketing: true });
+    f.click({ href: 'tel:+77714177925' });
+    f.click({ href: 'tel:+77714177925' });
+    expect(f.gtag.mock.calls.map(call => call[1])).toEqual([
+      'acahydraulic_phone_click', 'acahydraulic_phone_click',
+    ]);
+    expect(f.conversions()).toEqual([]);
+  });
+
+  it('excluded phone traffic never reaches either measurement source', () => {
+    for (const consent of choices) {
+      const f = setup(consent, true);
+      f.click({ href: 'tel:+77714177925' });
+      expect(f.gtag).not.toHaveBeenCalled();
+      expect(f.yandexGoal).not.toHaveBeenCalled();
+    }
+  });
+
+  it('a missing/throwing Google tracker does not block phone navigation or Yandex', () => {
+    for (const consent of choices) {
+      for (const gtag of [undefined, () => { throw Error('blocked'); }]) {
+        const f = setup(consent);
+        f.window.gtag = gtag;
+        expect(() => f.click({ href: 'tel:+77714177925' })).not.toThrow();
+        expect(f.yandexGoal).toHaveBeenCalledTimes(consent?.analytics ? 1 : 0);
+      }
+    }
+  });
+
   it('stops both new events immediately after consent withdrawal', () => {
     const f = setup({ analytics: true, marketing: true });
     f.click(catalogAttributes);
@@ -143,8 +205,8 @@ describe('consented contact clicks (no network or vendor SDK)', () => {
     expect(f.conversions()).toEqual([]);
   });
 
-  it('keeps the phone label unchanged and does not send form Ads conversions for catalog clicks', () => {
-    const f = setup({ analytics: true, marketing: true });
+  it('keeps the direct phone label for marketing-only consent without a GA4 import', () => {
+    const f = setup({ analytics: false, marketing: true });
     f.click({ href: 'tel:+77714177925' });
     expect(f.conversions()).toEqual([['event', 'conversion', { send_to: ADS_PHONE }]]);
     expect(f.track).not.toHaveBeenCalled();
