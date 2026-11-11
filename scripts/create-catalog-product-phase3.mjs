@@ -7,6 +7,9 @@ import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { t
 import pilotCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
 import phase2Copy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
 import reviewedCopy from '../shared/catalog-product-copy.json' with { type: 'json' };
+import archivedPhase3Copy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
+import priorityCopy from '../shared/catalog-product-priority-copy.json' with { type: 'json' };
+import ownerProducts from '../shared/catalog-owner-products.json' with { type: 'json' };
 import { catalogCategoryCorrection } from '../shared/catalog-category-corrections.mjs';
 import imageManifest from '../client/public/catalog-data/catalog-image-manifest.json' with { type: 'json' };
 import {
@@ -222,9 +225,18 @@ function buildPhase3Description(product, family, primaryCode) {
 
 export function createPhase3Copy(products = loadProducts()) {
   const byHandle = new Map(products.map(product => [product.handle, product]));
+  // A newer manual owner review supersedes its old supplier review through the
+  // priority layer. Preserve that historical slot instead of reviewing a new
+  // unrelated product merely to fill its quota.
+  const archivedOwnerCopy = Object.fromEntries(Object.entries(archivedPhase3Copy).filter(([handle, content]) =>
+    priorityCopy[handle]?.modifiedDate > content.modifiedDate
+    && ownerProducts.some(owner => owner.handle === handle && owner.ownerEvidence
+      && owner.id === byHandle.get(handle)?.id)));
+  const quotas = { ...phase3Quotas };
+  for (const content of Object.values(archivedOwnerCopy)) quotas[content.reviewFamily] -= 1;
   const raw = createCatalogProductCopy(products, {
-    quotas: phase3Quotas,
-    excludedCopy: previousCopy,
+    quotas,
+    excludedCopy: { ...previousCopy, ...archivedOwnerCopy },
     allowedHandlesByFamily: phase3AllowedHandles,
     excludedHandles: rejectedPhase3Handles,
     modifiedDate: phase3ModifiedDate,
@@ -233,7 +245,7 @@ export function createPhase3Copy(products = loadProducts()) {
     candidatePredicate: product => !catalogCategoryCorrection(product.id) && hasHonestPhase3PrimaryImage(product),
   });
 
-  return Object.fromEntries(Object.entries(raw).map(([handle, content]) => {
+  const currentCopy = Object.fromEntries(Object.entries(raw).map(([handle, content]) => {
     const product = byHandle.get(handle);
     const family = Object.entries(phase3AllowedHandles).find(([, handles]) => handles.has(handle))?.[0]
       || Object.keys(phase3Quotas).find(candidate => content.selectionCategory === candidate);
@@ -247,6 +259,13 @@ export function createPhase3Copy(products = loadProducts()) {
       modifiedDate: phase3ModifiedDate,
     }];
   }));
+  if (!Object.keys(archivedOwnerCopy).length) return currentCopy;
+  const mergedCopy = { ...currentCopy, ...archivedOwnerCopy };
+  const handles = [
+    ...Object.keys(archivedPhase3Copy).filter(handle => Object.hasOwn(mergedCopy, handle)),
+    ...Object.keys(currentCopy).filter(handle => !Object.hasOwn(archivedPhase3Copy, handle)),
+  ];
+  return Object.fromEntries(handles.map(handle => [handle, mergedCopy[handle]]));
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
