@@ -78,6 +78,8 @@ const categoryIcons: Record<(typeof partCategories)[number]["id"], typeof Gauge>
   "engine-rebuild-kits": Settings,
   "fuel-injectors": Fuel,
   "fuel-pumps": Fuel,
+  "turbochargers": Fan,
+  "air-compressors": Gauge,
   "fuel-common-rails": Fuel,
   "air-conditioning": Fan,
   "diagnostic-tools": ScanLine,
@@ -410,6 +412,8 @@ export default function Catalog() {
   const landingCategoryId = routeCategory || (!routeBrand && !routeModel ? category : "");
   const categoryLanding = catalogCategoryLandings.find((item) => item.id === landingCategoryId);
   const categorySeo = categorySeoContent(categoryLanding?.id);
+  const parentLanding = catalogCategoryLandings.find(item => item.id === categoryLanding?.parentId);
+  const childLandings = catalogCategoryLandings.filter(item => item.parentId === (parentLanding?.id || categoryLanding?.id) && item.parentId);
   const selectionGuide = categorySelectionGuide(categoryLanding?.id) || brandSelectionGuide(routeBrand?.slug);
   const landingPath = categoryLanding
     ? `/catalog/category/${categoryLanding.id}`
@@ -558,7 +562,7 @@ export default function Catalog() {
             })),
           },
         }}
-        breadcrumbs={isLandingPage ? [{ name: "Каталог запчастей", url: "/catalog" }, { name: landingTitle, url: landingPath }] : [{ name: "Каталог запчастей", url: "/catalog" }]}
+        breadcrumbs={isLandingPage ? [{ name: "Каталог запчастей", url: "/catalog" }, ...(parentLanding ? [{ name: parentLanding.title, url: `/catalog/category/${parentLanding.id}/` }] : []), { name: landingTitle, url: landingPath }] : [{ name: "Каталог запчастей", url: "/catalog" }]}
       />
 
       <header className="aca-catalog-header sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
@@ -845,6 +849,12 @@ export default function Catalog() {
               return <a key={section.id} href={isLandingPage ? `/catalog/#section-${section.id}` : `#section-${section.id}`} aria-current={activeSection?.id === section.id ? "location" : undefined}><Icon aria-hidden="true" />{section[language]}</a>;
             })}
           </nav>
+          {childLandings.length > 0 && <nav className="aca-section-nav" aria-label="Подразделы двигателя" data-engine-hierarchy>
+            {parentLanding && <Link href="/catalog/category/engine-fuel/">{partCategories.find(item => item.id === 'engine-fuel')?.[language]}</Link>}
+            {childLandings.map(child => <Link key={child.id} href={`/catalog/category/${child.id}/`} aria-current={child.id === categoryLanding?.id ? 'page' : undefined}>
+              {partCategories.find(item => item.id === child.id)?.[language] || child.title} · {categoryStats[child.id]?.count ?? 0}
+            </Link>)}
+          </nav>}
           {!isLandingPage && catalogSections.map(section => {
             const SectionIcon = sectionIcons[section.id as keyof typeof sectionIcons];
             return <section key={section.id} id={`section-${section.id}`} className="aca-category-section" aria-labelledby={`section-title-${section.id}`} data-catalog-section={section.id}>

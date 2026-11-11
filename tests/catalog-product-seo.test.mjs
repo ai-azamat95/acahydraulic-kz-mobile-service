@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { applyOwnerSale } from '../scripts/catalog-owner-sales.mjs';
+import engineTaxonomy from '../shared/catalog-engine-taxonomy.json' with { type: 'json' };
 import test from 'node:test';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -152,7 +153,9 @@ test('phase-three Russian catalogue cohort is deterministic, distinct and eviden
     assert.equal(new Set(values).size, values.length, `phase-three ${field} values must be unique`);
   }
 
-  const productByHandle = new Map(products.map(product => [product.handle, product]));
+  // Validate historical copy against its original reviewed taxonomy; current navigation is checked separately.
+  const priorCategories = new Map(engineTaxonomy.map(row => [row.id, row.previousCategories]));
+  const productByHandle = new Map(products.map(product => [product.handle, priorCategories.has(product.id) ? { ...product, categories: priorCategories.get(product.id) } : product]));
   const codeOwners = new Map();
   for (const handle of Object.keys(copyBeforePhase3)) {
     const product = productByHandle.get(handle);

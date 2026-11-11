@@ -57,6 +57,7 @@ function productLastmod(product) {
     priorityProductCopy[product.handle]?.modifiedDate,
     turbochargerProductCopy[product.handle] ? catalogContentRevisions.turbochargerSeo.modifiedDate : undefined,
     productRevisionLastmods.get(String(product.id)),
+    (product.categories || [product.category]).includes('engine-fuel') ? catalogContentRevisions.engineTaxonomy.modifiedDate : undefined,
     catalogProductIsHydraulicPump(product) ? pumpNavigationLastmod : undefined,
   ].filter(Boolean).sort().at(-1);
 }
@@ -140,7 +141,9 @@ function productPage(product) {
   const isCanonicalProduct = canonicalHandle === product.handle;
   const productSeo = catalogProductSeo(product);
   const productCategories = catalogProductCategories(product);
-  const primaryCategory = productCategories.find(category => category.id === product.category);
+  const primaryCategory = productCategories.find(category => category.parentId === 'engine-fuel') || productCategories.find(category => category.id === product.category);
+  const parentCategory = productCategories.find(category => category.id === primaryCategory?.parentId);
+  const breadcrumbCategories = [...(parentCategory ? [parentCategory] : []), ...(primaryCategory ? [primaryCategory] : [])];
   const isHydraulicPump = catalogProductIsHydraulicPump(product);
   const productBrandLanding = catalogProductBrandLanding(product);
   const inStock = product.ownerInventory?.availability === 'in_stock';
@@ -205,28 +208,26 @@ function productPage(product) {
       url: canonical,
     },
   }) : null;
-  const breadcrumbSchema = inStock ? JSON.stringify({
+  const breadcrumbSchema = (inStock || (product.categories || [product.category]).includes('engine-fuel')) ? JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Главная', item: `${baseUrl}/` },
       { '@type': 'ListItem', position: 2, name: 'Каталог запчастей', item: `${baseUrl}/catalog/` },
-      ...(primaryCategory ? [{
-        '@type': 'ListItem',
-        position: 3,
-        name: primaryCategory.title,
-        item: `${baseUrl}/catalog/category/${primaryCategory.id}/`,
-      }] : []),
+      ...breadcrumbCategories.map((category, index) => ({
+        '@type': 'ListItem', position: index + 3, name: category.title,
+        item: `${baseUrl}/catalog/category/${category.id}/`,
+      })),
       {
         '@type': 'ListItem',
-        position: primaryCategory ? 4 : 3,
+        position: breadcrumbCategories.length + 3,
         name: productSeo.name,
         item: canonical,
       },
     ],
   }) : null;
   const fallback = `<main aria-label="${escapeAttr(productSeo.name)}">
-  <p><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a></p>
+  <nav aria-label="Хлебные крошки"><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a> / ${breadcrumbCategories.map(category => `<a href="/catalog/category/${category.id}/">${escapeHtml(category.title)}</a>`).join(" / ")} / ${escapeHtml(productSeo.name)}</nav>
   <nav aria-label="Разделы каталога">${productCategories.map(category => `<a href="/catalog/category/${category.id}/">${escapeHtml(category.title)}</a>`).join(' · ')}</nav>
   <h1>${escapeHtml(productSeo.name)}</h1>
   ${productSeo.name !== product.title ? `<p lang="en">${escapeHtml(product.title)}</p>` : ''}

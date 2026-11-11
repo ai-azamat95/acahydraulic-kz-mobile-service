@@ -1,3 +1,4 @@
+import engineTaxonomy from '../shared/catalog-engine-taxonomy.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -379,6 +380,9 @@ export function createCatalogProductCopy(products, {
 }
 
 export function createPhase2Copy(products = loadProducts()) {
+  // Preserve the reviewed editorial cohort independently from navigation changes.
+  const priorCategories = new Map(engineTaxonomy.map(row => [row.id, row.previousCategories]));
+  products = products.map(product => priorCategories.has(product.id) ? { ...product, categories: priorCategories.get(product.id) } : product);
   return createCatalogProductCopy(products, {
     quotas: phase2Quotas,
     excludedCopy: existingCopy,
