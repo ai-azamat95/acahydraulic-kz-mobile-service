@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import engineTaxonomy from '../shared/catalog-engine-taxonomy.json' with { type: 'json' };
 import merchantCopy from '../shared/catalog-product-merchant-copy.json' with { type: 'json' };
 import pilotCopy from '../shared/catalog-product-pilot-copy.json' with { type: 'json' };
 import phase2Copy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
@@ -221,6 +222,9 @@ function buildPhase3Description(product, family, primaryCode) {
 }
 
 export function createPhase3Copy(products = loadProducts()) {
+  // This is a historical editorial cohort: navigation taxonomy must not rotate reviewed metadata.
+  const priorCategories = new Map(engineTaxonomy.map(row => [row.id, row.previousCategories]));
+  products = products.map(product => priorCategories.has(product.id) ? { ...product, categories: priorCategories.get(product.id) } : product);
   const byHandle = new Map(products.map(product => [product.handle, product]));
   const raw = createCatalogProductCopy(products, {
     quotas: phase3Quotas,

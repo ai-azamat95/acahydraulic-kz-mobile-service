@@ -169,7 +169,8 @@ export default function CatalogProduct() {
   const productSeo = catalogProductSeo(product, language);
   const productCategories = catalogProductCategories(product);
   const primaryCategory = productCategories.find(category => category.id === product.category);
-  const breadcrumbCategories = inStock && primaryCategory ? [primaryCategory] : productCategories.slice(0, 1);
+  const engineChild = productCategories.find(category => category.parentId === 'engine-fuel');
+  const breadcrumbCategories = engineChild ? [productCategories.find(category => category.id === 'engine-fuel')!, engineChild] : inStock && primaryCategory ? [primaryCategory] : productCategories.slice(0, 1);
   const isHydraulicPump = catalogProductIsHydraulicPump(product);
   const productBrandLanding = catalogProductBrandLanding(product);
   const canonicalHandle = catalogCanonicalAliases[product.handle] || product.handle;

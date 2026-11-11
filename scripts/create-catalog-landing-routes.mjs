@@ -80,6 +80,7 @@ function landingLastmod(page) {
     hydrauvisionDate,
     correctionDate,
     commercialDate,
+    page.type === 'category' && catalogContentRevisions.engineTaxonomy.categories.includes(page.slug) ? catalogContentRevisions.engineTaxonomy.modifiedDate : undefined,
     page.type === 'category' && page.slug === 'engine-fuel' ? catalogContentRevisions.turbochargerSeo.modifiedDate : undefined,
   ].filter(Boolean).sort().at(-1);
 }
@@ -155,6 +156,12 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   const canonical = `${baseUrl}${pathName}`;
   const metaTitle = formatSeoTitle(title);
   const metaDescription = compactSeoDescription(description);
+  const category = type === 'category' ? catalogCategoryLandings.find(item => item.id === slug) : null;
+  const parent = catalogCategoryLandings.find(item => item.id === category?.parentId);
+  const children = category ? catalogCategoryLandings.filter(item => item.parentId === (parent?.id || category.id)) : [];
+  const hierarchy = children.length ? `<nav data-engine-hierarchy aria-label="Подразделы двигателя">${parent ? `<a href="/catalog/category/${parent.id}/">${escapeHtml(parent.title)}</a> · ` : ''}${children.map(child => `<a href="/catalog/category/${child.id}/">${escapeHtml(child.title)}</a>`).join(' · ')}</nav>` : '';
+  const breadcrumbs = [ { name: 'Каталог запчастей', item: `${baseUrl}/catalog/` }, ...(parent ? [{name:parent.title,item:`${baseUrl}/catalog/category/${parent.id}/`}] : []), {name:title,item:canonical} ];
+  const breadcrumbSchema = JSON.stringify({'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:breadcrumbs.map((item,index)=>({'@type':'ListItem',position:index+1,...item}))});
   const itemList = matches;
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
@@ -183,7 +190,8 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   <details><summary>Как подтверждается совместимость?</summary><p>Сопоставляем OEM-номер, модель и серийный номер техники, исполнение и фотографии узла. Совпадение только по внешнему виду не считается подтверждением.</p></details>
   <details><summary>Когда будут известны цена и срок?</summary><p>После проверки номера и комплектации уточняем доступный вариант поставки, актуальную цену и срок. До сверки эти данные не фиксируем.</p></details></section>` : '';
   const fallback = `<main aria-label="${escapeAttr(title)}">
-  <nav aria-label="Хлебные крошки"><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a> / ${escapeHtml(title)}</nav>
+  <nav aria-label="Хлебные крошки"><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a> / ${parent ? `<a href="/catalog/category/${parent.id}/">${escapeHtml(parent.title)}</a> / ` : ''}${escapeHtml(title)}</nav>
+  ${hierarchy}
   <h1>${escapeHtml(title)}</h1>
   <p>${escapeHtml(intro || description)}</p>
   ${type === 'category' && slug === 'gear-pumps' ? renderNshPumpSelection() : ''}
@@ -208,7 +216,7 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:title["'])[^>]*>/i, `<meta name="twitter:title" content="${escapeAttr(metaTitle)}">`);
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:description["'])[^>]*>/i, `<meta name="twitter:description" content="${escapeAttr(metaDescription)}">`);
   html = setTag(html, /<meta(?=[^>]*\b(?:name|property)=["']twitter:url["'])[^>]*>/i, `<meta name="twitter:url" content="${escapeAttr(canonical)}">`);
-  html = html.replace('</head>', `<script type="application/ld+json" data-static-collection-schema data-rh="true">${schema}</script>\n</head>`);
+  html = html.replace('</head>', `<script type="application/ld+json" data-static-collection-schema data-rh="true">${schema}</script><script type="application/ld+json" data-static-collection-schema data-rh="true">${breadcrumbSchema}</script>\n</head>`);
   html = setRootFallback(html, fallback);
   html = html.replace(/<(title|meta|link)\b([^>]*?)>/gi, (tag, name, attrs) => {
     const managed = name.toLowerCase() === 'title' || /(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["']/i.test(attrs) || /rel=["']canonical["']/i.test(attrs);

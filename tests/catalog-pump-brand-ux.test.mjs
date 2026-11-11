@@ -268,6 +268,7 @@ test("catalog publication revisions cover affected category and brand landings",
       catalogContentRevisions.sitewideSeo.modifiedDate,
       catalogContentRevisions.pumpCommercialSeo.categories.includes(category) ? catalogContentRevisions.pumpCommercialSeo.modifiedDate : undefined,
       category === 'engine-fuel' ? catalogContentRevisions.turbochargerSeo.modifiedDate : undefined,
+      catalogContentRevisions.engineTaxonomy.categories.includes(category) ? catalogContentRevisions.engineTaxonomy.modifiedDate : undefined,
     ].filter(Boolean).sort().at(-1);
     assert.match(
       sitemap,

@@ -63,7 +63,8 @@ permissions:
   contents: read
 jobs:
   catalog-browser:
-    runs-on: ubuntu-latest
+    # Avoid Ubuntu mirror DNS outages; run the same Chromium and WebKit checks.
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

@@ -164,6 +164,7 @@ test("catalog publication revisions cover Hydrauvision and corrected product car
   assert.equal(Object.keys(categoryCorrectionLedger.corrections).length, 41);
   for (const product of expected) {
     assert.ok(product?.handle, product?.id);
+    if (product.categories?.some(category => catalogContentRevisions.engineTaxonomy.categories.includes(category))) product.modifiedDate = [product.modifiedDate, catalogContentRevisions.engineTaxonomy.modifiedDate].sort().at(-1);
     assert.ok(
       sitemap.includes(
         `<loc>https://acahydraulic.kz/catalog/${product.handle}/</loc>\n    <lastmod>${product.modifiedDate}</lastmod>`,

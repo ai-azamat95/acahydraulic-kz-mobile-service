@@ -6,6 +6,7 @@ import { createCategorySearchIndexes } from './lib/catalog-category-indexes.mjs'
 import { reconcileCatalogImageManifest } from './lib/catalog-image-manifest.mjs';
 import path from 'node:path';
 import { applyApprovedCatalogPrices } from './catalog-approved-prices.mjs';
+import { correctEngineTaxonomy } from '../shared/catalog-engine-taxonomy.mjs';
 import { applyCatalogCategoryCorrections } from './catalog-category-corrections.mjs';
 
 const catalogDir = path.resolve(process.env.CATALOG_DIR || 'client/public/catalog-data');
@@ -21,6 +22,7 @@ applyOwnerCatalogSales(catalogDir);
 const ownerProducts = applyOwnerCatalogProducts(catalogDir);
 const supplierProducts = applySupplierCatalogProducts(catalogDir);
 const categoryCorrections = applyCatalogCategoryCorrections(catalogDir);
+applyCatalogCategoryCorrections(catalogDir, correctEngineTaxonomy);
 const catalogImages = reconcileCatalogImageManifest(catalogDir);
 const preparedManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 const categoryIndexes = createCategorySearchIndexes({

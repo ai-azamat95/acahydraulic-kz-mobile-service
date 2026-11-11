@@ -5,7 +5,7 @@ import { correctCatalogProductCategories } from '../shared/catalog-category-corr
 
 // Apply after the existing price/owner/supplier preparation. Only taxonomy
 // fields change; preserve every identity, price, image and commercial field.
-export function applyCatalogCategoryCorrections(catalogDir) {
+export function applyCatalogCategoryCorrections(catalogDir, correctProduct = correctCatalogProductCategories) {
   const manifestPath = path.join(catalogDir, 'manifest.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   const products = [];
@@ -14,7 +14,7 @@ export function applyCatalogCategoryCorrections(catalogDir) {
   const correctRows = (rows, collect = false) => {
     let changed = false;
     const corrected = rows.map(product => {
-      const next = correctCatalogProductCategories(product);
+      const next = correctProduct(product);
       if (next !== product) {
         changed = true;
         if (collect) changedIds.push(String(product.id));

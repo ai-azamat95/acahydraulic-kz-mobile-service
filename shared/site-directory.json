@@ -410,6 +410,14 @@
         "label": "Топливные насосы для спецтехники"
       },
       {
+        "href": "/catalog/category/turbochargers/",
+        "label": "Турбокомпрессоры для спецтехники"
+      },
+      {
+        "href": "/catalog/category/air-compressors/",
+        "label": "Воздушные компрессоры двигателя"
+      },
+      {
         "href": "/catalog/category/fuel-common-rails/",
         "label": "Топливные рампы Common Rail для спецтехники"
       },
