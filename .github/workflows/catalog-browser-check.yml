@@ -21,6 +21,7 @@ on:
       - 'client/src/components/engines/PaginatedEngineCatalog.tsx'
       - 'scripts/check-catalog-directory-browser.mjs'
       - 'scripts/check-catalog-pagination-browser.mjs'
+      - 'scripts/check-catalog-mobile-scroll-browser.mjs'
       - 'scripts/create-catalog-landing-routes.mjs'
       - 'scripts/check-nsh-selection-browser.mjs'
       - 'client/src/components/catalog/PumpSupplyOffers.tsx'

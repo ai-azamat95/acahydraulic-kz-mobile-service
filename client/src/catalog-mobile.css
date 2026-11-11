@@ -107,6 +107,14 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
   .aca-product-card .mt-4.grid{grid-template-columns:1fr}
 }
 
+@media(max-width:1023px){
+  /* Keep both mobile catalogue bars in the same sticky/flow coordinate system.
+     The fixed quick nav + padded sibling otherwise track Safari's moving viewport separately. */
+  body:has(.aca-catalog-header) nav[aria-label="Быстрые переходы"]{position:sticky;height:calc(3rem + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px)}
+  body:has(.aca-catalog-header) .site-quick-nav-offset{padding-top:0}
+  body:has(.aca-catalog-header) .site-quick-nav-offset header.aca-catalog-header{top:calc(3rem + env(safe-area-inset-top,0px))}
+}
+
 @media(max-width:767px){
   body:has(section[aria-labelledby="categories-title"])>#root>div{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}
   body:has(section[aria-labelledby="categories-title"]) header>div{min-height:68px;gap:8px;padding:10px 14px}
