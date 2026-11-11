@@ -4,12 +4,13 @@ import pilotProductCopy from './catalog-product-pilot-copy.json' with { type: 'j
 import phase2ProductCopy from './catalog-product-phase2-copy.json' with { type: 'json' };
 import phase3ProductCopy from './catalog-product-phase3-copy.json' with { type: 'json' };
 import priorityProductCopy from './catalog-product-priority-copy.json' with { type: 'json' };
+import turbochargerProductCopy from './catalog-turbocharger-copy.json' with { type: 'json' };
 import landings from './catalog-landings.json' with { type: 'json' };
 import selectionCopy from './catalog-seo-content.json' with { type: 'json' };
 import { catalogCategoryCorrection } from './catalog-category-corrections.mjs';
 import { compactSeoDescription, compactSeoTitleBase } from './seo-meta.mjs';
 
-const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...phase3ProductCopy, ...priorityProductCopy, ...merchantProductCopy };
+const productCopy = { ...reviewedProductCopy, ...pilotProductCopy, ...phase2ProductCopy, ...phase3ProductCopy, ...priorityProductCopy, ...merchantProductCopy, ...turbochargerProductCopy };
 
 const russianProductTypeByCategory = {
   'construction-machinery': 'Спецтехника',

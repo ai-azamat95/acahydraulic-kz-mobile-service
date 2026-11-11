@@ -80,6 +80,7 @@ function landingLastmod(page) {
     hydrauvisionDate,
     correctionDate,
     commercialDate,
+    page.type === 'category' && page.slug === 'engine-fuel' ? catalogContentRevisions.turbochargerSeo.modifiedDate : undefined,
   ].filter(Boolean).sort().at(-1);
 }
 const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));

@@ -5,6 +5,7 @@ import huscoCase from '../shared/husco-hidromek-102b-case.json' with { type: 'js
 import phase2ProductCopy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
 import phase3ProductCopy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
 import priorityProductCopy from '../shared/catalog-product-priority-copy.json' with { type: 'json' };
+import turbochargerProductCopy from '../shared/catalog-turbocharger-copy.json' with { type: 'json' };
 import pumpBrandHighlights from '../shared/catalog-pump-brand-highlights.json' with { type: 'json' };
 import catalogContentRevisions from '../shared/catalog-content-revisions.json' with { type: 'json' };
 import hydrauvisionProducts from '../shared/catalog-hydrauvision-products.json' with { type: 'json' };
@@ -54,6 +55,7 @@ function productLastmod(product) {
     phase2ProductCopy[product.handle]?.modifiedDate,
     phase3ProductCopy[product.handle]?.modifiedDate,
     priorityProductCopy[product.handle]?.modifiedDate,
+    turbochargerProductCopy[product.handle] ? catalogContentRevisions.turbochargerSeo.modifiedDate : undefined,
     productRevisionLastmods.get(String(product.id)),
     catalogProductIsHydraulicPump(product) ? pumpNavigationLastmod : undefined,
   ].filter(Boolean).sort().at(-1);
