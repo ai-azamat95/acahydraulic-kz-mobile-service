@@ -8,7 +8,8 @@ import hydrauvisionInventory from '../data/hydrauvision-pumps-20261017/source-pr
 import { hydrauvisionRetailPriceKzt } from './lib/hydrauvision-pricing.mjs';
 
 export const SUPPLIER_CATALOG_SUPPLEMENT = '2026-10-supplier-catalog';
-export const supplierCatalogProducts = [...supplierProducts, ...hydrauvisionProducts];
+import turbochargerProducts from '../shared/catalog-turbocharger-products.json' with { type: 'json' };
+export const supplierCatalogProducts = [...supplierProducts, ...hydrauvisionProducts, ...turbochargerProducts];
 const SUPPLIER_CHUNK_SIZE = 250;
 const SAFE_CATEGORY_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const HYDRAUVISION_PRODUCT_IDS = new Set(hydrauvisionProducts.map(product => product.id));
