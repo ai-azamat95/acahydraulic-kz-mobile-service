@@ -63,8 +63,8 @@ permissions:
   contents: read
 jobs:
   catalog-browser:
-    # Keep browser system dependencies on the stable LTS runner image.
-    runs-on: ubuntu-24.04
+    # Avoid Ubuntu mirror DNS outages; run the same Chromium and WebKit checks.
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
