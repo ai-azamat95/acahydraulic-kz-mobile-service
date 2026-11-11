@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { catalogCategoryLandings } from './lib/catalog-landings.mjs';
+import { CATALOG_PAGE_SIZE, catalogPagePath } from '../shared/catalog-pagination.mjs';
 
 const publicDir = path.resolve('dist/public');
 const landingIndex = JSON.parse(fs.readFileSync(path.join(publicDir, 'catalog-data', 'landing-pages.json'), 'utf8'));
@@ -48,7 +49,13 @@ for (const page of pages) {
   assert(/<h1>[^<]{4,}<\/h1>/.test(html), `${route} needs a visible H1`);
   assert(/<a href="\/catalog\/[^/]+\/">/.test(html), `${route} needs direct product links`);
   const productLinkCount = (html.match(/<a href="\/catalog\/(?!category\/|brand\/|model\/)[^/]+\/">/g) || []).length;
-  assert(productLinkCount >= page.count, `${route} must link directly to every matching product`);
+  assert(productLinkCount >= Math.min(CATALOG_PAGE_SIZE, page.count), `${route} must link directly to the first page of products`);
+  for (let number = 1; number <= Math.ceil(page.count / CATALOG_PAGE_SIZE); number++) {
+    const pagePath = catalogPagePath(route, number);
+    const pageHtml = fs.readFileSync(path.join(publicDir, pagePath, 'index.html'), 'utf8');
+    assert(pageHtml.includes(`data-static-catalog-page="${number}"`), `${pagePath} must contain its own product page`);
+    assert(pageHtml.includes(`rel="canonical" href="https://acahydraulic.kz${pagePath}"`), `${pagePath} needs a self canonical`);
+  }
   assert(html.includes('data-static-collection-schema'), `${route} needs CollectionPage schema`);
   if (page.type === 'category') {
     assert(html.includes('data-category-selection'), `${route} needs visible selection guidance`);
@@ -87,5 +94,7 @@ for (const slug of [
 }
 
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length, 'landing sitemap URL count must match generated pages');
+const manifest = JSON.parse(fs.readFileSync(path.join(publicDir, 'catalog-data/manifest.json'), 'utf8'));
+const expectedPages = pages.reduce((sum, page) => sum + Math.ceil(page.count / CATALOG_PAGE_SIZE), 0) + Math.ceil(manifest.productCount / CATALOG_PAGE_SIZE);
+assert.equal(sitemapUrlCount, expectedPages, 'landing sitemap must include every static pagination page');
 console.log(JSON.stringify({ passed: true, categories: landingIndex.categories.length, brands: landingIndex.brands.length, models: landingIndex.models.length, sitemapUrls: sitemapUrlCount }, null, 2));

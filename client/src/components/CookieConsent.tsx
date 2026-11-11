@@ -143,17 +143,21 @@ export function CookieConsent() {
       aria-describedby="cookie-consent-description"
       aria-labelledby="cookie-consent-title"
       aria-modal="false"
-      className="fixed inset-x-3 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-[80] mx-auto max-h-[calc(100dvh-12rem)] max-w-4xl overflow-y-auto rounded-lg border border-white/15 bg-[#171717] text-gray-200 shadow-2xl md:bottom-4"
+      className={`${isCustomizing
+        ? "fixed inset-x-3 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-[80] mx-auto max-h-[calc(100dvh-12rem)] max-w-4xl overflow-y-auto md:bottom-4"
+        : "cookie-initial relative mx-3 xl:fixed xl:bottom-4 xl:right-4 xl:z-[80] xl:mx-0 xl:w-96"
+      } rounded-lg border border-white/15 bg-[#171717] text-gray-200 shadow-2xl`}
+      data-cookie-initial={!isCustomizing ? "true" : undefined}
       role="dialog"
     >
-      <div className="p-4 sm:p-5">
+      <div className={isCustomizing ? "p-4 sm:p-5" : "p-3 sm:p-4"}>
         <div className="flex items-start gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#FFC000] text-black">
+          <span className={`${isCustomizing ? "flex h-10 w-10" : "hidden h-8 w-8 sm:flex"} shrink-0 items-center justify-center rounded-md bg-[#FFC000] text-black`}>
             <Cookie aria-hidden="true" className="h-5 w-5" />
           </span>
           <div className="min-w-0 flex-1">
             <h2
-              className="text-base font-bold text-white outline-none sm:text-lg"
+              className={`${isCustomizing ? "text-base sm:text-lg" : "text-sm sm:text-base"} font-bold text-white outline-none`}
               id="cookie-consent-title"
               ref={titleRef}
               tabIndex={-1}
@@ -164,9 +168,9 @@ export function CookieConsent() {
               className="mt-1 text-xs leading-5 text-gray-400 sm:text-sm"
               id="cookie-consent-description"
             >
-              Обязательные данные обеспечивают работу сайта. Аналитика помогает
-              улучшать страницы, а рекламные cookie — измерять эффективность
-              рекламы. Вы можете изменить выбор в любое время.
+              {isCustomizing
+                ? "Обязательные данные обеспечивают работу сайта. Аналитика помогает улучшать страницы, а рекламные cookie — измерять эффективность рекламы. Вы можете изменить выбор в любое время."
+                : "Обязательные cookie — для работы сайта. Аналитика и реклама — только с вашего согласия."}
             </p>
           </div>
           {preference ? (
@@ -207,7 +211,7 @@ export function CookieConsent() {
           </div>
         ) : null}
 
-        <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className={isCustomizing ? "mt-4 flex flex-col gap-2 sm:flex-row sm:items-center" : "mt-2 grid grid-cols-2 items-center gap-x-2 gap-y-1 sm:flex sm:flex-wrap"}>
           {isCustomizing ? (
             <button
               className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#FFC000] px-5 text-sm font-bold text-black transition-colors hover:bg-[#ffd24d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
@@ -218,7 +222,7 @@ export function CookieConsent() {
             </button>
           ) : (
             <button
-              className="inline-flex min-h-11 items-center justify-center rounded-md border border-white/25 bg-white/5 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
+              className="order-3 inline-flex min-h-11 items-center justify-center rounded-md border border-white/25 bg-white/5 px-2 text-xs font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:px-5 sm:text-sm"
               onClick={() => setIsCustomizing(true)}
               type="button"
             >
@@ -228,14 +232,14 @@ export function CookieConsent() {
           {!isCustomizing ? (
             <>
               <button
-                className="inline-flex min-h-11 items-center justify-center rounded-md border border-white/25 bg-transparent px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
+                className="order-1 inline-flex min-h-11 items-center justify-center rounded-md border border-white/25 bg-transparent px-2 text-xs font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:px-5 sm:text-sm"
                 onClick={() => commit({ analytics: false, marketing: false })}
                 type="button"
               >
                 Только обязательные
               </button>
               <button
-                className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#FFC000] px-5 text-sm font-bold text-black transition-colors hover:bg-[#ffd24d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000]"
+                className="order-2 inline-flex min-h-11 items-center justify-center rounded-md bg-[#FFC000] px-2 text-xs font-bold text-black transition-colors hover:bg-[#ffd24d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFC000] sm:px-5 sm:text-sm"
                 onClick={() => commit({ analytics: true, marketing: true })}
                 type="button"
               >
@@ -244,7 +248,7 @@ export function CookieConsent() {
             </>
           ) : null}
           <Link
-            className="px-2 py-2 text-center text-xs text-gray-400 underline decoration-gray-600 underline-offset-4 hover:text-white sm:ml-auto"
+            className="order-4 inline-flex min-h-11 items-center justify-center px-1 py-2 text-center text-xs text-gray-400 underline decoration-gray-600 underline-offset-4 hover:text-white sm:ml-auto"
             href="/privacy"
           >
             Политика конфиденциальности

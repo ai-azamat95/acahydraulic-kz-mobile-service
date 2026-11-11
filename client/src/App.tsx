@@ -175,6 +175,10 @@ function AppRoutes() {
         <Route path="/sitemap" component={SiteMap} />
         {seoArticles.map(article => <Route key={article.slug} path={`/blog/${article.slug}`} component={PumpGuide} />)}
         <Route path="/catalog" component={Catalog} />
+        <Route path="/catalog/page/:pageNumber" component={Catalog} />
+        <Route path="/catalog/category/:categoryId/page/:pageNumber" component={Catalog} />
+        <Route path="/catalog/brand/:brandSlug/page/:pageNumber" component={Catalog} />
+        <Route path="/catalog/model/:modelSlug/page/:pageNumber" component={Catalog} />
         <Route path="/catalog/category/:categoryId" component={Catalog} />
         <Route path="/catalog/brand/:brandSlug" component={Catalog} />
         <Route path="/catalog/model/:modelSlug" component={Catalog} />
@@ -216,10 +220,10 @@ function App() {
             <CartProvider>
               <SiteQuickNav />
               <div className="site-quick-nav-offset pt-12">
+                <CookieConsent />
                 <AppRoutes />
               </div>
               <CartDrawer />
-              <CookieConsent />
             </CartProvider>
           </WouterRouter>
         </TooltipProvider>

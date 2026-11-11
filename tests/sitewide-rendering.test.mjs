@@ -30,7 +30,8 @@ test('site directory links to every commercial, regional and editorial sitemap U
   for (const file of ['sitemap.xml', 'sitemap-cases.xml', 'sitemap-catalog-landings.xml']) {
     const sitemap = fs.readFileSync(`dist/public/${file}`, 'utf8');
     for (const [, url] of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
-      const route = new URL(url).pathname;
+      // Collection links lead to all numbered pages through their HTML pagination.
+      const route = new URL(url).pathname.replace(/\/page\/[1-9]\d*\/$/, '/');
       if (route === '/' || route === '/sitemap/') continue;
       assert.ok(links.has(route), route);
       assert.ok(html.includes(`href="${route}"`), route);

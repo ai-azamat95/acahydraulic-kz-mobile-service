@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { catalogPagePath } from '../shared/catalog-pagination.mjs';
 
 export async function checkCatalogPagination(page, origin) {
  const ready=()=>page.waitForFunction(()=>document.querySelector('[data-index-complete]')?.dataset.indexComplete==='true');
@@ -8,7 +9,7 @@ export async function checkCatalogPagination(page, origin) {
  assert(await input.evaluate(n=>n===document.activeElement),'editing must keep input focus');
  await page.goto(origin+'/catalog/category/controllers/?page=999999',{waitUntil:'networkidle'});await ready();
  const total=Number(await page.locator('[data-result-count]').getAttribute('data-result-count'));
- const last=Math.ceil(total/10);await page.waitForURL(url=>url.searchParams.get('page')===String(last));
+ const last=Math.ceil(total/10);await page.waitForURL(url=>url.pathname===catalogPagePath('/catalog/category/controllers/',last));
  assert.equal(await page.locator('.aca-product-card').count(),total%10||10);
  await page.goto(origin+'/catalog/?q=267-2755',{waitUntil:'networkidle'});await ready();
  const found=await page.locator('.aca-product-card').allTextContents();assert(found.some(text=>text.includes('267-2755')));
