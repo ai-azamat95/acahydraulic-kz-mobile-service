@@ -1,8 +1,40 @@
 export const CATALOG_PAGE_SIZE = 10;
 
+export function catalogBasePath(path) {
+  return path.replace(/\/page\/[^/]+\/?$/, '').replace(/\/$/, '') || '/';
+}
+
+export function catalogPathPage(path) {
+  const match = path.match(/^\/catalog(?:\/(?:category|brand|model)\/[^/]+)?\/page\/([^/]+)\/?$/);
+  if (!match) return null;
+  return /^[1-9]\d*$/.test(match[1]) && Number.isSafeInteger(Number(match[1])) ? Number(match[1]) : 0;
+}
+
+export function catalogHasFilters(search) {
+  const params = new URLSearchParams(search);
+  return ['q', 'category', 'brand', 'model'].some(key => Boolean(params.get(key)?.trim()));
+}
+
+export function catalogPagePath(path, page) {
+  const base = catalogBasePath(path);
+  return base === '/catalog' || page > 1 ? `${base}/page/${page}/` : `${base}/`;
+}
+
 export function catalogPage(search) {
   const raw = new URLSearchParams(search).get('page');
   return raw && /^[1-9]\d*$/.test(raw) && Number.isSafeInteger(Number(raw)) ? Number(raw) : 1;
+}
+
+export function catalogStaticPageHref(path, search, page) {
+  const params = new URLSearchParams(search);
+  if (/^\/catalog(?:\/|$)/.test(path)) {
+    params.delete('page');
+    const filtered = catalogHasFilters(search);
+    if (filtered && page > 1) params.set('page', String(page));
+    const target = filtered ? `${catalogBasePath(path)}/` : catalogPagePath(path, page);
+    return `${target}${params.size ? `?${params.toString()}` : ''}`;
+  }
+  return catalogPageHref(path, search, page);
 }
 
 export function catalogPageHref(path, search, page) {
@@ -11,6 +43,13 @@ export function catalogPageHref(path, search, page) {
   else params.delete('page');
   const suffix = params.toString();
   return `${path}${suffix ? `?${suffix}` : ''}`;
+}
+
+export function catalogPageMetadata(title, description, page, pages) {
+  return page > 1 ? {
+    title: `Страница ${page} — ${title}`,
+    description: `Страница ${page} из ${pages}. ${description}`,
+  } : { title, description };
 }
 
 export function catalogPageNumbers(page, pages) {
