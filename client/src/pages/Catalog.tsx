@@ -94,6 +94,8 @@ const completeEngineCategoryCopy: Record<CatalogLanguage, { title: string; subti
 };
 // Local representative product photos keep category navigation fast and consistent.
 const categoryImageOverrides: Record<string, string> = {
+  "turbochargers": "/catalog-assets/turbochargers/10r9578-1.webp",
+  "air-compressors": "/catalog-assets/category-air-compressor.webp",
   "hydraulic-pumps": "/catalog-assets/category-hydraulic-pump.jpg",
   "gear-pumps": "/catalog-assets/category-gear-pump.jpg",
   "piston-pumps": "/catalog-assets/category-piston-pump.jpg",
