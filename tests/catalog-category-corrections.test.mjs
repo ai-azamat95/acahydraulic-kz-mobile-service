@@ -6,8 +6,6 @@ import vm from 'node:vm';
 import test from 'node:test';
 import phase2Copy from '../shared/catalog-product-phase2-copy.json' with { type: 'json' };
 import phase3Copy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
-import priorityCopy from '../shared/catalog-product-priority-copy.json' with { type: 'json' };
-import ownerProducts from '../shared/catalog-owner-products.json' with { type: 'json' };
 import {
   catalogCategoryCorrections as corrections, deferredCatalogCategoryCorrections as deferred,
   correctCatalogProductCategories, reviewedCategorySourceProducts, reviewedPumpSourceProducts,
@@ -171,12 +169,7 @@ test('taxonomy corrections do not replace the fixed reviewed SEO cohorts', () =>
   const regeneratedPhase2 = createPhase2Copy();
   const regeneratedPhase3 = createPhase3Copy();
   assert.deepEqual(regeneratedPhase2, phase2Copy);
-  for (const [handle, content] of Object.entries(phase3Copy)) {
-    // A newer owner review replaces the historical supplier copy only through the priority layer.
-    const ownerOverride = ownerProducts.some(product => product.handle === handle && product.ownerEvidence)
-      && priorityCopy[handle]?.modifiedDate > content.modifiedDate;
-    if (!ownerOverride) assert.deepEqual(regeneratedPhase3[handle], content, handle);
-  }
+  assert.deepEqual(regeneratedPhase3, phase3Copy);
   for (const id of Object.keys(corrections)) {
     const handle = byId.get(id).handle;
     assert.equal(Object.hasOwn(regeneratedPhase2, handle), false, `phase2:${id}`);

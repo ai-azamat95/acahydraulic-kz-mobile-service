@@ -133,14 +133,7 @@ test('phase-three Russian catalogue cohort is deterministic, distinct and eviden
     }, {}),
     phase3Quotas,
   );
-  const regeneratedPhase3 = createPhase3Copy();
-  // Owner-reviewed priority copy can supersede a historical supplier review.
-  // Keep checking every other published review; newly proposed candidates are not published here.
-  for (const [handle, content] of Object.entries(phase3Copy)) {
-    const ownerOverride = ownerProducts.some(product => product.handle === handle && product.ownerEvidence)
-      && priorityCopy[handle]?.modifiedDate > content.modifiedDate;
-    if (!ownerOverride) assert.deepEqual(regeneratedPhase3[handle], content, handle);
-  }
+  assert.deepEqual(phase3Copy, createPhase3Copy());
 
   for (const [family, allowedHandles] of Object.entries(phase3AllowedHandles)) {
     const actual = Object.entries(phase3Copy)

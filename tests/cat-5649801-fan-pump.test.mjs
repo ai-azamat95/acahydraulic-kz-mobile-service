@@ -5,6 +5,9 @@ import fs from 'node:fs';
 import { ownerCatalogProductByHandle } from '../scripts/catalog-owner-products.mjs';
 import { catalogProductCategories, catalogProductSeo, catalogProductSelection } from '../shared/catalog-product-seo.mjs';
 import priorityCopy from '../shared/catalog-product-priority-copy.json' with { type: 'json' };
+import archivedCopy from '../shared/catalog-product-phase3-copy.json' with { type: 'json' };
+import { createPhase3Copy } from '../scripts/create-catalog-product-phase3.mjs';
+import { loadProducts } from '../scripts/create-catalog-product-phase2.mjs';
 
 const handle = 'hydraulic-pump-564-9801-5649801-fits-for-caterpillar-e336-336-345-340';
 const product = ownerCatalogProductByHandle(handle);
@@ -68,4 +71,15 @@ test('manual SEO copy replaces the former machine claims and keeps price on requ
   assert.match(seo.description, /Цена и наличие по запросу/);
   assert.match(catalogProductSelection(product), /вал[а-я]*, фланц[а-я]*, порт[а-я]*/);
   assert.equal(priorityCopy[handle].modifiedDate, '2026-11-11');
+});
+
+test('phase3 generation preserves the historical owner slot without hiding unrelated review drift', () => {
+  const products = loadProducts();
+  const generated = createPhase3Copy(products);
+  assert.deepEqual(generated, archivedCopy);
+  assert.equal(JSON.stringify(generated, null, 2), JSON.stringify(archivedCopy, null, 2));
+  const otherHandle = Object.keys(archivedCopy).find(key => key !== handle);
+  const changed = products.map(row => row.handle === otherHandle ? { ...row, fitment: 'Komatsu PC999TEST' } : row);
+  assert.notDeepEqual(createPhase3Copy(changed)[otherHandle], archivedCopy[otherHandle]);
+  assert.equal(createPhase3Copy(products.filter(row => row.handle !== handle))[handle], undefined);
 });
