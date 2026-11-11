@@ -7,10 +7,10 @@ const categories = JSON.parse(fs.readFileSync('shared/catalog-landings.json', 'u
 const services = JSON.parse(fs.readFileSync('shared/service-content.json', 'utf8'));
 const readPage = route => fs.readFileSync(`dist/public${route}index.html`, 'utf8');
 
-test('seven distinct hydraulic selection guides have relevant local links', () => {
-  assert.equal(Object.keys(guides).length, 7);
-  assert.equal(new Set(Object.values(guides).map(guide => guide.heading)).size, 7);
-  assert.equal(new Set(Object.values(guides).map(guide => guide.text)).size, 7);
+test('eight distinct hydraulic and engine selection guides have relevant local links', () => {
+  assert.equal(Object.keys(guides).length, 8);
+  assert.equal(new Set(Object.values(guides).map(guide => guide.heading)).size, 8);
+  assert.equal(new Set(Object.values(guides).map(guide => guide.text)).size, 8);
   for (const [category, guide] of Object.entries(guides)) {
     assert.ok(categories.some(item => item.id === category), category);
     assert.ok(guide.text.length >= 250, category);

@@ -264,9 +264,11 @@ test("catalog publication revisions cover affected category and brand landings",
     );
   }
   for (const category of correctedCategories) {
-    const modifiedDate = catalogContentRevisions.pumpCommercialSeo.categories.includes(category)
-      ? catalogContentRevisions.pumpCommercialSeo.modifiedDate
-      : catalogContentRevisions.sitewideSeo.modifiedDate;
+    const modifiedDate = [
+      catalogContentRevisions.sitewideSeo.modifiedDate,
+      catalogContentRevisions.pumpCommercialSeo.categories.includes(category) ? catalogContentRevisions.pumpCommercialSeo.modifiedDate : undefined,
+      category === 'engine-fuel' ? catalogContentRevisions.turbochargerSeo.modifiedDate : undefined,
+    ].filter(Boolean).sort().at(-1);
     assert.match(
       sitemap,
       new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${modifiedDate}</lastmod>`),
