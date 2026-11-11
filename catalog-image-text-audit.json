@@ -1,11 +1,1 @@
-{
-  "generatedAt": "2026-11-06T16:09:17.000Z",
-  "scanner": "Prior Apple Vision full small-text pass plus injector review; removal-only reconciliation after replacing the R901147102 remote image with local ACA media.",
-  "imageCount": 32834,
-  "forbiddenTextMatches": 0,
-  "decodeFailures": 0,
-  "newInjectorImagesScanned": 1029,
-  "excludedInjectorSourceImagesWithSupplierText": 11,
-  "injectorProductsUsingReviewedLocalFallback": 2,
-  "manifestSha256": "9f76c6f1793ad356e593ad757eb4498e4637e6e5b2a0980fe68e5417a4a46781"
-}
+{"generatedAt":"2026-11-06T16:09:17.000Z","scanner":"Prior Apple Vision full small-text pass plus injector review; removal-only reconciliation after replacing the R901147102 remote image with local ACA media.","imageCount":32833,"forbiddenTextMatches":0,"decodeFailures":0,"newInjectorImagesScanned":1029,"excludedInjectorSourceImagesWithSupplierText":11,"injectorProductsUsingReviewedLocalFallback":2,"manifestSha256":"7ed731f25ca5acf6cb4d0e77cec5b12c10f64266eeb8fd65464ef613ad06b3fe","reconciliation":{"date":"2026-11-11","method":"Removal-only reconciliation after CAT 564-9801 owner-photo replacement; all retained manifest entries are byte-identical to the previously audited set. No new remote images were scanned.","previousManifestSha256":"9f76c6f1793ad356e593ad757eb4498e4637e6e5b2a0980fe68e5417a4a46781","removedImageKeys":["catalog/v2/8721030250658/01-6c423be11802e19f.webp"],"retainedEntriesUnchanged":true}}
