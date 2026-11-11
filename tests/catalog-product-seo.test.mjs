@@ -133,7 +133,14 @@ test('phase-three Russian catalogue cohort is deterministic, distinct and eviden
     }, {}),
     phase3Quotas,
   );
-  assert.deepEqual(phase3Copy, createPhase3Copy());
+  const regeneratedPhase3 = createPhase3Copy();
+  // Owner-reviewed priority copy can supersede a historical supplier review.
+  // Keep checking every other published review; newly proposed candidates are not published here.
+  for (const [handle, content] of Object.entries(phase3Copy)) {
+    const ownerOverride = ownerProducts.some(product => product.handle === handle && product.ownerEvidence)
+      && priorityCopy[handle]?.modifiedDate > content.modifiedDate;
+    if (!ownerOverride) assert.deepEqual(regeneratedPhase3[handle], content, handle);
+  }
 
   for (const [family, allowedHandles] of Object.entries(phase3AllowedHandles)) {
     const actual = Object.entries(phase3Copy)
@@ -162,6 +169,11 @@ test('phase-three Russian catalogue cohort is deterministic, distinct and eviden
 
   let categoryPlaceholders = 0;
   for (const [handle, content] of Object.entries(phase3Copy)) {
+    if (ownerProducts.some(product => product.handle === handle && product.ownerEvidence)
+      && priorityCopy[handle]?.modifiedDate > content.modifiedDate) {
+      assert.equal(catalogProductName(productByHandle.get(handle)), priorityCopy[handle].name);
+      continue;
+    }
     assert(!Object.hasOwn(copyBeforePhase3, handle), `${handle}: phase three must not replace reviewed copy`);
     assert(!Object.hasOwn(catalogAliases, handle), `${handle}: canonical aliases do not belong in phase three`);
     const product = productByHandle.get(handle);
@@ -218,7 +230,7 @@ test('only a current ACA merchant offer is exposed as confirmed supply', () => {
 });
 
 test('the first pump and injector result pages have reviewed Russian product names', () => {
-  assert.equal(Object.keys(priorityCopy).length, 10);
+  assert.equal(Object.keys(priorityCopy).length, 11);
   for (const [handle, content] of Object.entries(priorityCopy)) {
     const product = products.find(item => item.handle === handle);
     assert(product, `${handle}: priority product must exist`);
@@ -226,7 +238,12 @@ test('the first pump and injector result pages have reviewed Russian product nam
     assert.doesNotMatch(content.name, /\b(?:Hydraulic|Fuel|Pump|Injector|for|Engine|Truck|Excavator)\b/i, `${handle}: untranslated generic word`);
     assert(content.title.length <= 65, `${handle}: title is too long`);
     assert(content.description.length >= 110 && content.description.length <= 180, `${handle}: description length`);
-    assert.doesNotMatch(content.description, /в наличии|оригинал|гарантия\s+\d|за\s+\d+\s*дн/i, `${handle}: invented commercial promise`);
+    assert.doesNotMatch(content.description, /в наличии|гарантия\s+\d|за\s+\d+\s*дн/i, `${handle}: invented commercial promise`);
+    if (/оригинал/i.test(content.description)) {
+      const owner = ownerProducts.find(product => product.handle === handle);
+      assert(owner?.ownerEvidence, `${handle}: originality needs owner evidence`);
+      assert.match(owner.catalogTitle, /оригинал/i);
+    }
     assert.equal(catalogProductName(product), content.name);
   }
 
