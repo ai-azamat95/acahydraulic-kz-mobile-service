@@ -220,10 +220,10 @@ function App() {
             <CartProvider>
               <SiteQuickNav />
               <div className="site-quick-nav-offset pt-12">
+                <CookieConsent />
                 <AppRoutes />
               </div>
               <CartDrawer />
-              <CookieConsent />
             </CartProvider>
           </WouterRouter>
         </TooltipProvider>

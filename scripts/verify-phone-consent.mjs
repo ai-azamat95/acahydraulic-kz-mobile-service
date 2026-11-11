@@ -5,7 +5,7 @@ import fs from 'node:fs';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const base = new URL(process.env.PREVIEW_URL || 'http://127.0.0.1:5187');
 assert.ok(['127.0.0.1', 'localhost', '[::1]'].includes(base.hostname), 'Use a local preview only');
-const browser = await chromium.launch();
+const browser = await chromium.launch(process.env.ACA_CHROME_EXECUTABLE ? { executablePath: process.env.ACA_CHROME_EXECUTABLE } : {});
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
 await context.route('**/*', route => {
   const url = new URL(route.request().url());
@@ -78,8 +78,9 @@ try {
   report.failure = error.stack;
   throw error;
 } finally {
-  fs.mkdirSync('docs/phone-conversion-artifacts', { recursive: true });
-  fs.writeFileSync('docs/phone-conversion-artifacts/browser-checks.json', JSON.stringify(report, null, 2) + '\n');
+  const artifactDir = process.env.ACA_PHONE_ARTIFACT_DIR || 'docs/phone-conversion-artifacts';
+  fs.mkdirSync(artifactDir, { recursive: true });
+  fs.writeFileSync(`${artifactDir}/browser-checks.json`, JSON.stringify(report, null, 2) + '\n');
   await browser.close();
   console.log(JSON.stringify({ passed: report.passed, checks: report.checks.length, errors: report.errors, failure: report.failure }));
 }
