@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { checkSiteNavigation } from './check-site-navigation.mjs';
 import { checkCatalogPagination } from './check-catalog-pagination-browser.mjs';
 import { checkCatalogDirectory } from './check-catalog-directory-browser.mjs';
+import { checkCatalogMobileScroll } from './check-catalog-mobile-scroll-browser.mjs';
 import catalogSections from '../shared/catalog-sections.json' with { type: 'json' };
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
 const root = path.resolve('dist/public');
@@ -61,6 +62,7 @@ try {
   for(const [engineName,engine] of Object.entries(process.env.CATALOG_BROWSER_ENGINE === "chromium" ? {chromium} : {chromium,webkit})){
     const browser=await engine.launch();
     try{
+    await checkCatalogMobileScroll(browser, origin, engineName);
       for(const width of [320,390,430,768,1024,1440,1920]){
         const page=await browser.newPage({viewport:{width,height:900},locale:'ru-RU'});
         const errors=[];
