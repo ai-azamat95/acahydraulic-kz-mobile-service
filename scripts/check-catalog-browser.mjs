@@ -4,6 +4,7 @@ import http from 'node:http';
 import assert from 'node:assert/strict';
 import { checkSiteNavigation } from './check-site-navigation.mjs';
 import { checkCatalogPagination } from './check-catalog-pagination-browser.mjs';
+import { catalogPagePath } from '../shared/catalog-pagination.mjs';
 import { checkCatalogDirectory } from './check-catalog-directory-browser.mjs';
 import catalogSections from '../shared/catalog-sections.json' with { type: 'json' };
 const { chromium, webkit } = await import(process.env.RUNNER_TEMP + '/aca-ui/node_modules/playwright/index.mjs');
@@ -230,7 +231,7 @@ try {
               const firstIds = await page.locator('.aca-product-card > a').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
               await page.locator('[data-page-next]').click();
               await page.waitForFunction(() => document.querySelector('[data-page]')?.getAttribute('data-page') === '2');
-              assert.equal(new URL(page.url()).searchParams.get('page'), '2');
+              assert.equal(new URL(page.url()).pathname, catalogPagePath(`/catalog/category/${slug}/`, 2));
               const secondIds = await page.locator('.aca-product-card > a').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
               assert(secondIds.every(id => !firstIds.includes(id)), 'pages must not repeat products');
               await page.reload({ waitUntil: 'networkidle' });
