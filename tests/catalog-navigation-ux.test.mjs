@@ -8,9 +8,9 @@ const productResults = fs.readFileSync('client/src/components/catalog/ProductRes
 const supplyOffers = fs.readFileSync('client/src/components/catalog/PumpSupplyOffers.tsx', 'utf8');
 
 test('catalog navigation opens dedicated category pages without mixing the home product feed', () => {
-  assert.match(catalogPage, /const showResults = isLandingPage \|\| Boolean\(urlQuery\);/);
+  assert.match(catalogPage, /const showResults = isLandingPage \|\| (?:isAllProductsPage \|\| )?Boolean\(urlQuery\);/);
   assert.match(catalogPage, /href=\{catalogSearchHref\(partQuery, item\.id\)\}/);
-  assert.match(catalogPage, /!isLandingPage && catalogSections\.map\(section/);
+  assert.match(catalogPage, /!isLandingPage && !isAllProductsPage && catalogSections\.map\(section/);
   assert.doesNotMatch(catalogPage, /chooseCategory/);
   assert(catalogPage.indexOf('id="catalog-results"') < catalogPage.indexOf('className="aca-landing-intro'), 'products must appear before long SEO copy on category pages');
 });

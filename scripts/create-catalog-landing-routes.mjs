@@ -4,6 +4,7 @@ import { catalogProductName } from '../shared/catalog-product-seo.mjs';
 import { groupCatalogModels } from '../shared/catalog-directory.mjs';
 import { compactSeoDescription, formatSeoTitle } from '../shared/seo-meta.mjs';
 import { renderNshPumpSelection } from '../shared/nsh-pump-selection.mjs';
+import { CATALOG_PAGE_SIZE, catalogAllProductsSeo, catalogPagePath, catalogPageNumbers, catalogPageMetadata } from '../shared/catalog-pagination.mjs';
 
 import {
   catalogBrandLandings,
@@ -18,6 +19,7 @@ const indexPath = path.join(outDir, 'index.html');
 const catalogDir = path.join(outDir, 'catalog-data');
 const manifestPath = path.join(catalogDir, 'manifest.json');
 const baseUrl = 'https://acahydraulic.kz';
+const paginationLastmod = '2026-11-11';
 const minimumModelProducts = 8;
 const pumpBrandHighlights = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-pump-brand-highlights.json'), 'utf8'));
 const catalogContentRevisions = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-content-revisions.json'), 'utf8'));
@@ -30,10 +32,14 @@ if (!fs.existsSync(indexPath) || !fs.existsSync(manifestPath)) {
 
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-const products = Array.from({ length: manifest.chunkCount }, (_, index) => {
+const chunkProducts = Array.from({ length: manifest.chunkCount }, (_, index) => {
   const file = path.join(catalogDir, `search-index-${String(index + 1).padStart(3, '0')}.json`);
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }).flat();
+// Use the same published ordering as the browser, rather than chunk order.
+const completeIndexPath = manifest.indexFile && path.join(catalogDir, manifest.indexFile);
+const products = completeIndexPath && fs.existsSync(completeIndexPath)
+  ? JSON.parse(fs.readFileSync(completeIndexPath, 'utf8')) : chunkProducts;
 const lastmod = String(manifest.importedAt || new Date().toISOString()).slice(0, 10);
 const pumpNavigationLastmod = Object.values(pumpBrandHighlights)
   .map((brand) => brand.modifiedDate)
@@ -80,6 +86,7 @@ function landingLastmod(page) {
     hydrauvisionDate,
     correctionDate,
     commercialDate,
+    paginationLastmod,
   ].filter(Boolean).sort().at(-1);
 }
 const categorySeoContent = JSON.parse(fs.readFileSync(path.resolve('shared/catalog-seo-content.json'), 'utf8'));
@@ -149,27 +156,33 @@ function brandPumpShowcase(slug) {
   return `<section data-brand-pump-showcase="${escapeAttr(slug)}"><p>Отдельные карточки насосов</p><h2>${escapeHtml(brand.featuredHeading)}</h2><p>${escapeHtml(brand.featuredIntro)}</p><p><a data-aca-contact-event="catalog_whatsapp_click" data-aca-contact-source="static_brand_pump_showcase" href="https://wa.me/77714177925?text=${encodeURIComponent(whatsappMessage)}">Отправить шильдик для подбора</a></p><div>${brand.featuredPumps.map(pump => `<article data-featured-pump-id="${escapeAttr(pump.id)}"><a href="${escapeAttr(pump.href)}"><img src="${escapeAttr(pump.imageUrl)}" alt="${escapeAttr(pump.title)}" width="640" height="480" loading="lazy"><strong>${escapeHtml(pump.title)}</strong><span>Артикул ${escapeHtml(pump.sku)}</span></a></article>`).join('')}</div><aside data-brand-related-catalog><h3>Другие типы продукции — отдельно от насосов</h3><p>Гидромоторы и комплектующие открываются отдельными фильтрами и не входят в подборку насосов выше.</p><nav aria-label="Гидромоторы и комплектующие ${escapeAttr(brand.displayName)}"><ul>${brand.relatedCatalog.map(item => `<li><a href="${escapeAttr(item.href)}">${escapeHtml(item.label)}</a></li>`).join('')}</ul></nav></aside></section>`;
 }
 
-function landingPage({ type, slug, title, description, intro, matches }) {
-  const pathName = `/catalog/${type}/${slug}/`;
+function landingPage({ type, slug, title, description, intro, matches, paginationTitle }, page = 1, related = '') {
+  const basePath = type === 'all' ? '/catalog/' : `/catalog/${type}/${slug}/`;
+  const pages = Math.max(1, Math.ceil(matches.length / CATALOG_PAGE_SIZE));
+  const pathName = catalogPagePath(basePath, page);
   const canonical = `${baseUrl}${pathName}`;
-  const metaTitle = formatSeoTitle(title);
-  const metaDescription = compactSeoDescription(description);
-  const itemList = matches;
+  const metadata = catalogPageMetadata(title, description, page, pages, paginationTitle);
+  const metaTitle = formatSeoTitle(metadata.title);
+  const metaDescription = compactSeoDescription(metadata.description);
+  const start = (page - 1) * CATALOG_PAGE_SIZE;
+  const itemList = matches.slice(start, start + CATALOG_PAGE_SIZE);
+  const pageHref = number => catalogPagePath(basePath, number);
+  const pagination = `<nav aria-label="Страницы каталога" data-static-pagination>${page > 1 ? `<a rel="prev" href="${pageHref(page - 1)}">Назад</a> ` : ''}${catalogPageNumbers(page, pages).map(number => typeof number === 'number' ? `<a href="${pageHref(number)}"${number === page ? ' aria-current="page"' : ''}>${number}</a>` : '<span>…</span>').join(' ')} <span>Страница ${page} из ${pages}</span>${page < pages ? ` <a rel="next" href="${pageHref(page + 1)}">Далее</a>` : ''}</nav>`;
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: title,
-    description,
+    name: metadata.title,
+    description: metadata.description,
     url: canonical,
     inLanguage: 'ru-KZ',
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: matches.length,
-      itemListElement: itemList.slice(0, 50).map((product, index) => ({
-        '@type': 'ListItem', position: index + 1, name: catalogProductName(product), url: `${baseUrl}/catalog/${product.handle}/`,
+      itemListElement: itemList.map((product, index) => ({
+        '@type': 'ListItem', position: start + index + 1, name: catalogProductName(product), url: `${baseUrl}/catalog/${product.handle}/`,
       })),
     },
-  });
+  }).replaceAll('<', '\\u003c');
   const seo = type === 'category' ? categorySeoContent[slug] : null;
   const guide = type === 'category' ? categorySelectionGuides[slug] : type === 'brand' ? brandSelectionGuides[slug] : null;
   const brandNavigation = type === 'category' && slug === 'hydraulic-pumps' ? pumpBrandNavigation('hydraulic-pumps') : '';
@@ -185,14 +198,12 @@ function landingPage({ type, slug, title, description, intro, matches }) {
   <nav aria-label="Хлебные крошки"><a href="/">ACA Hydraulic</a> / <a href="/catalog/">Каталог запчастей</a> / ${escapeHtml(title)}</nav>
   <h1>${escapeHtml(title)}</h1>
   <p>${escapeHtml(intro || description)}</p>
-  ${type === 'category' && slug === 'gear-pumps' ? renderNshPumpSelection() : ''}
+  ${page === 1 && type === 'category' && slug === 'gear-pumps' ? renderNshPumpSelection() : ''}
   <p>Найдено позиций: ${matches.length}. Цена, наличие и срок подтверждаются после проверки OEM-номера, модели, серийного номера и исполнения детали.</p>
-  ${selectionGuide}
-  ${brandNavigation}
-  ${featuredBrandPumps}
-  ${decisionGuide}
-  <section><h2>Товары раздела</h2><ul>${itemList.map((product) => `<li><a href="/catalog/${product.handle}/">${escapeHtml(catalogProductName(product))}</a>${product.fitment ? ` — ${escapeHtml(product.fitment)}` : ''}</li>`).join('')}</ul></section>
-  ${relatedLinks(slug, type, matches)}
+  ${page === 1 ? selectionGuide + brandNavigation + featuredBrandPumps + decisionGuide : `<p><a href="${basePath}">Начало раздела и условия подбора</a></p>`}
+  <noscript><p>Если вы открыли старую ссылку с параметром page, выберите нужную страницу в навигации ниже. Поиск и фильтры требуют JavaScript.</p></noscript>
+  <section data-static-catalog-page="${page}" data-total-products="${matches.length}"><h2>Товары раздела</h2><p>Показаны ${matches.length ? start + 1 : 0}–${start + itemList.length} из ${matches.length}</p><ul>${itemList.map((product) => `<li data-static-product-id="${escapeAttr(product.id)}"><a href="/catalog/${product.handle}/">${escapeHtml(catalogProductName(product))}</a>${product.fitment ? ` — ${escapeHtml(product.fitment)}` : ''}</li>`).join('')}</ul>${pagination}</section>
+  ${page === 1 ? related : ''}
   <p><a href="https://wa.me/77714177925">Запросить подбор в WhatsApp</a></p>
 </main>`;
 
@@ -245,12 +256,15 @@ fs.writeFileSync(catalogHomePath, catalogHomeHtml.replace('</main>', `${director
 
 const pages = [];
 for (const category of catalogCategoryLandings) {
-  const matches = products.filter((product) => (product.categories || [product.category]).includes(category.id));
+  const categoryFile = manifest.categoryIndexFiles?.[category.id];
+  const matches = categoryFile && fs.existsSync(path.join(catalogDir, categoryFile))
+    ? JSON.parse(fs.readFileSync(path.join(catalogDir, categoryFile), 'utf8'))
+    : products.filter((product) => (product.categories || [product.category]).includes(category.id));
   pages.push({ type: 'category', slug: category.id, title: category.title, description: category.description, intro: category.intro, matches });
 }
 for (const brand of brandPages) {
   pages.push({
-    type: 'brand', slug: brand.slug, title: brand.title || `Запчасти ${brand.name} для спецтехники`,
+    type: 'brand', slug: brand.slug, paginationTitle: `Запчасти ${brand.name}`, title: brand.title || `Запчасти ${brand.name} для спецтехники`,
     description: brand.description || `Каталог запчастей ${brand.name} для спецтехники. Подбор по OEM-номеру, модели и серийному номеру с проверкой совместимости до оплаты.`,
     intro: brand.intro || `Подбираем запчасти ${brand.name} по каталожному номеру, модели и серийному номеру техники. Сверяем исполнение и комплектацию до подтверждения заказа.`,
     matches: products.filter((product) => productBrandSlugs.get(product.id).includes(brand.slug)),
@@ -258,7 +272,7 @@ for (const brand of brandPages) {
 }
 for (const model of modelPages) {
   pages.push({
-    type: 'model', slug: model.slug,
+    type: 'model', slug: model.slug, paginationTitle: `Запчасти ${model.brand} ${model.label}`,
     title: model.brand === 'JCB' ? `Каталог ${model.brand} ${model.label}: запчасти и техника` : `Запчасти для ${model.engine ? 'двигателя' : 'спецтехники'} ${model.brand} ${model.label}`,
     description: model.brand === 'JCB' ? `Техника и запчасти ${model.brand} ${model.label} в Казахстане. Подбор исполнения машины под задачу и деталей по OEM-номеру. Цена и срок по запросу.` : `Запчасти для ${model.brand} ${model.label}: поиск по OEM-номеру и узлу, проверка исполнения и совместимости, поставка по Казахстану.`,
     intro: `В каталоге собраны позиции, где прямо указана применяемость к ${model.brand} ${model.label}. Окончательную совместимость подтверждаем по OEM и серийному номеру.`,
@@ -266,14 +280,24 @@ for (const model of modelPages) {
   });
 }
 
+pages.push({ type: 'all', slug: '', ...catalogAllProductsSeo, matches: products });
+
 const written = [];
 for (const page of pages) {
-  const rendered = landingPage(page);
-  const pageDir = path.join(outDir, 'catalog', page.type, page.slug);
-  fs.mkdirSync(pageDir, { recursive: true });
-  fs.writeFileSync(path.join(pageDir, 'index.html'), rendered.html);
-  written.push(rendered);
+  const related = page.type === 'all' ? '' : relatedLinks(page.slug, page.type, page.matches);
+  const count = Math.max(1, Math.ceil(page.matches.length / CATALOG_PAGE_SIZE));
+  for (let number = 1; number <= count; number++) {
+    const { html, ...rendered } = landingPage(page, number, related);
+    const pageDir = path.join(outDir, rendered.pathName);
+    fs.mkdirSync(pageDir, { recursive: true });
+    fs.writeFileSync(path.join(pageDir, 'index.html'), html);
+    written.push(rendered);
+  }
 }
+
+// /catalog/ stays the category chooser; this separate first page browses all items.
+const paginatedCatalogHomeHtml = fs.readFileSync(catalogHomePath, 'utf8').replace(/<p data-all-catalog-products>[\s\S]*?<\/p>/g, '');
+fs.writeFileSync(catalogHomePath, paginatedCatalogHomeHtml.replace('</main>', '<p data-all-catalog-products><a href="/catalog/page/1/">Все товары каталога</a></p></main>'));
 
 for (const [from, to] of Object.entries(catalogRedirects)) {
   const destination = path.join(outDir, to.replace(/^\/+/, ''), 'index.html');

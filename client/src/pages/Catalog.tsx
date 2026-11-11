@@ -1,5 +1,5 @@
 import catalogSections from "@shared/catalog-sections.json";
-import { CATALOG_PAGE_SIZE, catalogPage, catalogPageHref } from "@shared/catalog-pagination.mjs";
+import { CATALOG_PAGE_SIZE, catalogAllProductsSeo, catalogPage, catalogStaticPageHref as catalogPageHref, catalogBasePath, catalogPathPage, catalogHasFilters, catalogPagePath, catalogPageMetadata } from "@shared/catalog-pagination.mjs";
 import { CatalogPagination } from "@/components/catalog/CatalogPagination";
 import catalogHomeSeo from "@shared/catalog-home-seo.json";
 import { catalogProductName } from "@shared/catalog-product-seo.mjs";
@@ -237,7 +237,7 @@ const enhancementCopy = {
 } as const;
 
 export default function Catalog() {
-  const params = useParams<{ categoryId?: string; brandSlug?: string; modelSlug?: string }>();
+  const params = useParams<{ categoryId?: string; brandSlug?: string; modelSlug?: string; pageNumber?: string }>();
   const [location, navigate] = useLocation();
   const urlSearch = useSearch();
   const urlQuery = new URLSearchParams(urlSearch).get("q") || "";
@@ -254,7 +254,8 @@ export default function Catalog() {
   const [supplyOption, setSupplyOption] = useState("");
   const [formError, setFormError] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const requestedPage = catalogPage(urlSearch);
+  const pathPage = catalogPathPage(location);
+  const requestedPage = pathPage === null ? catalogPage(urlSearch) : pathPage || 1;
   const previousPageRef = useRef(requestedPage);
   const skipPageScrollRef = useRef(false);
   const resetPage = () => {
@@ -376,11 +377,17 @@ export default function Catalog() {
   const pageStart = (page - 1) * CATALOG_PAGE_SIZE;
   const pageProducts = filteredProducts.slice(pageStart, pageStart + CATALOG_PAGE_SIZE);
   const activeSection = catalogSections.find(section => section.categories.includes(category));
-  const pageHref = (next: number) => catalogPageHref(location, urlSearch, next);
-
   useEffect(() => {
-    if (complete && requestedPage !== page) navigate(catalogPageHref(location, urlSearch, page), { replace: true });
-  }, [complete, requestedPage, page, location, urlSearch, navigate]);
+    if (!complete || pathPage === 0 || (pathPage !== null && requestedPage > pages)) return;
+    const legacy = new URLSearchParams(urlSearch).has("page");
+    if ((pathPage === null && legacy && !catalogHasFilters(urlSearch)) ||
+        (pathPage !== null && catalogHasFilters(urlSearch)) ||
+        (pathPage === 1 && catalogBasePath(location) !== "/catalog")) {
+      navigate(catalogPageHref(location, urlSearch, page) + window.location.hash, { replace: true });
+    } else if (pathPage === null && requestedPage !== page) {
+      navigate(catalogPageHref(location, urlSearch, page) + window.location.hash, { replace: true });
+    }
+  }, [complete, requestedPage, page, pages, pathPage, location, urlSearch, navigate]);
 
   useEffect(() => {
     if (previousPageRef.current !== requestedPage) {
@@ -427,7 +434,22 @@ export default function Catalog() {
     || (routeModel ? routeModel.brand === "JCB" ? `Техника и запчасти ${routeModel.brand} ${routeModel.label} в Казахстане. Подбор исполнения машины под задачу и деталей по OEM-номеру. Цена и срок по запросу.` : `Запчасти для ${routeModel.brand} ${routeModel.label}: поиск по OEM-номеру и узлу, проверка исполнения и совместимости, поставка по Казахстану.` : "")
     || catalogHomeSeo.description;
   const isLandingPage = Boolean(categoryLanding || routeBrand || routeModel);
-  const showResults = isLandingPage || Boolean(urlQuery);
+  const isAllProductsPage = pathPage !== null && catalogBasePath(location) === "/catalog";
+  const invalidRoute = Boolean((params.categoryId && !categoryLanding) || (params.brandSlug && !routeBrand) || (params.modelSlug && !routeModel));
+  const invalidStaticPage = pathPage === 0 || (pathPage !== null && (invalidRoute || (complete && requestedPage > pages)));
+  const paginationCanonical = pathPage !== null && !catalogHasFilters(urlSearch)
+    ? catalogPagePath(landingPath, requestedPage) : landingPath;
+  const pageIdentity = routeModel ? `Запчасти ${routeModel.brand} ${routeModel.label}` : routeBrand ? `Запчасти ${routeBrand.name}` : undefined;
+  const pageMetadata = catalogPageMetadata(isAllProductsPage ? catalogAllProductsSeo.title : landingTitle, isAllProductsPage ? catalogAllProductsSeo.description : landingDescription, page, pages, pageIdentity);
+  const pageHref = (next: number) => {
+    const search = new URLSearchParams(urlSearch);
+    const query = `${partQuery} ${machineModel !== routeModel?.label ? machineModel : ""}`.trim();
+    if (query) search.set("q", query); else search.delete("q");
+    if ((routeBrand || routeModel) && category) search.set("category", category);
+    else search.delete("category");
+    return catalogPageHref(landingPath, search.toString(), next);
+  };
+  const showResults = isLandingPage || isAllProductsPage || Boolean(urlQuery);
   const hasActiveProductFilters = Boolean(deferredQuery || brand || routeBrand || routeModel);
   const expectedResultCount = !complete && category && !hasActiveProductFilters
     ? Math.max(filteredProducts.length, categoryStats[category]?.count || 0)
@@ -531,20 +553,27 @@ export default function Catalog() {
     window.setTimeout(scrollToResults, 0);
   };
 
+  if (invalidStaticPage) return <main className="min-h-screen bg-[#101010] p-8 text-white">
+    <SEO title="Страница каталога не найдена" description="Откройте начало раздела каталога и выберите существующую страницу." canonical={location} noIndex />
+    <h1 className="text-3xl font-bold">Страница каталога не найдена</h1>
+    <p className="mt-4">Номер страницы не существует. Товары доступны в начале раздела.</p>
+    <Link href={landingPath} className="mt-6 inline-flex min-h-11 items-center text-[#FFC000] underline">Вернуться в каталог</Link>
+  </main>;
+
   return (
     <div className="min-h-[100dvh] bg-[#101010] text-white font-roboto" data-catalog-landing={isLandingPage ? "true" : undefined}>
       <SEO
-        title={landingTitle}
-        description={landingDescription}
+        title={pageMetadata.title}
+        description={pageMetadata.description}
         keywords="запчасти для спецтехники Казахстан, OEM запчасти, поиск по VIN, гидронасос купить, гидромотор, CAT, Komatsu, Hitachi"
-        canonical={landingPath}
-        noIndex={Boolean(urlQuery || (params.categoryId && !categoryLanding) || (params.brandSlug && !routeBrand) || (params.modelSlug && !routeModel) || (complete && isLandingPage && filteredProducts.length === 0 && matchingSupplyOffers.length === 0))}
+        canonical={paginationCanonical}
+        noIndex={Boolean(catalogHasFilters(urlSearch) || (params.categoryId && !categoryLanding) || (params.brandSlug && !routeBrand) || (params.modelSlug && !routeModel) || (complete && isLandingPage && filteredProducts.length === 0 && matchingSupplyOffers.length === 0))}
         schema={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: landingTitle,
-          description: landingDescription,
-          url: `https://acahydraulic.kz${landingPath}/`,
+          name: pageMetadata.title,
+          description: pageMetadata.description,
+          url: `https://acahydraulic.kz${paginationCanonical.replace(/\/$/, "")}/`,
           inLanguage: ["ru-KZ", "kk-KZ", "en"],
           about: "Запчасти для гидравлических систем и спецтехники",
           mainEntity: {
@@ -606,12 +635,12 @@ export default function Catalog() {
               <div className="aca-catalog-search-column">
                 <div className={`max-w-3xl${isLandingPage ? " aca-landing-heading" : ""}`}>
                   <h1 className="font-bebas text-4xl font-bold uppercase leading-tight tracking-wide md:text-6xl">
-                    {isLandingPage ? landingTitle : copy.pageTitle}
+                      {isAllProductsPage ? catalogAllProductsSeo.title : isLandingPage ? landingTitle : copy.pageTitle}
                   </h1>
                   <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">{isLandingPage ? `${language === "ru" ? "Поставка под заказ." : language === "kz" ? "Тапсырыс бойынша." : "Supplied to order."} ${landingDescription}` : copy.pageDescription}</p>
                 </div>
 
-                {categoryLanding?.id === "gear-pumps" && <NshPumpSelection language={language} />}
+                {page === 1 && categoryLanding?.id === "gear-pumps" && <NshPumpSelection language={language} />}
 
                 <div className="mt-6 flex gap-2 overflow-x-auto pb-1" aria-label={ui.searchType}>
                   {ui.searchModes.map((item) => {
@@ -842,10 +871,10 @@ export default function Catalog() {
           <nav className="aca-section-nav" aria-label={language === "ru" ? "Разделы запчастей" : language === "kz" ? "Бөлшектер бөлімдері" : "Parts departments"}>
             {catalogSections.map(section => {
               const Icon = sectionIcons[section.id as keyof typeof sectionIcons];
-              return <a key={section.id} href={isLandingPage ? `/catalog/#section-${section.id}` : `#section-${section.id}`} aria-current={activeSection?.id === section.id ? "location" : undefined}><Icon aria-hidden="true" />{section[language]}</a>;
+              return <a key={section.id} href={isLandingPage || isAllProductsPage ? `/catalog/#section-${section.id}` : `#section-${section.id}`} aria-current={activeSection?.id === section.id ? "location" : undefined}><Icon aria-hidden="true" />{section[language]}</a>;
             })}
           </nav>
-          {!isLandingPage && catalogSections.map(section => {
+          {!isLandingPage && !isAllProductsPage && catalogSections.map(section => {
             const SectionIcon = sectionIcons[section.id as keyof typeof sectionIcons];
             return <section key={section.id} id={`section-${section.id}`} className="aca-category-section" aria-labelledby={`section-title-${section.id}`} data-catalog-section={section.id}>
               <div className="aca-category-section-heading"><SectionIcon aria-hidden="true" /><div><h3 id={`section-title-${section.id}`}>{section[language]}</h3><p>{section.description[language]}</p></div></div>
@@ -946,6 +975,7 @@ export default function Catalog() {
               </details>
             </section>
           )}
+          {!showResults && <p className="mt-6"><Link href="/catalog/page/1/" className="inline-flex min-h-11 items-center font-bold text-[#795809] underline">Все товары каталога</Link></p>}
           {showResults && <div
             id="catalog-results"
             ref={resultsRef}

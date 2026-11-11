@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { catalogBasePath, catalogPathPage, catalogPage, catalogStaticPageHref as catalogPageHref, catalogPageMetadata } from '../shared/catalog-pagination.mjs';
+import { formatSeoTitle } from '../shared/seo-meta.mjs';
 
 test('catalogue pagination uses real static paths and keeps attribution', () => {
   const base = '/catalog/category/gear-pumps/';
@@ -24,4 +25,12 @@ test('invalid numbered paths are distinct from legacy query normalization', () =
   assert.equal(catalogBasePath('/catalog/brand/danfoss/page/2/'), '/catalog/brand/danfoss');
   assert.equal(catalogPage('?page=oops'), 1);
   assert.notEqual(catalogPageMetadata('Насосы', 'Подбор насоса.', 2, 61).title, catalogPageMetadata('Насосы', 'Подбор насоса.', 3, 61).title);
+});
+
+test('formatted page titles retain both the model identifier and page number', () => {
+  const titles = ['303', '312B'].flatMap(model => [2, 3].map(page => {
+    const title = formatSeoTitle(catalogPageMetadata(`Запчасти для спецтехники Caterpillar ${model}`, 'Подбор по номеру.', page, 4, `Запчасти Caterpillar ${model}`).title);
+    assert(title.includes(model)); assert(title.includes(`стр. ${page}`)); return title;
+  }));
+  assert.equal(new Set(titles).size, 4);
 });

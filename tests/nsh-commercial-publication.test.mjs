@@ -38,13 +38,13 @@ test('the three reviewed pump cards keep their URLs, identity and specific selec
   }
 });
 
-test('changed pages receive a truthful revision date without rewriting the entire sitemap', () => {
+test('pump copy dates remain valid after later category changes without rewriting product dates', () => {
   const findDate = (file, route) => {
     const blocks = fs.readFileSync(file, 'utf8').match(/<url>[\s\S]*?<\/url>/g) || [];
     return blocks.find(block => block.includes(`<loc>https://acahydraulic.kz${route}</loc>`))?.match(/<lastmod>(.*?)<\/lastmod>/)?.[1];
   };
   for (const category of ['gear-pumps', 'piston-pumps', 'hydraulic-pumps']) {
-    assert.equal(findDate('dist/public/sitemap-catalog-landings.xml', `/catalog/category/${category}/`), '2026-11-08');
+    assert.ok(findDate('dist/public/sitemap-catalog-landings.xml', `/catalog/category/${category}/`) >= '2026-11-08');
   }
   for (const handle of reviewedHandles) assert.equal(findDate('dist/public/sitemap-products.xml', `/catalog/${handle}/`), '2026-11-08');
 });

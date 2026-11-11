@@ -26,6 +26,10 @@ const readPage = route =>
   fs.readFileSync(`dist/public${route}index.html`, "utf8");
 
 const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const assertRevisionAtLeast = (sitemap, route, minimum) => {
+  const date = sitemap.match(new RegExp(`<loc>https://acahydraulic\\.kz${escapeRegExp(route)}</loc><lastmod>([^<]+)</lastmod>`))?.[1];
+  assert.ok(date && date >= minimum, `${route}: expected revision >= ${minimum}, got ${date}`);
+};
 
 const productBrandSlugs = product => {
   const text = `${product.title} ${product.fitment || ""} ${(product.tags || []).join(" ")}`;
@@ -207,13 +211,7 @@ test("changed pump landing pages publish their actual content revision date", ()
     ["/catalog/brand/rexroth/", catalogContentRevisions.sitewideSeo.modifiedDate],
     ["/catalog/brand/danfoss/", catalogContentRevisions.sitewideSeo.modifiedDate],
   ]) {
-    assert.match(
-      sitemap,
-      new RegExp(
-        `<loc>https://acahydraulic\\.kz${escapeRegExp(route)}</loc><lastmod>${modifiedDate}</lastmod>`,
-      ),
-      route,
-    );
+    assertRevisionAtLeast(sitemap, route, modifiedDate);
   }
 });
 
@@ -250,28 +248,16 @@ test("catalog publication revisions cover affected category and brand landings",
       catalogContentRevisions.pumpCommercialSeo.categories.includes(category) ? catalogContentRevisions.pumpCommercialSeo.modifiedDate : undefined,
       catalogContentRevisions.sitewideSeo.modifiedDate,
     ].filter(Boolean).sort().at(-1);
-    assert.match(
-      sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${modifiedDate}</lastmod>`),
-      category,
-    );
+    assertRevisionAtLeast(sitemap, `/catalog/category/${category}/`, modifiedDate);
   }
   for (const brand of hydrauvisionBrands) {
-    assert.match(
-      sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/brand/${brand}/</loc><lastmod>${catalogContentRevisions.sitewideSeo.modifiedDate}</lastmod>`),
-      brand,
-    );
+    assertRevisionAtLeast(sitemap, `/catalog/brand/${brand}/`, catalogContentRevisions.sitewideSeo.modifiedDate);
   }
   for (const category of correctedCategories) {
     const modifiedDate = catalogContentRevisions.pumpCommercialSeo.categories.includes(category)
       ? catalogContentRevisions.pumpCommercialSeo.modifiedDate
       : catalogContentRevisions.sitewideSeo.modifiedDate;
-    assert.match(
-      sitemap,
-      new RegExp(`<loc>https://acahydraulic\\.kz/catalog/category/${category}/</loc><lastmod>${modifiedDate}</lastmod>`),
-      category,
-    );
+    assertRevisionAtLeast(sitemap, `/catalog/category/${category}/`, modifiedDate);
   }
 });
 

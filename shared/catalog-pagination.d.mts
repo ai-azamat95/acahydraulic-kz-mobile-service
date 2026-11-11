@@ -1,10 +1,11 @@
 export const CATALOG_PAGE_SIZE: 10;
+export const catalogAllProductsSeo: { title: string; description: string };
 export function catalogBasePath(path: string): string;
 export function catalogPathPage(path: string): number | null;
 export function catalogHasFilters(search: string): boolean;
 export function catalogPagePath(path: string, page: number): string;
 export function catalogStaticPageHref(path: string, search: string, page: number): string;
-export function catalogPageMetadata(title: string, description: string, page: number, pages: number): { title: string; description: string };
+export function catalogPageMetadata(title: string, description: string, page: number, pages: number, identity?: string): { title: string; description: string };
 export function catalogPage(search: string): number;
 export function catalogPageHref(path: string, search: string, page: number): string;
 export function catalogPageNumbers(page: number, pages: number): (number | string)[];

@@ -1,4 +1,10 @@
+import { compactSeoTitleBase } from './seo-meta.mjs';
+
 export const CATALOG_PAGE_SIZE = 10;
+export const catalogAllProductsSeo = {
+  title: 'Все товары каталога запчастей',
+  description: 'Все позиции каталога ACA Hydraulic: подбор запчастей по номеру детали, модели и серийному номеру техники. Цену, наличие и срок подтверждаем до оплаты.',
+};
 
 export function catalogBasePath(path) {
   return path.replace(/\/page\/[^/]+\/?$/, '').replace(/\/$/, '') || '/';
@@ -45,9 +51,9 @@ export function catalogPageHref(path, search, page) {
   return `${path}${suffix ? `?${suffix}` : ''}`;
 }
 
-export function catalogPageMetadata(title, description, page, pages) {
+export function catalogPageMetadata(title, description, page, pages, identity = title) {
   return page > 1 ? {
-    title: `Страница ${page} — ${title}`,
+    title: `${compactSeoTitleBase(identity, 36)} — стр. ${page}`,
     description: `Страница ${page} из ${pages}. ${description}`,
   } : { title, description };
 }
