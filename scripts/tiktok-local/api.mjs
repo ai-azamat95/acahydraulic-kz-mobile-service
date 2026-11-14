@@ -7,6 +7,7 @@ import { spawnSync } from 'node:child_process';
 export const SCOPES = ['user.info.basic', 'user.info.profile', 'user.info.stats', 'video.list', 'video.upload'];
 export const REDIRECT_URI = 'https://acahydraulic.kz/tiktok/callback/';
 export const PORT = 8789;
+export const DESKTOP_REDIRECT_URI = 'http://127.0.0.1:' + PORT + '/oauth/callback';
 const API = 'https://open.tiktokapis.com';
 
 export class ApiError extends Error {
@@ -59,9 +60,11 @@ export class Keychain {
 
 export async function loadConfig(file = path.join(os.homedir(), '.config/aca-api/tiktok/local-config.json')) {
   const config = JSON.parse(await fs.readFile(file, 'utf8'));
+  const mode = config.oauth_mode ?? 'web';
   if (!['sandbox', 'production'].includes(config.environment)
     || !/^\d{10,30}$/.test(config.app_id || '')
-    || config.redirect_uri !== REDIRECT_URI) throw new ApiError('invalid_local_config', 503);
+    || !['web', 'desktop'].includes(mode)
+    || config.redirect_uri !== (mode === 'desktop' ? DESKTOP_REDIRECT_URI : REDIRECT_URI)) throw new ApiError('invalid_local_config', 503);
   if (!Array.isArray(config.scopes) || !config.scopes.length
     || config.scopes.some(scope => !SCOPES.includes(scope))) throw new ApiError('invalid_scopes', 503);
   for (const field of ['client_key_item', 'client_secret_item', 'token_item']) {
@@ -70,7 +73,7 @@ export async function loadConfig(file = path.join(os.homedir(), '.config/aca-api
   // Keep the Sandbox grant distinct from Production credentials and tokens.
   if (config.environment === 'sandbox' && ['client_key_item', 'client_secret_item', 'token_item']
     .some(field => !config[field].startsWith('sandbox-'))) throw new ApiError('sandbox_keychain_isolation_required', 503);
-  return config;
+  return { ...config, oauth_mode: mode };
 }
 
 export function uploadPlan(size) {
@@ -129,6 +132,7 @@ export class TikTokClient {
     const token = this.token();
     return {
       environment: this.config.environment,
+      oauthMode: this.config.oauth_mode || 'web',
       appId: this.config.app_id,
       credentialsReady: Boolean(this.store.read(this.config.client_key_item) && this.store.read(this.config.client_secret_item)),
       connected: Boolean(token?.access_token && token.refresh_expires_at > this.now()),
@@ -141,11 +145,14 @@ export class TikTokClient {
   begin() {
     const { key } = this.credentials();
     const state = crypto.randomBytes(32).toString('base64url');
-    this.pending = { state, expires: this.now() + 10 * 60 * 1000 };
+    const verifier = this.config.oauth_mode === 'desktop' ? crypto.randomBytes(32).toString('base64url') : null;
+    this.pending = { state, verifier, expires: this.now() + 10 * 60 * 1000 };
     const url = new URL('https://www.tiktok.com/v2/auth/authorize/');
     url.search = new URLSearchParams({
       client_key: key, response_type: 'code', scope: this.config.scopes.join(','),
       redirect_uri: this.config.redirect_uri, state, disable_auto_auth: '1',
+      // TikTok Desktop explicitly specifies a hex-encoded SHA-256 challenge.
+      ...(verifier ? { code_challenge: crypto.createHash('sha256').update(verifier).digest('hex'), code_challenge_method: 'S256' } : {}),
     }).toString();
     return url.href;
   }
@@ -177,12 +184,13 @@ export class TikTokClient {
     const pending = this.pending;
     if (!pending || !sameSecret(params.state, pending.state)) throw new ApiError('invalid_oauth_state', 403);
     this.pending = null; // Consume once, including denial and expired callbacks.
-    if (pending.expires < this.now()) throw new ApiError('oauth_state_expired', 403);
+    if (pending.expires <= this.now()) throw new ApiError('oauth_state_expired', 403);
     if (params.error) throw new ApiError('oauth_denied', 403);
     if (typeof params.code !== 'string' || params.code.length > 2048
-      || !params.code || /[\r\n]/.test(params.code)) throw new ApiError('invalid_oauth_code');
+      || !params.code || /[\x00-\x20\x7f]/.test(params.code)) throw new ApiError('invalid_oauth_code');
     const token = await this.requestToken({
       grant_type: 'authorization_code', code: params.code, redirect_uri: this.config.redirect_uri,
+      ...(pending.verifier ? { code_verifier: pending.verifier } : {}),
     });
     this.store.write(this.config.token_item, JSON.stringify(token));
     await this.journal({ action: 'oauth_connected', environment: this.config.environment });
