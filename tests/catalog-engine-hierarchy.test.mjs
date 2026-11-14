@@ -4,12 +4,14 @@ import fs from 'node:fs';
 import { correctEngineTaxonomy } from '../shared/catalog-engine-taxonomy.mjs';
 import mapping from '../shared/catalog-engine-taxonomy.json' with { type: 'json' };
 import imported from '../shared/catalog-turbocharger-products.json' with { type: 'json' };
+import owners from '../shared/catalog-owner-products.json' with { type: 'json' };
+const additionalEngineOwners = owners.filter(p => p.categories.includes('engine-fuel') && !mapping.some(r => r.id === p.id));
 const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const withoutTaxonomy = ({category, categories, ...rest}) => rest;
 test('reviewed taxonomy is ID-scoped, lossless and idempotent', () => {
  const products = fs.readdirSync('client/public/catalog-data').filter(f => /^products-\d+\.json$/.test(f)).flatMap(f => read(`client/public/catalog-data/${f}`));
  const ids = new Set(products.map(p => p.id));
- assert.equal(ids.size, 12293);
+ assert.equal(ids.size, 12293 + additionalEngineOwners.length);
  assert.equal(mapping.length, 4010);
  assert.equal(new Set(mapping.map(r => r.id)).size, mapping.length);
  const assigned = {};
@@ -32,10 +34,10 @@ test('reviewed taxonomy is ID-scoped, lossless and idempotent', () => {
 });
 test('published parent and child indexes are deduplicated and exact',()=>{
  const dir='dist/public/catalog-data/category-indexes';
- const parent=read(`${dir}/engine-fuel.json`); assert.equal(parent.length,4010);
- assert.equal(new Set(parent.map(p=>p.id)).size,4010);
+ const parent=read(`${dir}/engine-fuel.json`); assert.equal(parent.length,4010 + additionalEngineOwners.length);
+ assert.equal(new Set(parent.map(p=>p.id)).size,4010 + additionalEngineOwners.length);
  for(const c of ['fuel-injectors','fuel-pumps','turbochargers','air-compressors']) {
-  const rows=read(`${dir}/${c}.json`); const expected=mapping.filter(r=>r.destination===c).map(r=>r.id).sort();
+  const rows=read(`${dir}/${c}.json`); const expected=[...mapping.filter(r=>r.destination===c).map(r=>r.id), ...additionalEngineOwners.filter(p=>p.categories.includes(c)).map(p=>p.id)].sort();
   assert.deepEqual(rows.map(p=>p.id).sort(),expected);
   const html=fs.readFileSync(`dist/public/catalog/category/${c}/index.html`,'utf8');
   assert(html.includes('href="/catalog/category/engine-fuel/"'));

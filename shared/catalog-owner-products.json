@@ -390,22 +390,50 @@
     "model": "332/F8152",
     "mpn": "332/F8152",
     "category": "main-control-valves",
-    "categories": ["main-control-valves", "control-valves"],
+    "categories": [
+      "main-control-valves",
+      "control-valves"
+    ],
     "productType": "Передний гидрораспределитель",
-    "tags": ["HUSCO", "JCB", "332/F8152", "332F8152", "3CX", "4CX", "214", "215", "217", "2WS", "AWS", "передний гидрораспределитель"],
+    "tags": [
+      "HUSCO",
+      "JCB",
+      "332/F8152",
+      "332F8152",
+      "3CX",
+      "4CX",
+      "214",
+      "215",
+      "217",
+      "2WS",
+      "AWS",
+      "передний гидрораспределитель"
+    ],
     "available": false,
     "minPriceKzt": null,
     "maxPriceKzt": null,
     "imageUrl": "/catalog-assets/husco-332-f8152/01.webp",
-    "gallery": ["/catalog-assets/husco-332-f8152/01.webp","/catalog-assets/husco-332-f8152/02.webp","/catalog-assets/husco-332-f8152/03.webp","/catalog-assets/husco-332-f8152/04.webp","/catalog-assets/husco-332-f8152/05.webp"],
-    "variants": [{
-      "id": "ACA-HUSCO-JCB-332-F8152",
-      "title": "HUSCO / JCB 332/F8152",
-      "sku": "332/F8152",
-      "available": false,
-      "priceKzt": null,
-      "options": ["Цена и наличие по запросу", "Проверка по шильдику и серийному номеру", "Комплектация согласуется"]
-    }]
+    "gallery": [
+      "/catalog-assets/husco-332-f8152/01.webp",
+      "/catalog-assets/husco-332-f8152/02.webp",
+      "/catalog-assets/husco-332-f8152/03.webp",
+      "/catalog-assets/husco-332-f8152/04.webp",
+      "/catalog-assets/husco-332-f8152/05.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-HUSCO-JCB-332-F8152",
+        "title": "HUSCO / JCB 332/F8152",
+        "sku": "332/F8152",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена и наличие по запросу",
+          "Проверка по шильдику и серийному номеру",
+          "Комплектация согласуется"
+        ]
+      }
+    ]
   },
   {
     "id": "ACA-HUSCO-HIDROMEK-544S0555",
@@ -418,22 +446,49 @@
     "model": "544S0555",
     "mpn": "544S0555",
     "category": "main-control-valves",
-    "categories": ["main-control-valves", "control-valves"],
+    "categories": [
+      "main-control-valves",
+      "control-valves"
+    ],
     "productType": "Гидрораспределитель",
-    "tags": ["HUSCO", "Hidromek", "Гидромек", "544S0555", "F25/21125", "F25/21120", "HMK 102B", "HMK 102S", "HMK 105", "HMK 62"],
+    "tags": [
+      "HUSCO",
+      "Hidromek",
+      "Гидромек",
+      "544S0555",
+      "F25/21125",
+      "F25/21120",
+      "HMK 102B",
+      "HMK 102S",
+      "HMK 105",
+      "HMK 62"
+    ],
     "available": false,
     "minPriceKzt": null,
     "maxPriceKzt": null,
     "imageUrl": "/catalog-assets/husco-544s0555/01.webp",
-    "gallery": ["/catalog-assets/husco-544s0555/01.webp","/catalog-assets/husco-544s0555/02.webp","/catalog-assets/husco-544s0555/03.webp","/catalog-assets/husco-544s0555/04.webp","/catalog-assets/husco-544s0555/05.webp","/catalog-assets/husco-544s0555/06.webp"],
-    "variants": [{
-      "id": "ACA-HUSCO-HIDROMEK-544S0555",
-      "title": "HUSCO 544S0555 / F25/21125 / F25/21120",
-      "sku": "544S0555",
-      "available": false,
-      "priceKzt": null,
-      "options": ["Цена и наличие по запросу", "Проверка всех трёх номеров", "Комплектация согласуется"]
-    }]
+    "gallery": [
+      "/catalog-assets/husco-544s0555/01.webp",
+      "/catalog-assets/husco-544s0555/02.webp",
+      "/catalog-assets/husco-544s0555/03.webp",
+      "/catalog-assets/husco-544s0555/04.webp",
+      "/catalog-assets/husco-544s0555/05.webp",
+      "/catalog-assets/husco-544s0555/06.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-HUSCO-HIDROMEK-544S0555",
+        "title": "HUSCO 544S0555 / F25/21125 / F25/21120",
+        "sku": "544S0555",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена и наличие по запросу",
+          "Проверка всех трёх номеров",
+          "Комплектация согласуется"
+        ]
+      }
+    ]
   },
   {
     "id": "ACA-HUSCO-JCB-332-Y3028",
@@ -446,22 +501,45 @@
     "model": "332/Y3028",
     "mpn": "332/Y3028",
     "category": "main-control-valves",
-    "categories": ["main-control-valves", "control-valves"],
+    "categories": [
+      "main-control-valves",
+      "control-valves"
+    ],
     "productType": "Задний гидрораспределитель",
-    "tags": ["HUSCO", "JCB", "332/Y3028", "332Y3028", "3DX", "без гидромолота", "задний гидрораспределитель"],
+    "tags": [
+      "HUSCO",
+      "JCB",
+      "332/Y3028",
+      "332Y3028",
+      "3DX",
+      "без гидромолота",
+      "задний гидрораспределитель"
+    ],
     "available": false,
     "minPriceKzt": null,
     "maxPriceKzt": null,
     "imageUrl": "/catalog-assets/husco-332-y3028/01.webp",
-    "gallery": ["/catalog-assets/husco-332-y3028/01.webp","/catalog-assets/husco-332-y3028/02.webp","/catalog-assets/husco-332-y3028/03.webp","/catalog-assets/husco-332-y3028/04.webp","/catalog-assets/husco-332-y3028/05.webp"],
-    "variants": [{
-      "id": "ACA-HUSCO-JCB-332-Y3028",
-      "title": "HUSCO / JCB 332/Y3028",
-      "sku": "332/Y3028",
-      "available": false,
-      "priceKzt": null,
-      "options": ["Цена и наличие по запросу", "Исполнение без гидромолота требует проверки", "Комплектация согласуется"]
-    }]
+    "gallery": [
+      "/catalog-assets/husco-332-y3028/01.webp",
+      "/catalog-assets/husco-332-y3028/02.webp",
+      "/catalog-assets/husco-332-y3028/03.webp",
+      "/catalog-assets/husco-332-y3028/04.webp",
+      "/catalog-assets/husco-332-y3028/05.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-HUSCO-JCB-332-Y3028",
+        "title": "HUSCO / JCB 332/Y3028",
+        "sku": "332/Y3028",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена и наличие по запросу",
+          "Исполнение без гидромолота требует проверки",
+          "Комплектация согласуется"
+        ]
+      }
+    ]
   },
   {
     "id": "ACA-HUSCO-JCB-334-F6978",
@@ -474,22 +552,46 @@
     "model": "334/F6978",
     "mpn": "334/F6978",
     "category": "main-control-valves",
-    "categories": ["main-control-valves", "control-valves"],
+    "categories": [
+      "main-control-valves",
+      "control-valves"
+    ],
     "productType": "Гидрораспределитель",
-    "tags": ["HUSCO", "JCB", "334/F6978", "334F6978", "128/G5234", "128G5234", "гидрораспределитель"],
+    "tags": [
+      "HUSCO",
+      "JCB",
+      "334/F6978",
+      "334F6978",
+      "128/G5234",
+      "128G5234",
+      "гидрораспределитель"
+    ],
     "available": false,
     "minPriceKzt": null,
     "maxPriceKzt": null,
     "imageUrl": "/catalog-assets/husco-334-f6978/01.webp",
-    "gallery": ["/catalog-assets/husco-334-f6978/01.webp","/catalog-assets/husco-334-f6978/02.webp","/catalog-assets/husco-334-f6978/03.webp","/catalog-assets/husco-334-f6978/04.webp","/catalog-assets/husco-334-f6978/05.webp","/catalog-assets/husco-334-f6978/06.webp"],
-    "variants": [{
-      "id": "ACA-HUSCO-JCB-334-F6978",
-      "title": "HUSCO / JCB 334/F6978 / 128/G5234",
-      "sku": "334/F6978",
-      "available": false,
-      "priceKzt": null,
-      "options": ["Цена и наличие по запросу", "Проверка обоих номеров", "Модель и комплектация уточняются"]
-    }]
+    "gallery": [
+      "/catalog-assets/husco-334-f6978/01.webp",
+      "/catalog-assets/husco-334-f6978/02.webp",
+      "/catalog-assets/husco-334-f6978/03.webp",
+      "/catalog-assets/husco-334-f6978/04.webp",
+      "/catalog-assets/husco-334-f6978/05.webp",
+      "/catalog-assets/husco-334-f6978/06.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-HUSCO-JCB-334-F6978",
+        "title": "HUSCO / JCB 334/F6978 / 128/G5234",
+        "sku": "334/F6978",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена и наличие по запросу",
+          "Проверка обоих номеров",
+          "Модель и комплектация уточняются"
+        ]
+      }
+    ]
   },
   {
     "id": "ACA-HUSCO-JCB-332-F6665",
@@ -502,22 +604,47 @@
     "model": "332/F6665",
     "mpn": "332/F6665",
     "category": "main-control-valves",
-    "categories": ["main-control-valves", "control-valves"],
+    "categories": [
+      "main-control-valves",
+      "control-valves"
+    ],
     "productType": "Задний гидрораспределитель",
-    "tags": ["HUSCO", "JCB", "332/F6665", "332F6665", "25/222930", "25222930", "3CX", "4CX", "задний гидрораспределитель"],
+    "tags": [
+      "HUSCO",
+      "JCB",
+      "332/F6665",
+      "332F6665",
+      "25/222930",
+      "25222930",
+      "3CX",
+      "4CX",
+      "задний гидрораспределитель"
+    ],
     "available": false,
     "minPriceKzt": null,
     "maxPriceKzt": null,
     "imageUrl": "/catalog-assets/husco-332-f6665/01.webp",
-    "gallery": ["/catalog-assets/husco-332-f6665/01.webp","/catalog-assets/husco-332-f6665/02.webp","/catalog-assets/husco-332-f6665/03.webp","/catalog-assets/husco-332-f6665/04.webp","/catalog-assets/husco-332-f6665/05.webp"],
-    "variants": [{
-      "id": "ACA-HUSCO-JCB-332-F6665",
-      "title": "HUSCO / JCB 332/F6665 / 25/222930",
-      "sku": "332/F6665",
-      "available": false,
-      "priceKzt": null,
-      "options": ["Цена и наличие по запросу", "Проверка обоих номеров", "Комплектация согласуется"]
-    }]
+    "gallery": [
+      "/catalog-assets/husco-332-f6665/01.webp",
+      "/catalog-assets/husco-332-f6665/02.webp",
+      "/catalog-assets/husco-332-f6665/03.webp",
+      "/catalog-assets/husco-332-f6665/04.webp",
+      "/catalog-assets/husco-332-f6665/05.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-HUSCO-JCB-332-F6665",
+        "title": "HUSCO / JCB 332/F6665 / 25/222930",
+        "sku": "332/F6665",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена и наличие по запросу",
+          "Проверка обоих номеров",
+          "Комплектация согласуется"
+        ]
+      }
+    ]
   },
   {
     "id": "ACA-HUSCO-JCB-25-624300",
@@ -530,22 +657,47 @@
     "model": "25/624300",
     "mpn": "25/624300",
     "category": "main-control-valves",
-    "categories": ["main-control-valves", "control-valves"],
+    "categories": [
+      "main-control-valves",
+      "control-valves"
+    ],
     "productType": "Задний гидрораспределитель",
-    "tags": ["HUSCO", "JCB", "25/624300", "25624300", "25/615600", "25615600", "3CX", "4CX", "задний гидрораспределитель"],
+    "tags": [
+      "HUSCO",
+      "JCB",
+      "25/624300",
+      "25624300",
+      "25/615600",
+      "25615600",
+      "3CX",
+      "4CX",
+      "задний гидрораспределитель"
+    ],
     "available": false,
     "minPriceKzt": null,
     "maxPriceKzt": null,
     "imageUrl": "/catalog-assets/husco-25-624300/01.webp",
-    "gallery": ["/catalog-assets/husco-25-624300/01.webp","/catalog-assets/husco-25-624300/02.webp","/catalog-assets/husco-25-624300/03.webp","/catalog-assets/husco-25-624300/04.webp","/catalog-assets/husco-25-624300/05.webp"],
-    "variants": [{
-      "id": "ACA-HUSCO-JCB-25-624300",
-      "title": "HUSCO / JCB 25/624300 / 25/615600",
-      "sku": "25/624300",
-      "available": false,
-      "priceKzt": null,
-      "options": ["Цена и наличие по запросу", "Обязательна проверка полного шильдика", "Комплектация согласуется"]
-    }]
+    "gallery": [
+      "/catalog-assets/husco-25-624300/01.webp",
+      "/catalog-assets/husco-25-624300/02.webp",
+      "/catalog-assets/husco-25-624300/03.webp",
+      "/catalog-assets/husco-25-624300/04.webp",
+      "/catalog-assets/husco-25-624300/05.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-HUSCO-JCB-25-624300",
+        "title": "HUSCO / JCB 25/624300 / 25/615600",
+        "sku": "25/624300",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена и наличие по запросу",
+          "Обязательна проверка полного шильдика",
+          "Комплектация согласуется"
+        ]
+      }
+    ]
   },
   {
     "id": "ACA-HUSCO-JCB-25-222579",
@@ -558,27 +710,60 @@
     "model": "25/222579",
     "mpn": "25/222579",
     "category": "main-control-valves",
-    "categories": ["main-control-valves", "control-valves"],
+    "categories": [
+      "main-control-valves",
+      "control-valves"
+    ],
     "productType": "Передний гидрораспределитель",
-    "tags": ["HUSCO", "JCB", "25/222579", "25222579", "25/221129", "25221129", "25/624000", "25624000", "3CX", "4C", "4CX", "4CN", "передний гидрораспределитель"],
+    "tags": [
+      "HUSCO",
+      "JCB",
+      "25/222579",
+      "25222579",
+      "25/221129",
+      "25221129",
+      "25/624000",
+      "25624000",
+      "3CX",
+      "4C",
+      "4CX",
+      "4CN",
+      "передний гидрораспределитель"
+    ],
     "available": false,
     "minPriceKzt": null,
     "maxPriceKzt": null,
     "imageUrl": "/catalog-assets/husco-25-222579/01.webp",
-    "gallery": ["/catalog-assets/husco-25-222579/01.webp","/catalog-assets/husco-25-222579/02.webp","/catalog-assets/husco-25-222579/03.webp","/catalog-assets/husco-25-222579/04.webp","/catalog-assets/husco-25-222579/05.webp","/catalog-assets/husco-25-222579/06.webp","/catalog-assets/husco-25-222579/07.webp"],
-    "variants": [{
-      "id": "ACA-HUSCO-JCB-25-222579",
-      "title": "HUSCO / JCB 25/222579 / 25/221129 / 25/624000",
-      "sku": "25/222579",
-      "available": false,
-      "priceKzt": null,
-      "options": ["Цена и наличие по запросу", "Проверка всех трёх номеров", "Комплектация согласуется"]
-    }]
+    "gallery": [
+      "/catalog-assets/husco-25-222579/01.webp",
+      "/catalog-assets/husco-25-222579/02.webp",
+      "/catalog-assets/husco-25-222579/03.webp",
+      "/catalog-assets/husco-25-222579/04.webp",
+      "/catalog-assets/husco-25-222579/05.webp",
+      "/catalog-assets/husco-25-222579/06.webp",
+      "/catalog-assets/husco-25-222579/07.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-HUSCO-JCB-25-222579",
+        "title": "HUSCO / JCB 25/222579 / 25/221129 / 25/624000",
+        "sku": "25/222579",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена и наличие по запросу",
+          "Проверка всех трёх номеров",
+          "Комплектация согласуется"
+        ]
+      }
+    ]
   },
   {
     "id": "8705188397218",
     "handle": "pgh4-3x-032re11vu2-internal-gear-pump-rexroth-r901147102",
-    "legacyHandles": ["bosch-rexroth-r901147102-pgh4-31-032re11vu2"],
+    "legacyHandles": [
+      "bosch-rexroth-r901147102-pgh4-31-032re11vu2"
+    ],
     "title": "Bosch Rexroth PGH4-31/032RE11VU2 internal gear pump R901147102",
     "catalogTitle": "Шестерёнчатый насос внутреннего зацепления Bosch Rexroth R901147102, PGH4-31/032RE11VU2",
     "fitment": "Фактическое исполнение подтверждено по шильдику насоса: Bosch Rexroth PGH4-31/032RE11VU2, материальный номер R901147102. Для установки на конкретную технику дополнительно сверяем направление вращения, вал, фланец, расположение и размеры портов старого насоса.",
@@ -587,9 +772,23 @@
     "model": "PGH4-31/032RE11VU2",
     "mpn": "R901147102",
     "category": "gear-pumps",
-    "categories": ["hydraulic-pumps", "gear-pumps"],
+    "categories": [
+      "hydraulic-pumps",
+      "gear-pumps"
+    ],
     "productType": "Шестерёнчатый насос внутреннего зацепления",
-    "tags": ["Bosch Rexroth", "Rexroth", "R901147102", "PGH4", "PGH4-31", "PGH4-31/032RE11VU2", "PGH4-3X/032RE11VU2", "032RE11VU2", "шестерёнчатый насос", "насос внутреннего зацепления"],
+    "tags": [
+      "Bosch Rexroth",
+      "Rexroth",
+      "R901147102",
+      "PGH4",
+      "PGH4-31",
+      "PGH4-31/032RE11VU2",
+      "PGH4-3X/032RE11VU2",
+      "032RE11VU2",
+      "шестерёнчатый насос",
+      "насос внутреннего зацепления"
+    ],
     "catalogDescription": "Шестерёнчатый насос внутреннего зацепления с маркировкой Bosch Rexroth R901147102, исполнение PGH4-31/032RE11VU2 (обозначение серии PGH4-3X/032RE11VU2). Фактический насос находится на складе ACA Hydraulic; в карточке размещены его реальные фотографии и видео осмотра. Цена предоставляется по запросу.",
     "catalogSelection": "Перед продажей сверяем полный материальный номер R901147102 и код PGH4-31/032RE11VU2, направление вращения, вал, фланец, порты и присоединительные размеры. Совпадение только серии PGH4 не подтверждает взаимозаменяемость.",
     "catalogPriceNote": "Цена по запросу. Наличие подтверждено по фактическому товару на складе; перед оплатой повторно подтвердим комплектность и резерв.",
@@ -626,7 +825,11 @@
         "sku": "R901147102",
         "available": true,
         "priceKzt": null,
-        "options": ["В наличии", "Цена по запросу", "Совместимость подтверждается по полному исполнению"]
+        "options": [
+          "В наличии",
+          "Цена по запросу",
+          "Совместимость подтверждается по полному исполнению"
+        ]
       }
     ]
   },
@@ -686,5 +889,57 @@
     "catalogSelection": "Пришлите читаемое фото полного шильдика старого насоса, модель и серийный номер оборудования, фотографии вала, фланца, портов и регулятора. Сверяем полный код исполнения, направление вращения, присоединительные размеры и управление. Обозначение K3VG280DT само по себе не подтверждает взаимозаменяемость. Наличие, состояние, комплектацию, цену и условия поставки уточняем отдельно.",
     "catalogModifiedOn": "2026-11-08",
     "catalogQualityNote": "Полное исполнение, происхождение, состояние и комплектность насоса уточняем по шильдику и документам до заказа."
+  },
+  {
+    "id": "ACA-CAT-253-0618-ORIGINAL",
+    "catalogSupplement": "owner-photographs",
+    "handle": "cat-253-0618-original-fuel-injector",
+    "title": "CAT 253-0618 original fuel injector",
+    "catalogTitle": "Оригинальная топливная форсунка CAT 253-0618",
+    "fitment": "Применяемость уточняем по номеру форсунки и серийному номеру двигателя. Совпадение номера без проверки исполнения не подтверждает совместимость.",
+    "sku": "253-0618",
+    "brand": "CAT",
+    "model": "253-0618",
+    "mpn": "253-0618",
+    "category": "fuel-injectors",
+    "categories": [
+      "engine-fuel",
+      "fuel-injectors"
+    ],
+    "productType": "Топливная форсунка",
+    "tags": [
+      "CAT",
+      "Caterpillar",
+      "253-0618",
+      "2530618",
+      "оригинал",
+      "топливная форсунка"
+    ],
+    "available": false,
+    "minPriceKzt": null,
+    "maxPriceKzt": null,
+    "catalogDescription": "Оригинальная топливная форсунка CAT 253-0618 (Fuel Injector Group). Оригинальность заявлена продавцом ACA Hydraulic. На фото — предлагаемая форсунка и упаковка с маркировкой 253-0618. Цена и наличие уточняются по запросу.",
+    "catalogQualityNote": "Оригинальная деталь CAT — по заявлению продавца. Независимая проверка подлинности экземпляра не проводилась. Документы, состояние и комплектность уточняются перед заказом.",
+    "catalogSelection": "Для подбора пришлите номер старой форсунки, модель и серийный номер двигателя. Совместимость подтверждаем отдельно; фото упаковки не заменяет проверку применяемости.",
+    "catalogPriceNote": "Цена по запросу. Наличие, комплектность и условия поставки уточняются перед заказом.",
+    "catalogImageLabel": "Фото товара от продавца",
+    "catalogImageCaption": "Форсунка и упаковка с маркировкой CAT 253-0618; фото предоставлено продавцом.",
+    "imageUrl": "/catalog-assets/cat-253-0618/01-main.webp",
+    "gallery": [
+      "/catalog-assets/cat-253-0618/01-main.webp"
+    ],
+    "variants": [
+      {
+        "id": "ACA-CAT-253-0618-ORIGINAL",
+        "title": "CAT 253-0618",
+        "sku": "253-0618",
+        "available": false,
+        "priceKzt": null,
+        "options": [
+          "Цена по запросу",
+          "Наличие и комплектация уточняются"
+        ]
+      }
+    ]
   }
 ]
