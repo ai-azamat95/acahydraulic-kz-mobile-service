@@ -29,7 +29,10 @@
     "catalog:landing-routes": "node scripts/create-catalog-landing-routes.mjs",
     "catalog:verify-landings": "node scripts/check-catalog-landings.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate",
-    "catalog:test-prices": "node --test tests/catalog-approved-prices.test.mjs"
+    "catalog:test-prices": "node --test tests/catalog-approved-prices.test.mjs",
+    "checkout:dev": "tsx server/checkout/index.ts",
+    "checkout:build": "esbuild server/checkout/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist/checkout",
+    "checkout:start": "node dist/checkout/index.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",
