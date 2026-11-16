@@ -11,7 +11,7 @@ const withoutTaxonomy = ({category, categories, ...rest}) => rest;
 test('reviewed taxonomy is ID-scoped, lossless and idempotent', () => {
  const products = fs.readdirSync('client/public/catalog-data').filter(f => /^products-\d+\.json$/.test(f)).flatMap(f => read(`client/public/catalog-data/${f}`));
  const ids = new Set(products.map(p => p.id));
- assert.equal(ids.size, 12293 + additionalEngineOwners.length);
+ assert.equal(ids.size, 12296 + additionalEngineOwners.length); // Three owner-photo CAT valves outside engine taxonomy.
  assert.equal(mapping.length, 4010);
  assert.equal(new Set(mapping.map(r => r.id)).size, mapping.length);
  const assigned = {};

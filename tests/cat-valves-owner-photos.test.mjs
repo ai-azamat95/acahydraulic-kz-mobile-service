@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import owners from '../shared/catalog-owner-products.json' with {type:'json'};
+const pns=['123-0154','123-0153','148-7291'];
+for(const pn of pns) test(`CAT ${pn}: packaging-based identity and inquiry-only publication`,()=>{
+ const matches=owners.filter(p=>p.mpn===pn); assert.equal(matches.length,1);
+ const p=matches[0]; assert.deepEqual(p.categories,['control-valves']);
+ assert.equal(p.minPriceKzt,null); assert.equal(p.maxPriceKzt,null); assert.equal(p.available,false);
+ assert.equal(p.variants[0].priceKzt,null); assert.equal(p.catalogSupplement,'owner-photographs');
+ assert(p.catalogDescription.includes('на упаковке')); assert(p.catalogDescription.includes('на корпусе клапана'));
+ assert(p.catalogQualityNote.includes('не подтверждены')); assert(!p.tags.includes('оригинал'));
+ assert(!JSON.stringify(p).includes('253-0618'));
+ assert(fs.existsSync('client/public'+p.imageUrl));
+ assert(fs.existsSync('client/public'+p.catalogVideos[0].src));
+ const html=fs.readFileSync(`dist/public/catalog/${p.handle}/index.html`,'utf8');
+ for(const s of [p.catalogTitle,p.catalogDescription,'Цена по запросу',p.imageUrl,p.catalogVideos[0].src]) assert(html.includes(s),s);
+ assert(!html.includes('data-static-product-schema'));
+ const index=JSON.parse(fs.readFileSync('dist/public/catalog-data/category-indexes/control-valves.json','utf8'));
+ assert.equal(index.filter(r=>r.id===p.id).length,1);
+});
