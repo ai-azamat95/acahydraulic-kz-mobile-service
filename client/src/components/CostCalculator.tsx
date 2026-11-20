@@ -14,14 +14,14 @@ const WHATSAPP_NUMBER = "77714177925";
 const DIAGNOSTIC_TERMS = "Стоимость согласуем до выезда";
 
 const equipmentTypes = [
-  { id: "excavator", label: "Экскаватор", image: "/images/calculator/excavator.webp", alt: "Гусеничный гидравлический экскаватор на промышленном объекте" },
+  { id: "excavator", label: "Экскаватор", image: "/images/calculator/owner-excavator.webp", alt: "Экскаватор Hitachi — фото владельца", width: 720, height: 960, fit: "contain" as const },
   { id: "loader", label: "Погрузчик", image: "/images/calculator/loader.webp", alt: "Фронтальный погрузчик с поднятым ковшом в карьере" },
-  { id: "bulldozer", label: "Бульдозер", image: "/images/calculator/bulldozer.webp", alt: "Гусеничный бульдозер с отвалом на земляных работах" },
+  { id: "bulldozer", label: "Бульдозер", image: "/images/calculator/owner-bulldozer.webp", alt: "Бульдозер на обслуживании — фото владельца", width: 443, height: 960, fit: "contain" as const },
   { id: "grader", label: "Грейдер", image: "/images/calculator/grader.webp", alt: "Автогрейдер с центральным отвалом на дорожных работах" },
   { id: "mining_loader", label: "Шахтный погрузчик", image: "/images/calculator/mining-loader.webp", alt: "Низкопрофильный шахтный погрузчик в подземной выработке" },
-  { id: "milling", label: "Дорожная фреза", image: "/images/calculator/road-milling-machine.webp", alt: "Дорожная фреза снимает асфальт на закрытом участке дороги" },
+  { id: "milling", label: "Дорожная фреза", image: "/images/calculator/owner-road-milling.webp", alt: "Дорожная фреза Wirtgen — фото владельца", width: 443, height: 960, fit: "contain" as const },
   { id: "hdd", label: "ГНБ установка", image: "/images/calculator/hdd-rig.webp", alt: "Установка горизонтально направленного бурения на объекте" },
-  { id: "piling", label: "Буровая / сваебойная", image: "/images/calculator/drilling-piling-rig.webp", alt: "Гусеничная буровая установка для устройства свай" },
+  { id: "piling", label: "Буровая / сваебойная", image: "/images/calculator/owner-drilling-rig.webp", alt: "Буровая установка — фото владельца", width: 960, height: 540, fit: "contain" as const },
   { id: "other", label: "Другая техника", image: "/images/calculator/other-equipment.webp", alt: "Телескопический погрузчик с гидравлическим оборудованием" },
 ];
 
@@ -329,8 +329,9 @@ export default function CostCalculator() {
                   <img
                     src={item.image}
                     alt={item.alt}
-                    width={768}
-                    height={512}
+                    width={item.width ?? 768}
+                    height={item.height ?? 512}
+                    style={item.fit ? { objectFit: item.fit, objectPosition: "50% 50%" } : undefined}
                     loading="lazy"
                     decoding="async"
                     className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] md:aspect-[3/2]"
