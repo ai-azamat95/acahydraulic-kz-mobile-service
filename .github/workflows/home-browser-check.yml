@@ -124,6 +124,10 @@ jobs:
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/aca-ui/node_modules/playwright/index.mjs
         run: node scripts/verify-floating-fields.mjs
+      - name: Check homepage header scroll and unchanged bottom contacts
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/aca-ui/node_modules/playwright/index.mjs
+        run: node scripts/verify-home-header-flow.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
