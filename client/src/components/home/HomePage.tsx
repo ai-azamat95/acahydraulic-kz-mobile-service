@@ -9,6 +9,7 @@ import B2BLeadForm from '@/components/B2BLeadForm';
 import CostCalculator from '@/components/CostCalculator';
 import StickyMobileBar from '@/components/StickyMobileBar';
 import MobileSiteMenu from '@/components/MobileSiteMenu';
+import SiteQuickNav from '@/components/SiteQuickNav';
 import LocalRepairInfo from '@/components/LocalRepairInfo';
 import { PumpBrandNavigation } from '@/components/catalog/PumpBrandNavigation';
 import { ServiceMap, SupplyGlobe } from './Geography';
@@ -30,6 +31,7 @@ export default function Home() {
       <nav className="home-desktop-nav" aria-label="Основные разделы главной"><Link href="/services/">Услуги</Link><Link href="/catalog/">Каталог</Link><Link href="/cases/">Наши работы</Link><a href={phone}>+7 (771) 417-79-25</a></nav>
       <div className="home-social"><a href="https://www.tiktok.com/@acaservice01" target="_blank" rel="noopener noreferrer" aria-label="TikTok ACA Hydraulic"><BrandIcon brand="tiktok"/></a><a href="https://www.youtube.com/@acahydraulic" target="_blank" rel="noopener noreferrer" aria-label="YouTube ACA Hydraulic"><BrandIcon brand="youtube"/></a><MobileSiteMenu/></div>
     </div></header>
+    <SiteQuickNav />
     <main id="home-main">
       <section className="home-screen home-hero" id="home-brand" aria-labelledby="home-title">
         <picture className="home-hero-image"><source media="(max-width: 767px)" srcSet="/images/hero-bg-v4-mobile.webp"/><img src="/images/hero-bg-v4.webp" width="1536" height="2752" alt="Экскаватор на объекте — ремонт спецтехники ACA Hydraulic" fetchPriority="high" decoding="async"/></picture>

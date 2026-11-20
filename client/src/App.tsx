@@ -202,6 +202,18 @@ function AppRoutes() {
   );
 }
 
+function SiteContent() {
+  const [location] = useLocation();
+  const onHome = location === "/";
+
+  return <>
+    {!onHome && <SiteQuickNav />}
+    <div className={onHome ? undefined : "site-quick-nav-offset pt-12"}>
+      <AppRoutes />
+    </div>
+  </>;
+}
+
 function App() {
   const routerBase = typeof window !== "undefined" && window.location.hostname.endsWith("github.io")
     ? "/acahydraulic-kz-mobile-service"
@@ -214,10 +226,7 @@ function App() {
           <Toaster />
           <WouterRouter base={routerBase}>
             <CartProvider>
-              <SiteQuickNav />
-              <div className="site-quick-nav-offset pt-12">
-                <AppRoutes />
-              </div>
+              <SiteContent />
               <CartDrawer />
               <CookieConsent />
             </CartProvider>
