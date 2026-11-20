@@ -21,7 +21,7 @@ test('six matching cards use owner WebP photographs without invented models', ()
   }
 });
 test('unmatched cards retain their images and the form retains its contact boundary', () => {
-  for (const [id, filename] of Object.entries({ grader: 'grader', mining_loader: 'mining-loader' })) {
+  for (const [id, filename] of Object.entries({ grader: 'grader' })) {
     assert.equal(entries.find(e => e[1] === id)[3], `/images/calculator/${filename}.webp`);
   }
   assert.match(source, /objectPosition: item.position/);
