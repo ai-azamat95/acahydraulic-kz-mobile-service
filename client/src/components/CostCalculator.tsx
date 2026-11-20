@@ -17,12 +17,12 @@ const DIAGNOSTIC_TERMS = "Стоимость согласуем до выезд�
 // focal points rather than letterboxing. Original photo files remain untouched.
 const equipmentTypes = [
   { id: "excavator", label: "Экскаватор", image: "/images/calculator/owner-excavator.webp", alt: "Экскаватор Hitachi — фото владельца", width: 720, height: 960, position: "50% 10%" },
-  { id: "loader", label: "Погрузчик", image: "/images/calculator/loader.webp", alt: "Фронтальный погрузчик с поднятым ковшом в карьере" },
+  { id: "loader", label: "Погрузчик", image: "/images/calculator/owner-loader.webp", alt: "Фронтальный погрузчик — фото владельца", width: 443, height: 960, position: "50% 44%" },
   { id: "bulldozer", label: "Бульдозер", image: "/images/calculator/owner-bulldozer.webp", alt: "Бульдозер на обслуживании — фото владельца", width: 443, height: 960, position: "50% 53%" },
   { id: "grader", label: "Грейдер", image: "/images/calculator/grader.webp", alt: "Автогрейдер с центральным отвалом на дорожных работах" },
   { id: "mining_loader", label: "Шахтный погрузчик", image: "/images/calculator/mining-loader.webp", alt: "Низкопрофильный шахтный погрузчик в подземной выработке" },
   { id: "milling", label: "Дорожная фреза", image: "/images/calculator/owner-road-milling.webp", alt: "Дорожная фреза Wirtgen — фото владельца", width: 443, height: 960, position: "50% 40%" },
-  { id: "hdd", label: "ГНБ установка", image: "/images/calculator/hdd-rig.webp", alt: "Установка горизонтально направленного бурения на объекте" },
+  { id: "hdd", label: "ГНБ установка", image: "/images/calculator/owner-hdd-rig.webp", alt: "Установка горизонтально направленного бурения на обслуживании — фото владельца", width: 443, height: 960, position: "50% 49%" },
   { id: "piling", label: "Буровая / сваебойная", image: "/images/calculator/owner-drilling-rig.webp", alt: "Буровая установка — фото владельца", width: 960, height: 540, position: "55% 50%" },
   { id: "other", label: "Другая техника", image: "/images/calculator/other-equipment.webp", alt: "Телескопический погрузчик с гидравлическим оборудованием" },
 ];

@@ -16,6 +16,6 @@ test('cover framing retains the exact four owner photographs and individual foca
     const bytes = readFileSync(`client/public/images/calculator/owner-${name}.webp`);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), hash);
   }
-  assert.equal((source.match(/position: "/g) || []).length, 4);
+  assert.equal((source.match(/position: "/g) || []).length, 6);
   assert.match(source, /style=\{item.position \? \{ objectPosition: item.position \} : undefined\}/);
 });
