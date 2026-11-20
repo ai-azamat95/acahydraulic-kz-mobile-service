@@ -31,7 +31,7 @@ test('traffic-led diagnostic articles expose query-aligned metadata and content'
   const pressure = fs.readFileSync('dist/public/blog/padaet-davlenie-gidravliki-ekskavatora/index.html', 'utf8');
   const diagnosis = fs.readFileSync('dist/public/blog/kak-opredelit-neispravnost-gidravliki/index.html', 'utf8');
 
-  assert.match(pressure, /<title[^>]*>Давление в гидросистеме экскаватора: причины падения \| ACA Hydraulic<\/title>/);
+  assert.match(pressure, /<title[^>]*>Падает давление гидравлики экскаватора: причины \| ACA Hydraulic<\/title>/);
   assert.match(pressure, /Падает давление в гидросистеме экскаватора: что проверять/);
   assert.match(pressure, /Порядок диагностики без замены деталей наугад/);
   assert.match(pressure, /2026-09-25/);

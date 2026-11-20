@@ -11,7 +11,7 @@ export default function PumpGuide() {
   const canonical = `https://acahydraulic.kz/blog/${article.slug}/`;
   const image = new URL(article.image, "https://acahydraulic.kz").href;
   return <main aria-label={article.title} className="min-h-screen bg-[#111111] text-white">
-    <SEO title={article.title} description={article.description} canonical={canonical} ogImage={image}
+    <SEO title={article.seoTitle ?? article.title} description={article.description} canonical={canonical} ogImage={image}
       breadcrumbs={[{ name: "Блог", url: "/blog/" }, { name: article.title, url: `/blog/${article.slug}/` }]}
       schema={{ "@context": "https://schema.org", "@type": "Article", "@id": `${canonical}#article`, headline: article.title,
         description: article.description, image, datePublished: article.publishedDate, dateModified: article.publishedDate,

@@ -11,8 +11,8 @@ test("published Shantui article has one aligned SEO head", () => {
   assert.equal((html.match(/<title\b/g) || []).length, 1);
   assert.equal((html.match(/<meta[^>]+name=["']description["']/g) || []).length, 1);
   assert.equal((html.match(/<link[^>]+rel=["']canonical["']/g) || []).length, 1);
-  assert.match(html, /<title[^>]*>Ремонт SHANTUI SD32: диагностика гидравлики \| ACA Hydraulic<\/title>/);
-  assert.match(html, /name="description" content="Ремонт SHANTUI SD32: что проверить до заказа деталей/);
+  assert.match(html, /<title[^>]*>Ремонт SHANTUI SD32: дефектовка и объём работ \| ACA Hydraulic<\/title>/);
+  assert.match(html, /name="description" content="Что проверить перед капремонтом SHANTUI SD32/);
   assert.match(html, /"@type":"BlogPosting"/);
 });
 

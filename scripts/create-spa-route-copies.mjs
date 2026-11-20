@@ -209,8 +209,9 @@ const staticBlogArticles = {
   },
   'blog/kapitalnyy-remont-shantui-sd32': {
     schemaType: 'BlogPosting',
+    seoTitle: 'Ремонт SHANTUI SD32: дефектовка и объём работ',
     headline: 'Ремонт SHANTUI SD32: диагностика гидравлики перед капитальным ремонтом',
-    description: 'Ремонт SHANTUI SD32: что проверить до заказа деталей — давление, насосы, гидромоторы, распределитель, цилиндры и загрязнение гидросистемы.',
+    description: 'Что проверить перед капремонтом SHANTUI SD32: гидравлику, насосы и клапаны. Как согласовать объём работ после дефектовки. Выездная диагностика платная.',
     image: '/webdev-static-assets/shantui-sd32-6.webp',
     datePublished: '2026-03-18',
     dateModified: '2026-09-26',
@@ -248,11 +249,11 @@ function staticBlogArticleSchema(article, canonical) {
 
 function metaForRoute(route) {
   const article = articleForRoute(route);
-  if (article) return { title: `${article.title} | ACA Hydraulic`, description: article.description };
+  if (article) return { title: `${article.seoTitle ?? article.title} | ACA Hydraulic`, description: article.description };
   const staticBlogArticle = staticBlogArticles[route];
   if (staticBlogArticle) {
     return {
-      title: `${staticBlogArticle.headline} | ACA Hydraulic`,
+      title: `${staticBlogArticle.seoTitle ?? staticBlogArticle.headline} | ACA Hydraulic`,
       description: staticBlogArticle.description,
     };
   }

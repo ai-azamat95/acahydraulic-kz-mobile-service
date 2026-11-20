@@ -30,8 +30,8 @@ export default function KapitalnyiRemonShantuiSD32() {
   return (
     <div className="min-h-screen bg-[#111111] text-white font-roboto pt-20">
       <SEO
-        title="Ремонт SHANTUI SD32: диагностика гидравлики | ACA Hydraulic"
-        description="Ремонт SHANTUI SD32: что проверить до заказа деталей — давление, насосы, гидромоторы, распределитель, цилиндры и загрязнение гидросистемы."
+        title="Ремонт SHANTUI SD32: дефектовка и объём работ | ACA Hydraulic"
+        description="Что проверить перед капремонтом SHANTUI SD32: гидравлику, насосы и клапаны. Как согласовать объём работ после дефектовки. Выездная диагностика платная."
         keywords="ремонт SHANTUI SD32, капитальный ремонт SHANTUI, диагностика гидравлики SD32, ремонт бульдозера SHANTUI, гидронасос SHANTUI SD32"
         canonical="/blog/kapitalnyy-remont-shantui-sd32"
         breadcrumbs={[{ name: "Блог", url: "/blog" }, { name: "SHANTUI SD32 — диагностика и капремонт", url: "/blog/kapitalnyy-remont-shantui-sd32" }]}
