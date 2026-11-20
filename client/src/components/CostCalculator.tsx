@@ -24,7 +24,7 @@ const equipmentTypes = [
   { id: "milling", label: "Дорожная фреза", image: "/images/calculator/owner-road-milling.webp", alt: "Дорожная фреза Wirtgen — фото владельца", width: 443, height: 960, position: "50% 40%" },
   { id: "hdd", label: "ГНБ установка", image: "/images/calculator/owner-hdd-rig.webp", alt: "Установка горизонтально направленного бурения на обслуживании — фото владельца", width: 443, height: 960, position: "50% 49%" },
   { id: "piling", label: "Буровая / сваебойная", image: "/images/calculator/owner-drilling-rig.webp", alt: "Буровая установка — фото владельца", width: 960, height: 540, position: "55% 50%" },
-  { id: "other", label: "Другая техника", image: "/images/calculator/other-equipment.webp", alt: "Телескопический погрузчик с гидравлическим оборудованием" },
+  { id: "other", label: "Другая техника", image: "/images/calculator/owner-other-drilling-rig.webp", alt: "Гусеничная буровая установка — фото владельца", width: 443, height: 960, position: "50% 47%" },
 ];
 
 const brands = [
