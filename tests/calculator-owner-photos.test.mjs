@@ -12,7 +12,7 @@ test('four matching cards use owner WebP photographs without invented models', (
   for (const [id, filename] of Object.entries(expected)) {
     const entry = entries.find(e => e[1] === id);
     assert.equal(entry[3], `/images/calculator/${filename}.webp`);
-    assert.match(entry[5], /fit: "contain"/);
+    assert.match(entry[5], /position: "\d+% \d+%"/);
     assert.match(entry[5], /width: \d+, height: \d+/);
     assert.doesNotMatch(entry[4], /\d/);
     const path = `client/public${entry[3]}`;
@@ -24,7 +24,10 @@ test('unmatched cards retain their images and the form retains its contact bound
   for (const [id, filename] of Object.entries({ loader: 'loader', grader: 'grader', mining_loader: 'mining-loader', hdd: 'hdd-rig', other: 'other-equipment' })) {
     assert.equal(entries.find(e => e[1] === id)[3], `/images/calculator/${filename}.webp`);
   }
-  assert.match(source, /objectPosition: "50% 50%"/);
+  assert.match(source, /objectPosition: item.position/);
+  assert.doesNotMatch(source, /objectFit:|fit: "contain"/);
+  assert.match(source, /aspect-\[4\/3\] w-full object-cover/);
+  assert.match(source, /md:aspect-\[3\/2\]/);
   assert.match(source, /data-aca-contact-managed="react"/);
   assert.match(source, /trackFormContactIntent\("calculator", contactIntentId\)/);
 });
