@@ -205,10 +205,11 @@ function AppRoutes() {
 function SiteContent() {
   const [location] = useLocation();
   const onHome = location === "/";
+  const onCatalog = location === "/catalog" || location.startsWith("/catalog/");
 
   return <>
     {!onHome && <SiteQuickNav />}
-    <div className={onHome ? undefined : "site-quick-nav-offset pt-12"}>
+    <div className={onHome || onCatalog ? undefined : "site-quick-nav-offset pt-12"}>
       <AppRoutes />
     </div>
   </>;

@@ -239,7 +239,7 @@ export default function CatalogProduct() {
         ]}
       />
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
+      <header className="aca-catalog-product-header relative z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
         <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 py-3">
           <SiteHomeLink className="flex items-center gap-3" aria-label="ACA Hydraulic">
             <span className="flex h-7 gap-[3px]" aria-hidden="true">

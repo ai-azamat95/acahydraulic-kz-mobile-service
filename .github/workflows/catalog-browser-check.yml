@@ -2,6 +2,9 @@ name: Check catalogue responsive layout
 on:
   pull_request:
     paths:
+      - 'client/src/App.tsx'
+      - 'client/src/components/SiteQuickNav.tsx'
+      - 'scripts/verify-catalog-header-flow.mjs'
       - 'client/src/components/MobileSiteMenu.tsx'
       - 'client/src/components/SiteHomeLink.tsx'
       - 'client/src/components/ui/sheet.tsx'
@@ -82,6 +85,7 @@ jobs:
       - name: Generate crawlable catalogue navigation
         run: |
           node scripts/create-spa-route-copies.mjs
+          node scripts/create-catalog-route-copies.mjs
           node scripts/create-catalog-landing-routes.mjs
       - name: Install browser runtime
         run: |
@@ -89,6 +93,11 @@ jobs:
           node "$RUNNER_TEMP/aca-ui/node_modules/playwright/cli.js" install --with-deps chromium webkit
       - run: node scripts/check-catalog-browser.mjs
       - run: node scripts/check-nsh-selection-browser.mjs
+      - name: Verify catalogue document-flow headers
+        run: node scripts/verify-catalog-header-flow.mjs
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/aca-ui/node_modules/playwright/index.mjs
+          EVIDENCE_DIR: catalog-ui-check/header-flow
       - uses: actions/upload-artifact@v4
         if: always()
         with:

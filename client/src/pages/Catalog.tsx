@@ -567,7 +567,7 @@ export default function Catalog() {
         breadcrumbs={isLandingPage ? [{ name: "Каталог запчастей", url: "/catalog" }, ...(parentLanding ? [{ name: parentLanding.title, url: `/catalog/category/${parentLanding.id}/` }] : []), { name: landingTitle, url: landingPath }] : [{ name: "Каталог запчастей", url: "/catalog" }]}
       />
 
-      <header className="aca-catalog-header sticky top-0 z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
+      <header className="aca-catalog-header relative z-50 border-b border-white/10 bg-[#101010]/95 backdrop-blur">
         <div className="mx-auto flex min-h-16 max-w-[1600px] items-center justify-between gap-4 px-4 py-3">
           <SiteHomeLink className="flex items-center gap-3" aria-label="ACA Hydraulic">
             <span className="flex h-7 gap-[3px]" aria-hidden="true">
@@ -967,7 +967,7 @@ export default function Catalog() {
           {showResults && <div
             id="catalog-results"
             ref={resultsRef}
-            className="mt-12 scroll-mt-24 border-t border-white/10 pt-8"
+            className="mt-12 border-t border-white/10 pt-8"
             aria-live="polite"
             data-result-count={filteredProducts.length}
             data-expected-count={expectedResultCount}
