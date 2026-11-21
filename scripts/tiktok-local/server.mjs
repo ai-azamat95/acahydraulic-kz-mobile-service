@@ -74,14 +74,15 @@ export function createCompanion({ client, state, receive = receiveVideo, ready =
       }
       const current = session(req, res);
       if (url.pathname === '/oauth/callback' && req.method === 'GET') {
-        if (url.search.length > 4096 || [...url.searchParams.keys()].some(key => !['state', 'code', 'error'].includes(key))
-          || ['state', 'code', 'error'].some(key => url.searchParams.getAll(key).length > 1)
+        const fields = ['state', 'code', 'error', 'scopes', 'error_description'];
+        if (url.search.length > 4096 || [...url.searchParams.keys()].some(key => !fields.includes(key))
+          || fields.some(key => url.searchParams.getAll(key).length > 1)
           || !current.oauthStarted) throw new ApiError('invalid_oauth_callback', 403);
         current.oauthStarted = false;
         try {
           if (busy || authorizing) throw new ApiError('operation_in_progress', 409);
           authorizing = true;
-          try { await client.callback(Object.fromEntries(url.searchParams)); }
+          try { await client.callback(Object.fromEntries(['state', 'code', 'error'].filter(key => url.searchParams.has(key)).map(key => [key, url.searchParams.get(key)]))); }
           finally { authorizing = false; }
           res.writeHead(303, { Location: '/' });
         } catch (error) {
