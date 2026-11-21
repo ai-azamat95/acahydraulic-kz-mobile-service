@@ -31,7 +31,7 @@ export async function checkCatalogMobileScroll(browser, origin, engineName) {
             y: scrollY, width: innerWidth, height: innerHeight,
             nav: rect('[aria-label="Быстрые переходы"]'),
             header: rect('.aca-catalog-header'),
-            content: rect('.site-quick-nav-offset'),
+            content: rect('.aca-catalog-header'),
             bottom: rect('.aca-mobile-nav'),
             cookie: rect('[aria-label="Открыть настройки cookie"]'),
             overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
@@ -49,7 +49,7 @@ export async function checkCatalogMobileScroll(browser, origin, engineName) {
         for (const delta of [900, -280, 650, -420, 500, -750]) {
           await page.evaluate(delta => window.scrollBy(0, delta), delta);
           const state = await geometry();
-          assert(Math.abs(state.nav.top) <= 1, `${engineName} ${width}×${height}: gap above navigation`);
+          assert(Math.abs(state.nav.top + state.y) <= 1, `${engineName} ${width}×${height}: navigation must scroll with document`);
           assert(Math.abs(state.header.top - state.nav.bottom) <= 1, `${engineName} ${width}×${height}: header detached from navigation`);
           assert(!state.overflow, `${engineName} ${width}: horizontal overflow`);
           if (state.bottom.height) assert(state.cookie.bottom <= state.bottom.top + 1, `${engineName} ${width}: cookie launcher overlaps bottom navigation`);
@@ -64,10 +64,10 @@ export async function checkCatalogMobileScroll(browser, origin, engineName) {
           await cdp.send('Emulation.setSafeAreaInsetsOverride', { insets: { ...insets, left: 0, right: 0 } });
           await page.evaluate(() => window.scrollBy(0, -120));
           const state = await geometry();
-          assert(Math.abs(state.nav.top) <= 1);
+          assert(Math.abs(state.nav.top + state.y) <= 1);
           assert(Math.abs(state.header.top - state.nav.bottom) <= 1, `${width}: header ignores safe-area change`);
           const firstLink = await page.locator('[aria-label="Быстрые переходы"] a').first().boundingBox();
-          assert(firstLink.y >= insets.top, `${width}: navigation is under the unsafe top inset`);
+          assert(firstLink.y + state.y >= insets.top, `${width}: navigation is under the unsafe top inset`);
           assert(state.cookie.bottom <= state.bottom.top + 1, `${width}: unsafe bottom overlap`);
           checks.push({ engine: engineName, width, safeAreaInsets: insets });
         }
@@ -106,7 +106,7 @@ export async function checkCatalogMobileScroll(browser, origin, engineName) {
       await page.setViewportSize({ width: 844, height: width });
       await page.evaluate(() => window.scrollBy(0, 1000));
       const landscape = await geometry();
-      assert(Math.abs(landscape.nav.top) <= 1 && Math.abs(landscape.header.top - landscape.nav.bottom) <= 1, `${engineName} ${width}: detached landscape header`);
+      assert(Math.abs(landscape.nav.top + landscape.y) <= 1 && Math.abs(landscape.header.top - landscape.nav.bottom) <= 1, `${engineName} ${width}: detached landscape header`);
       assert(!landscape.overflow);
       checks.push({ engine: engineName, width: 844, height: width, landscape: true, cartAndNavigation: true });
       assert.deepEqual(errors, []);

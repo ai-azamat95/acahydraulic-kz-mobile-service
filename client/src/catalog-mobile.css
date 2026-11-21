@@ -108,11 +108,8 @@ body:has(section[aria-labelledby="categories-title"]) main>section:last-of-type{
 }
 
 @media(max-width:1023px){
-  /* Keep both mobile catalogue bars in the same sticky/flow coordinate system.
-     The fixed quick nav + padded sibling otherwise track Safari's moving viewport separately. */
-  body:has(.aca-catalog-header) nav[aria-label="Быстрые переходы"]{position:sticky;height:calc(3rem + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px)}
-  body:has(.aca-catalog-header) .site-quick-nav-offset{padding-top:0}
-  body:has(.aca-catalog-header) .site-quick-nav-offset header.aca-catalog-header{top:calc(3rem + env(safe-area-inset-top,0px))}
+  /* Safe-area spacing remains in document flow, including product pages. */
+  .site-quick-nav-catalog{height:calc(3rem + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px)}
 }
 
 @media(max-width:767px){
