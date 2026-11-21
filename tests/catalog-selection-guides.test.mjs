@@ -41,6 +41,26 @@ test('selection content is visible before JavaScript, with resolvable links and 
   }
 });
 
+test('pump decision and quote guidance is structured and published without extra contact buttons', () => {
+  const guide = guides['hydraulic-pumps'];
+  assert.equal(guide.sections.length, 3);
+  const html = readPage('/catalog/category/hydraulic-pumps/');
+  for (const section of guide.sections) {
+    assert.ok(html.includes(`<h3>${section.title}</h3>`));
+    assert.ok(html.includes(section.text));
+  }
+  const text = guide.sections.map(section => section.text).join(' ');
+  for (const phrase of ['дефектовки', 'полный индекс', 'город', 'фото шильдика', 'КП', 'до оплаты']) assert.ok(text.includes(phrase), phrase);
+  const ui = fs.readFileSync('client/src/pages/Catalog.tsx', 'utf8');
+  assert.ok(ui.includes('selectionGuide.sections?.map'));
+  const service = services['/services/hydraulic-pumps'];
+  assert.ok(service.sections.some(section => section.title === 'Ремонт или замена: что сравнить после дефектовки'));
+  assert.ok(service.sections.some(section => section.text.includes('Фото приложите в открывшемся чате WhatsApp')));
+  const serviceHtml = readPage('/services/hydraulic-pumps/');
+  for (const section of service.sections) assert.ok(serviceHtml.includes(section.text));
+  assert.equal((serviceHtml.match(/id="service-request"/g) || []).length, 1);
+});
+
 test('service pages link back to appropriate parts rather than an unrelated catalogue', () => {
   for (const [route, targets] of [
     ['/services/hydraulic-pumps', ['hydraulic-pumps', 'pump-parts']],

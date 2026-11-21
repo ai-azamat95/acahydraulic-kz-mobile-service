@@ -948,6 +948,12 @@ export default function Catalog() {
               <details className="mt-2">
                 <summary className="min-h-11 cursor-pointer py-2 text-sm font-medium text-[#795809] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFC000]">Проверка перед заказом и полезные ссылки</summary>
                 <p className="mt-3 max-w-5xl leading-relaxed text-gray-700">{selectionGuide.text}</p>
+                {selectionGuide.sections?.map(({ title, text }) => (
+                  <div key={title} className="mt-4 max-w-5xl">
+                    <h3 className="font-bold text-[#17242b]">{title}</h3>
+                    <p className="mt-2 leading-relaxed text-gray-700">{text}</p>
+                  </div>
+                ))}
                 <nav className="mt-4" aria-label="Подбор, диагностика и связанные запчасти">
                   <ul className="grid gap-2 sm:grid-cols-2">
                     {selectionGuide.links.map(({ href, label }) => (
