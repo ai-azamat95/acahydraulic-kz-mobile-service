@@ -62,6 +62,11 @@ export default function Checkout() {
   const sendToWhatsApp = (event: FormEvent) => {
     event.preventDefault();
     if (!validate()) return;
+    try {
+      window.dispatchEvent(new CustomEvent('aca:openai-contact-intent', {
+        detail: 'checkout_whatsapp_click',
+      }));
+    } catch (_) {}
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(checkoutWhatsappText(customer, items))}`, "_blank", "noopener,noreferrer");
   };
 

@@ -26,6 +26,11 @@ export function trackFormContactIntent(source: 'b2b_form' | 'calculator', contac
     try { window.__ACA_TRACK_YANDEX_GOAL__?.('form_whatsapp_click', params); } catch (_) {}
   }
   if (consent?.marketing) {
+    try {
+      window.dispatchEvent(new CustomEvent('aca:openai-contact-intent', {
+        detail: 'form_whatsapp_click',
+      }));
+    } catch (_) {}
     try { window.gtag_report_conversion?.(); } catch (_) {}
     try {
       (window as any).ttq?.track?.('Contact', { content_type: 'service', ...params });
