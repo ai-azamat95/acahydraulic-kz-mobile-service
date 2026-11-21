@@ -16,12 +16,19 @@ export function categorySeoContent(categoryId?: string) {
   return catalogCategorySeoContent[categoryId as keyof typeof catalogCategorySeoContent];
 }
 
-export function categorySelectionGuide(categoryId?: string) {
+type CatalogSelectionGuide = {
+  heading: string;
+  text: string;
+  links: { href: string; label: string }[];
+  sections?: { title: string; text: string }[];
+};
+
+export function categorySelectionGuide(categoryId?: string): CatalogSelectionGuide | null {
   if (!categoryId || !(categoryId in selectionGuides)) return null;
   return selectionGuides[categoryId as keyof typeof selectionGuides];
 }
 
-export function brandSelectionGuide(brandSlug?: string) {
+export function brandSelectionGuide(brandSlug?: string): CatalogSelectionGuide | null {
   if (!brandSlug || !(brandSlug in brandSelectionGuides)) return null;
   return brandSelectionGuides[brandSlug as keyof typeof brandSelectionGuides];
 }
