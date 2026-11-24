@@ -107,16 +107,13 @@ export function CookieConsent() {
   }, [isOpen, preference]);
 
   const commit = (next: { analytics: boolean; marketing: boolean }) => {
-    const revokedExistingPermission =
-      Boolean(preference?.analytics && !next.analytics) ||
-      Boolean(preference?.marketing && !next.marketing);
     const saved = saveCookieConsent(next);
     setPreference(saved);
     setAnalytics(saved.analytics);
     setMarketing(saved.marketing);
     setIsOpen(false);
     setIsCustomizing(false);
-    if (revokedExistingPermission) window.location.reload();
+
   };
 
   if (!isOpen && preference) {

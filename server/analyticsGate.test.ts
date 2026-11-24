@@ -58,6 +58,8 @@ function runGate(options: GateOptions = {}) {
       return true;
     },
     location: {
+      reload: () => events.push({ type: "reload" }),
+      replace: () => events.push({ type: "replace" }),
       hash: "",
       hostname: "acahydraulic.kz",
       href: "https://acahydraulic.kz/catalog",
@@ -234,6 +236,39 @@ describe("analytics consent and traffic gate", () => {
       runGate({ userAgent: "Googlebot/2.1" }).windowMock
         .__ACA_ANALYTICS_EXCLUSION_REASON__
     ).toBe("automated");
+  });
+
+  it("sets destination opt-out before teardown without a denied update", () => {
+    const { windowMock, events } = runGate({ consent: { analytics: true, marketing: false } });
+    const updateFlags: boolean[] = [];
+    const original = windowMock.gtag;
+    windowMock.gtag = function (...args: unknown[]) {
+      if (args[0] === "consent") updateFlags.push(windowMock["ga-disable-G-XZB9KZ4VCH"]);
+      original.apply(null, args);
+    };
+    const apply = (analytics: boolean) => windowMock.__ACA_APPLY_COOKIE_CONSENT__({ version: 1, analytics, marketing: false, updatedAt: Date.now() });
+    apply(false);
+    expect(windowMock["ga-disable-G-XZB9KZ4VCH"]).toBe(true);
+    expect(events.some(e => e.type === "reload")).toBe(true);
+    apply(true);
+    expect(updateFlags).toEqual([false]);
+    expect(windowMock.dataLayer.filter((args: IArguments) => args[0] === "config" && args[1] === "G-XZB9KZ4VCH")).toHaveLength(1);
+  });
+
+  it("persists and reloads marketing withdrawal without scheduling a denied Google update", () => {
+    const { windowMock, events, values } = runGate({ consent: { analytics: true, marketing: true } });
+    const count = windowMock.dataLayer.length;
+    windowMock.__ACA_APPLY_COOKIE_CONSENT__({ version: 1, analytics: false, marketing: false, updatedAt: Date.now() });
+    expect(windowMock.dataLayer).toHaveLength(count);
+    expect(events.slice(-2).map(e => e.type)).toEqual(["aca:consent-reload", "reload"]);
+    expect(JSON.parse(values.get("aca_cookie_consent_v1")!).marketing).toBe(false);
+    expect(windowMock["ga-disable-G-XZB9KZ4VCH"]).toBe(true);
+  });
+
+  it("ignores stale saved permission on a storage-failure reset landing", () => {
+    const { scripts, windowMock } = runGate({ consent: { analytics: true, marketing: true }, search: "?aca_consent_reset=1" });
+    expect(scripts).toHaveLength(0);
+    expect(windowMock.__ACA_COOKIE_CONSENT__).toBe(null);
   });
 
   it("expires a saved choice after twelve months", () => {

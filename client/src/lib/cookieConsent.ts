@@ -27,6 +27,7 @@ function isValidConsent(value: unknown): value is CookieConsent {
 
 export function getStoredCookieConsent(): CookieConsent | null {
   if (typeof window === "undefined") return null;
+  if (new URLSearchParams(window.location.search).get("aca_consent_reset") === "1" && !window.__ACA_COOKIE_CONSENT__) return null;
 
   const earlyConsent = window.__ACA_COOKIE_CONSENT__;
   if (isValidConsent(earlyConsent)) return earlyConsent;
@@ -60,6 +61,11 @@ export function saveCookieConsent(preference: {
       COOKIE_CONSENT_STORAGE_KEY,
       JSON.stringify(consent)
     );
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("aca_consent_reset") === "1") {
+      url.searchParams.delete("aca_consent_reset");
+      window.history.replaceState(window.history.state, "", url);
+    }
   } catch {
     // The current-page choice still applies when private browsing blocks storage.
   }
