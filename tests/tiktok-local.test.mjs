@@ -5,7 +5,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
-import { ApiError, TikTokClient, REDIRECT_URI, SCOPES, loadConfig, uploadPlan, validateUploadUrl } from '../scripts/tiktok-local/api.mjs';
+import { ApiError, TikTokClient, REDIRECT_URI, DESKTOP_REDIRECT_URI, SCOPES, loadConfig, uploadPlan, validateUploadUrl } from '../scripts/tiktok-local/api.mjs';
 import { LocalState } from '../scripts/tiktok-local/storage.mjs';
 import { inspectVideo } from '../scripts/tiktok-local/media.mjs';
 import { createCompanion } from '../scripts/tiktok-local/server.mjs';
@@ -59,6 +59,24 @@ test('expired tokens refresh once for concurrent reads and persist rotated grant
   const results = await Promise.all([client.accessToken(), client.accessToken(), client.accessToken()]);
   assert.equal(calls, 1); assert.equal(results[0].access_token, 'test-access-new');
   assert.equal(JSON.parse(store.read('sandbox-grant')).refresh_token, 'test-refresh-new');
+});
+
+test('Desktop OAuth binds code exchange to a one-use PKCE verifier kept off the browser URL', async () => {
+  let posted;
+  const { client } = fixture({ fetchImpl: async (_url, request) => { posted = request.body; return tokenResponse(); } });
+  client.config = { ...config, oauth_mode: 'desktop', redirect_uri: DESKTOP_REDIRECT_URI };
+  const first = new URL(client.begin()); const firstVerifier = client.pending.verifier;
+  assert.match(firstVerifier, /^[A-Za-z0-9_-]{43}$/);
+  assert.equal(first.searchParams.get('code_challenge'), crypto.createHash('sha256').update(firstVerifier).digest('hex'));
+  assert.equal(first.searchParams.get('code_challenge_method'), 'S256');
+  assert.equal(first.href.includes(firstVerifier), false);
+  assert.equal(first.searchParams.get('redirect_uri'), DESKTOP_REDIRECT_URI);
+  const second = new URL(client.begin()); const verifier = client.pending.verifier;
+  assert.notEqual(verifier, firstVerifier);
+  await assert.rejects(client.callback({ code: 'test-code', state: first.searchParams.get('state') }), { code: 'invalid_oauth_state' });
+  await client.callback({ code: 'test-code', state: second.searchParams.get('state') });
+  assert.equal(posted.get('code_verifier'), verifier); assert.equal(posted.get('redirect_uri'), DESKTOP_REDIRECT_URI);
+  assert.equal(client.pending, null);
 });
 
 test('refresh account mismatch and upstream errors do not replace grant or leak response', async () => {
@@ -117,6 +135,12 @@ test('saved Sandbox config cannot reuse production Keychain items', async () => 
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'aca-tiktok-test-')); const file = path.join(directory, 'config.json');
   try {
     await fs.writeFile(file, JSON.stringify(config)); assert.equal((await loadConfig(file)).environment, 'sandbox');
+    await fs.writeFile(file, JSON.stringify({ ...config, oauth_mode: 'desktop', redirect_uri: DESKTOP_REDIRECT_URI }));
+    assert.equal((await loadConfig(file)).oauth_mode, 'desktop');
+    for (const redirect_uri of [REDIRECT_URI, 'http://localhost:8789/oauth/callback', DESKTOP_REDIRECT_URI + '?next=evil']) {
+      await fs.writeFile(file, JSON.stringify({ ...config, oauth_mode: 'desktop', redirect_uri }));
+      await assert.rejects(loadConfig(file), { code: 'invalid_local_config' });
+    }
     await fs.writeFile(file, JSON.stringify({ ...config, token_item: 'production-grant' }));
     await assert.rejects(loadConfig(file), { code: 'sandbox_keychain_isolation_required' });
   } finally { await fs.rm(directory, { recursive: true, force: true }); }
@@ -128,7 +152,7 @@ test('local server enforces Host, session, Origin, CSRF, one-use OAuth and dupli
   const client = {
     summary: () => ({ connected: true, credentialsReady: true, environment: 'sandbox' }),
     begin: () => 'https://www.tiktok.com/v2/auth/authorize/?state=test',
-    callback: async () => ({}), accessToken: async () => grant(),
+    callback: async input => { assert.deepEqual(input, { state: 'test', code: 'test' }); return {}; }, accessToken: async () => grant(),
     profile: async () => ({ user: { username: 'acaservice01' } }), videos: async () => ({ videos: [] }),
     uploadDraft: async (_file, _size, update) => { uploads++; await update({ status: 'initialized', publishId: 'test-id' }); throw new ApiError('video_transfer_network_error', 502); },
     draftStatus: async () => ({ status: 'SEND_TO_USER_INBOX' }),
@@ -150,7 +174,7 @@ test('local server enforces Host, session, Origin, CSRF, one-use OAuth and dupli
     response = await fetch(origin + '/api/v1/authorizations', { method: 'POST', headers: { ...headers, Origin: 'https://evil.test' }, body: '{}' }); assert.equal(response.status, 403);
     response = await fetch(origin + '/api/v1/authorizations', { method: 'POST', headers: { ...headers, 'X-CSRF-Token': 'wrong' }, body: '{}' }); assert.equal(response.status, 403);
     response = await fetch(origin + '/api/v1/authorizations', { method: 'POST', headers, body: '{}' }); assert.equal(response.status, 201);
-    response = await fetch(origin + '/oauth/callback?state=test&code=test', { headers: { Cookie: cookie }, redirect: 'manual' }); assert.equal(response.status, 303); assert.equal(response.headers.get('location'), '/');
+    response = await fetch(origin + '/oauth/callback?state=test&code=test&scopes=user.info.basic&error_description=ignored', { headers: { Cookie: cookie }, redirect: 'manual' }); assert.equal(response.status, 303); assert.equal(response.headers.get('location'), '/');
     response = await fetch(origin + '/oauth/callback?state=test&code=test', { headers: { Cookie: cookie } }); assert.equal(response.status, 403);
     const mediaId = 'a'.repeat(32); state.media.set(mediaId, { id: mediaId, file: '/test.mp4', size: 2048, sha256: 'b'.repeat(64) });
     const send = () => fetch(origin + '/api/v1/drafts', { method: 'POST', headers, body: JSON.stringify({ mediaId, confirmDraft: true }) });
