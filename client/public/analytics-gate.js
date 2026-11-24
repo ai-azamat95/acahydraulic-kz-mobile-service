@@ -105,6 +105,8 @@
   }
 
   function readConsent() {
+    // Storage-denied withdrawal fallback: never reuse an old saved grant.
+    if (new URLSearchParams(window.location.search).get("aca_consent_reset") === "1") return null;
     try {
       var stored = window.localStorage.getItem(CONSENT_STORAGE_KEY);
       var parsed = stored ? normalizeConsent(JSON.parse(stored)) : null;
@@ -306,7 +308,42 @@
   function applyConsent(value) {
     var consent = normalizeConsent(value);
     if (!consent) return;
+    var previous = window.__ACA_COOKIE_CONSENT__;
     window.__ACA_COOKIE_CONSENT__ = consent;
+    // Google documents ga-disable as GA4's collection kill switch. Set it
+    // before consent updates; denial alone permits enhanced cookieless hits.
+    window["ga-disable-" + GA_ID] =
+      window.__ACA_ANALYTICS_EXCLUDE__ || !consent.analytics;
+    if (previous && ((previous.analytics && !consent.analytics) ||
+        (previous.marketing && !consent.marketing)) &&
+        window.__ACA_GOOGLE_TAG_INITIALIZED__) {
+      // Destroy the vendor document on any withdrawal. ga-disable gates new
+      // GA4 events, but does not reliably discard a pre-existing vendor queue;
+      // Ads has no documented equivalent. Do not schedule a denied update.
+      // A native, document-scoped CSP closes the unload/queued-beacon window.
+      // Removing script elements cannot remove vendor listeners or timers.
+      // This policy lasts only until reload, does not patch browser networking,
+      // and leaves same-origin form/catalog traffic available during teardown.
+      var policy = document.createElement("meta");
+      policy.httpEquiv = "Content-Security-Policy";
+      policy.content = "connect-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; frame-src 'self'";
+      document.head.appendChild(policy);
+      clearTrackingCookies(consent);
+      // Persist first, even for callers outside the React cookie panel.
+      try {
+        window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(consent));
+        window.dispatchEvent(new window.CustomEvent("aca:consent-reload"));
+        window.location.reload();
+      } catch (_) {
+        // Fail closed if storage is unavailable; the reset marker is consumed
+        // before any saved permission can load a vendor in the next document.
+        try { window.localStorage.removeItem(CONSENT_STORAGE_KEY); } catch (_) {}
+        var resetParams = new URLSearchParams(window.location.search);
+        resetParams.set("aca_consent_reset", "1");
+        window.location.replace(window.location.pathname + "?" + resetParams.toString() + window.location.hash);
+      }
+      return;
+    }
     updateGoogleConsent(consent);
 
     if (!window.__ACA_ANALYTICS_EXCLUDE__) {
@@ -329,6 +366,12 @@
     if (!consent.analytics || !consent.marketing) clearTrackingCookies(consent);
     dispatchConsentChange(consent);
   }
+
+  // Remove an unclaimed reload draft after one minute, including modal forms
+  // which are not mounted until reopened. This is tab-local functional state.
+  if (window.setTimeout) window.setTimeout(function () {
+    try { window.sessionStorage.removeItem("aca_consent_reload_service_draft"); } catch (_) {}
+  }, 60000);
 
   window.__ACA_COOKIE_CONSENT__ = readConsent();
   window.__ACA_APPLY_COOKIE_CONSENT__ = applyConsent;

@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { createContactIntentId, trackFormContactIntent } from '@/lib/contactIntent';
+import { useConsentReloadDraft } from '@/lib/consentReloadDraft';
 
 interface B2BLeadFormProps {
   onSuccess?: () => void;
@@ -17,7 +18,7 @@ const DIAGNOSTIC_TERMS = 'Стоимость согласуем до выезд�
 const B2BLeadForm = ({ onSuccess }: B2BLeadFormProps = {}) => {
   const formId = useId();
   const fieldId = (name: string) => `${formId}-${name}`;
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useConsentReloadDraft({
     name: '',
     phone: '',
     email: '',
