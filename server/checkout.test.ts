@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { CHECKOUT_PAYMENT_PROVIDER, checkoutWhatsappText, createPayment, validateCheckout, type CheckoutCustomer } from "@/lib/checkout";
+import { checkoutApiUrl, checkoutWhatsappText, validateCheckout, type CheckoutCustomer } from "@/lib/checkout";
 import type { CartItem } from "@/lib/cart";
 
 const customer: CheckoutCustomer = {
@@ -53,28 +53,20 @@ describe("checkout", () => {
     expect(text).toContain("подтвердить совместимость, наличие, итоговую цену и срок");
   });
 
-  it("identifies Kaspi to the protected backend without sending a browser-calculated amount", async () => {
+  it("keeps online API disabled unless sandbox is explicit", () => {
     vi.stubEnv("VITE_CHECKOUT_API_URL", "https://checkout-api.example.kz");
-    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({
-      orderId: "ACA-2026-000001",
-      paymentUrl: "https://pay.example.kz/session",
-    }), { status: 200, headers: { "content-type": "application/json" } }));
-    const { consent: _consent, ...customerPayload } = customer;
-
-    await createPayment({
-      provider: CHECKOUT_PAYMENT_PROVIDER,
-      cartVersion: 1,
-      items: [{ productId: item.productId, productHandle: item.productHandle, quantity: item.quantity }],
-      customer: customerPayload,
-      returnUrl: "https://acahydraulic.kz/checkout?payment=return",
-    });
-
-    expect(fetchMock).toHaveBeenCalledOnce();
-    const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe("https://checkout-api.example.kz/payments");
-    const payload = JSON.parse(String(init?.body));
-    expect(payload.provider).toBe("kaspi-webpay");
-    expect(payload).not.toHaveProperty("amount");
-    expect(payload).not.toHaveProperty("total");
+    vi.stubEnv("VITE_CHECKOUT_MODE", "");
+    expect(checkoutApiUrl()).toBe("");
+    vi.stubEnv("VITE_CHECKOUT_MODE", "production");
+    expect(checkoutApiUrl()).toBe("");
+    vi.stubEnv("VITE_CHECKOUT_MODE", "sandbox");
+    expect(checkoutApiUrl()).toBe("https://checkout-api.example.kz");
+    vi.stubEnv("VITE_CHECKOUT_API_URL", "http://checkout-api.example.kz");
+    expect(checkoutApiUrl()).toBe("");
+  });
+  it("rejects invalid cart quantities", () => {
+    for (const quantity of [0, -1, 1.5, 100, Infinity]) {
+      expect(validateCheckout(customer, [{ ...item, quantity }])).toHaveProperty("cart");
+    }
   });
 });
